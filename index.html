@@ -198,28 +198,44 @@
       <!-- STEP 2 -->
       <div class="panel" data-step="2">
         <p class="step-title">Rotta &amp; Fuel</p>
-        <p class="step-sub">Trip e Alternate calcolati con dist / GS &times; fuel-flow.
-          Conversione AVGAS: <b>1 L = 0.72 kg</b> &middot; 1 USG = 3.785 L, quindi <b>1 USG = 2.725 kg</b>
-          (la catena usata dal foglio M&amp;B dell'aeroclub; 2.72 e' lo stesso valore arrotondato).
-          Serbatoi C172 FR: <b>46 USG / 174 L utilizzabili</b>.</p>
+        <p class="step-sub">Tutto il carburante e' in <b>litri</b>, i consumi in <b>litri/ora</b> e le velocita' in
+          <b>MPH</b>, come sul POH del C172 FR. Massa carburante: <b>1 L = 0.72 kg</b>.
+          Serbatoi: <b>174 L utilizzabili</b> (46 USG).</p>
+        <div class="group">
+          <h3>Settaggio di potenza (POH)</h3>
+          <div class="row">
+            <div class="fld"><label>Quota di crociera (ft)</label><input id="pwrAlt" type="number" step="500" value="5000"></div>
+            <div class="fld"><label>RPM</label><select id="pwrRpm"></select></div>
+            <div class="fld"><label>MAP (inHg)</label><select id="pwrMap"></select></div>
+          </div>
+          <div class="calc" id="pwrCalc"></div>
+          <div class="hint">Vengono proposte solo le combinazioni MAP/RPM effettivamente pubblicate dal POH
+            (fig. 5-1) alla quota indicata: salendo, la MAP massima ottenibile cala di circa un pollice ogni
+            1000 ft e le combinazioni piu' "grasse" spariscono. Scegliendo il settaggio, <b>Ground Speed e
+            Fuel Flow del Trip qui sotto si compilano da soli</b> con TAS e consumo di quella riga.</div>
+        </div>
         <div class="group">
           <h3>Trip</h3>
           <div class="row">
             <div class="fld"><label>Distanza (nm)</label><input id="tripDist" type="number" value="60"></div>
-            <div class="fld"><label>GS (kt)</label><input id="tripGS" type="number" value="108"></div>
-            <div class="fld"><label>Fuel flow (USG/h)</label><input id="tripFF" type="number" step="0.1" value="8.5"></div>
+            <div class="fld"><label>GS (MPH)</label><input id="tripGS" type="number" value="124"></div>
+            <div class="fld"><label>Fuel flow (L/h)</label><input id="tripFF" type="number" step="0.1" value="32.2"></div>
           </div>
           <div class="calc" id="tripCalc"></div>
+          <div class="hint">La GS proposta e' la TAS del settaggio scelto, cioe' aria calma: correggila col vento
+            previsto. Il tempo viene calcolato convertendo la GS in nodi, perche' la distanza e' in miglia nautiche.</div>
         </div>
         <div class="group">
           <h3>Alternate</h3>
-          <div class="row">
+          <div class="hint">Per l'alternato si usa sempre il settaggio standard <b>22 inHg / 2400 RPM</b>:
+            GS e Fuel Flow qui sotto sono quelli di quel settaggio alla quota indicata e non si modificano a mano.</div>
+          <div class="row" style="margin-top:8px">
             <div class="fld"><label>Distanza (nm)</label><input id="altDist" type="number" value="30"></div>
-            <div class="fld"><label>GS (kt)</label><input id="altGS" type="number" value="99"></div>
-            <div class="fld"><label>Fuel flow (USG/h)</label><input id="altFF" type="number" step="0.1" value="7.4"></div>
+            <div class="fld"><label>GS (MPH)</label><input id="altGS" type="number" value="133" readonly style="opacity:.7"></div>
+            <div class="fld"><label>Fuel flow (L/h)</label><input id="altFF" type="number" step="0.1" value="36.7" readonly style="opacity:.7"></div>
           </div>
           <div class="row">
-            <div class="fld"><label>Altitude</label><input id="altAlt" value="5000"></div>
+            <div class="fld"><label>Altitude (ft)</label><input id="altAlt" type="number" step="500" value="5000"></div>
             <div class="fld"><label>Tempo tabella (min)</label><input id="altTblTime" type="number" value="20"></div>
           </div>
           <div class="calc" id="altCalc"></div>
@@ -239,12 +255,22 @@
           <div class="calc" id="fuelCapCalc"></div>
           <div class="row" style="margin-top:9px">
             <div class="fld"><label>Taxi (min)</label><input id="taxiMin" type="number" value="10"></div>
-            <div class="fld"><label>Taxi (USG)</label><input id="taxiFuel" type="number" step="0.1" value="0.5"></div>
+            <div class="fld"><label>Taxi (L)</label><input id="taxiFuel" type="number" step="0.1" value="1.9"></div>
           </div>
+        </div>
+        <div class="group">
+          <h3>Fuel on board &amp; extra</h3>
           <div class="row">
-            <div class="fld"><label>Extra (min)</label><input id="extraMin" type="number" value="0"></div>
-            <div class="fld"><label>Extra (USG)</label><input id="extraFuel" type="number" step="0.1" value="0"></div>
+            <div class="fld"><label>Fuel on board &mdash; imbarcato (L)</label><input id="fob" type="number" step="1" value=""></div>
           </div>
+          <div class="hint">Quanto carburante c'e' davvero nei serbatoi. Serve <b>solo</b> a calcolare l'extra
+            rispetto al minimo richiesto: <b>non compare nel documento finale</b>. Lasciandolo vuoto, l'extra
+            resta quello inserito a mano qui sotto.</div>
+          <div class="row" style="margin-top:9px">
+            <div class="fld"><label>Extra (L)</label><input id="extraFuel" type="number" step="0.1" value="0"></div>
+            <div class="fld"><label>FT Extra (min)</label><input id="extraMin" type="number" value="0" readonly style="opacity:.7"></div>
+          </div>
+          <div class="calc" id="extraCalc"></div>
         </div>
       </div>
 
@@ -346,17 +372,9 @@
         </div>
         <div class="group">
           <h3>Cruise power setting</h3>
-          <div class="row">
-            <div class="fld"><label>Altitude (ft)</label><input id="cruisePerfAlt" type="number" value="5000"></div>
-            <div class="fld"><label>Power %</label>
-              <select id="cruisePerfPct">
-                <option value="45">45%</option>
-                <option value="55" selected>55%</option>
-                <option value="65">65%</option>
-                <option value="75">75%</option>
-              </select>
-            </div>
-          </div>
+          <div class="hint">Il settaggio si sceglie nello <b>Step 2 &mdash; Rotta &amp; Fuel</b>; qui se ne vede
+            l'effetto e la tabella POH completa della quota. Quota di riferimento:
+            <input id="cruisePerfAlt" type="number" value="5000" style="width:110px;display:inline-block"> ft</div>
           <div class="calc" id="cruisePerfCalc"></div>
           <div class="calc" id="climbFuelCalc"></div>
         </div>
@@ -522,7 +540,8 @@ function $(id){ return document.getElementById(id); }
 const KG_PER_LITRE = 0.72;   // 1 litro AVGAS = 0,72 kg     (AFM fig. 6-4)
 const L_PER_USG    = 3.785;  // 1 US gallon   = 3,785 litri (foglio aeroclub)
 const KG_PER_USG   = L_PER_USG*KG_PER_LITRE;   // = 2,7252 kg/USG
-const USABLE_FUEL_USG = 46;  // carburante utilizzabile totale (AFM fig. 1-4: 46 USG / 174 L)
+const USABLE_FUEL_L   = 174; // carburante utilizzabile totale (AFM fig. 1-4: 174 L / 46 USG)
+const USABLE_FUEL_USG = 46;  // lo stesso valore in galloni, per i riferimenti al manuale
 
 /* Limiti operativi (AFM sez. II — Limitations, pag. 2-2 / 2-4). */
 const AC_LIMITS = {
@@ -571,14 +590,24 @@ $('btnBack').addEventListener('click',()=>goToStep(currentStep-1));
 /* ============================ fuel calc ============================ */
 function round2(n){ return Math.round(n*100)/100; }
 
+/* Le velocita' sono in MPH (miglia statutarie/ora) come sul POH, le distanze in
+   miglia nautiche come in navigazione: il tempo si calcola quindi convertendo la
+   GS in nodi. Sbagliare questa conversione allungherebbe del 15% ogni tempo di
+   volo e, a cascata, tutto il carburante. */
+const MPH_PER_KT = 1.15078;
+function mphToKt(mph){ return mph/MPH_PER_KT; }
+function ktToMph(kt){ return kt*MPH_PER_KT; }
+
 function computeFuel(){
   // Trip Time = Tempo di crociera puro + 20 min fissi di procedura (10' partenza + 10' arrivo)
   const PROC_MARGIN_MIN = 20;
-  const cruiseTime = num('tripGS')>0 ? Math.round(num('tripDist')/num('tripGS')*60) : 0;
+  const tripGSkt = mphToKt(num('tripGS'));
+  const cruiseTime = tripGSkt>0 ? Math.round(num('tripDist')/tripGSkt*60) : 0;
   const tripTime = cruiseTime + PROC_MARGIN_MIN;
-  const tripFF = num('tripFF'); // Fuel Flow di crociera — usato anche per Contingency e Final Reserve
+  const tripFF = num('tripFF'); // Fuel Flow di crociera in L/h — usato anche per Contingency e Final Reserve
   const tripFuel = round2(tripTime/60*tripFF);
-  const altTime  = num('altGS')>0 ? Math.round(num('altDist')/num('altGS')*60) : 0;
+  const altGSkt = mphToKt(num('altGS'));
+  const altTime  = altGSkt>0 ? Math.round(num('altDist')/altGSkt*60) : 0;
   const altFuel  = round2(altTime/60*num('altFF'));
 
   // CONTINGENCY = MAX(Trip Time * 0.05, 15) min ; MAX(Trip Fuel * 0.05, (FF/60)*15) USG
@@ -590,7 +619,26 @@ function computeFuel(){
   const finFuel = round2((tripFF/60)*finMin);
 
   const taxiMin=Math.round(num('taxiMin')), taxiFuel=round2(num('taxiFuel'));
-  const exMin  =Math.round(num('extraMin')),exFuel  =round2(num('extraFuel'));
+
+  /* EXTRA — due modi, a seconda che sia stato dichiarato il carburante a bordo:
+     - con il FOB compilato l'extra e' quello che avanza rispetto al minimo
+       richiesto (trip + contingency + alternato + riserva + taxi), e il tempo
+       corrispondente si ricava al fuel flow di crociera;
+     - senza FOB restano i litri inseriti a mano.
+     Il FOB serve solo a questo: non compare da nessuna parte nel documento. */
+  const fobRaw = txt('fob').trim();
+  const minRequired = round2(tripFuel+contFuel+altFuel+finFuel+taxiFuel);
+  let exFuel, exMin, fobUsed=false, fobShort=0;
+  if(fobRaw!=='' && num('fob')>0){
+    fobUsed=true;
+    const diff = round2(num('fob')-minRequired);
+    exFuel = Math.max(0, diff);
+    if(diff<0) fobShort = -diff;                       // FOB sotto il minimo: si segnala
+    exMin  = tripFF>0 ? Math.round(exFuel/tripFF*60) : 0;
+  }else{
+    exFuel = round2(num('extraFuel'));
+    exMin  = tripFF>0 ? Math.round(exFuel/tripFF*60) : Math.round(num('extraMin'));
+  }
 
   // MIN BLOCK = TRIP + CONTINGENCY + ALTERNATE + FINAL RESERVE
   const minBlockFuel = round2(tripFuel+contFuel+altFuel+finFuel);
@@ -601,7 +649,8 @@ function computeFuel(){
   const toffFuel = round2(minBlockFuel+exFuel);
   const toffTime = Math.round(minBlockTime+exMin);
   return {cruiseTime,tripTime,tripFuel,altTime,altFuel,contMin,contFuel,finMin,finFuel,
-          taxiMin,taxiFuel,exMin,exFuel,minBlockFuel,minBlockTime,toffFuel,toffTime,blockFuel,blockTime};
+          taxiMin,taxiFuel,exMin,exFuel,minBlockFuel,minBlockTime,toffFuel,toffTime,blockFuel,blockTime,
+          minRequired, fobUsed, fobShort, fob:num('fob')};
 }
 /* ===================== PESI E BILANCIAMENTO =====================
    Struttura, bracci e catena dei pesi presi dal "W. & B. LOADING FORM"
@@ -677,7 +726,7 @@ function weights(f){
   const zfw    = rows.reduce((a,r)=>a+r[1],0);
   const zfwMom = rows.reduce((a,r)=>a+r[3],0);
 
-  const kg = (usg)=>usg*KG_PER_USG;
+  const kg = (litres)=>litres*KG_PER_LITRE;   // il piano carburante e' in litri
   const fob = kg(f.blockFuel), taxi = kg(f.taxiFuel), trip = kg(f.tripFuel),
         altn = kg(f.altFuel),  fin  = kg(f.finFuel);
 
@@ -689,7 +738,7 @@ function weights(f){
 
   return {
     rows, zfw, zfwMom, zfwArm: zfw>0 ? zfwMom/zfw : 0,
-    fuel:{fob, taxi, trip, altn, fin, fobLitres: f.blockFuel*L_PER_USG},
+    fuel:{fob, taxi, trip, altn, fin, fobLitres: f.blockFuel},
     ramp, tow, ldw, altw,
     // compatibilità con il resto dell'applicazione, che lavora sui pesi arrotondati
     towKg: Math.round(tow.w), ldwKg: Math.round(ldw.w), altwKg: Math.round(altw.w)
@@ -770,62 +819,117 @@ function vspeedsFor(w){
     wUsed:{bg:bg.wSel,vr:vr.wSel,vy:vy.wSel,up:up.wSel,to:to.wSel,ldg:ldg.wSel}
   };
 }
-function cruiseInterp(altitude, pct){
-  const key='p'+pct;
-  const pts=CRUISE_TABLE.filter(r=>r[key]).map(r=>({alt:r.alt, mp:r[key][0], rpm:r[key][1], tas:r[key][2], ff:r[key][3]}));
-  if(!pts.length) return null;   // potenza non ottenibile a nessuna quota tabulata
-  const exact=pts.find(p=>p.alt===altitude);
-  let lo, hi;
-  if(exact){ lo=hi=exact; }
-  else if(altitude<=pts[0].alt){ lo=hi=pts[0]; }
-  else if(altitude>=pts[pts.length-1].alt){ lo=hi=pts[pts.length-1]; }
-  else{
-    for(let i=0;i<pts.length-1;i++){ if(altitude>=pts[i].alt && altitude<=pts[i+1].alt){ lo=pts[i]; hi=pts[i+1]; break; } }
-  }
-  const r = lo.alt===hi.alt ? 0 : (altitude-lo.alt)/(hi.alt-lo.alt);
-  return {
-    mp: Math.round((lo.mp+(hi.mp-lo.mp)*r)*10)/10,
-    rpm: Math.round((lo.rpm+(hi.rpm-lo.rpm)*r)/10)*10,
-    tas: Math.round(lo.tas+(hi.tas-lo.tas)*r),
-    ff: Math.round((lo.ff+(hi.ff-lo.ff)*r)*10)/10,   // consumo interpolato, USG/h
-    loAlt: lo.alt, hiAlt: hi.alt,
-    eco: CRUISE_ECO[key], pwr: CRUISE_PWR[key]
-  };
+/* ===================== TABELLA DI CROCIERA COMPLETA =====================
+   Tutte e 99 le righe di fig. 5-1 (fogli 1-5), non solo le quattro colonne di
+   potenza nominale: sono queste le combinazioni MAP/RPM che il POH pubblica, e
+   quindi le uniche che l'applicazione propone.
+
+   Formato riga: [RPM, MP inHg, %BHP, TAS kt, TAS MPH, consumo USG/h, consumo L/h]
+   kt, MPH, galloni e litri sono tutti STAMPATI dal manuale (colonne "km/h kts MPH"
+   e "GAL. LITRES"): non sono conversioni fatte qui, così i numeri sull'OFP sono
+   quelli del manuale. Verificata la coerenza interna di tutte le righe.
+
+   Condizioni: normal lean mixture, 1157 kg, atmosfera standard, vento nullo.
+   Il motore non raggiunge ogni MAP a ogni quota: la MAP massima cala di circa un
+   pollice ogni 1000 ft, ed e' il motivo per cui le righe alte spariscono salendo. */
+const CRUISE_FULL={
+  2500:[
+    [2600,24,77,123,142,11.7,44.3], [2600,23,72,120,138,11.0,41.6], [2600,22,67,116,134,10.2,38.6], [2600,21,62,113,130,9.5,36.0],
+    [2500,25,78,123,142,11.8,44.7], [2500,24,73,121,139,11.1,42.0], [2500,23,69,118,136,10.5,39.7], [2500,22,64,114,131,9.8,37.1],
+    [2400,25,73,121,139,11.1,42.0], [2400,24,69,118,136,10.5,39.7], [2400,23,65,115,132,9.8,37.1], [2400,22,60,111,128,9.2,34.8],
+    [2300,25,68,117,135,10.4,39.4], [2300,24,64,114,131,9.8,37.1], [2300,23,60,111,128,9.2,34.8], [2300,22,56,107,123,8.6,32.6],
+    [2200,25,63,114,131,9.7,36.7], [2200,24,60,110,127,9.1,34.4], [2200,23,56,107,123,8.6,32.6], [2200,22,52,103,119,8.0,30.3],
+    [2200,21,48,99,114,7.5,28.4], [2200,20,44,94,108,7.0,26.5], [2200,19,41,89,102,6.5,24.6], [2200,18,37,82,94,6.0,22.7],
+  ],
+  5000:[
+    [2600,23,75,125,144,11.4,43.2], [2600,22,71,122,140,10.7,40.5], [2600,21,66,118,136,10.0,37.9], [2600,20,61,114,131,9.3,35.2],
+    [2500,23,72,123,141,11.0,41.6], [2500,22,68,119,137,10.3,39.0], [2500,21,63,116,133,9.6,36.3], [2500,20,58,111,128,8.9,33.7],
+    [2400,23,68,119,137,10.3,39.0], [2400,22,63,116,133,9.7,36.7], [2400,21,59,112,129,9.0,34.1], [2400,20,55,108,124,8.4,31.8],
+    [2300,23,63,116,133,9.7,36.7], [2300,22,59,112,129,9.0,34.1], [2300,21,55,108,124,8.4,31.8], [2300,20,51,103,119,7.9,29.9],
+    [2200,23,59,112,129,9.0,34.1], [2200,22,55,108,124,8.5,32.2], [2200,21,51,104,120,7.9,29.9], [2200,20,47,99,114,7.4,28.0],
+    [2200,19,43,94,108,6.9,26.1], [2200,18,40,87,100,6.4,24.2], [2200,17,36,81,93,5.9,22.3],
+  ],
+  7500:[
+    [2600,21,69,123,142,10.5,39.7], [2600,20,64,119,137,9.8,37.1], [2600,19,60,115,132,9.1,34.4], [2600,18,55,109,126,8.4,31.8],
+    [2500,21,66,121,139,10.1,38.2], [2500,20,62,116,134,9.4,35.6], [2500,19,57,112,129,8.7,32.9], [2500,18,52,107,123,8.0,30.3],
+    [2400,21,62,117,135,9.5,36.0], [2400,20,58,113,130,8.8,33.3], [2400,19,53,109,125,8.2,31.0], [2400,18,49,103,118,7.6,28.8],
+    [2300,21,58,113,130,8.9,33.7], [2300,20,54,109,125,8.3,31.4], [2300,19,50,103,119,7.7,29.1], [2300,18,45,97,112,7.1,26.9],
+    [2200,21,54,109,125,8.3,31.4], [2200,20,50,104,120,7.8,29.5], [2200,19,46,99,114,7.2,27.3], [2200,18,42,93,107,6.7,25.4],
+    [2200,17,38,86,99,6.2,23.5],
+  ],
+  10000:[
+    [2600,19,63,120,138,9.6,36.3], [2600,18,58,116,133,8.9,33.7], [2600,17,53,109,126,8.2,31.0], [2600,16,48,103,118,7.5,28.4],
+    [2500,19,60,117,135,9.2,34.8], [2500,18,55,112,129,8.5,32.2], [2500,17,50,106,122,7.8,29.5], [2500,16,46,99,114,7.1,26.9],
+    [2400,19,56,113,130,8.6,32.6], [2400,18,52,108,124,8.0,30.3], [2400,17,47,102,117,7.4,28.0], [2400,16,43,95,109,6.8,25.7],
+    [2300,19,52,109,125,8.1,30.7], [2300,18,48,103,118,7.5,28.4], [2300,17,44,96,111,6.9,26.1], [2300,16,40,89,102,6.4,24.2],
+    [2200,19,49,104,120,7.6,28.8], [2200,18,45,98,113,7.1,26.9], [2200,17,41,91,105,6.5,24.6], [2200,16,37,84,97,6.0,22.7],
+  ],
+  15000:[
+    [2600,15,49,107,123,7.6,28.8], [2600,14,44,97,112,6.9,26.1], [2600,13,38,88,101,6.1,23.1], [2500,15,47,103,118,7.3,27.6],
+    [2500,14,41,94,108,6.6,25.0], [2500,13,36,85,98,5.9,22.3], [2400,15,44,97,112,6.9,26.1], [2400,14,39,90,103,6.3,23.8],
+    [2300,15,40,92,106,6.5,24.6], [2300,14,36,84,97,5.9,22.3], [2200,15,38,88,101,6.1,23.1],
+  ],
+};
+const CRUISE_ALTS=Object.keys(CRUISE_FULL).map(Number).sort((a,b)=>a-b);
+const RPM_CHOICES=[2200,2300,2400,2500,2600];   // arco verde del contagiri (AFM pag. 2-4)
+
+/* Righe disponibili a una quota qualsiasi.
+   - se la quota coincide con un foglio del manuale si usano le righe di quel foglio;
+   - altrimenti si interpolano le due quote che la racchiudono, MA solo per le
+     combinazioni MAP/RPM presenti in ENTRAMBE. Una combinazione che a quota
+     superiore non c'e' piu' significa che il motore lassu' non fa quella MAP:
+     proporla comunque vorrebbe dire mettere sull'OFP un settaggio irrealizzabile. */
+function cruiseRowsAt(alt){
+  const A=CRUISE_ALTS;
+  if(!(alt>0)) alt=A[0];
+  alt=Math.min(Math.max(alt,A[0]),A[A.length-1]);
+  let lo=A[0], hi=A[A.length-1];
+  for(let i=0;i<A.length-1;i++){ if(alt>=A[i] && alt<=A[i+1]){ lo=A[i]; hi=A[i+1]; break; } }
+  if(CRUISE_FULL[alt]) lo=hi=alt;
+  const t = hi===lo ? 0 : (alt-lo)/(hi-lo);
+  const key=r=>r[0]+'|'+r[1];
+  const loRows=CRUISE_FULL[lo], hiRows=CRUISE_FULL[hi];
+  const hiMap={}; hiRows.forEach(r=>hiMap[key(r)]=r);
+  const out=[];
+  loRows.forEach(r=>{
+    const h=hiMap[key(r)];
+    if(!h) return;                       // non ottenibile alla quota superiore: si scarta
+    out.push({
+      rpm:r[0], mp:r[1],
+      bhp : Math.round(r[2]+(h[2]-r[2])*t),
+      kt  : Math.round(r[3]+(h[3]-r[3])*t),
+      mph : Math.round(r[4]+(h[4]-r[4])*t),
+      usgh: Math.round((r[5]+(h[5]-r[5])*t)*10)/10,
+      lph : Math.round((r[6]+(h[6]-r[6])*t)*10)/10,
+      loAlt:lo, hiAlt:hi, exact: lo===hi
+    });
+  });
+  return out;
 }
-/* CROCIERA — Cessna C172 FR, Continental IO-360-D con elica a giri costanti.
-   Flight Manual Reims Rocket fig. 5-1 (fogli 1-5), "CRUISE PERFORMANCE — NORMAL
-   LEAN MIXTURE", 1157 kg, atmosfera standard, vento nullo. Le quote sono quelle
-   effettivamente tabulate dall'AFM: 2500 / 5000 / 7500 / 10000 / 15000 ft.
+/* Cerca la riga per una precisa combinazione MAP/RPM alla quota data. */
+function findSetting(alt, mp, rpm){
+  return cruiseRowsAt(alt).find(r=>r.mp===mp && r.rpm===rpm) || null;
+}
+/* MAP disponibili per un dato RPM a una data quota, in ordine decrescente. */
+function mapsFor(alt, rpm){
+  return cruiseRowsAt(alt).filter(r=>r.rpm===rpm).map(r=>r.mp).sort((a,b)=>b-a);
+}
+/* Settaggio fisso per l'alternato, richiesto dalle procedure: 22 inHg / 2400 RPM.
+   Se a quella quota non e' ottenibile si ripiega sulla MAP piu' alta disponibile
+   a 2400 RPM, segnalandolo. */
+const ALTN_SETTING={mp:22, rpm:2400};
+function altnSettingAt(alt){
+  const exact=findSetting(alt, ALTN_SETTING.mp, ALTN_SETTING.rpm);
+  if(exact) return {row:exact, fallback:false};
+  const maps=mapsFor(alt, ALTN_SETTING.rpm);
+  if(!maps.length) return {row:null, fallback:true};
+  return {row:findSetting(alt, maps[0], ALTN_SETTING.rpm), fallback:true};
+}
 
-   Ogni cella e' [MP in Hg, RPM, TAS kt, consumo USG/h] copiata da una RIGA REALE
-   dell'AFM — nessun valore mediato o inventato. Per ogni colonna di potenza si e'
-   scelta la riga con %BHP piu' vicino al valore nominale (45/55/65/75%), a parita'
-   preferendo MP piu' alta e RPM piu' bassa (pratica corretta su motore a giri
-   costanti). La %BHP reale usata e' annotata accanto a ogni riga.
-   Una cella e' null quando l'AFM non arriva a quella potenza a quella quota:
-   in aria densa 75% non e' ottenibile sopra ~6000 ft e sopra 10000 ft il motore
-   aspirato non supera circa il 50%.
 
-   Limiti motore (AFM pag. 2-4): MP arco verde 15-25 in Hg, RPM arco verde
-   2200-2600, massimo 2800 RPM. Tutte le combinazioni qui sotto sono nell'arco verde. */
-const CRUISE_TABLE=[
- //        MP   RPM  TAS  USG/h                MP   RPM  TAS  USG/h                MP   RPM  TAS  USG/h                MP   RPM  TAS  USG/h
- {alt:2500,  p45:[20,2200, 94, 7.0], p55:[23,2200,107, 8.6], p65:[23,2400,115, 9.8], p75:[25,2400,121,11.1]}, // %BHP AFM: 44 / 56 / 65 / 73
- {alt:5000,  p45:[20,2200, 99, 7.4], p55:[22,2200,108, 8.5], p65:[23,2300,116, 9.7], p75:[23,2600,125,11.4]}, // %BHP AFM: 47 / 55 / 63 / 75
- {alt:7500,  p45:[18,2300, 97, 7.1], p55:[21,2200,109, 8.3], p65:[21,2500,121,10.1], p75:null              }, // %BHP AFM: 45 / 54 / 66 / --
- {alt:10000, p45:[18,2200, 98, 7.1], p55:[18,2500,112, 8.5], p65:[19,2600,120, 9.6], p75:null              }, // %BHP AFM: 45 / 55 / 63 / --
- {alt:15000, p45:[15,2400, 97, 6.9], p55:null,               p65:null,               p75:null              }, // %BHP AFM: 44 / -- / -- / --
-];
-/* Consumi per fascia di potenza (USG/h), estremi ricavati dalle celle qui sopra.
-   Il FR172J e' tabulato dall'AFM con una sola miscela ("NORMAL LEAN MIXTURE"),
-   quindi non esistono le due colonne Best Economy / Best Power di altri POH: qui
-   CRUISE_ECO e' il consumo MINIMO della fascia (quota alta, aria rarefatta) e
-   CRUISE_PWR il consumo MASSIMO (quota bassa). Sono etichettati "FF min" / "FF max"
-   in tutti gli output proprio per non spacciarli per due miscele diverse. */
-const CRUISE_ECO={p45:'6.9',p55:'8.3',p65:'9.6', p75:'11.1'};
-const CRUISE_PWR={p45:'7.4',p55:'8.6',p65:'10.1',p75:'11.4'};
+
 /* Carburante consumato per salire fino a una quota, a piena potenza e 1157 kg
-   (AFM fig. 5-6). Include già il consumo di avviamento e decollo. Valori in litri,
+   (AFM fig. 5-6). Include gia' il consumo di avviamento e decollo. Valori in litri,
    come li stampa il manuale. */
 const CLIMB_FUEL_L=[[0,4.9],[5000,11.7],[10000,20.1],[15000,33.3]];
 /** Litri per salire a `alt` ft, interpolando fra le quote tabulate dall'AFM. */
@@ -880,7 +984,7 @@ ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
 
   const fuelRow=(l,fuel,time)=>`<tr><td style="width:110px;padding:3px 0">${l}</td><td class="filled" style="width:110px;text-align:right;padding:3px 22px 3px 0">${fuel}</td><td class="filled" style="width:50px;text-align:right;padding:3px 0">${time}</td></tr>`;
   const fuelTable=`
-    <div style="display:flex;font-size:10.5px;margin-bottom:6px"><span style="width:110px"></span><span style="width:110px;text-align:right;padding-right:22px">FUEL(USG)</span><span style="width:50px;text-align:right">TIME</span></div>
+    <div style="display:flex;font-size:10.5px;margin-bottom:6px"><span style="width:110px"></span><span style="width:110px;text-align:right;padding-right:22px">FUEL(L)</span><span style="width:50px;text-align:right">TIME</span></div>
     <table style="border-collapse:collapse;font-size:10.5px">
       ${fuelRow('TRIP',fmt(f.tripFuel),f.tripTime)}
       ${fuelRow('CONT',fmt(f.contFuel),f.contMin)}
@@ -990,25 +1094,27 @@ function pagePerf(f,w){
       <td class="filled">${num('ldgDist50')} m</td>
     </tr>
   </table>`;
-  const cAlt=num('cruisePerfAlt'), cPct=parseInt(txt('cruisePerfPct'))||55;
-  const ci=cruiseInterp(cAlt,cPct);
-  const pctIdx={45:0,55:1,65:2,75:3}[cPct];
+  const cAlt=num('pwrAlt')||num('cruisePerfAlt');
+  const sel=currentPowerRow();
+  const rows=cruiseRowsAt(cAlt);
+  // Tabella POH della quota pianificata: tutte le combinazioni MAP/RPM pubblicate,
+  // raggruppate per RPM, con evidenziato il settaggio scelto.
+  const byRpm={}; rows.forEach(r=>{ (byRpm[r.rpm]=byRpm[r.rpm]||[]).push(r); });
+  const rpmList=Object.keys(byRpm).map(Number).sort((a,b)=>a-b);
+  const maxRows=Math.max(1,...rpmList.map(r=>byRpm[r].length));
   const cruiseTable=`<table class="refTable cruiseTable">
-    <tr><th>Pres Alt</th><th colspan="4">45%</th><th colspan="4">55%</th><th colspan="4">65%</th><th colspan="4">75%</th></tr>
-    <tr><th>ft</th>${[0,1,2,3].map(()=>'<th>MP</th><th>RPM</th><th>TAS</th><th>USG/h</th>').join('')}</tr>
-    ${CRUISE_TABLE.map(r=>{
-      const isBracketRow = ci && (r.alt===ci.loAlt || r.alt===ci.hiAlt);
-      const cells=[r.p45,r.p55,r.p65,r.p75].map((p,gi)=>{
-        const cls = (isBracketRow && gi===pctIdx) ? ' class="hlCell"' : '';
-        return p ? `<td${cls}>${p[0]}</td><td${cls}>${p[1]}</td><td${cls}>${p[2]}</td><td${cls}>${p[3].toFixed(1)}</td>`
-                 : `<td${cls}>--</td><td${cls}>--</td><td${cls}>--</td><td${cls}>--</td>`;
-      }).join('');
-      return `<tr><td>${r.alt}</td>${cells}</tr>`;
-    }).join('')}
-    <tr><td>FF min</td>${['p45','p55','p65','p75'].map(k=>`<td colspan="4">${CRUISE_ECO[k]} USG/h</td>`).join('')}</tr>
-    <tr><td>FF max</td>${['p45','p55','p65','p75'].map(k=>`<td colspan="4">${CRUISE_PWR[k]} USG/h</td>`).join('')}</tr>
+    <tr><th colspan="${rpmList.length*4}">POH CRUISE &mdash; ${cAlt} ft${rows.length&&!rows[0].exact?` (interpolato ${rows[0].loAlt}&ndash;${rows[0].hiAlt} ft)`:''}</th></tr>
+    <tr>${rpmList.map(r=>`<th colspan="4">${r} RPM</th>`).join('')}</tr>
+    <tr>${rpmList.map(()=>'<th>MP</th><th>%</th><th>MPH</th><th>L/h</th>').join('')}</tr>
+    ${Array.from({length:maxRows},(_,i)=>`<tr>${rpmList.map(rp=>{
+      const r=byRpm[rp][i];
+      if(!r) return '<td></td><td></td><td></td><td></td>';
+      const hl = sel && r.mp===sel.mp && r.rpm===sel.rpm ? ' class="hlCell"' : '';
+      return `<td${hl}>${r.mp}</td><td${hl}>${r.bhp}</td><td${hl}>${r.mph}</td><td${hl}>${r.lph.toFixed(1)}</td>`;
+    }).join('')}</tr>`).join('')}
   </table>
-  <div style="font-size:8px;margin-top:2px">AFM Reims Rocket FR172J fig. 5-1, normal lean mixture, 1157 kg, ISA, vento nullo &middot; MP in inHg &middot; TAS in kt &middot; "--" = potenza non ottenibile a quella quota.</div>`;
+  <div style="font-size:8px;margin-top:2px">AFM Reims Rocket FR172J fig. 5-1, normal lean mixture, 1157 kg, ISA, vento nullo &middot;
+    MP in inHg &middot; velocita' TAS in MPH &middot; consumi in litri/ora &middot; cella vuota = combinazione non ottenibile a questa quota.</div>`;
   const body=`
     <div class="kv">ETOW <span class="filled">${w.towKg}</span> kg&nbsp;&nbsp;&nbsp;ELDW <span class="filled">${w.ldwKg}</span> kg&nbsp;&nbsp;&nbsp;ALTN <span class="filled">${w.altwKg}</span> kg</div>
     <div style="font-size:9.5px;margin:4px 0 2px">*ADD +5 KTS AT VREF SPEEDS &middot; VNE ${AC_LIMITS.vne} &middot; VNO ${AC_LIMITS.vno} &middot; VFE ${AC_LIMITS.vfe} KIAS &middot; XWIND T/O ${AC_LIMITS.xwindTO} kt &middot; LDG ${AC_LIMITS.xwindLDG} kt</div>
@@ -1017,12 +1123,14 @@ function pagePerf(f,w){
     ${pohTable}
     <div style="font-weight:700;margin-top:10px">RUNWAY DISTANCE REQUIRED</div>
     ${rwyTable}
-    <div style="margin-top:10px;font-weight:700">CRUISE PWR SETTING <span class="filled">${cAlt}</span> ft, <span class="filled">${cPct}%</span> PWR:
-      ${ci ? `MP <span class="filled">${ci.mp}</span> inHg &middot; RPM <span class="filled">${ci.rpm}</span> &middot; TAS <span class="filled">${ci.tas}</span> kt &middot;
-      FUEL FLOW <span class="filled">${ci.ff}</span> USG/h (${fmt(ci.ff*L_PER_USG)} L/h)`
-      : `<span class="filled">non disponibile a questa quota nell'AFM</span>`}</div>
-    <div style="font-size:9px">Salita a ${cAlt} ft, piena potenza, 1157 kg: <b>${fmt(climbFuelLitres(cAlt))} L</b>
-      (${fmt(climbFuelLitres(cAlt)/L_PER_USG)} USG) incl. avviamento e decollo &mdash; AFM fig. 5-6.</div>
+    <div style="margin-top:10px;font-weight:700">CRUISE PWR SETTING &mdash; <span class="filled">${cAlt}</span> ft:
+      ${sel ? `MAP <span class="filled">${sel.mp}</span> inHg &middot; RPM <span class="filled">${sel.rpm}</span> &middot;
+      POWER <span class="filled">${sel.bhp}%</span> &middot; TAS <span class="filled">${sel.mph}</span> MPH &middot;
+      FUEL FLOW <span class="filled">${sel.lph}</span> L/h`
+      : `<span class="filled">settaggio non pubblicato dal POH a questa quota</span>`}</div>
+    <div style="font-size:9px">Alternato (fisso ${ALTN_SETTING.mp}" / ${ALTN_SETTING.rpm} RPM a ${num('altAlt')} ft):
+      ${(()=>{const a=altnSettingAt(num('altAlt')); return a.row?`${a.row.bhp}% &middot; ${a.row.mph} MPH &middot; ${a.row.lph} L/h`:'non disponibile';})()}
+      &nbsp;&middot;&nbsp; salita a ${cAlt} ft a piena potenza <b>${fmt(climbFuelLitres(cAlt))} L</b> incl. avviamento e decollo (AFM fig. 5-6).</div>
     ${cruiseTable}`;
   return pageShell('PERFORMANCE', body, 3, 'font-size:9.5px');
 }
@@ -1113,10 +1221,10 @@ function pageNotams(){
    (AFM fig. 1-4). Se il Plan Block supera quel valore il volo non e' fattibile
    in una tratta sola, e va detto subito — non dopo, davanti all'aereo. */
 function fuelCapacityNote(f){
-  const usg=f.blockFuel, litres=usg*L_PER_USG, kg=usg*KG_PER_USG;
-  const base=`→ Plan Block ${fmt(usg)} USG = ${fmt(litres)} L = ${fmt(kg)} kg`;
-  if(usg>USABLE_FUEL_USG) return {txt:`${base}  ⚠ OLTRE i ${USABLE_FUEL_USG} USG / 174 L utilizzabili`, over:true};
-  return {txt:`${base}  ·  residuo serbatoi ${fmt(USABLE_FUEL_USG-usg)} USG`, over:false};
+  const litres=f.blockFuel, kg=litres*KG_PER_LITRE;
+  const base=`→ Plan Block ${fmt(litres)} L = ${fmt(kg)} kg (${fmt(litres/L_PER_USG)} USG)`;
+  if(litres>USABLE_FUEL_L) return {txt:`${base}  ⚠ OLTRE i ${USABLE_FUEL_L} L utilizzabili`, over:true};
+  return {txt:`${base}  ·  residuo serbatoi ${fmt(USABLE_FUEL_L-litres)} L`, over:false};
 }
 /* Controllo masse contro i limiti AFM inseriti nello Step 3. */
 function massNote(w){
@@ -1172,10 +1280,37 @@ function render(){
   if($('tBLOCK')) $('tBLOCK').value=t.block;
   if($('tFLT'))   $('tFLT').value=t.flt;
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
-  if($('tripCalc')) $('tripCalc').textContent = `→ crociera ${f.cruiseTime} min + 20' proc. = Trip Time ${f.tripTime} min · fuel ${fmt(f.tripFuel)} USG`;
-  if($('altCalc'))  $('altCalc').textContent  = `→ time ${f.altTime} min · fuel ${fmt(f.altFuel)} USG`;
-  if($('reserveCalc')) $('reserveCalc').textContent = `→ Contingency = max(5% trip, 15') = ${f.contMin} min · ${fmt(f.contFuel)} USG   ·   Final Reserve = ${f.finMin} min · ${fmt(f.finFuel)} USG`;
+  if($('tripCalc')) $('tripCalc').textContent = `→ crociera ${f.cruiseTime} min + 20' proc. = Trip Time ${f.tripTime} min · fuel ${fmt(f.tripFuel)} L`;
+  if($('altCalc')){
+    const a=altnSettingAt(num('altAlt'));
+    const set = a.row ? `${a.row.mp}" / ${a.row.rpm} RPM = ${a.row.bhp}% · TAS ${a.row.mph} MPH · ${a.row.lph} L/h` : 'settaggio non disponibile';
+    $('altCalc').textContent = `→ ${set}  ·  time ${f.altTime} min · fuel ${fmt(f.altFuel)} L`
+      + (a.fallback && a.row ? `   (22" non ottenibile a ${num('altAlt')} ft: usata la MAP piu' alta a ${ALTN_SETTING.rpm} RPM)` : '');
+    $('altCalc').style.color = a.fallback ? '#ffd479' : '';
+  }
+  if($('reserveCalc')) $('reserveCalc').textContent = `→ Contingency = max(5% trip, 15') = ${f.contMin} min · ${fmt(f.contFuel)} L   ·   Final Reserve = ${f.finMin} min · ${fmt(f.finFuel)} L`;
   if($('fuelCapCalc')){ const n=fuelCapacityNote(f); $('fuelCapCalc').textContent=n.txt; $('fuelCapCalc').style.color=n.over?'#ff7a7a':''; }
+  if($('pwrCalc')){
+    const row=currentPowerRow();
+    $('pwrCalc').textContent = row
+      ? `→ ${row.mp}" / ${row.rpm} RPM a ${num('pwrAlt')} ft = ${row.bhp}% potenza · TAS ${row.mph} MPH (${row.kt} kt) · ${row.lph} L/h`
+        + (row.exact ? '' : `  (interpolato fra ${row.loAlt} e ${row.hiAlt} ft)`)
+      : '→ combinazione non pubblicata dal POH a questa quota';
+    $('pwrCalc').style.color = row ? '' : '#ff7a7a';
+  }
+  if($('extraCalc')){
+    if(f.fobUsed){
+      $('extraCalc').textContent = f.fobShort>0
+        ? `⚠ FOB ${fmt(f.fob)} L INSUFFICIENTE: mancano ${fmt(f.fobShort)} L sul minimo richiesto di ${fmt(f.minRequired)} L`
+        : `→ minimo richiesto ${fmt(f.minRequired)} L · extra ${fmt(f.exFuel)} L = ${f.exMin} min al fuel flow di crociera`;
+      $('extraCalc').style.color = f.fobShort>0 ? '#ff7a7a' : '';
+    }else{
+      $('extraCalc').textContent = `→ minimo richiesto ${fmt(f.minRequired)} L · senza FOB l'extra e' quello inserito a mano (${f.exMin} min)`;
+      $('extraCalc').style.color = '';
+    }
+    if($('extraMin')) $('extraMin').value = f.exMin;
+    if(f.fobUsed && $('extraFuel')) $('extraFuel').value = fmt(f.exFuel);
+  }
   if($('zfw')) $('zfw').value = Math.round(w.zfw*10)/10;   // usato dal resto dell'app e dai salvataggi
   if($('bewCalc')) $('bewCalc').textContent = num('bew')>0
     ? `→ braccio a vuoto = momento ÷ peso = ${(num('bewMoment')/num('bew')).toFixed(4)} m`
@@ -1190,14 +1325,14 @@ function render(){
   if($('mbLimitCalc')){ const n=massNote(w); $('mbLimitCalc').textContent=n.txt; $('mbLimitCalc').style.color=n.over?'#ff7a7a':''; }
   if($('cgCalc')){ const n=cgNote(w); $('cgCalc').textContent=n.txt; $('cgCalc').style.color=n.over?'#ff7a7a':''; }
   if($('cruisePerfCalc')){
-    const ci=cruiseInterp(num('cruisePerfAlt'), parseInt(txt('cruisePerfPct'))||55);
-    $('cruisePerfCalc').textContent = ci
-      ? `→ MP ${ci.mp} inHg · RPM ${ci.rpm} · TAS ${ci.tas} kt · fuel flow ${ci.ff} USG/h (${fmt(ci.ff*L_PER_USG)} L/h)`
-      : `→ potenza non ottenibile a questa quota secondo l'AFM: scegline una inferiore`;
+    const sel=currentPowerRow();
+    $('cruisePerfCalc').textContent = sel
+      ? `→ ${sel.mp}" / ${sel.rpm} RPM = ${sel.bhp}% · TAS ${sel.mph} MPH · ${sel.lph} L/h`
+      : `→ settaggio non pubblicato dal POH a questa quota: modificalo nello Step 2`;
   }
   if($('climbFuelCalc')){
     const a=num('cruisePerfAlt');
-    $('climbFuelCalc').textContent = `→ salita a ${a} ft: ${fmt(climbFuelLitres(a))} L (${fmt(climbFuelLitres(a)/L_PER_USG)} USG) a piena potenza, 1157 kg, incl. avviamento e decollo`;
+    $('climbFuelCalc').textContent = `→ salita a ${a} ft: ${fmt(climbFuelLitres(a))} L a piena potenza, 1157 kg, incl. avviamento e decollo`;
   }
   if($('wxDepIcao'))  $('wxDepIcao').textContent  = txt('dep')  ? `(${txt('dep')})`  : '';
   if($('wxDestIcao')) $('wxDestIcao').textContent = txt('arr')  ? `(${txt('arr')})`  : '';
@@ -1247,6 +1382,52 @@ function mbTableHTML(w){
     ${sep}${outRows}
   </table>`;
 }
+
+/* ============ SELETTORE DI POTENZA ============
+   I due menu contengono solo combinazioni pubblicate dal POH per la quota scelta.
+   Cambiando quota l'elenco si ricostruisce: se la MAP selezionata lassu' non e'
+   piu' ottenibile si scende alla piu' alta disponibile, invece di lasciare a
+   video un settaggio che l'aereo non puo' fare. */
+function currentPowerRow(){
+  return findSetting(num('pwrAlt'), parseInt(txt('pwrMap'),10), parseInt(txt('pwrRpm'),10));
+}
+function rebuildPowerSelects(){
+  const alt=num('pwrAlt');
+  const rpmSel=$('pwrRpm'), mapSel=$('pwrMap');
+  if(!rpmSel||!mapSel) return;
+
+  const rows=cruiseRowsAt(alt);
+  const rpms=RPM_CHOICES.filter(r=>rows.some(x=>x.rpm===r));
+  const wantRpm=parseInt(rpmSel.value,10);
+  const rpm = rpms.indexOf(wantRpm)>=0 ? wantRpm : (rpms[rpms.length-1]||2400);
+  rpmSel.innerHTML = rpms.map(r=>`<option value="${r}"${r===rpm?' selected':''}>${r}</option>`).join('');
+
+  const maps=mapsFor(alt, rpm);
+  const wantMap=parseInt(mapSel.value,10);
+  const mp = maps.indexOf(wantMap)>=0 ? wantMap : (maps[0]||maps[maps.length-1]);
+  mapSel.innerHTML = maps.map(m=>{
+    const r=findSetting(alt,m,rpm);
+    return `<option value="${m}"${m===mp?' selected':''}>${m}" — ${r?r.bhp+'%':''}</option>`;
+  }).join('');
+}
+/* Riporta TAS e consumo del settaggio scelto nei campi Trip, e quelli del
+   settaggio fisso dell'alternato (22"/2400) nei campi Alternate. */
+function applyPowerToRoute(){
+  const row=currentPowerRow();
+  if(row){
+    if($('tripGS')) $('tripGS').value = row.mph;
+    if($('tripFF')) $('tripFF').value = row.lph;
+  }
+  const a=altnSettingAt(num('altAlt'));
+  if(a.row){
+    if($('altGS')) $('altGS').value = a.row.mph;
+    if($('altFF')) $('altFF').value = a.row.lph;
+  }
+}
+function onPowerChange(){ rebuildPowerSelects(); applyPowerToRoute(); render(); }
+['pwrAlt','pwrRpm','altAlt'].forEach(id=>{ if($(id)) $(id).addEventListener('change', onPowerChange); });
+if($('pwrAlt')) $('pwrAlt').addEventListener('input', onPowerChange);
+if($('pwrMap')) $('pwrMap').addEventListener('change', ()=>{ applyPowerToRoute(); render(); });
 
 function togglePreview(){
   previewOpen=!previewOpen;
@@ -1939,7 +2120,7 @@ function buildPDF(){
 
   // tabella FUEL(USG)/TIME a SINISTRA (niente linea sopra "FUEL(USG)")
   const fuelW=95;
-  doc.text('FUEL(USG)', L+70, y, {align:'right'}); doc.text('TIME', L+92, y, {align:'right'}); y+=LH+1.6;
+  doc.text('FUEL(L)', L+70, y, {align:'right'}); doc.text('TIME', L+92, y, {align:'right'}); y+=LH+1.6;
   const frow=(lab,fuel,time)=>{ doc.text(lab,L,y); doc.text(fmt(fuel),L+70,y,{align:'right'}); doc.text(String(time),L+92,y,{align:'right'}); y+=LH+0.7; };
   frow('TRIP',f.tripFuel,f.tripTime); frow('CONT',f.contFuel,f.contMin); frow('ALTN',f.altFuel,f.altTime); frow('FINAL RES',f.finFuel,f.finMin);
   y+=2; dotted(doc,L,L+fuelW,y); y+=4;
@@ -1951,10 +2132,10 @@ function buildPDF(){
   dotted(doc,L,L+fuelW,y); y+=5;
   y=monoLine(doc,L,y,'BLOCK = .....'); dotted(doc,L,L+fuelW,y-1.6); y+=4;
   y=monoLine(doc,L,y,'ACT USD= .....'); dotted(doc,L,L+fuelW,y-1.6); y+=5;
-  // conversione AVGAS esplicita sull'OFP: chi rifornisce ragiona in litri, chi
-  // calcola le masse in kg. 1 USG = 3,785 L e 1 L = 0,72 kg (AFM fig. 6-4 / fig. 1-4).
-  y=monoLine(doc,L,y,`PLAN BLOCK = ${fmt(f.blockFuel)} USG = ${fmt(f.blockFuel*L_PER_USG)} L = ${fmt(f.blockFuel*KG_PER_USG)} kg`);
-  y=monoLine(doc,L,y,`USABLE     = ${USABLE_FUEL_USG} USG = ${fmt(USABLE_FUEL_USG*L_PER_USG)} L${f.blockFuel>USABLE_FUEL_USG?'   *** BLOCK OLTRE LA CAPACITA SERBATOI ***':''}`);
+  // conversione AVGAS esplicita sull'OFP: il rifornimento e' in litri, le masse in
+  // kg (1 L = 0,72 kg, AFM fig. 6-4); i galloni restano come riferimento al manuale.
+  y=monoLine(doc,L,y,`PLAN BLOCK = ${fmt(f.blockFuel)} L = ${fmt(f.blockFuel*KG_PER_LITRE)} kg (${fmt(f.blockFuel/L_PER_USG)} USG)`);
+  y=monoLine(doc,L,y,`USABLE     = ${USABLE_FUEL_L} L (${USABLE_FUEL_USG} USG)${f.blockFuel>USABLE_FUEL_L?'   *** BLOCK OLTRE LA CAPACITA SERBATOI ***':''}`);
 
   // riga alternate summary, riavvicinata alla sezione fuel (non più in fondo pagina)
   y+=14;
@@ -2094,52 +2275,57 @@ function buildPDF(){
   doc.setLineWidth(0.15); doc.line(rwyMidX-6,yRwyStart-3,rwyMidX-6,Math.max(yDep,yDest)-2);
   y=Math.max(yDep,yDest)+10;
 
-  const cAlt=num('cruisePerfAlt'), cPct=parseInt(txt('cruisePerfPct'))||55;
-  const ci=cruiseInterp(cAlt,cPct);
-  const pctIdx={45:0,55:1,65:2,75:3}[cPct];
+  const cAlt=num('pwrAlt')||num('cruisePerfAlt');
+  const sel=currentPowerRow();
+  const altnSet=altnSettingAt(num('altAlt'));
   dotted(doc,L,R,y); y+=6;
   doc.setFont('courier','bold');
-  y=monoLine(doc,L,y,`CRUISE PWR SETTING ${cAlt} ft, ${cPct}% PWR`);
+  y=monoLine(doc,L,y,`CRUISE POWER SETTING - ${cAlt} ft`);
   doc.setFont('courier','normal');
-  y=monoLine(doc,L,y, ci
-    ? `MP ${ci.mp} inHg   RPM ${ci.rpm}   TAS ${ci.tas} kt   FUEL FLOW ${ci.ff} USG/h (${fmt(ci.ff*L_PER_USG)} L/h)`
-    : `${cPct}% non ottenibile a ${cAlt} ft secondo l'AFM - scegliere una potenza inferiore`);
-  y=monoLine(doc,L,y,`CLIMB TO ${cAlt} ft: ${fmt(climbFuelLitres(cAlt))} L (${fmt(climbFuelLitres(cAlt)/L_PER_USG)} USG) incl. start & take-off - AFM fig. 5-6`);
+  y=monoLine(doc,L,y, sel
+    ? `MAP ${sel.mp} inHg   RPM ${sel.rpm}   POWER ${sel.bhp}%   TAS ${sel.mph} MPH   FUEL FLOW ${sel.lph} L/h`
+    : `Settaggio non pubblicato dal POH a ${cAlt} ft`);
+  y=monoLine(doc,L,y, altnSet.row
+    ? `ALTERNATE ${altnSet.row.mp} inHg / ${altnSet.row.rpm} RPM   POWER ${altnSet.row.bhp}%   TAS ${altnSet.row.mph} MPH   ${altnSet.row.lph} L/h`
+    : `ALTERNATE ${ALTN_SETTING.mp} inHg / ${ALTN_SETTING.rpm} RPM non ottenibile a ${num('altAlt')} ft`);
+  y=monoLine(doc,L,y,`CLIMB TO ${cAlt} ft: ${fmt(climbFuelLitres(cAlt))} L incl. start & take-off - AFM fig. 5-6`);
   dotted(doc,L,R,y); y+=6;
 
   // tabella cruise power pulita e allineata, con evidenziazione MIRATA (solo le 3 celle MP/RPM/TAS della % scelta)
-  // 4 sottocolonne per fascia di potenza: MP / RPM / TAS / consumo.
-  const altW=16, subW=[9,10,9,11], groupW=subW.reduce((a,b)=>a+b,0);
-  const gx=(g)=>L+altW+g*groupW;
+  // Tabella POH della quota pianificata, raggruppata per RPM: sono le combinazioni
+  // MAP/RPM che il manuale pubblica, cioe' le sole utilizzabili.
+  const cRows=cruiseRowsAt(cAlt);
+  const byRpm={}; cRows.forEach(r=>{ (byRpm[r.rpm]=byRpm[r.rpm]||[]).push(r); });
+  const rpmList=Object.keys(byRpm).map(Number).sort((a,b)=>a-b);
+  const subW=[7,7,9,10], groupW=subW.reduce((a,b)=>a+b,0);
+  const gx=(g)=>L+g*groupW;
   const colX=(g,sIdx)=>gx(g)+subW.slice(0,sIdx+1).reduce((a,b)=>a+b,0);
-  const tblRight=L+altW+4*groupW;
+  const tblRight=L+rpmList.length*groupW;
   doc.setFontSize(7);
-  doc.text('Pres Alt',L,y);
-  ['45%','55%','65%','75%'].forEach((h,g)=>doc.text(h, gx(g)+groupW/2, y, {align:'center'})); y+=3.4;
-  doc.text('ft',L,y);
-  ['MP','RPM','TAS','USG/h'].forEach((h,sIdx)=>{ [0,1,2,3].forEach(g=>doc.text(h,colX(g,sIdx),y,{align:'right'})); }); y+=3.6;
+  rpmList.forEach((rp,g)=>doc.text(rp+' RPM', gx(g)+groupW/2, y, {align:'center'})); y+=3.4;
+  ['MP','%','MPH','L/h'].forEach((h,sIdx)=>{ rpmList.forEach((_,g)=>doc.text(h,colX(g,sIdx),y,{align:'right'})); }); y+=3.6;
   doc.setLineWidth(0.15); doc.line(L,y-2.6,tblRight,y-2.6);
-  CRUISE_TABLE.forEach(r=>{
-    const isBracketRow = !!ci && (r.alt===ci.loAlt || r.alt===ci.hiAlt);
-    if(isBracketRow){ doc.setFillColor(255,243,176); doc.rect(gx(pctIdx)-1,y-3,groupW+2,4,'F'); }
-    doc.text(String(r.alt),L,y);
-    [r.p45,r.p55,r.p65,r.p75].forEach((p,g)=>{
-      doc.setFont('courier', (isBracketRow && g===pctIdx) ? 'bold' : 'normal');
-      if(p){ p.forEach((val,sIdx)=>doc.text(sIdx===3?Number(val).toFixed(1):String(val),colX(g,sIdx),y,{align:'right'})); }
-      else { doc.text('--',colX(g,2),y,{align:'right'}); }
+  const maxRows=Math.max(1,...rpmList.map(r=>byRpm[r].length));
+  for(let i=0;i<maxRows;i++){
+    rpmList.forEach((rp,g)=>{
+      const r=byRpm[rp][i]; if(!r) return;
+      const isSel = sel && r.mp===sel.mp && r.rpm===sel.rpm;
+      if(isSel){ doc.setFillColor(255,243,176); doc.rect(gx(g)-1,y-3,groupW+1,4,'F'); }
+      doc.setFont('courier', isSel?'bold':'normal');
+      doc.text(String(r.mp),   colX(g,0),y,{align:'right'});
+      doc.text(String(r.bhp),  colX(g,1),y,{align:'right'});
+      doc.text(String(r.mph),  colX(g,2),y,{align:'right'});
+      doc.text(r.lph.toFixed(1), colX(g,3),y,{align:'right'});
+      doc.setFont('courier','normal');
     });
-    doc.setFont('courier','normal');
     y+=3.8;
-  });
-  y+=1; doc.setLineWidth(0.15); doc.line(L,y-2.6,tblRight,y-2.6);
-  doc.text('FF min',L,y);
-  ['p45','p55','p65','p75'].forEach((k,g)=>doc.text(CRUISE_ECO[k]+' U/h',colX(g,3),y,{align:'right'}));
-  y+=3.8;
-  doc.text('FF max',L,y);
-  ['p45','p55','p65','p75'].forEach((k,g)=>doc.text(CRUISE_PWR[k]+' U/h',colX(g,3),y,{align:'right'}));
-  y+=4;
+  }
+  doc.setLineWidth(0.15); doc.line(L,y-2.6,tblRight,y-2.6);
+  y+=3;
   doc.setFontSize(6.5);
-  doc.text("AFM Reims Rocket FR172J fig. 5-1 - normal lean mixture, 1157 kg, ISA, vento nullo. '--' = potenza non ottenibile a quella quota.",L,y);
+  doc.text("AFM Reims Rocket FR172J fig. 5-1 - normal lean mixture, 1157 kg, ISA, vento nullo. MP inHg, TAS in MPH, consumi in litri/ora.",L,y);
+  y+=3;
+  doc.text("Sono elencate solo le combinazioni MAP/RPM pubblicate dal manuale a questa quota; una casella mancante non e' ottenibile.",L,y);
   doc.setFontSize(FS_BODY);
 
   /* PAGE 4 — DEST CHARTS */
@@ -2348,9 +2534,9 @@ $('btnPrint').addEventListener('click',()=>{ if(!previewOpen) togglePreview(); s
 // Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)
 const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route','cruisealt',
   'tOFF','tTO','tLDG','tON','picName',
-  'tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel',
+  'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
-  'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50','cruisePerfAlt','cruisePerfPct',
+  'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50','cruisePerfAlt',
   'noteTrack','noteRunway','noteAlt','noteClear','noteTiming','noteGround','noteRadios','noteSpecials',
   'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','destProc','destThreats','destMit','acStatus','briefRemarks'];
 // Campi meteo/NOTAM (weather_data)
@@ -2436,12 +2622,13 @@ function applyWeatherData(w){
 // Tutti gli altri campi (input, select, textarea) vengono svuotati.
 const NEW_FLIGHT_DEFAULTS = {
   reg:'I-CCAF',              // immatricolazione del C172 FR di riferimento
-  tripGS:'108',              // GS standard = TAS 55% a 5000 ft (AFM fig. 5-1)
-  tripFF:'8.5',              // consumo crociera 55% a 5000 ft (AFM fig. 5-1)
-  altGS:'99',                // GS alternato = TAS 45% a 5000 ft
-  altFF:'7.4',               // consumo alternato 45% a 5000 ft
+  pwrAlt:'5000', pwrRpm:'2400', pwrMap:'22',   // settaggio di partenza: 22"/2400 a 5000 ft
+  tripGS:'133',              // TAS MPH di quel settaggio (AFM fig. 5-1)
+  tripFF:'36.7',             // consumo L/h di quel settaggio
+  altGS:'133', altFF:'36.7', // alternato: sempre 22"/2400
+  fob:'',
   taxiMin:'10',              // taxi standard
-  taxiFuel:'0.5',            // consumo taxi standard
+  taxiFuel:'1.9',            // consumo taxi standard, in litri
   extraMin:'0', extraFuel:'0',
   flightRule:'VFR',
   acSelect:'I-CCAF',
@@ -2449,7 +2636,7 @@ const NEW_FLIGHT_DEFAULTS = {
   paxFront:'85', paxRear:'0', baggage:'0',
   pob:'1',
   cruisealt:'5000 ft',
-  cruisePerfAlt:'5000', cruisePerfPct:'55',
+  cruisePerfAlt:'5000',
   mzfw:'1157',               // AFM: nessun MZFW pubblicato, si usa il MTOW
   mtow:'1157',               // MTOW categoria NORMALE (2550 lb)
   mldw:'1157',               // MLW: il FR172J atterra allo stesso peso massimo
@@ -2638,8 +2825,11 @@ $('btnNew').addEventListener('click',newFlight);
 function syncAltitudeToPerf(){
   const raw = txt('cruisealt');
   const nums = (raw.match(/\d{3,5}/g)||[]);
-  if(nums.length && $('cruisePerfAlt')){
-    $('cruisePerfAlt').value = nums[nums.length-1];
+  if(nums.length){
+    const a=nums[nums.length-1];
+    if($('cruisePerfAlt')) $('cruisePerfAlt').value = a;
+    if($('pwrAlt')) $('pwrAlt').value = a;
+    if($('altAlt')) $('altAlt').value = a;
   }
 }
 if($('cruisealt')) $('cruisealt').addEventListener('input', ()=>{ syncAltitudeToPerf(); render(); });
@@ -2664,7 +2854,7 @@ function applyAircraft(){
 if($('acSelect')) $('acSelect').addEventListener('change', applyAircraft);
 
 document.body.addEventListener('input',render);
-renderSteps(); goToStep(1); syncAltitudeToPerf(); applyAircraft();
+renderSteps(); goToStep(1); syncAltitudeToPerf(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
 // su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
 if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
 bootstrapFlights(()=>{ if($('dashboard').classList.contains('open')) renderDashboard(); });
