@@ -171,6 +171,12 @@
             <div class="fld"><label>Reg</label><input id="reg" value="I-CCAF"></div>
           </div>
           <div class="row"><div class="fld"><label>Flight mission</label><input id="mission" value=""></div></div>
+          <button class="btn" id="btnOA" style="margin-top:8px">&#128506; Cerca aeroporti su OurAirports</button>
+          <div class="mb-status" id="oaStatus"></div>
+          <div id="oaInfo" style="font-size:11.5px;color:var(--txt-dim);margin-top:6px;font-family:'Courier New',monospace"></div>
+          <div class="hint">Recupera coordinate, elevazione e piste dal database OurAirports e compila da solo
+            distanza Trip (DEP&rarr;ARR), distanza e tempo dell'alternato (ARR&rarr;ALTN), elevazioni e piste per
+            il calcolo prestazioni. Tutti i campi restano modificabili a mano.</div>
         </div>
         <div class="group">
           <h3>Rotta</h3>
@@ -331,13 +337,11 @@
             (1157 kg), indietro +1,20 m. Utility: avanti da +0,89 m a +0,95 m (998 kg), indietro +1,03 m.</div>
         </div>
         <div class="group">
-          <h3>Foglio M&amp;B firmato (facoltativo)</h3>
-          <div class="drop" id="mbDrop">&#128196; Clicca o trascina il PDF del foglio M&amp;B</div>
-          <input type="file" id="mbFile" accept="image/*,application/pdf" hidden>
-          <div class="mb-status" id="mbStatus"></div>
-          <img class="mb-thumb" id="mbThumb">
-          <div class="hint">Se lo carichi, viene allegato come immagine nella pagina M&amp;B dell'OFP accanto al
-            prospetto calcolato qui sopra.</div>
+          <h3>Grafico di centraggio</h3>
+          <div id="cgChartBox" style="background:#fff;border-radius:8px;padding:6px"></div>
+          <div class="hint">Inviluppo momento/massa dell'AFM (categoria Normale e Utility) con sopra il punto di
+            decollo e lo spostamento del baricentro mentre si consuma carburante. Va cos&igrave; com'&egrave;
+            nella pagina Mass &amp; Balance del documento finale.</div>
           <div class="fld" style="margin-top:8px"><label>Remarks (M&amp;B)</label><textarea id="mbRemarks"></textarea></div>
         </div>
       </div>
@@ -345,31 +349,74 @@
       <!-- STEP 4 -->
       <div class="panel" data-step="4">
         <p class="step-title">Performance</p>
-        <p class="step-sub">V-speeds lette dalla tabella AFM del C172 FR (nessuna interpolazione, arrotondamento conservativo).
-          Distanze pista precompilate con i valori AFM a 1157 kg, livello del mare, +15&deg;C, vento nullo, pista asfaltata:
-          correggile per quota/temperatura/vento/erba secondo le note dell'AFM.</p>
+        <p class="step-sub">V-speeds lette dalla tabella AFM (nessuna interpolazione, arrotondamento conservativo)
+          e calcolo <b>TOLD</b> di decollo e atterraggio: le distanze vengono calcolate da AFM fig. 5-4 e 5-5 con
+          quota, QNH, temperatura, vento e la massa che arriva dal Mass &amp; Balance, e confrontate con TORA, TODA e LDA.</p>
         <div class="group">
-          <h3>Runway distance required — Departure</h3>
+          <h3>TOLD &mdash; condizioni</h3>
+          <button class="btn" id="btnMetarFill" style="margin-bottom:8px">&#127782; Prendi vento, QNH e temperatura dal METAR</button>
+          <div class="mb-status" id="toldMetarStatus"></div>
+          <div class="row">
+            <div class="fld"><label>QNH (hPa)</label><input id="toldQnh" type="number" value="1013"></div>
+            <div class="fld"><label>Temperatura (&deg;C)</label><input id="toldOat" type="number" value="15"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>Vento da (&deg;M)</label><input id="toldWindDir" type="number" min="0" max="360" value=""></div>
+            <div class="fld"><label>Vento (kt)</label><input id="toldWindKt" type="number" min="0" value="0"></div>
+            <div class="fld"><label>Superficie</label>
+              <select id="toldSurface">
+                <option value="hard" selected>Asfalto asciutto</option>
+                <option value="grass">Erba asciutta</option>
+                <option value="wet">Bagnata / contaminata</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="group">
+          <h3>TOLD &mdash; Departure</h3>
           <div class="row">
             <div class="fld"><label>Aeroporto DEP</label><input id="depAirport" value="LILN"></div>
-            <div class="fld"><label>Runway</label><input id="depRunway" value="17"></div>
+            <div class="fld"><label>Pista</label><select id="toldRwyDep"><option value="">—</option></select></div>
+            <div class="fld"><label>Runway (OFP)</label><input id="depRunway" value="17"></div>
           </div>
           <div class="row">
-            <div class="fld"><label>TO ground roll (m)</label><input id="toGround" type="number" value="226"></div>
-            <div class="fld"><label>TO dist 15m/50ft (m)</label><input id="toDist50" type="number" value="375"></div>
+            <div class="fld"><label>Elevazione (ft)</label><input id="toldElevDep" type="number" value="0"></div>
+            <div class="fld"><label>Orientamento (&deg;M)</label><input id="toldHdgDep" type="number" value="170"></div>
           </div>
+          <div class="row">
+            <div class="fld"><label>TORA (m)</label><input id="tora" type="number" value=""></div>
+            <div class="fld"><label>TODA (m)</label><input id="toda" type="number" value=""></div>
+          </div>
+          <div class="calc" id="toldDepCalc"></div>
         </div>
         <div class="group">
-          <h3>Runway distance required — Destination</h3>
+          <h3>TOLD &mdash; Destination</h3>
           <div class="row">
             <div class="fld"><label>Aeroporto DEST</label><input id="destAirport" value="LIMC"></div>
-            <div class="fld"><label>Runway</label><input id="destRunway" value="35R"></div>
+            <div class="fld"><label>Pista</label><select id="toldRwyDest"><option value="">—</option></select></div>
+            <div class="fld"><label>Runway (OFP)</label><input id="destRunway" value="35R"></div>
           </div>
           <div class="row">
-            <div class="fld"><label>LDG ground roll (m)</label><input id="ldgGround" type="number" value="189"></div>
-            <div class="fld"><label>LDG dist 15m/50ft (m)</label><input id="ldgDist50" type="number" value="387"></div>
+            <div class="fld"><label>Elevazione (ft)</label><input id="toldElevDest" type="number" value="0"></div>
+            <div class="fld"><label>Orientamento (&deg;M)</label><input id="toldHdgDest" type="number" value="350"></div>
           </div>
+          <div class="row">
+            <div class="fld"><label>LDA (m)</label><input id="lda" type="number" value=""></div>
+          </div>
+          <div class="calc" id="toldDestCalc"></div>
         </div>
+        <div class="group">
+          <h3>TOLD &mdash; risultato</h3>
+          <div id="toldBox"></div>
+          <div id="toldWarns" style="margin-top:8px"></div>
+          <div class="hint"><b>TORA / TODA / LDA:</b> OurAirports pubblica la <i>lunghezza fisica</i> della pista,
+            non le distanze dichiarate, che stanno solo nell'AIP. I campi sono precompilati con la lunghezza fisica
+            come punto di partenza: su piste con stopway, clearway o soglia spostata i valori non coincidono e vanno
+            corretti dall'AIP.
+            Le masse arrivano dalla sezione Mass &amp; Balance, le distanze da AFM fig. 5-4 e 5-5.</div>
+        </div>
+        <input type="hidden" id="toGround" value="226"><input type="hidden" id="toDist50" value="375">
+        <input type="hidden" id="ldgGround" value="189"><input type="hidden" id="ldgDist50" value="387">
         <div class="group">
           <h3>Cruise power setting</h3>
           <div class="hint">Il settaggio si sceglie nello <b>Step 2 &mdash; Rotta &amp; Fuel</b>; qui se ne vede
@@ -379,9 +426,8 @@
           <div class="calc" id="climbFuelCalc"></div>
         </div>
         <div class="hint">Tabella pesi/V-speeds AFM: riferimento statico, riportata identica nel PDF.
-          La tabella di crociera (Manifold Pressure / RPM / TAS / consumo) e' quella del Flight Manual Reims Rocket
-          fig. 5-1 e viene interpolata in quota in base ad Altitude e Power % qui sopra.
-          Le quote tabulate dall'AFM sono 2500 / 5000 / 7500 / 10000 / 15000 ft.</div>
+          La tabella di crociera (MAP / RPM / % / TAS / consumo) e' quella del Flight Manual Reims Rocket fig. 5-1,
+          interpolata alla quota di crociera. Quote tabulate: 2500 / 5000 / 7500 / 10000 / 15000 ft.</div>
       </div>
 
       <!-- STEP 5 -->
@@ -946,6 +992,330 @@ function climbFuelLitres(alt){
   return t[t.length-1][1];
 }
 
+/* ===================== TOLD — DECOLLO E ATTERRAGGIO =====================
+   Modulo prestazioni del C172 FR, portato dal calcolatore Takeoff & Landing
+   fornito a parte: stesse tabelle e stessa logica di correzione.
+
+   Tabelle: AFM Reims Rocket FR172J fig. 5-4 (decollo, flap 10 gradi) e fig. 5-5
+   (atterraggio, flap 40 gradi, motore al minimo). Il decollo e' tabulato a
+   850 / 1000 / 1157 kg e per vento frontale 0 / 10 / 20 kt; l'atterraggio a
+   1157 kg soltanto, quindi a masse inferiori e' conservativo.
+
+   Ogni valore e' [corsa al suolo, distanza per superare 15 m], in metri. */
+const TOLD = {
+  xwind:{to:20, ld:15},
+  takeoff:{
+    cond:'Flaps 10\u00b0',
+    alts:[0,2500,5000,7500], stdT:[15,10,5,0],
+    weightsKg:[850,1000,1157], winds:[0,10,20],
+    spdMph:[58,63,68],                       // velocita' a 15 m, per massa
+    data:[
+      [[[113,210],[133,241],[160,280],[192,328]],[[75,154],[90,177],[108,207],[133,245]],[[43,104],[53,120],[67,143],[84,172]]],
+      [[[162,282],[192,326],[232,386],[279,459]],[[110,209],[134,245],[163,291],[200,349]],[[69,145],[85,172],[105,207],[133,253]]],
+      [[[226,375],[268,439],[325,526],[393,639]],[[158,282],[192,335],[235,405],[288,497]],[[102,201],[126,242],[158,297],[200,370]]]
+    ],
+    temp:{stepC:14,pct:0.10},                // +10% ogni 14 gradi sopra la standard
+    grass:{basis:'total',pct:0.07}           // +7% del totale su erba asciutta
+  },
+  landing:{
+    cond:'Flaps 40\u00b0, motore al minimo',
+    alts:[0,2500,5000,7500], stdT:[15,10,5,0],
+    weightKg:1157, spdMph:73,
+    data:[[189,387],[201,411],[212,434],[224,460]],
+    headCredit:{perKt:0.10/5},               // -10% ogni 5 kt di vento frontale
+    grass:{basis:'total',pct:0.20}
+  }
+};
+function toldFrac(x,n){
+  if(x<=n[0]) return {i:0,j:0,t:0};
+  const L=n.length-1;
+  if(x>=n[L]) return {i:L,j:L,t:0};
+  for(let i=0;i<L;i++){ if(x<=n[i+1]) return {i:i,j:i+1,t:(x-n[i])/(n[i+1]-n[i])}; }
+  return {i:L,j:L,t:0};
+}
+const tMix =(a,b,t)=>[a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t];
+const tMix1=(a,b,t)=>a+(b-a)*t;
+
+function pressAlt(elevFt,qnhHpa){ return elevFt+(1013.25-qnhHpa)*27; }
+function isaTemp(pa){ return 15-1.98*(pa/1000); }
+function densAlt(pa,oat){ return pa+118.8*(oat-isaTemp(pa)); }
+
+/* Componenti di vento rispetto alla pista. head>0 = frontale. */
+function windComponents(rwyMag, windFromMag, kt){
+  const d=((windFromMag-rwyMag)%360+540)%360-180, a=d*Math.PI/180;
+  return {head:kt*Math.cos(a), cross:kt*Math.sin(a)};
+}
+
+/* Distanze di decollo: la tabella ha gia' dentro il vento frontale, quindi non si
+   applica nessun credito ulteriore. Il vento in coda NON e' pubblicato per questo
+   tipo: si segnala invece di inventare una correzione. */
+function toldTakeoff(ctx, warn){
+  const s=TOLD.takeoff;
+  const topWind=s.winds[s.winds.length-1];
+  let h=ctx.head<0?0:ctx.head;
+  if(h>topWind){ h=topWind; warn('grey','Vento','Decollo: credito di vento frontale limitato ai '+topWind+' kt della tabella.'); }
+  const m=Math.min(Math.max(ctx.mass,s.weightsKg[0]),s.weightsKg[s.weightsKg.length-1]);
+  const fw=toldFrac(m,s.weightsKg), fh=toldFrac(h,s.winds), fa=toldFrac(ctx.pa,s.alts);
+  const at=(w,x)=>tMix(s.data[w][x][fa.i], s.data[w][x][fa.j], fa.t);
+  let r=tMix(tMix(at(fw.i,fh.i),at(fw.i,fh.j),fh.t), tMix(at(fw.j,fh.i),at(fw.j,fh.j),fh.t), fw.t);
+  let g=r[0], t=r[1];
+
+  const fa2=toldFrac(Math.min(Math.max(ctx.pa,s.alts[0]),s.alts[s.alts.length-1]),s.alts);
+  const std=tMix1(s.stdT[fa2.i],s.stdT[fa2.j],fa2.t);
+  if(ctx.oat>std){ const k=1+s.temp.pct*((ctx.oat-std)/s.temp.stepC); g*=k; t*=k; }
+
+  if(ctx.head<0) warn('red','Vento in coda','Decollo: l\'AFM non pubblica dati per vento in coda. Le distanze mostrate sono a vento nullo e sono piu\' corte di quelle reali.');
+  if(ctx.surface==='grass'){ const add=t*s.grass.pct; g+=add; t+=add; }
+  else if(ctx.surface==='wet') warn('red','Superficie','Decollo: nessun dato pubblicato per pista bagnata o contaminata. Nessuna maggiorazione applicata.');
+  return [g,t];
+}
+
+function toldLanding(ctx, warn){
+  const s=TOLD.landing;
+  const fa=toldFrac(ctx.pa,s.alts);
+  let r=tMix(s.data[fa.i],s.data[fa.j],fa.t);
+  let g=r[0], t=r[1];
+  if(ctx.head>0){
+    let k=1-s.headCredit.perKt*ctx.head;
+    if(k<0.4){ k=0.4; warn('grey','Vento','Atterraggio: credito di vento frontale limitato al 60% per non estrapolare la nota oltre il suo campo di validita\'.'); }
+    g*=k; t*=k;
+  }
+  if(ctx.head<0) warn('red','Vento in coda','Atterraggio: l\'AFM non pubblica dati per vento in coda. Le distanze sono a vento nullo.');
+  if(ctx.surface==='grass'){ const add=t*s.grass.pct; g+=add; t+=add; }
+  else if(ctx.surface==='wet') warn('red','Superficie','Atterraggio: nessun dato pubblicato per pista bagnata o contaminata.');
+  return [g,t];
+}
+
+/* Calcolo completo TOLD. Prende meteo, pista e massa gia' pronti e restituisce
+   distanze, margini rispetto a TORA/TODA/LDA e l'elenco degli avvisi. */
+function computeTold(){
+  const warns=[];
+  const warn=(lvl,lab,txt)=>warns.push({level:lvl,label:lab,text:txt});
+  const f=computeFuel(), w=weights(f);
+
+  const out={warns, ok:false};
+  const elevDep=num('toldElevDep'), elevDest=num('toldElevDest');
+  const qnh=num('toldQnh'), oat=num('toldOat');
+  if(!(qnh>0) || !isFinite(oat)) { out.reason='Servono QNH e temperatura (li estrae il briefing meteo, o inseriscili a mano).'; return out; }
+
+  const surface=txt('toldSurface')||'hard';
+  const windDir=num('toldWindDir'), windKt=num('toldWindKt');
+
+  function phase(elevFt, rwyHdg, isTakeoff){
+    const pa=pressAlt(elevFt, qnh), da=densAlt(pa,oat);
+    let head=0, cross=0;
+    if(isFinite(rwyHdg) && isFinite(windDir) && windKt>0){
+      const c=windComponents(rwyHdg, windDir, windKt);
+      head=c.head; cross=Math.abs(c.cross);
+    }
+    const ctx={mass:isTakeoff?w.tow.w:w.ldw.w, head, pa, oat, surface};
+    const d=isTakeoff?toldTakeoff(ctx,warn):toldLanding(ctx,warn);
+    return {pa:Math.round(pa), da:Math.round(da), isaDev:Math.round((oat-isaTemp(pa))*10)/10,
+            head:Math.round(head*10)/10, cross:Math.round(cross*10)/10,
+            ground:Math.round(d[0]), total:Math.round(d[1]), mass:Math.round(ctx.mass)};
+  }
+
+  out.to = phase(elevDep,  num('toldHdgDep'),  true);
+  out.ld = phase(elevDest, num('toldHdgDest'), false);
+  out.ok = true;
+
+  // margini rispetto alle distanze dichiarate
+  const tora=num('tora'), toda=num('toda')||num('tora'), lda=num('lda');
+  out.tora = tora>0 ? {avail:tora, req:out.to.ground, margin:tora-out.to.ground} : null;
+  out.toda = toda>0 ? {avail:toda, req:out.to.total,  margin:toda-out.to.total } : null;
+  out.lda  = lda >0 ? {avail:lda,  req:out.ld.total,  margin:lda -out.ld.total } : null;
+
+  // vento al traverso contro i limiti dell'AFM
+  const xwTo=out.to.cross, xwLd=out.ld.cross;
+  if(xwTo>TOLD.xwind.to) warn('red','Vento al traverso','Decollo: '+xwTo.toFixed(1)+' kt oltre il limite di '+TOLD.xwind.to+' kt.');
+  if(xwLd>TOLD.xwind.ld) warn('red','Vento al traverso','Atterraggio: '+xwLd.toFixed(1)+' kt oltre il limite di '+TOLD.xwind.ld+' kt.');
+  if(out.to.da>5000) warn('amber','Densita\'','Densita\' di quota al decollo '+out.to.da+' ft: verifica il gradiente di salita iniziale contro gli ostacoli, non solo la lunghezza pista.');
+  if(w.tow.w>TOLD.takeoff.weightsKg[2]+0.5) warn('red','Massa','Massa al decollo oltre i 1157 kg della tabella: le distanze sono bloccate al massimo tabulato e sottostimano quelle reali.');
+  const amax=TOLD.takeoff.alts[TOLD.takeoff.alts.length-1];
+  if(out.to.pa>amax) warn('red','Quota','Altitudine di pressione oltre i '+amax+' ft della tabella: distanze bloccate e sottostimate.');
+  warn('grey','Massa atterraggio','La tabella di atterraggio e\' pubblicata solo a 1157 kg e viene usata qualunque sia la massa: a masse inferiori e\' conservativa.');
+  return out;
+}
+
+/* Estrae temperatura, QNH e vento da un METAR. */
+function parseMetar(metar){
+  const m=String(metar||'').toUpperCase();
+  const out={};
+  let x=/\b(\d{3}|VRB)(\d{2,3})(?:G(\d{2,3}))?KT\b/.exec(m);
+  if(x){
+    out.windDir = x[1]==='VRB' ? null : parseInt(x[1],10);
+    out.windKt  = parseInt(x[2],10);
+    if(x[3]) out.gustKt=parseInt(x[3],10);
+    out.windVrb = x[1]==='VRB';
+  }
+  x=/\bQ(\d{4})\b/.exec(m);
+  if(x) out.qnh=parseInt(x[1],10);
+  else { x=/\bA(\d{4})\b/.exec(m); if(x) out.qnh=Math.round(parseInt(x[1],10)/100*33.8639); }
+  x=/(?:^|\s)(M?\d{2})\/(M?\d{2})(?:\s|=|$)/.exec(m);
+  if(x) out.oat = parseInt(x[1].replace('M','-'),10);
+  return out;
+}
+
+/* ===================== OURAIRPORTS =====================
+   Coordinate, elevazione e piste degli aeroporti dal database aperto OurAirports
+   (https://ourairports.com/data/ — dominio pubblico), nella copia versionata su
+   GitHub Pages, che serve gli header CORS necessari a leggerla dal browser.
+
+   Non esiste un'API REST: si scaricano i due CSV e si tengono solo gli aeroporti
+   che servono. airports.csv pesa una decina di MB, quindi lo si scarica una volta
+   sola per sessione e il risultato per ogni ICAO finisce in localStorage: le
+   ricerche successive sono immediate anche a distanza di giorni.
+
+   Sotto Apps Script il download lo fa il server (UrlFetchApp, con cache propria):
+   e' piu' veloce, non consuma la rete del telefono e aggira ogni problema di CORS.
+
+   ATTENZIONE, un limite del dato di partenza: OurAirports pubblica la LUNGHEZZA
+   FISICA della pista, non le distanze dichiarate TORA/TODA/LDA, che stanno solo
+   nell'AIP. I campi vengono precompilati con la lunghezza fisica e marcati come
+   da verificare: su una pista con stopway, clearway o soglia spostata i due
+   valori non coincidono. */
+const OA = {
+  BASE: 'https://davidmegginson.github.io/ourairports-data/',
+  mem: {},                       // cache di sessione: ICAO -> record
+  raw: null,                     // CSV grezzi, tenuti solo finche' la pagina e' aperta
+  LS_PREFIX: 'oa:',
+
+  fromLocal(icao){
+    try{ const v=localStorage.getItem(OA.LS_PREFIX+icao); return v?JSON.parse(v):null; }catch(e){ return null; }
+  },
+  toLocal(icao, rec){
+    try{ localStorage.setItem(OA.LS_PREFIX+icao, JSON.stringify(rec)); }catch(e){}
+  },
+
+  /* Parser CSV minimo ma corretto sui campi fra virgolette: i nomi degli
+     aeroporti contengono virgole ("Milan, Malpensa") e uno split(',') secco
+     disallineerebbe tutte le colonne successive. */
+  parseCSV(text){
+    const rows=[]; let row=[], field='', q=false;
+    for(let i=0;i<text.length;i++){
+      const c=text[i];
+      if(q){
+        if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else q=false; }
+        else field+=c;
+      }else{
+        if(c==='"') q=true;
+        else if(c===','){ row.push(field); field=''; }
+        else if(c==='\n'){ row.push(field); field=''; rows.push(row); row=[]; }
+        else if(c!=='\r') field+=c;
+      }
+    }
+    if(field.length||row.length){ row.push(field); rows.push(row); }
+    return rows;
+  },
+  index(rows){
+    const head=rows[0], idx={};
+    head.forEach((h,i)=>idx[h.trim()]=i);
+    return {head, idx, rows:rows.slice(1)};
+  },
+
+  async fetchRaw(){
+    if(OA.raw) return OA.raw;
+    const [a,r] = await Promise.all([
+      fetch(OA.BASE+'airports.csv').then(x=>{ if(!x.ok) throw new Error('airports.csv HTTP '+x.status); return x.text(); }),
+      fetch(OA.BASE+'runways.csv').then(x=>{ if(!x.ok) throw new Error('runways.csv HTTP '+x.status); return x.text(); })
+    ]);
+    OA.raw = { airports: OA.index(OA.parseCSV(a)), runways: OA.index(OA.parseCSV(r)) };
+    return OA.raw;
+  },
+
+  buildRecords(codes){
+    const {airports, runways} = OA.raw;
+    const want = new Set(codes);
+    const ai = airports.idx, out = {};
+    airports.rows.forEach(r=>{
+      const ident=(r[ai.ident]||'').toUpperCase();
+      if(!want.has(ident)) return;
+      out[ident] = {
+        icao: ident,
+        name: r[ai.name]||'',
+        municipality: r[ai.municipality]||'',
+        lat: parseFloat(r[ai.latitude_deg]),
+        lon: parseFloat(r[ai.longitude_deg]),
+        elevFt: r[ai.elevation_ft]===''?null:parseFloat(r[ai.elevation_ft]),
+        runways: []
+      };
+    });
+    const ri = runways.idx;
+    runways.rows.forEach(r=>{
+      const ap=(r[ri.airport_ident]||'').toUpperCase();
+      if(!out[ap]) return;
+      if(r[ri.closed]==='1') return;
+      const lenFt=parseFloat(r[ri.length_ft]);
+      const lenM = isFinite(lenFt) ? Math.round(lenFt*FT_TO_M_OA) : null;
+      [['le','he']].forEach(()=>{});
+      ['le','he'].forEach(side=>{
+        const ident=r[ri[side+'_ident']];
+        if(!ident) return;
+        out[ap].runways.push({
+          ident: ident,
+          lenM: lenM,
+          surface: r[ri.surface]||'',
+          // L'orientamento MAGNETICO viene dal designatore della pista, che per
+          // definizione ICAO e' la direzione magnetica arrotondata alla decina:
+          // e' il dato giusto per il calcolo del vento, mentre le_heading_degT
+          // del CSV e' vero e richiederebbe la declinazione, che OurAirports non ha.
+          hdgMag: OA.identToHeading(ident),
+          hdgTrue: r[ri[side+'_heading_degT']]===''?null:parseFloat(r[ri[side+'_heading_degT']])
+        });
+      });
+    });
+    Object.keys(out).forEach(k=>{
+      out[k].runways.sort((a,b)=>(b.lenM||0)-(a.lenM||0) || a.ident.localeCompare(b.ident));
+      OA.mem[k]=out[k]; OA.toLocal(k,out[k]);
+    });
+    return out;
+  },
+  identToHeading(ident){
+    const m=/^(\d{1,2})/.exec(String(ident).trim());
+    if(!m) return null;
+    let n=parseInt(m[1],10);
+    if(!(n>=1&&n<=36)) return null;
+    return n*10;
+  },
+
+  /** Cerca i codici richiesti. Restituisce {ICAO: record}; i codici non trovati mancano. */
+  async lookup(codes){
+    codes = codes.map(c=>String(c||'').trim().toUpperCase()).filter(c=>/^[A-Z]{4}$/.test(c));
+    const out={}, missing=[];
+    codes.forEach(c=>{
+      const hit = OA.mem[c] || OA.fromLocal(c);
+      if(hit){ OA.mem[c]=hit; out[c]=hit; } else missing.push(c);
+    });
+    if(!missing.length) return out;
+
+    if(IS_APPS_SCRIPT){
+      const rec = await new Promise((res,rej)=>{
+        google.script.run.withSuccessHandler(j=>{ try{ res(JSON.parse(j||'{}')); }catch(e){ rej(e); } })
+                         .withFailureHandler(rej)
+                         .lookupAirports(missing.join(','));
+      });
+      Object.keys(rec).forEach(k=>{ OA.mem[k]=rec[k]; OA.toLocal(k,rec[k]); out[k]=rec[k]; });
+      return out;
+    }
+    await OA.fetchRaw();
+    const rec = OA.buildRecords(missing);
+    Object.keys(rec).forEach(k=>out[k]=rec[k]);
+    return out;
+  }
+};
+const FT_TO_M_OA = 0.3048;
+
+/* Distanza ortodromica in miglia nautiche fra due punti. */
+function gcDistanceNm(a, b){
+  if(!a||!b||!isFinite(a.lat)||!isFinite(b.lat)) return null;
+  const R=3440.065;                       // raggio terrestre in nm
+  const rad=Math.PI/180;
+  const dLat=(b.lat-a.lat)*rad, dLon=(b.lon-a.lon)*rad;
+  const la1=a.lat*rad, la2=b.lat*rad;
+  const h=Math.sin(dLat/2)**2 + Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)**2;
+  return Math.round(2*R*Math.asin(Math.min(1,Math.sqrt(h))));
+}
+
 /* ============================ HTML PREVIEW ============================ */
 function titleText(){ return `${txt('dep')||"A/P"}-${txt('arr')||"A/P"} CESSNA C172 FR ${txt('reg')||"Reg:"}`; }
 function pageShell(sectionLabel, bodyHTML, pageNo, extraStyle){
@@ -1042,17 +1412,16 @@ function pageMB(f,w){
     ${sh.out.map(r=>tRow(...r,' style="font-weight:700"')).join('')}
   </table>
   <div style="font-size:9px;margin-top:3px">
-    LIMITI: MTOW/MLW ${num('mtow')} kg &middot; bagaglio ${MAX_BAGGAGE_KG} kg &middot; fuel ${USABLE_FUEL_USG} USG / ${fmt(USABLE_FUEL_USG*L_PER_USG)} L<br>
+    LIMITI: MTOW/MLW ${num('mtow')} kg &middot; bagaglio ${MAX_BAGGAGE_KG} kg &middot; fuel ${USABLE_FUEL_L} L (${USABLE_FUEL_USG} USG)<br>
     CG al decollo <b>${w.tow.arm.toFixed(3)} m</b> &mdash; inviluppo NORMAL ${lim.fwd}&ndash;${lim.aft} m &mdash;
     <b>${towChk.ok?'ENTRO I LIMITI':'FUORI LIMITE'}</b> &middot; VA a ${w.towKg} kg = ${vaFor(w.towKg)} KIAS
   </div>`;
-  const img = window.__mbImg ? `<img src="${window.__mbImg}" style="max-width:100%;max-height:78mm">` : `<div style="color:#999;font-size:11px">&mdash; foglio M&amp;B firmato (facoltativo) &mdash;</div>`;
   const rem = txt('mbRemarks').trim();
   const body=`
     <div style="font-size:10px;margin-bottom:4px">A/C <span class="filled">${esc(txt('acSelect')==='CUSTOM'?txt('reg'):txt('acSelect'))}</span>
       &middot; POB <span class="filled">${num('pob')}</span></div>
     ${table}
-    <div style="border:1px solid #000;padding:4px;min-height:40mm;display:flex;align-items:center;justify-content:center;margin:6px 0">${img}</div>
+    <div style="margin:6px 0">${cgChartSVG(w,{w:560,h:340})}</div>
     <div style="font-weight:700;font-size:11px">REMARKS:</div>
     <div class="kv filled" style="min-height:14px;font-size:10px">${esc(rem)}</div>
     <div style="margin-top:auto">
@@ -1077,23 +1446,36 @@ function pagePerf(f,w){
   // DEPARTURE e DESTINATION su due righe distinte: i campi del form sono separati
   // (depAirport/depRunway e destAirport/destRunway) e le distanze di decollo
   // riguardano il primo, quelle di atterraggio il secondo.
-  const rwyTable=`<table class="refTable" style="max-width:520px">
-    <tr><th></th><th>Airport</th><th>Runway</th><th>Ground roll</th><th>Dist 15 m / 50 ft</th></tr>
+  const told = window.__told || computeTold();
+  const marg=(m,code)=>{
+    if(!m) return `${code} &mdash;`;
+    const pct=Math.round(m.req/m.avail*100);
+    return m.margin<0
+      ? `<b>${code} ${m.avail} m</b> &middot; richiesti ${m.req} m &middot; <b>SUPERATA di ${Math.round(-m.margin)} m</b>`
+      : `<b>${code} ${m.avail} m</b> &middot; richiesti ${m.req} m (${pct}%) &middot; margine ${Math.round(m.margin)} m`;
+  };
+  const rwyTable = told.ok ? `<table class="refTable" style="max-width:560px">
+    <tr><th></th><th>Airport / RWY</th><th>PA / DA</th><th>Wind</th><th>Ground roll</th><th>Dist 15 m</th></tr>
     <tr>
-      <td style="text-align:left;padding-left:4px"><b>T/O &mdash; DEP</b></td>
-      <td class="filled">${esc(txt('depAirport'))}</td>
-      <td class="filled">${esc(txt('depRunway'))}</td>
-      <td class="filled">${num('toGround')} m</td>
-      <td class="filled">${num('toDist50')} m</td>
+      <td style="text-align:left;padding-left:4px"><b>T/O</b></td>
+      <td class="filled">${esc(txt('depAirport'))} ${esc(txt('depRunway'))}</td>
+      <td class="filled">${told.to.pa} / ${told.to.da} ft</td>
+      <td class="filled">${told.to.head>=0?'HW':'TW'} ${Math.abs(told.to.head)} &middot; XW ${told.to.cross}</td>
+      <td class="filled">${told.to.ground} m</td>
+      <td class="filled">${told.to.total} m</td>
     </tr>
     <tr>
-      <td style="text-align:left;padding-left:4px"><b>LDG &mdash; DEST</b></td>
-      <td class="filled">${esc(txt('destAirport'))}</td>
-      <td class="filled">${esc(txt('destRunway'))}</td>
-      <td class="filled">${num('ldgGround')} m</td>
-      <td class="filled">${num('ldgDist50')} m</td>
+      <td style="text-align:left;padding-left:4px"><b>LDG</b></td>
+      <td class="filled">${esc(txt('destAirport'))} ${esc(txt('destRunway'))}</td>
+      <td class="filled">${told.ld.pa} / ${told.ld.da} ft</td>
+      <td class="filled">${told.ld.head>=0?'HW':'TW'} ${Math.abs(told.ld.head)} &middot; XW ${told.ld.cross}</td>
+      <td class="filled">${told.ld.ground} m</td>
+      <td class="filled">${told.ld.total} m</td>
     </tr>
-  </table>`;
+  </table>
+  <div style="font-size:9px;margin-top:3px">${marg(told.tora,'TORA')} &nbsp;|&nbsp; ${marg(told.toda,'TODA')} &nbsp;|&nbsp; ${marg(told.lda,'LDA')}</div>
+  <div style="font-size:8px">Condizioni: ${esc(txt('toldSurface'))}, QNH ${num('toldQnh')}, OAT ${num('toldOat')}&deg;C, vento ${esc(txt('toldWindDir')||'---')}/${num('toldWindKt')} kt &middot; AFM fig. 5-4 e 5-5.</div>`
+  : `<div style="font-size:9.5px">${esc(told.reason||'Dati TOLD insufficienti.')}</div>`;
   const cAlt=num('pwrAlt')||num('cruisePerfAlt');
   const sel=currentPowerRow();
   const rows=cruiseRowsAt(cAlt);
@@ -1121,7 +1503,7 @@ function pagePerf(f,w){
     <div style="font-size:9.5px;margin:0 0 8px">VA ${AC_LIMITS.va} KIAS a ${AC_LIMITS.mtowNormal} kg &rarr; <b>${vaFor(w.towKg)} KIAS</b> a ${w.towKg} kg (TOW)</div>
     ${vTable}
     ${pohTable}
-    <div style="font-weight:700;margin-top:10px">RUNWAY DISTANCE REQUIRED</div>
+    <div style="font-weight:700;margin-top:10px">TAKE-OFF &amp; LANDING DISTANCES (TOLD)</div>
     ${rwyTable}
     <div style="margin-top:10px;font-weight:700">CRUISE PWR SETTING &mdash; <span class="filled">${cAlt}</span> ft:
       ${sel ? `MAP <span class="filled">${sel.mp}</span> inHg &middot; RPM <span class="filled">${sel.rpm}</span> &middot;
@@ -1253,6 +1635,54 @@ function cgNote(w){
   const lim = cgLimits(w.tow.w,'normal');
   return {txt:`→ CG al decollo ${w.tow.arm.toFixed(3)} m (limiti ${lim.fwd}–${lim.aft} m) · categoria disponibile: ${cat}`, over:false};
 }
+/* ===================== GRAFICO DI CENTRAGGIO =====================
+   Inviluppo momento/massa, come la fig. 6-6 dell'AFM ("Loaded Aircraft Moment
+   Envelope"): in ascissa il momento in kg*m, in ordinata la massa in kg. Si lavora
+   in momenti e non in bracci perche' e' cosi' che ragionano sia l'AFM sia il
+   foglio dell'aeroclub, e perche' in questo piano i limiti sono rette.
+
+   Il bordo anteriore dell'inviluppo segue il limite di CG in avanti (che si sposta
+   con la massa), quello posteriore il limite indietro, costante in braccio e
+   quindi una retta passante per l'origine.
+
+   Sopra l'inviluppo si traccia la linea di carico: decollo -> atterraggio
+   destinazione -> atterraggio alternato. Consumando carburante (braccio 1,23 m,
+   dietro al CG a vuoto) massa e momento calano insieme e il baricentro si sposta
+   in avanti: la linea mostra se il volo resta dentro per tutta la sua durata. */
+const CG_CHART = { wMin:600, wMax:1200 };
+
+function cgEnvelopePoly(category){
+  const e=CG_ENVELOPE[category];
+  const [[w1,a1],[w2,a2]]=e.fwd;
+  const wLo=CG_CHART.wMin, wHi=e.maxW;
+  const fwd=[];                                     // bordo anteriore, dal basso in su
+  fwd.push([wLo, wLo*a1]);
+  if(w1>wLo) fwd.push([w1, w1*a1]);
+  fwd.push([wHi, wHi*(wHi>=w2?a2:a1+(a2-a1)*(wHi-w1)/(w2-w1))]);
+  const aft=[[wHi, wHi*e.aft],[wLo, wLo*e.aft]];    // bordo posteriore, dall'alto in giu'
+  return fwd.concat(aft);
+}
+/* Punti del volo da riportare sul grafico. */
+function cgPlotPoints(w){
+  return [
+    {lbl:'T/O',  w:w.tow.w,  m:w.tow.m },
+    {lbl:'LDG',  w:w.ldw.w,  m:w.ldw.m },
+    {lbl:'ALTN', w:w.altw.w, m:w.altw.m},
+  ].filter(p=>p.w>0);
+}
+/* Estremi degli assi: sempre abbastanza larghi da contenere inviluppo e punti. */
+function cgChartRange(w){
+  const polys=[cgEnvelopePoly('normal'), cgEnvelopePoly('utility')];
+  const pts=cgPlotPoints(w);
+  let mMin=Infinity, mMax=-Infinity;
+  polys.forEach(p=>p.forEach(([,m])=>{ mMin=Math.min(mMin,m); mMax=Math.max(mMax,m); }));
+  pts.forEach(p=>{ mMin=Math.min(mMin,p.m); mMax=Math.max(mMax,p.m); });
+  const wMin=Math.min(CG_CHART.wMin, ...pts.map(p=>p.w))-20;
+  const wMax=Math.max(CG_CHART.wMax, ...pts.map(p=>p.w))+20;
+  const pad=(mMax-mMin)*0.05;
+  return {mMin:mMin-pad, mMax:mMax+pad, wMin, wMax};
+}
+
 /* Prospetto del foglio di carico, nello stesso ordine di righe del modulo cartaceo. */
 function mbSheetRows(w){
   const r=(l,p)=>[l, p.w, p.arm, p.m];
@@ -1322,6 +1752,7 @@ function render(){
     $('loadCalc').style.color = bag>MAX_BAGGAGE_KG ? '#ff7a7a' : '';
   }
   if($('mbTableBox')) $('mbTableBox').innerHTML = mbTableHTML(w);
+  if($('cgChartBox')) $('cgChartBox').innerHTML = cgChartSVG(w);
   if($('mbLimitCalc')){ const n=massNote(w); $('mbLimitCalc').textContent=n.txt; $('mbLimitCalc').style.color=n.over?'#ff7a7a':''; }
   if($('cgCalc')){ const n=cgNote(w); $('cgCalc').textContent=n.txt; $('cgCalc').style.color=n.over?'#ff7a7a':''; }
   if($('cruisePerfCalc')){
@@ -1333,6 +1764,19 @@ function render(){
   if($('climbFuelCalc')){
     const a=num('cruisePerfAlt');
     $('climbFuelCalc').textContent = `→ salita a ${a} ft: ${fmt(climbFuelLitres(a))} L a piena potenza, 1157 kg, incl. avviamento e decollo`;
+  }
+  if($('toldBox')){
+    const t=computeTold();
+    window.__told=t;
+    $('toldBox').innerHTML=toldBoxHTML(t);
+    if($('toldWarns')) $('toldWarns').innerHTML=toldWarnsHTML(t);
+    // i campi che alimentano anteprima e PDF restano allineati al calcolo
+    if(t.ok){
+      if($('toGround'))  $('toGround').value  = t.to.ground;
+      if($('toDist50'))  $('toDist50').value  = t.to.total;
+      if($('ldgGround')) $('ldgGround').value = t.ld.ground;
+      if($('ldgDist50')) $('ldgDist50').value = t.ld.total;
+    }
   }
   if($('wxDepIcao'))  $('wxDepIcao').textContent  = txt('dep')  ? `(${txt('dep')})`  : '';
   if($('wxDestIcao')) $('wxDestIcao').textContent = txt('arr')  ? `(${txt('arr')})`  : '';
@@ -1359,6 +1803,61 @@ function renderPreview(f,w,t){
     catch(e){ stage.innerHTML = `<div style="color:#ff7a7a;font-size:13px">Anteprima non disponibile: ${esc(e.message)}</div>`; }
   });
 }
+/* Grafico di centraggio in SVG: usato sia nel wizard sia nella pagina M&B
+   dell'anteprima. Stessa geometria che finisce nel PDF vettoriale. */
+function cgChartSVG(w, opt){
+  opt=opt||{};
+  const W=opt.w||520, H=opt.h||330;
+  const ml=46, mr=12, mt=12, mb=30;
+  const R=cgChartRange(w);
+  const X=m=>ml+(m-R.mMin)/(R.mMax-R.mMin)*(W-ml-mr);
+  const Y=kg=>H-mb-(kg-R.wMin)/(R.wMax-R.wMin)*(H-mt-mb);
+  const path=(pts)=>pts.map((p,i)=>(i?'L':'M')+X(p[1]).toFixed(1)+' '+Y(p[0]).toFixed(1)).join(' ')+' Z';
+
+  // griglia: masse ogni 100 kg, momenti ogni 100 kg*m
+  let grid='';
+  for(let kg=Math.ceil(R.wMin/100)*100; kg<=R.wMax; kg+=100){
+    grid+=`<line x1="${ml}" y1="${Y(kg)}" x2="${W-mr}" y2="${Y(kg)}" stroke="#e3e3e3" stroke-width=".5"/>`
+        + `<text x="${ml-4}" y="${Y(kg)+3}" text-anchor="end" font-size="8" fill="#555">${kg}</text>`;
+  }
+  for(let m=Math.ceil(R.mMin/100)*100; m<=R.mMax; m+=100){
+    grid+=`<line x1="${X(m)}" y1="${mt}" x2="${X(m)}" y2="${H-mb}" stroke="#e3e3e3" stroke-width=".5"/>`
+        + `<text x="${X(m)}" y="${H-mb+11}" text-anchor="middle" font-size="8" fill="#555">${m}</text>`;
+  }
+  const pts=cgPlotPoints(w);
+  const line = pts.length>1
+    ? `<polyline points="${pts.map(p=>X(p.m).toFixed(1)+','+Y(p.w).toFixed(1)).join(' ')}" fill="none" stroke="#0033aa" stroke-width="1.2" stroke-dasharray="4 2"/>`
+    : '';
+  // I tre punti stanno quasi sempre a pochi millimetri l'uno dall'altro: le
+  // etichette vanno sfalsate, altrimenti si sovrappongono e non si legge niente.
+  const off=[[7,-6],[7,4],[-8,10]];
+  const marks = pts.map((p,i)=>{
+    const inside=cgCheck(p.w,p.w>0?p.m/p.w:0,'normal').ok;
+    const c=inside?'#0033aa':'#cc0000';
+    const [dx,dy]=off[i]||[7,-6];
+    return `<circle cx="${X(p.m).toFixed(1)}" cy="${Y(p.w).toFixed(1)}" r="3" fill="${c}"/>`
+         + `<text x="${(X(p.m)+dx).toFixed(1)}" y="${(Y(p.w)+dy).toFixed(1)}" font-size="9" font-weight="700" fill="${c}" text-anchor="${dx<0?'end':'start'}">${p.lbl}</text>`;
+  }).join('');
+
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px;font-family:Helvetica,Arial,sans-serif">
+    <rect x="0" y="0" width="${W}" height="${H}" fill="#fff"/>
+    ${grid}
+    <path d="${path(cgEnvelopePoly('normal'))}"  fill="rgba(0,120,60,.07)" stroke="#0a7d3c" stroke-width="1.3"/>
+    <path d="${path(cgEnvelopePoly('utility'))}" fill="none" stroke="#a96b10" stroke-width="1" stroke-dasharray="5 3"/>
+    ${line}${marks}
+    <rect x="${ml}" y="${mt}" width="${W-ml-mr}" height="${H-mt-mb}" fill="none" stroke="#888" stroke-width=".8"/>
+    <text x="${ml}" y="${H-2}" font-size="8.5" fill="#333">Momento kg&#183;m</text>
+    <text x="10" y="${mt+8}" font-size="8.5" fill="#333">Massa kg</text>
+    <g font-size="8.5">
+      <rect x="${W-mr-146}" y="${mt+4}" width="142" height="30" fill="#fff" stroke="#ccc" stroke-width=".5"/>
+      <line x1="${W-mr-140}" y1="${mt+13}" x2="${W-mr-126}" y2="${mt+13}" stroke="#0a7d3c" stroke-width="1.3"/>
+      <text x="${W-mr-122}" y="${mt+16}" fill="#333">NORMAL 1157 kg</text>
+      <line x1="${W-mr-140}" y1="${mt+25}" x2="${W-mr-126}" y2="${mt+25}" stroke="#a96b10" stroke-width="1" stroke-dasharray="5 3"/>
+      <text x="${W-mr-122}" y="${mt+28}" fill="#333">UTILITY 998 kg</text>
+    </g>
+  </svg>`;
+}
+
 /* Prospetto compatto mostrato dentro lo Step 3, con evidenza di ciò che è fuori limite. */
 function mbTableHTML(w){
   const sh=mbSheetRows(w);
@@ -1429,6 +1928,172 @@ function onPowerChange(){ rebuildPowerSelects(); applyPowerToRoute(); render(); 
 if($('pwrAlt')) $('pwrAlt').addEventListener('input', onPowerChange);
 if($('pwrMap')) $('pwrMap').addEventListener('change', ()=>{ applyPowerToRoute(); render(); });
 
+/* ============ RICERCA AEROPORTI E AUTOCOMPILAZIONE ============ */
+window.__oa = {};       // ICAO -> record OurAirports dell'ultima ricerca
+
+function oaStatus(cls,msg){ const el=$('oaStatus'); if(el){ el.className='mb-status '+cls; el.textContent=msg; } }
+
+async function lookupAirportsUI(){
+  const codes=[txt('dep'),txt('arr'),txt('altn')].map(c=>c.trim().toUpperCase()).filter(Boolean);
+  const uniq=[...new Set(codes)];
+  if(!uniq.length){ oaStatus('err','Inserisci prima almeno un codice ICAO.'); return; }
+  oaStatus('busy','\u23f3 Cerco '+uniq.join(', ')+' su OurAirports\u2026');
+  try{
+    const rec = await OA.lookup(uniq);
+    window.__oa = rec;
+    const found=Object.keys(rec), miss=uniq.filter(c=>!rec[c]);
+    if(!found.length){
+      oaStatus('err','Nessuno dei codici '+uniq.join(', ')+' e\' stato trovato. Compila i campi a mano.');
+    }else{
+      oaStatus('ok','Trovati: '+found.join(', ')+(miss.length?' \u00b7 non trovati: '+miss.join(', '):''));
+    }
+    applyAirportData();
+    render();
+  }catch(err){
+    console.error(err);
+    oaStatus('err','OurAirports non raggiungibile ('+(err&&err.message||err)+'). I campi restano da compilare a mano.');
+  }
+}
+
+/* Riporta nei campi del wizard quello che si e' trovato. Non sovrascrive mai un
+   valore che l'utente ha gia' modificato di suo pugno: aggiorna solo cio' che e'
+   vuoto o che era stato messo da una ricerca precedente. */
+function applyAirportData(){
+  const rec=window.__oa||{};
+  const dep=rec[txt('dep').toUpperCase()], arr=rec[txt('arr').toUpperCase()], altn=rec[txt('altn').toUpperCase()];
+
+  const dTrip = gcDistanceNm(dep,arr);
+  if(dTrip!==null && $('tripDist')) $('tripDist').value = dTrip;
+  const dAltn = gcDistanceNm(arr,altn);
+  if(dAltn!==null && $('altDist')) $('altDist').value = dAltn;
+
+  // tempo alternato al settaggio fisso 22"/2400 della quota alternato
+  const a=altnSettingAt(num('altAlt'));
+  if(dAltn!==null && a.row && $('altTblTime')){
+    $('altTblTime').value = Math.round(dAltn / mphToKt(a.row.mph) * 60);
+  }
+
+  // elevazioni e piste per il calcolo prestazioni
+  if(dep){
+    if($('depAirport')) $('depAirport').value = dep.icao;
+    if($('toldElevDep')) $('toldElevDep').value = dep.elevFt!=null?Math.round(dep.elevFt):'';
+  }
+  if(arr){
+    if($('destAirport')) $('destAirport').value = arr.icao;
+    if($('toldElevDest')) $('toldElevDest').value = arr.elevFt!=null?Math.round(arr.elevFt):'';
+  }
+  fillRunwaySelect('toldRwyDep', dep);
+  fillRunwaySelect('toldRwyDest', arr);
+  renderAirportInfo();
+}
+
+function fillRunwaySelect(id, rec){
+  const sel=$(id); if(!sel) return;
+  const prev=sel.value;
+  const rwys=(rec&&rec.runways)||[];
+  sel.innerHTML = rwys.length
+    ? rwys.map(r=>`<option value="${r.ident}">${r.ident} — ${r.lenM?r.lenM+' m':'? m'}${r.surface?' '+r.surface:''}</option>`).join('')
+    : '<option value="">— nessuna pista nota —</option>';
+  if(prev && rwys.some(r=>r.ident===prev)) sel.value=prev;
+  onRunwayChange(id);
+}
+
+/* Selezionata una pista: orientamento magnetico dal designatore, e lunghezza
+   fisica come punto di partenza per TORA/TODA/LDA (da confermare sull'AIP). */
+function onRunwayChange(id){
+  const sel=$(id); if(!sel) return;
+  const isDep = id==='toldRwyDep';
+  const rec = (window.__oa||{})[ (isDep?txt('dep'):txt('arr')).toUpperCase() ];
+  const rwy = rec && (rec.runways||[]).find(r=>r.ident===sel.value);
+  if(!rwy) return;
+  if(isDep){
+    if($('depRunway')) $('depRunway').value = rwy.ident;
+    if($('toldHdgDep')) $('toldHdgDep').value = rwy.hdgMag!=null?rwy.hdgMag:'';
+    if($('tora') && rwy.lenM) $('tora').value = rwy.lenM;
+    if($('toda') && rwy.lenM) $('toda').value = rwy.lenM;
+  }else{
+    if($('destRunway')) $('destRunway').value = rwy.ident;
+    if($('toldHdgDest')) $('toldHdgDest').value = rwy.hdgMag!=null?rwy.hdgMag:'';
+    if($('lda') && rwy.lenM) $('lda').value = rwy.lenM;
+  }
+}
+
+function renderAirportInfo(){
+  const el=$('oaInfo'); if(!el) return;
+  const rec=window.__oa||{};
+  const codes=Object.keys(rec);
+  if(!codes.length){ el.textContent=''; return; }
+  el.innerHTML = codes.map(c=>{
+    const a=rec[c];
+    const rw=(a.runways||[]).map(r=>`${r.ident}/${r.lenM||'?'}m`).join(' ');
+    return `${a.icao} ${esc(a.name)}<br>&nbsp;&nbsp;${a.lat.toFixed(4)} ${a.lon.toFixed(4)} · elev ${a.elevFt!=null?Math.round(a.elevFt)+' ft':'n/d'} · ${rw||'piste n/d'}`;
+  }).join('<br>');
+}
+
+if($('btnOA')) $('btnOA').addEventListener('click', lookupAirportsUI);
+
+/* ============ TOLD: aggancio a METAR, piste e risultati ============ */
+
+/* Riempie QNH, temperatura e vento dal METAR di partenza (o, se manca, da quello
+   di destinazione). Sono i valori che l'AFM chiede per le distanze. */
+function fillToldFromMetar(){
+  const src = txt('depMetar').trim() || txt('destMetar').trim();
+  const el=$('toldMetarStatus');
+  if(!src){
+    if(el){ el.className='mb-status err'; el.textContent='Nessun METAR nello Step 7: caricalo o compila i campi a mano.'; }
+    return;
+  }
+  const m=parseMetar(src);
+  let got=[];
+  if(m.qnh){ $('toldQnh').value=m.qnh; got.push('QNH '+m.qnh); }
+  if(isFinite(m.oat)){ $('toldOat').value=m.oat; got.push('T '+m.oat+'\u00b0C'); }
+  if(m.windKt!=null){
+    $('toldWindKt').value=m.windKt;
+    if(m.windDir!=null){ $('toldWindDir').value=m.windDir; got.push('vento '+m.windDir+'\u00b0/'+m.windKt+'kt'); }
+    else got.push('vento variabile '+m.windKt+'kt (direzione da inserire a mano)');
+  }
+  if(el){
+    el.className='mb-status '+(got.length?'ok':'err');
+    el.textContent = got.length
+      ? 'Dal METAR: '+got.join(' \u00b7 ')+(m.gustKt?' \u00b7 raffiche '+m.gustKt+'kt: valuta il caso peggiore':'')
+      : 'METAR non interpretabile: compila i campi a mano.';
+  }
+  render();
+}
+if($('btnMetarFill')) $('btnMetarFill').addEventListener('click', fillToldFromMetar);
+['toldRwyDep','toldRwyDest'].forEach(id=>{ if($(id)) $(id).addEventListener('change', ()=>{ onRunwayChange(id); render(); }); });
+
+/* Riquadro dei risultati TOLD nel wizard. */
+function toldBoxHTML(t){
+  if(!t.ok) return `<div style="color:#ffd479;font-size:12px">${esc(t.reason||'Dati insufficienti.')}</div>`;
+  const cell=(lbl,val,unit)=>`<td style="padding:2px 10px 2px 0">${lbl}</td><td style="text-align:right;padding:2px 14px 2px 0"><b>${val}</b> ${unit}</td>`;
+  const marg=(m,code)=>{
+    if(!m) return `<span style="color:#8fa3b8">${code} non inserita</span>`;
+    const pct=Math.round(m.req/m.avail*100);
+    const col = m.margin<0 ? '#ff7a7a' : (pct>85 ? '#ffd479' : '#7fd18b');
+    const state = m.margin<0 ? `SUPERATA di ${Math.round(-m.margin)} m` : `${Math.round(m.margin)} m di margine`;
+    return `<span style="color:${col}">${code} ${m.avail} m &middot; richiesti ${m.req} m &middot; ${pct}% &middot; ${state}</span>`;
+  };
+  return `<table style="font-family:'Courier New',monospace;font-size:11.5px;color:#dbe4ee">
+    <tr><td colspan="4" style="color:#8fa3b8;padding-top:4px">DECOLLO &mdash; ${esc(txt('depAirport'))} rwy ${esc(txt('depRunway'))} &middot; ${Math.round(t.to.mass)} kg</td></tr>
+    <tr>${cell('Alt. pressione',t.to.pa,'ft')}${cell('Alt. densit&agrave;',t.to.da,'ft')}</tr>
+    <tr>${cell('ISA',(t.to.isaDev>=0?'+':'')+t.to.isaDev,'&deg;C')}${cell(t.to.head>=0?'Vento frontale':'Vento in coda',Math.abs(t.to.head),'kt')}</tr>
+    <tr>${cell('Traverso',t.to.cross,'kt')}${cell('Corsa al suolo',t.to.ground,'m')}</tr>
+    <tr>${cell('Distanza per 15 m',t.to.total,'m')}<td colspan="2"></td></tr>
+    <tr><td colspan="4" style="padding:3px 0">${marg(t.tora,'TORA')}</td></tr>
+    <tr><td colspan="4" style="padding-bottom:6px">${marg(t.toda,'TODA')}</td></tr>
+    <tr><td colspan="4" style="color:#8fa3b8;border-top:1px solid #25384c;padding-top:6px">ATTERRAGGIO &mdash; ${esc(txt('destAirport'))} rwy ${esc(txt('destRunway'))} &middot; ${Math.round(t.ld.mass)} kg</td></tr>
+    <tr>${cell('Alt. pressione',t.ld.pa,'ft')}${cell('Alt. densit&agrave;',t.ld.da,'ft')}</tr>
+    <tr>${cell(t.ld.head>=0?'Vento frontale':'Vento in coda',Math.abs(t.ld.head),'kt')}${cell('Traverso',t.ld.cross,'kt')}</tr>
+    <tr>${cell('Corsa al suolo',t.ld.ground,'m')}${cell('Distanza da 15 m',t.ld.total,'m')}</tr>
+    <tr><td colspan="4" style="padding:3px 0">${marg(t.lda,'LDA')}</td></tr>
+  </table>`;
+}
+function toldWarnsHTML(t){
+  const col={red:'#ff7a7a',amber:'#ffd479',grey:'#8fa3b8'};
+  return (t.warns||[]).map(w=>`<div style="font-size:11px;color:${col[w.level]};margin:3px 0"><b>${w.label}:</b> ${esc(w.text)}</div>`).join('');
+}
+
 function togglePreview(){
   previewOpen=!previewOpen;
   const stage=$('stage');
@@ -1437,58 +2102,6 @@ function togglePreview(){
   if(previewOpen) render();
 }
 
-/* ============================ M&B upload (solo anteprima immagine) ============================ */
-/* Nessuna estrazione/OCR/AI/crop: l'utente inserisce ZFW e TOW a mano nei campi.
-   Il PDF (o immagine) caricato serve solo a essere allegato come immagine nella
-   pagina Mass & Balance dell'OFP finale. */
-const mbDrop=$('mbDrop'), mbFile=$('mbFile'), mbStatus=$('mbStatus'), mbThumb=$('mbThumb');
-mbDrop.addEventListener('click',()=>mbFile.click());
-mbDrop.addEventListener('dragover',e=>{e.preventDefault();mbDrop.style.borderColor='#2f6df6'});
-mbDrop.addEventListener('dragleave',()=>mbDrop.style.borderColor='');
-mbDrop.addEventListener('drop',e=>{e.preventDefault();mbDrop.style.borderColor='';if(e.dataTransfer.files[0])handleMB(e.dataTransfer.files[0])});
-mbFile.addEventListener('change',e=>{if(e.target.files[0])handleMB(e.target.files[0])});
-
-function handleMB(file){
-  if(file.type==='application/pdf'){
-    mbStatus.className='mb-status busy'; mbStatus.textContent='\u23f3 Carico il foglio\u2026';
-    const reader=new FileReader();
-    reader.onload=async ()=>{
-      try{
-        const pdf=await pdfjsLib.getDocument({data:reader.result.slice(0)}).promise;
-        const page=await pdf.getPage(1);
-        const viewport=page.getViewport({scale:2.0});
-        const canvas=document.createElement('canvas');
-        canvas.width=viewport.width; canvas.height=viewport.height;
-        await page.render({canvasContext:canvas.getContext('2d'), viewport}).promise;
-        window.__mbImg=canvas.toDataURL('image/png');
-        mbThumb.src=window.__mbImg; mbThumb.style.display='block';
-        mbStatus.className='mb-status ok'; mbStatus.textContent='\u2713 Foglio allegato \u2014 inserisci ZFW e TOW nei campi qui sotto.';
-      }catch(err){
-        mbStatus.className='mb-status'; mbStatus.textContent='Non riesco ad aprire questo PDF \u2014 puoi comunque inserire ZFW/TOW a mano.';
-      }
-    };
-    reader.readAsArrayBuffer(file);
-    return;
-  }
-  // immagine (screenshot)
-  const reader=new FileReader();
-  reader.onload=()=>{
-    window.__mbImg=reader.result;
-    mbThumb.src=window.__mbImg; mbThumb.style.display='block';
-    mbStatus.className='mb-status ok'; mbStatus.textContent='\u2713 Foglio allegato \u2014 inserisci ZFW e TOW nei campi qui sotto.';
-  };
-  reader.readAsDataURL(file);
-}
-
-
-
-/* ====================================================================
-   BRIEFING WX & NOTAM — upload di un unico PDF, testo letto con pdf.js
-   (getTextContent), poi smistato per aeroporto usando i codici ICAO già
-   inseriti in pagina 1 (DEP/ARR/ALTN). Parsing euristico: i formati dei
-   briefing WX/NOTAM variano molto da fornitore a fornitore, quindi questo
-   è un "best effort" — i campi restano comunque modificabili a mano.
-   ==================================================================== */
 const wxDrop=$('wxDrop'), wxFile=$('wxFile'), wxStatus=$('wxStatus'), wxRetryBtn=$('wxRetryBtn');
 wxDrop.addEventListener('click',()=>wxFile.click());
 wxDrop.addEventListener('dragover',e=>{e.preventDefault();wxDrop.style.borderColor='#2f6df6'});
@@ -2077,6 +2690,64 @@ function patchDocText(doc){
   doc.splitTextToSize=function(text,w,o){ return origSplit(pdfSafe(text),w,o); };
   return doc;
 }
+/* Grafico di centraggio disegnato vettorialmente nel PDF: stessa geometria della
+   versione SVG dell'anteprima, cosi' i due non possono divergere. */
+function drawCgChart(doc, w, x, y, boxW, boxH){
+  const ml=x+16, mr=x+boxW-3, mt=y+3, mb=y+boxH-9;
+  const R=cgChartRange(w);
+  const X=m=>ml+(m-R.mMin)/(R.mMax-R.mMin)*(mr-ml);
+  const Y=kg=>mb-(kg-R.wMin)/(R.wMax-R.wMin)*(mb-mt);
+
+  doc.setFontSize(5.2);
+  // griglia
+  doc.setLineWidth(0.08); doc.setDrawColor(205);
+  for(let kg=Math.ceil(R.wMin/100)*100; kg<=R.wMax; kg+=100){
+    doc.line(ml,Y(kg),mr,Y(kg));
+    doc.setTextColor(90); doc.text(String(kg), ml-1.2, Y(kg)+0.8, {align:'right'});
+  }
+  for(let m=Math.ceil(R.mMin/200)*200; m<=R.mMax; m+=200){
+    doc.line(X(m),mt,X(m),mb);
+    doc.setTextColor(90); doc.text(String(m), X(m), mb+3, {align:'center'});
+  }
+  doc.setTextColor(0);
+
+  const poly=(pts,dash)=>{
+    doc.setLineDash(dash||[],0);
+    for(let i=0;i<pts.length;i++){
+      const a=pts[i], b=pts[(i+1)%pts.length];
+      doc.line(X(a[1]),Y(a[0]),X(b[1]),Y(b[0]));
+    }
+    doc.setLineDash([]);
+  };
+  doc.setDrawColor(10,125,60); doc.setLineWidth(0.35); poly(cgEnvelopePoly('normal'));
+  doc.setDrawColor(169,107,16); doc.setLineWidth(0.25); poly(cgEnvelopePoly('utility'),[1.2,0.8]);
+
+  // linea di carico e punti del volo
+  const pts=cgPlotPoints(w);
+  doc.setDrawColor(0,51,170); doc.setLineWidth(0.3); doc.setLineDash([1,0.7],0);
+  for(let i=0;i<pts.length-1;i++) doc.line(X(pts[i].m),Y(pts[i].w),X(pts[i+1].m),Y(pts[i+1].w));
+  doc.setLineDash([]);
+  const off=[[1.8,-1.4],[1.8,1.2],[-1.8,2.8]];   // etichette sfalsate: i punti sono vicini
+  pts.forEach((p,i)=>{
+    const inside=cgCheck(p.w, p.w>0?p.m/p.w:0, 'normal').ok;
+    if(inside) doc.setFillColor(0,51,170); else doc.setFillColor(204,0,0);
+    doc.circle(X(p.m),Y(p.w),0.8,'F');
+    const [dx,dy]=off[i]||[1.8,-1.4];
+    doc.setFontSize(5.5); doc.setFont('courier','bold');
+    doc.text(p.lbl, X(p.m)+dx, Y(p.w)+dy, dx<0?{align:'right'}:undefined);
+    doc.setFont('courier','normal');
+  });
+
+  doc.setDrawColor(120); doc.setLineWidth(0.15); doc.rect(ml,mt,mr-ml,mb-mt);
+  doc.setDrawColor(0);
+  doc.setFontSize(5.2); doc.setTextColor(60);
+  doc.text('Momento kg*m', ml, y+boxH-1);
+  doc.text('Massa kg', x, mt+2);
+  doc.text('linea continua = NORMAL 1157 kg   tratteggiata = UTILITY 998 kg', mr, y+boxH-1, {align:'right'});
+  doc.setTextColor(0);
+  doc.setFontSize(FS_BODY);
+}
+
 function monoLine(doc,x,y,s){ doc.text(s,x,y); return y+LH; }
 function dotted(doc,x1,x2,y){ doc.setLineDash([0.5,0.8],0); doc.setLineWidth(0.2); doc.line(x1,y,x2,y); doc.setLineDash([]); }
 
@@ -2183,25 +2854,18 @@ function buildPDF(){
   const towChk=cgCheck(w.tow.w,w.tow.arm,'normal'), lim=cgLimits(w.tow.w,'normal');
   const utilChk=cgCheck(w.tow.w,w.tow.arm,'utility');
   doc.setFontSize(7.5);
-  doc.text(`LIMITS: MTOW/MLW ${num('mtow')} kg - BAGGAGE ${MAX_BAGGAGE_KG} kg - FUEL ${USABLE_FUEL_USG} USG / ${fmt(USABLE_FUEL_USG*L_PER_USG)} L`,L,y); y+=LHmb-0.6;
+  doc.text(`LIMITS: MTOW/MLW ${num('mtow')} kg - BAGGAGE ${MAX_BAGGAGE_KG} kg - FUEL ${USABLE_FUEL_L} L (${USABLE_FUEL_USG} USG)`,L,y); y+=LHmb-0.6;
   doc.text(`CG T/O ${w.tow.arm.toFixed(3)} m - NORMAL envelope ${lim.fwd}-${lim.aft} m - ${towChk.ok?'WITHIN LIMITS':'*** OUT OF LIMITS ***'}`,L,y); y+=LHmb-0.6;
   doc.text(`CATEGORY AVAILABLE: ${utilChk.ok?'UTILITY and NORMAL':'NORMAL'} - VA at ${w.towKg} kg = ${vaFor(w.towKg)} KIAS`,L,y); y+=LHmb-0.6;
   doc.setFontSize(9);
   y+=2;
 
-  const imgTop=y, imgBoxH=Math.max(40, MM.A4H-72-y), imgBoxW=R-L;
-  doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(L,imgTop,imgBoxW,imgBoxH);
-  if(window.__mbImg){
-    try{
-      const props=doc.getImageProperties(window.__mbImg);
-      let iw=imgBoxW-4, ih=iw*props.height/props.width;
-      if(ih>imgBoxH-4){ ih=imgBoxH-4; iw=ih*props.width/props.height; }
-      doc.addImage(window.__mbImg, L+(imgBoxW-iw)/2, imgTop+(imgBoxH-ih)/2, iw, ih);
-    }catch(e){}
-  }else{
-    doc.text('Foglio M&B firmato (facoltativo)', L+imgBoxW/2, imgTop+imgBoxH/2, {align:'center'});
-  }
-  y=imgTop+imgBoxH+6;
+  const chartTop=y, chartH=Math.max(48, MM.A4H-74-y), chartW=R-L;
+  doc.setFont('courier','bold'); doc.setFontSize(8);
+  doc.text('CENTER OF GRAVITY MOMENT ENVELOPE', L, chartTop+2);
+  doc.setFont('courier','normal');
+  drawCgChart(doc, w, L, chartTop+3, chartW, chartH-3);
+  y=chartTop+chartH+4;
   doc.setFont('courier','bold'); y=monoLine(doc,L,y,'REMARKS:'); doc.setFont('courier','normal');
   const rem=txt('mbRemarks').trim();
   if(rem){
@@ -2256,24 +2920,57 @@ function buildPDF(){
   doc.setFontSize(6.5); doc.text(V_FOOTNOTE,L,y); doc.setFontSize(8.5);
   y+=5;
   dotted(doc,L,R,y); y+=6;
-  doc.setFont('courier','bold'); y=monoLine(doc,L,y,'RUNWAY DISTANCE REQUIRED'); doc.setFont('courier','normal');
-  dotted(doc,L,R,y); y+=6;
+  doc.setFont('courier','bold'); y=monoLine(doc,L,y,'TAKE-OFF & LANDING DISTANCES (TOLD)'); doc.setFont('courier','normal');
+  dotted(doc,L,R,y); y+=5;
+  const told = window.__told || computeTold();
   const rwyMidX=L+(R-L)/2+4;
   const yRwyStart=y;
-  // colonna sinistra: DEPARTURE
-  let yDep=yRwyStart;
-  doc.setFont('courier','bold'); doc.text('DEPARTURE',L,yDep); doc.setFont('courier','normal'); yDep+=LH;
-  yDep=monoLine(doc,L,yDep,`Airport: ${txt('depAirport')}   Rwy: ${txt('depRunway')}`); yDep+=1.5;
-  yDep=monoLine(doc,L,yDep,`Ground roll: ${num('toGround')} m`); yDep+=1;
-  yDep=monoLine(doc,L,yDep,`Dist 15m/50ft: ${num('toDist50')} m`);
-  // colonna destra: DESTINATION
-  let yDest=yRwyStart;
-  doc.setFont('courier','bold'); doc.text('DESTINATION',rwyMidX,yDest); doc.setFont('courier','normal'); yDest+=LH;
-  yDest=monoLine(doc,rwyMidX,yDest,`Airport: ${txt('destAirport')}   Rwy: ${txt('destRunway')}`); yDest+=1.5;
-  yDest=monoLine(doc,rwyMidX,yDest,`Ground roll: ${num('ldgGround')} m`); yDest+=1;
-  yDest=monoLine(doc,rwyMidX,yDest,`Dist 15m/50ft: ${num('ldgDist50')} m`);
-  doc.setLineWidth(0.15); doc.line(rwyMidX-6,yRwyStart-3,rwyMidX-6,Math.max(yDep,yDest)-2);
-  y=Math.max(yDep,yDest)+10;
+  const margLine=(m,code)=>{
+    if(!m) return `${code}: --`;
+    const pct=Math.round(m.req/m.avail*100);
+    return m.margin<0
+      ? `${code} ${m.avail} m: REQ ${m.req} m - EXCEEDED BY ${Math.round(-m.margin)} m`
+      : `${code} ${m.avail} m: REQ ${m.req} m (${pct}%) - MARGIN ${Math.round(m.margin)} m`;
+  };
+  if(!told.ok){
+    y=monoLine(doc,L,y, told.reason||'Dati insufficienti per il calcolo TOLD.');
+    y+=4;
+  }else{
+    let yDep=yRwyStart;
+    doc.setFont('courier','bold'); doc.text('DEPARTURE',L,yDep); doc.setFont('courier','normal'); yDep+=LH;
+    yDep=monoLine(doc,L,yDep,`${txt('depAirport')} RWY ${txt('depRunway')}  ${num('toldElevDep')} ft`);
+    yDep=monoLine(doc,L,yDep,`PA ${told.to.pa} ft  DA ${told.to.da} ft  ISA ${told.to.isaDev>=0?'+':''}${told.to.isaDev} C`);
+    yDep=monoLine(doc,L,yDep,`${told.to.head>=0?'HW':'TW'} ${Math.abs(told.to.head)} kt   XW ${told.to.cross} kt   ${Math.round(told.to.mass)} kg`);
+    yDep=monoLine(doc,L,yDep,`Ground roll   : ${told.to.ground} m`);
+    yDep=monoLine(doc,L,yDep,`Dist to 15 m  : ${told.to.total} m`);
+    yDep=monoLine(doc,L,yDep,margLine(told.tora,'TORA'));
+    yDep=monoLine(doc,L,yDep,margLine(told.toda,'TODA'));
+
+    let yDest=yRwyStart;
+    doc.setFont('courier','bold'); doc.text('DESTINATION',rwyMidX,yDest); doc.setFont('courier','normal'); yDest+=LH;
+    yDest=monoLine(doc,rwyMidX,yDest,`${txt('destAirport')} RWY ${txt('destRunway')}  ${num('toldElevDest')} ft`);
+    yDest=monoLine(doc,rwyMidX,yDest,`PA ${told.ld.pa} ft  DA ${told.ld.da} ft  ISA ${told.ld.isaDev>=0?'+':''}${told.ld.isaDev} C`);
+    yDest=monoLine(doc,rwyMidX,yDest,`${told.ld.head>=0?'HW':'TW'} ${Math.abs(told.ld.head)} kt   XW ${told.ld.cross} kt   ${Math.round(told.ld.mass)} kg`);
+    yDest=monoLine(doc,rwyMidX,yDest,`Ground roll   : ${told.ld.ground} m`);
+    yDest=monoLine(doc,rwyMidX,yDest,`Dist from 15 m: ${told.ld.total} m`);
+    yDest=monoLine(doc,rwyMidX,yDest,margLine(told.lda,'LDA'));
+    doc.setLineWidth(0.15); doc.line(rwyMidX-6,yRwyStart-3,rwyMidX-6,Math.max(yDep,yDest)-2);
+    y=Math.max(yDep,yDest)+2;
+    // avvisi rilevanti: solo rossi e ambra, i grigi sono note di metodo
+    const wArr=(told.warns||[]).filter(x=>x.level!=='grey');
+    if(wArr.length){
+      doc.setFontSize(6.5);
+      wArr.slice(0,4).forEach(x=>{
+        const lines=doc.splitTextToSize('! '+x.label+': '+x.text, R-L);
+        doc.text(lines,L,y); y+=lines.length*3.1;
+      });
+      doc.setFontSize(8.5);
+    }
+    y+=4;
+  }
+  doc.setFontSize(6.5);
+  doc.text('Condizioni: '+txt('toldSurface')+', QNH '+num('toldQnh')+', OAT '+num('toldOat')+' C, vento '+(txt('toldWindDir')||'---')+'/'+num('toldWindKt')+' kt. AFM fig. 5-4 e 5-5.',L,y);
+  doc.setFontSize(8.5); y+=5;
 
   const cAlt=num('pwrAlt')||num('cruisePerfAlt');
   const sel=currentPowerRow();
@@ -2537,6 +3234,7 @@ const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route','cruisealt',
   'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
   'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50','cruisePerfAlt',
+  'toldQnh','toldOat','toldWindDir','toldWindKt','toldSurface','toldElevDep','toldHdgDep','toldElevDest','toldHdgDest','tora','toda','lda',
   'noteTrack','noteRunway','noteAlt','noteClear','noteTiming','noteGround','noteRadios','noteSpecials',
   'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','destProc','destThreats','destMit','acStatus','briefRemarks'];
 // Campi meteo/NOTAM (weather_data)
@@ -2641,13 +3339,15 @@ const NEW_FLIGHT_DEFAULTS = {
   mtow:'1157',               // MTOW categoria NORMALE (2550 lb)
   mldw:'1157',               // MLW: il FR172J atterra allo stesso peso massimo
   toGround:'226', toDist50:'375',   // AFM fig. 5-4 a 1157 kg, SL, +15C, vento nullo
-  ldgGround:'189', ldgDist50:'387'  // AFM fig. 5-5 a 1157 kg, SL, +15C, vento nullo
+  ldgGround:'189', ldgDist50:'387', // AFM fig. 5-5 a 1157 kg, SL, +15C, vento nullo
+  toldQnh:'1013', toldOat:'15', toldWindDir:'', toldWindKt:'0', toldSurface:'hard',
+  toldElevDep:'0', toldHdgDep:'', toldElevDest:'0', toldHdgDest:'',
+  tora:'', toda:'', lda:''
 };
 
 function newFlight(){
   if(!confirm('Creare un nuovo foglio? I dati non salvati andranno persi.')) return;
   window.__editingFlightId=null;
-  window.__mbImg=null;
   window.__wxCharts=null;
   window.__wxPrintedAt=null;
   // svuota OGNI campo di input/select/textarea del wizard...
@@ -2658,8 +3358,6 @@ function newFlight(){
   // ...poi ripristina SOLO i default previsti
   Object.keys(NEW_FLIGHT_DEFAULTS).forEach(id=>{ if($(id)) $(id).value=NEW_FLIGHT_DEFAULTS[id]; });
   // reset anteprime/stati
-  if($('mbThumb')){ $('mbThumb').src=''; $('mbThumb').style.display='none'; }
-  if($('mbStatus')) $('mbStatus').textContent='';
   if(typeof window.__chartImgs!=='undefined'){ window.__chartImgs=[]; if(typeof renderChartThumbs==='function') renderChartThumbs(); }
   if($('chartThumbs')) $('chartThumbs').innerHTML='';
   if($('wxStatus')) $('wxStatus').textContent='';

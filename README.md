@@ -58,9 +58,18 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
 
 ## Flusso di lavoro
 
-1. **Volo & Aeromobile** — rotta, aeroporti, orari stimati.
-2. **Rotta & Fuel** — trip, alternato, riserve. Contingency = max(5% trip, 15');
-   Final Reserve 30' VFR / 45' IFR. Avvisa se il block supera i 46 USG imbarcabili.
+1. **Volo & Aeromobile** — rotta, aeroporti, orari stimati. Il pulsante
+   **Cerca aeroporti su OurAirports** recupera coordinate, elevazione e piste e
+   compila distanza Trip, distanza e tempo dell'alternato, elevazioni, orientamenti
+   pista e le distanze dichiarate di partenza.
+2. **Rotta & Fuel** — **settaggio di potenza** (quota + RPM + MAP): i menu offrono
+   solo le combinazioni pubblicate dal POH per quella quota e mostrano la
+   percentuale di potenza; scegliendone una, **Ground Speed e Fuel Flow del Trip si
+   compilano da soli**. L'alternato usa sempre il settaggio fisso **22 inHg / 2400
+   RPM**. Trip, alternato, riserve (contingency = max 5% trip / 15', final reserve
+   30' VFR o 45' IFR) e il campo **Fuel on board**, che serve solo a ricavare
+   l'extra e il tempo extra e non compare nel documento finale.
+   Tutto il carburante in **litri**, i consumi in **L/h**, le velocità in **MPH**.
 3. **Mass & Balance** — foglio di carico e centraggio completo, con la stessa
    struttura e gli stessi bracci del *W. & B. Loading Form* dell'aeroclub
    (Pesi e Bilanciamento Rev. 14). Si sceglie l'aeromobile (**I-CCAF** o
@@ -70,8 +79,11 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
    masse, bagaglio e **inviluppo di centraggio** al decollo e a entrambi gli
    atterraggi. Mostra anche la **VA alla massa effettiva**. Il PDF del foglio
    firmato può essere allegato come immagine.
-4. **Performance** — V-speeds per peso, distanze pista, setting di crociera
-   (MP / RPM / TAS / consumo) interpolato in quota.
+4. **Performance** — V-speeds per peso, tabella POH completa della quota
+   pianificata, e calcolo **TOLD**: pressure/density altitude, componenti di vento,
+   corsa al suolo e distanza per 15 m al decollo e all'atterraggio, confrontate con
+   **TORA, TODA e LDA**. Prende QNH, temperatura e vento dal METAR con un clic,
+   elevazione e pista da OurAirports, e la massa dal Mass & Balance.
 5. **Dest Charts** — fino a 2 cartine, più le note operative.
 6. **Briefing** — threat & error management per fase, stato aeromobile, remarks.
 7. **NOTAM & Weather** — carica il PDF del briefing: data/ora di emissione,
@@ -105,10 +117,36 @@ il NOTAM si trova. Le intestazioni sono riconosciute come `ICAO - Nome`
 Quello che il parser non riconosce resta comunque **correggibile a mano** in ogni
 campo prima di generare il PDF.
 
+## Dati aeroportuali — OurAirports
+
+Coordinate, elevazione e piste vengono dal database aperto
+[OurAirports](https://ourairports.com/data/) (dominio pubblico), letto dalla copia
+versionata su GitHub Pages. Non esiste un'API REST: si scaricano i CSV e si tengono
+solo gli aeroporti che servono. In browser il download avviene una volta per
+sessione e ogni ICAO finisce in `localStorage`; sotto Apps Script lo fa il server
+(`lookupAirports`), con cache condivisa nelle ScriptProperties.
+
+L'**orientamento magnetico** della pista viene dal designatore (`17` → 170°), che
+per definizione ICAO *è* la direzione magnetica arrotondata alla decina: il campo
+`le_heading_degT` del CSV è invece vero e richiederebbe la declinazione, che
+OurAirports non pubblica.
+
+> **TORA / TODA / LDA:** OurAirports pubblica la **lunghezza fisica** della pista,
+> non le distanze dichiarate, che stanno solo nell'AIP. I campi vengono
+> precompilati con la lunghezza fisica come punto di partenza e vanno corretti
+> dall'AIP: su piste con stopway, clearway o soglia spostata i valori non
+> coincidono.
+
 ## Limiti noti
 
-- Il centraggio è verificato contro l'inviluppo dell'AFM, ma **non viene disegnato
-  il diagramma** momento/peso (AFM fig. 6-5 / 6-6): l'esito è numerico.
+- Il **grafico di centraggio** è costruito sull'inviluppo momento/massa dell'AFM
+  (fig. 6-6). Non è stato possibile replicare quello del file Excel citato nella
+  richiesta perché quel file non è mai arrivato: inviarlo permette di allinearne
+  stile e scale.
+- L'integrazione OurAirports **non è stata provata contro il servizio reale**:
+  l'ambiente di sviluppo non ha accesso a quel dominio. Parser, cache e
+  autocompilazione sono verificati su dati di prova; al primo uso, se il servizio
+  non risponde, l'applicazione lo dice e lascia tutti i campi compilabili a mano.
 - I pesi a vuoto sono quelli del foglio Rev. 14. Dopo una nuova pesata vanno
   aggiornati (opzione **Altro** nel selettore, o `AIRCRAFT` in `index.html`).
 - Le distanze pista sono campi liberi con i default AFM a livello del mare: le
