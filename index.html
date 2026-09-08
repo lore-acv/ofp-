@@ -199,7 +199,8 @@
       <div class="panel" data-step="2">
         <p class="step-title">Rotta &amp; Fuel</p>
         <p class="step-sub">Trip e Alternate calcolati con dist / GS &times; fuel-flow.
-          Conversione AVGAS: <b>1 USG = 2.72 kg</b> &middot; <b>1 L = 0.72 kg</b> (1 USG = 3.785 L).
+          Conversione AVGAS: <b>1 L = 0.72 kg</b> &middot; 1 USG = 3.785 L, quindi <b>1 USG = 2.725 kg</b>
+          (la catena usata dal foglio M&amp;B dell'aeroclub; 2.72 e' lo stesso valore arrotondato).
           Serbatoi C172 FR: <b>46 USG / 174 L utilizzabili</b>.</p>
         <div class="group">
           <h3>Trip</h3>
@@ -250,34 +251,67 @@
       <!-- STEP 3 -->
       <div class="panel" data-step="3">
         <p class="step-title">Mass &amp; Balance</p>
-        <p class="step-sub">Inserisci ZFW e TOW a mano (li leggi dal tuo foglio M&amp;B). Puoi anche caricare il PDF del foglio: verrà allegato come immagine nella pagina M&amp;B dell'OFP.</p>
+        <p class="step-sub">Foglio di carico e centraggio, con la stessa struttura e gli stessi bracci del
+          <b>W. &amp; B. Loading Form</b> dell'aeroclub (Pesi e Bilanciamento Rev. 14). Il carburante arriva
+          dallo Step 2: qui inserisci solo occupanti e bagaglio.</p>
         <div class="group">
-          <div class="drop" id="mbDrop">&#128196; Clicca o trascina il PDF del foglio M&amp;B (facoltativo)</div>
-          <input type="file" id="mbFile" accept="image/*,application/pdf" hidden>
-          <div class="mb-status" id="mbStatus"></div>
-          <img class="mb-thumb" id="mbThumb">
+          <h3>Aeromobile</h3>
+          <div class="row">
+            <div class="fld"><label>Immatricolazione</label>
+              <select id="acSelect">
+                <option value="I-CCAF">I-CCAF &mdash; Cessna C172FR</option>
+                <option value="I-CCAB">I-CCAB &mdash; Cessna C172FR</option>
+                <option value="CUSTOM">Altro / peso a vuoto aggiornato&hellip;</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>Basic Empty Weight (kg)</label><input id="bew" type="number" step="0.1" value="716.1"></div>
+            <div class="fld"><label>Moment BEW (kg&middot;m)</label><input id="bewMoment" type="number" step="0.0001" value="693.9009"></div>
+          </div>
+          <div class="calc" id="bewCalc"></div>
+          <div class="hint">Peso a vuoto e momento presi dal foglio dell'aeroclub. Scegliendo un aeromobile i due
+            campi si compilano da soli e restano in sola lettura; con <b>Altro</b> li inserisci a mano, per esempio
+            dopo una nuova pesata. Il <b>momento</b> è il dato che conta: il braccio viene ricavato da momento&divide;peso.</div>
         </div>
         <div class="group">
-          <div class="row"><div class="fld"><label>EPOB / POB</label><input id="pob" type="number" value="1"></div></div>
+          <h3>Carico</h3>
           <div class="row">
-            <div class="fld"><label>ZFW (kg)</label><input id="zfw" type="number" value="780"></div>
-            <div class="fld"><label>TOW (kg) &mdash; rif. foglio M&amp;B</label><input id="tow" type="number" value="900"></div>
+            <div class="fld"><label>Pilota + pax anteriore (kg)</label><input id="paxFront" type="number" value="85"></div>
+            <div class="fld"><label>Pax posteriori (kg)</label><input id="paxRear" type="number" value="0"></div>
           </div>
-          <div class="hint">ZFW = "empty fuel tanks" (riga 7). TOW = "including fuel" (riga 9). Il TOW operativo usato nei calcoli è mostrato sotto.</div>
-          <div class="calc" id="towCalc"></div>
-          <div class="calc" id="ldwCalc"></div>
-          <div class="calc" id="altwCalc"></div>
+          <div class="row">
+            <div class="fld"><label>Bagaglio (kg, max 91)</label><input id="baggage" type="number" value="0"></div>
+            <div class="fld"><label>EPOB / POB</label><input id="pob" type="number" value="1"></div>
+          </div>
+          <div class="calc" id="loadCalc"></div>
+        </div>
+        <div class="group">
+          <h3>Risultato</h3>
+          <div id="mbTableBox"></div>
+          <div class="calc" id="mbLimitCalc"></div>
+          <div class="calc" id="cgCalc"></div>
+          <input id="zfw" type="hidden" value="0">
           <div class="row" style="margin-top:9px">
             <div class="fld"><label>MZFW</label><input id="mzfw" type="number" value="1157"></div>
             <div class="fld"><label>MTOW</label><input id="mtow" type="number" value="1157"></div>
             <div class="fld"><label>MLAW</label><input id="mldw" type="number" value="1157"></div>
           </div>
-          <div class="hint">Limiti AFM Reims Rocket FR172J (sez. II &mdash; Limitations, pag. 2-2):
-            <b>MTOW = MLW = 1157 kg</b> (2550 lb) in categoria <b>NORMALE</b>;
-            <b>998 kg</b> (2200 lb) in categoria <b>UTILITY</b> (bagagliaio e sedili posteriori devono restare vuoti).
-            L'AFM <b>non pubblica un MZFW</b> separato: il campo e' precompilato al MTOW perch&eacute; il vincolo
-            reale e' la massa massima pi&ugrave; l'inviluppo di centraggio. Bagaglio max <b>91 kg</b> (200 lb).</div>
-          <div class="calc" id="mbLimitCalc"></div>
+          <div class="hint">Limiti AFM Reims Rocket FR172J (sez. II, pag. 2-2/2-3):
+            <b>MTOW = MLW = 1157 kg</b> (2550 lb) categoria <b>NORMALE</b>, <b>998 kg</b> (2200 lb) categoria
+            <b>UTILITY</b> (bagagliaio e sedili posteriori vuoti). L'AFM <b>non pubblica un MZFW</b>: il campo
+            resta al MTOW perché il vincolo reale è massa massima + inviluppo di centraggio.
+            Bagaglio max <b>91 kg</b>. Inviluppo CG &mdash; Normale: avanti da +0,89 m (&le;885 kg) a +1,04 m
+            (1157 kg), indietro +1,20 m. Utility: avanti da +0,89 m a +0,95 m (998 kg), indietro +1,03 m.</div>
+        </div>
+        <div class="group">
+          <h3>Foglio M&amp;B firmato (facoltativo)</h3>
+          <div class="drop" id="mbDrop">&#128196; Clicca o trascina il PDF del foglio M&amp;B</div>
+          <input type="file" id="mbFile" accept="image/*,application/pdf" hidden>
+          <div class="mb-status" id="mbStatus"></div>
+          <img class="mb-thumb" id="mbThumb">
+          <div class="hint">Se lo carichi, viene allegato come immagine nella pagina M&amp;B dell'OFP accanto al
+            prospetto calcolato qui sopra.</div>
           <div class="fld" style="margin-top:8px"><label>Remarks (M&amp;B)</label><textarea id="mbRemarks"></textarea></div>
         </div>
       </div>
@@ -475,12 +509,19 @@ function $(id){ return document.getElementById(id); }
    elica a giri costanti (da cui la Manifold Pressure nelle tabelle di crociera).
    Ogni costante qui sotto e' presa dal Flight Manual Reims Rocket, Edition 3.
 
-   CARBURANTE — AVGAS: il manuale (Sample Loading Problem, fig. 6-4) usa
+   CARBURANTE — AVGAS. Il manuale (Sample Loading Problem, fig. 6-4) usa
    174 litri = 125,2 kg, cioe' 0,72 kg/litro; 46 US gallons = 174 litri, da cui
-   1 USG = 2,72 kg. Le due conversioni sono quindi coerenti fra loro. */
-const KG_PER_USG   = 2.72;   // 1 US gallon AVGAS = 2,72 kg   (AFM fig. 6-4)
-const KG_PER_LITRE = 0.72;   // 1 litro AVGAS     = 0,72 kg   (AFM fig. 6-4)
-const L_PER_USG    = 3.785;  // conversione volumetrica USG -> litri
+   1 USG e' circa 2,72 kg.
+
+   La massa NON si ricava pero' moltiplicando per il 2,72 arrotondato: il W. & B.
+   Loading Form dell'aeroclub passa sempre dai litri -- <USG> x 3,785 x 0,72 -- ed
+   e' quella la catena riprodotta qui, cosi' i pesi calcolati coincidono con quelli
+   del foglio firmato invece di scostarsene di qualche etto. Il risultato, 2,7252
+   kg/USG, e' comunque lo stesso 2,72 con una cifra in piu': su un pieno completo
+   la differenza e' circa 0,2 kg. */
+const KG_PER_LITRE = 0.72;   // 1 litro AVGAS = 0,72 kg     (AFM fig. 6-4)
+const L_PER_USG    = 3.785;  // 1 US gallon   = 3,785 litri (foglio aeroclub)
+const KG_PER_USG   = L_PER_USG*KG_PER_LITRE;   // = 2,7252 kg/USG
 const USABLE_FUEL_USG = 46;  // carburante utilizzabile totale (AFM fig. 1-4: 46 USG / 174 L)
 
 /* Limiti operativi (AFM sez. II — Limitations, pag. 2-2 / 2-4). */
@@ -562,15 +603,97 @@ function computeFuel(){
   return {cruiseTime,tripTime,tripFuel,altTime,altFuel,contMin,contFuel,finMin,finFuel,
           taxiMin,taxiFuel,exMin,exFuel,minBlockFuel,minBlockTime,toffFuel,toffTime,blockFuel,blockTime};
 }
+/* ===================== PESI E BILANCIAMENTO =====================
+   Struttura, bracci e catena dei pesi presi dal "W. & B. LOADING FORM"
+   dell'aeroclub (Pesi e Bilanciamento Rev. 14), fogli I-CCAF e I-CCAB.
+
+   I bracci delle stazioni sono identici sui due esemplari (sono di cellula):
+   pilota + pax anteriore 0,94 m, pax posteriori 1,86 m, bagaglio 2,41 m,
+   carburante 1,23 m. Cambiano solo peso a vuoto e momento a vuoto.
+
+   Si memorizza il MOMENTO, non il braccio: sul foglio di I-CCAB il braccio
+   scritto in cella (0,94 m) non corrisponde al momento (683,0 kg·m su 724,0 kg,
+   cioè 0,94337 m), ed è il momento quello che il foglio propaga davvero nei
+   calcoli. Ricavare il braccio da momento÷peso riproduce quindi esattamente i
+   numeri dell'aeroclub, mentre moltiplicare peso × braccio scritto no. */
+const AIRCRAFT = {
+  'I-CCAF': { type:'CESSNA C172FR', bew:716.1, bewMoment:693.9009 },  // braccio 0,969 m
+  'I-CCAB': { type:'CESSNA C172FR', bew:724.0, bewMoment:683.0    },  // braccio 0,94337 m
+};
+const ARM = { front:0.94, rear:1.86, baggage:2.41, fuel:1.23 };  // metri, dal foglio aeroclub
+const MAX_BAGGAGE_KG = 91;                                       // AFM pag. 2-3
+
+/* Inviluppo di centraggio, AFM sez. II pag. 2-2/2-3. Il limite anteriore è una
+   retta fra i due punti pubblicati; quello posteriore è costante. */
+const CG_ENVELOPE = {
+  normal : { maxW:1157, fwd:[[885,0.89],[1157,1.04]], aft:1.20 },
+  utility: { maxW: 998, fwd:[[885,0.89],[ 998,0.95]], aft:1.03 },
+};
+function cgLimits(weight, category){
+  const e = CG_ENVELOPE[category] || CG_ENVELOPE.normal;
+  const [[w1,a1],[w2,a2]] = e.fwd;
+  let fwd;
+  if(weight<=w1) fwd=a1;
+  else if(weight>=w2) fwd=a2;
+  else fwd = a1 + (a2-a1)*(weight-w1)/(w2-w1);
+  return { fwd:Math.round(fwd*1000)/1000, aft:e.aft, maxW:e.maxW };
+}
+/* Verifica peso + centraggio in una categoria. */
+function cgCheck(weight, arm, category){
+  const lim = cgLimits(weight, category);
+  return {
+    category, ...lim,
+    weightOk: weight<=lim.maxW,
+    cgOk: arm>=lim.fwd && arm<=lim.aft,
+    ok: weight<=lim.maxW && arm>=lim.fwd && arm<=lim.aft
+  };
+}
+/* Velocità di manovra alla massa effettiva. L'AFM pubblica VA = 104 kt a 1157 kg
+   (pag. 2-1); VA scala con la radice del rapporto delle masse, come nel foglio
+   dell'aeroclub — che fa lo stesso conto in MPH partendo dai 61 MPH di stallo. */
+function vaFor(weight){
+  if(!(weight>0)) return AC_LIMITS.va;
+  return Math.round(AC_LIMITS.va*Math.sqrt(Math.min(weight,AC_LIMITS.mtowNormal)/AC_LIMITS.mtowNormal));
+}
+
+/* Catena dei pesi, identica al foglio dell'aeroclub:
+     ZFW      = BEW + pilota/anteriore + posteriori + bagaglio
+     RAMP     = ZFW + carburante a bordo (Plan Block dello Step 2)
+     TOW      = RAMP − taxi
+     LDW dest = TOW − trip
+     LDW altn = LDW dest − alternato − riserva finale
+   L'ultima riga segue la definizione del foglio, "ALTN. LANDING WEIGHT (No
+   Holding / Reserve Fuel)": è il peso all'alternato avendo bruciato anche la
+   riserva, cioè il caso più leggero. Contingency ed extra restano a bordo perché
+   non sono carburante che si pianifica di consumare. */
 function weights(f){
-  // TOW = ZFW + (Planned Block Fuel kg − Taxi Fuel kg): il peso al decollo è lo ZFW
-  // (estratto dal M&B) più il carburante realmente a bordo dopo il rullaggio, come
-  // da formula ufficiale — non più un valore indipendente preso a sé.
-  const zfw = num('zfw');
-  const tow = Math.round(zfw + (f.blockFuel-f.taxiFuel)*KG_PER_USG);
-  const ldw=Math.round(tow-f.tripFuel*KG_PER_USG);
-  const altw=Math.round(ldw-f.altFuel*KG_PER_USG);
-  return {tow,ldw,altw};
+  const bew = num('bew'), bewMom = num('bewMoment');
+  const rows = [
+    ['BASIC EMPTY WEIGHT', bew, bew>0 ? bewMom/bew : 0, bewMom],
+    ['PILOT AND FRONT PASSENGER', num('paxFront'), ARM.front, num('paxFront')*ARM.front],
+    ['REAR PASSENGERS',           num('paxRear'),  ARM.rear,  num('paxRear')*ARM.rear],
+    ['BAGGAGE',                   num('baggage'),  ARM.baggage, num('baggage')*ARM.baggage],
+  ];
+  const zfw    = rows.reduce((a,r)=>a+r[1],0);
+  const zfwMom = rows.reduce((a,r)=>a+r[3],0);
+
+  const kg = (usg)=>usg*KG_PER_USG;
+  const fob = kg(f.blockFuel), taxi = kg(f.taxiFuel), trip = kg(f.tripFuel),
+        altn = kg(f.altFuel),  fin  = kg(f.finFuel);
+
+  const mk = (w,m)=>({w, m, arm: w>0 ? m/w : 0});
+  const ramp = mk(zfw+fob,               zfwMom+fob*ARM.fuel);
+  const tow  = mk(ramp.w-taxi,           ramp.m-taxi*ARM.fuel);
+  const ldw  = mk(tow.w-trip,            tow.m-trip*ARM.fuel);
+  const altw = mk(ldw.w-altn-fin,        ldw.m-(altn+fin)*ARM.fuel);
+
+  return {
+    rows, zfw, zfwMom, zfwArm: zfw>0 ? zfwMom/zfw : 0,
+    fuel:{fob, taxi, trip, altn, fin, fobLitres: f.blockFuel*L_PER_USG},
+    ramp, tow, ldw, altw,
+    // compatibilità con il resto dell'applicazione, che lavora sui pesi arrotondati
+    towKg: Math.round(tow.w), ldwKg: Math.round(ldw.w), altwKg: Math.round(altw.w)
+  };
 }
 
 /* ============================ POH reference tables ============================ */
@@ -794,30 +917,50 @@ ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
 }
 
 function pageMB(f,w){
-  const grid=
-    `EPOB   <span class="filled">${padL(num('pob'),3)}</span>    POB\n`+
-    `EZFW   <span class="filled">${padL(num('zfw'),4)}</span>   MZFW   ${padL(num('mzfw'),4)}\n`+
-    `ETOW   <span class="filled">${padL(w.tow,4)}</span>   MTOW   ${padL(num('mtow'),4)}\n`+
-    `ELDW   <span class="filled">${padL(w.ldw,4)}</span>   MLAW   ${padL(num('mldw'),4)}\n`+
-    `ALTN W <span class="filled">${padL(w.altw,4)}</span>`;
-  const img = window.__mbImg ? `<img src="${window.__mbImg}" style="max-width:100%;max-height:120mm">` : `<div style="color:#999;font-size:11px">&mdash; screenshot Mass &amp; Balance &mdash;</div>`;
+  const sh=mbSheetRows(w);
+  const tRow=(l,wt,arm,mom,cls)=>`<tr${cls||''}>
+    <td style="text-align:left;padding:1px 6px 1px 2px">${l}</td>
+    <td style="text-align:right;padding:1px 8px">${fmt(wt)}</td>
+    <td style="text-align:right;padding:1px 8px">${wt>0?arm.toFixed(3):'--'}</td>
+    <td style="text-align:right;padding:1px 2px">${fmt(mom)}</td></tr>`;
+  const head=(l)=>`<tr><td colspan="4" style="font-weight:700;padding:4px 2px 1px;border-bottom:1px solid #000">${l}</td></tr>`;
+  const cols=`<tr style="font-size:9px"><td></td><td style="text-align:right;padding:0 8px">WEIGHT kg</td>
+    <td style="text-align:right;padding:0 8px">ARM m</td><td style="text-align:right">MOMENT kg&middot;m</td></tr>`;
+  const towChk=cgCheck(w.tow.w,w.tow.arm,'normal');
+  const lim=cgLimits(w.tow.w,'normal');
+  const table=`<table style="width:100%;border-collapse:collapse;font-size:10px">
+    ${head('WEIGHT CALCULATION')}${cols}
+    ${sh.load.map(r=>tRow(...r)).join('')}
+    ${tRow(...sh.zfw,' style="font-weight:700;border-top:1px solid #000"')}
+    ${head('FUEL CALCULATION')}
+    ${sh.fuel.map(r=>tRow(...r)).join('')}
+    ${head('RESULT')}
+    ${sh.out.map(r=>tRow(...r,' style="font-weight:700"')).join('')}
+  </table>
+  <div style="font-size:9px;margin-top:3px">
+    LIMITI: MTOW/MLW ${num('mtow')} kg &middot; bagaglio ${MAX_BAGGAGE_KG} kg &middot; fuel ${USABLE_FUEL_USG} USG / ${fmt(USABLE_FUEL_USG*L_PER_USG)} L<br>
+    CG al decollo <b>${w.tow.arm.toFixed(3)} m</b> &mdash; inviluppo NORMAL ${lim.fwd}&ndash;${lim.aft} m &mdash;
+    <b>${towChk.ok?'ENTRO I LIMITI':'FUORI LIMITE'}</b> &middot; VA a ${w.towKg} kg = ${vaFor(w.towKg)} KIAS
+  </div>`;
+  const img = window.__mbImg ? `<img src="${window.__mbImg}" style="max-width:100%;max-height:78mm">` : `<div style="color:#999;font-size:11px">&mdash; foglio M&amp;B firmato (facoltativo) &mdash;</div>`;
   const rem = txt('mbRemarks').trim();
   const body=`
-    <div class="kv" style="font-size:12px;line-height:2">${grid}</div>
-    <div style="border:1px solid #000;padding:5px;min-height:62mm;display:flex;align-items:center;justify-content:center;margin:10px 0">${img}</div>
-    <div style="font-weight:700;font-size:11.5px;margin-top:8px">REMARKS:</div>
-    <div class="kv filled" style="min-height:20px;font-size:11px">${esc(rem)}</div>
+    <div style="font-size:10px;margin-bottom:4px">A/C <span class="filled">${esc(txt('acSelect')==='CUSTOM'?txt('reg'):txt('acSelect'))}</span>
+      &middot; POB <span class="filled">${num('pob')}</span></div>
+    ${table}
+    <div style="border:1px solid #000;padding:4px;min-height:40mm;display:flex;align-items:center;justify-content:center;margin:6px 0">${img}</div>
+    <div style="font-weight:700;font-size:11px">REMARKS:</div>
+    <div class="kv filled" style="min-height:14px;font-size:10px">${esc(rem)}</div>
     <div style="margin-top:auto">
-      <div style="border-top:1px dotted #000;margin:5px 0"></div>
-      <div style="border-top:1px dotted #000;margin:5px 0"></div>
-      <div style="margin-top:16px;font-size:11.5px">PIC: ${esc(txt('picName'))}</div>
-      <div style="font-size:11.5px">..........</div>
+      <div style="border-top:1px dotted #000;margin:4px 0"></div>
+      <div style="margin-top:10px;font-size:11px">PIC: ${esc(txt('picName'))}</div>
+      <div style="font-size:11px">..........</div>
     </div>`;
   return pageShell('MASS AND BALANCE', body, 2);
 }
 
 function pagePerf(f,w){
-  const dep=vspeedsFor(w.tow), dest=vspeedsFor(w.ldw), altn=vspeedsFor(w.altw);
+  const dep=vspeedsFor(w.towKg), dest=vspeedsFor(w.ldwKg), altn=vspeedsFor(w.altwKg);
   const vTable=`<table class="refTable" style="max-width:360px">
     <tr><th></th><th>DEP</th><th>DEST</th><th>ALTN</th></tr>
     ${V_ROWS.map(([lbl,k])=>`<tr><td style="text-align:left;padding-left:4px">${lbl}</td><td>${dep[k]}</td><td>${dest[k]}</td><td>${altn[k]}</td></tr>`).join('')}
@@ -867,8 +1010,9 @@ function pagePerf(f,w){
   </table>
   <div style="font-size:8px;margin-top:2px">AFM Reims Rocket FR172J fig. 5-1, normal lean mixture, 1157 kg, ISA, vento nullo &middot; MP in inHg &middot; TAS in kt &middot; "--" = potenza non ottenibile a quella quota.</div>`;
   const body=`
-    <div class="kv">ETOW <span class="filled">${w.tow}</span> kg&nbsp;&nbsp;&nbsp;ELDW <span class="filled">${w.ldw}</span> kg&nbsp;&nbsp;&nbsp;ALTN <span class="filled">${w.altw}</span> kg</div>
-    <div style="font-size:9.5px;margin:4px 0 8px">*ADD +5 KTS AT VREF SPEEDS &middot; VNE ${AC_LIMITS.vne} &middot; VNO ${AC_LIMITS.vno} &middot; VFE ${AC_LIMITS.vfe} &middot; VA ${AC_LIMITS.va} KIAS &middot; XWIND T/O ${AC_LIMITS.xwindTO} kt &middot; LDG ${AC_LIMITS.xwindLDG} kt</div>
+    <div class="kv">ETOW <span class="filled">${w.towKg}</span> kg&nbsp;&nbsp;&nbsp;ELDW <span class="filled">${w.ldwKg}</span> kg&nbsp;&nbsp;&nbsp;ALTN <span class="filled">${w.altwKg}</span> kg</div>
+    <div style="font-size:9.5px;margin:4px 0 2px">*ADD +5 KTS AT VREF SPEEDS &middot; VNE ${AC_LIMITS.vne} &middot; VNO ${AC_LIMITS.vno} &middot; VFE ${AC_LIMITS.vfe} KIAS &middot; XWIND T/O ${AC_LIMITS.xwindTO} kt &middot; LDG ${AC_LIMITS.xwindLDG} kt</div>
+    <div style="font-size:9.5px;margin:0 0 8px">VA ${AC_LIMITS.va} KIAS a ${AC_LIMITS.mtowNormal} kg &rarr; <b>${vaFor(w.towKg)} KIAS</b> a ${w.towKg} kg (TOW)</div>
     ${vTable}
     ${pohTable}
     <div style="font-weight:700;margin-top:10px">RUNWAY DISTANCE REQUIRED</div>
@@ -977,12 +1121,50 @@ function fuelCapacityNote(f){
 /* Controllo masse contro i limiti AFM inseriti nello Step 3. */
 function massNote(w){
   const over=[];
-  if(num('mzfw') && num('zfw')>num('mzfw')) over.push(`ZFW ${num('zfw')} > MZFW ${num('mzfw')}`);
-  if(num('mtow') && w.tow>num('mtow'))      over.push(`TOW ${w.tow} > MTOW ${num('mtow')}`);
-  if(num('mldw') && w.ldw>num('mldw'))      over.push(`LAW ${w.ldw} > MLAW ${num('mldw')}`);
+  if(num('mzfw') && w.zfw>num('mzfw'))  over.push(`ZFW ${Math.round(w.zfw)} > MZFW ${num('mzfw')}`);
+  if(num('mtow') && w.tow.w>num('mtow')) over.push(`TOW ${w.towKg} > MTOW ${num('mtow')}`);
+  if(num('mldw') && w.ldw.w>num('mldw')) over.push(`LAW ${w.ldwKg} > MLAW ${num('mldw')}`);
+  if(num('baggage')>MAX_BAGGAGE_KG)      over.push(`bagaglio ${num('baggage')} > ${MAX_BAGGAGE_KG} kg`);
   if(over.length) return {txt:'⚠ FUORI LIMITE: '+over.join(' · '), over:true};
-  const cat = w.tow<=AC_LIMITS.mtowUtility ? 'UTILITY (e NORMAL)' : 'NORMAL';
-  return {txt:`→ masse entro i limiti · categoria disponibile al decollo: ${cat}`, over:false};
+  return {txt:`→ masse entro i limiti`, over:false};
+}
+/* Controllo del centraggio su ogni fase del volo. Il CG si sposta man mano che si
+   consuma carburante (braccio 1,23 m, dietro al CG a vuoto): va quindi verificato
+   al decollo E all'atterraggio, non solo al decollo. */
+function cgNote(w){
+  const phases=[['TOW',w.tow],['LDW dest',w.ldw],['LDW altn',w.altw]];
+  const bad=[];
+  phases.forEach(([lbl,p])=>{
+    if(p.w<=0) return;
+    const c=cgCheck(p.w,p.arm,'normal');
+    if(!c.cgOk) bad.push(`${lbl} CG ${p.arm.toFixed(3)} m fuori da ${c.fwd}–${c.aft} m`);
+  });
+  if(bad.length) return {txt:'⚠ CENTRAGGIO FUORI INVILUPPO: '+bad.join(' · '), over:true};
+  const t=cgCheck(w.tow.w, w.tow.arm, 'utility');
+  const cat = t.ok ? 'UTILITY e NORMAL' : 'NORMAL';
+  const lim = cgLimits(w.tow.w,'normal');
+  return {txt:`→ CG al decollo ${w.tow.arm.toFixed(3)} m (limiti ${lim.fwd}–${lim.aft} m) · categoria disponibile: ${cat}`, over:false};
+}
+/* Prospetto del foglio di carico, nello stesso ordine di righe del modulo cartaceo. */
+function mbSheetRows(w){
+  const r=(l,p)=>[l, p.w, p.arm, p.m];
+  return {
+    load: w.rows,
+    zfw : ['ZERO FUEL WEIGHT', w.zfw, w.zfwArm, w.zfwMom],
+    fuel: [
+      ['TAXI FUEL',            w.fuel.taxi, ARM.fuel, w.fuel.taxi*ARM.fuel],
+      ['TRIP FUEL',            w.fuel.trip, ARM.fuel, w.fuel.trip*ARM.fuel],
+      ['ALTERNATE FUEL',       w.fuel.altn, ARM.fuel, w.fuel.altn*ARM.fuel],
+      ['HOLDING / RESERVE',    w.fuel.fin,  ARM.fuel, w.fuel.fin*ARM.fuel],
+      ['FUEL ON BOARD',        w.fuel.fob,  ARM.fuel, w.fuel.fob*ARM.fuel],
+    ],
+    out: [
+      r('RAMP WEIGHT', w.ramp),
+      r('TAKE OFF WEIGHT', w.tow),
+      r('DEST. LDG WEIGHT', w.ldw),
+      r('ALTN. LDG WEIGHT (no res.)', w.altw),
+    ]
+  };
 }
 
 function render(){
@@ -994,10 +1176,19 @@ function render(){
   if($('altCalc'))  $('altCalc').textContent  = `→ time ${f.altTime} min · fuel ${fmt(f.altFuel)} USG`;
   if($('reserveCalc')) $('reserveCalc').textContent = `→ Contingency = max(5% trip, 15') = ${f.contMin} min · ${fmt(f.contFuel)} USG   ·   Final Reserve = ${f.finMin} min · ${fmt(f.finFuel)} USG`;
   if($('fuelCapCalc')){ const n=fuelCapacityNote(f); $('fuelCapCalc').textContent=n.txt; $('fuelCapCalc').style.color=n.over?'#ff7a7a':''; }
-  if($('towCalc'))  $('towCalc').textContent  = `→ TOW operativo = ZFW + (Block−Taxi)×${KG_PER_USG} = ${w.tow} kg`;
-  if($('ldwCalc'))  $('ldwCalc').textContent  = `→ LAW = TOW − trip×${KG_PER_USG} = ${w.ldw} kg`;
-  if($('altwCalc')) $('altwCalc').textContent = `→ ALTN weight = LAW − altn×${KG_PER_USG} = ${w.altw} kg`;
+  if($('zfw')) $('zfw').value = Math.round(w.zfw*10)/10;   // usato dal resto dell'app e dai salvataggi
+  if($('bewCalc')) $('bewCalc').textContent = num('bew')>0
+    ? `→ braccio a vuoto = momento ÷ peso = ${(num('bewMoment')/num('bew')).toFixed(4)} m`
+    : '→ inserisci il peso a vuoto';
+  if($('loadCalc')){
+    const bag=num('baggage');
+    $('loadCalc').textContent = `→ ZFW = ${fmt(w.zfw)} kg · braccio ${w.zfwArm.toFixed(3)} m · momento ${fmt(w.zfwMom)} kg·m`
+      + (bag>MAX_BAGGAGE_KG ? `   ⚠ bagaglio oltre i ${MAX_BAGGAGE_KG} kg` : '');
+    $('loadCalc').style.color = bag>MAX_BAGGAGE_KG ? '#ff7a7a' : '';
+  }
+  if($('mbTableBox')) $('mbTableBox').innerHTML = mbTableHTML(w);
   if($('mbLimitCalc')){ const n=massNote(w); $('mbLimitCalc').textContent=n.txt; $('mbLimitCalc').style.color=n.over?'#ff7a7a':''; }
+  if($('cgCalc')){ const n=cgNote(w); $('cgCalc').textContent=n.txt; $('cgCalc').style.color=n.over?'#ff7a7a':''; }
   if($('cruisePerfCalc')){
     const ci=cruiseInterp(num('cruisePerfAlt'), parseInt(txt('cruisePerfPct'))||55);
     $('cruisePerfCalc').textContent = ci
@@ -1033,6 +1224,30 @@ function renderPreview(f,w,t){
     catch(e){ stage.innerHTML = `<div style="color:#ff7a7a;font-size:13px">Anteprima non disponibile: ${esc(e.message)}</div>`; }
   });
 }
+/* Prospetto compatto mostrato dentro lo Step 3, con evidenza di ciò che è fuori limite. */
+function mbTableHTML(w){
+  const sh=mbSheetRows(w);
+  const line=(l,wt,arm,mom,bad)=>`<tr${bad?' style="color:#ff7a7a"':''}>
+    <td style="text-align:left;padding-right:8px">${l}</td>
+    <td style="text-align:right;padding-right:8px">${fmt(wt)}</td>
+    <td style="text-align:right;padding-right:8px">${wt>0?arm.toFixed(3):'—'}</td>
+    <td style="text-align:right">${fmt(mom)}</td></tr>`;
+  const sep=`<tr><td colspan="4" style="border-top:1px solid #25384c;height:4px"></td></tr>`;
+  const outRows=sh.out.map(([l,wt,arm,mom],i)=>{
+    const isTow=i===1, isRamp=i===0;
+    const c=wt>0?cgCheck(wt,arm,'normal'):null;
+    const bad = c && ((isTow||isRamp) ? !c.ok : !c.cgOk);
+    return line(l,wt,arm,mom,bad);
+  }).join('');
+  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:11px;color:#dbe4ee">
+    <tr style="color:#8fa3b8"><th style="text-align:left">Voce</th><th style="text-align:right">kg</th><th style="text-align:right">braccio m</th><th style="text-align:right">kg·m</th></tr>
+    ${sh.load.map(([l,wt,arm,mom])=>line(l,wt,arm,mom,l.startsWith('BAGGAGE')&&wt>MAX_BAGGAGE_KG)).join('')}
+    ${sep}${line(...sh.zfw)}${sep}
+    ${sh.fuel.map(([l,wt,arm,mom])=>line(l,wt,arm,mom,l==='FUEL ON BOARD'&&wt>USABLE_FUEL_USG*KG_PER_USG)).join('')}
+    ${sep}${outRows}
+  </table>`;
+}
+
 function togglePreview(){
   previewOpen=!previewOpen;
   const stage=$('stage');
@@ -1737,7 +1952,7 @@ function buildPDF(){
   y=monoLine(doc,L,y,'BLOCK = .....'); dotted(doc,L,L+fuelW,y-1.6); y+=4;
   y=monoLine(doc,L,y,'ACT USD= .....'); dotted(doc,L,L+fuelW,y-1.6); y+=5;
   // conversione AVGAS esplicita sull'OFP: chi rifornisce ragiona in litri, chi
-  // calcola le masse in kg. 1 USG = 2,72 kg = 3,785 L (AFM fig. 6-4 / fig. 1-4).
+  // calcola le masse in kg. 1 USG = 3,785 L e 1 L = 0,72 kg (AFM fig. 6-4 / fig. 1-4).
   y=monoLine(doc,L,y,`PLAN BLOCK = ${fmt(f.blockFuel)} USG = ${fmt(f.blockFuel*L_PER_USG)} L = ${fmt(f.blockFuel*KG_PER_USG)} kg`);
   y=monoLine(doc,L,y,`USABLE     = ${USABLE_FUEL_USG} USG = ${fmt(USABLE_FUEL_USG*L_PER_USG)} L${f.blockFuel>USABLE_FUEL_USG?'   *** BLOCK OLTRE LA CAPACITA SERBATOI ***':''}`);
 
@@ -1751,22 +1966,49 @@ function buildPDF(){
 
   /* PAGE 2 — MASS AND BALANCE */
   doc.addPage(); y=drawFrame(doc,title,'MASS AND BALANCE',2);
-  doc.setFontSize(10);
-  const LHmb=6.4;
-  const estX=L+68, maxX=L+98;
-  doc.setFont('courier','bold');
-  doc.text('EST',estX,y,{align:'right'}); doc.text('MAX',maxX,y,{align:'right'});
-  doc.setFont('courier','normal'); y+=LHmb+1;
-  const mbRows=[['POB',num('pob'),null],['ZFW',num('zfw'),num('mzfw')],['TOW',w.tow,num('mtow')],['LAW',w.ldw,num('mldw')],['ALTN',w.altw,null]];
-  mbRows.forEach(([lbl,est,max])=>{
+  doc.setFontSize(9);
+  const LHmb=4.6;
+  // Prospetto identico al W. & B. Loading Form dell'aeroclub: peso, braccio e
+  // momento per ogni stazione, poi ZFW, carburante e i quattro pesi risultanti.
+  const sh=mbSheetRows(w);
+  const cW=[L+62, L+84, L+108];   // colonne allineate a destra: kg, braccio, momento
+  const mbLine=(lbl,wt,arm,mom,bold)=>{
+    doc.setFont('courier', bold?'bold':'normal');
     doc.text(lbl,L,y);
-    doc.text(String(est),estX,y,{align:'right'});
-    doc.text(max===null?'--':String(max),maxX,y,{align:'right'});
+    doc.text(fmt(wt),cW[0],y,{align:'right'});
+    doc.text(wt>0?arm.toFixed(3):'--',cW[1],y,{align:'right'});
+    doc.text(fmt(mom),cW[2],y,{align:'right'});
+    doc.setFont('courier','normal');
     y+=LHmb;
-  });
-  y+=6;
+  };
+  const mbHead=(lbl)=>{
+    doc.setFont('courier','bold'); doc.text(lbl,L,y); doc.setFont('courier','normal');
+    doc.setLineWidth(0.2); doc.line(L,y+1.1,cW[2],y+1.1); y+=LHmb+0.6;
+  };
+  doc.setFontSize(8);
+  doc.text(`A/C ${txt('acSelect')==='CUSTOM'?txt('reg'):txt('acSelect')}   POB ${num('pob')}`,L,y); y+=LHmb;
+  doc.text('WEIGHT kg',cW[0],y,{align:'right'});
+  doc.text('ARM m',cW[1],y,{align:'right'});
+  doc.text('MOMENT kg*m',cW[2],y,{align:'right'}); y+=LHmb;
+  mbHead('WEIGHT CALCULATION');
+  sh.load.forEach(r=>mbLine(...r));
+  mbLine(...sh.zfw,true);
+  mbHead('FUEL CALCULATION');
+  sh.fuel.forEach(r=>mbLine(...r));
+  mbHead('RESULT');
+  sh.out.forEach(r=>mbLine(...r,true));
+  y+=1.5;
+  // esito dei controlli: masse, inviluppo di centraggio e VA alla massa effettiva
+  const towChk=cgCheck(w.tow.w,w.tow.arm,'normal'), lim=cgLimits(w.tow.w,'normal');
+  const utilChk=cgCheck(w.tow.w,w.tow.arm,'utility');
+  doc.setFontSize(7.5);
+  doc.text(`LIMITS: MTOW/MLW ${num('mtow')} kg - BAGGAGE ${MAX_BAGGAGE_KG} kg - FUEL ${USABLE_FUEL_USG} USG / ${fmt(USABLE_FUEL_USG*L_PER_USG)} L`,L,y); y+=LHmb-0.6;
+  doc.text(`CG T/O ${w.tow.arm.toFixed(3)} m - NORMAL envelope ${lim.fwd}-${lim.aft} m - ${towChk.ok?'WITHIN LIMITS':'*** OUT OF LIMITS ***'}`,L,y); y+=LHmb-0.6;
+  doc.text(`CATEGORY AVAILABLE: ${utilChk.ok?'UTILITY and NORMAL':'NORMAL'} - VA at ${w.towKg} kg = ${vaFor(w.towKg)} KIAS`,L,y); y+=LHmb-0.6;
+  doc.setFontSize(9);
+  y+=2;
 
-  const imgTop=y, imgBoxH=128, imgBoxW=R-L;
+  const imgTop=y, imgBoxH=Math.max(40, MM.A4H-72-y), imgBoxW=R-L;
   doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(L,imgTop,imgBoxW,imgBoxH);
   if(window.__mbImg){
     try{
@@ -1776,9 +2018,9 @@ function buildPDF(){
       doc.addImage(window.__mbImg, L+(imgBoxW-iw)/2, imgTop+(imgBoxH-ih)/2, iw, ih);
     }catch(e){}
   }else{
-    doc.text('Screenshot Mass & Balance', L+imgBoxW/2, imgTop+imgBoxH/2, {align:'center'});
+    doc.text('Foglio M&B firmato (facoltativo)', L+imgBoxW/2, imgTop+imgBoxH/2, {align:'center'});
   }
-  y=imgTop+imgBoxH+9;
+  y=imgTop+imgBoxH+6;
   doc.setFont('courier','bold'); y=monoLine(doc,L,y,'REMARKS:'); doc.setFont('courier','normal');
   const rem=txt('mbRemarks').trim();
   if(rem){
@@ -1790,17 +2032,18 @@ function buildPDF(){
     if(remLines.length>maxLines) shown[maxLines-1]=shown[maxLines-1].slice(0,-4)+'[...]';
     doc.text(shown,L,y); y+=shown.length*LH;
   } else y+=LHmb;
-  y+=7; y+=5+12;
-  y=monoLine(doc,L,y,`PIC: ${txt('picName')}`); y+=LHmb-LH; y=monoLine(doc,L,y,'..........');
+  y=Math.max(y+4, MM.A4H-34);
+  y=monoLine(doc,L,y,`PIC: ${txt('picName')}`); y=monoLine(doc,L,y,'..........');
   doc.setFontSize(FS_BODY);
 
   /* PAGE 3 — PERFORMANCE */
   doc.addPage(); y=drawFrame(doc,title,'PERFORMANCE',3);
   doc.setFontSize(8.5);
-  y=monoLine(doc,L,y,`TOW ${w.tow} kg   LAW ${w.ldw} kg   ALTN ${w.altw} kg`);
+  y=monoLine(doc,L,y,`TOW ${w.towKg} kg   LAW ${w.ldwKg} kg   ALTN ${w.altwKg} kg`);
   y=monoLine(doc,L,y,'*ADD +5 KTS AT VREF SPEEDS');
-  y=monoLine(doc,L,y,`VNE ${AC_LIMITS.vne}  VNO ${AC_LIMITS.vno}  VFE ${AC_LIMITS.vfe}  VA ${AC_LIMITS.va} KIAS   XWIND T/O ${AC_LIMITS.xwindTO} kt  LDG ${AC_LIMITS.xwindLDG} kt`); y+=3;
-  const dep=vspeedsFor(w.tow), dest=vspeedsFor(w.ldw), altn=vspeedsFor(w.altw);
+  y=monoLine(doc,L,y,`VNE ${AC_LIMITS.vne}  VNO ${AC_LIMITS.vno}  VFE ${AC_LIMITS.vfe} KIAS   XWIND T/O ${AC_LIMITS.xwindTO} kt  LDG ${AC_LIMITS.xwindLDG} kt`);
+  y=monoLine(doc,L,y,`VA ${AC_LIMITS.va} KIAS a ${AC_LIMITS.mtowNormal} kg -> ${vaFor(w.towKg)} KIAS a ${w.towKg} kg (TOW)`); y+=3;
+  const dep=vspeedsFor(w.towKg), dest=vspeedsFor(w.ldwKg), altn=vspeedsFor(w.altwKg);
   const vLabels=V_ROWS.map(([lbl,k])=>[lbl,k]);
   const vColW=[52,20,20,20];
   doc.text('DEP',L+vColW[0]+vColW[1],y,{align:'right'}); doc.text('DEST',L+vColW[0]+vColW[1]+vColW[2],y,{align:'right'}); doc.text('ALTN',L+vColW[0]+vColW[1]+vColW[2]+vColW[3],y,{align:'right'});
@@ -2106,7 +2349,7 @@ $('btnPrint').addEventListener('click',()=>{ if(!previewOpen) togglePreview(); s
 const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route','cruisealt',
   'tOFF','tTO','tLDG','tON','picName',
   'tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel',
-  'pob','zfw','tow','mzfw','mtow','mldw',
+  'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
   'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50','cruisePerfAlt','cruisePerfPct',
   'noteTrack','noteRunway','noteAlt','noteClear','noteTiming','noteGround','noteRadios','noteSpecials',
   'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','destProc','destThreats','destMit','acStatus','briefRemarks'];
@@ -2201,6 +2444,9 @@ const NEW_FLIGHT_DEFAULTS = {
   taxiFuel:'0.5',            // consumo taxi standard
   extraMin:'0', extraFuel:'0',
   flightRule:'VFR',
+  acSelect:'I-CCAF',
+  bew:'716.1', bewMoment:'693.9009',
+  paxFront:'85', paxRear:'0', baggage:'0',
   pob:'1',
   cruisealt:'5000 ft',
   cruisePerfAlt:'5000', cruisePerfPct:'55',
@@ -2398,8 +2644,27 @@ function syncAltitudeToPerf(){
 }
 if($('cruisealt')) $('cruisealt').addEventListener('input', ()=>{ syncAltitudeToPerf(); render(); });
 
+/* Selettore aeromobile: compila peso a vuoto e momento dal foglio dell'aeroclub e
+   li blocca, così non si modificano per sbaglio. "Altro" li sblocca, per quando
+   arriva una nuova pesata e il foglio qui dentro non è ancora aggiornato. */
+function applyAircraft(){
+  const sel=txt('acSelect'), ac=AIRCRAFT[sel];
+  const lock = !!ac;
+  ['bew','bewMoment'].forEach(id=>{
+    $(id).readOnly = lock;
+    $(id).style.opacity = lock ? .7 : 1;
+  });
+  if(ac){
+    $('bew').value = ac.bew;
+    $('bewMoment').value = ac.bewMoment;
+    if($('reg')) $('reg').value = sel;      // l'immatricolazione in testata segue l'aeromobile
+  }
+  render();
+}
+if($('acSelect')) $('acSelect').addEventListener('change', applyAircraft);
+
 document.body.addEventListener('input',render);
-renderSteps(); goToStep(1); syncAltitudeToPerf();
+renderSteps(); goToStep(1); syncAltitudeToPerf(); applyAircraft();
 // su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
 if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
 bootstrapFlights(()=>{ if($('dashboard').classList.contains('open')) renderDashboard(); });

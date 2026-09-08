@@ -30,14 +30,39 @@ Il vincolo reale è la massa massima al decollo più l'inviluppo di centraggio
 precompilato al MTOW: è un limite non attivo, non un dato inventato.
 
 **Categoria Utility**: consentita solo con bagagliaio e sedili posteriori vuoti.
-Lo Step 3 segnala quando il TOW calcolato la rende disponibile.
+Lo Step 3 segnala quando massa e centraggio al decollo la rendono disponibile.
+
+## Inviluppo di centraggio (Sez. II, pag. 2-2 / 2-3)
+
+| Categoria | Limite anteriore | Limite posteriore |
+|---|---|---|
+| Normale | +0,89 m fino a 885 kg, poi lineare fino a **+1,04 m a 1157 kg** | **+1,20 m** |
+| Utility | +0,89 m fino a 885 kg, poi lineare fino a **+0,95 m a 998 kg** | **+1,03 m** |
+
+Nel codice: `CG_ENVELOPE`, `cgLimits()`, `cgCheck()`. Il centraggio viene
+verificato al decollo **e** ai due atterraggi: consumando carburante (braccio
+1,23 m, dietro al CG a vuoto) il baricentro si sposta in avanti, quindi un
+decollo dentro l'inviluppo non garantisce da solo un atterraggio dentro
+l'inviluppo.
+
+## Velocità di manovra alla massa effettiva
+
+L'AFM pubblica **VA = 104 kt a 1157 kg** (pag. 2-1). VA scala con la radice del
+rapporto delle masse: `VA(W) = 104 × √(W/1157)`. È lo stesso conto che fa il
+foglio dell'aeroclub, che però lo esprime in MPH partendo dai 61 MPH di stallo
+(`61 × √(W/1157) × √3,8` = 118,9 MPH a 1157 kg, cioè i 118 MPH del cartellino).
+Nel codice: `vaFor()`.
 
 ## Carburante (fig. 1-4 e fig. 6-4)
 
 - Utilizzabile totale: **46 US gal = 174 litri** (2 serbatoi da 23 USG).
-- Sample Loading Problem: 174 litri = 125,2 kg → **0,72 kg/litro**, quindi
-  **1 USG = 2,72 kg**. Le due conversioni richieste sono coerenti fra loro.
-- Nel codice: `USABLE_FUEL_USG`, `KG_PER_LITRE`, `KG_PER_USG`, `L_PER_USG`.
+- Sample Loading Problem: 174 litri = 125,2 kg → **0,72 kg/litro**.
+- La massa si ricava **passando dai litri**, come fa il foglio dell'aeroclub:
+  `USG × 3,785 × 0,72` = **2,7252 kg/USG**. È lo stesso 2,72 kg/USG con una cifra
+  in più; usare il valore arrotondato scosterebbe i pesi di circa 0,2 kg su un
+  pieno e i numeri non coinciderebbero più con quelli del foglio firmato.
+- Nel codice: `USABLE_FUEL_USG`, `KG_PER_LITRE`, `L_PER_USG`, `KG_PER_USG`
+  (derivato dai primi due).
 - Lo Step 2 avvisa se il Plan Block supera i 46 USG imbarcabili.
 
 ## V-speeds — `POH_WEIGHTS` / `POH_TABLE`
@@ -114,10 +139,75 @@ erba asciutta, −10% ogni 5 kt di vento frontale in atterraggio.
 
 ---
 
-## Cosa NON viene dall'AFM
+---
 
-- I default di rotta (LILN → LIMC), immatricolazione (I-CCAF), GS e fuel flow
-  del form: sono solo valori di comodo per iniziare, da sostituire volo per volo.
-- Lo ZFW di default (780 kg): peso a vuoto d'esempio dell'AFM (677,7 kg) + olio
-  (8,5 kg) + un pilota. **Va sostituito con il valore del foglio M&B reale
-  dell'aeromobile**, che dipende dall'esemplare.
+# Pesi e bilanciamento — dal foglio dell'aeroclub
+
+Struttura, bracci e catena dei pesi vengono dal **W. & B. Loading Form**
+dell'aeroclub (*Pesi e Bilanciamento Rev. 14*), fogli `I-CCAF` e `I-CCAB`.
+Il file contiene tutta la flotta; i due C172FR sono questi.
+
+## Peso a vuoto (`AIRCRAFT`)
+
+| Aeromobile | Basic Empty Weight | Momento a vuoto | Braccio ricavato |
+|---|---|---|---|
+| **I-CCAF** | 716,1 kg | 693,9009 kg·m | 0,969 m |
+| **I-CCAB** | 724,0 kg | 683,0 kg·m | **0,94337 m** |
+
+Si memorizza il **momento**, non il braccio. Sul foglio di I-CCAB il braccio
+scritto in cella è 0,94 m, ma 724,0 × 0,94 = 680,6 ≠ 683,0: è il **momento**
+quello che il foglio propaga davvero nei calcoli (lo ZFW del foglio riporta
+infatti braccio 0,94337). Ricavare il braccio da momento ÷ peso riproduce
+esattamente i numeri dell'aeroclub; moltiplicare per il braccio scritto no.
+
+Con l'opzione **Altro** i due campi si sbloccano, per quando arriva una nuova
+pesata e il foglio qui dentro non è ancora aggiornato.
+
+## Bracci delle stazioni (`ARM`)
+
+Identici sui due esemplari, perché sono di cellula:
+
+| Stazione | Braccio |
+|---|---|
+| Pilota + passeggero anteriore | **0,94 m** |
+| Passeggeri posteriori | **1,86 m** |
+| Bagaglio (max 91 kg) | **2,41 m** |
+| Carburante | **1,23 m** |
+
+## Catena dei pesi
+
+Identica al foglio dell'aeroclub:
+
+```
+ZFW           = BEW + pilota/anteriore + posteriori + bagaglio
+RAMP WEIGHT   = ZFW + carburante a bordo (Plan Block dello Step 2)
+TAKE OFF WT   = RAMP − taxi
+DEST. LDG WT  = TOW  − trip
+ALTN. LDG WT  = DEST. LDG − alternato − riserva finale
+```
+
+L'ultima riga segue la definizione del foglio, *"ALTN. LANDING WEIGHT (No
+Holding / Reserve Fuel)"*: è il peso all'alternato avendo bruciato anche la
+riserva, cioè il caso più leggero. Contingency ed extra restano a bordo, perché
+non sono carburante che si pianifica di consumare.
+
+Il foglio dell'aeroclub prevede solo taxi / trip / alternato / holding-riserva;
+la contingency dell'OFP confluisce nel Fuel On Board e resta a bordo in tutte le
+fasi, il che è il comportamento corretto.
+
+## Verifica
+
+I calcoli riproducono il foglio cifra per cifra: con I-CCAF vuoto e 2 USG di
+taxi si ottiene ZFW 716,1 kg / braccio 0,969 / momento 693,9009 e taxi 5,4504 kg
+/ momento 6,703992 — gli stessi valori delle celle del file Numbers.
+
+---
+
+## Cosa NON viene da AFM o foglio aeroclub
+
+- I default di rotta (LILN → LIMC), GS e fuel flow del form: valori di comodo
+  per iniziare, da sostituire volo per volo.
+- Il peso di default di pilota e passeggeri (85 kg): va inserito quello reale.
+- Il file dell'aeroclub **non contiene l'inviluppo di centraggio**: i limiti CG
+  vengono dall'AFM (tabella qui sopra). Le colonne del foglio che sembrano un
+  inviluppo sono in realtà il calcolo di VA in funzione del peso.

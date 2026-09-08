@@ -61,9 +61,15 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
 1. **Volo & Aeromobile** — rotta, aeroporti, orari stimati.
 2. **Rotta & Fuel** — trip, alternato, riserve. Contingency = max(5% trip, 15');
    Final Reserve 30' VFR / 45' IFR. Avvisa se il block supera i 46 USG imbarcabili.
-3. **Mass & Balance** — ZFW dal foglio M&B; il TOW è calcolato
-   (`ZFW + (Block − Taxi) × 2,72`). Segnala il fuori limite e se il decollo rientra
-   in categoria Utility. Il PDF del foglio M&B viene allegato come immagine.
+3. **Mass & Balance** — foglio di carico e centraggio completo, con la stessa
+   struttura e gli stessi bracci del *W. & B. Loading Form* dell'aeroclub
+   (Pesi e Bilanciamento Rev. 14). Si sceglie l'aeromobile (**I-CCAF** o
+   **I-CCAB**, con peso a vuoto e momento precaricati) e si inseriscono solo
+   occupanti e bagaglio: il carburante arriva dallo Step 2. Calcola ZFW, Ramp,
+   TOW e i due pesi di atterraggio con peso, braccio e momento, e verifica
+   masse, bagaglio e **inviluppo di centraggio** al decollo e a entrambi gli
+   atterraggi. Mostra anche la **VA alla massa effettiva**. Il PDF del foglio
+   firmato può essere allegato come immagine.
 4. **Performance** — V-speeds per peso, distanze pista, setting di crociera
    (MP / RPM / TAS / consumo) interpolato in quota.
 5. **Dest Charts** — fino a 2 cartine, più le note operative.
@@ -101,8 +107,10 @@ campo prima di generare il PDF.
 
 ## Limiti noti
 
-- Non fa calcolo di centraggio: il foglio M&B si allega come immagine e ZFW si
-  inserisce a mano. L'inviluppo CG (AFM fig. 6-5 / 6-6) non è implementato.
+- Il centraggio è verificato contro l'inviluppo dell'AFM, ma **non viene disegnato
+  il diagramma** momento/peso (AFM fig. 6-5 / 6-6): l'esito è numerico.
+- I pesi a vuoto sono quelli del foglio Rev. 14. Dopo una nuova pesata vanno
+  aggiornati (opzione **Altro** nel selettore, o `AIRCRAFT` in `index.html`).
 - Le distanze pista sono campi liberi con i default AFM a livello del mare: le
   correzioni per quota, temperatura, vento ed erba vanno applicate dal pilota.
 - Le V-speeds usano la fascia di peso AFM più vicina senza interpolare
