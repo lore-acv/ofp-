@@ -1,0 +1,2406 @@
+<!--
+  CESSNA C172 FR (Reims Rocket FR172J) — OFP GENERATOR / WIZARD
+  Step: 1 Volo&Aeromobile  2 Rotta&Fuel  3 Mass&Balance  4 Performance
+        5 Dest Charts  6 Briefing  7 NOTAM&Weather
+
+  Tutti i dati aeromobile (masse, V-speeds, crociera, consumi) provengono dal
+  Flight Manual Reims Rocket FR172J, Edition 3 (Reims Aviation) — vedi
+  DATI-AFM.md per il riferimento pagina per pagina di ogni numero.
+
+  Il file funziona in due modi, senza modifiche:
+   - aperto direttamente in un browser (file:// o hosting statico);
+   - servito da Google Apps Script come web app (vedi Codice.gs / README.md):
+     in quel caso i voli salvati vanno nelle UserProperties dell'utente Google
+     e l'OFP puo' essere archiviato su Drive.
+
+  Anteprima HTML fedele al template; PDF vettoriale jsPDF (Courier nativo), A4.
+-->
+<meta charset="utf-8">
+<style>
+  :root{
+    --panel-bg:#0f1720; --panel-2:#16212e; --panel-line:#25384c;
+    --accent:#e11d2a; --accent-2:#2f6df6;
+    --field:#0b1219; --txt:#dbe4ee; --txt-dim:#8fa3b8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:#070c12;color:var(--txt);display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+  .topbar{display:flex;align-items:center;gap:14px;padding:10px 18px;background:var(--panel-2);border-bottom:1px solid var(--panel-line);flex:0 0 auto}
+  .topbar .brand{font-weight:700;letter-spacing:.5px;font-size:14px;white-space:nowrap}
+  .topbar .brand b{color:var(--accent)}
+  .topbar .brand span{color:var(--txt-dim);font-weight:500}
+  .steps{display:flex;gap:5px;flex:1;justify-content:center;flex-wrap:wrap}
+  .step-pill{display:flex;align-items:center;gap:6px;padding:5px 10px 5px 6px;border-radius:20px;border:1px solid var(--panel-line);background:var(--field);cursor:pointer;font-size:11.5px;color:var(--txt-dim)}
+  .step-pill .n{width:18px;height:18px;border-radius:50%;background:#1c2a38;color:var(--txt-dim);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex:0 0 auto}
+  .step-pill.active{border-color:var(--accent-2);color:var(--txt)}
+  .step-pill.active .n{background:var(--accent-2);color:#fff}
+  .step-pill.done .n{background:#1f7a3d;color:#fff}
+  .step-pill.done{color:var(--txt)}
+
+  .btn{border:1px solid var(--panel-line);background:var(--field);color:var(--txt);padding:9px 16px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600}
+  .btn:hover{border-color:#3a5a80}
+  .btn.primary{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.ghost{background:transparent}
+
+  .main{display:flex;flex:1;min-height:0}
+  .formcol{width:640px;max-width:100%;flex:1;margin:0 auto;background:var(--panel-bg);display:flex;flex-direction:column;min-height:0}
+  .formcol .scroll{flex:1;overflow-y:auto;padding:22px 26px 30px}
+  .formcol .navrow{flex:0 0 auto;display:flex;justify-content:space-between;gap:10px;padding:14px 26px;border-top:1px solid var(--panel-line);background:var(--panel-2)}
+  .stage{flex:1;overflow:auto;background:#0a0f15;padding:28px;display:flex;flex-direction:column;align-items:center;gap:26px}
+  /* le pagine A4 hanno altezza fissa: dentro un contenitore flex verticale
+     verrebbero schiacciate per stare nello spazio disponibile */
+  .stage .page{flex:0 0 auto}
+
+  .step-title{font-size:19px;font-weight:700;margin:0 0 4px}
+  .step-sub{font-size:13px;color:var(--txt-dim);margin:0 0 20px}
+  .group{margin-bottom:16px}
+  .group h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--txt-dim);margin:0 0 8px;font-weight:700}
+  .row{display:flex;gap:8px;margin:7px 0}
+  .fld{flex:1;display:flex;flex-direction:column;gap:3px}
+  .fld label{font-size:11px;color:var(--txt-dim);font-weight:600;letter-spacing:.2px}
+  .fld input,.fld textarea,.fld select{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);border-radius:6px;padding:8px 9px;font-size:13px;font-family:inherit;width:100%}
+  .fld textarea{resize:vertical;min-height:50px;font-family:"Courier New",monospace}
+  .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent-2)}
+  .hint{font-size:11px;color:var(--txt-dim);margin:2px 0 10px;line-height:1.5}
+  .calc{font-size:11.5px;color:#7fd18b;font-family:"Courier New",monospace;margin-top:6px}
+
+  .drop{border:1.5px dashed var(--panel-line);border-radius:10px;padding:18px;text-align:center;cursor:pointer;font-size:12.5px;color:var(--txt-dim);background:var(--field)}
+  .drop:hover{border-color:var(--accent-2);color:var(--txt)}
+  .mb-status{font-size:12px;margin-top:8px;font-family:"Courier New",monospace}
+  .mb-status.ok{color:#7fd18b}
+  .mb-status.err{color:#ff7a7a}
+  .mb-status.busy{color:#ffd479}
+  .mb-thumb{margin-top:10px;max-width:100%;border:1px solid var(--panel-line);border-radius:6px;display:none}
+  .thumb-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .thumb-row img{max-width:120px;max-height:90px;border:1px solid var(--panel-line);border-radius:5px}
+
+  .panel{display:none}
+  .panel.active{display:block}
+
+  .refTable{width:100%;border-collapse:collapse;font-size:11px;margin:8px 0;color:#111}
+  .refTable th,.refTable td{border:1px solid #999;padding:3px 5px;text-align:center}
+  .refTable th{background:#e2e2e2;font-weight:700;color:#111}
+  .cruiseTable td,.cruiseTable th{padding:2.5px 4px;font-size:9.5px}
+  .cruiseTable td.hlCell{background:#fff3b0;font-weight:700}
+  .pohTable tr:nth-child(even){background:#f2f2f2}
+  .pohTable td:first-child{text-align:left;font-weight:600}
+  .pohTable th:first-child{text-align:left}
+
+  /* =============== OFP DOCUMENT PREVIEW =============== */
+  .page{width:210mm;height:297mm;background:#fff;color:#111;box-shadow:0 6px 30px rgba(0,0,0,.5);position:relative;
+    font-family:"Courier New",Courier,monospace;font-size:10.5px;line-height:1.4;padding:12mm 12mm 10mm;overflow:hidden}
+  .frame{border:1px solid #000;height:calc(100% - 6mm)}
+  .titlebar{background:#d6d6d6;border-bottom:1px solid #000;text-align:center;font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:12px;padding:6px 4px}
+  .pbody{padding:8px 10px 10px;height:calc(100% - 30px);display:flex;flex-direction:column}
+  .sec-head-label{font-size:11px;font-weight:400;margin-bottom:2px}
+  .sec-head-label.bold{font-weight:700}
+  .sec-rule{border-bottom:1px dotted #000;height:1px;margin-bottom:6px}
+  .footer{position:absolute;left:12mm;right:12mm;bottom:8mm;display:flex;justify-content:space-between;font-size:10.5px;border-top:1px solid #ccc;padding-top:4px}
+
+  .kv{white-space:pre}
+  table.times2{border-collapse:collapse;font-size:10.5px;width:100%}
+  table.times2 td{padding:0;white-space:nowrap}
+  .filled{color:#0033aa}
+  @media print{
+    .filled{color:#000}
+    /* in stampa resta solo il documento: niente wizard, niente topbar */
+    .topbar,.formcol,#dashboard{display:none!important}
+    body{height:auto;overflow:visible;background:#fff}
+    .main{display:block}
+    .stage{display:block!important;padding:0;background:#fff;gap:0}
+    .page{box-shadow:none;page-break-after:always;margin:0}
+  }
+/* ===== Dashboard / Flight Manager ===== */
+#dashboard{position:fixed;inset:0;background:#f4f6fb;z-index:50;display:none;overflow:auto}
+#dashboard.open{display:block}
+.dash-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:#fff;border-bottom:1px solid #e3e7ef;position:sticky;top:0;z-index:2}
+.dash-head h2{margin:0;font-size:17px}
+.dash-body{padding:20px 22px;max-width:1100px;margin:0 auto}
+.dash-section-title{font-size:13px;font-weight:700;color:#5b6472;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.flight-card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:15px 16px;box-shadow:0 1px 3px rgba(20,30,60,.04)}
+.flight-card .route{font-size:18px;font-weight:700;letter-spacing:.02em;margin:2px 0 4px}
+.flight-card .meta{font-size:12px;color:#6b7280;line-height:1.5}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:8px}
+.badge.standby{background:#fef3c7;color:#92660c}
+.badge.completed{background:#d1fae5;color:#065f46}
+.card-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.card-actions .btn{font-size:12px;padding:6px 10px}
+.card-drop{margin-top:11px;border:1.5px dashed #cbd3e1;border-radius:9px;padding:12px;text-align:center;font-size:12px;color:#6b7280;cursor:pointer;transition:.15s}
+.card-drop:hover{border-color:#2f6df6;color:#2f6df6}
+.dash-empty{color:#9aa2b1;font-size:13px;padding:8px 0}
+.dash-status{font-size:12px;margin-top:6px;min-height:14px}
+.dash-status.busy{color:#92660c}
+.dash-status.ok{color:#065f46}
+.dash-status.err{color:#b91c1c}
+</style>
+
+<div class="topbar">
+  <div class="brand"><b>&#9670;</b> C172 FR OFP <span>Wizard</span></div>
+  <div class="steps" id="steps"></div>
+  <div style="display:flex;gap:8px">
+    <button class="btn" id="btnDashboard">&#128194; Dashboard</button>
+    <button class="btn" id="btnNew">&#128459; Nuovo</button>
+    <button class="btn" id="btnStandby">&#128993; Salva in Standby</button>
+    <button class="btn" id="btnPreview">&#128065; Anteprima</button>
+    <button class="btn" id="btnPrint">Stampa</button>
+    <button class="btn" id="btnDrive" style="display:none">&#9729; Salva su Drive</button>
+    <button class="btn primary" id="btnPdf">Scarica PDF</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="formcol">
+    <div class="scroll" id="scrollArea">
+
+      <!-- STEP 1 -->
+      <div class="panel active" data-step="1">
+        <p class="step-title">Volo &amp; Aeromobile</p>
+        <p class="step-sub">Dati generali della missione.</p>
+        <div class="group">
+          <div class="row">
+            <div class="fld"><label>DEP</label><input id="dep" value="LILN"></div>
+            <div class="fld"><label>ARR</label><input id="arr" value="LIMC"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>ALTN</label><input id="altn" value="LILN"></div>
+            <div class="fld"><label>Reg</label><input id="reg" value="I-CCAF"></div>
+          </div>
+          <div class="row"><div class="fld"><label>Flight mission</label><input id="mission" value=""></div></div>
+        </div>
+        <div class="group">
+          <h3>Rotta</h3>
+          <div class="fld"><label>Route</label><textarea id="route"></textarea></div>
+          <div class="row" style="margin-top:9px"><div class="fld"><label>Cruise altitude</label><input id="cruisealt" value="5000 ft"></div></div>
+        </div>
+        <div class="group">
+          <h3>Orari stimati</h3>
+          <div class="row">
+            <div class="fld"><label>OFF</label><input id="tOFF" value="0830"></div>
+            <div class="fld"><label>TO</label><input id="tTO" value="0845"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>LDG</label><input id="tLDG" value="0935"></div>
+            <div class="fld"><label>ON</label><input id="tON" value="0945"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>BLOCK (calcolato)</label><input id="tBLOCK" value="0115" readonly style="opacity:.7"></div>
+            <div class="fld"><label>FLT (calcolato)</label><input id="tFLT" value="0050" readonly style="opacity:.7"></div>
+          </div>
+          <div class="calc" id="timesCalc"></div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="panel" data-step="2">
+        <p class="step-title">Rotta &amp; Fuel</p>
+        <p class="step-sub">Trip e Alternate calcolati con dist / GS &times; fuel-flow.
+          Conversione AVGAS: <b>1 USG = 2.72 kg</b> &middot; <b>1 L = 0.72 kg</b> (1 USG = 3.785 L).
+          Serbatoi C172 FR: <b>46 USG / 174 L utilizzabili</b>.</p>
+        <div class="group">
+          <h3>Trip</h3>
+          <div class="row">
+            <div class="fld"><label>Distanza (nm)</label><input id="tripDist" type="number" value="60"></div>
+            <div class="fld"><label>GS (kt)</label><input id="tripGS" type="number" value="108"></div>
+            <div class="fld"><label>Fuel flow (USG/h)</label><input id="tripFF" type="number" step="0.1" value="8.5"></div>
+          </div>
+          <div class="calc" id="tripCalc"></div>
+        </div>
+        <div class="group">
+          <h3>Alternate</h3>
+          <div class="row">
+            <div class="fld"><label>Distanza (nm)</label><input id="altDist" type="number" value="30"></div>
+            <div class="fld"><label>GS (kt)</label><input id="altGS" type="number" value="99"></div>
+            <div class="fld"><label>Fuel flow (USG/h)</label><input id="altFF" type="number" step="0.1" value="7.4"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>Altitude</label><input id="altAlt" value="5000"></div>
+            <div class="fld"><label>Tempo tabella (min)</label><input id="altTblTime" type="number" value="20"></div>
+          </div>
+          <div class="calc" id="altCalc"></div>
+        </div>
+        <div class="group">
+          <h3>Riserve &amp; margini</h3>
+          <div class="hint">Contingency = MAX(5% del Trip, 15' al Fuel Flow di crociera). Final Reserve = 30' (VFR) o 45' (IFR), allo stesso Fuel Flow.</div>
+          <div class="row" style="margin-top:8px">
+            <div class="fld"><label>Regola di volo</label>
+              <select id="flightRule">
+                <option value="VFR">VFR</option>
+                <option value="IFR">IFR</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc" id="reserveCalc"></div>
+          <div class="calc" id="fuelCapCalc"></div>
+          <div class="row" style="margin-top:9px">
+            <div class="fld"><label>Taxi (min)</label><input id="taxiMin" type="number" value="10"></div>
+            <div class="fld"><label>Taxi (USG)</label><input id="taxiFuel" type="number" step="0.1" value="0.5"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>Extra (min)</label><input id="extraMin" type="number" value="0"></div>
+            <div class="fld"><label>Extra (USG)</label><input id="extraFuel" type="number" step="0.1" value="0"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="panel" data-step="3">
+        <p class="step-title">Mass &amp; Balance</p>
+        <p class="step-sub">Inserisci ZFW e TOW a mano (li leggi dal tuo foglio M&amp;B). Puoi anche caricare il PDF del foglio: verrà allegato come immagine nella pagina M&amp;B dell'OFP.</p>
+        <div class="group">
+          <div class="drop" id="mbDrop">&#128196; Clicca o trascina il PDF del foglio M&amp;B (facoltativo)</div>
+          <input type="file" id="mbFile" accept="image/*,application/pdf" hidden>
+          <div class="mb-status" id="mbStatus"></div>
+          <img class="mb-thumb" id="mbThumb">
+        </div>
+        <div class="group">
+          <div class="row"><div class="fld"><label>EPOB / POB</label><input id="pob" type="number" value="1"></div></div>
+          <div class="row">
+            <div class="fld"><label>ZFW (kg)</label><input id="zfw" type="number" value="780"></div>
+            <div class="fld"><label>TOW (kg) &mdash; rif. foglio M&amp;B</label><input id="tow" type="number" value="900"></div>
+          </div>
+          <div class="hint">ZFW = "empty fuel tanks" (riga 7). TOW = "including fuel" (riga 9). Il TOW operativo usato nei calcoli è mostrato sotto.</div>
+          <div class="calc" id="towCalc"></div>
+          <div class="calc" id="ldwCalc"></div>
+          <div class="calc" id="altwCalc"></div>
+          <div class="row" style="margin-top:9px">
+            <div class="fld"><label>MZFW</label><input id="mzfw" type="number" value="1157"></div>
+            <div class="fld"><label>MTOW</label><input id="mtow" type="number" value="1157"></div>
+            <div class="fld"><label>MLAW</label><input id="mldw" type="number" value="1157"></div>
+          </div>
+          <div class="hint">Limiti AFM Reims Rocket FR172J (sez. II &mdash; Limitations, pag. 2-2):
+            <b>MTOW = MLW = 1157 kg</b> (2550 lb) in categoria <b>NORMALE</b>;
+            <b>998 kg</b> (2200 lb) in categoria <b>UTILITY</b> (bagagliaio e sedili posteriori devono restare vuoti).
+            L'AFM <b>non pubblica un MZFW</b> separato: il campo e' precompilato al MTOW perch&eacute; il vincolo
+            reale e' la massa massima pi&ugrave; l'inviluppo di centraggio. Bagaglio max <b>91 kg</b> (200 lb).</div>
+          <div class="calc" id="mbLimitCalc"></div>
+          <div class="fld" style="margin-top:8px"><label>Remarks (M&amp;B)</label><textarea id="mbRemarks"></textarea></div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="panel" data-step="4">
+        <p class="step-title">Performance</p>
+        <p class="step-sub">V-speeds lette dalla tabella AFM del C172 FR (nessuna interpolazione, arrotondamento conservativo).
+          Distanze pista precompilate con i valori AFM a 1157 kg, livello del mare, +15&deg;C, vento nullo, pista asfaltata:
+          correggile per quota/temperatura/vento/erba secondo le note dell'AFM.</p>
+        <div class="group">
+          <h3>Runway distance required — Departure</h3>
+          <div class="row">
+            <div class="fld"><label>Aeroporto DEP</label><input id="depAirport" value="LILN"></div>
+            <div class="fld"><label>Runway</label><input id="depRunway" value="17"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>TO ground roll (m)</label><input id="toGround" type="number" value="226"></div>
+            <div class="fld"><label>TO dist 15m/50ft (m)</label><input id="toDist50" type="number" value="375"></div>
+          </div>
+        </div>
+        <div class="group">
+          <h3>Runway distance required — Destination</h3>
+          <div class="row">
+            <div class="fld"><label>Aeroporto DEST</label><input id="destAirport" value="LIMC"></div>
+            <div class="fld"><label>Runway</label><input id="destRunway" value="35R"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>LDG ground roll (m)</label><input id="ldgGround" type="number" value="189"></div>
+            <div class="fld"><label>LDG dist 15m/50ft (m)</label><input id="ldgDist50" type="number" value="387"></div>
+          </div>
+        </div>
+        <div class="group">
+          <h3>Cruise power setting</h3>
+          <div class="row">
+            <div class="fld"><label>Altitude (ft)</label><input id="cruisePerfAlt" type="number" value="5000"></div>
+            <div class="fld"><label>Power %</label>
+              <select id="cruisePerfPct">
+                <option value="45">45%</option>
+                <option value="55" selected>55%</option>
+                <option value="65">65%</option>
+                <option value="75">75%</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc" id="cruisePerfCalc"></div>
+          <div class="calc" id="climbFuelCalc"></div>
+        </div>
+        <div class="hint">Tabella pesi/V-speeds AFM: riferimento statico, riportata identica nel PDF.
+          La tabella di crociera (Manifold Pressure / RPM / TAS / consumo) e' quella del Flight Manual Reims Rocket
+          fig. 5-1 e viene interpolata in quota in base ad Altitude e Power % qui sopra.
+          Le quote tabulate dall'AFM sono 2500 / 5000 / 7500 / 10000 / 15000 ft.</div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="panel" data-step="5">
+        <p class="step-title">Dest Charts</p>
+        <p class="step-sub">Carica fino a 2 immagini (cartine) e compila le note operative.</p>
+        <div class="group">
+          <div class="drop" id="chartDrop">&#128247; Clicca o trascina fino a 2 immagini o PDF</div>
+          <input type="file" id="chartFile" accept="image/*,application/pdf" multiple hidden>
+          <div class="thumb-row" id="chartThumbs"></div>
+        </div>
+        <div class="group">
+          <h3>Note operative</h3>
+          <div class="row"><div class="fld"><label>Track</label><input id="noteTrack" value=""></div></div>
+          <div class="row"><div class="fld"><label>Runway</label><input id="noteRunway" value=""></div></div>
+          <div class="row"><div class="fld"><label>Altitudes</label><input id="noteAlt" value=""></div></div>
+          <div class="row"><div class="fld"><label>Clearance</label><input id="noteClear" value=""></div></div>
+          <div class="row"><div class="fld"><label>Timing</label><input id="noteTiming" value=""></div></div>
+          <div class="row"><div class="fld"><label>On ground</label><input id="noteGround" value=""></div></div>
+          <div class="row"><div class="fld"><label>Radios</label><input id="noteRadios" value=""></div></div>
+          <div class="row"><div class="fld"><label>Specials</label><input id="noteSpecials" value=""></div></div>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="panel" data-step="6">
+        <p class="step-title">Briefing</p>
+        <p class="step-sub">Threat &amp; error management per fase di volo, stato aeromobile, note.</p>
+        <div class="group">
+          <h3>Departure</h3>
+          <div class="fld"><label>Dep procedure</label><textarea id="depProc"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Poss. threats</label><textarea id="depThreats"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="depMit"></textarea></div>
+        </div>
+        <div class="group">
+          <h3>Enroute</h3>
+          <div class="fld"><label>Enroute procedure</label><textarea id="enrProc"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Poss. threats</label><textarea id="enrThreats"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="enrMit"></textarea></div>
+        </div>
+        <div class="group">
+          <h3>Destination</h3>
+          <div class="fld"><label>Dest procedure</label><textarea id="destProc"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Poss. threats</label><textarea id="destThreats"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="destMit"></textarea></div>
+        </div>
+        <div class="group">
+          <h3>Aircraft Status</h3>
+          <div class="fld"><textarea id="acStatus"></textarea></div>
+        </div>
+        <div class="group">
+          <h3>Remarks</h3>
+          <div class="fld"><textarea id="briefRemarks"></textarea></div>
+        </div>
+      </div>
+
+      <!-- STEP 7 -->
+      <div class="panel" data-step="7">
+        <p class="step-title">NOTAM &amp; Weather</p>
+        <p class="step-sub">Un riquadro per aeroporto (METAR + TAF + NOTAM), più i NOTAM di rotta.</p>
+        <div class="group">
+          <div class="drop" id="wxDrop">&#128247; Clicca o trascina il PDF briefing WX &amp; NOTAM</div>
+          <input type="file" id="wxFile" accept="application/pdf" hidden>
+          <div class="mb-status" id="wxStatus"></div>
+          <button class="btn" id="wxRetryBtn" style="display:none;margin-top:8px;font-size:12px;padding:6px 12px">↻ Riprova estrazione</button>
+          <div class="row" style="margin-top:9px">
+            <div class="fld"><label>Date (GG.MM.AAAA)</label><input id="wxDate" placeholder="estratto dal PDF"></div>
+            <div class="fld"><label>Time (HH:MM UTC)</label><input id="wxTime" placeholder="estratto dal PDF"></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>Validità / periodo</label><input id="wxValid" placeholder="estratto dal PDF, se presente"></div>
+          </div>
+          <div class="hint">Compilati automaticamente dal PDF del briefing (emissione e validità). Correggibili a mano.
+            Formati riconosciuti: Skybrief (<code>SKYBRIEF gg/mm/aaaa hh:mm UTC</code>), Skybriefing/PIB
+            (<code>Printed at (UTC) 2026SEP08 1311</code>), AELO/MeteoSwiss e generici gg/mm/aaaa.</div>
+        </div>
+        <div class="group">
+          <h3>Departure Airport <span class="filled" id="wxDepIcao"></span></h3>
+          <div class="fld"><label>METAR</label><textarea id="depMetar"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>SPECI</label><textarea id="depSpeci"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>TAF</label><textarea id="depTaf"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>NOTAM</label><textarea id="depNotam" style="min-height:80px"></textarea></div>
+        </div>
+        <div class="group">
+          <h3>Destination Airport <span class="filled" id="wxDestIcao"></span></h3>
+          <div class="fld"><label>METAR</label><textarea id="destMetar"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>SPECI</label><textarea id="destSpeci"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>TAF</label><textarea id="destTaf"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>NOTAM</label><textarea id="destNotam" style="min-height:80px"></textarea></div>
+        </div>
+        <div class="group">
+          <h3>Alternate Airport <span class="filled" id="wxAltnIcao"></span></h3>
+          <div class="fld"><label>METAR</label><textarea id="altnMetar"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>SPECI</label><textarea id="altnSpeci"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>TAF</label><textarea id="altnTaf"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>NOTAM</label><textarea id="altnNotam" style="min-height:80px"></textarea></div>
+        </div>
+        <div class="group">
+          <h3>Enroute NOTAMs</h3>
+          <div class="fld"><textarea id="enrouteNotam" style="min-height:80px"></textarea></div>
+        </div>
+        <div class="group">
+          <h3>PIC</h3>
+          <div class="fld"><label>Nome PIC (firma)</label><input id="picName" value="Riccardo Gianazza"></div>
+        </div>
+        <div class="hint">Ultimo step. Usa "Scarica PDF" in alto per generare e scaricare il documento.</div>
+      </div>
+
+    </div>
+    <div class="navrow">
+      <button class="btn ghost" id="btnBack">&larr; Indietro</button>
+      <button class="btn primary" id="btnNext">Avanti &rarr;</button>
+    </div>
+  </div>
+  <div class="stage" id="stage" style="display:none"></div>
+</div>
+
+<!-- ===== Dashboard / Flight Manager ===== -->
+<div id="dashboard">
+  <div class="dash-head">
+    <h2>&#128194; Cronologia Voli / Flight Manager</h2>
+    <button class="btn primary" id="btnCloseDash">&larr; Torna al wizard</button>
+  </div>
+  <div class="dash-body">
+    <div class="dash-section-title">&#128993; Voli in Standby &mdash; in attesa WX</div>
+    <div class="cards" id="draftCards"></div>
+    <div id="draftEmpty" class="dash-empty">Nessun volo in standby. Compila la rotta e premi "Salva in Standby".</div>
+    <div class="dash-section-title" style="margin-top:26px">&#128994; Voli Completati &mdash; pronti per il volo</div>
+    <div class="cards" id="completedCards"></div>
+    <div id="completedEmpty" class="dash-empty">Nessun volo completato.</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }</script>
+<script>
+/* ============================ helpers ============================ */
+function $(id){ return document.getElementById(id); }
+
+/* ===================== AEROMOBILE: CESSNA C172 FR =====================
+   Reims Cessna FR172J "Reims Rocket" — Continental IO-360-D, 210 HP a 2800 RPM,
+   elica a giri costanti (da cui la Manifold Pressure nelle tabelle di crociera).
+   Ogni costante qui sotto e' presa dal Flight Manual Reims Rocket, Edition 3.
+
+   CARBURANTE — AVGAS: il manuale (Sample Loading Problem, fig. 6-4) usa
+   174 litri = 125,2 kg, cioe' 0,72 kg/litro; 46 US gallons = 174 litri, da cui
+   1 USG = 2,72 kg. Le due conversioni sono quindi coerenti fra loro. */
+const KG_PER_USG   = 2.72;   // 1 US gallon AVGAS = 2,72 kg   (AFM fig. 6-4)
+const KG_PER_LITRE = 0.72;   // 1 litro AVGAS     = 0,72 kg   (AFM fig. 6-4)
+const L_PER_USG    = 3.785;  // conversione volumetrica USG -> litri
+const USABLE_FUEL_USG = 46;  // carburante utilizzabile totale (AFM fig. 1-4: 46 USG / 174 L)
+
+/* Limiti operativi (AFM sez. II — Limitations, pag. 2-2 / 2-4). */
+const AC_LIMITS = {
+  mtowNormal : 1157,  // Max gross weight T/O e LDG, categoria NORMALE (2550 lb)
+  mlwNormal  : 1157,  // il manuale non prevede una massa di atterraggio inferiore
+  mzfw       : 1157,  // l'AFM non pubblica un MZFW: il vincolo e' il MTOW + inviluppo CG
+  mtowUtility:  998,  // categoria UTILITY (2200 lb) — bagagliaio e sedili posteriori vuoti
+  maxBaggage :   91,  // 200 lb (AFM pag. 2-3)
+  vne:161, vno:127, vfe:87, va:104,          // kt, AFM pag. 2-1
+  xwindTO:20, xwindLDG:15                    // kt, AFM pag. 2-4
+};
+function num(id){ const v=parseFloat($(id).value); return isNaN(v)?0:v; }
+function txt(id){ const el=$(id); return el ? (el.value||"") : ""; }
+function fmt(n){ if(!isFinite(n)) return "0"; const r=Math.round(n*100)/100; return Number.isInteger(r)? String(r) : r.toFixed(2); }
+function pad(s,len){ s=String(s); return s+" ".repeat(Math.max(0,len-s.length)); }
+function padL(s,len){ s=String(s); return " ".repeat(Math.max(0,len-s.length))+s; }
+function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+function hhmmToMin(s){ s=String(s||'0000').replace(/\D/g,'').padStart(4,'0'); const hh=parseInt(s.slice(0,2))||0, mm=parseInt(s.slice(2,4))||0; return hh*60+mm; }
+function minToHHMM(min){ min=((min%1440)+1440)%1440; const hh=Math.floor(min/60), mm=min%60; return String(hh).padStart(2,'0')+String(mm).padStart(2,'0'); }
+function computeTimes(){
+  const off=hhmmToMin(txt('tOFF')), to=hhmmToMin(txt('tTO')), ldg=hhmmToMin(txt('tLDG')), on=hhmmToMin(txt('tON'));
+  const block=minToHHMM(on-off), flt=minToHHMM(ldg-to);
+  return {off:txt('tOFF'),to:txt('tTO'),ldg:txt('tLDG'),on:txt('tON'),block,flt};
+}
+
+/* ============================ wizard nav ============================ */
+const STEP_LABELS=['Volo','Rotta&Fuel','M&B','Perf.','Charts','Briefing','NOTAM&Wx'];
+let currentStep=1; const totalSteps=7;
+function renderSteps(){
+  $('steps').innerHTML = STEP_LABELS.map((lbl,i)=>{
+    const n=i+1; const cls = n===currentStep?'active':(n<currentStep?'done':'');
+    return `<div class="step-pill ${cls}" data-goto="${n}"><span class="n">${n<currentStep?'&#10003;':n}</span>${lbl}</div>`;
+  }).join('');
+  document.querySelectorAll('.step-pill').forEach(p=>p.addEventListener('click',()=>goToStep(parseInt(p.dataset.goto))));
+}
+function goToStep(n){
+  currentStep=Math.min(Math.max(n,1),totalSteps);
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', parseInt(p.dataset.step)===currentStep));
+  $('btnBack').disabled = currentStep===1;
+  $('btnNext').style.display = currentStep===totalSteps ? 'none' : 'inline-block';
+  renderSteps(); $('scrollArea').scrollTop=0; render();
+}
+$('btnNext').addEventListener('click',()=>goToStep(currentStep+1));
+$('btnBack').addEventListener('click',()=>goToStep(currentStep-1));
+
+/* ============================ fuel calc ============================ */
+function round2(n){ return Math.round(n*100)/100; }
+
+function computeFuel(){
+  // Trip Time = Tempo di crociera puro + 20 min fissi di procedura (10' partenza + 10' arrivo)
+  const PROC_MARGIN_MIN = 20;
+  const cruiseTime = num('tripGS')>0 ? Math.round(num('tripDist')/num('tripGS')*60) : 0;
+  const tripTime = cruiseTime + PROC_MARGIN_MIN;
+  const tripFF = num('tripFF'); // Fuel Flow di crociera — usato anche per Contingency e Final Reserve
+  const tripFuel = round2(tripTime/60*tripFF);
+  const altTime  = num('altGS')>0 ? Math.round(num('altDist')/num('altGS')*60) : 0;
+  const altFuel  = round2(altTime/60*num('altFF'));
+
+  // CONTINGENCY = MAX(Trip Time * 0.05, 15) min ; MAX(Trip Fuel * 0.05, (FF/60)*15) USG
+  const contMin  = Math.round(Math.max(tripTime*0.05, 15));
+  const contFuel = round2(Math.max(tripFuel*0.05, (tripFF/60)*15));
+
+  // FINAL RESERVE: VFR=30min, IFR=45min ; Fuel = (FF/60) * minuti, stesso Fuel Flow di crociera
+  const finMin  = txt('flightRule')==='IFR' ? 45 : 30;
+  const finFuel = round2((tripFF/60)*finMin);
+
+  const taxiMin=Math.round(num('taxiMin')), taxiFuel=round2(num('taxiFuel'));
+  const exMin  =Math.round(num('extraMin')),exFuel  =round2(num('extraFuel'));
+
+  // MIN BLOCK = TRIP + CONTINGENCY + ALTERNATE + FINAL RESERVE
+  const minBlockFuel = round2(tripFuel+contFuel+altFuel+finFuel);
+  const minBlockTime = Math.round(tripTime+contMin+altTime+finMin);
+  // PLAN BLOCK = MIN BLOCK + TAXI + EXTRA
+  const blockFuel= round2(minBlockFuel+taxiFuel+exFuel);
+  const blockTime= Math.round(minBlockTime+taxiMin+exMin);
+  const toffFuel = round2(minBlockFuel+exFuel);
+  const toffTime = Math.round(minBlockTime+exMin);
+  return {cruiseTime,tripTime,tripFuel,altTime,altFuel,contMin,contFuel,finMin,finFuel,
+          taxiMin,taxiFuel,exMin,exFuel,minBlockFuel,minBlockTime,toffFuel,toffTime,blockFuel,blockTime};
+}
+function weights(f){
+  // TOW = ZFW + (Planned Block Fuel kg − Taxi Fuel kg): il peso al decollo è lo ZFW
+  // (estratto dal M&B) più il carburante realmente a bordo dopo il rullaggio, come
+  // da formula ufficiale — non più un valore indipendente preso a sé.
+  const zfw = num('zfw');
+  const tow = Math.round(zfw + (f.blockFuel-f.taxiFuel)*KG_PER_USG);
+  const ldw=Math.round(tow-f.tripFuel*KG_PER_USG);
+  const altw=Math.round(ldw-f.altFuel*KG_PER_USG);
+  return {tow,ldw,altw};
+}
+
+/* ============================ POH reference tables ============================ */
+/* Fasce di peso: sono ESATTAMENTE i tre pesi per cui il Flight Manual FR172J
+   tabula le prestazioni (fig. 5-4 decollo e fig. 5-6 salita), niente pesi inventati. */
+const POH_WEIGHTS=[850,1000,1157];
+
+/* V-SPEEDS — Cessna C172 FR (Reims Rocket FR172J), tutte in KIAS.
+   Origine di ogni riga (Flight Manual Reims Rocket, Edition 3):
+
+   vBestGlide  fig. 5-7 "MAXIMUM GLIDE": 74 kt a 1157 kg, elica in autorotazione,
+               flap retratti. Sugli altri pesi e' scalata con sqrt(W/1157), come
+               si fa per tutte le velocita' riferite alla portanza.
+   vR          fig. 5-4 "TAKE-OFF DISTANCE FLAPS 10 deg", colonna "VI 15 m":
+               50 / 55 / 59 kt ai tre pesi tabulati. Sono i valori pubblicati
+               dall'AFM per il decollo, presi tali e quali.
+   vY          fig. 5-6 "MAXIMUM RATE OF CLIMB DATA" al livello del mare:
+               70 / 71 / 74 kt. (In quota l'AFM da' 1-3 kt in meno: a 10000 ft
+               67 / 70 / 72 kt.)
+   vRefUp      1,3 x Vs flap UP. Vs = 53 kt a 1157 kg (fig. 5-3, potenza tolta,
+               CG posteriore), scalata con sqrt(W/1157) sugli altri pesi.
+   vRefTO      1,3 x Vs con flap 10 deg (assetto di decollo). L'AFM tabula lo
+               stallo solo a flap UP (53 kt) e flap 20 deg (48 kt): il valore a
+               10 deg e' interpolato fra i due (50,5 kt a 1157 kg). E' l'unica
+               riga derivata per interpolazione e come tale e' annotata anche
+               sul PDF.
+   vRefLDG     flap FULL 40 deg: fig. 5-5 "LANDING DISTANCE", colonna
+               "APPROACH SPEED" = 63 kt a 1157 kg, scalata sugli altri pesi.
+               (E' piu' conservativa di 1,3 x Vs40, che darebbe 60 kt.)
+
+   NB: il C172 FR ha i flap sui detent 0 / 10 / 20 / 40 gradi — "FULL" e' 40 deg,
+   non 30 deg. */
+const POH_TABLE={
+  //           850kg 1000kg 1157kg
+  vBestGlide:[   63,    69,    74 ],
+  vR:        [   50,    55,    59 ],
+  vY:        [   70,    71,    74 ],
+  vRefUp:    [   59,    64,    69 ],
+  vRefTO:    [   56,    61,    66 ],
+  vRefLDG:   [   54,    59,    63 ],
+};
+/* Etichette delle righe: usate identiche in anteprima HTML e nel PDF, cosi' non
+   possono divergere fra i due output. */
+const V_ROWS=[
+  ['V best glide',      'bg',  'vBestGlide'],
+  ['VR rotate',         'vr',  'vR'        ],
+  ['VY best rate',      'vy',  'vY'        ],
+  ['Vref flaps UP',     'up',  'vRefUp'    ],
+  ['Vref flaps 10 T/O', 'to',  'vRefTO'    ],
+  ['Vref flaps 40 FULL','ldg', 'vRefLDG'   ],
+];
+const V_FOOTNOTE='Fonte: AFM Reims Rocket FR172J fig. 5-3/5-4/5-5/5-6/5-7. Vref flaps 10 interpolata fra flap UP e flap 20.';
+/* NIENTE interpolazione: si prende il valore ESATTO della tabella POH più vicino al peso,
+   con arrotondamento conservativo (verso il peso superiore) quando il peso non è
+   chiaramente sotto la metà dello scaglione — così non si sottostimano mai le velocità. */
+function pickTableValue(row,w){
+  const pts=POH_WEIGHTS.map((ww,i)=>[ww,row[i]]).filter(p=>p[1]!==null);
+  if(w<=pts[0][0]) return {v:pts[0][1], wSel:pts[0][0]};
+  if(w>=pts[pts.length-1][0]) return {v:pts[pts.length-1][1], wSel:pts[pts.length-1][0]};
+  for(let i=0;i<pts.length-1;i++){
+    const [w1,v1]=pts[i],[w2,v2]=pts[i+1];
+    if(w>=w1&&w<=w2){
+      const mid=(w1+w2)/2;
+      return w>mid ? {v:v2,wSel:w2} : {v:v1,wSel:w1}; // sopra metà -> peso superiore (conservativo); sotto metà -> peso inferiore
+    }
+  }
+  return {v:pts[pts.length-1][1], wSel:pts[pts.length-1][0]};
+}
+function vspeedsFor(w){
+  const bg=pickTableValue(POH_TABLE.vBestGlide,w), vr=pickTableValue(POH_TABLE.vR,w), vy=pickTableValue(POH_TABLE.vY,w),
+        up=pickTableValue(POH_TABLE.vRefUp,w), to=pickTableValue(POH_TABLE.vRefTO,w), ldg=pickTableValue(POH_TABLE.vRefLDG,w);
+  return {
+    bg:bg.v, vr:vr.v, vy:vy.v, up:up.v, to:to.v, ldg:ldg.v,
+    wUsed:{bg:bg.wSel,vr:vr.wSel,vy:vy.wSel,up:up.wSel,to:to.wSel,ldg:ldg.wSel}
+  };
+}
+function cruiseInterp(altitude, pct){
+  const key='p'+pct;
+  const pts=CRUISE_TABLE.filter(r=>r[key]).map(r=>({alt:r.alt, mp:r[key][0], rpm:r[key][1], tas:r[key][2], ff:r[key][3]}));
+  if(!pts.length) return null;   // potenza non ottenibile a nessuna quota tabulata
+  const exact=pts.find(p=>p.alt===altitude);
+  let lo, hi;
+  if(exact){ lo=hi=exact; }
+  else if(altitude<=pts[0].alt){ lo=hi=pts[0]; }
+  else if(altitude>=pts[pts.length-1].alt){ lo=hi=pts[pts.length-1]; }
+  else{
+    for(let i=0;i<pts.length-1;i++){ if(altitude>=pts[i].alt && altitude<=pts[i+1].alt){ lo=pts[i]; hi=pts[i+1]; break; } }
+  }
+  const r = lo.alt===hi.alt ? 0 : (altitude-lo.alt)/(hi.alt-lo.alt);
+  return {
+    mp: Math.round((lo.mp+(hi.mp-lo.mp)*r)*10)/10,
+    rpm: Math.round((lo.rpm+(hi.rpm-lo.rpm)*r)/10)*10,
+    tas: Math.round(lo.tas+(hi.tas-lo.tas)*r),
+    ff: Math.round((lo.ff+(hi.ff-lo.ff)*r)*10)/10,   // consumo interpolato, USG/h
+    loAlt: lo.alt, hiAlt: hi.alt,
+    eco: CRUISE_ECO[key], pwr: CRUISE_PWR[key]
+  };
+}
+/* CROCIERA — Cessna C172 FR, Continental IO-360-D con elica a giri costanti.
+   Flight Manual Reims Rocket fig. 5-1 (fogli 1-5), "CRUISE PERFORMANCE — NORMAL
+   LEAN MIXTURE", 1157 kg, atmosfera standard, vento nullo. Le quote sono quelle
+   effettivamente tabulate dall'AFM: 2500 / 5000 / 7500 / 10000 / 15000 ft.
+
+   Ogni cella e' [MP in Hg, RPM, TAS kt, consumo USG/h] copiata da una RIGA REALE
+   dell'AFM — nessun valore mediato o inventato. Per ogni colonna di potenza si e'
+   scelta la riga con %BHP piu' vicino al valore nominale (45/55/65/75%), a parita'
+   preferendo MP piu' alta e RPM piu' bassa (pratica corretta su motore a giri
+   costanti). La %BHP reale usata e' annotata accanto a ogni riga.
+   Una cella e' null quando l'AFM non arriva a quella potenza a quella quota:
+   in aria densa 75% non e' ottenibile sopra ~6000 ft e sopra 10000 ft il motore
+   aspirato non supera circa il 50%.
+
+   Limiti motore (AFM pag. 2-4): MP arco verde 15-25 in Hg, RPM arco verde
+   2200-2600, massimo 2800 RPM. Tutte le combinazioni qui sotto sono nell'arco verde. */
+const CRUISE_TABLE=[
+ //        MP   RPM  TAS  USG/h                MP   RPM  TAS  USG/h                MP   RPM  TAS  USG/h                MP   RPM  TAS  USG/h
+ {alt:2500,  p45:[20,2200, 94, 7.0], p55:[23,2200,107, 8.6], p65:[23,2400,115, 9.8], p75:[25,2400,121,11.1]}, // %BHP AFM: 44 / 56 / 65 / 73
+ {alt:5000,  p45:[20,2200, 99, 7.4], p55:[22,2200,108, 8.5], p65:[23,2300,116, 9.7], p75:[23,2600,125,11.4]}, // %BHP AFM: 47 / 55 / 63 / 75
+ {alt:7500,  p45:[18,2300, 97, 7.1], p55:[21,2200,109, 8.3], p65:[21,2500,121,10.1], p75:null              }, // %BHP AFM: 45 / 54 / 66 / --
+ {alt:10000, p45:[18,2200, 98, 7.1], p55:[18,2500,112, 8.5], p65:[19,2600,120, 9.6], p75:null              }, // %BHP AFM: 45 / 55 / 63 / --
+ {alt:15000, p45:[15,2400, 97, 6.9], p55:null,               p65:null,               p75:null              }, // %BHP AFM: 44 / -- / -- / --
+];
+/* Consumi per fascia di potenza (USG/h), estremi ricavati dalle celle qui sopra.
+   Il FR172J e' tabulato dall'AFM con una sola miscela ("NORMAL LEAN MIXTURE"),
+   quindi non esistono le due colonne Best Economy / Best Power di altri POH: qui
+   CRUISE_ECO e' il consumo MINIMO della fascia (quota alta, aria rarefatta) e
+   CRUISE_PWR il consumo MASSIMO (quota bassa). Sono etichettati "FF min" / "FF max"
+   in tutti gli output proprio per non spacciarli per due miscele diverse. */
+const CRUISE_ECO={p45:'6.9',p55:'8.3',p65:'9.6', p75:'11.1'};
+const CRUISE_PWR={p45:'7.4',p55:'8.6',p65:'10.1',p75:'11.4'};
+/* Carburante consumato per salire fino a una quota, a piena potenza e 1157 kg
+   (AFM fig. 5-6). Include già il consumo di avviamento e decollo. Valori in litri,
+   come li stampa il manuale. */
+const CLIMB_FUEL_L=[[0,4.9],[5000,11.7],[10000,20.1],[15000,33.3]];
+/** Litri per salire a `alt` ft, interpolando fra le quote tabulate dall'AFM. */
+function climbFuelLitres(alt){
+  const t=CLIMB_FUEL_L;
+  if(alt<=t[0][0]) return t[0][1];
+  if(alt>=t[t.length-1][0]) return t[t.length-1][1];
+  for(let i=0;i<t.length-1;i++){
+    if(alt>=t[i][0] && alt<=t[i+1][0]){
+      const r=(alt-t[i][0])/(t[i+1][0]-t[i][0]);
+      return Math.round((t[i][1]+(t[i+1][1]-t[i][1])*r)*10)/10;
+    }
+  }
+  return t[t.length-1][1];
+}
+
+/* ============================ HTML PREVIEW ============================ */
+function titleText(){ return `${txt('dep')||"A/P"}-${txt('arr')||"A/P"} CESSNA C172 FR ${txt('reg')||"Reg:"}`; }
+function pageShell(sectionLabel, bodyHTML, pageNo, extraStyle){
+  return `<div class="page" data-page="${pageNo}">
+    <div class="frame" style="display:flex;flex-direction:column">
+      <div class="titlebar">${titleText()}</div>
+      <div class="pbody" style="${extraStyle||''}">
+        <div class="sec-head-label">${sectionLabel}</div>
+        <div class="sec-rule"></div>
+        <div style="flex:1;display:flex;flex-direction:column;min-height:0">${bodyHTML}</div>
+      </div>
+    </div>
+    <div class="footer"><span>${esc(txt('picName')||'PIC')}</span><span>${pageNo}</span></div>
+  </div>`;
+}
+
+function pageOFP(f,t){
+  const est=(l,v)=>`<tr><td style="padding:5px 14px 5px 0">${pad(l,7)}</td><td style="text-align:right;padding:5px 20px 5px 0">${padL(v,4)}</td><td style="padding:5px 0">.....Z</td></tr>`;
+  const timesRows=[['OFF',t.off],['TO',t.to],['LDG',t.ldg],['ON',t.on],['BLOCK',t.block],['FLT',t.flt]];
+  const timesTable=`<table class="times2">
+    <tr><td></td><td style="text-align:right;padding-right:20px;padding-bottom:6px">ESTIMATED</td><td style="padding-bottom:6px">ACTUAL</td></tr>
+    ${timesRows.map(([l,v])=>est(l,v)).join('')}
+  </table>`;
+
+  const topBlock=`<div style="display:flex">
+    <div style="width:40%">
+      <div class="kv" style="line-height:1.9">FLT MISSION: <span class="filled">${esc(txt('mission'))}</span>
+DEP: <span class="filled">${esc(txt('dep'))}</span>
+ARR: <span class="filled">${esc(txt('arr'))}</span>
+ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
+    </div>
+    <div style="width:1px;background:#000;margin:0 18px"></div>
+    <div style="flex:1;padding-top:2px">${timesTable}</div>
+  </div>
+  <div style="height:30px"></div>`;
+
+  const fuelRow=(l,fuel,time)=>`<tr><td style="width:110px;padding:3px 0">${l}</td><td class="filled" style="width:110px;text-align:right;padding:3px 22px 3px 0">${fuel}</td><td class="filled" style="width:50px;text-align:right;padding:3px 0">${time}</td></tr>`;
+  const fuelTable=`
+    <div style="display:flex;font-size:10.5px;margin-bottom:6px"><span style="width:110px"></span><span style="width:110px;text-align:right;padding-right:22px">FUEL(USG)</span><span style="width:50px;text-align:right">TIME</span></div>
+    <table style="border-collapse:collapse;font-size:10.5px">
+      ${fuelRow('TRIP',fmt(f.tripFuel),f.tripTime)}
+      ${fuelRow('CONT',fmt(f.contFuel),f.contMin)}
+      ${fuelRow('ALTN',fmt(f.altFuel),f.altTime)}
+      ${fuelRow('FINAL RES',fmt(f.finFuel),f.finMin)}
+      <tr><td colspan="3" style="height:7px"></td></tr>
+      ${fuelRow('MIN BLOCK',fmt(f.minBlockFuel),f.minBlockTime)}
+      ${fuelRow('EXTRA',fmt(f.exFuel),f.exMin)}
+      ${fuelRow('TAXI',fmt(f.taxiFuel),f.taxiMin)}
+      <tr><td colspan="3" style="height:7px"></td></tr>
+      ${fuelRow('PLAN BLOCK',fmt(f.blockFuel),f.blockTime)}
+    </table>
+    <div style="border-top:1px dotted #000;padding-top:6px;margin-top:5px;max-width:220px">BLOCK = .....</div>
+    <div style="border-top:1px dotted #000;padding-top:6px;margin-top:5px;max-width:220px">ACT USD= .....</div>
+    <div style="border-top:1px dotted #000;margin-top:5px;max-width:220px"></div>`;
+
+  const altsum=`<div style="display:flex;font-size:10.5px;text-align:center;margin-top:auto;padding-top:18px">
+    <div style="flex:1"><div style="font-weight:700;margin-bottom:7px">ALTERNATE</div><div class="filled">${esc(txt('altn'))}</div></div>
+    <div style="flex:1"><div style="font-weight:700;margin-bottom:7px">DIST</div><div class="filled">${num('altDist')}</div></div>
+    <div style="flex:1"><div style="font-weight:700;margin-bottom:7px">TIME</div><div class="filled">${num('altTblTime')}</div></div>
+    <div style="flex:1"><div style="font-weight:700;margin-bottom:7px">ALTITUDE</div><div class="filled">${esc(txt('altAlt'))}</div></div>
+  </div>`;
+
+  const body=`
+    ${topBlock}
+    <div style="border-top:1px dotted #000;margin:8px 0 14px"></div>
+    <div>ROUTE: <span class="filled">${esc(txt('route'))}</span></div>
+    <div style="height:24px"></div>
+    <div>CRUISE ALTITUDE: <span class="filled">${esc(txt('cruisealt'))}</span></div>
+    <div style="border-top:1px dotted #000;margin:12px 0"></div>
+    ${fuelTable}
+    ${altsum}`;
+  return pageShell('OFP', body, 1);
+}
+
+function pageMB(f,w){
+  const grid=
+    `EPOB   <span class="filled">${padL(num('pob'),3)}</span>    POB\n`+
+    `EZFW   <span class="filled">${padL(num('zfw'),4)}</span>   MZFW   ${padL(num('mzfw'),4)}\n`+
+    `ETOW   <span class="filled">${padL(w.tow,4)}</span>   MTOW   ${padL(num('mtow'),4)}\n`+
+    `ELDW   <span class="filled">${padL(w.ldw,4)}</span>   MLAW   ${padL(num('mldw'),4)}\n`+
+    `ALTN W <span class="filled">${padL(w.altw,4)}</span>`;
+  const img = window.__mbImg ? `<img src="${window.__mbImg}" style="max-width:100%;max-height:120mm">` : `<div style="color:#999;font-size:11px">&mdash; screenshot Mass &amp; Balance &mdash;</div>`;
+  const rem = txt('mbRemarks').trim();
+  const body=`
+    <div class="kv" style="font-size:12px;line-height:2">${grid}</div>
+    <div style="border:1px solid #000;padding:5px;min-height:62mm;display:flex;align-items:center;justify-content:center;margin:10px 0">${img}</div>
+    <div style="font-weight:700;font-size:11.5px;margin-top:8px">REMARKS:</div>
+    <div class="kv filled" style="min-height:20px;font-size:11px">${esc(rem)}</div>
+    <div style="margin-top:auto">
+      <div style="border-top:1px dotted #000;margin:5px 0"></div>
+      <div style="border-top:1px dotted #000;margin:5px 0"></div>
+      <div style="margin-top:16px;font-size:11.5px">PIC: ${esc(txt('picName'))}</div>
+      <div style="font-size:11.5px">..........</div>
+    </div>`;
+  return pageShell('MASS AND BALANCE', body, 2);
+}
+
+function pagePerf(f,w){
+  const dep=vspeedsFor(w.tow), dest=vspeedsFor(w.ldw), altn=vspeedsFor(w.altw);
+  const vTable=`<table class="refTable" style="max-width:360px">
+    <tr><th></th><th>DEP</th><th>DEST</th><th>ALTN</th></tr>
+    ${V_ROWS.map(([lbl,k])=>`<tr><td style="text-align:left;padding-left:4px">${lbl}</td><td>${dep[k]}</td><td>${dest[k]}</td><td>${altn[k]}</td></tr>`).join('')}
+  </table>`;
+  const pohTable=`<table class="refTable pohTable">
+    <tr><th>AFM Reference (KIAS)</th>${POH_WEIGHTS.map(w2=>`<th>${w2} kg</th>`).join('')}</tr>
+    ${V_ROWS.map(([lbl,,key])=>`<tr><td>${lbl}</td>${POH_TABLE[key].map(v=>`<td>${v??'--'}</td>`).join('')}</tr>`).join('')}
+  </table>
+  <div style="font-size:8px;margin-top:2px">${V_FOOTNOTE}</div>`;
+  // DEPARTURE e DESTINATION su due righe distinte: i campi del form sono separati
+  // (depAirport/depRunway e destAirport/destRunway) e le distanze di decollo
+  // riguardano il primo, quelle di atterraggio il secondo.
+  const rwyTable=`<table class="refTable" style="max-width:520px">
+    <tr><th></th><th>Airport</th><th>Runway</th><th>Ground roll</th><th>Dist 15 m / 50 ft</th></tr>
+    <tr>
+      <td style="text-align:left;padding-left:4px"><b>T/O &mdash; DEP</b></td>
+      <td class="filled">${esc(txt('depAirport'))}</td>
+      <td class="filled">${esc(txt('depRunway'))}</td>
+      <td class="filled">${num('toGround')} m</td>
+      <td class="filled">${num('toDist50')} m</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:4px"><b>LDG &mdash; DEST</b></td>
+      <td class="filled">${esc(txt('destAirport'))}</td>
+      <td class="filled">${esc(txt('destRunway'))}</td>
+      <td class="filled">${num('ldgGround')} m</td>
+      <td class="filled">${num('ldgDist50')} m</td>
+    </tr>
+  </table>`;
+  const cAlt=num('cruisePerfAlt'), cPct=parseInt(txt('cruisePerfPct'))||55;
+  const ci=cruiseInterp(cAlt,cPct);
+  const pctIdx={45:0,55:1,65:2,75:3}[cPct];
+  const cruiseTable=`<table class="refTable cruiseTable">
+    <tr><th>Pres Alt</th><th colspan="4">45%</th><th colspan="4">55%</th><th colspan="4">65%</th><th colspan="4">75%</th></tr>
+    <tr><th>ft</th>${[0,1,2,3].map(()=>'<th>MP</th><th>RPM</th><th>TAS</th><th>USG/h</th>').join('')}</tr>
+    ${CRUISE_TABLE.map(r=>{
+      const isBracketRow = ci && (r.alt===ci.loAlt || r.alt===ci.hiAlt);
+      const cells=[r.p45,r.p55,r.p65,r.p75].map((p,gi)=>{
+        const cls = (isBracketRow && gi===pctIdx) ? ' class="hlCell"' : '';
+        return p ? `<td${cls}>${p[0]}</td><td${cls}>${p[1]}</td><td${cls}>${p[2]}</td><td${cls}>${p[3].toFixed(1)}</td>`
+                 : `<td${cls}>--</td><td${cls}>--</td><td${cls}>--</td><td${cls}>--</td>`;
+      }).join('');
+      return `<tr><td>${r.alt}</td>${cells}</tr>`;
+    }).join('')}
+    <tr><td>FF min</td>${['p45','p55','p65','p75'].map(k=>`<td colspan="4">${CRUISE_ECO[k]} USG/h</td>`).join('')}</tr>
+    <tr><td>FF max</td>${['p45','p55','p65','p75'].map(k=>`<td colspan="4">${CRUISE_PWR[k]} USG/h</td>`).join('')}</tr>
+  </table>
+  <div style="font-size:8px;margin-top:2px">AFM Reims Rocket FR172J fig. 5-1, normal lean mixture, 1157 kg, ISA, vento nullo &middot; MP in inHg &middot; TAS in kt &middot; "--" = potenza non ottenibile a quella quota.</div>`;
+  const body=`
+    <div class="kv">ETOW <span class="filled">${w.tow}</span> kg&nbsp;&nbsp;&nbsp;ELDW <span class="filled">${w.ldw}</span> kg&nbsp;&nbsp;&nbsp;ALTN <span class="filled">${w.altw}</span> kg</div>
+    <div style="font-size:9.5px;margin:4px 0 8px">*ADD +5 KTS AT VREF SPEEDS &middot; VNE ${AC_LIMITS.vne} &middot; VNO ${AC_LIMITS.vno} &middot; VFE ${AC_LIMITS.vfe} &middot; VA ${AC_LIMITS.va} KIAS &middot; XWIND T/O ${AC_LIMITS.xwindTO} kt &middot; LDG ${AC_LIMITS.xwindLDG} kt</div>
+    ${vTable}
+    ${pohTable}
+    <div style="font-weight:700;margin-top:10px">RUNWAY DISTANCE REQUIRED</div>
+    ${rwyTable}
+    <div style="margin-top:10px;font-weight:700">CRUISE PWR SETTING <span class="filled">${cAlt}</span> ft, <span class="filled">${cPct}%</span> PWR:
+      ${ci ? `MP <span class="filled">${ci.mp}</span> inHg &middot; RPM <span class="filled">${ci.rpm}</span> &middot; TAS <span class="filled">${ci.tas}</span> kt &middot;
+      FUEL FLOW <span class="filled">${ci.ff}</span> USG/h (${fmt(ci.ff*L_PER_USG)} L/h)`
+      : `<span class="filled">non disponibile a questa quota nell'AFM</span>`}</div>
+    <div style="font-size:9px">Salita a ${cAlt} ft, piena potenza, 1157 kg: <b>${fmt(climbFuelLitres(cAlt))} L</b>
+      (${fmt(climbFuelLitres(cAlt)/L_PER_USG)} USG) incl. avviamento e decollo &mdash; AFM fig. 5-6.</div>
+    ${cruiseTable}`;
+  return pageShell('PERFORMANCE', body, 3, 'font-size:9.5px');
+}
+
+function pageCharts(){
+  const imgs=(window.__chartImgs||[]).slice(0,2);
+  const imgsHTML = imgs.length
+    ? `<div style="display:flex;gap:8px;height:130mm">${imgs.map(src=>`<div style="flex:1;border:1px solid #000;display:flex;align-items:center;justify-content:center;overflow:hidden"><img src="${src}" style="max-width:100%;max-height:100%"></div>`).join('')}</div>`
+    : `<div style="border:1px solid #ccc;height:130mm;display:flex;align-items:center;justify-content:center;color:#999;font-size:10.5px">Carte destinazione</div>`;
+  const rows=[['Track',txt('noteTrack')],['Runway',txt('noteRunway')],['Altitudes',txt('noteAlt')],['Clearance',txt('noteClear')],
+    ['Timing',txt('noteTiming')],['On ground',txt('noteGround')],['Radios',txt('noteRadios')],['Specials',txt('noteSpecials')]];
+  const notesHTML=rows.map(([l,v])=>`<div>${l}: <span class="filled">${esc(v)}</span></div>`).join('');
+  const body=`${imgsHTML}<div class="kv" style="margin-top:10px">${notesHTML}</div>`;
+  return pageShell('DEST CHARTS', body, 4);
+}
+
+function pageBriefing(){
+  const block=(title,proc,thr,mit)=>`<div style="font-weight:700">${title}</div>
+    <div>${esc(proc)}</div>
+    <div style="margin-top:6px">POSS.THREATS:</div><div>${esc(thr)}</div>
+    <div style="margin-top:6px">MITIGATION:</div><div>${esc(mit)}</div>`;
+  const body=`<div class="kv filled" style="font-size:10px;line-height:1.6">
+    ${block('DEP PROCEDURE:',txt('depProc'),txt('depThreats'),txt('depMit'))}
+    <div style="height:10px"></div>
+    ${block('ENROUTE PROCEDURE:',txt('enrProc'),txt('enrThreats'),txt('enrMit'))}
+    <div style="height:10px"></div>
+    ${block('DEST PROCEDURE:',txt('destProc'),txt('destThreats'),txt('destMit'))}
+    <div style="border-top:1px dotted #000;margin:12px 0 8px"></div>
+    <div style="font-weight:700;color:#000">REMARKS</div><div>${esc(txt('briefRemarks'))}</div>
+  </div>`;
+  return pageShell('BRIEFING', body, 5);
+}
+
+/* NIL al posto del vuoto: un riquadro bianco su un OFP non dice se il bollettino
+   manca o se e' stato dimenticato. */
+function orNil(v){ const t=(v||'').trim(); return t||'NIL'; }
+/* Se l'ALTERNATE e' lo stesso aeroporto del DEPARTURE, eredita i suoi bollettini
+   invece di restare vuoto (stessa regola usata nel PDF). */
+function altnEqualsDep(){ const a=txt('altn').trim().toUpperCase(), d=txt('dep').trim().toUpperCase(); return !!a && a===d; }
+function withDepFallback(altnVal, depVal){ const v=(altnVal||'').trim(); return v || (altnEqualsDep() ? (depVal||'').trim() : ''); }
+
+function pageStatus(){
+  const wxBlock=(hdr,icao,metar,speci,taf)=>`
+    <div style="font-weight:700;margin-top:8px">${hdr}${icao?` (${esc(icao)})`:''}</div>
+    <div>METAR: <span class="filled">${esc(orNil(metar))}</span></div>
+    <div>SPECI: <span class="filled">${esc(orNil(speci))}</span></div>
+    <div>TAF:   <span class="filled">${esc(orNil(taf))}</span></div>`;
+  const other=window.__briefingOther||{};
+  const body=`
+    <div style="font-weight:700">AIRCRAFT STATUS</div>
+    <div class="kv filled">${esc(txt('acStatus'))}</div>
+    <div style="border-top:1px dotted #000;margin:10px 0"></div>
+    <div style="font-weight:700">WEATHER</div>
+    <div style="border-bottom:1px dotted #000;margin-bottom:8px"></div>
+    <div style="text-align:center" class="kv">DATE: <span class="filled">${esc(txt('wxDate'))}</span></div>
+    <div style="text-align:center" class="kv">TIME: <span class="filled">${esc(txt('wxTime'))}</span> UTC</div>
+    ${txt('wxValid').trim()?`<div style="text-align:center" class="kv">VALID: <span class="filled">${esc(txt('wxValid'))}</span></div>`:''}
+    <div class="kv" style="font-size:9.5px;line-height:1.5">
+      ${wxBlock('DEPARTURE AIRPORT', txt('dep'), txt('depMetar'), txt('depSpeci'), txt('depTaf'))}
+      ${wxBlock('DESTINATION AIRPORT', txt('arr'), txt('destMetar'), txt('destSpeci'), txt('destTaf'))}
+      ${wxBlock('ALTERNATE AIRPORT', txt('altn'), withDepFallback(txt('altnMetar'),txt('depMetar')), withDepFallback(txt('altnSpeci'),txt('depSpeci')), withDepFallback(txt('altnTaf'),txt('depTaf')))}
+      ${Object.keys(other).map(c=>wxBlock('OTHER AIRPORTS', c, other[c].metar, other[c].speci, other[c].taf)).join('')}
+    </div>
+    <div style="margin-top:auto">
+      <div>PIC SIGNATURE: <span class="filled">${esc(txt('picName'))}</span></div>
+      <div>....................</div>
+    </div>`;
+  return pageShell('AIRCRAFT STATUS &amp; WEATHER', body, 6);
+}
+
+/* Anche qui: prima si usava un campo "notams" inesistente, quindi la pagina usciva
+   sempre vuota. Ora legge gli stessi campi che finiscono nel PDF. */
+function pageNotams(){
+  const other=window.__briefingOther||{};
+  const sec=(lbl,val)=>`<div style="font-weight:700;margin-top:8px">--- ${lbl} ---</div>
+    <div class="filled" style="white-space:pre-wrap">${esc(orNil(val))}</div>`;
+  const body=`<div class="kv" style="font-size:9.5px;line-height:1.5">
+    ${sec(`DEPARTURE AIRPORT (${esc(txt('dep')||'----')})`, txt('depNotam'))}
+    ${sec(`DESTINATION AIRPORT (${esc(txt('arr')||'----')})`, txt('destNotam'))}
+    ${sec(`ALTERNATE AIRPORT (${esc(txt('altn')||'----')})`, withDepFallback(txt('altnNotam'),txt('depNotam')))}
+    ${Object.keys(other).map(c=>sec(`OTHER AIRPORTS (${esc(c)})`, (other[c].notam||[]).join('\n\n'))).join('')}
+    ${sec('ENROUTE NOTAMS', txt('enrouteNotam'))}
+  </div>`;
+  return pageShell('NOTAMS', body, 7);
+}
+
+/* Controllo capacita' serbatoi: il C172 FR imbarca 46 USG / 174 L utilizzabili
+   (AFM fig. 1-4). Se il Plan Block supera quel valore il volo non e' fattibile
+   in una tratta sola, e va detto subito — non dopo, davanti all'aereo. */
+function fuelCapacityNote(f){
+  const usg=f.blockFuel, litres=usg*L_PER_USG, kg=usg*KG_PER_USG;
+  const base=`→ Plan Block ${fmt(usg)} USG = ${fmt(litres)} L = ${fmt(kg)} kg`;
+  if(usg>USABLE_FUEL_USG) return {txt:`${base}  ⚠ OLTRE i ${USABLE_FUEL_USG} USG / 174 L utilizzabili`, over:true};
+  return {txt:`${base}  ·  residuo serbatoi ${fmt(USABLE_FUEL_USG-usg)} USG`, over:false};
+}
+/* Controllo masse contro i limiti AFM inseriti nello Step 3. */
+function massNote(w){
+  const over=[];
+  if(num('mzfw') && num('zfw')>num('mzfw')) over.push(`ZFW ${num('zfw')} > MZFW ${num('mzfw')}`);
+  if(num('mtow') && w.tow>num('mtow'))      over.push(`TOW ${w.tow} > MTOW ${num('mtow')}`);
+  if(num('mldw') && w.ldw>num('mldw'))      over.push(`LAW ${w.ldw} > MLAW ${num('mldw')}`);
+  if(over.length) return {txt:'⚠ FUORI LIMITE: '+over.join(' · '), over:true};
+  const cat = w.tow<=AC_LIMITS.mtowUtility ? 'UTILITY (e NORMAL)' : 'NORMAL';
+  return {txt:`→ masse entro i limiti · categoria disponibile al decollo: ${cat}`, over:false};
+}
+
+function render(){
+  const f=computeFuel(); const w=weights(f); const t=computeTimes();
+  if($('tBLOCK')) $('tBLOCK').value=t.block;
+  if($('tFLT'))   $('tFLT').value=t.flt;
+  if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
+  if($('tripCalc')) $('tripCalc').textContent = `→ crociera ${f.cruiseTime} min + 20' proc. = Trip Time ${f.tripTime} min · fuel ${fmt(f.tripFuel)} USG`;
+  if($('altCalc'))  $('altCalc').textContent  = `→ time ${f.altTime} min · fuel ${fmt(f.altFuel)} USG`;
+  if($('reserveCalc')) $('reserveCalc').textContent = `→ Contingency = max(5% trip, 15') = ${f.contMin} min · ${fmt(f.contFuel)} USG   ·   Final Reserve = ${f.finMin} min · ${fmt(f.finFuel)} USG`;
+  if($('fuelCapCalc')){ const n=fuelCapacityNote(f); $('fuelCapCalc').textContent=n.txt; $('fuelCapCalc').style.color=n.over?'#ff7a7a':''; }
+  if($('towCalc'))  $('towCalc').textContent  = `→ TOW operativo = ZFW + (Block−Taxi)×${KG_PER_USG} = ${w.tow} kg`;
+  if($('ldwCalc'))  $('ldwCalc').textContent  = `→ LAW = TOW − trip×${KG_PER_USG} = ${w.ldw} kg`;
+  if($('altwCalc')) $('altwCalc').textContent = `→ ALTN weight = LAW − altn×${KG_PER_USG} = ${w.altw} kg`;
+  if($('mbLimitCalc')){ const n=massNote(w); $('mbLimitCalc').textContent=n.txt; $('mbLimitCalc').style.color=n.over?'#ff7a7a':''; }
+  if($('cruisePerfCalc')){
+    const ci=cruiseInterp(num('cruisePerfAlt'), parseInt(txt('cruisePerfPct'))||55);
+    $('cruisePerfCalc').textContent = ci
+      ? `→ MP ${ci.mp} inHg · RPM ${ci.rpm} · TAS ${ci.tas} kt · fuel flow ${ci.ff} USG/h (${fmt(ci.ff*L_PER_USG)} L/h)`
+      : `→ potenza non ottenibile a questa quota secondo l'AFM: scegline una inferiore`;
+  }
+  if($('climbFuelCalc')){
+    const a=num('cruisePerfAlt');
+    $('climbFuelCalc').textContent = `→ salita a ${a} ft: ${fmt(climbFuelLitres(a))} L (${fmt(climbFuelLitres(a)/L_PER_USG)} USG) a piena potenza, 1157 kg, incl. avviamento e decollo`;
+  }
+  if($('wxDepIcao'))  $('wxDepIcao').textContent  = txt('dep')  ? `(${txt('dep')})`  : '';
+  if($('wxDestIcao')) $('wxDestIcao').textContent = txt('arr')  ? `(${txt('arr')})`  : '';
+  if($('wxAltnIcao')) $('wxAltnIcao').textContent = txt('altn') ? `(${txt('altn')})` : '';
+  renderPreview(f,w,t);
+}
+
+/* ============================ anteprima HTML ============================
+   Le 7 pagine A4 sono ricostruite dalle stesse funzioni pageXxx() usate come
+   riferimento per il PDF. Ridisegnare 7 pagine a ogni tasto premuto sarebbe
+   inutilmente costoso: si accumula in un requestAnimationFrame e si disegna
+   solo quando l'anteprima e' effettivamente aperta. */
+let previewOpen=false, previewQueued=false;
+function buildPreviewHTML(f,w,t){
+  return [pageOFP(f,t), pageMB(f,w), pagePerf(f,w), pageCharts(), pageBriefing(), pageStatus(), pageNotams()].join('');
+}
+function renderPreview(f,w,t){
+  const stage=$('stage');
+  if(!stage || !previewOpen || previewQueued) return;
+  previewQueued=true;
+  requestAnimationFrame(()=>{
+    previewQueued=false;
+    try{ stage.innerHTML = buildPreviewHTML(f,w,t); }
+    catch(e){ stage.innerHTML = `<div style="color:#ff7a7a;font-size:13px">Anteprima non disponibile: ${esc(e.message)}</div>`; }
+  });
+}
+function togglePreview(){
+  previewOpen=!previewOpen;
+  const stage=$('stage');
+  stage.style.display = previewOpen ? 'flex' : 'none';
+  $('btnPreview').classList.toggle('primary', previewOpen);
+  if(previewOpen) render();
+}
+
+/* ============================ M&B upload (solo anteprima immagine) ============================ */
+/* Nessuna estrazione/OCR/AI/crop: l'utente inserisce ZFW e TOW a mano nei campi.
+   Il PDF (o immagine) caricato serve solo a essere allegato come immagine nella
+   pagina Mass & Balance dell'OFP finale. */
+const mbDrop=$('mbDrop'), mbFile=$('mbFile'), mbStatus=$('mbStatus'), mbThumb=$('mbThumb');
+mbDrop.addEventListener('click',()=>mbFile.click());
+mbDrop.addEventListener('dragover',e=>{e.preventDefault();mbDrop.style.borderColor='#2f6df6'});
+mbDrop.addEventListener('dragleave',()=>mbDrop.style.borderColor='');
+mbDrop.addEventListener('drop',e=>{e.preventDefault();mbDrop.style.borderColor='';if(e.dataTransfer.files[0])handleMB(e.dataTransfer.files[0])});
+mbFile.addEventListener('change',e=>{if(e.target.files[0])handleMB(e.target.files[0])});
+
+function handleMB(file){
+  if(file.type==='application/pdf'){
+    mbStatus.className='mb-status busy'; mbStatus.textContent='\u23f3 Carico il foglio\u2026';
+    const reader=new FileReader();
+    reader.onload=async ()=>{
+      try{
+        const pdf=await pdfjsLib.getDocument({data:reader.result.slice(0)}).promise;
+        const page=await pdf.getPage(1);
+        const viewport=page.getViewport({scale:2.0});
+        const canvas=document.createElement('canvas');
+        canvas.width=viewport.width; canvas.height=viewport.height;
+        await page.render({canvasContext:canvas.getContext('2d'), viewport}).promise;
+        window.__mbImg=canvas.toDataURL('image/png');
+        mbThumb.src=window.__mbImg; mbThumb.style.display='block';
+        mbStatus.className='mb-status ok'; mbStatus.textContent='\u2713 Foglio allegato \u2014 inserisci ZFW e TOW nei campi qui sotto.';
+      }catch(err){
+        mbStatus.className='mb-status'; mbStatus.textContent='Non riesco ad aprire questo PDF \u2014 puoi comunque inserire ZFW/TOW a mano.';
+      }
+    };
+    reader.readAsArrayBuffer(file);
+    return;
+  }
+  // immagine (screenshot)
+  const reader=new FileReader();
+  reader.onload=()=>{
+    window.__mbImg=reader.result;
+    mbThumb.src=window.__mbImg; mbThumb.style.display='block';
+    mbStatus.className='mb-status ok'; mbStatus.textContent='\u2713 Foglio allegato \u2014 inserisci ZFW e TOW nei campi qui sotto.';
+  };
+  reader.readAsDataURL(file);
+}
+
+
+
+/* ====================================================================
+   BRIEFING WX & NOTAM — upload di un unico PDF, testo letto con pdf.js
+   (getTextContent), poi smistato per aeroporto usando i codici ICAO già
+   inseriti in pagina 1 (DEP/ARR/ALTN). Parsing euristico: i formati dei
+   briefing WX/NOTAM variano molto da fornitore a fornitore, quindi questo
+   è un "best effort" — i campi restano comunque modificabili a mano.
+   ==================================================================== */
+const wxDrop=$('wxDrop'), wxFile=$('wxFile'), wxStatus=$('wxStatus'), wxRetryBtn=$('wxRetryBtn');
+wxDrop.addEventListener('click',()=>wxFile.click());
+wxDrop.addEventListener('dragover',e=>{e.preventDefault();wxDrop.style.borderColor='#2f6df6'});
+wxDrop.addEventListener('dragleave',()=>wxDrop.style.borderColor='');
+wxDrop.addEventListener('drop',e=>{e.preventDefault();wxDrop.style.borderColor='';if(e.dataTransfer.files[0])handleWxPdf(e.dataTransfer.files[0])});
+wxFile.addEventListener('change',e=>{if(e.target.files[0])handleWxPdf(e.target.files[0])});
+wxRetryBtn.addEventListener('click',()=>{ if(window.__wxLastFile) handleWxPdf(window.__wxLastFile); });
+
+/* Estrae data, ora di emissione e validità dal PDF del Weather Briefing.
+
+   Formati riconosciuti, in ordine di priorità:
+   0. SKYBRIEF (formato del bollettino allegato): l'intestazione della prima pagina
+      è "SKYBRIEF 08/09/2026  13:11 UTC  (15:11 LT) ETA  13:11Z". Qui l'orario NON è
+      preceduto da nessuna delle diciture classiche ("Printed at", "Issued"...):
+      l'ancora è la parola SKYBRIEF stessa, e conta l'ora marcata UTC — mai quella
+      fra parentesi, che è ora locale. Va gestito per primo, altrimenti le regole
+      generiche più sotto rischiano di agganciare la prima data qualsiasi del PDF.
+   1. Skybriefing/PIB: "Printed at (UTC) 2026SEP08 1311"
+   2. AELO/MeteoSwiss: "Issued 25. Jul. 2026 13:51" o "24 Jul 2026 07:15"
+   3. generico con ancora: "Calculated on 24/07/2026 07:53"
+   4. Skybriefing a colonne (l'ancora e il suo valore finiscono separati da pdf.js)
+   5. fallback Skybrief-like: una data gg/mm/aaaa seguita da hh:mm UTC nelle prime
+      righe del documento, anche senza la parola SKYBRIEF.
+
+   Restituisce { date:"GG.MM.AAAA", time:"HH:MM", valid:"..."|null } o null.
+   `valid` è il periodo di validità quando il documento lo dichiara. */
+function extractValidity(text){
+  text = text||'';
+  // Un intervallo di date va preso SOLO se è dichiarato come validità del briefing:
+  // in un PDF meteo ce ne sono molti altri (periodi di AIRMET, SIGMET, TAF...) e
+  // stampare quello sbagliato sull'OFP è peggio che lasciare il campo vuoto.
+  let m = /\b(?:valid(?:ity|o|ità)?|period|periodo)\b[^0-9]{0,25}(\d{1,2}\s+[A-Za-z]{3}\s+\d{2}:?\d{2}\s*Z?)\s*(?:→|->|-|to)\s*(\d{1,2}\s+[A-Za-z]{3}\s+\d{2}:?\d{2}\s*Z?)/i.exec(text);
+  if(m) return `${m[1].trim()} → ${m[2].trim()}`;
+  m = /\bvalid(?:ity)?\s*[:\s]\s*(\d{4}\/\d{4})\b/i.exec(text);
+  if(m) return m[1];
+  m = /\bPeriod\s*\(UTC\)\s*:?[^0-9]{0,20}(\d{4}[A-Z]{3}\d{2}\s+\d{4})[^0-9]{0,20}(\d{4}[A-Z]{3}\d{2}\s+\d{4})/i.exec(text);
+  if(m) return `${m[1]} → ${m[2]}`;
+  return null;
+}
+function extractPrintedAt(text){
+  text = text||'';
+  const months={JAN:'01',FEB:'02',MAR:'03',APR:'04',MAY:'05',JUN:'06',JUL:'07',AUG:'08',SEP:'09',OCT:'10',NOV:'11',DEC:'12'};
+  const anchor = '(?:printed at\\s*\\(?utc\\)?|calculated on|issued(?:\\s+(?:on|at))?|valid(?:\\s+(?:at|from))?)';
+  const valid = extractValidity(text);
+  const withValid = (o)=> o ? Object.assign(o,{valid}) : null;
+
+  // 0) SKYBRIEF gg/mm/aaaa hh:mm UTC   — il formato del briefing allegato.
+  //    L'ora locale fra parentesi viene deliberatamente ignorata: sull'OFP va l'UTC.
+  let m = /\bSKYBRIEF\b[^0-9]{0,20}([0-9]{1,2})[\/.\-]([0-9]{1,2})[\/.\-]([0-9]{4})\s+([0-9]{1,2})[:.]([0-9]{2})\s*(?:UTC|Z)/i.exec(text);
+  if(m) return withValid({ date:`${m[1].padStart(2,'0')}.${m[2].padStart(2,'0')}.${m[3]}`, time:`${m[4].padStart(2,'0')}:${m[5]}` });
+
+  // 1) YYYYMonDD HHMM  (es. "2026SEP08 1311")
+  m = new RegExp(anchor+'[:\\s]*([0-9]{4})([A-Z]{3})([0-9]{2})\\s+([0-9]{2}):?([0-9]{2})','i').exec(text);
+  if(m){ const mon=months[m[2].toUpperCase()]; if(mon) return withValid({ date:`${m[3]}.${mon}.${m[1]}`, time:`${m[4]}:${m[5]}` }); }
+
+  // 2) DD. Mon. YYYY HH:MM  (es. "25. Jul. 2026 13:51" o "24 Jul 2026 07:15")
+  m = new RegExp(anchor+'[:\\s]*([0-9]{1,2})\\.?\\s*([A-Za-z]{3})\\.?\\s*([0-9]{4})\\s+([0-9]{2}):([0-9]{2})','i').exec(text);
+  if(m){ const mon=months[m[2].toUpperCase()]; if(mon) return withValid({ date:`${m[1].padStart(2,'0')}.${mon}.${m[3]}`, time:`${m[4]}:${m[5]}` }); }
+
+  // 3) DD/MM/YYYY o DD.MM.YYYY o DD-MM-YYYY, poi HH:MM  (es. "24/07/2026 07:53")
+  m = new RegExp(anchor+'[:\\s]*([0-9]{2})[\\/.\\-]([0-9]{2})[\\/.\\-]([0-9]{4})\\s+([0-9]{2}):?([0-9]{2})','i').exec(text);
+  if(m) return withValid({ date:`${m[1]}.${m[2]}.${m[3]}`, time:`${m[4]}:${m[5]}` });
+
+  // 4) LAYOUT A COLONNE (Skybriefing reale): pdf.js emette le etichette tutte insieme
+  //    ("Period (UTC): Printed at (UTC): Datasource:") e poi i valori a blocco
+  //    ("to: 2026JUL24 1334  2026JUL24 2359  2026JUL24 1334  MeteoSwiss"), quindi
+  //    l'ancora NON è seguita dal suo valore. In questo caso raccogliamo tutte le
+  //    date-ora in formato "YYYYMonDD HHMM" presenti nell'intestazione: la riga
+  //    "Printed at" ripete l'ora di inizio del Period, quindi l'orario di stampa
+  //    coincide con la PRIMA data-ora dell'header. Prendiamo quella.
+  if(/printed at/i.test(text)){
+    const head = text.slice(0, 1200); // solo l'intestazione, non tutto il documento
+    const re = /\b([0-9]{4})([A-Z]{3})([0-9]{2})\s+([0-9]{2})([0-9]{2})\b/gi;
+    const found=[]; let mm;
+    while((mm=re.exec(head))!==null){
+      const mon=months[mm[2].toUpperCase()];
+      if(mon) found.push({ date:`${mm[3]}.${mon}.${mm[1]}`, time:`${mm[4]}:${mm[5]}` });
+    }
+    // L'ordine delle colonne dell'intestazione è: Period-from, Period-to, Printed at.
+    // Quando ci sono tutte e tre, l'orario di stampa è la TERZA data-ora — non la
+    // prima. Nei briefing in cui la stampa coincide con l'inizio del periodo le due
+    // sono uguali e la scelta è indifferente; quando NON coincidono (briefing tirato
+    // giù a metà del periodo di validità, il caso normale) prendere la prima darebbe
+    // sull'OFP un orario di emissione sbagliato di ore.
+    if(found.length>=3){
+      const period = `${found[0].date} ${found[0].time}Z → ${found[1].date} ${found[1].time}Z`;
+      return Object.assign({}, found[2], {valid: valid || period});
+    }
+    if(found.length) return withValid(found[0]);
+  }
+
+  // 5) Fallback per briefing in stile Skybrief senza la parola chiave: una data
+  //    gg/mm/aaaa seguita da un orario marcato UTC/Z nell'intestazione del documento.
+  m = /\b([0-9]{1,2})[\/.\-]([0-9]{1,2})[\/.\-]([0-9]{4})\s+([0-9]{1,2})[:.]([0-9]{2})\s*(?:UTC|Z)\b/.exec(text.slice(0,600));
+  if(m) return withValid({ date:`${m[1].padStart(2,'0')}.${m[2].padStart(2,'0')}.${m[3]}`, time:`${m[4].padStart(2,'0')}:${m[5]}` });
+
+  return valid ? {date:'', time:'', valid} : null;
+}
+
+/* Estrae le pagine "cartina" (GAFOR/SIGMET/SWC/Wind/QNH ecc.) dal PDF sorgente:
+   sono pagine con pochissimo testo selezionabile (sono per lo più immagini/grafica),
+   a differenza delle pagine METAR/TAF, dei paragrafi di prognosi testuale e dei NOTAM
+   che hanno molto testo. Si escludono sempre la prima pagina (METAR/TAF) e le ultime
+   2 (NOTAM, già gestite a parte). Ogni pagina candidata viene renderizzata su canvas
+   e restituita come immagine, per poi essere impaginata nell'OFP finale. */
+async function extractWeatherCharts(pdf){
+  const charts=[];
+  const CHART_TEXT_THRESHOLD=300; // caratteri: sotto questa soglia = pagina "grafica"
+  const n=pdf.numPages;
+  for(let p=2;p<=n-2;p++){
+    const page=await pdf.getPage(p);
+    const content=await page.getTextContent();
+    const textLen=content.items.map(it=>it.str).join('').length;
+    if(textLen>CHART_TEXT_THRESHOLD) continue; // troppo testo: è prognosi/narrativa, non una cartina
+    try{
+      const viewport=page.getViewport({scale:1.5});
+      const canvas=document.createElement('canvas');
+      canvas.width=viewport.width; canvas.height=viewport.height;
+      await page.render({canvasContext:canvas.getContext('2d'), viewport}).promise;
+      charts.push({dataUrl:canvas.toDataURL('image/jpeg',0.85), w:viewport.width, h:viewport.height});
+    }catch(e){ /* pagina non renderizzabile: la saltiamo */ }
+  }
+  return charts;
+}
+
+function handleWxPdf(file){
+  window.__wxLastFile=file;
+  wxStatus.className='mb-status busy'; wxStatus.textContent='⏳ Leggo il PDF briefing…';
+  wxRetryBtn.style.display='none';
+  const reader=new FileReader();
+  reader.onload=async ()=>{
+    try{
+      const pdf=await pdfjsLib.getDocument({data:reader.result.slice(0)}).promise;
+      const pageTexts=[];
+      for(let p=1;p<=pdf.numPages;p++){
+        const page=await pdf.getPage(p);
+        const content=await page.getTextContent();
+        pageTexts.push(content.items.map(it=>it.str).join(' '));
+      }
+      const weatherText = pageTexts.join('\n');
+      // I NOTAM vengono cercati in TUTTO il documento (non solo le ultime pagine): un
+      // NOTAM dell'aeroporto di partenza può comparire ovunque, anche vicino a
+      // METAR/TAF nella prima pagina — non va mai ignorato solo per la sua posizione.
+      const notamText = pageTexts.join('\n');
+      console.log('TESTO BRIEFING (METEO + NOTAM, tutte le pagine):', weatherText);
+      // data/ora: prima la cerco in pagina 1, poi (se manca) in tutto il documento
+      window.__wxPrintedAt = extractPrintedAt(pageTexts[0]||'') || extractPrintedAt(weatherText);
+      if(window.__wxPrintedAt){
+        if($('wxDate') && window.__wxPrintedAt.date) $('wxDate').value = window.__wxPrintedAt.date;
+        if($('wxTime') && window.__wxPrintedAt.time) $('wxTime').value = window.__wxPrintedAt.time;
+        if($('wxValid') && window.__wxPrintedAt.valid) $('wxValid').value = window.__wxPrintedAt.valid;
+      }
+      window.__wxCharts = await extractWeatherCharts(pdf);
+      const codes = { dep: txt('dep').toUpperCase(), dest: txt('arr').toUpperCase(), altn: txt('altn').toUpperCase() };
+      const result = parseBriefingText(weatherText, notamText, codes);
+      applyBriefingResult(result);
+    }catch(err){
+      wxStatus.className='mb-status'; wxStatus.textContent='Non sono riuscito a leggere questo PDF — compila i riquadri qui sotto a mano.';
+      wxRetryBtn.style.display='inline-block';
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// Parole/abbreviazioni aeronautiche di 4 lettere maiuscole che NON sono mai codici
+// ICAO aeroportuali: vanno escluse da qualunque riconoscimento automatico di aeroporto.
+const ICAO_EXCLUDE = new Set([
+  'AUTO','AMSL','AVBL','SECT','TECR','YOUR','HEMS','PERM','FEW','CAVOK','VRB','EST','DIST','RMK',
+  'SCT','BKN','OVC','NSC','NCD','TEMP','TEMPO','BECMG','NOSIG','PROB','INFO','DATA','NOTE','ZULU',
+  'FROM','UNTL','WARN','FREQ','WIND','GUST','VIS','CLD','RVR','QNH','QFE','ATIS','FLNC','MISG',
+  'MTOW','ZFW','ELEV','SFC','AGL','ARR','DEP','ETA','ETD','UTC','GMT','TWR','RWY','TWY','APRN',
+  'COOR','FUEL','WHEN','POLE','BASE','APCH','ONLY','MAKE','FLOW','SURE','WITH',
+  // ricorrenti nel formato Skybrief (intestazioni, minime, tabelle vento/pista):
+  'CEIL','MINI','FONT','DECO','MASS','TAIL','HEAD','XWND','RWYC','ASPH','GRAS','SNOW','SWLL',
+  'NIGH','SIGM','AIRM','WIND','SUNR','SUNS','ALTN','DEST','TORA','TODA','ASDA','LDA',
+  'AMDT','SUPP','TRIG','AIRA','ACFT','OPER','SVCS','MAINT','LGTD','UNSE','ABDN','CLSD',
+  // ricorrenti nei NOTAM in chiaro:
+  'REF','AIP','PART','ITEM','TEXT','DATE','TIME','LOWR','UPPR','AREA','ZONE','LINE','SEE'
+]);
+/* Lettere iniziali effettivamente assegnate dall'ICAO alle regioni del mondo.
+   I, J, Q, X non sono prefissi di nessuna regione: escluderle elimina da sola
+   una buona parte dei falsi positivi (ITEM, JOIN, QNHS...). */
+const ICAO_FIRST=/^[ABCDEFGHKLMNOPRSTUVWYZ]/;
+function isValidIcao(code, codes){
+  if(!code || code.length!==4) return false;
+  if(!/^[A-Z]{4}$/.test(code)) return false;
+  // i codici della rotta pianificata sono sempre validi: li ha scritti il pilota
+  if(codes && (code===codes.dep || code===codes.dest || code===codes.altn)) return true;
+  if(ICAO_EXCLUDE.has(code)) return false;
+  if(!ICAO_FIRST.test(code)) return false;
+  return true;
+}
+
+function parseBriefingText(weatherText, notamText, codes){
+  const norm = weatherText.replace(/[ \t]+/g,' ');
+  const normNotam = notamText.replace(/[ \t]+/g,' ');
+  const result = {
+    dep:{metar:null,speci:null,taf:null,notam:[]},
+    dest:{metar:null,speci:null,taf:null,notam:[]},
+    altn:{metar:null,speci:null,taf:null,notam:[]},
+    other:{}, // { ICAO: {metar,speci,taf,notam:[]} } per aeroporti citati ma non DEP/DEST/ALTN
+    enroute:[]
+  };
+  function otherBucket(code){
+    if(!result.other[code]) result.other[code]={metar:null,speci:null,taf:null,notam:[]};
+    return result.other[code];
+  }
+  function keyForCode(code){
+    if(code===codes.dep) return 'dep';
+    if(code===codes.dest) return 'dest';
+    if(code===codes.altn) return 'altn';
+    return null;
+  }
+  /* ---- CONFINE DI UN BOLLETTINO ------------------------------------------------
+     I bollettini grezzi finiscono con "=", ma NON sempre: nel formato Skybrief il
+     terminatore manca del tutto (il TAF di LIMC si chiude senza "="), e pdf.js
+     unisce tutta la pagina con degli spazi, senza a capo. Senza un confine solido
+     un TAF si porterebbe dietro l'intera sezione successiva ("DEST ALTN ACV-OM
+     § 3.2.16 VIS ≥ 10 km CEIL...").
+
+     Il vecchio taglio "primo codice di 4 lettere maiuscole" era troppo fragile:
+     parole come CEIL o SWLL lo facevano scattare nel punto sbagliato. Qui il taglio
+     avviene solo su marcatori STRUTTURALI, che in un bollettino aeronautico non
+     possono comparire:
+       - l'inizio di un altro bollettino  ("LIMC 081250Z", "METAR ...", "TAF ...")
+       - un titolo di sezione del briefing (Skybrief e Skybriefing/PIB)
+       - un'intestazione di aeroporto ("LIMC Malpensa...", "LSZL - Locarno")
+     È lo stesso criterio sia che il testo abbia veri a capo sia che sia una riga sola. */
+  const SECTION_WORDS = [
+    'METAR','SPECI','TAF','NOTAM','NOTAMS','SIGMET','AIRMET','GAMET','ATIS','PIB',
+    'DEST ALTN','INSTRUCTOR MINIMA','STUDENT MINIMA','AD ELEV','VENTO E PISTA',
+    'DECOLLO','AVVICINAMENTO','Fonte:','Venti in quota','Immagini Satellitari',
+    'CARTA DEI FRONTI','Nessun SIGMET','Aerodrome Forecast','Aerodrome Report'
+  ];
+  const sectionBoundaryRe = new RegExp('(?:'+SECTION_WORDS.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/ /g,'\\s+')).join('|')+')','g');
+  // inizio di un altro bollettino: <ICAO> <DDHHMMZ>, con o senza etichetta davanti
+  const bulletinStartRe = /\b[A-Z]{4}\s+\d{6}Z\b/g;
+  // intestazione aeroporto: "LIMC Malpensa International Airport" / "LSZL - Locarno"
+  const airportHeaderRe = /\b[A-Z]{4}\s*(?:[-–—]\s*[A-Za-z]|[A-Z][a-z]{2})/g;
+
+  function firstIndexAfter(re, text, from){
+    re.lastIndex = from;
+    const m = re.exec(text);
+    return m ? m.index : -1;
+  }
+  /* Taglia `block` al primo confine strutturale trovato DOPO l'inizio del bollettino
+     stesso (si salta il proprio codice ICAO e il proprio gruppo data/ora). */
+  function cleanWxBlock(block, ownCode){
+    // "=" resta il confine migliore quando c'è: tutto ciò che segue è di un altro bollettino
+    const eq = block.indexOf('=');
+    if(eq>=0) block = block.slice(0, eq+1);
+    // si parte a cercare dopo l'intestazione del bollettino (etichetta + ICAO + DDHHMMZ)
+    const own = new RegExp('\\b'+ownCode+'\\b').exec(block);
+    let from = own ? own.index+4 : 0;
+    const dt = /\d{6}Z/.exec(block.slice(from));
+    if(dt) from += dt.index+dt[0].length;
+    let cut = block.length;
+    [sectionBoundaryRe, bulletinStartRe, airportHeaderRe].forEach(re=>{
+      const i = firstIndexAfter(re, block, from);
+      if(i>=0 && i<cut) cut=i;
+    });
+    return block.slice(0, cut).trim();
+  }
+  // Toglie un'etichetta di bollettino rimasta incollata in coda al blocco (es. "...
+  // Q1017= Speci" quando nel testo originale il confine con il prossimo bollettino
+  // non era netto) — METAR/SPECI/TAF, case-insensitive, isolata a fine stringa.
+  function stripTrailingLabel(block){
+    return (block||'').replace(/[\s=]*\b(?:METAR|SPECI|TAF)\b\s*$/i, '').trim();
+  }
+  function assignWx(code, field, block){
+    if(!isValidIcao(code, codes)) return;
+    block = stripTrailingLabel(cleanWxBlock(block, code));
+    // un blocco che dopo la pulizia resta vuoto non è un bollettino: ignoralo,
+    // altrimenti popola la sezione "altri aeroporti" con voci senza contenuto
+    if(!block || block.length<8) return;
+    const key = keyForCode(code);
+    if(key) result[key][field] = result[key][field] || block;
+    else otherBucket(code)[field] = otherBucket(code)[field] || block;
+  }
+
+  // ---- METAR / SPECI / TAF: trova OGNI blocco nel testo, sia con l'etichetta esplicita
+  //      ("METAR <ICAO>...") sia nel formato implicito senza etichetta ("<ICAO> DDHHMMZ..."
+  //      per METAR, "<ICAO> [AMD] DDHHMMZ DDHH/DDHH..." per TAF, riconoscibile dal periodo
+  //      di validità). Il confine del blocco è il vero terminatore "=" con cui i bollettini
+  //      grezzi finiscono SEMPRE (anche multi-riga, es. un TAF con TEMPO su una riga a
+  //      parte) — molto più affidabile che indovinare "dove inizia il prossimo bollettino",
+  //      perché un TAF può essere seguito da pagine e pagine di testo non aeronautico
+  //      (prognosi, grafici) prima del prossimo bollettino o della parola "NOTAM".
+  //      Poi smista: DEP/DEST/ALTN nel rispettivo riquadro, altrimenti OTHER AIRPORTS. ----
+  function grabAllWxBlocks(kind){
+    // Niente più "[^=]": in Skybrief il terminatore "=" può mancare del tutto.
+    // Si prende una finestra generosa e ci pensa cleanWxBlock() a tagliarla nel punto giusto.
+    //
+    // L'etichetta è tollerante alle maiuscole (METAR / Metar / metar), MA il codice
+    // ICAO deve essere maiuscolo per forza: con un flag /i globale la frase italiana
+    // "METAR/TAF dell'aeroporto non disponibili" veniva letta come il bollettino di
+    // un aeroporto chiamato "DELL".
+    const label = kind.split('').map(ch=>'['+ch.toUpperCase()+ch.toLowerCase()+']').join('');
+    const re = new RegExp(label+'\\s+([A-Z]{4})\\b([\\s\\S]{0,600})','g');
+    const out=[]; let m;
+    while((m=re.exec(norm))!==null){
+      out.push({code:m[1].toUpperCase(), block:(kind+' '+m[1]+m[2]).replace(/\s+/g,' ').trim()});
+      // La finestra catturata è volutamente lunga (fino a 600 caratteri) perché il
+      // confine vero lo decide cleanWxBlock(). Ma lasciare che lastIndex arrivi in
+      // fondo alla finestra farebbe SALTARE i bollettini che stanno lì dentro: la
+      // ricerca riparte quindi subito dopo l'intestazione di QUESTO bollettino.
+      re.lastIndex = m.index + (m[0].length - m[2].length);
+    }
+    return out;
+  }
+  // SPECI: nel formato reale la sezione "Speci" elenca un blocco per aeroporto, spesso
+  // "LSZL no data available" quando non c'è un vero bollettino. IMPORTANTE: pdf.js unisce
+  // il testo di una pagina con semplici SPAZI, mai veri "a capo" — quindi non si può
+  // affidarsi a righe separate da newline. Isoliamo il testo tra "Speci" e la prossima
+  // parola chiave di sezione (Taf/Metar/NOTAM), poi troviamo ogni codice ICAO valido al
+  // suo interno e assegnamo il testo fino al codice successivo — funziona identico sia
+  // che il testo abbia newline puliti sia che sia tutto su una riga sola.
+  function grabSpeciSection(){
+    const hm = /\bSpeci\b/i.exec(norm);
+    if(!hm) return;
+    const afterIdx = hm.index+hm[0].length;
+    const endM = /\b(?:Taf|Metar|NOTAM)\b/i.exec(norm.slice(afterIdx));
+    const sectionEnd = endM ? afterIdx+endM.index : Math.min(norm.length, afterIdx+2000);
+    const section = norm.slice(afterIdx, sectionEnd);
+    const codeRe = /\b[A-Z]{4}\b/g;
+    const positions = []; let cm;
+    while((cm=codeRe.exec(section))!==null){
+      if(isValidIcao(cm[0], codes)) positions.push({code:cm[0], idx:cm.index});
+    }
+    positions.forEach((p,i)=>{
+      const end = i+1<positions.length ? positions[i+1].idx : section.length;
+      const text = section.slice(p.idx, end).replace(/\s+/g,' ').trim();
+      if(text) assignWx(p.code, 'speci', text);
+    });
+  }
+  grabSpeciSection();
+  // SPECI con etichetta esplicita ("SPECI LIMC 081312Z ..."): stesso trattamento di METAR/TAF.
+  ['METAR','SPECI','TAF'].forEach(kind=>{
+    grabAllWxBlocks(kind).forEach(({code,block})=> assignWx(code, kind.toLowerCase(), block));
+  });
+  // TAF implicito: "[AMD] <ICAO> [AMD] DDHHMMZ DDHH/DDHH ..." — il periodo di validità
+  // DDHH/DDHH è la firma inequivocabile di un TAF, anche senza l'etichetta "TAF" davanti.
+  // AMD può comparire sia prima che dopo il codice. Confine = primo "=" (vedi sopra).
+  const tafImplicitRe = /(?:AMD\s+)?\b([A-Z]{4})\b\s+(?:AMD\s+)?(\d{6}Z\s+\d{4}\/\d{4}[\s\S]{0,600})/g;
+  let tim;
+  while((tim=tafImplicitRe.exec(norm))!==null){
+    const code=tim[1].toUpperCase();
+    assignWx(code, 'taf', ('TAF '+code+' '+tim[2]).replace(/\s+/g,' ').trim());
+    tafImplicitRe.lastIndex = tim.index + (tim[0].length - tim[2].length); // vedi nota in grabAllWxBlocks
+  }
+  // METAR implicito: "<ICAO> DDHHMMZ ..." SENZA periodo di validità subito dopo
+  // (altrimenti sarebbe un TAF, già gestito sopra). Confine = primo "=".
+  const metarImplicitRe = /\b([A-Z]{4})\s+(\d{6}Z)\b(?!\s*\d{4}\/\d{4})([\s\S]{0,400})/g;
+  let mim;
+  while((mim=metarImplicitRe.exec(norm))!==null){
+    const code=mim[1].toUpperCase();
+    assignWx(code, 'metar', ('METAR '+code+' '+mim[2]+mim[3]).replace(/\s+/g,' ').trim());
+    metarImplicitRe.lastIndex = mim.index + (mim[0].length - mim[3].length); // vedi nota in grabAllWxBlocks
+  }
+
+  // ---- NOTAM: cercati in TUTTO il documento (normNotam contiene ogni pagina).
+  //      Un'intestazione di aeroporto viene riconosciuta SOLO in due forme sicure,
+  //      mai dentro il testo E) libero di un NOTAM (altrimenti parole qualsiasi
+  //      come "LONG"/"OBST" verrebbero scambiate per nuovi aeroporti):
+  //      1) "<ICAO> ... NOTAM/NOTAMS" — titolo di sezione, anche lontano dal numero
+  //      2) "<ICAO>" a inizio riga, subito prima del numero NOTAM (prefisso inline)
+  //      Ogni NOTAM eredita l'ultima intestazione confermata, così una lista con
+  //      l'intestazione scritta una sola volta in cima viene assegnata per intero
+  //      allo stesso aeroporto. ----
+  const notamNumRe = /\b[A-Z]\d{3,5}\/\d{2}\b/g;
+  const notamStarts=[]; let nmIdx;
+  while((nmIdx=notamNumRe.exec(normNotam))!==null) notamStarts.push(nmIdx.index);
+
+  const headers=[];
+  const sectionTitleRe = /\b([A-Z]{4})\s+NOTAMS?\b/g;
+  let shm;
+  while((shm=sectionTitleRe.exec(normNotam))!==null){
+    // rischioso da usare come confine di troncamento: frasi normali come "SEE LSZL
+    // NOTAM FOR DETAILS" combaciano con questo pattern pur non essendo un titolo di
+    // sezione — va bene per il CONTESTO, mai per tagliare il testo di un NOTAM.
+    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:false});
+  }
+  // formato reale Skybriefing/PIB: "LSZL - Locarno", "LIMZ - Cuneo/Levaldigi" ecc.
+  // (codice ICAO, trattino, nome città) — molto più comune di "ICAO NOTAMS" nei
+  // briefing veri, e ogni singolo NOTAM lì sotto è prefissato solo con un codice
+  // FIR/nazionale di 2 lettere (es. "LS", "LI"), non con l'ICAO per intero.
+  // Trattino ASCII, en dash e em dash: Skybrief usa "—", i PIB classici "-".
+  const sectionDashRe = /\b([A-Z]{4})\b\s*[-–—]\s*(?=[A-Za-z])/g;
+  while((shm=sectionDashRe.exec(normNotam))!==null){
+    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:true});
+  }
+  // Formato Skybrief: "LIMC Malpensa International Airport — Milan", seguito da
+  // "AD ELEV ...". Sono due firme indipendenti, entrambe sicure: il codice ICAO
+  // seguito da un nome proprio che termina in Airport/Airfield/Aerodrome, oppure
+  // dal blocco "AD ELEV" che nel formato compare sempre subito sotto l'intestazione.
+  const namedHeaderRe = /\b([A-Z]{4})\s+(?=[A-Z][a-z][^\n]{0,60}?\b(?:Airport|Airfield|Aerodrome|Airbase|Intl|International)\b)/g;
+  while((shm=namedHeaderRe.exec(normNotam))!==null){
+    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:true});
+  }
+  const adElevHeaderRe = /\b([A-Z]{4})\b(?=[^\n]{0,80}?\bAD\s+ELEV\b)/g;
+  while((shm=adElevHeaderRe.exec(normNotam))!==null){
+    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:true});
+  }
+  // Prefisso inline: "<ICAO> A1234/26". Prima richiedeva un vero a capo davanti
+  // ((?:^|\n)), quindi con pdf.js — che unisce la pagina con soli spazi — non
+  // scattava MAI. Il numero NOTAM subito dopo è già una firma inequivocabile:
+  // basta un confine di parola.
+  const inlinePrefixRe = /\b([A-Z]{4})\s+(?=[A-Z]\d{3,5}\/\d{2}\b)/g;
+  while((shm=inlinePrefixRe.exec(normNotam))!==null){
+    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:true});
+  }
+  // se lo stesso codice compare più volte nella stessa posizione (due regole che
+  // hanno agganciato la stessa intestazione) ne resta una sola
+  const seenHdr=new Set();
+  headers.sort((a,b)=>a.idx-b.idx);
+  const uniqHeaders = headers.filter(h=>{ const k=h.code+'@'+h.idx; if(seenHdr.has(k)) return false; seenHdr.add(k); return true; });
+  headers.length=0; uniqHeaders.forEach(h=>headers.push(h));
+
+  function headerBefore(idx){
+    let found=null;
+    for(const h of headers){ if(h.idx<=idx) found=h; else break; }
+    return found;
+  }
+  function nextHeaderAfter(idx){
+    for(const h of headers){ if(h.idx>idx && h.safeTrim) return h; }
+    return null;
+  }
+
+  notamStarts.forEach((idx,i)=>{
+    const h = headerBefore(idx);
+    const headerCode = h ? h.code : null;
+    const nextStart = notamStarts[i+1];
+    const nh = nextHeaderAfter(idx);
+    // il blocco si ferma alla prossima intestazione (se ce n'è una prima del prossimo
+    // NOTAM) o all'inizio del prossimo NOTAM, cosi' non si tronca mai il testo E)
+    let blockEnd = nextStart!=null ? nextStart : normNotam.length;
+    if(nh && (nextStart==null || nh.idx<nextStart)) blockEnd = nh.idx;
+    const block = normNotam.slice(idx, blockEnd).replace(/\s+/g,' ').trim();
+
+    // REGOLA D'ORO — priorità assoluta: se il testo del NOTAM cita esplicitamente
+    // "REF AIP AD 2 <ICAO>", l'attribuzione usa QUEL codice, anche se diverso
+    // dall'intestazione di sezione sotto cui il NOTAM si trova nel documento.
+    const aipRef = /REF\s+AIP\s+AD\s*2\s+([A-Z]{4})\b/i.exec(block);
+    const aipCode = (aipRef && isValidIcao(aipRef[1].toUpperCase(), codes)) ? aipRef[1].toUpperCase() : null;
+    const currentCode = aipCode || headerCode;
+
+    if(currentCode===codes.dep) result.dep.notam.push(block);
+    else if(currentCode===codes.dest) result.dest.notam.push(block);
+    else if(currentCode===codes.altn) result.altn.notam.push(block);
+    else if(currentCode) otherBucket(currentCode).notam.push(block);
+    else result.enroute.push(block);
+  });
+
+  // Se ALTERNATE coincide col DEPARTURE, l'alternato eredita gli stessi dati/NOTAM
+  // del departure invece di restare vuoto — non ha senso duplicare la ricerca nel
+  // testo, i dati sono letteralmente gli stessi aeroporto.
+  if(codes.altn && codes.dep && codes.altn===codes.dep){
+    result.altn.metar = result.altn.metar || result.dep.metar;
+    result.altn.speci = result.altn.speci || result.dep.speci;
+    result.altn.taf = result.altn.taf || result.dep.taf;
+    if(!result.altn.notam.length) result.altn.notam = result.dep.notam.slice();
+  }
+  return result;
+}
+
+function applyBriefingResult(r){
+  let found=0;
+  function setIfFound(id, val){ if(val){ $(id).value = val; found++; } }
+  setIfFound('depMetar', r.dep.metar); setIfFound('depSpeci', r.dep.speci); setIfFound('depTaf', r.dep.taf);
+  if(r.dep.notam.length){ $('depNotam').value = r.dep.notam.join('\n\n'); found++; }
+  setIfFound('destMetar', r.dest.metar); setIfFound('destSpeci', r.dest.speci); setIfFound('destTaf', r.dest.taf);
+  if(r.dest.notam.length){ $('destNotam').value = r.dest.notam.join('\n\n'); found++; }
+  setIfFound('altnMetar', r.altn.metar); setIfFound('altnSpeci', r.altn.speci); setIfFound('altnTaf', r.altn.taf);
+  if(r.altn.notam.length){ $('altnNotam').value = r.altn.notam.join('\n\n'); found++; }
+  if(r.enroute.length){ $('enrouteNotam').value = r.enroute.join('\n\n'); found++; }
+
+  // aeroporti "altri" (ICAO diversi da DEP/DEST/ALTN citati nel briefing): non hanno
+  // un campo del form dedicato, li teniamo qui e li stampiamo nel PDF automaticamente
+  window.__briefingOther = r.other || {};
+  const otherCodes = Object.keys(window.__briefingOther);
+  if(otherCodes.length) found += otherCodes.length;
+
+  if(found>0){
+    const otherNote = otherCodes.length ? ` · Altri aeroporti trovati: ${otherCodes.join(', ')}` : '';
+    wxStatus.className='mb-status ok';
+    wxStatus.textContent=`Dati briefing estratti con successo (${found} campi popolati) — controlla e correggi se serve.${otherNote}`;
+    wxRetryBtn.style.display='none';
+  }else{
+    wxStatus.className='mb-status';
+    wxStatus.textContent='Non ho trovato METAR/SPECI/TAF/NOTAM riconoscibili per i codici ICAO inseriti — compila i riquadri qui sotto a mano.';
+    wxRetryBtn.style.display='inline-block';
+  }
+}
+
+
+const chartDrop=$('chartDrop'), chartFile=$('chartFile'), chartThumbs=$('chartThumbs');
+window.__chartImgs=[];
+chartDrop.addEventListener('click',()=>chartFile.click());
+chartDrop.addEventListener('dragover',e=>{e.preventDefault();chartDrop.style.borderColor='#2f6df6'});
+chartDrop.addEventListener('dragleave',()=>chartDrop.style.borderColor='');
+chartDrop.addEventListener('drop',e=>{e.preventDefault();chartDrop.style.borderColor='';handleCharts(e.dataTransfer.files)});
+chartFile.addEventListener('change',e=>handleCharts(e.target.files));
+function handleCharts(files){
+  [...files].slice(0,2-window.__chartImgs.length).forEach(async file=>{
+    if(file.type==='application/pdf'){
+      try{
+        const buf = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+        const page = await pdf.getPage(1);
+        const viewport = page.getViewport({scale:2});
+        const canvas = document.createElement('canvas');
+        canvas.width=viewport.width; canvas.height=viewport.height;
+        await page.render({canvasContext:canvas.getContext('2d'), viewport}).promise;
+        window.__chartImgs.push(canvas.toDataURL('image/png'));
+        window.__chartImgs=window.__chartImgs.slice(-2);
+        renderChartThumbs(); render();
+      }catch(e){ /* PDF non leggibile: lo ignoriamo */ }
+      return;
+    }
+    const reader=new FileReader();
+    reader.onload=()=>{
+      window.__chartImgs.push(reader.result);
+      window.__chartImgs=window.__chartImgs.slice(-2);
+      renderChartThumbs(); render();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function renderChartThumbs(){
+  chartThumbs.innerHTML = window.__chartImgs.map((src,i)=>`<img src="${src}" title="clicca per rimuovere" data-i="${i}">`).join('');
+  chartThumbs.querySelectorAll('img').forEach(im=>im.addEventListener('click',()=>{
+    window.__chartImgs.splice(parseInt(im.dataset.i),1); renderChartThumbs(); render();
+  }));
+}
+
+/* ============================ PDF vettoriale ============================ */
+const MM={A4W:210,A4H:297,ML:14,MR:14,MT:10};
+const FS_BODY=9, FS_TITLE=11, FS_SECT=9.5, FS_FOOT=9, LH=4.3;
+function drawFrame(doc, titleTxt, sectionLabel, pageNo){
+  doc.setPage(pageNo);
+  const frameTop=MM.MT, frameBot=MM.A4H-16;
+  doc.setDrawColor(0); doc.setLineWidth(0.25);
+  doc.rect(MM.ML, frameTop, MM.A4W-MM.ML-MM.MR, frameBot-frameTop);
+  const tbH=7.2;
+  doc.setFillColor(214,214,214);
+  doc.rect(MM.ML, frameTop, MM.A4W-MM.ML-MM.MR, tbH, 'F');
+  doc.setLineWidth(0.2);
+  doc.line(MM.ML, frameTop+tbH, MM.A4W-MM.MR, frameTop+tbH);
+  doc.setFont('helvetica','bold'); doc.setFontSize(FS_TITLE);
+  doc.text(titleTxt, MM.A4W/2, frameTop+tbH-2.4, {align:'center'});
+  const secY=frameTop+tbH+6;
+  doc.setFont('courier','normal'); doc.setFontSize(FS_SECT);
+  doc.text(sectionLabel, MM.ML+3, secY);
+  doc.setLineWidth(0.2);
+  doc.line(MM.ML+3, secY+1.6, MM.A4W-MM.MR-3, secY+1.6); // linea ESATTAMENTE sotto il testo, riga intera
+  doc.setFont('courier','normal'); doc.setFontSize(FS_FOOT);
+  doc.setDrawColor(180); doc.line(MM.ML, frameBot+3, MM.A4W-MM.MR, frameBot+3);
+  doc.setDrawColor(0);
+  doc.text(txt('picName')||'PIC', MM.ML, frameBot+7);
+  doc.text(String(pageNo), MM.A4W-MM.MR, frameBot+7, {align:'right'});
+  return secY+7;
+}
+/* Traduce in Latin-1 i simboli che ricorrono nei briefing meteo e nelle note del
+   pilota; quello che resta fuori dal set viene sostituito con '?' invece di
+   corrompere la riga. Applicata a TUTTO il testo del PDF (vedi patchDocText). */
+const PDF_CHAR_MAP={'→':'->','←':'<-','⇒':'=>','—':'-','–':'-','‑':'-','−':'-',
+  '“':'"','”':'"','„':'"','‘':"'",'’':"'",'…':'...','·':'-','•':'*',
+  '≥':'>=','≤':'<=','≠':'!=','±':'+/-','×':'x','÷':'/','°':' deg','′':"'",'″':'"',
+  '✓':'[X]','✔':'[X]','✗':'[ ]','✘':'[ ]','☑':'[X]','☐':'[ ]','§':'par.','\u00a0':' ','\u2009':' ','\u202f':' '};
+function pdfSafe(v){
+  if(v===null||v===undefined) return v;
+  if(Array.isArray(v)) return v.map(pdfSafe);
+  if(typeof v!=='string') return v;
+  return v.replace(/[^\x20-\x7E\xA0-\xFF\n\r\t]/g, ch=>{
+    if(PDF_CHAR_MAP[ch]!==undefined) return PDF_CHAR_MAP[ch];
+    return '?';
+  }).replace(/[→←⇒—–−“”„‘’…·•≥≤≠±×÷°′″✓✔✗✘☑☐§]/g, ch=>PDF_CHAR_MAP[ch]||ch);
+}
+/* Invece di ricordarsi pdfSafe() su ognuna delle decine di doc.text() sparse nel
+   generatore — dove basta dimenticarlo una volta per rovinare una riga — si
+   avvolge una volta sola doc.text(). */
+function patchDocText(doc){
+  const orig=doc.text.bind(doc);
+  doc.text=function(text,x,y,opts){ return orig(pdfSafe(text),x,y,opts); };
+  const origSplit=doc.splitTextToSize.bind(doc);
+  doc.splitTextToSize=function(text,w,o){ return origSplit(pdfSafe(text),w,o); };
+  return doc;
+}
+function monoLine(doc,x,y,s){ doc.text(s,x,y); return y+LH; }
+function dotted(doc,x1,x2,y){ doc.setLineDash([0.5,0.8],0); doc.setLineWidth(0.2); doc.line(x1,y,x2,y); doc.setLineDash([]); }
+
+function buildPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=patchDocText(new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}));
+  const f=computeFuel(); const w=weights(f); const t=computeTimes();
+  const title=titleText();
+  const L=MM.ML+3, R=MM.A4W-MM.MR-3, MID=(L+R)/2;
+
+  /* PAGE 1 — OFP */
+  let y0=drawFrame(doc,title,'OFP',1);
+  doc.setFont('courier','normal'); doc.setFontSize(FS_BODY);
+
+  // colonna sinistra: mission info (compatta, in alto)
+  let yL=y0;
+  const LHmission=LH+1.2;
+  [`FLT MISSION: ${txt('mission')}`,`DEP: ${txt('dep')}`,`ARR: ${txt('arr')}`,`ALTN: ${txt('altn')}`].forEach(l=>{ doc.text(l,L,yL); yL+=LHmission; });
+
+  // linea verticale separatrice + tabella tempi a destra (colonne ESTIMATED/ACTUAL ravvicinate)
+  const rightX0=L+80;
+  const LHtimes=LH+1.8;
+  const timesH = LHtimes + 6*LHtimes;
+  const valX=rightX0+34, actX=valX+24;
+  doc.setDrawColor(0); doc.setLineWidth(0.2); doc.line(rightX0-8, y0-4, rightX0-8, y0+4+timesH);
+  let yR=y0;
+  doc.text('ESTIMATED', valX, yR, {align:'right'}); doc.text('ACTUAL', actX, yR, {align:'right'}); yR+=LHtimes;
+  const timeRows=[['OFF',t.off],['TO',t.to],['LDG',t.ldg],['ON',t.on],['BLOCK',t.block],['FLT',t.flt]];
+  timeRows.forEach(([l,v])=>{
+    doc.text(l, rightX0, yR);
+    doc.text(v, valX, yR, {align:'right'});
+    doc.text('.....Z', actX, yR, {align:'right'});
+    yR+=LHtimes;
+  });
+
+  let y=Math.max(yL,yR)+8;
+  dotted(doc,L,R,y); y+=8;
+  y=monoLine(doc,L,y,`ROUTE: ${txt('route')}`); y+=10;
+  y=monoLine(doc,L,y,`CRUISE ALTITUDE: ${txt('cruisealt')}`); y+=4;
+  dotted(doc,L,R,y); y+=8;
+
+  // tabella FUEL(USG)/TIME a SINISTRA (niente linea sopra "FUEL(USG)")
+  const fuelW=95;
+  doc.text('FUEL(USG)', L+70, y, {align:'right'}); doc.text('TIME', L+92, y, {align:'right'}); y+=LH+1.6;
+  const frow=(lab,fuel,time)=>{ doc.text(lab,L,y); doc.text(fmt(fuel),L+70,y,{align:'right'}); doc.text(String(time),L+92,y,{align:'right'}); y+=LH+0.7; };
+  frow('TRIP',f.tripFuel,f.tripTime); frow('CONT',f.contFuel,f.contMin); frow('ALTN',f.altFuel,f.altTime); frow('FINAL RES',f.finFuel,f.finMin);
+  y+=2; dotted(doc,L,L+fuelW,y); y+=4;
+  frow('MIN BLOCK',f.minBlockFuel,f.minBlockTime);
+  dotted(doc,L,L+fuelW,y); y+=4;
+  frow('EXTRA',f.exFuel,f.exMin); frow('TAXI',f.taxiFuel,f.taxiMin);
+  y+=1; dotted(doc,L,L+fuelW,y); y+=4;
+  frow('PLAN BLOCK',f.blockFuel,f.blockTime);
+  dotted(doc,L,L+fuelW,y); y+=5;
+  y=monoLine(doc,L,y,'BLOCK = .....'); dotted(doc,L,L+fuelW,y-1.6); y+=4;
+  y=monoLine(doc,L,y,'ACT USD= .....'); dotted(doc,L,L+fuelW,y-1.6); y+=5;
+  // conversione AVGAS esplicita sull'OFP: chi rifornisce ragiona in litri, chi
+  // calcola le masse in kg. 1 USG = 2,72 kg = 3,785 L (AFM fig. 6-4 / fig. 1-4).
+  y=monoLine(doc,L,y,`PLAN BLOCK = ${fmt(f.blockFuel)} USG = ${fmt(f.blockFuel*L_PER_USG)} L = ${fmt(f.blockFuel*KG_PER_USG)} kg`);
+  y=monoLine(doc,L,y,`USABLE     = ${USABLE_FUEL_USG} USG = ${fmt(USABLE_FUEL_USG*L_PER_USG)} L${f.blockFuel>USABLE_FUEL_USG?'   *** BLOCK OLTRE LA CAPACITA SERBATOI ***':''}`);
+
+  // riga alternate summary, riavvicinata alla sezione fuel (non più in fondo pagina)
+  y+=14;
+  const cols=['ALTERNATE','DIST','TIME','ALTITUDE'];
+  const vals=[txt('altn'),String(num('altDist')),String(num('altTblTime')),txt('altAlt')];
+  const colW=(R-L)/4;
+  cols.forEach((c,i)=>doc.text(c,L+colW*i+colW/2,y,{align:'center'}));
+  vals.forEach((v,i)=>doc.text(v,L+colW*i+colW/2,y+6,{align:'center'}));
+
+  /* PAGE 2 — MASS AND BALANCE */
+  doc.addPage(); y=drawFrame(doc,title,'MASS AND BALANCE',2);
+  doc.setFontSize(10);
+  const LHmb=6.4;
+  const estX=L+68, maxX=L+98;
+  doc.setFont('courier','bold');
+  doc.text('EST',estX,y,{align:'right'}); doc.text('MAX',maxX,y,{align:'right'});
+  doc.setFont('courier','normal'); y+=LHmb+1;
+  const mbRows=[['POB',num('pob'),null],['ZFW',num('zfw'),num('mzfw')],['TOW',w.tow,num('mtow')],['LAW',w.ldw,num('mldw')],['ALTN',w.altw,null]];
+  mbRows.forEach(([lbl,est,max])=>{
+    doc.text(lbl,L,y);
+    doc.text(String(est),estX,y,{align:'right'});
+    doc.text(max===null?'--':String(max),maxX,y,{align:'right'});
+    y+=LHmb;
+  });
+  y+=6;
+
+  const imgTop=y, imgBoxH=128, imgBoxW=R-L;
+  doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(L,imgTop,imgBoxW,imgBoxH);
+  if(window.__mbImg){
+    try{
+      const props=doc.getImageProperties(window.__mbImg);
+      let iw=imgBoxW-4, ih=iw*props.height/props.width;
+      if(ih>imgBoxH-4){ ih=imgBoxH-4; iw=ih*props.width/props.height; }
+      doc.addImage(window.__mbImg, L+(imgBoxW-iw)/2, imgTop+(imgBoxH-ih)/2, iw, ih);
+    }catch(e){}
+  }else{
+    doc.text('Screenshot Mass & Balance', L+imgBoxW/2, imgTop+imgBoxH/2, {align:'center'});
+  }
+  y=imgTop+imgBoxH+9;
+  doc.setFont('courier','bold'); y=monoLine(doc,L,y,'REMARKS:'); doc.setFont('courier','normal');
+  const rem=txt('mbRemarks').trim();
+  if(rem){
+    // la pagina M&B ha un layout fisso (griglia masse + immagine del foglio), quindi
+    // qui non si spezza su più pagine: si stampa quel che entra e si segnala il taglio.
+    const remLines=doc.splitTextToSize(rem,R-L);
+    const maxLines=Math.max(1, Math.floor((MM.A4H-44-y)/LH));
+    const shown=remLines.slice(0,maxLines);
+    if(remLines.length>maxLines) shown[maxLines-1]=shown[maxLines-1].slice(0,-4)+'[...]';
+    doc.text(shown,L,y); y+=shown.length*LH;
+  } else y+=LHmb;
+  y+=7; y+=5+12;
+  y=monoLine(doc,L,y,`PIC: ${txt('picName')}`); y+=LHmb-LH; y=monoLine(doc,L,y,'..........');
+  doc.setFontSize(FS_BODY);
+
+  /* PAGE 3 — PERFORMANCE */
+  doc.addPage(); y=drawFrame(doc,title,'PERFORMANCE',3);
+  doc.setFontSize(8.5);
+  y=monoLine(doc,L,y,`TOW ${w.tow} kg   LAW ${w.ldw} kg   ALTN ${w.altw} kg`);
+  y=monoLine(doc,L,y,'*ADD +5 KTS AT VREF SPEEDS');
+  y=monoLine(doc,L,y,`VNE ${AC_LIMITS.vne}  VNO ${AC_LIMITS.vno}  VFE ${AC_LIMITS.vfe}  VA ${AC_LIMITS.va} KIAS   XWIND T/O ${AC_LIMITS.xwindTO} kt  LDG ${AC_LIMITS.xwindLDG} kt`); y+=3;
+  const dep=vspeedsFor(w.tow), dest=vspeedsFor(w.ldw), altn=vspeedsFor(w.altw);
+  const vLabels=V_ROWS.map(([lbl,k])=>[lbl,k]);
+  const vColW=[52,20,20,20];
+  doc.text('DEP',L+vColW[0]+vColW[1],y,{align:'right'}); doc.text('DEST',L+vColW[0]+vColW[1]+vColW[2],y,{align:'right'}); doc.text('ALTN',L+vColW[0]+vColW[1]+vColW[2]+vColW[3],y,{align:'right'});
+  y+=LH;
+  vLabels.forEach(([lbl,k])=>{
+    doc.text(lbl,L,y);
+    doc.text(String(dep[k]),L+vColW[0]+vColW[1],y,{align:'right'});
+    doc.text(String(dest[k]),L+vColW[0]+vColW[1]+vColW[2],y,{align:'right'});
+    doc.text(String(altn[k]),L+vColW[0]+vColW[1]+vColW[2]+vColW[3],y,{align:'right'});
+    y+=LH;
+  });
+  y+=4; doc.setFont('courier','bold'); doc.text('AFM Reference Table (KIAS)',L,y); doc.setFont('courier','normal'); y+=LH+1;
+  // larghezza colonne calcolata sul numero REALE di fasce di peso: il C172 FR ne ha
+  // 3 (850 / 1000 / 1157 kg), non le 5 del template di partenza.
+  const pwLab=52, pwCol=22;
+  const pw=[pwLab].concat(POH_WEIGHTS.map(()=>pwCol));
+  const colRight=(i)=>L+pw.slice(0,i+2).reduce((a,b)=>a+b,0);
+  const pohTblTop=y-3.2, pohTblW=pw.reduce((a,b)=>a+b,0);
+  doc.setFillColor(230,230,230); doc.rect(L-2,pohTblTop,pohTblW+4,LH+0.6,'F');
+  POH_WEIGHTS.forEach((ww,i)=>doc.text(String(ww)+' kg',colRight(i),y,{align:'right'})); y+=LH+1;
+  V_ROWS.forEach(([lbl,,key],ri)=>{
+    if(ri%2===1){ doc.setFillColor(245,245,245); doc.rect(L-2,y-3.2,pohTblW+4,LH+0.4,'F'); }
+    doc.text(lbl,L,y);
+    POH_TABLE[key].forEach((v,i)=>doc.text(v===null?'--':String(v),colRight(i),y,{align:'right'}));
+    y+=LH;
+  });
+  doc.setDrawColor(150); doc.setLineWidth(0.15); doc.rect(L-2,pohTblTop,pohTblW+4,(y-pohTblTop)); doc.setDrawColor(0);
+  y+=4;
+  doc.setFontSize(6.5); doc.text(V_FOOTNOTE,L,y); doc.setFontSize(8.5);
+  y+=5;
+  dotted(doc,L,R,y); y+=6;
+  doc.setFont('courier','bold'); y=monoLine(doc,L,y,'RUNWAY DISTANCE REQUIRED'); doc.setFont('courier','normal');
+  dotted(doc,L,R,y); y+=6;
+  const rwyMidX=L+(R-L)/2+4;
+  const yRwyStart=y;
+  // colonna sinistra: DEPARTURE
+  let yDep=yRwyStart;
+  doc.setFont('courier','bold'); doc.text('DEPARTURE',L,yDep); doc.setFont('courier','normal'); yDep+=LH;
+  yDep=monoLine(doc,L,yDep,`Airport: ${txt('depAirport')}   Rwy: ${txt('depRunway')}`); yDep+=1.5;
+  yDep=monoLine(doc,L,yDep,`Ground roll: ${num('toGround')} m`); yDep+=1;
+  yDep=monoLine(doc,L,yDep,`Dist 15m/50ft: ${num('toDist50')} m`);
+  // colonna destra: DESTINATION
+  let yDest=yRwyStart;
+  doc.setFont('courier','bold'); doc.text('DESTINATION',rwyMidX,yDest); doc.setFont('courier','normal'); yDest+=LH;
+  yDest=monoLine(doc,rwyMidX,yDest,`Airport: ${txt('destAirport')}   Rwy: ${txt('destRunway')}`); yDest+=1.5;
+  yDest=monoLine(doc,rwyMidX,yDest,`Ground roll: ${num('ldgGround')} m`); yDest+=1;
+  yDest=monoLine(doc,rwyMidX,yDest,`Dist 15m/50ft: ${num('ldgDist50')} m`);
+  doc.setLineWidth(0.15); doc.line(rwyMidX-6,yRwyStart-3,rwyMidX-6,Math.max(yDep,yDest)-2);
+  y=Math.max(yDep,yDest)+10;
+
+  const cAlt=num('cruisePerfAlt'), cPct=parseInt(txt('cruisePerfPct'))||55;
+  const ci=cruiseInterp(cAlt,cPct);
+  const pctIdx={45:0,55:1,65:2,75:3}[cPct];
+  dotted(doc,L,R,y); y+=6;
+  doc.setFont('courier','bold');
+  y=monoLine(doc,L,y,`CRUISE PWR SETTING ${cAlt} ft, ${cPct}% PWR`);
+  doc.setFont('courier','normal');
+  y=monoLine(doc,L,y, ci
+    ? `MP ${ci.mp} inHg   RPM ${ci.rpm}   TAS ${ci.tas} kt   FUEL FLOW ${ci.ff} USG/h (${fmt(ci.ff*L_PER_USG)} L/h)`
+    : `${cPct}% non ottenibile a ${cAlt} ft secondo l'AFM - scegliere una potenza inferiore`);
+  y=monoLine(doc,L,y,`CLIMB TO ${cAlt} ft: ${fmt(climbFuelLitres(cAlt))} L (${fmt(climbFuelLitres(cAlt)/L_PER_USG)} USG) incl. start & take-off - AFM fig. 5-6`);
+  dotted(doc,L,R,y); y+=6;
+
+  // tabella cruise power pulita e allineata, con evidenziazione MIRATA (solo le 3 celle MP/RPM/TAS della % scelta)
+  // 4 sottocolonne per fascia di potenza: MP / RPM / TAS / consumo.
+  const altW=16, subW=[9,10,9,11], groupW=subW.reduce((a,b)=>a+b,0);
+  const gx=(g)=>L+altW+g*groupW;
+  const colX=(g,sIdx)=>gx(g)+subW.slice(0,sIdx+1).reduce((a,b)=>a+b,0);
+  const tblRight=L+altW+4*groupW;
+  doc.setFontSize(7);
+  doc.text('Pres Alt',L,y);
+  ['45%','55%','65%','75%'].forEach((h,g)=>doc.text(h, gx(g)+groupW/2, y, {align:'center'})); y+=3.4;
+  doc.text('ft',L,y);
+  ['MP','RPM','TAS','USG/h'].forEach((h,sIdx)=>{ [0,1,2,3].forEach(g=>doc.text(h,colX(g,sIdx),y,{align:'right'})); }); y+=3.6;
+  doc.setLineWidth(0.15); doc.line(L,y-2.6,tblRight,y-2.6);
+  CRUISE_TABLE.forEach(r=>{
+    const isBracketRow = !!ci && (r.alt===ci.loAlt || r.alt===ci.hiAlt);
+    if(isBracketRow){ doc.setFillColor(255,243,176); doc.rect(gx(pctIdx)-1,y-3,groupW+2,4,'F'); }
+    doc.text(String(r.alt),L,y);
+    [r.p45,r.p55,r.p65,r.p75].forEach((p,g)=>{
+      doc.setFont('courier', (isBracketRow && g===pctIdx) ? 'bold' : 'normal');
+      if(p){ p.forEach((val,sIdx)=>doc.text(sIdx===3?Number(val).toFixed(1):String(val),colX(g,sIdx),y,{align:'right'})); }
+      else { doc.text('--',colX(g,2),y,{align:'right'}); }
+    });
+    doc.setFont('courier','normal');
+    y+=3.8;
+  });
+  y+=1; doc.setLineWidth(0.15); doc.line(L,y-2.6,tblRight,y-2.6);
+  doc.text('FF min',L,y);
+  ['p45','p55','p65','p75'].forEach((k,g)=>doc.text(CRUISE_ECO[k]+' U/h',colX(g,3),y,{align:'right'}));
+  y+=3.8;
+  doc.text('FF max',L,y);
+  ['p45','p55','p65','p75'].forEach((k,g)=>doc.text(CRUISE_PWR[k]+' U/h',colX(g,3),y,{align:'right'}));
+  y+=4;
+  doc.setFontSize(6.5);
+  doc.text("AFM Reims Rocket FR172J fig. 5-1 - normal lean mixture, 1157 kg, ISA, vento nullo. '--' = potenza non ottenibile a quella quota.",L,y);
+  doc.setFontSize(FS_BODY);
+
+  /* PAGE 4 — DEST CHARTS */
+  doc.addPage(); y=drawFrame(doc,title,'DEST CHARTS',4);
+  doc.setFontSize(FS_BODY);
+  const imgs=(window.__chartImgs||[]).slice(0,2);
+  const chartsTop=y, chartsH=120, chartsW=R-L;
+  if(imgs.length){
+    const gap2=4, iw=(chartsW-gap2*(imgs.length-1))/imgs.length;
+    imgs.forEach((src,i)=>{
+      const ix=L+i*(iw+gap2);
+      doc.rect(ix,chartsTop,iw,chartsH);
+      try{
+        const props=doc.getImageProperties(src);
+        let ww=iw-4, hh=ww*props.height/props.width;
+        if(hh>chartsH-4){ hh=chartsH-4; ww=hh*props.width/props.height; }
+        doc.addImage(src, ix+(iw-ww)/2, chartsTop+(chartsH-hh)/2, ww, hh);
+      }catch(e){}
+    });
+  }else{
+    doc.rect(L,chartsTop,chartsW,chartsH);
+    doc.text('Carte destinazione', L+chartsW/2, chartsTop+chartsH/2, {align:'center'});
+  }
+  y=chartsTop+chartsH+8;
+  [['Track','noteTrack'],['Runway','noteRunway'],['Altitudes','noteAlt'],['Clearance','noteClear'],
+   ['Timing','noteTiming'],['On ground','noteGround'],['Radios','noteRadios'],['Specials','noteSpecials']]
+   .forEach(([lbl,id])=>{ y=monoLine(doc,L,y,`${lbl}: ${txt(id)}`); });
+
+  /* ---- IMPAGINAZIONE DELLE SEZIONI DI TESTO -------------------------------------
+     Da qui in poi le pagine contengono testo libero di lunghezza imprevedibile
+     (briefing, METAR/TAF, NOTAM). Il contatore di pagina diventa quindi progressivo
+     e ogni riga viene stampata solo dopo aver verificato che ci sia spazio: se non
+     c'è si apre una pagina di continuazione con la STESSA intestazione di sezione.
+
+     Prima questo controllo esisteva solo per i NOTAM: le pagine BRIEFING e WEATHER
+     scrivevano dritte oltre il bordo inferiore del foglio, e con un briefing o dei
+     METAR lunghi il testo in eccesso semplicemente spariva dall'OFP stampato.
+     Su un documento operativo è il tipo di errore che non si nota finché non serve. */
+  let pageNo = 4;                 // le pagine 1-4 hanno struttura fissa
+  let section = '';               // intestazione da ripetere sulle continuazioni
+  function newPage(label){
+    pageNo++; doc.addPage(); section = label;
+    y = drawFrame(doc,title,label,pageNo);
+    doc.setFontSize(FS_BODY);
+  }
+  function ensureRoom(neededH){
+    if(y+neededH > MM.A4H-24) newPage(section);
+  }
+  function printLinesWithBreak(text){
+    const lines = doc.splitTextToSize(text||'', R-L);
+    lines.forEach(line=>{ ensureRoom(LH); doc.text(line,L,y); y+=LH; });
+  }
+  function printLabelled(label, text){
+    ensureRoom(LH*2);             // etichetta e prima riga non si separano
+    y=monoLine(doc,L,y,label);
+    printLinesWithBreak(text);
+  }
+  function sectionHeading(label){
+    ensureRoom(LH*2);             // mai un'intestazione orfana a fondo pagina
+    doc.setFont('courier','bold'); y=monoLine(doc,L,y,label); doc.setFont('courier','normal');
+  }
+
+  /* PAGE 5 — BRIEFING (include Aircraft Status e Remarks) */
+  newPage('BRIEFING');
+  const briefBlock=(title2,proc,thr,mit)=>{
+    sectionHeading(title2);
+    printLinesWithBreak(proc); y+=2;
+    printLabelled('POSS.THREATS:', thr); y+=2;
+    printLabelled('MITIGATION:', mit); y+=6;
+  };
+  briefBlock('DEP PROCEDURE:',txt('depProc'),txt('depThreats'),txt('depMit'));
+  briefBlock('ENROUTE PROCEDURE:',txt('enrProc'),txt('enrThreats'),txt('enrMit'));
+  briefBlock('DEST PROCEDURE:',txt('destProc'),txt('destThreats'),txt('destMit'));
+  ensureRoom(LH*3); dotted(doc,L,R,y); y+=5;
+  sectionHeading('AIRCRAFT STATUS');
+  printLinesWithBreak(txt('acStatus')); y+=5;
+  ensureRoom(LH*3); dotted(doc,L,R,y); y+=5;
+  sectionHeading('REMARKS');
+  printLinesWithBreak(txt('briefRemarks'));
+
+  /* PAGE 6 — WEATHER */
+  newPage('WEATHER');
+  // DATE e TIME (emissione/validità del briefing) su DUE righe centrate, subito sotto
+  // il titolo WEATHER e prima del primo METAR. Presi dai campi wxDate/wxTime, che sono
+  // compilati automaticamente dal PDF ma restano correggibili a mano.
+  const wxD = txt('wxDate').trim(), wxT = txt('wxTime').trim();
+  if(wxD || wxT || txt('wxValid').trim()){
+    y+=1;
+    if(wxD){ doc.text(`DATE: ${wxD}`, MM.A4W/2, y, {align:'center'}); y+=LH; }
+    if(wxT){ doc.text(`TIME: ${wxT} UTC`, MM.A4W/2, y, {align:'center'}); y+=LH; }
+    const wxV = txt('wxValid').trim();
+    if(wxV){ doc.text(`VALID: ${wxV}`, MM.A4W/2, y, {align:'center'}); y+=LH; }
+    y+=2; dotted(doc,L,R,y); y+=5;
+  }
+  const wxBlock=(hdr,icao,metar,speci,taf)=>{
+    sectionHeading(`${hdr}${icao?` (${icao})`:''}`);
+    printLabelled('METAR:', orNil(metar)); y+=1.5;
+    printLabelled('SPECI:', orNil(speci)); y+=1.5;
+    printLabelled('TAF:',   orNil(taf));   y+=6;
+  };
+  wxBlock('DEPARTURE AIRPORT',  txt('dep'), txt('depMetar'),  txt('depSpeci'),  txt('depTaf'));
+  wxBlock('DESTINATION AIRPORT',txt('arr'), txt('destMetar'), txt('destSpeci'), txt('destTaf'));
+  // ALTERNATE: se coincide col Departure e i campi sono vuoti, eredita gli stessi dati
+  // invece di mostrare NIL — non ha senso restare vuoti quando è letteralmente lo stesso aeroporto.
+  wxBlock('ALTERNATE AIRPORT', txt('altn'),
+    withDepFallback(txt('altnMetar'),txt('depMetar')),
+    withDepFallback(txt('altnSpeci'),txt('depSpeci')),
+    withDepFallback(txt('altnTaf'),  txt('depTaf')));
+
+  const otherWx = window.__briefingOther || {};
+  Object.keys(otherWx).forEach(code=>{
+    const o = otherWx[code];
+    wxBlock('OTHER AIRPORTS', code, o.metar, o.speci, o.taf);
+  });
+
+  // Cartine meteo (GAFOR/SIGMET/SWC/Wind ecc.) estratte dal PDF sorgente: 2 per pagina,
+  // subito dopo METAR/TAF e PRIMA della sezione NOTAM, come richiesto.
+  const charts = window.__wxCharts || [];
+  for(let i=0;i<charts.length;i+=2){
+    newPage('WEATHER — CHARTS');
+    const pair = charts.slice(i,i+2);
+    const areaTop=y, areaBot=MM.A4H-24;
+    const halfH=(areaBot-areaTop)/2-4;
+    pair.forEach((c,idx)=>{
+      const boxY = areaTop + idx*(halfH+8);
+      const maxW=R-L, maxH=halfH;
+      const aspect=c.w/c.h;
+      let boxW=maxW, boxH=boxW/aspect;
+      if(boxH>maxH){ boxH=maxH; boxW=boxH*aspect; }
+      const xOff = L+(maxW-boxW)/2;
+      try{ doc.addImage(c.dataUrl,'JPEG',xOff,boxY,boxW,boxH); }catch(e){ /* immagine non valida: la saltiamo */ }
+    });
+  }
+
+  /* INTERRUZIONE DI PAGINA prima della sezione NOTAM, come richiesto */
+  newPage('NOTAM');
+
+  function printNotamBlock(text){
+    const entries=(text||'').split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
+    if(!entries.length){ printLinesWithBreak('NIL'); return; }
+    entries.forEach((entry,i)=>{
+      printLinesWithBreak(entry);
+      if(i<entries.length-1) y+=5;
+    });
+  }
+  const notamSection=(headerLabel, notamText)=>{
+    sectionHeading(`--- ${headerLabel} ---`);
+    y+=1.5; printNotamBlock(notamText); y+=7;
+  };
+  notamSection(`DEPARTURE AIRPORT (${txt('dep')||'----'})`, txt('depNotam'));
+  notamSection(`DESTINATION AIRPORT (${txt('arr')||'----'})`, txt('destNotam'));
+  notamSection(`ALTERNATE AIRPORT (${txt('altn')||'----'})`, withDepFallback(txt('altnNotam'),txt('depNotam')));
+  Object.keys(otherWx).forEach(code=>{
+    notamSection(`OTHER AIRPORTS (${code})`, (otherWx[code].notam||[]).join('\n\n'));
+  });
+  sectionHeading('--- ENROUTE NOTAMS ---');
+  y+=1.5; printNotamBlock(txt('enrouteNotam'));
+
+  ensureRoom(20);
+  y=Math.max(y+8,MM.A4H-40);
+  y=monoLine(doc,L,y,`PIC SIGNATURE: ${txt('picName')}`); y=monoLine(doc,L,y,'....................');
+
+  return doc;
+}
+function ofpFileName(){
+  const d=(txt('wxDate')||'').replace(/\D/g,'') || new Date().toISOString().slice(0,10).replace(/-/g,'');
+  return `OFP_${(txt('dep')||'DEP').toUpperCase()}-${(txt('arr')||'ARR').toUpperCase()}_${d}.pdf`;
+}
+/* La web app Apps Script gira dentro un iframe sandboxed: il download avviato via
+   <a download> (quello che usa jsPDF.save()) può essere bloccato senza dire nulla.
+   Quindi su Apps Script si apre il PDF in una scheda nuova — da lì il browser lo
+   salva normalmente — e in più lo si archivia su Google Drive. In un browser
+   normale resta il download diretto di sempre. */
+async function exportPDF(){
+  const btn=$('btnPdf'); btn.disabled=true; const old=btn.textContent; btn.textContent='Genero…';
+  try{
+    const doc=buildPDF(), name=ofpFileName();
+    if(IS_APPS_SCRIPT){
+      const win = window.open(doc.output('bloburl'), '_blank');
+      if(!win) doc.save(name);   // popup bloccato: si tenta comunque il download
+    }else{
+      doc.save(name);
+    }
+  }
+  catch(err){ alert('Errore nella generazione del PDF: '+err.message); console.error(err); }
+  finally{ btn.disabled=false; btn.textContent=old; }
+}
+/* Archiviazione su Drive: disponibile solo quando la pagina è servita da Apps Script. */
+function saveToDrive(){
+  if(!IS_APPS_SCRIPT){ alert('Il salvataggio su Drive è disponibile solo aprendo la web app da Google Apps Script.'); return; }
+  const btn=$('btnDrive'); btn.disabled=true; const old=btn.textContent; btn.textContent='Salvo…';
+  let base64;
+  try{ base64 = buildPDF().output('datauristring').split(',')[1]; }
+  catch(err){ alert('Errore nella generazione del PDF: '+err.message); btn.disabled=false; btn.textContent=old; return; }
+  google.script.run
+    .withSuccessHandler(url=>{ btn.disabled=false; btn.textContent=old; if(url) window.open(url,'_blank'); })
+    .withFailureHandler(err=>{ btn.disabled=false; btn.textContent=old; alert('Salvataggio su Drive fallito: '+(err&&err.message||err)); })
+    .saveOfpToDrive(base64, ofpFileName());
+}
+$('btnPdf').addEventListener('click',exportPDF);
+if($('btnDrive')) $('btnDrive').addEventListener('click',saveToDrive);
+$('btnPreview').addEventListener('click',togglePreview);
+$('btnPrint').addEventListener('click',()=>{ if(!previewOpen) togglePreview(); setTimeout(()=>window.print(),120); });
+
+/* ==================== Dashboard / Flight Manager ==================== */
+// Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)
+const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route','cruisealt',
+  'tOFF','tTO','tLDG','tON','picName',
+  'tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel',
+  'pob','zfw','tow','mzfw','mtow','mldw',
+  'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50','cruisePerfAlt','cruisePerfPct',
+  'noteTrack','noteRunway','noteAlt','noteClear','noteTiming','noteGround','noteRadios','noteSpecials',
+  'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','destProc','destThreats','destMit','acStatus','briefRemarks'];
+// Campi meteo/NOTAM (weather_data)
+const WX_FIELDS = ['depMetar','depSpeci','depTaf','depNotam','destMetar','destSpeci','destTaf','destNotam',
+  'altnMetar','altnSpeci','altnTaf','altnNotam','enrouteNotam','wxValid'];
+
+/* ==================== PERSISTENZA ====================
+   Due backend, scelti da soli in base a dove gira la pagina:
+
+   - Google Apps Script (web app): i voli stanno nelle UserProperties dell'utente
+     Google che ha aperto la pagina, quindi lo stesso pilota li ritrova da qualsiasi
+     dispositivo e nessuno vede quelli degli altri. Le chiamate a google.script.run
+     sono asincrone, mentre tutto il resto del wizard legge i voli in modo sincrono:
+     per non riscrivere mezza applicazione si tiene una cache in memoria, popolata
+     una volta al boot e aggiornata a ogni salvataggio (write-through).
+   - Browser normale (file:// o hosting statico): localStorage, come prima.
+
+   Se la scrittura sul server fallisce si ricade su localStorage, così un volo
+   compilato non va perso per un problema di rete. */
+const LS_KEY='saved_flights';
+const IS_APPS_SCRIPT = typeof google!=='undefined' && google.script && google.script.run;
+let FLIGHTS_CACHE = null;   // null = non ancora caricata
+
+function readLocal(){
+  try{ return JSON.parse(localStorage.getItem(LS_KEY))||[]; }catch(e){ return []; }
+}
+function writeLocal(list){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(list)); return true; }
+  catch(e){ return false; }
+}
+function loadSavedFlights(){
+  if(FLIGHTS_CACHE===null) FLIGHTS_CACHE = readLocal();
+  return FLIGHTS_CACHE;
+}
+function persistFlights(list){
+  FLIGHTS_CACHE = list;
+  writeLocal(list);                       // copia locale sempre, anche su Apps Script
+  if(IS_APPS_SCRIPT){
+    google.script.run
+      .withFailureHandler(err=>{
+        console.error('Salvataggio sul server fallito:', err);
+        alert('Non sono riuscito a salvare sul tuo account Google ('+(err&&err.message||err)+').\nI voli restano salvati in questo browser.');
+      })
+      .saveFlights(JSON.stringify(list));
+  }
+}
+/* Caricamento iniziale dal server: fino a quando non risponde si mostra la copia
+   locale, poi la si sostituisce con quella del server (che è la fonte di verità). */
+function bootstrapFlights(done){
+  if(!IS_APPS_SCRIPT){ FLIGHTS_CACHE = readLocal(); done && done(); return; }
+  FLIGHTS_CACHE = readLocal();
+  google.script.run
+    .withSuccessHandler(json=>{
+      try{
+        const list = JSON.parse(json||'[]');
+        if(Array.isArray(list)) { FLIGHTS_CACHE = list; writeLocal(list); }
+      }catch(e){ console.error('Risposta server non leggibile:', e); }
+      done && done();
+    })
+    .withFailureHandler(err=>{ console.error('Caricamento dal server fallito:', err); done && done(); })
+    .loadFlights();
+}
+function collectFlightData(){ const d={}; FLIGHT_FIELDS.forEach(id=>{ if($(id)) d[id]=$(id).value; }); return d; }
+function collectWeatherData(){
+  const w={}; WX_FIELDS.forEach(id=>{ if($(id)) w[id]=$(id).value; });
+  // data/ora del briefing salvate coi nomi richiesti weather_data.date / weather_data.time
+  if($('wxDate'))  w.date=$('wxDate').value;
+  if($('wxTime'))  w.time=$('wxTime').value;
+  if($('wxValid')) w.valid=$('wxValid').value;
+  return w;
+}
+function applyFlightData(d){ if(!d) return; Object.keys(d).forEach(id=>{ if($(id)!=null && $(id)!==undefined && document.getElementById(id)) $(id).value=d[id]; }); }
+function applyWeatherData(w){
+  if(!w) return;
+  Object.keys(w).forEach(id=>{ if(document.getElementById(id)) $(id).value=w[id]; });
+  if(w.date  && $('wxDate'))  $('wxDate').value=w.date;
+  if(w.time  && $('wxTime'))  $('wxTime').value=w.time;
+  if(w.valid && $('wxValid')) $('wxValid').value=w.valid;
+}
+
+/* ==================== Nuovo foglio / reset ==================== */
+// Valori che restano SEMPRE precompilati come default a ogni nuovo volo.
+// Tutti gli altri campi (input, select, textarea) vengono svuotati.
+const NEW_FLIGHT_DEFAULTS = {
+  reg:'I-CCAF',              // immatricolazione del C172 FR di riferimento
+  tripGS:'108',              // GS standard = TAS 55% a 5000 ft (AFM fig. 5-1)
+  tripFF:'8.5',              // consumo crociera 55% a 5000 ft (AFM fig. 5-1)
+  altGS:'99',                // GS alternato = TAS 45% a 5000 ft
+  altFF:'7.4',               // consumo alternato 45% a 5000 ft
+  taxiMin:'10',              // taxi standard
+  taxiFuel:'0.5',            // consumo taxi standard
+  extraMin:'0', extraFuel:'0',
+  flightRule:'VFR',
+  pob:'1',
+  cruisealt:'5000 ft',
+  cruisePerfAlt:'5000', cruisePerfPct:'55',
+  mzfw:'1157',               // AFM: nessun MZFW pubblicato, si usa il MTOW
+  mtow:'1157',               // MTOW categoria NORMALE (2550 lb)
+  mldw:'1157',               // MLW: il FR172J atterra allo stesso peso massimo
+  toGround:'226', toDist50:'375',   // AFM fig. 5-4 a 1157 kg, SL, +15C, vento nullo
+  ldgGround:'189', ldgDist50:'387'  // AFM fig. 5-5 a 1157 kg, SL, +15C, vento nullo
+};
+
+function newFlight(){
+  if(!confirm('Creare un nuovo foglio? I dati non salvati andranno persi.')) return;
+  window.__editingFlightId=null;
+  window.__mbImg=null;
+  window.__wxCharts=null;
+  window.__wxPrintedAt=null;
+  // svuota OGNI campo di input/select/textarea del wizard...
+  document.querySelectorAll('.scroll input, .scroll select, .scroll textarea').forEach(el=>{
+    if(el.type==='file') return;
+    el.value='';
+  });
+  // ...poi ripristina SOLO i default previsti
+  Object.keys(NEW_FLIGHT_DEFAULTS).forEach(id=>{ if($(id)) $(id).value=NEW_FLIGHT_DEFAULTS[id]; });
+  // reset anteprime/stati
+  if($('mbThumb')){ $('mbThumb').src=''; $('mbThumb').style.display='none'; }
+  if($('mbStatus')) $('mbStatus').textContent='';
+  if(typeof window.__chartImgs!=='undefined'){ window.__chartImgs=[]; if(typeof renderChartThumbs==='function') renderChartThumbs(); }
+  if($('chartThumbs')) $('chartThumbs').innerHTML='';
+  if($('wxStatus')) $('wxStatus').textContent='';
+  closeDashboard(); goToStep(1); render();
+}
+
+function saveFlightDraft(){
+  const list=loadSavedFlights();
+  const now=new Date().toISOString();
+  // salva anche i dati WX già inseriti (data/ora, METAR/NOTAM a mano) se presenti
+  const wx = collectWeatherData();
+  const hasWx = Object.values(wx).some(v => (v||'').trim());
+  // se stiamo modificando un volo già caricato nel wizard, aggiorna quello
+  const editingId=window.__editingFlightId;
+  if(editingId){
+    const f=list.find(x=>x.id===editingId);
+    if(f){ f.flight_data=collectFlightData(); if(hasWx) f.weather_data=wx; f.updated_at=now; persistFlights(list); window.__editingFlightId=null; renderDashboard(); openDashboard(); return; }
+  }
+  const flight={ id:'flight_'+Date.now(), status:'DRAFT', created_at:now, updated_at:now,
+    flight_data:collectFlightData(), weather_data: hasWx ? wx : null };
+  list.unshift(flight); persistFlights(list); renderDashboard(); openDashboard();
+}
+
+function deleteFlight(flightId){
+  if(!confirm('Eliminare questo volo salvato?')) return;
+  persistFlights(loadSavedFlights().filter(f=>f.id!==flightId));
+  renderDashboard();
+}
+
+function editFlight(flightId){
+  const f=loadSavedFlights().find(x=>x.id===flightId); if(!f) return;
+  applyFlightData(f.flight_data);
+  if(f.weather_data) applyWeatherData(f.weather_data);
+  window.__editingFlightId=flightId;
+  closeDashboard(); goToStep(1); render();
+}
+
+function viewFlightOFP(flightId){
+  const f=loadSavedFlights().find(x=>x.id===flightId); if(!f) return;
+  applyFlightData(f.flight_data);
+  if(f.weather_data) applyWeatherData(f.weather_data);
+  window.__editingFlightId=flightId;
+  closeDashboard(); goToStep(1); render();
+}
+
+// Finalizza un volo caricando il PDF del briefing: riusa lo STESSO parser del wizard,
+// scrive i risultati nei campi del wizard (per riusare parseBriefingText/applyBriefingResult),
+// poi ricava weather_data da quei campi e lo salva sull'oggetto flightId corretto.
+function finalizeFlightWithPDF(flightId, pdfFile, statusEl){
+  const f=loadSavedFlights().find(x=>x.id===flightId); if(!f) return;
+  // porta la rotta del volo nei campi del wizard, così i codici ICAO usati dal parser
+  // sono quelli di QUESTO volo (non di un altro eventualmente aperto)
+  applyFlightData(f.flight_data);
+  if(statusEl){ statusEl.className='dash-status busy'; statusEl.textContent='⏳ Analizzo il PDF…'; }
+  const reader=new FileReader();
+  reader.onload=async()=>{
+    try{
+      const pdf=await pdfjsLib.getDocument({data:reader.result.slice(0)}).promise;
+      const pageTexts=[];
+      for(let p=1;p<=pdf.numPages;p++){
+        const page=await pdf.getPage(p);
+        const content=await page.getTextContent();
+        pageTexts.push(content.items.map(it=>it.str).join(' '));
+      }
+      const allText=pageTexts.join('\n');
+      window.__wxPrintedAt=extractPrintedAt(pageTexts[0]||'');
+      window.__wxCharts=await extractWeatherCharts(pdf);
+      const codes={ dep:(f.flight_data.dep||'').toUpperCase(), dest:(f.flight_data.arr||'').toUpperCase(), altn:(f.flight_data.altn||'').toUpperCase() };
+      const result=parseBriefingText(allText, allText, codes);
+      applyBriefingResult(result); // scrive METAR/SPECI/TAF/NOTAM nei campi del wizard
+      // salva sull'oggetto volo corretto
+      const list=loadSavedFlights();
+      const target=list.find(x=>x.id===flightId);
+      if(target){
+        target.weather_data=collectWeatherData();
+        target.status='COMPLETED';
+        target.updated_at=new Date().toISOString();
+        persistFlights(list);
+      }
+      if(statusEl){ statusEl.className='dash-status ok'; statusEl.textContent='✓ Meteo/NOTAM aggiornati.'; }
+      renderDashboard();
+    }catch(err){
+      if(statusEl){ statusEl.className='dash-status err'; statusEl.textContent='Errore lettura PDF: '+err.message; }
+      console.error(err);
+    }
+  };
+  reader.readAsArrayBuffer(pdfFile);
+}
+
+function fmtDate(iso){ try{ const d=new Date(iso); return d.toLocaleString(); }catch(e){ return iso; } }
+
+function makeCard(f){
+  const fd=f.flight_data||{};
+  const route=`${(fd.dep||'----').toUpperCase()} \u2794 ${(fd.arr||'----').toUpperCase()}` + (fd.altn?`  (ALTN ${fd.altn.toUpperCase()})`:'');
+  const card=document.createElement('div'); card.className='flight-card';
+  if(f.status==='DRAFT'){
+    card.innerHTML=`<span class="badge standby">&#128993; STANDBY / IN ATTESA WX</span>
+      <div class="route">${route}</div>
+      <div class="meta">Creato: ${fmtDate(f.created_at)}<br>Aereo: ${fd.reg||'—'}${fd.mission?' · '+fd.mission:''}<br>Rotta: ${(fd.route||'—').slice(0,60)}</div>
+      <div class="card-drop">&#128196; Carica Weather Briefing PDF per finalizzare</div>
+      <div class="dash-status"></div>
+      <div class="card-actions">
+        <button class="btn" data-act="edit">&#9999;&#65039; Modifica Dati</button>
+        <button class="btn" data-act="del">&#128465;&#65039; Elimina</button>
+      </div>`;
+  }else{
+    card.innerHTML=`<span class="badge completed">&#128994; PRONTO PER IL VOLO</span>
+      <div class="route">${route}</div>
+      <div class="meta">Ultimo aggiornamento WX: ${fmtDate(f.updated_at)}</div>
+      <div class="card-drop" data-role="refresh">&#128260; Aggiorna WX (carica nuovo PDF)</div>
+      <div class="dash-status"></div>
+      <div class="card-actions">
+        <button class="btn primary" data-act="view">&#128065;&#65039; Visualizza OFP</button>
+        <button class="btn" data-act="del">&#128465;&#65039; Elimina</button>
+      </div>`;
+  }
+  const statusEl=card.querySelector('.dash-status');
+  const drop=card.querySelector('.card-drop');
+  if(drop){
+    const inp=document.createElement('input'); inp.type='file'; inp.accept='application/pdf'; inp.style.display='none';
+    card.appendChild(inp);
+    drop.addEventListener('click',()=>inp.click());
+    drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.borderColor='#2f6df6';});
+    drop.addEventListener('dragleave',()=>drop.style.borderColor='');
+    drop.addEventListener('drop',e=>{e.preventDefault();drop.style.borderColor='';if(e.dataTransfer.files[0])finalizeFlightWithPDF(f.id,e.dataTransfer.files[0],statusEl);});
+    inp.addEventListener('change',e=>{if(e.target.files[0])finalizeFlightWithPDF(f.id,e.target.files[0],statusEl);});
+  }
+  card.querySelectorAll('[data-act]').forEach(b=>{
+    const act=b.dataset.act;
+    b.addEventListener('click',()=>{
+      if(act==='del') deleteFlight(f.id);
+      else if(act==='edit') editFlight(f.id);
+      else if(act==='view') viewFlightOFP(f.id);
+    });
+  });
+  return card;
+}
+
+function renderDashboard(){
+  const list=loadSavedFlights();
+  const drafts=list.filter(f=>f.status==='DRAFT');
+  const done=list.filter(f=>f.status==='COMPLETED');
+  const dc=$('draftCards'), cc=$('completedCards');
+  dc.innerHTML=''; cc.innerHTML='';
+  drafts.forEach(f=>dc.appendChild(makeCard(f)));
+  done.forEach(f=>cc.appendChild(makeCard(f)));
+  $('draftEmpty').style.display=drafts.length?'none':'block';
+  $('completedEmpty').style.display=done.length?'none':'block';
+}
+function openDashboard(){ renderDashboard(); $('dashboard').classList.add('open'); }
+function closeDashboard(){ $('dashboard').classList.remove('open'); }
+
+$('btnDashboard').addEventListener('click',openDashboard);
+$('btnCloseDash').addEventListener('click',closeDashboard);
+$('btnStandby').addEventListener('click',saveFlightDraft);
+$('btnNew').addEventListener('click',newFlight);
+
+/* ============================ boot ============================ */
+// Sincronizzazione automatica altitudine: quando l'utente scrive la Cruise altitude
+// nella prima pagina (es. "2500/4000 ft"), copiamo la quota di crociera nel campo
+// Altitude della pagina Performance, così non va riscritta. Prendiamo l'ULTIMO numero
+// (la quota di crociera effettiva se ne sono indicate più d'una, es. salita/crociera).
+function syncAltitudeToPerf(){
+  const raw = txt('cruisealt');
+  const nums = (raw.match(/\d{3,5}/g)||[]);
+  if(nums.length && $('cruisePerfAlt')){
+    $('cruisePerfAlt').value = nums[nums.length-1];
+  }
+}
+if($('cruisealt')) $('cruisealt').addEventListener('input', ()=>{ syncAltitudeToPerf(); render(); });
+
+document.body.addEventListener('input',render);
+renderSteps(); goToStep(1); syncAltitudeToPerf();
+// su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
+if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
+bootstrapFlights(()=>{ if($('dashboard').classList.contains('open')) renderDashboard(); });
+</script>
