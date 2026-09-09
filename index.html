@@ -23,23 +23,37 @@
     --field:#0b1219; --txt:#dbe4ee; --txt-dim:#8fa3b8;
   }
   *{box-sizing:border-box}
+  /* Base tipografica in rem: 16px su desktop, 18px da tablet in su. Tutto il resto
+     (campi, pulsanti, tabelle) e' espresso in rem e scala di conseguenza, invece di
+     restare inchiodato ai 11-13px che su iPad erano illeggibili. */
+  html{font-size:16px;-webkit-text-size-adjust:100%}
   html,body{margin:0;height:100%}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:#070c12;color:var(--txt);display:flex;flex-direction:column;height:100vh;overflow:hidden}
+    font-size:1rem;background:#070c12;color:var(--txt);display:flex;flex-direction:column;height:100vh;overflow:hidden}
+  /* Altezza minima dei target di tocco: 44px e' la soglia sotto la quale su touch
+     si sbaglia bersaglio. */
+  :root{--tap:2.75rem}
 
-  .topbar{display:flex;align-items:center;gap:14px;padding:10px 18px;background:var(--panel-2);border-bottom:1px solid var(--panel-line);flex:0 0 auto}
-  .topbar .brand{font-weight:700;letter-spacing:.5px;font-size:14px;white-space:nowrap}
+  /* Intestazione su due righe: titolo + hamburger sopra, fasi di compilazione
+     sotto, in una sola linea orizzontale. */
+  .topbar{display:flex;flex-direction:column;gap:.5rem;padding:.7rem 1.1rem;background:var(--panel-2);border-bottom:1px solid var(--panel-line);flex:0 0 auto}
+  .topbar-main{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .topbar .brand{font-weight:700;letter-spacing:.02em;font-size:1.06rem;white-space:nowrap}
   .topbar .brand b{color:var(--accent)}
   .topbar .brand span{color:var(--txt-dim);font-weight:500}
-  .steps{display:flex;gap:5px;flex:1;justify-content:center;flex-wrap:wrap}
-  .step-pill{display:flex;align-items:center;gap:6px;padding:5px 10px 5px 6px;border-radius:20px;border:1px solid var(--panel-line);background:var(--field);cursor:pointer;font-size:11.5px;color:var(--txt-dim)}
-  .step-pill .n{width:18px;height:18px;border-radius:50%;background:#1c2a38;color:var(--txt-dim);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex:0 0 auto}
+  .steps{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+  .step-pill{display:flex;align-items:center;gap:.45rem;padding:.4rem .8rem .4rem .45rem;border-radius:999px;
+    border:1px solid var(--panel-line);background:var(--field);cursor:pointer;font-size:.85rem;color:var(--txt-dim);
+    min-height:2.1rem;user-select:none}
+  .step-pill:hover{border-color:#3a5a80;color:var(--txt)}
+  .step-pill .n{width:1.35rem;height:1.35rem;border-radius:50%;background:#1c2a38;color:var(--txt-dim);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex:0 0 auto}
   .step-pill.active{border-color:var(--accent-2);color:var(--txt)}
   .step-pill.active .n{background:var(--accent-2);color:#fff}
   .step-pill.done .n{background:#1f7a3d;color:#fff}
   .step-pill.done{color:var(--txt)}
 
-  .btn{border:1px solid var(--panel-line);background:var(--field);color:var(--txt);padding:9px 16px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600}
+  .btn{border:1px solid var(--panel-line);background:var(--field);color:var(--txt);padding:.6rem 1.05rem;border-radius:.5rem;
+    font-size:.92rem;cursor:pointer;font-weight:600;min-height:var(--tap);font-family:inherit}
   .btn:hover{border-color:#3a5a80}
   .btn.primary{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
   .btn.primary:hover{filter:brightness(1.08)}
@@ -47,30 +61,31 @@
   .btn.ghost{background:transparent}
 
   .main{display:flex;flex:1;min-height:0}
-  .formcol{width:640px;max-width:100%;flex:1;margin:0 auto;background:var(--panel-bg);display:flex;flex-direction:column;min-height:0}
-  .formcol .scroll{flex:1;overflow-y:auto;padding:22px 26px 30px}
-  .formcol .navrow{flex:0 0 auto;display:flex;justify-content:space-between;gap:10px;padding:14px 26px;border-top:1px solid var(--panel-line);background:var(--panel-2)}
+  .formcol{width:44rem;max-width:100%;flex:1;margin:0 auto;background:var(--panel-bg);display:flex;flex-direction:column;min-height:0}
+  .formcol .scroll{flex:1;overflow-y:auto;padding:1.4rem 1.6rem 2rem;-webkit-overflow-scrolling:touch}
+  .formcol .navrow{flex:0 0 auto;display:flex;justify-content:space-between;gap:.7rem;padding:.9rem 1.6rem;border-top:1px solid var(--panel-line);background:var(--panel-2)}
   .stage{flex:1;overflow:auto;background:#0a0f15;padding:28px;display:flex;flex-direction:column;align-items:center;gap:26px}
   /* le pagine A4 hanno altezza fissa: dentro un contenitore flex verticale
      verrebbero schiacciate per stare nello spazio disponibile */
   .stage .page{flex:0 0 auto}
 
-  .step-title{font-size:19px;font-weight:700;margin:0 0 4px}
-  .step-sub{font-size:13px;color:var(--txt-dim);margin:0 0 20px}
-  .group{margin-bottom:16px}
-  .group h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--txt-dim);margin:0 0 8px;font-weight:700}
-  .row{display:flex;gap:8px;margin:7px 0}
-  .fld{flex:1;display:flex;flex-direction:column;gap:3px}
-  .fld label{font-size:11px;color:var(--txt-dim);font-weight:600;letter-spacing:.2px}
-  .fld input,.fld textarea,.fld select{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);border-radius:6px;padding:8px 9px;font-size:13px;font-family:inherit;width:100%}
-  .fld textarea{resize:vertical;min-height:50px;font-family:"Courier New",monospace}
-  .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent-2)}
-  .hint{font-size:11px;color:var(--txt-dim);margin:2px 0 10px;line-height:1.5}
-  .calc{font-size:11.5px;color:#7fd18b;font-family:"Courier New",monospace;margin-top:6px}
+  .step-title{font-size:1.35rem;font-weight:700;margin:0 0 .25rem}
+  .step-sub{font-size:.92rem;color:var(--txt-dim);margin:0 0 1.25rem;line-height:1.5}
+  .group{margin-bottom:1.15rem}
+  .group h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--txt-dim);margin:0 0 .55rem;font-weight:700}
+  .row{display:flex;gap:.6rem;margin:.5rem 0;flex-wrap:wrap}
+  .fld{flex:1 1 11rem;display:flex;flex-direction:column;gap:.25rem;min-width:0}
+  .fld label{font-size:.8rem;color:var(--txt-dim);font-weight:600;letter-spacing:.01em}
+  .fld input,.fld textarea,.fld select{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);
+    border-radius:.45rem;padding:.6rem .65rem;font-size:1rem;font-family:inherit;width:100%;min-height:var(--tap)}
+  .fld textarea{resize:vertical;min-height:4.5rem;font-family:"Courier New",monospace;font-size:.95rem;line-height:1.45}
+  .fld input:focus,.fld textarea:focus,.fld select:focus{outline:2px solid var(--accent-2);outline-offset:1px;border-color:var(--accent-2)}
+  .hint{font-size:.82rem;color:var(--txt-dim);margin:.2rem 0 .7rem;line-height:1.55}
+  .calc{font-size:.85rem;color:#7fd18b;font-family:"Courier New",monospace;margin-top:.4rem;line-height:1.5}
 
-  .drop{border:1.5px dashed var(--panel-line);border-radius:10px;padding:18px;text-align:center;cursor:pointer;font-size:12.5px;color:var(--txt-dim);background:var(--field)}
+  .drop{border:1.5px dashed var(--panel-line);border-radius:.6rem;padding:1.2rem;text-align:center;cursor:pointer;font-size:.9rem;color:var(--txt-dim);background:var(--field);min-height:var(--tap)}
   .drop:hover{border-color:var(--accent-2);color:var(--txt)}
-  .mb-status{font-size:12px;margin-top:8px;font-family:"Courier New",monospace}
+  .mb-status{font-size:.85rem;margin-top:.5rem;font-family:"Courier New",monospace;line-height:1.5}
   .mb-status.ok{color:#7fd18b}
   .mb-status.err{color:#ff7a7a}
   .mb-status.busy{color:#ffd479}
@@ -114,6 +129,47 @@
     .stage{display:block!important;padding:0;background:#fff;gap:0}
     .page{box-shadow:none;page-break-after:always;margin:0}
   }
+/* ===== menu hamburger ===== */
+.menu-wrap{position:relative}
+.hamburger{display:flex;flex-direction:column;justify-content:center;gap:.28rem;
+  width:var(--tap);height:var(--tap);padding:0 .7rem;border:1px solid var(--panel-line);
+  background:var(--field);border-radius:.5rem;cursor:pointer}
+.hamburger span{display:block;height:2px;background:var(--txt);border-radius:2px;transition:transform .18s ease,opacity .18s ease}
+.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(.3rem) rotate(45deg)}
+.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-.3rem) rotate(-45deg)}
+.hamburger:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
+.menu{position:absolute;right:0;top:calc(100% + .5rem);min-width:15rem;z-index:60;
+  background:var(--panel-2);border:1px solid var(--panel-line);border-radius:.65rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);padding:.35rem;display:none}
+.menu.open{display:block}
+.menu button{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--txt);
+  font:inherit;font-size:.95rem;padding:.7rem .85rem;border-radius:.45rem;cursor:pointer;min-height:var(--tap)}
+.menu button:hover,.menu button:focus-visible{background:var(--field);outline:none}
+.menu .sep{height:1px;background:var(--panel-line);margin:.3rem .5rem}
+.menu button.primary{color:var(--accent-2);font-weight:700}
+
+/* ===== breakpoint: tablet e schermi stretti ===== */
+@media (max-width:1100px){
+  .main{flex-direction:column}
+  .formcol{width:100%}
+  .stage{display:none!important}          /* su schermi stretti l'anteprima ruberebbe tutto lo spazio */
+}
+@media (min-width:768px){
+  html{font-size:18px}                    /* iPad e superiori: base piu' grande, tutto scala con lei */
+}
+@media (max-width:520px){
+  html{font-size:16px}
+  .formcol .scroll{padding:1rem 1rem 1.6rem}
+  .formcol .navrow{padding:.8rem 1rem}
+  .topbar{padding:.6rem .8rem}
+}
+/* Su dispositivi a tocco i target crescono ancora un po'. */
+@media (pointer:coarse){
+  :root{--tap:3rem}
+  .step-pill{min-height:2.5rem;font-size:.9rem}
+}
+
 /* ===== Dashboard / Flight Manager ===== */
 #dashboard{position:fixed;inset:0;background:#f4f6fb;z-index:50;display:none;overflow:auto}
 #dashboard.open{display:block}
@@ -140,17 +196,26 @@
 </style>
 
 <div class="topbar">
-  <div class="brand"><b>&#9670;</b> C172 FR OFP <span>Wizard</span></div>
-  <div class="steps" id="steps"></div>
-  <div style="display:flex;gap:8px">
-    <button class="btn" id="btnDashboard">&#128194; Dashboard</button>
-    <button class="btn" id="btnNew">&#128459; Nuovo</button>
-    <button class="btn" id="btnStandby">&#128993; Salva in Standby</button>
-    <button class="btn" id="btnPreview">&#128065; Anteprima</button>
-    <button class="btn" id="btnPrint">Stampa</button>
-    <button class="btn" id="btnDrive" style="display:none">&#9729; Salva su Drive</button>
-    <button class="btn primary" id="btnPdf">Scarica PDF</button>
+  <div class="topbar-main">
+    <div class="brand">C172 FR OFP <span>Wizard</span></div>
+    <div class="menu-wrap">
+      <button class="hamburger" id="btnMenu" aria-expanded="false" aria-haspopup="true" aria-controls="mainMenu" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu" id="mainMenu" role="menu">
+        <button type="button" role="menuitem" id="btnDashboard">Dashboard</button>
+        <button type="button" role="menuitem" id="btnNew">Nuovo foglio</button>
+        <button type="button" role="menuitem" id="btnStandby">Salva in standby</button>
+        <div class="sep"></div>
+        <button type="button" role="menuitem" id="btnPreview">Anteprima documento</button>
+        <button type="button" role="menuitem" id="btnPrint">Stampa</button>
+        <div class="sep"></div>
+        <button type="button" role="menuitem" id="btnDrive" style="display:none">Salva su Drive</button>
+        <button type="button" role="menuitem" class="primary" id="btnPdf">Scarica PDF</button>
+      </div>
+    </div>
   </div>
+  <div class="steps" id="steps"></div>
 </div>
 
 <div class="main">
@@ -171,12 +236,12 @@
             <div class="fld"><label>Reg</label><input id="reg" value="I-CCAF"></div>
           </div>
           <div class="row"><div class="fld"><label>Flight mission</label><input id="mission" value=""></div></div>
-          <button class="btn" id="btnOA" style="margin-top:8px">&#128506; Cerca aeroporti su OurAirports</button>
           <div class="mb-status" id="oaStatus"></div>
-          <div id="oaInfo" style="font-size:11.5px;color:var(--txt-dim);margin-top:6px;font-family:'Courier New',monospace"></div>
-          <div class="hint">Recupera coordinate, elevazione e piste dal database OurAirports e compila da solo
-            distanza Trip (DEP&rarr;ARR), distanza e tempo dell'alternato (ARR&rarr;ALTN), elevazioni e piste per
-            il calcolo prestazioni. Tutti i campi restano modificabili a mano.</div>
+          <div id="oaInfo" style="font-size:.82rem;color:var(--txt-dim);margin-top:.4rem;font-family:'Courier New',monospace;line-height:1.5"></div>
+          <div class="hint">Appena un codice ICAO &egrave; completo (quattro lettere), coordinate, elevazione e piste
+            vengono cercate da sole su OurAirports e compilano distanza Trip (DEP&rarr;ARR), distanza e tempo
+            dell'alternato (ARR&rarr;ALTN), elevazioni e piste per il calcolo prestazioni.
+            Tutti i campi restano modificabili a mano.</div>
         </div>
         <div class="group">
           <h3>Rotta</h3>
@@ -353,17 +418,12 @@
           e calcolo <b>TOLD</b> di decollo e atterraggio: le distanze vengono calcolate da AFM fig. 5-4 e 5-5 con
           quota, QNH, temperatura, vento e la massa che arriva dal Mass &amp; Balance, e confrontate con TORA, TODA e LDA.</p>
         <div class="group">
-          <h3>TOLD &mdash; condizioni</h3>
-          <button class="btn" id="btnMetarFill" style="margin-bottom:8px">&#127782; Prendi vento, QNH e temperatura dal METAR</button>
-          <div class="mb-status" id="toldMetarStatus"></div>
+          <h3>Velocit&agrave;</h3>
           <div class="row">
-            <div class="fld"><label>QNH (hPa)</label><input id="toldQnh" type="number" value="1013"></div>
-            <div class="fld"><label>Temperatura (&deg;C)</label><input id="toldOat" type="number" value="15"></div>
-          </div>
-          <div class="row">
-            <div class="fld"><label>Vento da (&deg;M)</label><input id="toldWindDir" type="number" min="0" max="360" value=""></div>
-            <div class="fld"><label>Vento (kt)</label><input id="toldWindKt" type="number" min="0" value="0"></div>
-            <div class="fld"><label>Superficie</label>
+            <div class="fld"><label>Unit&agrave; di visualizzazione</label>
+              <select id="spdUnit"><option value="mph" selected>MPH</option><option value="kt">Nodi (KIAS)</option></select>
+            </div>
+            <div class="fld"><label>Superficie pista</label>
               <select id="toldSurface">
                 <option value="hard" selected>Asfalto asciutto</option>
                 <option value="grass">Erba asciutta</option>
@@ -371,39 +431,76 @@
               </select>
             </div>
           </div>
+          <div class="hint">L'AFM di questo aeroplano scrive le velocit&agrave; operative in MPH: &egrave; l'unit&agrave;
+            predefinita. Il selettore cambia solo la visualizzazione, i calcoli restano gli stessi.</div>
         </div>
         <div class="group">
-          <h3>TOLD &mdash; Departure</h3>
+          <h3>TOLD &mdash; meteo per aeroporto</h3>
+          <button class="btn" id="btnMetarFill" style="margin-bottom:8px">Prendi vento, QNH e temperatura dai METAR</button>
+          <div class="mb-status" id="toldMetarStatus"></div>
+          <div class="hint">Ogni aeroporto usa il <b>proprio</b> METAR: quello di partenza per il decollo, quello di
+            destinazione e dell'alternato per i rispettivi atterraggi.</div>
+        </div>
+        <div class="group">
+          <h3>TOLD &mdash; Departure &mdash; decollo</h3>
           <div class="row">
-            <div class="fld"><label>Aeroporto DEP</label><input id="depAirport" value="LILN"></div>
+            <div class="fld"><label>Aeroporto</label><input id="toldDepIcao" value="" readonly style="opacity:.7"></div>
             <div class="fld"><label>Pista</label><select id="toldRwyDep"><option value="">—</option></select></div>
-            <div class="fld"><label>Runway (OFP)</label><input id="depRunway" value="17"></div>
+            <div class="fld"><label>Runway (OFP)</label><input id="depRunway" value=""></div>
           </div>
           <div class="row">
             <div class="fld"><label>Elevazione (ft)</label><input id="toldElevDep" type="number" value="0"></div>
-            <div class="fld"><label>Orientamento (&deg;M)</label><input id="toldHdgDep" type="number" value="170"></div>
-          </div>
-          <div class="row">
+            <div class="fld"><label>Orientamento (&deg;M)</label><input id="toldHdgDep" type="number" value=""></div>
             <div class="fld"><label>TORA (m)</label><input id="tora" type="number" value=""></div>
-            <div class="fld"><label>TODA (m)</label><input id="toda" type="number" value=""></div>
           </div>
-          <div class="calc" id="toldDepCalc"></div>
+            <div class="fld"><label>TODA (m)</label><input id="toda" type="number" value=""></div>
+          <div class="row">
+            <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDep" type="number" value="1013"></div>
+            <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDep" type="number" value="15"></div>
+            <div class="fld"><label>Vento da (&deg;M)</label><input id="toldWindDirDep" type="number" min="0" max="360" value=""></div>
+            <div class="fld"><label>Vento (kt)</label><input id="toldWindKtDep" type="number" min="0" value="0"></div>
+          </div>
+          <input type="hidden" id="toldDepRwyName" value="">
         </div>
         <div class="group">
-          <h3>TOLD &mdash; Destination</h3>
+          <h3>TOLD &mdash; Destination &mdash; atterraggio</h3>
           <div class="row">
-            <div class="fld"><label>Aeroporto DEST</label><input id="destAirport" value="LIMC"></div>
+            <div class="fld"><label>Aeroporto</label><input id="toldDestIcao" value="" readonly style="opacity:.7"></div>
             <div class="fld"><label>Pista</label><select id="toldRwyDest"><option value="">—</option></select></div>
-            <div class="fld"><label>Runway (OFP)</label><input id="destRunway" value="35R"></div>
+            <div class="fld"><label>Runway (OFP)</label><input id="destRunway" value=""></div>
           </div>
           <div class="row">
             <div class="fld"><label>Elevazione (ft)</label><input id="toldElevDest" type="number" value="0"></div>
-            <div class="fld"><label>Orientamento (&deg;M)</label><input id="toldHdgDest" type="number" value="350"></div>
-          </div>
-          <div class="row">
+            <div class="fld"><label>Orientamento (&deg;M)</label><input id="toldHdgDest" type="number" value=""></div>
             <div class="fld"><label>LDA (m)</label><input id="lda" type="number" value=""></div>
           </div>
-          <div class="calc" id="toldDestCalc"></div>
+          <div class="row">
+            <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDest" type="number" value="1013"></div>
+            <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDest" type="number" value="15"></div>
+            <div class="fld"><label>Vento da (&deg;M)</label><input id="toldWindDirDest" type="number" min="0" max="360" value=""></div>
+            <div class="fld"><label>Vento (kt)</label><input id="toldWindKtDest" type="number" min="0" value="0"></div>
+          </div>
+          <input type="hidden" id="toldDestRwyName" value="">
+        </div>
+        <div class="group">
+          <h3>TOLD &mdash; Alternate &mdash; atterraggio</h3>
+          <div class="row">
+            <div class="fld"><label>Aeroporto</label><input id="toldAltnIcao" value="" readonly style="opacity:.7"></div>
+            <div class="fld"><label>Pista</label><select id="toldRwyAltn"><option value="">—</option></select></div>
+            <div class="fld"><label>Runway (OFP)</label><input id="altnRunway" value=""></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>Elevazione (ft)</label><input id="toldElevAltn" type="number" value="0"></div>
+            <div class="fld"><label>Orientamento (&deg;M)</label><input id="toldHdgAltn" type="number" value=""></div>
+            <div class="fld"><label>LDA (m)</label><input id="ldaAltn" type="number" value=""></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>QNH (hPa)</label><input id="toldQnhAltn" type="number" value="1013"></div>
+            <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatAltn" type="number" value="15"></div>
+            <div class="fld"><label>Vento da (&deg;M)</label><input id="toldWindDirAltn" type="number" min="0" max="360" value=""></div>
+            <div class="fld"><label>Vento (kt)</label><input id="toldWindKtAltn" type="number" min="0" value="0"></div>
+          </div>
+          <input type="hidden" id="toldAltnRwyName" value="">
         </div>
         <div class="group">
           <h3>TOLD &mdash; risultato</h3>
@@ -411,12 +508,12 @@
           <div id="toldWarns" style="margin-top:8px"></div>
           <div class="hint"><b>TORA / TODA / LDA:</b> OurAirports pubblica la <i>lunghezza fisica</i> della pista,
             non le distanze dichiarate, che stanno solo nell'AIP. I campi sono precompilati con la lunghezza fisica
-            come punto di partenza: su piste con stopway, clearway o soglia spostata i valori non coincidono e vanno
-            corretti dall'AIP.
-            Le masse arrivano dalla sezione Mass &amp; Balance, le distanze da AFM fig. 5-4 e 5-5.</div>
+            come punto di partenza e vanno corretti dall'AIP su piste con stopway, clearway o soglia spostata.
+            Le masse arrivano dal Mass &amp; Balance: decollo per DEP, atterraggio per DEST e ALTN.</div>
         </div>
         <input type="hidden" id="toGround" value="226"><input type="hidden" id="toDist50" value="375">
         <input type="hidden" id="ldgGround" value="189"><input type="hidden" id="ldgDist50" value="387">
+        <input type="hidden" id="depAirport" value=""><input type="hidden" id="destAirport" value="">
         <div class="group">
           <h3>Cruise power setting</h3>
           <div class="hint">Il settaggio si sceglie nello <b>Step 2 &mdash; Rotta &amp; Fuel</b>; qui se ne vede
@@ -435,7 +532,7 @@
         <p class="step-title">Dest Charts</p>
         <p class="step-sub">Carica fino a 2 immagini (cartine) e compila le note operative.</p>
         <div class="group">
-          <div class="drop" id="chartDrop">&#128247; Clicca o trascina fino a 2 immagini o PDF</div>
+          <div class="drop" id="chartDrop">Clicca o trascina fino a 2 immagini o PDF</div>
           <input type="file" id="chartFile" accept="image/*,application/pdf" multiple hidden>
           <div class="thumb-row" id="chartThumbs"></div>
         </div>
@@ -489,10 +586,10 @@
         <p class="step-title">NOTAM &amp; Weather</p>
         <p class="step-sub">Un riquadro per aeroporto (METAR + TAF + NOTAM), più i NOTAM di rotta.</p>
         <div class="group">
-          <div class="drop" id="wxDrop">&#128247; Clicca o trascina il PDF briefing WX &amp; NOTAM</div>
+          <div class="drop" id="wxDrop">Clicca o trascina il PDF briefing WX &amp; NOTAM</div>
           <input type="file" id="wxFile" accept="application/pdf" hidden>
           <div class="mb-status" id="wxStatus"></div>
-          <button class="btn" id="wxRetryBtn" style="display:none;margin-top:8px;font-size:12px;padding:6px 12px">↻ Riprova estrazione</button>
+          <button class="btn" id="wxRetryBtn" style="display:none;margin-top:8px;font-size:12px;padding:6px 12px">Riprova estrazione</button>
           <div class="row" style="margin-top:9px">
             <div class="fld"><label>Date (GG.MM.AAAA)</label><input id="wxDate" placeholder="estratto dal PDF"></div>
             <div class="fld"><label>Time (HH:MM UTC)</label><input id="wxTime" placeholder="estratto dal PDF"></div>
@@ -548,14 +645,14 @@
 <!-- ===== Dashboard / Flight Manager ===== -->
 <div id="dashboard">
   <div class="dash-head">
-    <h2>&#128194; Cronologia Voli / Flight Manager</h2>
+    <h2>Cronologia voli</h2>
     <button class="btn primary" id="btnCloseDash">&larr; Torna al wizard</button>
   </div>
   <div class="dash-body">
-    <div class="dash-section-title">&#128993; Voli in Standby &mdash; in attesa WX</div>
+    <div class="dash-section-title">Voli in standby &mdash; in attesa WX</div>
     <div class="cards" id="draftCards"></div>
     <div id="draftEmpty" class="dash-empty">Nessun volo in standby. Compila la rotta e premi "Salva in Standby".</div>
-    <div class="dash-section-title" style="margin-top:26px">&#128994; Voli Completati &mdash; pronti per il volo</div>
+    <div class="dash-section-title" style="margin-top:26px">Voli completati &mdash; pronti per il volo</div>
     <div class="cards" id="completedCards"></div>
     <div id="completedEmpty" class="dash-empty">Nessun volo completato.</div>
   </div>
@@ -619,7 +716,7 @@ let currentStep=1; const totalSteps=7;
 function renderSteps(){
   $('steps').innerHTML = STEP_LABELS.map((lbl,i)=>{
     const n=i+1; const cls = n===currentStep?'active':(n<currentStep?'done':'');
-    return `<div class="step-pill ${cls}" data-goto="${n}"><span class="n">${n<currentStep?'&#10003;':n}</span>${lbl}</div>`;
+    return `<div class="step-pill ${cls}" data-goto="${n}"><span class="n">${n<currentStep?'✓':n}</span>${lbl}</div>`;
   }).join('');
   document.querySelectorAll('.step-pill').forEach(p=>p.addEventListener('click',()=>goToStep(parseInt(p.dataset.goto))));
 }
@@ -792,79 +889,108 @@ function weights(f){
 }
 
 /* ============================ POH reference tables ============================ */
-/* Fasce di peso: sono ESATTAMENTE i tre pesi per cui il Flight Manual FR172J
-   tabula le prestazioni (fig. 5-4 decollo e fig. 5-6 salita), niente pesi inventati. */
-const POH_WEIGHTS=[850,1000,1157];
+/* ===================== VELOCITA' — SOLO DATI AFM =====================
+   Ogni numero di questo blocco e' STAMPATO nel Flight Manual Reims Rocket FR172J.
+   Niente scalature, niente estrapolazioni: dove il manuale pubblica piu' masse o
+   piu' quote si interpola LINEARMENTE fra i valori tabulati, dove ne pubblica uno
+   solo resta quello e viene dichiarato come tale.
 
-/* V-SPEEDS — Cessna C172 FR (Reims Rocket FR172J), tutte in KIAS.
-   Origine di ogni riga (Flight Manual Reims Rocket, Edition 3):
+   L'unita' nativa e' il MPH, perche' e' l'unita' in cui il manuale scrive le
+   velocita' operative di questo aeroplano (il cartellino dei limiti e' in MPH);
+   i nodi si ottengono dividendo per 1,15078 e sono mostrati a richiesta.
 
-   vBestGlide  fig. 5-7 "MAXIMUM GLIDE": 74 kt a 1157 kg, elica in autorotazione,
-               flap retratti. Sugli altri pesi e' scalata con sqrt(W/1157), come
-               si fa per tutte le velocita' riferite alla portanza.
-   vR          fig. 5-4 "TAKE-OFF DISTANCE FLAPS 10 deg", colonna "VI 15 m":
-               50 / 55 / 59 kt ai tre pesi tabulati. Sono i valori pubblicati
-               dall'AFM per il decollo, presi tali e quali.
-   vY          fig. 5-6 "MAXIMUM RATE OF CLIMB DATA" al livello del mare:
-               70 / 71 / 74 kt. (In quota l'AFM da' 1-3 kt in meno: a 10000 ft
-               67 / 70 / 72 kt.)
-   vRefUp      1,3 x Vs flap UP. Vs = 53 kt a 1157 kg (fig. 5-3, potenza tolta,
-               CG posteriore), scalata con sqrt(W/1157) sugli altri pesi.
-   vRefTO      1,3 x Vs con flap 10 deg (assetto di decollo). L'AFM tabula lo
-               stallo solo a flap UP (53 kt) e flap 20 deg (48 kt): il valore a
-               10 deg e' interpolato fra i due (50,5 kt a 1157 kg). E' l'unica
-               riga derivata per interpolazione e come tale e' annotata anche
-               sul PDF.
-   vRefLDG     flap FULL 40 deg: fig. 5-5 "LANDING DISTANCE", colonna
-               "APPROACH SPEED" = 63 kt a 1157 kg, scalata sugli altri pesi.
-               (E' piu' conservativa di 1,3 x Vs40, che darebbe 60 kt.)
+   Cosa il manuale pubblica per piu' masse:
+     - VR / velocita' a 15 m al decollo   fig. 5-4, tre masse
+     - VY e rateo di salita               fig. 5-6, tre masse per quattro quote
+   Cosa pubblica per una sola condizione (1157 kg):
+     - V best glide                       fig. 5-7
+     - velocita' di avvicinamento flap 40 fig. 5-5
+     - velocita' di stallo                fig. 5-3
 
-   NB: il C172 FR ha i flap sui detent 0 / 10 / 20 / 40 gradi — "FULL" e' 40 deg,
-   non 30 deg. */
-const POH_TABLE={
-  //           850kg 1000kg 1157kg
-  vBestGlide:[   63,    69,    74 ],
-  vR:        [   50,    55,    59 ],
-  vY:        [   70,    71,    74 ],
-  vRefUp:    [   59,    64,    69 ],
-  vRefTO:    [   56,    61,    66 ],
-  vRefLDG:   [   54,    59,    63 ],
+   NOTA SULLA VERSIONE PRECEDENTE: le velocita' a 850 e 1000 kg di V best glide e
+   Vref, e la riga "Vref flap 10", erano RICAVATE (scalatura con la radice del
+   rapporto delle masse, e interpolazione fra gli stalli a flap UP e 20 gradi).
+   Non sono dati del manuale e sono state rimosse. */
+const KT_PER_MPH = 1/1.15078;
+
+const AFM_SPEEDS = {
+  /* fig. 5-4 — TAKE-OFF DISTANCE, colonna "VI 15 m" */
+  vr: { weights:[850,1000,1157], mph:[58,63,68], src:'fig. 5-4' },
+
+  /* fig. 5-6 — MAXIMUM RATE OF CLIMB DATA: velocita' e rateo per massa e quota.
+     Indici: [massa][quota] con masse 850/1000/1157 e quote 0/5000/10000/15000 ft. */
+  vy: {
+    weights:[850,1000,1157], alts:[0,5000,10000,15000],
+    mph:[[80,78,77,76],[82,81,80,79],[85,84,83,82]],
+    roc:[[1420,1115,815,515],[1120,860,595,340],[880,650,420,190]],
+    src:'fig. 5-6'
+  },
+
+  /* Valori pubblicati per una sola condizione: restano quelli, a qualunque massa. */
+  glide:  { mph:85, src:'fig. 5-7', note:'elica in autorotazione, flap UP' },
+  vrefLdg:{ mph:73, src:'fig. 5-5', note:'approach speed, flap 40, 1157 kg' },
+  stall:  { up:61, f20:55, f40:53, src:'fig. 5-3', note:'1157 kg, potenza tolta, CG posteriore, ali livellate' },
+
+  /* Sez. IV "BEFORE LANDING": intervalli operativi, non valori singoli. */
+  approach:{ up:[75,85], down:[70,80], src:'sez. IV' }
 };
-/* Etichette delle righe: usate identiche in anteprima HTML e nel PDF, cosi' non
-   possono divergere fra i due output. */
-const V_ROWS=[
-  ['V best glide',      'bg',  'vBestGlide'],
-  ['VR rotate',         'vr',  'vR'        ],
-  ['VY best rate',      'vy',  'vY'        ],
-  ['Vref flaps UP',     'up',  'vRefUp'    ],
-  ['Vref flaps 10 T/O', 'to',  'vRefTO'    ],
-  ['Vref flaps 40 FULL','ldg', 'vRefLDG'   ],
-];
-const V_FOOTNOTE='Fonte: AFM Reims Rocket FR172J fig. 5-3/5-4/5-5/5-6/5-7. Vref flaps 10 interpolata fra flap UP e flap 20.';
-/* NIENTE interpolazione: si prende il valore ESATTO della tabella POH più vicino al peso,
-   con arrotondamento conservativo (verso il peso superiore) quando il peso non è
-   chiaramente sotto la metà dello scaglione — così non si sottostimano mai le velocità. */
-function pickTableValue(row,w){
-  const pts=POH_WEIGHTS.map((ww,i)=>[ww,row[i]]).filter(p=>p[1]!==null);
-  if(w<=pts[0][0]) return {v:pts[0][1], wSel:pts[0][0]};
-  if(w>=pts[pts.length-1][0]) return {v:pts[pts.length-1][1], wSel:pts[pts.length-1][0]};
-  for(let i=0;i<pts.length-1;i++){
-    const [w1,v1]=pts[i],[w2,v2]=pts[i+1];
-    if(w>=w1&&w<=w2){
-      const mid=(w1+w2)/2;
-      return w>mid ? {v:v2,wSel:w2} : {v:v1,wSel:w1}; // sopra metà -> peso superiore (conservativo); sotto metà -> peso inferiore
+
+/* Interpolazione lineare su un vettore di riferimento, con clamp agli estremi:
+   fuori dal campo tabulato NON si estrapola, si resta sull'ultimo valore noto. */
+function lerpTable(xs, ys, x){
+  if(!(x>=xs[0])) return {v:ys[0], clamped:true};
+  const L=xs.length-1;
+  if(x>=xs[L]) return {v:ys[L], clamped:x>xs[L]};
+  for(let i=0;i<L;i++){
+    if(x<=xs[i+1]){
+      const t=(x-xs[i])/(xs[i+1]-xs[i]);
+      return {v:ys[i]+(ys[i+1]-ys[i])*t, clamped:false};
     }
   }
-  return {v:pts[pts.length-1][1], wSel:pts[pts.length-1][0]};
+  return {v:ys[L], clamped:true};
 }
-function vspeedsFor(w){
-  const bg=pickTableValue(POH_TABLE.vBestGlide,w), vr=pickTableValue(POH_TABLE.vR,w), vy=pickTableValue(POH_TABLE.vY,w),
-        up=pickTableValue(POH_TABLE.vRefUp,w), to=pickTableValue(POH_TABLE.vRefTO,w), ldg=pickTableValue(POH_TABLE.vRefLDG,w);
+/* Interpolazione bilineare massa x quota sulla tabella di salita. */
+function vyFor(massKg, altFt){
+  const S=AFM_SPEEDS.vy;
+  const fw=lerpIdx(S.weights, massKg), fa=lerpIdx(S.alts, altFt);
+  const at=(arr)=>{
+    const lo=arr[fw.i][fa.i]+(arr[fw.i][fa.j]-arr[fw.i][fa.i])*fa.t;
+    const hi=arr[fw.j][fa.i]+(arr[fw.j][fa.j]-arr[fw.j][fa.i])*fa.t;
+    return lo+(hi-lo)*fw.t;
+  };
+  return { mph:Math.round(at(S.mph)), roc:Math.round(at(S.roc)), clamped:fw.clamped||fa.clamped };
+}
+function lerpIdx(xs, x){
+  if(!(x>=xs[0])) return {i:0,j:0,t:0,clamped:true};
+  const L=xs.length-1;
+  if(x>=xs[L]) return {i:L,j:L,t:0,clamped:x>xs[L]};
+  for(let i=0;i<L;i++) if(x<=xs[i+1]) return {i:i,j:i+1,t:(x-xs[i])/(xs[i+1]-xs[i]),clamped:false};
+  return {i:L,j:L,t:0,clamped:true};
+}
+
+/* ---- unita' di visualizzazione delle velocita' ---- */
+function spdUnit(){ return txt('spdUnit')||'mph'; }
+function spdVal(mph){ return spdUnit()==='kt' ? Math.round(mph*KT_PER_MPH) : Math.round(mph); }
+function spdLabel(){ return spdUnit()==='kt' ? 'KIAS' : 'MPH'; }
+function spdText(mph){ return mph==null?'--':spdVal(mph)+''; }
+function spdRange(pair){ return spdVal(pair[0])+'-'+spdVal(pair[1]); }
+
+/* Velocita' per una data massa e quota. `phase` decide quali righe hanno senso:
+   VR e VY riguardano il decollo, la Vref l'atterraggio. */
+function vspeedsFor(massKg, altFt){
+  const vr=lerpTable(AFM_SPEEDS.vr.weights, AFM_SPEEDS.vr.mph, massKg);
+  const vy=vyFor(massKg, altFt||0);
   return {
-    bg:bg.v, vr:vr.v, vy:vy.v, up:up.v, to:to.v, ldg:ldg.v,
-    wUsed:{bg:bg.wSel,vr:vr.wSel,vy:vy.wSel,up:up.wSel,to:to.wSel,ldg:ldg.wSel}
+    vrMph: Math.round(vr.v),
+    vyMph: vy.mph, roc: vy.roc,
+    glideMph: AFM_SPEEDS.glide.mph,
+    vrefMph: AFM_SPEEDS.vrefLdg.mph,
+    stallUp: AFM_SPEEDS.stall.up, stallF20: AFM_SPEEDS.stall.f20, stallF40: AFM_SPEEDS.stall.f40,
+    approachUp: AFM_SPEEDS.approach.up, approachDown: AFM_SPEEDS.approach.down,
+    massClamped: vr.clamped || vy.clamped
   };
 }
+
 /* ===================== TABELLA DI CROCIERA COMPLETA =====================
    Tutte e 99 le righe di fig. 5-1 (fogli 1-5), non solo le quattro colonne di
    potenza nominale: sono queste le combinazioni MAP/RPM che il POH pubblica, e
@@ -1093,46 +1219,65 @@ function computeTold(){
   const warn=(lvl,lab,txt)=>warns.push({level:lvl,label:lab,text:txt});
   const f=computeFuel(), w=weights(f);
 
-  const out={warns, ok:false};
-  const elevDep=num('toldElevDep'), elevDest=num('toldElevDest');
-  const qnh=num('toldQnh'), oat=num('toldOat');
-  if(!(qnh>0) || !isFinite(oat)) { out.reason='Servono QNH e temperatura (li estrae il briefing meteo, o inseriscili a mano).'; return out; }
-
+  /* Ogni aeroporto ha le SUE condizioni e la SUA massa:
+       DEP  decollo,     massa al decollo
+       DEST atterraggio, massa all'atterraggio a destinazione
+       ALTN atterraggio, massa all'atterraggio all'alternato (piu' leggera)
+     Meteo, elevazione e pista sono per aeroporto: usare il METAR di partenza per
+     calcolare l'atterraggio a destinazione darebbe distanze semplicemente sbagliate. */
   const surface=txt('toldSurface')||'hard';
-  const windDir=num('toldWindDir'), windKt=num('toldWindKt');
+  const out={warns, ok:false, legs:{}};
 
-  function phase(elevFt, rwyHdg, isTakeoff){
-    const pa=pressAlt(elevFt, qnh), da=densAlt(pa,oat);
-    let head=0, cross=0;
+  function leg(key, label, isTakeoff, massKg){
+    const elev=num('toldElev'+key), rwyHdg=num('toldHdg'+key);
+    const qnh=num('toldQnh'+key), oat=num('toldOat'+key);
+    const windDir=num('toldWindDir'+key), windKt=num('toldWindKt'+key);
+    if(!(qnh>0) || !isFinite(oat)) return null;
+    const pa=pressAlt(elev, qnh), da=densAlt(pa,oat);
+    let head=0, cross=0, haveWind=false;
     if(isFinite(rwyHdg) && isFinite(windDir) && windKt>0){
       const c=windComponents(rwyHdg, windDir, windKt);
-      head=c.head; cross=Math.abs(c.cross);
+      head=c.head; cross=Math.abs(c.cross); haveWind=true;
     }
-    const ctx={mass:isTakeoff?w.tow.w:w.ldw.w, head, pa, oat, surface};
-    const d=isTakeoff?toldTakeoff(ctx,warn):toldLanding(ctx,warn);
-    return {pa:Math.round(pa), da:Math.round(da), isaDev:Math.round((oat-isaTemp(pa))*10)/10,
-            head:Math.round(head*10)/10, cross:Math.round(cross*10)/10,
-            ground:Math.round(d[0]), total:Math.round(d[1]), mass:Math.round(ctx.mass)};
+    const ctx={mass:massKg, head, pa, oat, surface};
+    const tagged=(lvl,lab,t)=>warn(lvl,lab,label+' \u2014 '+t);
+    const d=isTakeoff?toldTakeoff(ctx,tagged):toldLanding(ctx,tagged);
+    const xwLimit = isTakeoff?TOLD.xwind.to:TOLD.xwind.ld;
+    if(haveWind && cross>xwLimit) warn('red','Vento al traverso',label+': '+cross.toFixed(1)+' kt oltre il limite di '+xwLimit+' kt.');
+    if(da>5000) warn('amber','Densita\'',label+': densita\' di quota '+Math.round(da)+' ft, verifica il gradiente di salita contro gli ostacoli.');
+    const amax=TOLD.takeoff.alts[TOLD.takeoff.alts.length-1];
+    if(pa>amax) warn('red','Quota',label+': altitudine di pressione oltre i '+amax+' ft della tabella, distanze bloccate e sottostimate.');
+    const v=vspeedsFor(massKg, isTakeoff?0:pa);
+    return {label, isTakeoff, pa:Math.round(pa), da:Math.round(da),
+            isaDev:Math.round((oat-isaTemp(pa))*10)/10,
+            head:Math.round(head*10)/10, cross:Math.round(cross*10)/10, haveWind,
+            qnh, oat, windDir, windKt,
+            ground:Math.round(d[0]), total:Math.round(d[1]), mass:Math.round(massKg),
+            icao:txt(key==='Dep'?'dep':key==='Dest'?'arr':'altn'),
+            rwy:txt('told'+key+'RwyName')||txt(key==='Dep'?'depRunway':key==='Dest'?'destRunway':'altnRunway'),
+            v};
   }
 
-  out.to = phase(elevDep,  num('toldHdgDep'),  true);
-  out.ld = phase(elevDest, num('toldHdgDest'), false);
+  out.legs.dep  = leg('Dep', 'Decollo DEP',            true,  w.tow.w);
+  out.legs.dest = leg('Dest','Atterraggio DEST',       false, w.ldw.w);
+  out.legs.altn = leg('Altn','Atterraggio ALTN',       false, w.altw.w);
+  out.to = out.legs.dep; out.ld = out.legs.dest;      // alias per il codice esistente
+
+  if(!out.legs.dep && !out.legs.dest && !out.legs.altn){
+    out.reason='Servono QNH e temperatura per almeno un aeroporto (li estrae il briefing meteo, o inseriscili a mano).';
+    return out;
+  }
   out.ok = true;
 
-  // margini rispetto alle distanze dichiarate
-  const tora=num('tora'), toda=num('toda')||num('tora'), lda=num('lda');
-  out.tora = tora>0 ? {avail:tora, req:out.to.ground, margin:tora-out.to.ground} : null;
-  out.toda = toda>0 ? {avail:toda, req:out.to.total,  margin:toda-out.to.total } : null;
-  out.lda  = lda >0 ? {avail:lda,  req:out.ld.total,  margin:lda -out.ld.total } : null;
+  // margini rispetto alle distanze dichiarate, per aeroporto
+  const g=(id)=>num(id)>0?num(id):0;
+  out.tora = (out.legs.dep && g('tora')) ? {avail:g('tora'), req:out.legs.dep.ground, margin:g('tora')-out.legs.dep.ground} : null;
+  const todaV = g('toda')||g('tora');
+  out.toda = (out.legs.dep && todaV) ? {avail:todaV, req:out.legs.dep.total, margin:todaV-out.legs.dep.total} : null;
+  out.lda  = (out.legs.dest && g('lda')) ? {avail:g('lda'), req:out.legs.dest.total, margin:g('lda')-out.legs.dest.total} : null;
+  out.ldaAltn = (out.legs.altn && g('ldaAltn')) ? {avail:g('ldaAltn'), req:out.legs.altn.total, margin:g('ldaAltn')-out.legs.altn.total} : null;
 
-  // vento al traverso contro i limiti dell'AFM
-  const xwTo=out.to.cross, xwLd=out.ld.cross;
-  if(xwTo>TOLD.xwind.to) warn('red','Vento al traverso','Decollo: '+xwTo.toFixed(1)+' kt oltre il limite di '+TOLD.xwind.to+' kt.');
-  if(xwLd>TOLD.xwind.ld) warn('red','Vento al traverso','Atterraggio: '+xwLd.toFixed(1)+' kt oltre il limite di '+TOLD.xwind.ld+' kt.');
-  if(out.to.da>5000) warn('amber','Densita\'','Densita\' di quota al decollo '+out.to.da+' ft: verifica il gradiente di salita iniziale contro gli ostacoli, non solo la lunghezza pista.');
   if(w.tow.w>TOLD.takeoff.weightsKg[2]+0.5) warn('red','Massa','Massa al decollo oltre i 1157 kg della tabella: le distanze sono bloccate al massimo tabulato e sottostimano quelle reali.');
-  const amax=TOLD.takeoff.alts[TOLD.takeoff.alts.length-1];
-  if(out.to.pa>amax) warn('red','Quota','Altitudine di pressione oltre i '+amax+' ft della tabella: distanze bloccate e sottostimate.');
   warn('grey','Massa atterraggio','La tabella di atterraggio e\' pubblicata solo a 1157 kg e viene usata qualunque sia la massa: a masse inferiori e\' conservativa.');
   return out;
 }
@@ -1433,48 +1578,61 @@ function pageMB(f,w){
 }
 
 function pagePerf(f,w){
-  const dep=vspeedsFor(w.towKg), dest=vspeedsFor(w.ldwKg), altn=vspeedsFor(w.altwKg);
-  const vTable=`<table class="refTable" style="max-width:360px">
-    <tr><th></th><th>DEP</th><th>DEST</th><th>ALTN</th></tr>
-    ${V_ROWS.map(([lbl,k])=>`<tr><td style="text-align:left;padding-left:4px">${lbl}</td><td>${dep[k]}</td><td>${dest[k]}</td><td>${altn[k]}</td></tr>`).join('')}
+  const u=spdLabel();
+  const vDep=vspeedsFor(w.towKg,0), vDest=vspeedsFor(w.ldwKg,0), vAltn=vspeedsFor(w.altwKg,0);
+  // Righe compilate solo dove hanno senso: VR e VY riguardano il decollo, la Vref
+  // l'atterraggio. Un VR in colonna DEST non vuol dire niente.
+  const vRow=(lbl,d,de,a)=>`<tr><td style="text-align:left;padding-left:4px">${lbl}</td><td>${d??'&mdash;'}</td><td>${de??'&mdash;'}</td><td>${a??'&mdash;'}</td></tr>`;
+  const vTable=`<table class="refTable" style="max-width:400px">
+    <tr><th>${u}</th><th>DEP (T/O)</th><th>DEST (LDG)</th><th>ALTN (LDG)</th></tr>
+    ${vRow('VR &mdash; 15 m',        spdVal(vDep.vrMph), null, null)}
+    ${vRow('VY best rate',           spdVal(vDep.vyMph), null, null)}
+    ${vRow('V best glide',           spdVal(vDep.glideMph), spdVal(vDest.glideMph), spdVal(vAltn.glideMph))}
+    ${vRow('Vref flap 40',           null, spdVal(vDest.vrefMph), spdVal(vAltn.vrefMph))}
+    ${vRow('Avvicinamento flap giu&ugrave;', null, spdRange(vDest.approachDown), spdRange(vAltn.approachDown))}
   </table>`;
+  const S=AFM_SPEEDS;
   const pohTable=`<table class="refTable pohTable">
-    <tr><th>AFM Reference (KIAS)</th>${POH_WEIGHTS.map(w2=>`<th>${w2} kg</th>`).join('')}</tr>
-    ${V_ROWS.map(([lbl,,key])=>`<tr><td>${lbl}</td>${POH_TABLE[key].map(v=>`<td>${v??'--'}</td>`).join('')}</tr>`).join('')}
+    <tr><th>AFM &mdash; valori pubblicati (${u})</th><th>850 kg</th><th>1000 kg</th><th>1157 kg</th></tr>
+    <tr><td>VR / velocit&agrave; a 15 m &mdash; ${S.vr.src}</td>${S.vr.mph.map(v=>`<td>${spdVal(v)}</td>`).join('')}</tr>
+    <tr><td>VY al livello del mare &mdash; ${S.vy.src}</td>${S.vy.mph.map(r=>`<td>${spdVal(r[0])}</td>`).join('')}</tr>
+    <tr><td>Rateo di salita SL (ft/min)</td>${S.vy.roc.map(r=>`<td>${r[0]}</td>`).join('')}</tr>
+    <tr><td>V best glide &mdash; ${S.glide.src}</td><td colspan="3">${spdVal(S.glide.mph)} ${u} &mdash; valore unico, l'AFM non lo differenzia per massa</td></tr>
+    <tr><td>Avvicinamento flap 40 &mdash; ${S.vrefLdg.src}</td><td colspan="3">${spdVal(S.vrefLdg.mph)} ${u} &mdash; pubblicato solo a 1157 kg</td></tr>
+    <tr><td>Stallo UP / 20&deg; / 40&deg; &mdash; ${S.stall.src}</td><td colspan="3">${spdVal(S.stall.up)} / ${spdVal(S.stall.f20)} / ${spdVal(S.stall.f40)} ${u} &mdash; 1157 kg, ali livellate</td></tr>
   </table>
-  <div style="font-size:8px;margin-top:2px">${V_FOOTNOTE}</div>`;
+  <div style="font-size:8px;margin-top:2px">Tutti i valori sono stampati nell'AFM Reims Rocket FR172J. Dove il manuale
+    pubblica pi&ugrave; masse o pi&ugrave; quote si interpola linearmente; dove ne pubblica uno solo resta quello.
+    VY &egrave; tabulata anche in quota (fig. 5-6): a ${num('pwrAlt')} ft e ${w.towKg} kg risulta
+    ${spdVal(vyFor(w.towKg,num('pwrAlt')).mph)} ${u} con ${vyFor(w.towKg,num('pwrAlt')).roc} ft/min.</div>`;
   // DEPARTURE e DESTINATION su due righe distinte: i campi del form sono separati
   // (depAirport/depRunway e destAirport/destRunway) e le distanze di decollo
   // riguardano il primo, quelle di atterraggio il secondo.
   const told = window.__told || computeTold();
-  const marg=(m,code)=>{
+  const margP=(m,code)=>{
     if(!m) return `${code} &mdash;`;
     const pct=Math.round(m.req/m.avail*100);
     return m.margin<0
-      ? `<b>${code} ${m.avail} m</b> &middot; richiesti ${m.req} m &middot; <b>SUPERATA di ${Math.round(-m.margin)} m</b>`
-      : `<b>${code} ${m.avail} m</b> &middot; richiesti ${m.req} m (${pct}%) &middot; margine ${Math.round(m.margin)} m`;
+      ? `<b>${code} ${m.avail}</b> req ${m.req} <b>SUPERATA ${Math.round(-m.margin)} m</b>`
+      : `<b>${code} ${m.avail}</b> req ${m.req} (${pct}%) margine ${Math.round(m.margin)} m`;
   };
-  const rwyTable = told.ok ? `<table class="refTable" style="max-width:560px">
-    <tr><th></th><th>Airport / RWY</th><th>PA / DA</th><th>Wind</th><th>Ground roll</th><th>Dist 15 m</th></tr>
-    <tr>
-      <td style="text-align:left;padding-left:4px"><b>T/O</b></td>
-      <td class="filled">${esc(txt('depAirport'))} ${esc(txt('depRunway'))}</td>
-      <td class="filled">${told.to.pa} / ${told.to.da} ft</td>
-      <td class="filled">${told.to.head>=0?'HW':'TW'} ${Math.abs(told.to.head)} &middot; XW ${told.to.cross}</td>
-      <td class="filled">${told.to.ground} m</td>
-      <td class="filled">${told.to.total} m</td>
-    </tr>
-    <tr>
-      <td style="text-align:left;padding-left:4px"><b>LDG</b></td>
-      <td class="filled">${esc(txt('destAirport'))} ${esc(txt('destRunway'))}</td>
-      <td class="filled">${told.ld.pa} / ${told.ld.da} ft</td>
-      <td class="filled">${told.ld.head>=0?'HW':'TW'} ${Math.abs(told.ld.head)} &middot; XW ${told.ld.cross}</td>
-      <td class="filled">${told.ld.ground} m</td>
-      <td class="filled">${told.ld.total} m</td>
-    </tr>
+  const toldLegs = told.ok ? [[told.legs.dep,[['TORA',told.tora],['TODA',told.toda]]],
+                              [told.legs.dest,[['LDA',told.lda]]],
+                              [told.legs.altn,[['LDA',told.ldaAltn]]]].filter(x=>x[0]) : [];
+  const rwyTable = told.ok ? `<table class="refTable" style="max-width:100%">
+    <tr><th></th><th>Aeroporto / RWY</th><th>Massa</th><th>QNH / T / vento</th><th>PA / DA</th><th>HW / XW</th><th>Corsa</th><th>15 m</th></tr>
+    ${toldLegs.map(([g])=>`<tr>
+      <td style="text-align:left;padding-left:4px"><b>${esc(g.label)}</b></td>
+      <td class="filled">${esc(g.icao||'----')} ${esc(g.rwy||'--')}</td>
+      <td class="filled">${g.mass} kg</td>
+      <td class="filled">${g.qnh} / ${g.oat}&deg; / ${g.haveWind?esc(String(g.windDir))+'&deg;'+g.windKt+'kt':'n/d'}</td>
+      <td class="filled">${g.pa} / ${g.da} ft</td>
+      <td class="filled">${g.head>=0?'HW':'TW'} ${Math.abs(g.head)} / ${g.cross}</td>
+      <td class="filled">${g.ground} m</td>
+      <td class="filled">${g.total} m</td></tr>`).join('')}
   </table>
-  <div style="font-size:9px;margin-top:3px">${marg(told.tora,'TORA')} &nbsp;|&nbsp; ${marg(told.toda,'TODA')} &nbsp;|&nbsp; ${marg(told.lda,'LDA')}</div>
-  <div style="font-size:8px">Condizioni: ${esc(txt('toldSurface'))}, QNH ${num('toldQnh')}, OAT ${num('toldOat')}&deg;C, vento ${esc(txt('toldWindDir')||'---')}/${num('toldWindKt')} kt &middot; AFM fig. 5-4 e 5-5.</div>`
+  <div style="font-size:9px;margin-top:3px">${toldLegs.map(([g,ms])=>`${esc(g.label)}: ${ms.map(([c,m])=>margP(m,c)).join(' &middot; ')}`).join('<br>')}</div>
+  <div style="font-size:8px">Superficie ${esc(txt('toldSurface'))} &middot; AFM fig. 5-4 e 5-5 &middot; massa e meteo propri di ciascun aeroporto.</div>`
   : `<div style="font-size:9.5px">${esc(told.reason||'Dati TOLD insufficienti.')}</div>`;
   const cAlt=num('pwrAlt')||num('cruisePerfAlt');
   const sel=currentPowerRow();
@@ -1936,7 +2094,7 @@ function oaStatus(cls,msg){ const el=$('oaStatus'); if(el){ el.className='mb-sta
 async function lookupAirportsUI(){
   const codes=[txt('dep'),txt('arr'),txt('altn')].map(c=>c.trim().toUpperCase()).filter(Boolean);
   const uniq=[...new Set(codes)];
-  if(!uniq.length){ oaStatus('err','Inserisci prima almeno un codice ICAO.'); return; }
+  if(!uniq.length){ oaStatus('','' ); return; }
   oaStatus('busy','\u23f3 Cerco '+uniq.join(', ')+' su OurAirports\u2026');
   try{
     const rec = await OA.lookup(uniq);
@@ -1973,17 +2131,15 @@ function applyAirportData(){
     $('altTblTime').value = Math.round(dAltn / mphToKt(a.row.mph) * 60);
   }
 
-  // elevazioni e piste per il calcolo prestazioni
-  if(dep){
-    if($('depAirport')) $('depAirport').value = dep.icao;
-    if($('toldElevDep')) $('toldElevDep').value = dep.elevFt!=null?Math.round(dep.elevFt):'';
-  }
-  if(arr){
-    if($('destAirport')) $('destAirport').value = arr.icao;
-    if($('toldElevDest')) $('toldElevDest').value = arr.elevFt!=null?Math.round(arr.elevFt):'';
-  }
-  fillRunwaySelect('toldRwyDep', dep);
-  fillRunwaySelect('toldRwyDest', arr);
+  // elevazioni e piste per il calcolo prestazioni, per tutti e tre gli aeroporti
+  [['Dep',dep,'depAirport'],['Dest',arr,'destAirport'],['Altn',altn,null]].forEach(([k,rec,ofpId])=>{
+    if(rec){
+      if(ofpId && $(ofpId)) $(ofpId).value = rec.icao;
+      if($('told'+k+'Icao')) $('told'+k+'Icao').value = rec.icao;
+      if($('toldElev'+k)) $('toldElev'+k).value = rec.elevFt!=null?Math.round(rec.elevFt):'';
+    }
+    fillRunwaySelect('toldRwy'+k, rec);
+  });
   renderAirportInfo();
 }
 
@@ -1998,24 +2154,23 @@ function fillRunwaySelect(id, rec){
   onRunwayChange(id);
 }
 
-/* Selezionata una pista: orientamento magnetico dal designatore, e lunghezza
-   fisica come punto di partenza per TORA/TODA/LDA (da confermare sull'AIP). */
+/* Selezionata una pista: orientamento magnetico dal designatore e lunghezza fisica
+   come punto di partenza per TORA/TODA/LDA (da confermare sull'AIP). */
+const RWY_MAP={
+  toldRwyDep : {icao:'dep',  hdg:'toldHdgDep',  name:'toldDepRwyName',  ofp:'depRunway',   dist:['tora','toda']},
+  toldRwyDest: {icao:'arr',  hdg:'toldHdgDest', name:'toldDestRwyName', ofp:'destRunway',  dist:['lda']},
+  toldRwyAltn: {icao:'altn', hdg:'toldHdgAltn', name:'toldAltnRwyName', ofp:'altnRunway',  dist:['ldaAltn']}
+};
 function onRunwayChange(id){
-  const sel=$(id); if(!sel) return;
-  const isDep = id==='toldRwyDep';
-  const rec = (window.__oa||{})[ (isDep?txt('dep'):txt('arr')).toUpperCase() ];
+  const cfg=RWY_MAP[id], sel=$(id);
+  if(!cfg||!sel) return;
+  const rec=(window.__oa||{})[txt(cfg.icao).toUpperCase()];
   const rwy = rec && (rec.runways||[]).find(r=>r.ident===sel.value);
   if(!rwy) return;
-  if(isDep){
-    if($('depRunway')) $('depRunway').value = rwy.ident;
-    if($('toldHdgDep')) $('toldHdgDep').value = rwy.hdgMag!=null?rwy.hdgMag:'';
-    if($('tora') && rwy.lenM) $('tora').value = rwy.lenM;
-    if($('toda') && rwy.lenM) $('toda').value = rwy.lenM;
-  }else{
-    if($('destRunway')) $('destRunway').value = rwy.ident;
-    if($('toldHdgDest')) $('toldHdgDest').value = rwy.hdgMag!=null?rwy.hdgMag:'';
-    if($('lda') && rwy.lenM) $('lda').value = rwy.lenM;
-  }
+  if($(cfg.ofp))  $(cfg.ofp).value  = rwy.ident;
+  if($(cfg.name)) $(cfg.name).value = rwy.ident;
+  if($(cfg.hdg))  $(cfg.hdg).value  = rwy.hdgMag!=null?rwy.hdgMag:'';
+  if(rwy.lenM) cfg.dist.forEach(d=>{ if($(d)) $(d).value = rwy.lenM; });
 }
 
 function renderAirportInfo(){
@@ -2030,64 +2185,98 @@ function renderAirportInfo(){
   }).join('<br>');
 }
 
-if($('btnOA')) $('btnOA').addEventListener('click', lookupAirportsUI);
+/* Ricerca automatica: parte da sola quando un codice ICAO e' completo, senza
+   nessun pulsante da premere. Si aspetta un attimo che l'utente abbia finito di
+   digitare, e non si ripete per una combinazione di codici gia' cercata. */
+let oaTimer=null, oaLastKey='';
+function scheduleAirportLookup(){
+  const codes=[txt('dep'),txt('arr'),txt('altn')].map(c=>c.trim().toUpperCase());
+  const valid=codes.filter(c=>/^[A-Z]{4}$/.test(c));
+  if(!valid.length) return;
+  const key=valid.slice().sort().join(',');
+  if(key===oaLastKey) return;                       // gia' cercata questa combinazione
+  clearTimeout(oaTimer);
+  oaTimer=setTimeout(()=>{ oaLastKey=key; lookupAirportsUI(); }, 450);
+}
+['dep','arr','altn'].forEach(id=>{
+  const el=$(id); if(!el) return;
+  el.addEventListener('input', ()=>{ el.value=el.value.toUpperCase(); scheduleAirportLookup(); });
+  el.addEventListener('change', scheduleAirportLookup);
+  el.addEventListener('blur', scheduleAirportLookup);
+});
 
 /* ============ TOLD: aggancio a METAR, piste e risultati ============ */
 
-/* Riempie QNH, temperatura e vento dal METAR di partenza (o, se manca, da quello
-   di destinazione). Sono i valori che l'AFM chiede per le distanze. */
+/* Riempie QNH, temperatura e vento di OGNI aeroporto dal SUO METAR: partenza per
+   il decollo, destinazione e alternato per i rispettivi atterraggi. Usare il METAR
+   sbagliato darebbe distanze semplicemente sbagliate. */
+const TOLD_LEGS=[
+  {key:'Dep',  metar:'depMetar',  icao:'dep',  label:'DEP'},
+  {key:'Dest', metar:'destMetar', icao:'arr',  label:'DEST'},
+  {key:'Altn', metar:'altnMetar', icao:'altn', label:'ALTN'}
+];
 function fillToldFromMetar(){
-  const src = txt('depMetar').trim() || txt('destMetar').trim();
   const el=$('toldMetarStatus');
-  if(!src){
-    if(el){ el.className='mb-status err'; el.textContent='Nessun METAR nello Step 7: caricalo o compila i campi a mano.'; }
-    return;
-  }
-  const m=parseMetar(src);
-  let got=[];
-  if(m.qnh){ $('toldQnh').value=m.qnh; got.push('QNH '+m.qnh); }
-  if(isFinite(m.oat)){ $('toldOat').value=m.oat; got.push('T '+m.oat+'\u00b0C'); }
-  if(m.windKt!=null){
-    $('toldWindKt').value=m.windKt;
-    if(m.windDir!=null){ $('toldWindDir').value=m.windDir; got.push('vento '+m.windDir+'\u00b0/'+m.windKt+'kt'); }
-    else got.push('vento variabile '+m.windKt+'kt (direzione da inserire a mano)');
-  }
+  const done=[], skipped=[];
+  TOLD_LEGS.forEach(L=>{
+    let src=txt(L.metar).trim();
+    // l'alternato spesso coincide col departure: in quel caso ne eredita il METAR
+    if(!src && L.key==='Altn' && txt('altn').toUpperCase()===txt('dep').toUpperCase()) src=txt('depMetar').trim();
+    if(!src){ skipped.push(L.label); return; }
+    const m=parseMetar(src);
+    const bits=[];
+    if(m.qnh){ $('toldQnh'+L.key).value=m.qnh; bits.push('QNH '+m.qnh); }
+    if(isFinite(m.oat)){ $('toldOat'+L.key).value=m.oat; bits.push(m.oat+'\u00b0C'); }
+    if(m.windKt!=null){
+      $('toldWindKt'+L.key).value=m.windKt;
+      if(m.windDir!=null){ $('toldWindDir'+L.key).value=m.windDir; bits.push(m.windDir+'\u00b0/'+m.windKt+'kt'); }
+      else bits.push('VRB '+m.windKt+'kt');
+    }
+    if(m.gustKt) bits.push('raffiche '+m.gustKt+'kt');
+    if(bits.length) done.push(L.label+' '+bits.join(' '));
+    else skipped.push(L.label);
+  });
   if(el){
-    el.className='mb-status '+(got.length?'ok':'err');
-    el.textContent = got.length
-      ? 'Dal METAR: '+got.join(' \u00b7 ')+(m.gustKt?' \u00b7 raffiche '+m.gustKt+'kt: valuta il caso peggiore':'')
-      : 'METAR non interpretabile: compila i campi a mano.';
+    el.className='mb-status '+(done.length?'ok':'err');
+    el.textContent = done.length
+      ? done.join('  \u00b7  ') + (skipped.length?'  \u2014 senza METAR: '+skipped.join(', '):'')
+      : 'Nessun METAR utilizzabile: compila i campi a mano.';
   }
   render();
 }
 if($('btnMetarFill')) $('btnMetarFill').addEventListener('click', fillToldFromMetar);
-['toldRwyDep','toldRwyDest'].forEach(id=>{ if($(id)) $(id).addEventListener('change', ()=>{ onRunwayChange(id); render(); }); });
+TOLD_LEGS.forEach(L=>{
+  const sel=$('toldRwy'+L.key);
+  if(sel) sel.addEventListener('change', ()=>{ onRunwayChange('toldRwy'+L.key); render(); });
+});
 
 /* Riquadro dei risultati TOLD nel wizard. */
 function toldBoxHTML(t){
   if(!t.ok) return `<div style="color:#ffd479;font-size:12px">${esc(t.reason||'Dati insufficienti.')}</div>`;
-  const cell=(lbl,val,unit)=>`<td style="padding:2px 10px 2px 0">${lbl}</td><td style="text-align:right;padding:2px 14px 2px 0"><b>${val}</b> ${unit}</td>`;
   const marg=(m,code)=>{
-    if(!m) return `<span style="color:#8fa3b8">${code} non inserita</span>`;
+    if(!m) return `<span style="color:#8fa3b8">${code} n/d</span>`;
     const pct=Math.round(m.req/m.avail*100);
-    const col = m.margin<0 ? '#ff7a7a' : (pct>85 ? '#ffd479' : '#7fd18b');
-    const state = m.margin<0 ? `SUPERATA di ${Math.round(-m.margin)} m` : `${Math.round(m.margin)} m di margine`;
-    return `<span style="color:${col}">${code} ${m.avail} m &middot; richiesti ${m.req} m &middot; ${pct}% &middot; ${state}</span>`;
+    const col=m.margin<0?'#ff7a7a':(pct>85?'#ffd479':'#7fd18b');
+    return `<span style="color:${col}">${code} ${m.avail} m &middot; ${m.req} m (${pct}%) &middot; ${m.margin<0?'SUPERATA di '+Math.round(-m.margin):Math.round(m.margin)+' m margine'} m</span>`;
   };
-  return `<table style="font-family:'Courier New',monospace;font-size:11.5px;color:#dbe4ee">
-    <tr><td colspan="4" style="color:#8fa3b8;padding-top:4px">DECOLLO &mdash; ${esc(txt('depAirport'))} rwy ${esc(txt('depRunway'))} &middot; ${Math.round(t.to.mass)} kg</td></tr>
-    <tr>${cell('Alt. pressione',t.to.pa,'ft')}${cell('Alt. densit&agrave;',t.to.da,'ft')}</tr>
-    <tr>${cell('ISA',(t.to.isaDev>=0?'+':'')+t.to.isaDev,'&deg;C')}${cell(t.to.head>=0?'Vento frontale':'Vento in coda',Math.abs(t.to.head),'kt')}</tr>
-    <tr>${cell('Traverso',t.to.cross,'kt')}${cell('Corsa al suolo',t.to.ground,'m')}</tr>
-    <tr>${cell('Distanza per 15 m',t.to.total,'m')}<td colspan="2"></td></tr>
-    <tr><td colspan="4" style="padding:3px 0">${marg(t.tora,'TORA')}</td></tr>
-    <tr><td colspan="4" style="padding-bottom:6px">${marg(t.toda,'TODA')}</td></tr>
-    <tr><td colspan="4" style="color:#8fa3b8;border-top:1px solid #25384c;padding-top:6px">ATTERRAGGIO &mdash; ${esc(txt('destAirport'))} rwy ${esc(txt('destRunway'))} &middot; ${Math.round(t.ld.mass)} kg</td></tr>
-    <tr>${cell('Alt. pressione',t.ld.pa,'ft')}${cell('Alt. densit&agrave;',t.ld.da,'ft')}</tr>
-    <tr>${cell(t.ld.head>=0?'Vento frontale':'Vento in coda',Math.abs(t.ld.head),'kt')}${cell('Traverso',t.ld.cross,'kt')}</tr>
-    <tr>${cell('Corsa al suolo',t.ld.ground,'m')}${cell('Distanza da 15 m',t.ld.total,'m')}</tr>
-    <tr><td colspan="4" style="padding:3px 0">${marg(t.lda,'LDA')}</td></tr>
-  </table>`;
+  const legs=[[t.legs.dep,[['TORA',t.tora],['TODA',t.toda]]],
+              [t.legs.dest,[['LDA',t.lda]]],
+              [t.legs.altn,[['LDA',t.ldaAltn]]]].filter(x=>x[0]);
+  const u=spdLabel();
+  return legs.map(([g,margins])=>`
+    <div style="margin-bottom:10px">
+      <div style="color:#8fa3b8">${esc(g.label)} &mdash; ${esc(g.icao||'----')} rwy ${esc(g.rwy||'--')} &middot; <b>${g.mass} kg</b></div>
+      <table style="font-family:'Courier New',monospace;font-size:11.5px;color:#dbe4ee">
+        <tr><td style="padding-right:12px">QNH ${g.qnh} &middot; ${g.oat}&deg;C &middot; ${g.haveWind?esc(String(g.windDir))+'&deg;/'+g.windKt+'kt':'vento n/d'}</td>
+            <td>PA <b>${g.pa}</b> ft &middot; DA <b>${g.da}</b> ft &middot; ISA ${g.isaDev>=0?'+':''}${g.isaDev}&deg;C</td></tr>
+        <tr><td>${g.head>=0?'Vento frontale':'Vento in coda'} <b>${Math.abs(g.head)}</b> kt &middot; traverso <b>${g.cross}</b> kt</td>
+            <td>Corsa <b>${g.ground}</b> m &middot; ${g.isTakeoff?'per 15 m':'da 15 m'} <b>${g.total}</b> m</td></tr>
+        <tr><td colspan="2">${g.isTakeoff
+              ? `VR <b>${spdVal(g.v.vrMph)}</b> ${u} &middot; VY <b>${spdVal(g.v.vyMph)}</b> ${u} (${g.v.roc} ft/min)`
+              : `Vref flap 40 <b>${spdVal(g.v.vrefMph)}</b> ${u} &middot; avvicinamento ${spdRange(g.v.approachDown)} ${u}`}</td></tr>
+        <tr><td colspan="2" style="padding-top:3px">${margins.map(([c,m])=>marg(m,c)).join(' &nbsp; ')}</td></tr>
+      </table>
+    </div>`).join('');
 }
 function toldWarnsHTML(t){
   const col={red:'#ff7a7a',amber:'#ffd479',grey:'#8fa3b8'};
@@ -2229,7 +2418,7 @@ async function extractWeatherCharts(pdf){
 
 function handleWxPdf(file){
   window.__wxLastFile=file;
-  wxStatus.className='mb-status busy'; wxStatus.textContent='⏳ Leggo il PDF briefing…';
+  wxStatus.className='mb-status busy'; wxStatus.textContent='Leggo il PDF briefing…';
   wxRetryBtn.style.display='none';
   const reader=new FileReader();
   reader.onload=async ()=>{
@@ -2888,75 +3077,96 @@ function buildPDF(){
   y=monoLine(doc,L,y,'*ADD +5 KTS AT VREF SPEEDS');
   y=monoLine(doc,L,y,`VNE ${AC_LIMITS.vne}  VNO ${AC_LIMITS.vno}  VFE ${AC_LIMITS.vfe} KIAS   XWIND T/O ${AC_LIMITS.xwindTO} kt  LDG ${AC_LIMITS.xwindLDG} kt`);
   y=monoLine(doc,L,y,`VA ${AC_LIMITS.va} KIAS a ${AC_LIMITS.mtowNormal} kg -> ${vaFor(w.towKg)} KIAS a ${w.towKg} kg (TOW)`); y+=3;
-  const dep=vspeedsFor(w.towKg), dest=vspeedsFor(w.ldwKg), altn=vspeedsFor(w.altwKg);
-  const vLabels=V_ROWS.map(([lbl,k])=>[lbl,k]);
+  const uSp=spdLabel();
+  const vDep=vspeedsFor(w.towKg,0), vDest=vspeedsFor(w.ldwKg,0), vAltn=vspeedsFor(w.altwKg,0);
   const vColW=[52,20,20,20];
-  doc.text('DEP',L+vColW[0]+vColW[1],y,{align:'right'}); doc.text('DEST',L+vColW[0]+vColW[1]+vColW[2],y,{align:'right'}); doc.text('ALTN',L+vColW[0]+vColW[1]+vColW[2]+vColW[3],y,{align:'right'});
+  const cx=(i)=>L+vColW.slice(0,i+1).reduce((a,b)=>a+b,0);
+  doc.text(uSp,L,y);
+  doc.text('DEP',cx(1),y,{align:'right'}); doc.text('DEST',cx(2),y,{align:'right'}); doc.text('ALTN',cx(3),y,{align:'right'});
   y+=LH;
-  vLabels.forEach(([lbl,k])=>{
+  [['VR - 15 m',      vDep.vrMph, null, null],
+   ['VY best rate',   vDep.vyMph, null, null],
+   ['V best glide',   vDep.glideMph, vDest.glideMph, vAltn.glideMph],
+   ['Vref flap 40',   null, vDest.vrefMph, vAltn.vrefMph]
+  ].forEach(([lbl,a,b,c])=>{
     doc.text(lbl,L,y);
-    doc.text(String(dep[k]),L+vColW[0]+vColW[1],y,{align:'right'});
-    doc.text(String(dest[k]),L+vColW[0]+vColW[1]+vColW[2],y,{align:'right'});
-    doc.text(String(altn[k]),L+vColW[0]+vColW[1]+vColW[2]+vColW[3],y,{align:'right'});
+    doc.text(a==null?'-':String(spdVal(a)),cx(1),y,{align:'right'});
+    doc.text(b==null?'-':String(spdVal(b)),cx(2),y,{align:'right'});
+    doc.text(c==null?'-':String(spdVal(c)),cx(3),y,{align:'right'});
     y+=LH;
   });
-  y+=4; doc.setFont('courier','bold'); doc.text('AFM Reference Table (KIAS)',L,y); doc.setFont('courier','normal'); y+=LH+1;
-  // larghezza colonne calcolata sul numero REALE di fasce di peso: il C172 FR ne ha
-  // 3 (850 / 1000 / 1157 kg), non le 5 del template di partenza.
-  const pwLab=52, pwCol=22;
-  const pw=[pwLab].concat(POH_WEIGHTS.map(()=>pwCol));
+  y+=4; doc.setFont('courier','bold'); doc.text('AFM PUBLISHED SPEEDS ('+uSp+')',L,y); doc.setFont('courier','normal'); y+=LH+1;
+  const S=AFM_SPEEDS;
+  const pw=[52,22,22,22];
   const colRight=(i)=>L+pw.slice(0,i+2).reduce((a,b)=>a+b,0);
   const pohTblTop=y-3.2, pohTblW=pw.reduce((a,b)=>a+b,0);
   doc.setFillColor(230,230,230); doc.rect(L-2,pohTblTop,pohTblW+4,LH+0.6,'F');
-  POH_WEIGHTS.forEach((ww,i)=>doc.text(String(ww)+' kg',colRight(i),y,{align:'right'})); y+=LH+1;
-  V_ROWS.forEach(([lbl,,key],ri)=>{
+  [850,1000,1157].forEach((ww,i)=>doc.text(ww+' kg',colRight(i),y,{align:'right'})); y+=LH+1;
+  const pohRows=[
+    ['VR - 15 m  '+S.vr.src, S.vr.mph.map(spdVal)],
+    ['VY at SL   '+S.vy.src, S.vy.mph.map(r=>spdVal(r[0]))],
+    ['ROC SL ft/min',        S.vy.roc.map(r=>r[0])]
+  ];
+  pohRows.forEach(([lbl,vals],ri)=>{
     if(ri%2===1){ doc.setFillColor(245,245,245); doc.rect(L-2,y-3.2,pohTblW+4,LH+0.4,'F'); }
     doc.text(lbl,L,y);
-    POH_TABLE[key].forEach((v,i)=>doc.text(v===null?'--':String(v),colRight(i),y,{align:'right'}));
+    vals.forEach((v,i)=>doc.text(String(v),colRight(i),y,{align:'right'}));
+    y+=LH;
+  });
+  [['V best glide '+S.glide.src, spdVal(S.glide.mph)+' '+uSp+' - valore unico, non differenziato per massa'],
+   ['Vref flap 40 '+S.vrefLdg.src, spdVal(S.vrefLdg.mph)+' '+uSp+' - pubblicato solo a 1157 kg'],
+   ['Stall UP/20/40 '+S.stall.src, spdVal(S.stall.up)+' / '+spdVal(S.stall.f20)+' / '+spdVal(S.stall.f40)+' '+uSp+' a 1157 kg']
+  ].forEach(([lbl,v],i)=>{
+    if((pohRows.length+i)%2===1){ doc.setFillColor(245,245,245); doc.rect(L-2,y-3.2,pohTblW+4,LH+0.4,'F'); }
+    doc.text(lbl,L,y); doc.text(v,L+pw[0],y);
     y+=LH;
   });
   doc.setDrawColor(150); doc.setLineWidth(0.15); doc.rect(L-2,pohTblTop,pohTblW+4,(y-pohTblTop)); doc.setDrawColor(0);
   y+=4;
-  doc.setFontSize(6.5); doc.text(V_FOOTNOTE,L,y); doc.setFontSize(8.5);
+  doc.setFontSize(6.5);
+  doc.text("Tutti i valori sono stampati nell'AFM Reims Rocket FR172J. Interpolazione lineare dove il manuale tabula piu' masse o quote.",L,y);
+  doc.setFontSize(8.5);
   y+=5;
   dotted(doc,L,R,y); y+=6;
   doc.setFont('courier','bold'); y=monoLine(doc,L,y,'TAKE-OFF & LANDING DISTANCES (TOLD)'); doc.setFont('courier','normal');
   dotted(doc,L,R,y); y+=5;
   const told = window.__told || computeTold();
-  const rwyMidX=L+(R-L)/2+4;
-  const yRwyStart=y;
-  const margLine=(m,code)=>{
+  const margTxt=(m,code)=>{
     if(!m) return `${code}: --`;
     const pct=Math.round(m.req/m.avail*100);
     return m.margin<0
-      ? `${code} ${m.avail} m: REQ ${m.req} m - EXCEEDED BY ${Math.round(-m.margin)} m`
-      : `${code} ${m.avail} m: REQ ${m.req} m (${pct}%) - MARGIN ${Math.round(m.margin)} m`;
+      ? `${code} ${m.avail} m: REQ ${m.req} m *** EXCEEDED BY ${Math.round(-m.margin)} m ***`
+      : `${code} ${m.avail} m: REQ ${m.req} m (${pct}%) MARGIN ${Math.round(m.margin)} m`;
   };
   if(!told.ok){
-    y=monoLine(doc,L,y, told.reason||'Dati insufficienti per il calcolo TOLD.');
-    y+=4;
+    y=monoLine(doc,L,y, told.reason||'Dati insufficienti per il calcolo TOLD.'); y+=3;
   }else{
-    let yDep=yRwyStart;
-    doc.setFont('courier','bold'); doc.text('DEPARTURE',L,yDep); doc.setFont('courier','normal'); yDep+=LH;
-    yDep=monoLine(doc,L,yDep,`${txt('depAirport')} RWY ${txt('depRunway')}  ${num('toldElevDep')} ft`);
-    yDep=monoLine(doc,L,yDep,`PA ${told.to.pa} ft  DA ${told.to.da} ft  ISA ${told.to.isaDev>=0?'+':''}${told.to.isaDev} C`);
-    yDep=monoLine(doc,L,yDep,`${told.to.head>=0?'HW':'TW'} ${Math.abs(told.to.head)} kt   XW ${told.to.cross} kt   ${Math.round(told.to.mass)} kg`);
-    yDep=monoLine(doc,L,yDep,`Ground roll   : ${told.to.ground} m`);
-    yDep=monoLine(doc,L,yDep,`Dist to 15 m  : ${told.to.total} m`);
-    yDep=monoLine(doc,L,yDep,margLine(told.tora,'TORA'));
-    yDep=monoLine(doc,L,yDep,margLine(told.toda,'TODA'));
-
-    let yDest=yRwyStart;
-    doc.setFont('courier','bold'); doc.text('DESTINATION',rwyMidX,yDest); doc.setFont('courier','normal'); yDest+=LH;
-    yDest=monoLine(doc,rwyMidX,yDest,`${txt('destAirport')} RWY ${txt('destRunway')}  ${num('toldElevDest')} ft`);
-    yDest=monoLine(doc,rwyMidX,yDest,`PA ${told.ld.pa} ft  DA ${told.ld.da} ft  ISA ${told.ld.isaDev>=0?'+':''}${told.ld.isaDev} C`);
-    yDest=monoLine(doc,rwyMidX,yDest,`${told.ld.head>=0?'HW':'TW'} ${Math.abs(told.ld.head)} kt   XW ${told.ld.cross} kt   ${Math.round(told.ld.mass)} kg`);
-    yDest=monoLine(doc,rwyMidX,yDest,`Ground roll   : ${told.ld.ground} m`);
-    yDest=monoLine(doc,rwyMidX,yDest,`Dist from 15 m: ${told.ld.total} m`);
-    yDest=monoLine(doc,rwyMidX,yDest,margLine(told.lda,'LDA'));
-    doc.setLineWidth(0.15); doc.line(rwyMidX-6,yRwyStart-3,rwyMidX-6,Math.max(yDep,yDest)-2);
-    y=Math.max(yDep,yDest)+2;
-    // avvisi rilevanti: solo rossi e ambra, i grigi sono note di metodo
+    const legs=[[told.legs.dep,[['TORA',told.tora],['TODA',told.toda]]],
+                [told.legs.dest,[['LDA',told.lda]]],
+                [told.legs.altn,[['LDA',told.ldaAltn]]]].filter(x=>x[0]);
+    const colW=(R-L)/legs.length;
+    const yTop=y; let yMax=y;
+    legs.forEach((pair,gi)=>{
+      const g=pair[0], margins=pair[1];
+      const x=L+gi*colW;
+      let yy=yTop;
+      doc.setFont('courier','bold'); doc.text(g.label,x,yy); doc.setFont('courier','normal'); yy+=LH;
+      doc.setFontSize(7.2);
+      const line=(t)=>{ doc.text(t,x,yy); yy+=3.4; };
+      line(`${g.icao||'----'} RWY ${g.rwy||'--'}  ${g.mass} kg`);
+      line(`QNH ${g.qnh}  ${g.oat} C  ${g.haveWind?g.windDir+'/'+g.windKt+'kt':'wind n/a'}`);
+      line(`PA ${g.pa} ft  DA ${g.da} ft  ISA ${g.isaDev>=0?'+':''}${g.isaDev}`);
+      line(`${g.head>=0?'HW':'TW'} ${Math.abs(g.head)} kt  XW ${g.cross} kt`);
+      line(`Ground roll : ${g.ground} m`);
+      line(`${g.isTakeoff?'To 15 m     ':'From 15 m   '}: ${g.total} m`);
+      line(g.isTakeoff ? `VR ${spdVal(g.v.vrMph)}  VY ${spdVal(g.v.vyMph)} ${uSp}`
+                       : `Vref ${spdVal(g.v.vrefMph)} ${uSp}`);
+      margins.forEach(([c,m])=>line(margTxt(m,c)));
+      doc.setFontSize(8.5);
+      if(yy>yMax) yMax=yy;
+      if(gi<legs.length-1){ doc.setLineWidth(0.15); doc.line(x+colW-3,yTop-3,x+colW-3,yy-2); }
+    });
+    y=yMax+2;
     const wArr=(told.warns||[]).filter(x=>x.level!=='grey');
     if(wArr.length){
       doc.setFontSize(6.5);
@@ -2966,12 +3176,11 @@ function buildPDF(){
       });
       doc.setFontSize(8.5);
     }
-    y+=4;
+    y+=3;
   }
   doc.setFontSize(6.5);
-  doc.text('Condizioni: '+txt('toldSurface')+', QNH '+num('toldQnh')+', OAT '+num('toldOat')+' C, vento '+(txt('toldWindDir')||'---')+'/'+num('toldWindKt')+' kt. AFM fig. 5-4 e 5-5.',L,y);
+  doc.text('Superficie: '+txt('toldSurface')+'. Distanze da AFM fig. 5-4 e 5-5, massa e meteo propri di ogni aeroporto.',L,y);
   doc.setFontSize(8.5); y+=5;
-
   const cAlt=num('pwrAlt')||num('cruisePerfAlt');
   const sel=currentPowerRow();
   const altnSet=altnSettingAt(num('altAlt'));
@@ -3234,7 +3443,10 @@ const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route','cruisealt',
   'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
   'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50','cruisePerfAlt',
-  'toldQnh','toldOat','toldWindDir','toldWindKt','toldSurface','toldElevDep','toldHdgDep','toldElevDest','toldHdgDest','tora','toda','lda',
+  'spdUnit','toldSurface','tora','toda','lda','ldaAltn','altnRunway',
+  'toldQnhDep','toldOatDep','toldWindDirDep','toldWindKtDep','toldElevDep','toldHdgDep',
+  'toldQnhDest','toldOatDest','toldWindDirDest','toldWindKtDest','toldElevDest','toldHdgDest',
+  'toldQnhAltn','toldOatAltn','toldWindDirAltn','toldWindKtAltn','toldElevAltn','toldHdgAltn',
   'noteTrack','noteRunway','noteAlt','noteClear','noteTiming','noteGround','noteRadios','noteSpecials',
   'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','destProc','destThreats','destMit','acStatus','briefRemarks'];
 // Campi meteo/NOTAM (weather_data)
@@ -3340,9 +3552,11 @@ const NEW_FLIGHT_DEFAULTS = {
   mldw:'1157',               // MLW: il FR172J atterra allo stesso peso massimo
   toGround:'226', toDist50:'375',   // AFM fig. 5-4 a 1157 kg, SL, +15C, vento nullo
   ldgGround:'189', ldgDist50:'387', // AFM fig. 5-5 a 1157 kg, SL, +15C, vento nullo
-  toldQnh:'1013', toldOat:'15', toldWindDir:'', toldWindKt:'0', toldSurface:'hard',
-  toldElevDep:'0', toldHdgDep:'', toldElevDest:'0', toldHdgDest:'',
-  tora:'', toda:'', lda:''
+  spdUnit:'mph', toldSurface:'hard',
+  toldQnhDep:'1013',  toldOatDep:'15',  toldWindDirDep:'',  toldWindKtDep:'0',  toldElevDep:'0',  toldHdgDep:'',
+  toldQnhDest:'1013', toldOatDest:'15', toldWindDirDest:'', toldWindKtDest:'0', toldElevDest:'0', toldHdgDest:'',
+  toldQnhAltn:'1013', toldOatAltn:'15', toldWindDirAltn:'', toldWindKtAltn:'0', toldElevAltn:'0', toldHdgAltn:'',
+  tora:'', toda:'', lda:'', ldaAltn:''
 };
 
 function newFlight(){
@@ -3411,7 +3625,7 @@ function finalizeFlightWithPDF(flightId, pdfFile, statusEl){
   // porta la rotta del volo nei campi del wizard, così i codici ICAO usati dal parser
   // sono quelli di QUESTO volo (non di un altro eventualmente aperto)
   applyFlightData(f.flight_data);
-  if(statusEl){ statusEl.className='dash-status busy'; statusEl.textContent='⏳ Analizzo il PDF…'; }
+  if(statusEl){ statusEl.className='dash-status busy'; statusEl.textContent='Analizzo il PDF…'; }
   const reader=new FileReader();
   reader.onload=async()=>{
     try{
@@ -3454,24 +3668,24 @@ function makeCard(f){
   const route=`${(fd.dep||'----').toUpperCase()} \u2794 ${(fd.arr||'----').toUpperCase()}` + (fd.altn?`  (ALTN ${fd.altn.toUpperCase()})`:'');
   const card=document.createElement('div'); card.className='flight-card';
   if(f.status==='DRAFT'){
-    card.innerHTML=`<span class="badge standby">&#128993; STANDBY / IN ATTESA WX</span>
+    card.innerHTML=`<span class="badge standby">STANDBY / IN ATTESA WX</span>
       <div class="route">${route}</div>
       <div class="meta">Creato: ${fmtDate(f.created_at)}<br>Aereo: ${fd.reg||'—'}${fd.mission?' · '+fd.mission:''}<br>Rotta: ${(fd.route||'—').slice(0,60)}</div>
-      <div class="card-drop">&#128196; Carica Weather Briefing PDF per finalizzare</div>
+      <div class="card-drop">Carica il Weather Briefing PDF per finalizzare</div>
       <div class="dash-status"></div>
       <div class="card-actions">
-        <button class="btn" data-act="edit">&#9999;&#65039; Modifica Dati</button>
-        <button class="btn" data-act="del">&#128465;&#65039; Elimina</button>
+        <button class="btn" data-act="edit">Modifica dati</button>
+        <button class="btn" data-act="del">Elimina</button>
       </div>`;
   }else{
-    card.innerHTML=`<span class="badge completed">&#128994; PRONTO PER IL VOLO</span>
+    card.innerHTML=`<span class="badge completed">PRONTO PER IL VOLO</span>
       <div class="route">${route}</div>
       <div class="meta">Ultimo aggiornamento WX: ${fmtDate(f.updated_at)}</div>
-      <div class="card-drop" data-role="refresh">&#128260; Aggiorna WX (carica nuovo PDF)</div>
+      <div class="card-drop" data-role="refresh">Aggiorna WX (carica un nuovo PDF)</div>
       <div class="dash-status"></div>
       <div class="card-actions">
-        <button class="btn primary" data-act="view">&#128065;&#65039; Visualizza OFP</button>
-        <button class="btn" data-act="del">&#128465;&#65039; Elimina</button>
+        <button class="btn primary" data-act="view">Visualizza OFP</button>
+        <button class="btn" data-act="del">Elimina</button>
       </div>`;
   }
   const statusEl=card.querySelector('.dash-status');
@@ -3509,6 +3723,22 @@ function renderDashboard(){
 }
 function openDashboard(){ renderDashboard(); $('dashboard').classList.add('open'); }
 function closeDashboard(){ $('dashboard').classList.remove('open'); }
+
+/* Menu hamburger: si chiude cliccando fuori, con Escape, e dopo ogni azione. */
+(function(){
+  const btn=$('btnMenu'), menu=$('mainMenu');
+  if(!btn||!menu) return;
+  const close=()=>{ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+  const toggle=()=>{
+    const open=!menu.classList.contains('open');
+    menu.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  };
+  btn.addEventListener('click',e=>{ e.stopPropagation(); toggle(); });
+  menu.addEventListener('click',e=>{ if(e.target.tagName==='BUTTON') close(); });
+  document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+})();
 
 $('btnDashboard').addEventListener('click',openDashboard);
 $('btnCloseDash').addEventListener('click',closeDashboard);

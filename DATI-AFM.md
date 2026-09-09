@@ -65,34 +65,51 @@ Nel codice: `vaFor()`.
   (derivato dai primi due).
 - Lo Step 2 avvisa se il Plan Block supera i 46 USG imbarcabili.
 
-## V-speeds — `POH_WEIGHTS` / `POH_TABLE`
+## Velocità — `AFM_SPEEDS`
 
-Le fasce di peso sono **le tre per cui l'AFM tabula davvero le prestazioni**:
-**850 / 1000 / 1157 kg** (fig. 5-4 decollo, fig. 5-6 salita). Non sono stati
-aggiunti pesi intermedi inventati.
+**Solo valori stampati dal manuale.** Dove l'AFM pubblica più masse o più quote si
+interpola **linearmente**; dove ne pubblica uno solo, resta quello. L'unità nativa
+è il **MPH**, che è come il manuale scrive le velocità operative di questo
+aeroplano; un selettore permette di vederle in nodi.
 
-| Riga | Origine | 850 | 1000 | 1157 |
+### Pubblicate per più masse (interpolabili)
+
+| | 850 kg | 1000 kg | 1157 kg | Fonte |
 |---|---|---|---|---|
-| V best glide | fig. 5-7: 74 kt a 1157 kg, elica in autorotazione, flap UP; scalata √(W/1157) | 63 | 69 | **74** |
-| VR rotate | fig. 5-4, colonna "VI 15 m" — valori AFM diretti | **50** | **55** | **59** |
-| VY best rate | fig. 5-6 al livello del mare — valori AFM diretti | **70** | **71** | **74** |
-| Vref flaps UP | 1,3 × Vs flap UP (Vs = 53 kt, fig. 5-3), scalata | 59 | 64 | 69 |
-| Vref flaps 10 T/O | 1,3 × Vs a 10°, **interpolata** fra flap UP (53) e flap 20° (48) | 56 | 61 | 66 |
-| Vref flaps 40 FULL | fig. 5-5, "APPROACH SPEED" = 63 kt a 1157 kg, scalata | 54 | 59 | **63** |
+| VR / velocità a 15 m | 58 | 63 | 68 MPH | fig. 5-4 |
+| VY al livello del mare | 80 | 82 | 85 MPH | fig. 5-6 |
+| Rateo di salita SL | 1420 | 1120 | 880 ft/min | fig. 5-6 |
 
-In grassetto i valori letti tali e quali dal manuale; gli altri sono ricavati con
-√(W/1157) (scalatura standard per le velocità legate alla portanza) o con il
-rapporto 1,3 × Vs.
+VY e rateo sono tabulati anche per quota (0 / 5000 / 10000 / 15000 ft), quindi
+l'interpolazione è bilineare massa × quota:
 
-**L'unica riga interpolata è Vref flaps 10°**: l'AFM tabula lo stallo solo a flap
-UP e flap 20°, e la richiesta chiedeva esplicitamente il valore a 10° (assetto di
-decollo del FR172J). La derivazione è annotata sia nel codice sia in nota a piè di
-tabella nell'anteprima e nel PDF.
+| MPH | SL | 5000 | 10000 | 15000 |
+|---|---|---|---|---|
+| 1157 kg | 85 | 84 | 83 | 82 |
+| 1000 kg | 82 | 81 | 80 | 79 |
+| 850 kg | 80 | 78 | 77 | 76 |
 
-Vref flaps 40° usa i 63 kt dell'AFM invece di 1,3 × Vs40 (che darebbe 60 kt):
-si è tenuto il valore pubblicato, più conservativo.
+### Pubblicate per una sola condizione
 
-## Crociera — `CRUISE_TABLE`
+| | Valore | Fonte |
+|---|---|---|
+| V best glide | **85 MPH** — l'AFM non lo differenzia per massa | fig. 5-7 |
+| Avvicinamento flap 40 | **73 MPH** — pubblicato solo a 1157 kg | fig. 5-5 |
+| Stallo UP / 20° / 40° | **61 / 55 / 53 MPH** a 1157 kg, ali livellate | fig. 5-3 |
+| Avvicinamento flap su / giù | 75–85 / 70–80 MPH (intervalli) | sez. IV |
+
+### Correzione rispetto alla versione precedente
+
+La prima versione conteneva valori **ricavati, non pubblicati**: V best glide e
+Vref alle masse di 850 e 1000 kg erano scalati con √(W/1157), e la riga "Vref
+flap 10°" era interpolata fra gli stalli a flap UP e a flap 20°. Nessuno dei due
+è un dato del manuale, ed entrambi sono stati rimossi. Al loro posto ci sono i
+valori pubblicati, dichiarati come tali quando valgono per una sola condizione.
+
+Fuori dal campo tabulato **non si estrapola**: si resta sull'ultimo valore noto e
+lo si segnala.
+
+## Crociera — `CRUISE_TABLE`## Crociera — `CRUISE_TABLE`
 
 Da **fig. 5-1, fogli 1-5** — "CRUISE PERFORMANCE, NORMAL LEAN MIXTURE", 1157 kg,
 condizioni standard, vento nullo. Le quote sono quelle tabulate dall'AFM:

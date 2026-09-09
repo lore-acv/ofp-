@@ -79,11 +79,12 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
    masse, bagaglio e **inviluppo di centraggio** al decollo e a entrambi gli
    atterraggi. Mostra anche la **VA alla massa effettiva**. Il PDF del foglio
    firmato può essere allegato come immagine.
-4. **Performance** — V-speeds per peso, tabella POH completa della quota
-   pianificata, e calcolo **TOLD**: pressure/density altitude, componenti di vento,
-   corsa al suolo e distanza per 15 m al decollo e all'atterraggio, confrontate con
-   **TORA, TODA e LDA**. Prende QNH, temperatura e vento dal METAR con un clic,
-   elevazione e pista da OurAirports, e la massa dal Mass & Balance.
+4. **Performance** — V-speeds (in **MPH**, con selettore per i nodi), tabella POH
+   completa della quota pianificata, e calcolo **TOLD** per **tutti e tre gli
+   aeroporti**: decollo a DEP, atterraggio a DEST e ad ALTN. Ogni aeroporto usa il
+   **proprio** METAR e la **propria** massa (decollo per DEP, atterraggio per DEST e
+   ALTN): pressure e density altitude, componenti di vento, corsa al suolo e
+   distanza per 15 m, confrontate con TORA, TODA e LDA.
 5. **Dest Charts** — fino a 2 cartine, più le note operative.
 6. **Briefing** — threat & error management per fase, stato aeromobile, remarks.
 7. **NOTAM & Weather** — carica il PDF del briefing: data/ora di emissione,
@@ -136,6 +137,17 @@ OurAirports non pubblica.
 > precompilati con la lunghezza fisica come punto di partenza e vanno corretti
 > dall'AIP: su piste con stopway, clearway o soglia spostata i valori non
 > coincidono.
+
+## Interfaccia
+
+Barra superiore con il titolo e, sotto, le sette fasi in una riga; tutte le azioni
+di salvataggio ed esportazione (dashboard, nuovo, standby, anteprima, stampa,
+Drive, PDF) stanno in un **menu hamburger** in alto a destra. Nessuna emoji.
+
+Il layout è in `rem` con base 16 px su desktop e **18 px da tablet in su**, e i
+target di tocco hanno un'altezza minima di 2,75 rem (3 rem sui dispositivi
+touch): su iPad campi e tabelle sono leggibili e centrabili col dito senza
+ingrandire la pagina.
 
 ## Limiti noti
 
