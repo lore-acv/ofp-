@@ -499,7 +499,8 @@ const ICAO_EXCLUDE = new Set([
   'NIGH','SIGM','AIRM','WIND','SUNR','SUNS','ALTN','DEST','TORA','TODA','ASDA','LDA',
   'AMDT','SUPP','TRIG','AIRA','ACFT','OPER','SVCS','MAINT','LGTD','UNSE','ABDN','CLSD',
   // ricorrenti nei NOTAM in chiaro:
-  'REF','AIP','PART','ITEM','TEXT','DATE','TIME','LOWR','UPPR','AREA','ZONE','LINE','SEE'
+  'REF','AIP','PART','ITEM','TEXT','DATE','TIME','LOWR','UPPR','AREA','ZONE','LINE','SEE',
+  'AIDS','OBST','SIGN','LGTS','HOLD','STAN','TRIAL','JIBS','WIPS','SUPS','NOTE'
 ]);
 /* Lettere iniziali effettivamente assegnate dall'ICAO alle regioni del mondo.
    I, J, Q, X non sono prefissi di nessuna regione: escluderle elimina da sola
@@ -515,7 +516,7 @@ function isValidIcao(code, codes){
   return true;
 }
 
-function parseBriefingText(weatherText, notamText, codes){
+function parseGenericBriefing(weatherText, notamText, codes){
   const norm = weatherText.replace(/[ \t]+/g,' ');
   const normNotam = notamText.replace(/[ \t]+/g,' ');
   const result = {
@@ -778,12 +779,207 @@ function parseBriefingText(weatherText, notamText, codes){
   // Se ALTERNATE coincide col DEPARTURE, l'alternato eredita gli stessi dati/NOTAM
   // del departure invece di restare vuoto — non ha senso duplicare la ricerca nel
   // testo, i dati sono letteralmente gli stessi aeroporto.
-  if(codes.altn && codes.dep && codes.altn===codes.dep){
-    result.altn.metar = result.altn.metar || result.dep.metar;
-    result.altn.speci = result.altn.speci || result.dep.speci;
-    result.altn.taf = result.altn.taf || result.dep.taf;
-    if(!result.altn.notam.length) result.altn.notam = result.dep.notam.slice();
+  // Il risultato viene consegnato indicizzato per ICAO: l'abbinamento a
+  // DEP/DEST/ALTN lo fa mapBriefing(), cosi' puo' essere rifatto quando l'utente
+  // cambia un codice senza dover rileggere il PDF.
+  const byIcao = {};
+  [[codes.dep, result.dep], [codes.dest, result.dest], [codes.altn, result.altn]].forEach(([c,b])=>{
+    if(c && (b.metar || b.speci || b.taf || b.notam.length)) byIcao[c] = b;
+  });
+  Object.keys(result.other).forEach(c=>{ if(!byIcao[c]) byIcao[c] = result.other[c]; });
+  return {byIcao, enroute: result.enroute};
+}
+
+
+/* ============================================================================
+   SKYBRIEF — LETTURA PER AEROPORTO
+   ============================================================================
+   Un briefing Skybrief e' costruito per aeroporto: ogni blocco si apre con
+   "ICAO  Nome — Citta'  AD ELEV  nnn ft" e prosegue con METAR, TAF, le minime,
+   e infine "NOTAM — n TOTALI, m ATTIVI OGGI" seguito dai bollettini puntati.
+
+   Prima questi dati venivano cercati con espressioni regolari sparse su tutto
+   il documento, guidate dai codici ICAO della rotta: tutto cio' che non era
+   DEP/DEST/ALTN finiva in un mucchio indistinto, e un gruppo di quattro
+   maiuscole dentro il testo di un NOTAM (per dire, "...LANDING AIDS', COLUMN 7")
+   poteva spacciarsi per un aeroporto e portarsi via i NOTAM di quello vero.
+
+   Qui invece si ritagliano prima le sezioni — l'ancora e' "AD ELEV", che nel
+   documento compare una volta per aeroporto e mai dentro un NOTAM — e poi si
+   legge dentro ciascuna. Ne esce un indice per ICAO di TUTTI gli aeroporti del
+   briefing, indipendente dalla rotta: l'abbinamento a DEP/DEST/ALTN e' un
+   passaggio a parte (mapBriefing) che si puo' rifare quando cambia un codice.
+   ========================================================================== */
+
+/* Etichette che nel documento chiudono un bollettino: servono a capire dove
+   finisce un METAR che non termina con "=". */
+const SKY_STOP = /\b(?:DEST\s+ALTN|INSTRUCTOR\s+MINIMA|STUDENT\s+MINIMA|NOTAM\s*[—–-]|Fonte\s*:|VENTO\s+E\s+PISTA|AVVICINAMENTO)/;
+
+function skyBlank(){
+  return {name:null, metar:null, metars:[], speci:null, taf:null, notam:[],
+          notamDeclared:null, metarNa:false, tafNa:false};
+}
+
+/* Le intestazioni di sezione: per ogni "AD ELEV" si prende l'ultimo gruppo di
+   quattro maiuscole che lo precede, che e' il codice ICAO del blocco. */
+function skyAirportHeaders(text){
+  const heads=[]; const re=/\bAD\s+ELEV\b/g; let m;
+  while((m=re.exec(text))!==null){
+    const from=Math.max(0, m.index-220);
+    const win=text.slice(from, m.index);
+    const codeRe=/\b([A-Z]{4})\b/g; let c, last=null;
+    while((c=codeRe.exec(win))!==null){
+      if(!ICAO_EXCLUDE.has(c[1]) && ICAO_FIRST.test(c[1])) last={code:c[1], idx:from+c.index};
+    }
+    if(last) heads.push(last);
   }
+  const seen=new Set();
+  return heads.filter(h=> seen.has(h.code) ? false : (seen.add(h.code), true));
+}
+
+/* Dove finisce l'ultimo aeroporto e comincia la coda del documento (AIRMET,
+   SIGMET, venti in quota, immagini). I marcatori sono volutamente specifici:
+   la sola parola "SIGMET" puo' comparire dentro un NOTAM. */
+function skyTailIndex(text, from){
+  const re=/\bAIRMET\s*[—–-]|\bNessun\s+(?:AIRMET|SIGMET)\b|\bVenti\s+in\s+quota\b|\bImmagini\s+Satellitari\b|\bCARTA\s+DEI\s+FRONTI\b/g;
+  re.lastIndex=from||0;
+  const m=re.exec(text);
+  return m ? m.index : text.length;
+}
+
+function skyParseSection(sec, code){
+  const out=skyBlank();
+
+  const nm=/^[A-Z]{4}\s+([\s\S]{0,140}?)\s*\bAD\s+ELEV\b/.exec(sec);
+  if(nm) out.name=nm[1].replace(/\s+/g,' ').trim();
+
+  /* Il briefing dice a volte, esplicitamente, che un bollettino non c'e'.
+     Va distinto da "non l'ho trovato": lo si segna e lo si scrive nel
+     documento, invece di lasciare un NIL che non significa niente. */
+  const naPhrase=/METAR\s+e\s+TAF\s+di\s+questo\s+aeroporto\s+non\s+disponibili/i.test(sec);
+  const metarNd=/\bMETAR\s+N\/D\b/i.test(sec);
+
+  /* METAR, SPECI e TAF dell'aeroporto della sezione. Skybrief li elenca dal piu'
+     recente al piu' vecchio: si tengono tutti, ma quello buono e' il primo. */
+  const re=new RegExp('\\b(METAR|SPECI|TAF)\\s+'+code+'\\s+\\d{6}Z','g');
+  const starts=[]; let m;
+  while((m=re.exec(sec))!==null) starts.push({kind:m[1].toUpperCase(), idx:m.index});
+  starts.forEach((st,i)=>{
+    const rest=sec.slice(st.idx, i+1<starts.length ? starts[i+1].idx : sec.length);
+    let block=rest;
+    const stop=SKY_STOP.exec(rest);
+    if(stop) block=rest.slice(0, stop.index);
+    const eq=block.indexOf('=');
+    if(eq>=0) block=block.slice(0, eq+1);
+    block=block.replace(/\s+/g,' ').trim();
+    if(block.length<12) return;
+    if(st.kind==='METAR') out.metars.push(block);
+    else if(st.kind==='SPECI'){ if(!out.speci) out.speci=block; }
+    else if(!out.taf) out.taf=block;
+  });
+  out.metar=out.metars[0]||null;
+  out.metarNa = !out.metar && (metarNd || naPhrase);
+  out.tafNa   = !out.taf   && naPhrase;
+
+  /* NOTAM: dal contatore "n TOTALI, m ATTIVI OGGI" in giu', un bollettino per
+     pallino. La coda "n NOTAM inattivi — omessi" non e' un bollettino. */
+  const nh=/NOTAM\s*[—–-]\s*(\d+)\s+TOTALI[,\s]*(\d+)\s+ATTIV[IO]/i.exec(sec);
+  let zone;
+  if(nh){ out.notamDeclared=parseInt(nh[2],10); zone=sec.slice(nh.index+nh[0].length); }
+  else { const b=sec.indexOf('●'); zone = b>=0 ? sec.slice(b) : ''; }
+  zone=zone.replace(/\d+\s+NOTAM\s+inattiv[io]\s*[—–-]\s*omess[io][\s\S]*$/i,'');
+  out.notam=zone.split('●').map(t=>t.replace(/\s+/g,' ').trim()).filter(t=>t.length>8);
+
+  return out;
+}
+
+function parseSkybriefAirports(text){
+  const norm=String(text||'').replace(/[ \t]+/g,' ');
+  const heads=skyAirportHeaders(norm);
+  if(!heads.length) return null;
+  const tail=skyTailIndex(norm, heads[heads.length-1].idx);
+  const byIcao={};
+  heads.forEach((h,i)=>{
+    const end = i+1<heads.length ? heads[i+1].idx : tail;
+    byIcao[h.code]=skyParseSection(norm.slice(h.idx, end), h.code);
+  });
+  return {byIcao, tailText:norm.slice(tail)};
+}
+
+/* ---------------------------------------------------------------------------
+   SIGMET / AIRMET
+   Vanno riportati anche quando non ce ne sono: "nessun SIGMET attivo" e' una
+   informazione, "non l'ho guardato" e' un'altra cosa.
+   ------------------------------------------------------------------------- */
+function extractSigmetAirmet(text){
+  const norm=String(text||'').replace(/[ \t]+/g,' ');
+  function grab(label){
+    const re=new RegExp('\\b'+label+'\\b','g'); let m, hit=null;
+    while((m=re.exec(norm))!==null){
+      const after=norm.slice(m.index, m.index+1200);
+      // un'intestazione vera e' seguita dal FIR, da un "Nessun ... attivo"
+      // oppure da un bollettino (che contiene sempre VALID)
+      if(!/\bFIR\b|Nessun|\bVALID\b/i.test(after.slice(label.length, label.length+200))) continue;
+      hit={idx:m.index, after}; break;
+    }
+    if(!hit) return null;
+    let block=hit.after;
+    const other = label==='AIRMET' ? 'SIGMET' : 'AIRMET';
+    const stop=new RegExp('\\b(?:'+other+'|GAMET|Venti\\s+in\\s+quota|Immagini\\s+Satellitari|CARTA\\s+DEI\\s+FRONTI)\\b')
+                 .exec(block.slice(label.length));
+    if(stop) block=block.slice(0, label.length+stop.index);
+    block=block.replace(/\s+/g,' ').trim();
+    const none=/nessun\w*\s+(?:AIRMET|SIGMET)\s+attiv|\bno\s+(?:AIRMET|SIGMET)\b/i.test(block);
+    const firM=/[—–-]\s*([^—–]*?\bFIR\b[^—–]*?)(?=\s*(?:Nessun|$))/i.exec(block);
+    return {none, fir: firM ? firM[1].trim() : null, text: block};
+  }
+  return {airmet:grab('AIRMET'), sigmet:grab('SIGMET')};
+}
+
+/* Riga pronta da scrivere nel campo del wizard e nel documento. */
+function sigmetAirmetText(result){
+  const out=[];
+  [['SIGMET', result && result.sigmet], ['AIRMET', result && result.airmet]].forEach(([lbl,o])=>{
+    if(!o) return;
+    const where = o.fir ? ` — ${o.fir}` : '';
+    out.push(o.none ? `${lbl}${where}: nessun ${lbl} attivo.` : o.text);
+  });
+  return out.join('\n\n');
+}
+
+/* ---------------------------------------------------------------------------
+   ABBINAMENTO ALLA ROTTA
+   Separato dalla lettura apposta: quando l'utente scrive o corregge un codice
+   ICAO basta rifare questo, senza ricaricare il PDF.
+   ------------------------------------------------------------------------- */
+function mapBriefing(byIcao, codes, enroute){
+  codes=codes||{}; byIcao=byIcao||{};
+  const up=(v)=>String(v||'').trim().toUpperCase();
+  const dep=up(codes.dep), dest=up(codes.dest), altn=up(codes.altn);
+  const blank=()=>({name:null, metar:null, metars:[], speci:null, taf:null, notam:[], notamDeclared:null, metarNa:false, tafNa:false});
+  const pick=(c)=>{
+    const b = c && byIcao[c];
+    if(!b) return blank();
+    return Object.assign(blank(), b, {notam:(b.notam||[]).slice(), metars:(b.metars||[]).slice()});
+  };
+  const result={dep:pick(dep), dest:pick(dest), altn:pick(altn), other:{}, enroute:(enroute||[]).slice(), byIcao};
+  Object.keys(byIcao).forEach(c=>{ if(c!==dep && c!==dest && c!==altn) result.other[c]=byIcao[c]; });
   return result;
 }
 
+function parseBriefingText(weatherText, notamText, codes){
+  codes=codes||{};
+  const sky=parseSkybriefAirports(weatherText);
+  let byIcao, enroute=[], source;
+  if(sky && Object.keys(sky.byIcao).length){
+    byIcao=sky.byIcao; source='skybrief';
+  }else{
+    const g=parseGenericBriefing(weatherText, notamText||weatherText, codes);
+    byIcao=g.byIcao; enroute=g.enroute; source='generico';
+  }
+  const result=mapBriefing(byIcao, codes, enroute);
+  const sa=extractSigmetAirmet(weatherText);
+  result.airmet=sa.airmet; result.sigmet=sa.sigmet;
+  result.source=source;
+  return result;
+}

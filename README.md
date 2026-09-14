@@ -94,9 +94,10 @@ Se un file manca o non si lascia leggere c'è la via d'uscita esplicita
 *"Prosegui e compila a mano"*: un parser che fallisce non deve rendere
 inutilizzabile l'applicazione proprio quando serve.
 
-Se il briefing viene caricato **prima** del NavLog, lo smistamento avviene senza
-conoscere i codici di rotta; appena il NavLog arriva il testo già in memoria viene
-riletto, senza dover ricaricare il file nell'ordine giusto.
+L'ordine di caricamento non conta: il briefing viene letto **per aeroporto**, non
+per slot di rotta, quindi caricarlo prima del NavLog non perde nulla. Appena la
+rotta è nota gli aeroporti già estratti vengono riabbinati a DEP e ARR, e se il
+briefing non copre uno dei due l'import lo dice subito.
 
 **Pagina 2 — Foglio di volo**, in sette passaggi:
 
@@ -210,11 +211,44 @@ di un altro bollettino, un titolo di sezione, un'intestazione di aeroporto). Ser
 perché in Skybrief il `=` finale **manca**, e senza questo controllo un TAF si
 porterebbe dietro l'intera sezione successiva del documento.
 
-Per i NOTAM resta la **regola d'oro**: se il testo cita `REF AIP AD 2 <ICAO>`,
-l'attribuzione segue quel codice anche contro l'intestazione di sezione sotto cui
-il NOTAM si trova. Le intestazioni sono riconosciute come `ICAO - Nome`
-(trattino, en dash o em dash), `ICAO Nome ... Airport`, `ICAO ... AD ELEV` e
-`ICAO <numero NOTAM>` — quest'ultima anche senza a capo davanti.
+### Skybrief: si ritagliano prima le sezioni
+
+Un briefing Skybrief è costruito per aeroporto: ogni blocco si apre con
+`ICAO  Nome — Città  AD ELEV  nnn ft` e prosegue con METAR, TAF, le minime e
+`NOTAM — n TOTALI, m ATTIVI OGGI` seguito dai bollettini puntati.
+
+Il documento viene quindi **prima diviso in sezioni** — l'ancora è `AD ELEV`, che
+compare una volta per aeroporto e mai dentro un NOTAM — e solo dopo si legge
+dentro ciascuna. Il vantaggio non è di eleganza: cercando i bollettini con
+espressioni regolari su tutto il testo, un gruppo di quattro maiuscole dentro un
+NOTAM (`...LANDING AIDS', COLUMN 7`) si spacciava per aeroporto e si portava via
+i NOTAM di quello vero. Con le sezioni il conteggio torna: su un briefing di
+prova LIMC/LIML/LIRF il parser trova **16, 13 e 30** bollettini, esattamente i
+numeri che il documento dichiara come attivi.
+
+Ne esce un indice per ICAO di *tutti* gli aeroporti del briefing, indipendente
+dalla rotta. L'abbinamento a DEP / DEST / ALTN è un passaggio separato
+(`mapBriefing`), e questo è ciò che permette di scegliere l'alternato **dopo**
+aver caricato il briefing: cambiando il codice, i suoi METAR, TAF e NOTAM
+compaiono senza ricaricare il PDF. Se il nuovo codice non è nel briefing i campi
+vengono svuotati — il meteo dell'aeroporto precedente sotto il nome di quello
+nuovo sarebbe peggio di un campo vuoto.
+
+Quando il briefing dichiara esplicitamente che un bollettino non c'è
+(`METAR N/D`, «METAR e TAF di questo aeroporto non disponibili») il campo riporta
+*N/D — non disponibile nel briefing*, che non è la stessa cosa di un riquadro
+lasciato vuoto.
+
+**SIGMET e AIRMET** vengono letti dalla coda del documento e finiscono nell'OFP
+anche quando non ce n'è nessuno: «nessun SIGMET attivo» è un'informazione, un
+riquadro vuoto no.
+
+Per i briefing di altro formato resta il parser generico, con la **regola d'oro**
+per i NOTAM: se il testo cita `REF AIP AD 2 <ICAO>`, l'attribuzione segue quel
+codice anche contro l'intestazione di sezione sotto cui il NOTAM si trova. Le
+intestazioni sono riconosciute come `ICAO - Nome` (trattino, en dash o em dash),
+`ICAO Nome ... Airport`, `ICAO ... AD ELEV` e `ICAO <numero NOTAM>` —
+quest'ultima anche senza a capo davanti.
 
 Quello che il parser non riconosce resta comunque **correggibile a mano** in ogni
 campo prima di generare il PDF.

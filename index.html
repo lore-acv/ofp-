@@ -467,6 +467,12 @@
           <div class="fld"><textarea id="enrouteNotam" style="min-height:80px"></textarea></div>
         </div>
         <div class="group">
+          <h3>SIGMET / AIRMET</h3>
+          <div class="fld"><textarea id="sigmetAirmet" style="min-height:70px"></textarea></div>
+          <div class="hint">Compilato dal briefing. Anche l'assenza va riportata: &laquo;nessun SIGMET attivo&raquo;
+            &egrave; un'informazione, un riquadro vuoto no.</div>
+        </div>
+        <div class="group">
           <h3>PIC</h3>
           <div class="fld"><label>Nome PIC (firma)</label><input id="picName" value="" placeholder="Nome e Cognome PIC"></div>
         </div>
@@ -1547,6 +1553,8 @@ function pageStatus(){
       ${wxBlock('DESTINATION AIRPORT', txt('arr'), txt('destMetar'), txt('destSpeci'), txt('destTaf'))}
       ${wxBlock('ALTERNATE AIRPORT', txt('altn'), withDepFallback(txt('altnMetar'),txt('depMetar')), withDepFallback(txt('altnSpeci'),txt('depSpeci')), withDepFallback(txt('altnTaf'),txt('depTaf')))}
       ${Object.keys(other).map(c=>wxBlock('OTHER AIRPORTS', c, other[c].metar, other[c].speci, other[c].taf)).join('')}
+      <div style="font-weight:700;margin-top:8px">SIGMET / AIRMET</div>
+      <div class="filled" style="white-space:pre-wrap">${esc(orNil(txt('sigmetAirmet')))}</div>
     </div>
     <div style="margin-top:auto">
       <div>PIC SIGNATURE: <span class="filled">${esc(txt('picName'))}</span></div>
@@ -2143,34 +2151,87 @@ wxDrop.addEventListener('drop',e=>{e.preventDefault();wxDrop.style.borderColor='
 wxFile.addEventListener('change',e=>{if(e.target.files[0])handleWxPdf(e.target.files[0])});
 wxRetryBtn.addEventListener('click',()=>{ if(window.__wxLastFile) handleWxPdf(window.__wxLastFile); });
 
-function applyBriefingResult(r){
-  let found=0;
-  function setIfFound(id, val){ if(val){ $(id).value = val; found++; } }
-  setIfFound('depMetar', r.dep.metar); setIfFound('depSpeci', r.dep.speci); setIfFound('depTaf', r.dep.taf);
-  if(r.dep.notam.length){ $('depNotam').value = r.dep.notam.join('\n\n'); found++; }
-  setIfFound('destMetar', r.dest.metar); setIfFound('destSpeci', r.dest.speci); setIfFound('destTaf', r.dest.taf);
-  if(r.dest.notam.length){ $('destNotam').value = r.dest.notam.join('\n\n'); found++; }
-  setIfFound('altnMetar', r.altn.metar); setIfFound('altnSpeci', r.altn.speci); setIfFound('altnTaf', r.altn.taf);
-  if(r.altn.notam.length){ $('altnNotam').value = r.altn.notam.join('\n\n'); found++; }
-  if(r.enroute.length){ $('enrouteNotam').value = r.enroute.join('\n\n'); found++; }
+/* Slot del wizard <-> aeroporti del briefing. Il briefing viene letto per ICAO
+   (vedi mapBriefing in ofp-core.js), quindi l'abbinamento si puo' rifare ogni
+   volta che l'utente scrive o corregge un codice, senza ricaricare il PDF. */
+const WX_SLOTS = [
+  {slot:'dep',  pfx:'dep',  icao:'dep'},
+  {slot:'dest', pfx:'dest', icao:'arr'},
+  {slot:'altn', pfx:'altn', icao:'altn'}
+];
+const WX_NA = 'N/D — non disponibile nel briefing';
 
-  // aeroporti "altri" (ICAO diversi da DEP/DEST/ALTN citati nel briefing): non hanno
-  // un campo del form dedicato, li teniamo qui e li stampiamo nel PDF automaticamente
+/* opts.onlyEmpty: rimappatura dopo un cambio di codice. Non si tocca quello che
+   l'utente ha gia' scritto a mano, MA se cambia l'ICAO di uno slot i suoi campi
+   vengono prima svuotati: il meteo del vecchio aeroporto sotto il nuovo nome
+   sarebbe peggio di un campo vuoto. */
+function applyBriefingResult(r, opts){
+  opts = opts || {};
+  window.__wxResult = r;
+  window.__wxFilled = window.__wxFilled || {};
+  let found = 0;
+
+  WX_SLOTS.forEach(({slot, pfx, icao})=>{
+    const code = txt(icao).trim().toUpperCase();
+    const b = r[slot] || {};
+    const owned = window.__wxFilled[slot];
+    const codeChanged = owned !== undefined && owned !== code;
+    if(codeChanged) ['Metar','Speci','Taf','Notam'].forEach(k=>{ const el=$(pfx+k); if(el) el.value=''; });
+
+    const put=(id,val)=>{
+      const el=$(id); if(!el || !val) return;
+      if(opts.onlyEmpty && !codeChanged && el.value.trim()) return;
+      el.value = val; found++;
+    };
+    put(pfx+'Metar', b.metar || (b.metarNa ? WX_NA : ''));
+    put(pfx+'Speci', b.speci);
+    put(pfx+'Taf',   b.taf   || (b.tafNa   ? WX_NA : ''));
+    put(pfx+'Notam', (b.notam||[]).join('\n\n'));
+    window.__wxFilled[slot] = code;
+  });
+
+  if((r.enroute||[]).length && (!opts.onlyEmpty || !txt('enrouteNotam').trim())){
+    $('enrouteNotam').value = r.enroute.join('\n\n'); found++;
+  }
+  const sa = sigmetAirmetText(r);
+  if(sa && $('sigmetAirmet') && (!opts.onlyEmpty || !txt('sigmetAirmet').trim())){
+    $('sigmetAirmet').value = sa; found++;
+  }
+
+  // aeroporti del briefing che non sono DEP/DEST/ALTN: non hanno un campo nel
+  // form, li teniamo qui e il documento li stampa comunque
   window.__briefingOther = r.other || {};
   const otherCodes = Object.keys(window.__briefingOther);
-  if(otherCodes.length) found += otherCodes.length;
+  const allCodes = Object.keys(r.byIcao || {});
 
   if(found>0){
-    const otherNote = otherCodes.length ? ` · Altri aeroporti trovati: ${otherCodes.join(', ')}` : '';
+    const otherNote = otherCodes.length ? ` · fuori rotta: ${otherCodes.join(', ')}` : '';
     wxStatus.className='mb-status ok';
-    wxStatus.textContent=`Dati briefing estratti con successo (${found} campi popolati) — controlla e correggi se serve.${otherNote}`;
+    wxStatus.textContent = `Briefing letto (${r.source||'generico'}) — aeroporti trovati: `
+      + (allCodes.join(', ') || 'nessuno') + ` · ${found} campi compilati${otherNote}`;
     wxRetryBtn.style.display='none';
   }else{
     wxStatus.className='mb-status';
-    wxStatus.textContent='Non ho trovato METAR/SPECI/TAF/NOTAM riconoscibili per i codici ICAO inseriti — compila i riquadri qui sotto a mano.';
+    wxStatus.textContent='Non ho trovato METAR/SPECI/TAF/NOTAM riconoscibili — compila i riquadri qui sotto a mano.';
     wxRetryBtn.style.display='inline-block';
   }
 }
+
+/* Rimappatura su cambio di codice ICAO: i dati del briefing sono gia' in
+   memoria indicizzati per aeroporto, basta riassegnarli agli slot. E' cosi' che
+   un alternato scelto dopo l'import riceve comunque il suo METAR e i suoi NOTAM. */
+function remapBriefing(){
+  const r = window.__wxResult;
+  if(!r || !r.byIcao) return;
+  const codes = {dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(), altn:txt('altn').toUpperCase()};
+  const m = mapBriefing(r.byIcao, codes, r.enroute);
+  m.sigmet = r.sigmet; m.airmet = r.airmet; m.source = r.source;
+  applyBriefingResult(m, {onlyEmpty:true});
+}
+['dep','arr','altn'].forEach(id=>{
+  const el=$(id);
+  if(el) el.addEventListener('change', remapBriefing);
+});
 
 
 const chartDrop=$('chartDrop'), chartFile=$('chartFile'), chartThumbs=$('chartThumbs');
@@ -2734,6 +2795,11 @@ function buildPDF(){
     wxBlock('OTHER AIRPORTS', code, o.metar, o.speci, o.taf);
   });
 
+  // SIGMET e AIRMET riguardano la FIR, non il singolo aeroporto: vanno dopo i
+  // bollettini di aerodromo e prima delle cartine. Anche "nessuno attivo" si stampa.
+  sectionHeading('SIGMET / AIRMET');
+  printLinesWithBreak(orNil(txt('sigmetAirmet'))); y+=6;
+
   // Cartine meteo (GAFOR/SIGMET/SWC/Wind ecc.) estratte dal PDF sorgente: 2 per pagina,
   // subito dopo METAR/TAF e PRIMA della sezione NOTAM, come richiesto.
   const charts = window.__wxCharts || [];
@@ -2838,7 +2904,7 @@ const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route','cruisealt',
   'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','destProc','destThreats','destMit','acStatus','briefRemarks'];
 // Campi meteo/NOTAM (weather_data)
 const WX_FIELDS = ['depMetar','depSpeci','depTaf','depNotam','destMetar','destSpeci','destTaf','destNotam',
-  'altnMetar','altnSpeci','altnTaf','altnNotam','enrouteNotam','wxValid'];
+  'altnMetar','altnSpeci','altnTaf','altnNotam','enrouteNotam','sigmetAirmet','wxValid'];
 
 /* ==================== PERSISTENZA ====================
    Due backend, scelti da soli in base a dove gira la pagina:
@@ -2905,7 +2971,13 @@ function collectWeatherData(){
   if($('wxValid')) w.valid=$('wxValid').value;
   return w;
 }
-function applyFlightData(d){ if(!d) return; Object.keys(d).forEach(id=>{ if($(id)!=null && $(id)!==undefined && document.getElementById(id)) $(id).value=d[id]; }); }
+function applyFlightData(d){
+  if(!d) return;
+  Object.keys(d).forEach(id=>{ if(document.getElementById(id)) $(id).value=d[id]; });
+  // I campi caricati valgono per gli ICAO del foglio salvato: si registra quali,
+  // cosi' una rimappatura successiva non li scambia ne' li cancella per sbaglio.
+  window.__wxFilled = {dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(), altn:txt('altn').toUpperCase()};
+}
 function applyWeatherData(w){
   if(!w) return;
   Object.keys(w).forEach(id=>{ if(document.getElementById(id)) $(id).value=w[id]; });
@@ -2957,6 +3029,8 @@ function newFlight(){
   window.__wxPrintedAt=null;
   window.__navlog=null;
   window.__wxImported=false;
+  window.__wxResult=null;
+  window.__wxFilled={};
   // svuota OGNI campo di input/select/textarea del wizard...
   document.querySelectorAll('.scroll input, .scroll select, .scroll textarea').forEach(el=>{
     if(el.type==='file') return;

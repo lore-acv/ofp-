@@ -179,15 +179,13 @@ function handleWx(file){
       State.wx={printedAt:wx.printedAt, result:wx.result};
       State.charts=wx.charts||[];
       State.wxText=wx.text;      // conservato per una rilettura a codici noti
-      const r=wx.result, found=[];
-      if(r.dep.metar||r.dep.taf) found.push('DEP');
-      if(r.dest.metar||r.dest.taf) found.push('DEST');
-      if(r.altn.metar||r.altn.taf) found.push('ALTN');
-      const other=Object.keys(r.other||{});
-      say('wxStatus','ok','Briefing letto'
+      const r=wx.result;
+      const found=Object.keys(r.byIcao||{});
+      const conTaf=found.filter(c=>r.byIcao[c].taf).length;
+            say('wxStatus','ok','Briefing letto'
         + (wx.printedAt&&wx.printedAt.date?` — emesso ${wx.printedAt.date} ${wx.printedAt.time||''}`:'')
-        + (found.length?` · bollettini per ${found.join(', ')}`:' · nessun bollettino riconosciuto per i codici di rotta')
-        + (other.length?` · altri aeroporti: ${other.join(', ')}`:'')
+        + (found.length?` · ${found.length} aeroporti: ${found.join(', ')} (${conTaf} con TAF)`
+                       :' · nessun aeroporto riconosciuto')
         + (State.charts.length?` · ${State.charts.length} cartine`:''));
       $('wxPreview').innerHTML = wxPreviewTable(r);
       refresh();
@@ -200,30 +198,56 @@ function handleWx(file){
   reader.readAsArrayBuffer(file);
 }
 
+/* Il briefing viene letto per aeroporto, non per slot di rotta: qui si mostra
+   tutto quello che c'era dentro, cosi' si vede subito se manca un bollettino
+   oppure se il PDF copre un aeroporto che non ci aspettavamo. */
 function wxPreviewTable(r){
-  const cut=(s)=>{ const t=(s||'').trim(); return t? esc(t.slice(0,90))+(t.length>90?'…':'') : '—'; };
-  const row=(lbl,o)=>`<tr><td style="text-align:left;padding-right:.8rem">${lbl}</td>
-      <td style="text-align:left">${cut(o.metar)}</td></tr>`;
-  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:.78rem;color:var(--txt)">
-    <tr style="color:var(--txt-dim)"><th style="text-align:left">&nbsp;</th><th style="text-align:left">METAR</th></tr>
-    ${row('DEP',r.dep)}${row('DEST',r.dest)}${row('ALTN',r.altn)}
-  </table>`;
+  const codes = r.byIcao || {};
+  const list = Object.keys(codes);
+  if(!list.length) return '<div class="calc">Nessun aeroporto riconosciuto nel briefing.</div>';
+  const yn = (v, na) => v ? '<span style="color:#7fd18b">si</span>'
+                          : (na ? '<span style="color:#ffd479">N/D</span>'
+                                : '<span style="color:var(--txt-dim)">—</span>');
+  const role = (c) => {
+    const nav = State.nav || {};
+    if(c===nav.dep && c===nav.arr) return 'DEP/ARR';
+    if(c===nav.dep) return 'DEP';
+    if(c===nav.arr) return 'ARR';
+    return '';
+  };
+  const rows = list.map(c=>{
+    const b=codes[c];
+    return `<tr>
+      <td style="text-align:left"><b>${esc(c)}</b> <span style="color:var(--txt-dim)">${esc(role(c))}</span></td>
+      <td style="text-align:left;color:var(--txt-dim)">${esc((b.name||'').slice(0,34))}</td>
+      <td style="text-align:center">${yn(b.metar, b.metarNa)}</td>
+      <td style="text-align:center">${yn(b.taf, b.tafNa)}</td>
+      <td style="text-align:right">${(b.notam||[]).length}</td></tr>`;
+  }).join('');
+  const sa = sigmetAirmetText(r);
+  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt)">
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">ICAO</th><th style="text-align:left">Aeroporto</th>
+    <th>METAR</th><th>TAF</th><th style="text-align:right">NOTAM</th></tr>${rows}</table>
+    ${sa?`<div class="calc" style="white-space:pre-wrap">${esc(sa)}</div>`:''}`;
 }
 
-/* Se il briefing e' stato caricato prima del NavLog, lo smistamento e' avvenuto
-   senza conoscere i codici di rotta e i bollettini sono finiti fra gli "altri
-   aeroporti". Appena il NavLog arriva si rilegge il testo gia' in memoria: costa
-   nulla ed evita di dover ricaricare il file nell'ordine giusto. */
+/* Il briefing viene letto per aeroporto, quindi caricarlo prima o dopo il NavLog
+   non cambia nulla: appena la rotta e' nota basta riabbinare gli aeroporti gia'
+   estratti agli slot DEP/ARR, senza rileggere il PDF. Serve solo a dire subito
+   se il briefing copre davvero gli aeroporti della rotta. */
 function reparseWeather(){
-  if(!State.wxText || !State.nav) return;
-  const codes={dep:State.nav.dep||'', dest:State.nav.arr||'', altn:''};
-  State.wx.result = parseBriefingText(State.wxText, State.wxText, codes);
-  $('wxPreview').innerHTML = wxPreviewTable(State.wx.result);
-  const r=State.wx.result, found=[];
-  if(r.dep.metar||r.dep.taf) found.push('DEP');
-  if(r.dest.metar||r.dest.taf) found.push('DEST');
-  say('wxStatus','ok','Briefing riletto con i codici del NavLog'
-    + (found.length?` · bollettini per ${found.join(', ')}`:' · nessun bollettino per i codici di rotta'));
+  if(!State.wx || !State.wx.result || !State.nav) return;
+  const r = State.wx.result;
+  const codes = {dep:State.nav.dep||'', dest:State.nav.arr||'', altn:''};
+  const m = mapBriefing(r.byIcao, codes, r.enroute);
+  m.sigmet=r.sigmet; m.airmet=r.airmet; m.source=r.source;
+  State.wx.result = m;
+  $('wxPreview').innerHTML = wxPreviewTable(m);
+  const manca = [['partenza',codes.dep],['arrivo',codes.dest]]
+    .filter(([,c])=> c && !(r.byIcao||{})[c]).map(([lbl,c])=>`${lbl} ${c}`);
+  say('wxStatus', manca.length?'busy':'ok',
+    manca.length ? `Attenzione: il briefing non contiene l'aeroporto di ${manca.join(' ne quello di ')}.`
+                 : 'Briefing e NavLog concordano: gli aeroporti della rotta sono coperti.');
 }
 
 /* ---------------- stato e consegna ---------------- */
