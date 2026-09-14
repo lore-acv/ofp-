@@ -42,15 +42,35 @@ function doGet(e) {
   var page = (e && e.parameter && e.parameter.page === 'ofp') ? 'index' : 'import';
   var html = HtmlService.createHtmlOutputFromFile(page).getContent();
 
-  html = html.replace('<script src="ofp-core.js"></script>',
-                      '<script>' + fileContent_('core') + '</script>');
-  html = html.replace('<link rel="stylesheet" href="ofp.css">',
-                      '<style>' + fileContent_('styles') + '</style>');
+  html = inject_(html, '<script src="ofp-core.js"></script>',
+                 '<script>' + fileContent_('core') + '</script>');
+  html = inject_(html, '<link rel="stylesheet" href="ofp.css">',
+                 '<style>' + fileContent_('styles') + '</style>');
 
   return HtmlService.createHtmlOutput(html)
-    .setTitle(page === 'index' ? 'OFP — Cessna C172 FR' : 'OFP — Import dati di volo')
+    .setTitle(page === 'index' ? 'OFP \u2014 Cessna C172 FR' : 'OFP \u2014 Import dati di volo')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+/**
+ * Sostituisce `needle` con `replacement` senza che i `$` del testo iniettato
+ * vengano interpretati.
+ *
+ * String.replace tratta $&, $`, $', $1... nella stringa di sostituzione come
+ * riferimenti al testo trovato: il codice iniettato contiene un `'\\$&'`
+ * (escape di metacaratteri regex) e quello faceva reinserire il tag cercato,
+ * `</script>` compreso, in mezzo al JavaScript. Risultato: script chiuso a
+ * meta', HTML sbilanciato, "Contenuti HTML non corretti".
+ *
+ * Passando una funzione come secondo argomento il valore di ritorno viene
+ * usato alla lettera, quindi il problema non si pone.
+ */
+function inject_(html, needle, replacement) {
+  if (html.indexOf(needle) === -1) {
+    throw new Error('Segnaposto non trovato nella pagina: ' + needle);
+  }
+  return html.replace(needle, function () { return replacement; });
 }
 
 /** Contenuto grezzo di un file del progetto. */

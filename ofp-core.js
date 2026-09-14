@@ -12,7 +12,7 @@
    divergerebbero.
 
    Sotto Google Apps Script non puo' essere servito come file .js: Codice.gs lo
-   inserisce nella pagina al posto del suo tag <script src>. Vedi README.
+   inserisce nella pagina al posto del suo tag script src. Vedi README.
    ========================================================================== */
 
 /* ============================ helpers ============================ */
