@@ -46,6 +46,8 @@
     border:1px solid var(--panel-line);background:var(--field);cursor:pointer;font-size:.85rem;color:var(--txt-dim);
     min-height:2.1rem;user-select:none}
   .step-pill:hover{border-color:#3a5a80;color:var(--txt)}
+  .step-pill.locked{opacity:.45;cursor:not-allowed}
+  .step-pill.locked:hover{border-color:var(--panel-line);color:var(--txt-dim)}
   .step-pill .n{width:1.35rem;height:1.35rem;border-radius:50%;background:#1c2a38;color:var(--txt-dim);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex:0 0 auto}
   .step-pill.active{border-color:var(--accent-2);color:var(--txt)}
   .step-pill.active .n{background:var(--accent-2);color:#fff}
@@ -222,26 +224,46 @@
   <div class="formcol">
     <div class="scroll" id="scrollArea">
 
-      <!-- STEP 1 -->
+      <!-- STEP 2 -->
+      <!-- STEP 1 — IMPORT -->
       <div class="panel active" data-step="1">
-        <p class="step-title">Volo &amp; Aeromobile</p>
-        <p class="step-sub">Si parte da qui: carica il <b>NavLog ForeFlight</b> e il <b>briefing meteo</b>.
-          Rotta, distanze, tempi e consumi vengono letti dal NavLog; vento, QNH e temperatura dal briefing.
-          Tutto quello che viene estratto resta modificabile a mano.</p>
+        <p class="step-title">Import dati di volo</p>
+        <p class="step-sub">Il punto di partenza. Carica il <b>NavLog di ForeFlight</b> e il <b>briefing meteo</b>:
+          da qui escono rotta, waypoint, distanze e tempi, e poi vento, QNH, temperatura, METAR, TAF e NOTAM.
+          Finch&eacute; non sono stati caricati, gli altri passaggi restano bloccati.</p>
+
         <div class="group">
-          <h3>1 &mdash; NavLog ForeFlight</h3>
+          <h3>NavLog ForeFlight</h3>
           <div class="drop" id="navDrop">Clicca o trascina il NavLog esportato da ForeFlight (PDF o testo)</div>
           <input type="file" id="navFile" accept="application/pdf,text/plain,.txt,.csv" hidden>
           <div class="mb-status" id="navStatus"></div>
           <div id="navPreview" style="margin-top:.5rem"></div>
+          <div class="hint">Da qui vengono aeroporti, rotta e distanza. Velocit&agrave; e consumi <b>no</b>:
+            quelli restano quelli del POH, che ha la precedenza.</div>
         </div>
+
         <div class="group">
-          <h3>2 &mdash; Briefing meteo</h3>
+          <h3>Briefing meteo</h3>
           <div class="drop" id="wxDrop2">Clicca o trascina il PDF del briefing WX &amp; NOTAM</div>
           <div class="mb-status" id="wxStatus2"></div>
-          <div class="hint">Lo stesso file si pu&ograve; caricare anche dallo Step 7. METAR, SPECI, TAF e NOTAM
-            vengono smistati su DEP, ARR e ALTN, e da l&igrave; alimentano il calcolo prestazioni.</div>
+          <div class="hint">METAR, SPECI, TAF e NOTAM vengono smistati su DEP, ARR e ALTN, e da l&igrave;
+            alimentano vento, QNH e temperatura del calcolo prestazioni.</div>
         </div>
+
+        <div class="group">
+          <h3>Stato</h3>
+          <div id="importState"></div>
+          <button class="btn primary" id="btnUnlock" style="margin-top:.8rem" disabled>Continua</button>
+          <div class="hint" style="margin-top:.8rem">Manca un file o non si riesce a leggerlo?
+            <button class="btn" id="btnSkipImport" style="font-size:.85rem;padding:.4rem .8rem;min-height:auto">
+              Prosegui e compila a mano</button></div>
+        </div>
+      </div>
+
+      <div class="panel" data-step="2">
+        <p class="step-title">Volo &amp; Aeromobile</p>
+        <p class="step-sub">Dati generali della missione. Aeroporti e rotta arrivano gi&agrave; compilati
+          dal NavLog: correggili qui se serve.</p>
         <div class="group">
           <div class="row">
             <div class="fld"><label>DEP</label><input id="dep" value="" placeholder="ICAO DEP (es. LILN)" autocapitalize="characters" spellcheck="false"></div>
@@ -282,8 +304,8 @@
         </div>
       </div>
 
-      <!-- STEP 2 -->
-      <div class="panel" data-step="2">
+      <!-- STEP 3 -->
+      <div class="panel" data-step="3">
         <p class="step-title">Rotta &amp; Fuel</p>
         <p class="step-sub">Tutto il carburante e' in <b>litri</b>, i consumi in <b>litri/ora</b> e le velocita' in
           <b>MPH</b>, come sul POH del C172 FR. Massa carburante: <b>1 L = 0.72 kg</b>.
@@ -361,8 +383,8 @@
         </div>
       </div>
 
-      <!-- STEP 3 -->
-      <div class="panel" data-step="3">
+      <!-- STEP 4 -->
+      <div class="panel" data-step="4">
         <p class="step-title">Mass &amp; Balance</p>
         <p class="step-sub">Foglio di carico e centraggio, con la stessa struttura e gli stessi bracci del
           <b>W. &amp; B. Loading Form</b> dell'aeroclub (Pesi e Bilanciamento Rev. 14). Il carburante arriva
@@ -427,8 +449,8 @@
         </div>
       </div>
 
-      <!-- STEP 4 -->
-      <div class="panel" data-step="4">
+      <!-- STEP 5 -->
+      <div class="panel" data-step="5">
         <p class="step-title">Performance</p>
         <p class="step-sub">V-speeds lette dalla tabella AFM (nessuna interpolazione, arrotondamento conservativo)
           e calcolo <b>TOLD</b> di decollo e atterraggio: le distanze vengono calcolate da AFM fig. 5-4 e 5-5 con
@@ -543,8 +565,8 @@
           interpolata alla quota di crociera. Quote tabulate: 2500 / 5000 / 7500 / 10000 / 15000 ft.</div>
       </div>
 
-      <!-- STEP 5 -->
-      <div class="panel" data-step="5">
+      <!-- STEP 6 -->
+      <div class="panel" data-step="6">
         <p class="step-title">Dest Charts</p>
         <p class="step-sub">Carica fino a 2 immagini (cartine) e compila le note operative.</p>
         <div class="group">
@@ -565,8 +587,8 @@
         </div>
       </div>
 
-      <!-- STEP 6 -->
-      <div class="panel" data-step="6">
+      <!-- STEP 7 -->
+      <div class="panel" data-step="7">
         <p class="step-title">Briefing</p>
         <p class="step-sub">Threat &amp; error management per fase di volo, stato aeromobile, note.</p>
         <div class="group">
@@ -597,8 +619,8 @@
         </div>
       </div>
 
-      <!-- STEP 7 -->
-      <div class="panel" data-step="7">
+      <!-- STEP 8 -->
+      <div class="panel" data-step="8">
         <p class="step-title">NOTAM &amp; Weather</p>
         <p class="step-sub">Un riquadro per aeroporto (METAR + TAF + NOTAM), più i NOTAM di rotta.</p>
         <div class="group">
@@ -646,7 +668,8 @@
           <h3>PIC</h3>
           <div class="fld"><label>Nome PIC (firma)</label><input id="picName" value="" placeholder="Nome e Cognome PIC"></div>
         </div>
-        <div class="hint">Ultimo step. Usa "Scarica PDF" in alto per generare e scaricare il documento.</div>
+        <div class="hint">Ultimo passaggio. Il documento si genera dal menu in alto a destra,
+            con "Scarica PDF" o "Anteprima documento".</div>
       </div>
 
     </div>
@@ -727,22 +750,76 @@ function computeTimes(){
 }
 
 /* ============================ wizard nav ============================ */
-const STEP_LABELS=['Volo','Rotta&Fuel','M&B','Perf.','Charts','Briefing','NOTAM&Wx'];
-let currentStep=1; const totalSteps=7;
+const STEP_LABELS=['Import','Volo','Rotta&Fuel','M&B','Perf.','Charts','Briefing','NOTAM&Wx'];
+let currentStep=1; const totalSteps=8;
+
+/* ============ SBLOCCO DEL WIZARD ============
+   La prima pagina e' l'import: finche' non e' stata completata gli altri passaggi
+   restano chiusi, perche' compilarli prima vorrebbe dire inserire a mano dati che
+   fra un attimo verrebbero sovrascritti dai file.
+
+   Non e' pero' una gabbia: se un file manca o non si lascia leggere c'e' sempre la
+   via d'uscita esplicita, altrimenti un parser che fallisce renderebbe inutilizzabile
+   tutta l'applicazione proprio quando serve. */
+let wizardUnlocked=false;
+function importDone(){
+  return { nav: !!window.__navlog, wx: !!window.__wxImported };
+}
+function setUnlocked(v){
+  wizardUnlocked=!!v;
+  renderSteps();
+  if($('btnNext')) $('btnNext').disabled = !wizardUnlocked && currentStep===1;
+}
+function renderImportState(){
+  const box=$('importState'); if(!box) return;
+  const d=importDone();
+  const row=(ok,lbl,extra)=>`<div style="display:flex;align-items:center;gap:.6rem;margin:.35rem 0;font-size:.92rem">
+      <span style="width:1.4rem;height:1.4rem;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;
+        justify-content:center;font-size:.8rem;font-weight:700;
+        background:${ok?'#1f7a3d':'#1c2a38'};color:${ok?'#fff':'var(--txt-dim)'}">${ok?'✓':'!'}</span>
+      <span style="color:${ok?'var(--txt)':'var(--txt-dim)'}">${lbl}${extra?` <span style="color:var(--txt-dim)">— ${extra}</span>`:''}</span>
+    </div>`;
+  const navInfo = window.__navlog
+    ? `${window.__navlog.sum.legs.length} punti, ${window.__navlog.sum.totals.dist} nm`
+    : 'in attesa';
+  const wxInfo = window.__wxImported ? (txt('wxDate')||'caricato') : 'in attesa';
+  box.innerHTML = row(d.nav,'NavLog ForeFlight',navInfo) + row(d.wx,'Briefing meteo',wxInfo);
+  const ready = d.nav && d.wx;
+  if($('btnUnlock')){
+    $('btnUnlock').disabled = !ready && !wizardUnlocked;
+    $('btnUnlock').textContent = wizardUnlocked ? 'Vai al foglio di volo' : 'Continua';
+  }
+  // appena entrambi i file ci sono il wizard si apre da solo: e' il gesto che
+  // l'utente farebbe comunque subito dopo
+  if(ready && !wizardUnlocked) setUnlocked(true);
+}
 function renderSteps(){
   $('steps').innerHTML = STEP_LABELS.map((lbl,i)=>{
-    const n=i+1; const cls = n===currentStep?'active':(n<currentStep?'done':'');
-    return `<div class="step-pill ${cls}" data-goto="${n}"><span class="n">${n<currentStep?'✓':n}</span>${lbl}</div>`;
+    const n=i+1;
+    const locked = n>1 && !wizardUnlocked;
+    const cls = [n===currentStep?'active':(n<currentStep?'done':''), locked?'locked':''].filter(Boolean).join(' ');
+    const mark = locked ? '&#128274;' : (n<currentStep?'✓':n);
+    return `<div class="step-pill ${cls}" data-goto="${n}"${locked?' aria-disabled="true" title="Completa prima l\'import"':''}>`
+         + `<span class="n">${mark}</span>${lbl}</div>`;
   }).join('');
   document.querySelectorAll('.step-pill').forEach(p=>p.addEventListener('click',()=>goToStep(parseInt(p.dataset.goto))));
 }
 function goToStep(n){
-  currentStep=Math.min(Math.max(n,1),totalSteps);
+  n=Math.min(Math.max(n,1),totalSteps);
+  if(n>1 && !wizardUnlocked){ n=1; }          // tutto chiuso finche' l'import non e' fatto
+  currentStep=n;
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', parseInt(p.dataset.step)===currentStep));
   $('btnBack').disabled = currentStep===1;
   $('btnNext').style.display = currentStep===totalSteps ? 'none' : 'inline-block';
+  $('btnNext').disabled = currentStep===1 && !wizardUnlocked;
   renderSteps(); $('scrollArea').scrollTop=0; render();
+  if(currentStep===1) renderImportState();
 }
+if($('btnUnlock')) $('btnUnlock').addEventListener('click',()=>{ setUnlocked(true); goToStep(2); });
+if($('btnSkipImport')) $('btnSkipImport').addEventListener('click',()=>{
+  if(!confirm('Proseguire senza import?\n\nRotta, distanze e dati meteo andranno inseriti a mano.')) return;
+  setUnlocked(true); goToStep(2);
+});
 $('btnNext').addEventListener('click',()=>goToStep(currentStep+1));
 $('btnBack').addEventListener('click',()=>goToStep(currentStep-1));
 
@@ -2432,6 +2509,7 @@ function handleNavlog(file){
         + (sum.totals.ete?`, ${navDur(sum.totals.ete)} di volo`:'')
         + (sum.totals.fuel?`, ${sum.totals.fuel} ${sum.fuelUnit==='l'?'L':(sum.fuelUnit||'')} di carburante secondo ForeFlight`:''));
       $('navPreview').innerHTML=navPreviewHTML(sum);
+      renderImportState();
       render();
     }catch(err){
       console.error(err);
@@ -2916,6 +2994,8 @@ function handleWxPdf(file){
       const codes = { dep: txt('dep').toUpperCase(), dest: txt('arr').toUpperCase(), altn: txt('altn').toUpperCase() };
       const result = parseBriefingText(weatherText, notamText, codes);
       applyBriefingResult(result);
+      window.__wxImported = true;
+      renderImportState();
     }catch(err){
       wxStatus.className='mb-status'; wxStatus.textContent='Non sono riuscito a leggere questo PDF — compila i riquadri qui sotto a mano.';
       wxRetryBtn.style.display='inline-block';
@@ -4033,6 +4113,11 @@ function newFlight(){
   window.__editingFlightId=null;
   window.__wxCharts=null;
   window.__wxPrintedAt=null;
+  window.__navlog=null;
+  window.__wxImported=false;
+  setUnlocked(false);                       // si riparte dall'import
+  if($('navStatus')) $('navStatus').textContent='';
+  if($('navPreview')) $('navPreview').innerHTML='';
   // svuota OGNI campo di input/select/textarea del wizard...
   document.querySelectorAll('.scroll input, .scroll select, .scroll textarea').forEach(el=>{
     if(el.type==='file') return;
@@ -4075,7 +4160,10 @@ function editFlight(flightId){
   applyFlightData(f.flight_data);
   if(f.weather_data) applyWeatherData(f.weather_data);
   window.__editingFlightId=flightId;
-  closeDashboard(); goToStep(1); render();
+  // un volo ripreso dalla cronologia ha gia' i suoi dati dentro: rimandarlo
+  // all'import sarebbe solo un ostacolo
+  setUnlocked(true);
+  closeDashboard(); goToStep(2); render();
 }
 
 function viewFlightOFP(flightId){
@@ -4083,7 +4171,8 @@ function viewFlightOFP(flightId){
   applyFlightData(f.flight_data);
   if(f.weather_data) applyWeatherData(f.weather_data);
   window.__editingFlightId=flightId;
-  closeDashboard(); goToStep(1); render();
+  setUnlocked(true);
+  closeDashboard(); goToStep(2); render();
 }
 
 // Finalizza un volo caricando il PDF del briefing: riusa lo STESSO parser del wizard,
@@ -4251,7 +4340,8 @@ function applyAircraft(){
 if($('acSelect')) $('acSelect').addEventListener('change', applyAircraft);
 
 document.body.addEventListener('input',render);
-renderSteps(); goToStep(1); syncAltitudeToPerf(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
+renderSteps(); goToStep(1); renderImportState();
+syncAltitudeToPerf(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
 // su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
 if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
 bootstrapFlights(()=>{ if($('dashboard').classList.contains('open')) renderDashboard(); });

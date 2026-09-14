@@ -1,7 +1,7 @@
 # OFP Generator — Cessna C172 FR (Reims Rocket FR172J)
 
 Generatore di **Operational Flight Plan** per il Reims Cessna FR172J, adattato dal
-generatore per Diamond DA40. Wizard in 7 step, anteprima HTML fedele al documento
+generatore per Diamond DA40. Wizard in 8 passaggi che si apre su una pagina di import, anteprima HTML fedele al documento
 e **PDF vettoriale A4 in Courier** (jsPDF), con estrazione automatica di
 METAR / SPECI / TAF / NOTAM dal PDF del briefing meteo.
 
@@ -58,12 +58,20 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
 
 ## Flusso di lavoro
 
-1. **Volo & Aeromobile** — si parte da due import: il **NavLog ForeFlight** e il
-   **briefing meteo**. Dal NavLog vengono letti waypoint, prue magnetiche, distanze
-   di tratta e totali, tempi e consumi, e da lì si compilano aeroporti, rotta,
-   distanza Trip e quota di crociera. Appena i codici ICAO sono completi, coordinate,
-   elevazione e piste arrivano da OurAirports e completano distanza e tempo
-   dell'alternato, elevazioni, orientamenti pista e le distanze di partenza.
+Il wizard si apre su una **pagina di import dedicata**, e finché quella non è
+completata gli altri passaggi restano **bloccati**: compilarli prima vorrebbe dire
+inserire a mano dati che di lì a poco verrebbero sovrascritti dai file.
+
+0. **Import** — NavLog ForeFlight e briefing meteo. Ogni caricamento aggiorna un
+   riepilogo di stato; quando ci sono entrambi il wizard si apre da solo.
+   Se un file manca o non si lascia leggere c'è la via d'uscita esplicita
+   *"Prosegui e compila a mano"*: un parser che fallisce non deve rendere
+   inutilizzabile l'applicazione proprio quando serve. Un volo ripreso dalla
+   cronologia parte già sbloccato, perché i suoi dati li ha già dentro.
+1. **Volo & Aeromobile** — aeroporti, rotta e orari, già compilati dal NavLog.
+   Appena i codici ICAO sono completi, coordinate, elevazione e piste arrivano da
+   OurAirports e completano distanza e tempo dell'alternato, elevazioni,
+   orientamenti pista e le distanze di partenza.
 2. **Rotta & Fuel** — **settaggio di potenza** (quota + RPM + MAP): i menu offrono
    solo le combinazioni pubblicate dal POH per quella quota e mostrano la
    percentuale di potenza; scegliendone una, **Ground Speed e Fuel Flow del Trip si
@@ -76,11 +84,10 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
    struttura e gli stessi bracci del *W. & B. Loading Form* dell'aeroclub
    (Pesi e Bilanciamento Rev. 14). Si sceglie l'aeromobile (**I-CCAF** o
    **I-CCAB**, con peso a vuoto e momento precaricati) e si inseriscono solo
-   occupanti e bagaglio: il carburante arriva dallo Step 2. Calcola ZFW, Ramp,
-   TOW e i due pesi di atterraggio con peso, braccio e momento, e verifica
+   occupanti e bagaglio: il carburante arriva dallo step precedente. Calcola ZFW,
+   Ramp, TOW e i due pesi di atterraggio con peso, braccio e momento, e verifica
    masse, bagaglio e **inviluppo di centraggio** al decollo e a entrambi gli
-   atterraggi. Mostra anche la **VA alla massa effettiva**. Il PDF del foglio
-   firmato può essere allegato come immagine.
+   atterraggi. Mostra anche la **VA alla massa effettiva**.
 4. **Performance** — V-speeds (in **MPH**, con selettore per i nodi), tabella POH
    completa della quota pianificata, e calcolo **TOLD** per **tutti e tre gli
    aeroporti**: decollo a DEP, atterraggio a DEST e ad ALTN. Ogni aeroporto usa il
@@ -89,11 +96,11 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
    distanza per 15 m, confrontate con TORA, TODA e LDA.
 5. **Dest Charts** — fino a 2 cartine, più le note operative.
 6. **Briefing** — threat & error management per fase, stato aeromobile, remarks.
-7. **NOTAM & Weather** — carica il PDF del briefing: data/ora di emissione,
-   METAR / SPECI / TAF e NOTAM vengono estratti e smistati su DEP / ARR / ALTN;
-   le pagine grafiche (SWC, venti, satellite) finiscono nell'OFP come cartine.
+7. **NOTAM & Weather** — METAR / SPECI / TAF e NOTAM smistati su DEP / ARR / ALTN;
+   le pagine grafiche del briefing (SWC, venti, satellite) finiscono nell'OFP come
+   cartine.
 
-"Salva in Standby" mette il volo in attesa del meteo; dalla Dashboard lo si
+"Salva in standby" mette il volo in attesa del meteo; dalla Dashboard lo si
 finalizza caricando il PDF del briefing anche giorni dopo.
 
 ## Import NavLog ForeFlight
