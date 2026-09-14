@@ -27,11 +27,40 @@ var FLIGHTS_KEY = 'saved_flights';
  */
 var CHUNK_SIZE = 8000;
 
-function doGet() {
-  return HtmlService.createHtmlOutputFromFile('index')
-    .setTitle('OFP Generator — Cessna C172 FR')
+/**
+ * L'applicazione ha due pagine: import.html (apertura) e index.html (foglio di
+ * volo). Sotto Apps Script sono lo stesso web app distinto da un parametro:
+ *   <url>            -> pagina di import
+ *   <url>?page=ofp   -> foglio di volo
+ *
+ * Apps Script non serve file .js e .css: i tag <script src="ofp-core.js"> e
+ * <link href="ofp.css"> vengono sostituiti al volo con il contenuto dei file
+ * `core` e `styles` del progetto. Cosi' le pagine restano identiche a quelle che
+ * funzionano aperte direttamente in un browser, senza doppioni da mantenere.
+ */
+function doGet(e) {
+  var page = (e && e.parameter && e.parameter.page === 'ofp') ? 'index' : 'import';
+  var html = HtmlService.createHtmlOutputFromFile(page).getContent();
+
+  html = html.replace('<script src="ofp-core.js"></script>',
+                      '<script>' + fileContent_('core') + '</script>');
+  html = html.replace('<link rel="stylesheet" href="ofp.css">',
+                      '<style>' + fileContent_('styles') + '</style>');
+
+  return HtmlService.createHtmlOutput(html)
+    .setTitle(page === 'index' ? 'OFP — Cessna C172 FR' : 'OFP — Import dati di volo')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+/** Contenuto grezzo di un file del progetto. */
+function fileContent_(name) {
+  return HtmlService.createHtmlOutputFromFile(name).getContent();
+}
+
+/** URL del web app: serve alle pagine per costruire i link fra loro. */
+function getWebAppUrl() {
+  return ScriptApp.getService().getUrl();
 }
 
 /**

@@ -1,0 +1,290 @@
+<!--
+  CESSNA C172 FR — PAGINA DI APERTURA / IMPORT DATI DI VOLO
+
+  Prima delle due pagine dell'applicazione. Qui si caricano il NavLog di
+  ForeFlight e il briefing meteo; quando entrambi sono stati letti il pulsante
+  "Continua" porta al foglio di volo (index.html), a cui i dati vengono passati
+  tramite sessionStorage.
+
+  Perche' sessionStorage e non un parametro nell'URL: i dati estratti sono
+  decine di kilobyte (bollettini interi, tabelle di tratte, e le cartine meteo
+  come immagini) e in un URL non entrerebbero. sessionStorage vive quanto la
+  scheda, che e' esattamente la durata di una compilazione.
+
+  Il grosso del codice — lettura NavLog, briefing, METAR — sta in ofp-core.js,
+  condiviso con il foglio di volo: le due pagine non hanno due copie dei parser.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OFP C172 FR — Import dati di volo</title>
+<link rel="stylesheet" href="ofp.css">
+<style>
+  /* La pagina di apertura non ha il wizard: una colonna sola, centrata. */
+  body{display:block;height:auto;min-height:100vh;overflow:auto}
+  .wrap{max-width:52rem;margin:0 auto;padding:1.4rem 1.6rem 4rem}
+  .lead{font-size:.95rem;color:var(--txt-dim);line-height:1.6;margin:.4rem 0 1.6rem}
+  .card{background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:.8rem;
+        padding:1.2rem 1.3rem;margin-bottom:1.1rem}
+  .card h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.07em;color:var(--txt-dim);
+           margin:0 0 .8rem;font-weight:700}
+  .state-row{display:flex;align-items:center;gap:.7rem;margin:.45rem 0;font-size:.95rem}
+  .dot{width:1.5rem;height:1.5rem;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;
+       justify-content:center;font-size:.85rem;font-weight:700;background:#1c2a38;color:var(--txt-dim)}
+  .dot.ok{background:#1f7a3d;color:#fff}
+  .actions{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin-top:1.2rem}
+  a.btn{display:inline-flex;align-items:center;text-decoration:none}
+  a.btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+  .skip{background:transparent;border:0;color:var(--txt-dim);text-decoration:underline;
+        cursor:pointer;font:inherit;font-size:.88rem;padding:.4rem}
+  .skip:hover{color:var(--txt)}
+</style>
+
+<div class="topbar">
+  <div class="topbar-main">
+    <div class="brand">C172 FR OFP <span>Import</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="step-title" style="margin-top:1.2rem">Import dati di volo</p>
+  <p class="lead">Il punto di partenza. Carica il <b>NavLog di ForeFlight</b> e il <b>briefing meteo</b>:
+    da qui escono rotta, waypoint, distanze e tempi, e poi vento, QNH, temperatura, METAR, TAF e NOTAM.
+    Quando entrambi sono stati letti si passa al foglio di volo.</p>
+
+  <div class="card">
+    <h2>NavLog ForeFlight</h2>
+    <div class="drop" id="navDrop">Clicca o trascina il NavLog esportato da ForeFlight (PDF o testo)</div>
+    <input type="file" id="navFile" accept="application/pdf,text/plain,.txt,.csv" hidden>
+    <div class="mb-status" id="navStatus"></div>
+    <div id="navPreview" style="margin-top:.6rem"></div>
+    <div class="hint">Da qui vengono aeroporti, rotta e distanza. Velocit&agrave; e consumi <b>no</b>:
+      quelli restano quelli del POH, che ha la precedenza.</div>
+  </div>
+
+  <div class="card">
+    <h2>Briefing meteo</h2>
+    <div class="drop" id="wxDrop">Clicca o trascina il PDF del briefing WX &amp; NOTAM</div>
+    <input type="file" id="wxFile" accept="application/pdf" hidden>
+    <div class="mb-status" id="wxStatus"></div>
+    <div id="wxPreview" style="margin-top:.6rem"></div>
+    <div class="hint">METAR, SPECI, TAF e NOTAM vengono smistati su DEP, ARR e ALTN, e da l&igrave;
+      alimentano vento, QNH e temperatura del calcolo prestazioni.
+      Lo smistamento usa i codici ICAO letti dal NavLog: caricalo prima, se puoi.</div>
+  </div>
+
+  <div class="card">
+    <h2>Stato</h2>
+    <div id="importState"></div>
+    <div class="actions">
+      <a class="btn primary" id="btnContinue" href="index.html" aria-disabled="true">Continua</a>
+      <button type="button" class="skip" id="btnSkip">Prosegui e compila a mano</button>
+    </div>
+    <div class="hint" style="margin-top:.8rem">Manca un file o non si riesce a leggerlo? Si pu&ograve;
+      proseguire lo stesso: rotta e dati meteo andranno inseriti a mano nel foglio di volo.</div>
+  </div>
+</div>
+
+<script src="ofp-core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }</script>
+<script>
+"use strict";
+
+/* Chiave di consegna verso il foglio di volo. La versione serve a non far
+   ingoiare alla pagina successiva un formato piu' vecchio rimasto in sessione. */
+const HANDOFF_KEY='ofp_handoff', HANDOFF_V=1;
+const State = { nav:null, wx:null, charts:null };
+
+function say(id,cls,msg){ const el=$(id); if(el){ el.className='mb-status '+cls; el.textContent=msg; } }
+
+/* ---------------- NavLog ---------------- */
+function wireDrop(dropId, fileId, handler){
+  const d=$(dropId), f=$(fileId);
+  if(!d||!f) return;
+  d.addEventListener('click',()=>f.click());
+  d.addEventListener('dragover',e=>{e.preventDefault();d.style.borderColor='#2f6df6';});
+  d.addEventListener('dragleave',()=>d.style.borderColor='');
+  d.addEventListener('drop',e=>{e.preventDefault();d.style.borderColor='';if(e.dataTransfer.files[0])handler(e.dataTransfer.files[0]);});
+  f.addEventListener('change',e=>{ if(e.target.files[0]) handler(e.target.files[0]); });
+}
+
+function handleNavlog(file){
+  say('navStatus','busy','Leggo il NavLog…');
+  const isPdf = file.type==='application/pdf' || /\.pdf$/i.test(file.name);
+  const reader=new FileReader();
+  reader.onload=async ()=>{
+    try{
+      let nav;
+      if(isPdf){
+        const pdf=await pdfjsLib.getDocument({data:reader.result.slice(0)}).promise;
+        nav=await parseNavlogPdf(pdf);
+      }else{
+        nav=parseNavlogPlainText(String(reader.result||''));
+      }
+      if(!nav.legs.length){
+        say('navStatus','err','Non ho riconosciuto la tabella del NavLog in questo file. Controlla che sia l\'esportazione NavLog di ForeFlight, oppure prosegui e compila a mano.');
+        $('navPreview').innerHTML=''; State.nav=null; refresh(); return;
+      }
+      State.nav=navlogSummary(nav);
+      reparseWeather();          // ora i codici di rotta ci sono
+      say('navStatus','ok',`NavLog letto: ${State.nav.legs.length} punti, ${State.nav.totals.dist} nm`
+        + (State.nav.totals.ete?`, ${navDur(State.nav.totals.ete)} di volo`:'')
+        + (State.nav.totals.fuel?`, ${State.nav.totals.fuel} ${State.nav.fuelUnit==='l'?'L':(State.nav.fuelUnit||'')} secondo ForeFlight`:''));
+      $('navPreview').innerHTML=navPreviewTable(State.nav);
+      refresh();
+    }catch(err){
+      console.error(err);
+      say('navStatus','err','Non sono riuscito a leggere il file: '+(err&&err.message||err));
+      State.nav=null; refresh();
+    }
+  };
+  if(isPdf) reader.readAsArrayBuffer(file); else reader.readAsText(file);
+}
+
+/* Tabella di verifica: nulla viene passato alla pagina successiva senza che il
+   pilota abbia potuto vedere come e' stato interpretato. */
+function navPreviewTable(sum){
+  const u=(v,su)=>v==null?'—':v+(su||'');
+  const hdg=(v)=>v==null?'—':('00'+v).slice(-3)+'°';
+  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt)">
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">WAYPOINT</th><th>MH</th><th>LEG nm</th><th>ETE</th><th>FUEL</th></tr>
+    ${sum.legs.map(l=>`<tr>
+      <td style="text-align:left">${esc(l.full||l.wpt)}</td>
+      <td style="text-align:right">${hdg(l.mh)}</td>
+      <td style="text-align:right">${u(l.dist)}</td>
+      <td style="text-align:right">${navDur(l.ete)}</td>
+      <td style="text-align:right">${u(l.fuel)}</td></tr>`).join('')}
+    <tr style="font-weight:700;border-top:1px solid var(--panel-line)">
+      <td style="text-align:left">TOTALI</td><td></td>
+      <td style="text-align:right">${u(sum.totals.dist)}</td>
+      <td style="text-align:right">${navDur(sum.totals.ete)}</td>
+      <td style="text-align:right">${u(sum.totals.fuel)}</td></tr>
+  </table>
+  ${sum.roundTrip?`<div class="calc">→ volo di rientro alla partenza: DEP e ARR sono entrambi ${esc(sum.dep)}</div>`:''}`;
+}
+
+/* ---------------- Briefing meteo ---------------- */
+function handleWx(file){
+  say('wxStatus','busy','Leggo il PDF briefing…');
+  const reader=new FileReader();
+  reader.onload=async ()=>{
+    try{
+      // Lo smistamento dei bollettini ha bisogno dei codici di rotta: se il NavLog
+      // e' gia' stato letto li prende da li', altrimenti lavora senza e nel foglio
+      // di volo si potra' ricaricare il briefing a codici noti.
+      const codes = State.nav
+        ? {dep:State.nav.dep||'', dest:State.nav.arr||'', altn:''}
+        : {dep:'', dest:'', altn:''};
+      const wx=await readBriefingPdf(reader.result.slice(0), codes);
+      State.wx={printedAt:wx.printedAt, result:wx.result};
+      State.charts=wx.charts||[];
+      State.wxText=wx.text;      // conservato per una rilettura a codici noti
+      const r=wx.result, found=[];
+      if(r.dep.metar||r.dep.taf) found.push('DEP');
+      if(r.dest.metar||r.dest.taf) found.push('DEST');
+      if(r.altn.metar||r.altn.taf) found.push('ALTN');
+      const other=Object.keys(r.other||{});
+      say('wxStatus','ok','Briefing letto'
+        + (wx.printedAt&&wx.printedAt.date?` — emesso ${wx.printedAt.date} ${wx.printedAt.time||''}`:'')
+        + (found.length?` · bollettini per ${found.join(', ')}`:' · nessun bollettino riconosciuto per i codici di rotta')
+        + (other.length?` · altri aeroporti: ${other.join(', ')}`:'')
+        + (State.charts.length?` · ${State.charts.length} cartine`:''));
+      $('wxPreview').innerHTML = wxPreviewTable(r);
+      refresh();
+    }catch(err){
+      console.error(err);
+      say('wxStatus','err','Non sono riuscito a leggere questo PDF — prosegui e compila i bollettini a mano.');
+      State.wx=null; State.charts=null; refresh();
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function wxPreviewTable(r){
+  const cut=(s)=>{ const t=(s||'').trim(); return t? esc(t.slice(0,90))+(t.length>90?'…':'') : '—'; };
+  const row=(lbl,o)=>`<tr><td style="text-align:left;padding-right:.8rem">${lbl}</td>
+      <td style="text-align:left">${cut(o.metar)}</td></tr>`;
+  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:.78rem;color:var(--txt)">
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">&nbsp;</th><th style="text-align:left">METAR</th></tr>
+    ${row('DEP',r.dep)}${row('DEST',r.dest)}${row('ALTN',r.altn)}
+  </table>`;
+}
+
+/* Se il briefing e' stato caricato prima del NavLog, lo smistamento e' avvenuto
+   senza conoscere i codici di rotta e i bollettini sono finiti fra gli "altri
+   aeroporti". Appena il NavLog arriva si rilegge il testo gia' in memoria: costa
+   nulla ed evita di dover ricaricare il file nell'ordine giusto. */
+function reparseWeather(){
+  if(!State.wxText || !State.nav) return;
+  const codes={dep:State.nav.dep||'', dest:State.nav.arr||'', altn:''};
+  State.wx.result = parseBriefingText(State.wxText, State.wxText, codes);
+  $('wxPreview').innerHTML = wxPreviewTable(State.wx.result);
+  const r=State.wx.result, found=[];
+  if(r.dep.metar||r.dep.taf) found.push('DEP');
+  if(r.dest.metar||r.dest.taf) found.push('DEST');
+  say('wxStatus','ok','Briefing riletto con i codici del NavLog'
+    + (found.length?` · bollettini per ${found.join(', ')}`:' · nessun bollettino per i codici di rotta'));
+}
+
+/* ---------------- stato e consegna ---------------- */
+function refresh(){
+  const box=$('importState');
+  const row=(ok,lbl,extra)=>`<div class="state-row">
+      <span class="dot${ok?' ok':''}">${ok?'✓':'!'}</span>
+      <span style="color:${ok?'var(--txt)':'var(--txt-dim)'}">${lbl}${extra?` <span style="color:var(--txt-dim)">— ${extra}</span>`:''}</span>
+    </div>`;
+  const navInfo = State.nav ? `${State.nav.legs.length} punti, ${State.nav.totals.dist} nm` : 'in attesa';
+  const wxInfo  = State.wx ? ((State.wx.printedAt&&State.wx.printedAt.date)||'caricato') : 'in attesa';
+  box.innerHTML = row(!!State.nav,'NavLog ForeFlight',navInfo) + row(!!State.wx,'Briefing meteo',wxInfo);
+  const ready = !!State.nav && !!State.wx;
+  const a=$('btnContinue');
+  a.setAttribute('aria-disabled', ready?'false':'true');
+  if(ready) save();
+}
+
+/* Scrive in sessionStorage quello che il foglio di volo dovra' ritrovare. Le
+   cartine meteo sono immagini e possono valere qualche megabyte: se non ci
+   stanno si salva tutto il resto senza di loro, invece di perdere l'intero
+   import per colpa di un allegato. */
+function save(manual){
+  const payload={v:HANDOFF_V, ts:Date.now(), manual:!!manual,
+                 nav:State.nav, wx:State.wx, charts:State.charts||[]};
+  try{
+    sessionStorage.setItem(HANDOFF_KEY, JSON.stringify(payload));
+    return true;
+  }catch(e){
+    try{
+      payload.charts=[]; payload.chartsDropped=true;
+      sessionStorage.setItem(HANDOFF_KEY, JSON.stringify(payload));
+      say('wxStatus','busy','Briefing letto, ma le cartine erano troppo grandi per essere passate alla pagina successiva: verranno omesse dall\'OFP.');
+      return true;
+    }catch(e2){
+      say('wxStatus','err','Non sono riuscito a passare i dati alla pagina successiva ('+(e2&&e2.message||e2)+').');
+      return false;
+    }
+  }
+}
+
+wireDrop('navDrop','navFile',handleNavlog);
+wireDrop('wxDrop','wxFile',handleWx);
+
+$('btnSkip').addEventListener('click',()=>{
+  if(!confirm('Proseguire senza import?\n\nRotta, distanze e dati meteo andranno inseriti a mano nel foglio di volo.')) return;
+  save(true);
+  window.location.href=$('btnContinue').getAttribute('href');
+});
+
+/* Sotto Apps Script le due pagine sono lo stesso web app con un parametro, e la
+   navigazione deve uscire dall'iframe: per questo il "Continua" e' un vero link
+   con target _top invece di una window.location da script, che il sandbox
+   bloccherebbe. */
+if(typeof google!=='undefined' && google.script && google.script.run){
+  google.script.run.withSuccessHandler(function(url){
+    const a=$('btnContinue');
+    a.setAttribute('href', url+'?page=ofp');
+    a.setAttribute('target','_top');
+  }).getWebAppUrl();
+}
+
+refresh();
+</script>

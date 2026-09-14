@@ -16,186 +16,23 @@
   Anteprima HTML fedele al template; PDF vettoriale jsPDF (Courier nativo), A4.
 -->
 <meta charset="utf-8">
-<style>
-  :root{
-    --panel-bg:#0f1720; --panel-2:#16212e; --panel-line:#25384c;
-    --accent:#e11d2a; --accent-2:#2f6df6;
-    --field:#0b1219; --txt:#dbe4ee; --txt-dim:#8fa3b8;
-  }
-  *{box-sizing:border-box}
-  /* Base tipografica in rem: 16px su desktop, 18px da tablet in su. Tutto il resto
-     (campi, pulsanti, tabelle) e' espresso in rem e scala di conseguenza, invece di
-     restare inchiodato ai 11-13px che su iPad erano illeggibili. */
-  html{font-size:16px;-webkit-text-size-adjust:100%}
-  html,body{margin:0;height:100%}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size:1rem;background:#070c12;color:var(--txt);display:flex;flex-direction:column;height:100vh;overflow:hidden}
-  /* Altezza minima dei target di tocco: 44px e' la soglia sotto la quale su touch
-     si sbaglia bersaglio. */
-  :root{--tap:2.75rem}
+<link rel="stylesheet" href="ofp.css">
 
-  /* Intestazione su due righe: titolo + hamburger sopra, fasi di compilazione
-     sotto, in una sola linea orizzontale. */
-  .topbar{display:flex;flex-direction:column;gap:.5rem;padding:.7rem 1.1rem;background:var(--panel-2);border-bottom:1px solid var(--panel-line);flex:0 0 auto}
-  .topbar-main{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-  .topbar .brand{font-weight:700;letter-spacing:.02em;font-size:1.06rem;white-space:nowrap}
-  .topbar .brand b{color:var(--accent)}
-  .topbar .brand span{color:var(--txt-dim);font-weight:500}
-  .steps{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
-  .step-pill{display:flex;align-items:center;gap:.45rem;padding:.4rem .8rem .4rem .45rem;border-radius:999px;
-    border:1px solid var(--panel-line);background:var(--field);cursor:pointer;font-size:.85rem;color:var(--txt-dim);
-    min-height:2.1rem;user-select:none}
-  .step-pill:hover{border-color:#3a5a80;color:var(--txt)}
-  .step-pill.locked{opacity:.45;cursor:not-allowed}
-  .step-pill.locked:hover{border-color:var(--panel-line);color:var(--txt-dim)}
-  .step-pill .n{width:1.35rem;height:1.35rem;border-radius:50%;background:#1c2a38;color:var(--txt-dim);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex:0 0 auto}
-  .step-pill.active{border-color:var(--accent-2);color:var(--txt)}
-  .step-pill.active .n{background:var(--accent-2);color:#fff}
-  .step-pill.done .n{background:#1f7a3d;color:#fff}
-  .step-pill.done{color:var(--txt)}
-
-  .btn{border:1px solid var(--panel-line);background:var(--field);color:var(--txt);padding:.6rem 1.05rem;border-radius:.5rem;
-    font-size:.92rem;cursor:pointer;font-weight:600;min-height:var(--tap);font-family:inherit}
-  .btn:hover{border-color:#3a5a80}
-  .btn.primary{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
-  .btn.primary:hover{filter:brightness(1.08)}
-  .btn:disabled{opacity:.45;cursor:not-allowed}
-  .btn.ghost{background:transparent}
-
-  .main{display:flex;flex:1;min-height:0}
-  .formcol{width:44rem;max-width:100%;flex:1;margin:0 auto;background:var(--panel-bg);display:flex;flex-direction:column;min-height:0}
-  .formcol .scroll{flex:1;overflow-y:auto;padding:1.4rem 1.6rem 2rem;-webkit-overflow-scrolling:touch}
-  .formcol .navrow{flex:0 0 auto;display:flex;justify-content:space-between;gap:.7rem;padding:.9rem 1.6rem;border-top:1px solid var(--panel-line);background:var(--panel-2)}
-  .stage{flex:1;overflow:auto;background:#0a0f15;padding:28px;display:flex;flex-direction:column;align-items:center;gap:26px}
-  /* le pagine A4 hanno altezza fissa: dentro un contenitore flex verticale
-     verrebbero schiacciate per stare nello spazio disponibile */
-  .stage .page{flex:0 0 auto}
-
-  .step-title{font-size:1.35rem;font-weight:700;margin:0 0 .25rem}
-  .step-sub{font-size:.92rem;color:var(--txt-dim);margin:0 0 1.25rem;line-height:1.5}
-  .group{margin-bottom:1.15rem}
-  .group h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--txt-dim);margin:0 0 .55rem;font-weight:700}
-  .row{display:flex;gap:.6rem;margin:.5rem 0;flex-wrap:wrap}
-  .fld{flex:1 1 11rem;display:flex;flex-direction:column;gap:.25rem;min-width:0}
-  .fld label{font-size:.8rem;color:var(--txt-dim);font-weight:600;letter-spacing:.01em}
-  .fld input,.fld textarea,.fld select{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);
-    border-radius:.45rem;padding:.6rem .65rem;font-size:1rem;font-family:inherit;width:100%;min-height:var(--tap)}
-  .fld textarea{resize:vertical;min-height:4.5rem;font-family:"Courier New",monospace;font-size:.95rem;line-height:1.45}
-  .fld input:focus,.fld textarea:focus,.fld select:focus{outline:2px solid var(--accent-2);outline-offset:1px;border-color:var(--accent-2)}
-  .hint{font-size:.82rem;color:var(--txt-dim);margin:.2rem 0 .7rem;line-height:1.55}
-  .calc{font-size:.85rem;color:#7fd18b;font-family:"Courier New",monospace;margin-top:.4rem;line-height:1.5}
-
-  .drop{border:1.5px dashed var(--panel-line);border-radius:.6rem;padding:1.2rem;text-align:center;cursor:pointer;font-size:.9rem;color:var(--txt-dim);background:var(--field);min-height:var(--tap)}
-  .drop:hover{border-color:var(--accent-2);color:var(--txt)}
-  .mb-status{font-size:.85rem;margin-top:.5rem;font-family:"Courier New",monospace;line-height:1.5}
-  .mb-status.ok{color:#7fd18b}
-  .mb-status.err{color:#ff7a7a}
-  .mb-status.busy{color:#ffd479}
-  .mb-thumb{margin-top:10px;max-width:100%;border:1px solid var(--panel-line);border-radius:6px;display:none}
-  .thumb-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-  .thumb-row img{max-width:120px;max-height:90px;border:1px solid var(--panel-line);border-radius:5px}
-
-  .panel{display:none}
-  .panel.active{display:block}
-
-  .refTable{width:100%;border-collapse:collapse;font-size:11px;margin:8px 0;color:#111}
-  .refTable th,.refTable td{border:1px solid #999;padding:3px 5px;text-align:center}
-  .refTable th{background:#e2e2e2;font-weight:700;color:#111}
-  .cruiseTable td,.cruiseTable th{padding:2.5px 4px;font-size:9.5px}
-  .cruiseTable td.hlCell{background:#fff3b0;font-weight:700}
-  .pohTable tr:nth-child(even){background:#f2f2f2}
-  .pohTable td:first-child{text-align:left;font-weight:600}
-  .pohTable th:first-child{text-align:left}
-
-  /* =============== OFP DOCUMENT PREVIEW =============== */
-  .page{width:210mm;height:297mm;background:#fff;color:#111;box-shadow:0 6px 30px rgba(0,0,0,.5);position:relative;
-    font-family:"Courier New",Courier,monospace;font-size:10.5px;line-height:1.4;padding:12mm 12mm 10mm;overflow:hidden}
-  .frame{border:1px solid #000;height:calc(100% - 6mm)}
-  .titlebar{background:#d6d6d6;border-bottom:1px solid #000;text-align:center;font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:12px;padding:6px 4px}
-  .pbody{padding:8px 10px 10px;height:calc(100% - 30px);display:flex;flex-direction:column}
-  .sec-head-label{font-size:11px;font-weight:400;margin-bottom:2px}
-  .sec-head-label.bold{font-weight:700}
-  .sec-rule{border-bottom:1px dotted #000;height:1px;margin-bottom:6px}
-  .footer{position:absolute;left:12mm;right:12mm;bottom:8mm;display:flex;justify-content:space-between;font-size:10.5px;border-top:1px solid #ccc;padding-top:4px}
-
-  .kv{white-space:pre}
-  table.times2{border-collapse:collapse;font-size:10.5px;width:100%}
-  table.times2 td{padding:0;white-space:nowrap}
-  .filled{color:#0033aa}
-  @media print{
-    .filled{color:#000}
-    /* in stampa resta solo il documento: niente wizard, niente topbar */
-    .topbar,.formcol,#dashboard{display:none!important}
-    body{height:auto;overflow:visible;background:#fff}
-    .main{display:block}
-    .stage{display:block!important;padding:0;background:#fff;gap:0}
-    .page{box-shadow:none;page-break-after:always;margin:0}
-  }
-/* ===== menu hamburger ===== */
-.menu-wrap{position:relative}
-.hamburger{display:flex;flex-direction:column;justify-content:center;gap:.28rem;
-  width:var(--tap);height:var(--tap);padding:0 .7rem;border:1px solid var(--panel-line);
-  background:var(--field);border-radius:.5rem;cursor:pointer}
-.hamburger span{display:block;height:2px;background:var(--txt);border-radius:2px;transition:transform .18s ease,opacity .18s ease}
-.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(.3rem) rotate(45deg)}
-.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
-.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-.3rem) rotate(-45deg)}
-.hamburger:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
-.menu{position:absolute;right:0;top:calc(100% + .5rem);min-width:15rem;z-index:60;
-  background:var(--panel-2);border:1px solid var(--panel-line);border-radius:.65rem;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);padding:.35rem;display:none}
-.menu.open{display:block}
-.menu button{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--txt);
-  font:inherit;font-size:.95rem;padding:.7rem .85rem;border-radius:.45rem;cursor:pointer;min-height:var(--tap)}
-.menu button:hover,.menu button:focus-visible{background:var(--field);outline:none}
-.menu .sep{height:1px;background:var(--panel-line);margin:.3rem .5rem}
-.menu button.primary{color:var(--accent-2);font-weight:700}
-
-/* ===== breakpoint: tablet e schermi stretti ===== */
-@media (max-width:1100px){
-  .main{flex-direction:column}
-  .formcol{width:100%}
-  .stage{display:none!important}          /* su schermi stretti l'anteprima ruberebbe tutto lo spazio */
-}
-@media (min-width:768px){
-  html{font-size:18px}                    /* iPad e superiori: base piu' grande, tutto scala con lei */
-}
-@media (max-width:520px){
-  html{font-size:16px}
-  .formcol .scroll{padding:1rem 1rem 1.6rem}
-  .formcol .navrow{padding:.8rem 1rem}
-  .topbar{padding:.6rem .8rem}
-}
-/* Su dispositivi a tocco i target crescono ancora un po'. */
-@media (pointer:coarse){
-  :root{--tap:3rem}
-  .step-pill{min-height:2.5rem;font-size:.9rem}
-}
-
-/* ===== Dashboard / Flight Manager ===== */
-#dashboard{position:fixed;inset:0;background:#f4f6fb;z-index:50;display:none;overflow:auto}
-#dashboard.open{display:block}
-.dash-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:#fff;border-bottom:1px solid #e3e7ef;position:sticky;top:0;z-index:2}
-.dash-head h2{margin:0;font-size:17px}
-.dash-body{padding:20px 22px;max-width:1100px;margin:0 auto}
-.dash-section-title{font-size:13px;font-weight:700;color:#5b6472;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 10px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
-.flight-card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:15px 16px;box-shadow:0 1px 3px rgba(20,30,60,.04)}
-.flight-card .route{font-size:18px;font-weight:700;letter-spacing:.02em;margin:2px 0 4px}
-.flight-card .meta{font-size:12px;color:#6b7280;line-height:1.5}
-.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:8px}
-.badge.standby{background:#fef3c7;color:#92660c}
-.badge.completed{background:#d1fae5;color:#065f46}
-.card-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-.card-actions .btn{font-size:12px;padding:6px 10px}
-.card-drop{margin-top:11px;border:1.5px dashed #cbd3e1;border-radius:9px;padding:12px;text-align:center;font-size:12px;color:#6b7280;cursor:pointer;transition:.15s}
-.card-drop:hover{border-color:#2f6df6;color:#2f6df6}
-.dash-empty{color:#9aa2b1;font-size:13px;padding:8px 0}
-.dash-status{font-size:12px;margin-top:6px;min-height:14px}
-.dash-status.busy{color:#92660c}
-.dash-status.ok{color:#065f46}
-.dash-status.err{color:#b91c1c}
-</style>
+<!-- Mostrato solo se si apre il foglio di volo senza essere passati dall'import.
+     E' un pannello con un link, non una redirezione da script: sotto Apps Script
+     le due pagine stanno in un iframe e la navigazione programmatica verrebbe
+     bloccata dal sandbox, mentre un <a target="_top"> funziona sempre. -->
+<div id="needImport" style="display:none;position:fixed;inset:0;z-index:80;background:#070c12;
+     align-items:center;justify-content:center;padding:2rem">
+  <div style="max-width:30rem;text-align:center">
+    <p class="step-title">Prima serve l'import</p>
+    <p style="color:var(--txt-dim);line-height:1.6;margin:.6rem 0 1.4rem">
+      Il foglio di volo si compila a partire dal NavLog di ForeFlight e dal briefing meteo.
+      Caricali nella pagina di apertura: da l&igrave; si arriva qui con tutto gi&agrave; dentro.</p>
+    <a class="btn primary" id="goImport" href="import.html"
+       style="display:inline-flex;align-items:center;text-decoration:none">Vai all'import</a>
+  </div>
+</div>
 
 <div class="topbar">
   <div class="topbar-main">
@@ -224,43 +61,8 @@
   <div class="formcol">
     <div class="scroll" id="scrollArea">
 
-      <!-- STEP 2 -->
-      <!-- STEP 1 — IMPORT -->
+      <!-- STEP 1 -->
       <div class="panel active" data-step="1">
-        <p class="step-title">Import dati di volo</p>
-        <p class="step-sub">Il punto di partenza. Carica il <b>NavLog di ForeFlight</b> e il <b>briefing meteo</b>:
-          da qui escono rotta, waypoint, distanze e tempi, e poi vento, QNH, temperatura, METAR, TAF e NOTAM.
-          Finch&eacute; non sono stati caricati, gli altri passaggi restano bloccati.</p>
-
-        <div class="group">
-          <h3>NavLog ForeFlight</h3>
-          <div class="drop" id="navDrop">Clicca o trascina il NavLog esportato da ForeFlight (PDF o testo)</div>
-          <input type="file" id="navFile" accept="application/pdf,text/plain,.txt,.csv" hidden>
-          <div class="mb-status" id="navStatus"></div>
-          <div id="navPreview" style="margin-top:.5rem"></div>
-          <div class="hint">Da qui vengono aeroporti, rotta e distanza. Velocit&agrave; e consumi <b>no</b>:
-            quelli restano quelli del POH, che ha la precedenza.</div>
-        </div>
-
-        <div class="group">
-          <h3>Briefing meteo</h3>
-          <div class="drop" id="wxDrop2">Clicca o trascina il PDF del briefing WX &amp; NOTAM</div>
-          <div class="mb-status" id="wxStatus2"></div>
-          <div class="hint">METAR, SPECI, TAF e NOTAM vengono smistati su DEP, ARR e ALTN, e da l&igrave;
-            alimentano vento, QNH e temperatura del calcolo prestazioni.</div>
-        </div>
-
-        <div class="group">
-          <h3>Stato</h3>
-          <div id="importState"></div>
-          <button class="btn primary" id="btnUnlock" style="margin-top:.8rem" disabled>Continua</button>
-          <div class="hint" style="margin-top:.8rem">Manca un file o non si riesce a leggerlo?
-            <button class="btn" id="btnSkipImport" style="font-size:.85rem;padding:.4rem .8rem;min-height:auto">
-              Prosegui e compila a mano</button></div>
-        </div>
-      </div>
-
-      <div class="panel" data-step="2">
         <p class="step-title">Volo &amp; Aeromobile</p>
         <p class="step-sub">Dati generali della missione. Aeroporti e rotta arrivano gi&agrave; compilati
           dal NavLog: correggili qui se serve.</p>
@@ -304,8 +106,8 @@
         </div>
       </div>
 
-      <!-- STEP 3 -->
-      <div class="panel" data-step="3">
+      <!-- STEP 2 -->
+      <div class="panel" data-step="2">
         <p class="step-title">Rotta &amp; Fuel</p>
         <p class="step-sub">Tutto il carburante e' in <b>litri</b>, i consumi in <b>litri/ora</b> e le velocita' in
           <b>MPH</b>, come sul POH del C172 FR. Massa carburante: <b>1 L = 0.72 kg</b>.
@@ -383,8 +185,8 @@
         </div>
       </div>
 
-      <!-- STEP 4 -->
-      <div class="panel" data-step="4">
+      <!-- STEP 3 -->
+      <div class="panel" data-step="3">
         <p class="step-title">Mass &amp; Balance</p>
         <p class="step-sub">Foglio di carico e centraggio, con la stessa struttura e gli stessi bracci del
           <b>W. &amp; B. Loading Form</b> dell'aeroclub (Pesi e Bilanciamento Rev. 14). Il carburante arriva
@@ -449,8 +251,8 @@
         </div>
       </div>
 
-      <!-- STEP 5 -->
-      <div class="panel" data-step="5">
+      <!-- STEP 4 -->
+      <div class="panel" data-step="4">
         <p class="step-title">Performance</p>
         <p class="step-sub">V-speeds lette dalla tabella AFM (nessuna interpolazione, arrotondamento conservativo)
           e calcolo <b>TOLD</b> di decollo e atterraggio: le distanze vengono calcolate da AFM fig. 5-4 e 5-5 con
@@ -565,8 +367,8 @@
           interpolata alla quota di crociera. Quote tabulate: 2500 / 5000 / 7500 / 10000 / 15000 ft.</div>
       </div>
 
-      <!-- STEP 6 -->
-      <div class="panel" data-step="6">
+      <!-- STEP 5 -->
+      <div class="panel" data-step="5">
         <p class="step-title">Dest Charts</p>
         <p class="step-sub">Carica fino a 2 immagini (cartine) e compila le note operative.</p>
         <div class="group">
@@ -587,8 +389,8 @@
         </div>
       </div>
 
-      <!-- STEP 7 -->
-      <div class="panel" data-step="7">
+      <!-- STEP 6 -->
+      <div class="panel" data-step="6">
         <p class="step-title">Briefing</p>
         <p class="step-sub">Threat &amp; error management per fase di volo, stato aeromobile, note.</p>
         <div class="group">
@@ -619,8 +421,8 @@
         </div>
       </div>
 
-      <!-- STEP 8 -->
-      <div class="panel" data-step="8">
+      <!-- STEP 7 -->
+      <div class="panel" data-step="7">
         <p class="step-title">NOTAM &amp; Weather</p>
         <p class="step-sub">Un riquadro per aeroporto (METAR + TAF + NOTAM), più i NOTAM di rotta.</p>
         <div class="group">
@@ -697,13 +499,12 @@
   </div>
 </div>
 
+<script src="ofp-core.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }</script>
 <script>
 /* ============================ helpers ============================ */
-function $(id){ return document.getElementById(id); }
-
 /* ===================== AEROMOBILE: CESSNA C172 FR =====================
    Reims Cessna FR172J "Reims Rocket" — Continental IO-360-D, 210 HP a 2800 RPM,
    elica a giri costanti (da cui la Manifold Pressure nelle tabelle di crociera).
@@ -735,14 +536,6 @@ const AC_LIMITS = {
   vne:161, vno:127, vfe:87, va:104,          // kt, AFM pag. 2-1
   xwindTO:20, xwindLDG:15                    // kt, AFM pag. 2-4
 };
-function num(id){ const v=parseFloat($(id).value); return isNaN(v)?0:v; }
-function txt(id){ const el=$(id); return el ? (el.value||"") : ""; }
-function fmt(n){ if(!isFinite(n)) return "0"; const r=Math.round(n*100)/100; return Number.isInteger(r)? String(r) : r.toFixed(2); }
-function pad(s,len){ s=String(s); return s+" ".repeat(Math.max(0,len-s.length)); }
-function padL(s,len){ s=String(s); return " ".repeat(Math.max(0,len-s.length))+s; }
-function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
-function hhmmToMin(s){ s=String(s||'0000').replace(/\D/g,'').padStart(4,'0'); const hh=parseInt(s.slice(0,2))||0, mm=parseInt(s.slice(2,4))||0; return hh*60+mm; }
-function minToHHMM(min){ min=((min%1440)+1440)%1440; const hh=Math.floor(min/60), mm=min%60; return String(hh).padStart(2,'0')+String(mm).padStart(2,'0'); }
 function computeTimes(){
   const off=hhmmToMin(txt('tOFF')), to=hhmmToMin(txt('tTO')), ldg=hhmmToMin(txt('tLDG')), on=hhmmToMin(txt('tON'));
   const block=minToHHMM(on-off), flt=minToHHMM(ldg-to);
@@ -750,76 +543,23 @@ function computeTimes(){
 }
 
 /* ============================ wizard nav ============================ */
-const STEP_LABELS=['Import','Volo','Rotta&Fuel','M&B','Perf.','Charts','Briefing','NOTAM&Wx'];
-let currentStep=1; const totalSteps=8;
+const STEP_LABELS=['Volo','Rotta&Fuel','M&B','Perf.','Charts','Briefing','NOTAM&Wx'];
+let currentStep=1; const totalSteps=7;
 
-/* ============ SBLOCCO DEL WIZARD ============
-   La prima pagina e' l'import: finche' non e' stata completata gli altri passaggi
-   restano chiusi, perche' compilarli prima vorrebbe dire inserire a mano dati che
-   fra un attimo verrebbero sovrascritti dai file.
-
-   Non e' pero' una gabbia: se un file manca o non si lascia leggere c'e' sempre la
-   via d'uscita esplicita, altrimenti un parser che fallisce renderebbe inutilizzabile
-   tutta l'applicazione proprio quando serve. */
-let wizardUnlocked=false;
-function importDone(){
-  return { nav: !!window.__navlog, wx: !!window.__wxImported };
-}
-function setUnlocked(v){
-  wizardUnlocked=!!v;
-  renderSteps();
-  if($('btnNext')) $('btnNext').disabled = !wizardUnlocked && currentStep===1;
-}
-function renderImportState(){
-  const box=$('importState'); if(!box) return;
-  const d=importDone();
-  const row=(ok,lbl,extra)=>`<div style="display:flex;align-items:center;gap:.6rem;margin:.35rem 0;font-size:.92rem">
-      <span style="width:1.4rem;height:1.4rem;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;
-        justify-content:center;font-size:.8rem;font-weight:700;
-        background:${ok?'#1f7a3d':'#1c2a38'};color:${ok?'#fff':'var(--txt-dim)'}">${ok?'✓':'!'}</span>
-      <span style="color:${ok?'var(--txt)':'var(--txt-dim)'}">${lbl}${extra?` <span style="color:var(--txt-dim)">— ${extra}</span>`:''}</span>
-    </div>`;
-  const navInfo = window.__navlog
-    ? `${window.__navlog.sum.legs.length} punti, ${window.__navlog.sum.totals.dist} nm`
-    : 'in attesa';
-  const wxInfo = window.__wxImported ? (txt('wxDate')||'caricato') : 'in attesa';
-  box.innerHTML = row(d.nav,'NavLog ForeFlight',navInfo) + row(d.wx,'Briefing meteo',wxInfo);
-  const ready = d.nav && d.wx;
-  if($('btnUnlock')){
-    $('btnUnlock').disabled = !ready && !wizardUnlocked;
-    $('btnUnlock').textContent = wizardUnlocked ? 'Vai al foglio di volo' : 'Continua';
-  }
-  // appena entrambi i file ci sono il wizard si apre da solo: e' il gesto che
-  // l'utente farebbe comunque subito dopo
-  if(ready && !wizardUnlocked) setUnlocked(true);
-}
 function renderSteps(){
   $('steps').innerHTML = STEP_LABELS.map((lbl,i)=>{
-    const n=i+1;
-    const locked = n>1 && !wizardUnlocked;
-    const cls = [n===currentStep?'active':(n<currentStep?'done':''), locked?'locked':''].filter(Boolean).join(' ');
-    const mark = locked ? '&#128274;' : (n<currentStep?'✓':n);
-    return `<div class="step-pill ${cls}" data-goto="${n}"${locked?' aria-disabled="true" title="Completa prima l\'import"':''}>`
-         + `<span class="n">${mark}</span>${lbl}</div>`;
+    const n=i+1; const cls = n===currentStep?'active':(n<currentStep?'done':'');
+    return `<div class="step-pill ${cls}" data-goto="${n}"><span class="n">${n<currentStep?'✓':n}</span>${lbl}</div>`;
   }).join('');
   document.querySelectorAll('.step-pill').forEach(p=>p.addEventListener('click',()=>goToStep(parseInt(p.dataset.goto))));
 }
 function goToStep(n){
-  n=Math.min(Math.max(n,1),totalSteps);
-  if(n>1 && !wizardUnlocked){ n=1; }          // tutto chiuso finche' l'import non e' fatto
-  currentStep=n;
+  currentStep=Math.min(Math.max(n,1),totalSteps);
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', parseInt(p.dataset.step)===currentStep));
   $('btnBack').disabled = currentStep===1;
   $('btnNext').style.display = currentStep===totalSteps ? 'none' : 'inline-block';
-  $('btnNext').disabled = currentStep===1 && !wizardUnlocked;
   renderSteps(); $('scrollArea').scrollTop=0; render();
-  if(currentStep===1) renderImportState();
 }
-if($('btnUnlock')) $('btnUnlock').addEventListener('click',()=>{ setUnlocked(true); goToStep(2); });
-if($('btnSkipImport')) $('btnSkipImport').addEventListener('click',()=>{
-  if(!confirm('Proseguire senza import?\n\nRotta, distanze e dati meteo andranno inseriti a mano.')) return;
-  setUnlocked(true); goToStep(2);
-});
 $('btnNext').addEventListener('click',()=>goToStep(currentStep+1));
 $('btnBack').addEventListener('click',()=>goToStep(currentStep-1));
 
@@ -1211,295 +951,6 @@ function climbFuelLitres(alt){
   return t[t.length-1][1];
 }
 
-/* ===================== IMPORT NAVLOG FOREFLIGHT =====================
-   Un NavLog e' una TABELLA, e le tabelle in PDF non si leggono a righe di testo:
-   pdf.js restituisce i frammenti in ordine sparso e unendoli con spazi le colonne
-   si mescolano. Qui si usano invece le COORDINATE di ogni frammento: si
-   raggruppano per ordinata (le righe), si legge la riga di intestazione per capire
-   dove cade ogni colonna, e si assegna ogni valore alla colonna piu' vicina.
-
-   Cosi' il parser non dipende da un ordine di colonne fisso: si adatta a quelle
-   che il NavLog dichiara davvero nella sua intestazione.
-
-   Sinonimi riconosciuti nell'intestazione: ForeFlight cambia le diciture fra
-   versioni e fra impostazioni di unita', quindi ogni colonna ha piu' nomi possibili. */
-const NAVLOG_COLS = [
-  {key:'wpt',     names:['WPT','WAYPOINT','IDENT','FIX','NAME','POINT','ROUTE']},
-  {key:'airway',  names:['AIRWAY','AWY','VIA']},
-  {key:'alt',     names:['ALT','ALTITUDE','FL']},
-  {key:'mc',      names:['MC','MAGCRS','COURSE','CRS','TC']},
-  {key:'mh',      names:['MH','HDG','HEADING','MAGHDG','TH']},
-  {key:'wind',    names:['WIND','WND']},
-  {key:'oat',     names:['OAT','TEMP']},
-  {key:'tas',     names:['TAS','CAS','IAS']},
-  {key:'gs',      names:['GS','GNDSPD','GROUNDSPEED']},
-  {key:'legDist', names:['LEG','DIST','DISTANCE','NM','LEGDIST']},
-  {key:'remDist', names:['REMDIST','REMAINING','REM']},
-  {key:'ete',     names:['ETE','TIME','LEGTIME']},
-  {key:'eta',     names:['ETA','ATA']},
-  {key:'legFuel', names:['FUEL','BURN','LEGFUEL','USED']},
-  {key:'remFuel', names:['REMFUEL','FUELREM','ONBOARD']}
-];
-function navlogNormHead(t){ return String(t||'').toUpperCase().replace(/[^A-Z]/g,''); }
-function navlogColFor(headText){
-  const h=navlogNormHead(headText);
-  if(!h) return null;
-  // match esatto prima, poi per prefisso: "DIST(NM)" -> DIST
-  for(const c of NAVLOG_COLS) if(c.names.indexOf(h)>=0) return c.key;
-  for(const c of NAVLOG_COLS) for(const n of c.names) if(h.startsWith(n)&&n.length>=3) return c.key;
-  return null;
-}
-
-/* Raggruppa i frammenti di una pagina in righe, per ordinata. */
-function navlogLines(items){
-  const frags=items.map(it=>({
-    x: it.transform[4], y: it.transform[5],
-    w: it.width||0, s: (it.str||'').trim()
-  })).filter(f=>f.s.length);
-  frags.sort((a,b)=> (b.y-a.y) || (a.x-b.x));
-  const lines=[]; let cur=null;
-  frags.forEach(f=>{
-    if(!cur || Math.abs(cur.y-f.y)>2.6){ cur={y:f.y, items:[f]}; lines.push(cur); }
-    else cur.items.push(f);
-  });
-  lines.forEach(l=>l.items.sort((a,b)=>a.x-b.x));
-  return lines;
-}
-
-/* Trova la riga di intestazione: quella con il maggior numero di colonne note. */
-function navlogHeader(lines){
-  let best=null, bestN=0;
-  lines.forEach((l,idx)=>{
-    const cols=l.items.map(it=>({key:navlogColFor(it.s), x:it.x+(it.w||0)/2, raw:it.s}))
-                      .filter(c=>c.key);
-    const uniq=new Set(cols.map(c=>c.key));
-    if(uniq.size>bestN){ bestN=uniq.size; best={idx, cols, line:l}; }
-  });
-  return bestN>=3 ? best : null;
-}
-
-/* Legge un NavLog da un documento pdf.js gia' aperto.
-
-   Due strategie, provate in quest'ordine:
-   1. SEMANTICA — ogni valore porta la sua unita' ("3 nm", "2,1 l", "2m49s"), quindi
-      si riconosce da se'. E' il formato del NavLog vero di ForeFlight, dove LEG e
-      TOTALS raggruppano tre valori ciascuna sotto un'unica intestazione.
-   2. A COLONNE — per gli export in cui i valori sono nudi e l'intestazione nomina
-      ogni colonna: si ricostruiscono le colonne dalle coordinate.
-
-   In entrambi i casi le righe si ricostruiscono dalle ordinate dei frammenti,
-   perche' unendo il testo con spazi le colonne si mescolerebbero. */
-async function parseNavlogPdf(pdf){
-  const out={legs:[], totals:null, raw:'', cols:[], mode:null, fuelUnit:null};
-  const allText=[];
-  const pageLines=[];
-  for(let p=1;p<=pdf.numPages;p++){
-    const page=await pdf.getPage(p);
-    const content=await page.getTextContent();
-    allText.push(content.items.map(i=>i.str).join(' '));
-    pageLines.push({items:content.items, lines:navlogLines(content.items)});
-  }
-  out.raw=allText.join('\n');
-
-  // ---- 1. semantica ----
-  for(const pg of pageLines){
-    const rows=[];
-    let pending=[], depSeen=false;
-    pg.lines.forEach(l=>{
-      let text=l.items.map(i=>i.s).join(' ');
-      // Le etichette di intestazione cadono sulla stessa ordinata del primo
-      // waypoint e gli si incollerebbero al nome ("LILN HDG LEG TOTALS"): si
-      // tolgono come parole isolate, invece di scartare l'intera riga.
-      text=text.replace(/\b(WAYPOINT|HDG|LEG|TOTALS?|ForeFlight Mobile - NavLog)\b/gi,' ')
-               .replace(/\s+/g,' ').trim();
-      if(!text) return;
-      if(/^\d{4}-\d{2}-\d{2}/.test(text)) return;              // piede con data di export
-      const r=navParseLine(text);
-      if(!r) return;
-      if(r.textOnly){
-        // ForeFlight manda a capo i nomi lunghi e allinea i numeri alla PRIMA
-        // riga del nome: "MALNATE (LNN1)" sta con i suoi valori e "(LILN)" finisce
-        // sulla riga sotto. Quella coda appartiene quindi alla tratta PRECEDENTE,
-        // non alla successiva — attribuirla alla successiva sposterebbe di un
-        // punto tutti i nomi della rotta.
-        const cont = /^\(/.test(r.textOnly);
-        const prev = rows.length ? rows[rows.length-1] : null;
-        if(cont && prev) prev.name=[prev.name, r.textOnly].filter(Boolean).join(' ').trim();
-        else if(!depSeen && !rows.length){ rows.push({name:r.textOnly}); depSeen=true; }
-        else pending.push(r.textOnly);
-        return;
-      }
-      r.name=[...pending, r.name].filter(Boolean).join(' ').trim();
-      pending=[];
-      rows.push(r);
-    });
-    if(rows.filter(r=>r.hdg!=null).length>=2){
-      out.mode='semantic';
-      out.legs=rows;
-      const last=rows[rows.length-1];
-      if(last && (last.totDist!=null || last.totTime!=null)){
-        // ForeFlight non stampa una riga TOTALS: i totali sono i progressivi
-        // dell'ultima riga. Usarli e' anche piu' esatto che sommare le tratte,
-        // che sono arrotondate singolarmente.
-        out.totals={dist:last.totDist, fuel:last.totFuel, time:last.totTime};
-      }
-      out.fuelUnit=(rows.find(r=>r.fuelUnit)||{}).fuelUnit||null;
-      return out;
-    }
-  }
-
-  // ---- 2. a colonne ----
-  for(const pg of pageLines){
-    const head=navlogHeader(pg.lines);
-    if(!head) continue;
-    out.cols=head.cols.map(c=>c.key);
-    const centers=head.cols;
-    const legs=[];
-    for(let i=head.idx+1;i<pg.lines.length;i++){
-      const row={};
-      pg.lines[i].items.forEach(it=>{
-        const cx=it.x+(it.w||0)/2;
-        let bestKey=null, bestD=Infinity;
-        centers.forEach(c=>{ const d=Math.abs(c.x-cx); if(d<bestD){ bestD=d; bestKey=c.key; } });
-        if(bestKey==null) return;
-        row[bestKey]=(row[bestKey]? row[bestKey]+' ' : '')+it.s;
-      });
-      const first=(row.wpt||'').trim();
-      if(/^tot/i.test(first)){ out.totalsRow=row; continue; }
-      const hasNum=Object.keys(row).some(k=>k!=='wpt' && /\d/.test(row[k]||''));
-      if(first && hasNum) legs.push(row);
-      else if(first && !legs.length) legs.push({wpt:first});
-    }
-    if(legs.length){ out.mode='columns'; out.legs=legs; break; }
-  }
-  return out;
-}
-
-/* ---- estrazione dei numeri dai campi testuali di una riga ---- */
-function navNum(v){
-  const m=/-?\d+(?:[.,]\d+)?/.exec(String(v||'').replace(/\s/g,''));
-  return m? parseFloat(m[0].replace(',','.')) : null;
-}
-/* Tempi. ForeFlight scrive "2m49s" per le tratte corte e "0h12m" appena si supera
-   l'ora di riferimento, quindi servono entrambi; restano supportati i formati
-   classici "1:23" e i minuti secchi. */
-function navMinutes(v){
-  const t=String(v||'').trim();
-  let m=/(\d+)\s*h\s*(\d+)\s*m/i.exec(t);                 // 0h12m
-  if(m) return parseInt(m[1],10)*60+parseInt(m[2],10);
-  m=/(\d+)\s*m\s*(\d+)\s*s/i.exec(t);                     // 2m49s
-  if(m) return Math.round(parseInt(m[1],10)+parseInt(m[2],10)/60);
-  m=/(\d{1,3})\s*[:+]\s*(\d{2})/.exec(t);                  // 1:23
-  if(m) return parseInt(m[1],10)*60+parseInt(m[2],10);
-  m=/^(\d+)\s*m$/i.exec(t);                                 // 47m
-  if(m) return parseInt(m[1],10);
-  m=/^(\d{1,4})$/.exec(t.replace(/\s/g,''));
-  if(m) return parseInt(m[1],10);
-  return null;
-}
-
-/* ---- lettura "semantica" di una riga di NavLog ----
-   Nel NavLog reale di ForeFlight l'intestazione ha due soli gruppi numerici, LEG e
-   TOTALS, e ognuno contiene TRE valori (distanza, carburante, tempo). Assegnare i
-   valori alla colonna piu' vicina li accorperebbe tutti insieme.
-
-   I valori pero' portano con se' la propria unita' — "3 nm", "2,1 l", "2m49s" —
-   quindi si riconoscono per quello che sono, non per dove stanno. Il primo valore
-   di ogni tipo e' della tratta, il secondo e' il progressivo. E' anche piu' robusto
-   di qualunque ipotesi sulle coordinate. */
-const NAV_RE = {
-  hdg  : /(\d{1,3})\s*°\s*M?/i,
-  dist : /(\d+(?:[.,]\d+)?)\s*(?:nm|nmi|mn)\b/gi,
-  fuel : /(\d+(?:[.,]\d+)?)\s*(l|lt|ltr|litri|gal|usg|us gal|kg|lbs?)\b/gi,
-  time : /(\d+\s*h\s*\d+\s*m|\d+\s*m\s*\d+\s*s|\d{1,3}:\d{2}|\d+\s*m(?![a-z]))/gi
-};
-const NAV_FUEL_TO_L = {l:1, lt:1, ltr:1, litri:1, gal:3.785, usg:3.785, 'us gal':3.785};
-
-function navParseLine(text){
-  const t=String(text||'').replace(/\s+/g,' ').trim();
-  if(!t) return null;
-  const h=NAV_RE.hdg.exec(t);
-  if(!h) return {textOnly:t};
-  const name=t.slice(0,h.index).trim();
-  const rest=t.slice(h.index+h[0].length);
-  const grab=(re)=>{ re.lastIndex=0; const out=[]; let m; while((m=re.exec(rest))!==null) out.push(m); return out; };
-  const dists=grab(NAV_RE.dist), fuels=grab(NAV_RE.fuel), times=grab(NAV_RE.time);
-  const n=(m)=>m?parseFloat(m[1].replace(',','.')):null;
-  const fu=fuels.length?String(fuels[0][2]||'').toLowerCase():null;
-  return {
-    name, hdg:parseInt(h[1],10),
-    legDist:n(dists[0]),  totDist:n(dists[1]),
-    legFuel:n(fuels[0]),  totFuel:n(fuels[1]),
-    legTime:times[0]?navMinutes(times[0][0]):null,
-    totTime:times[1]?navMinutes(times[1][0]):null,
-    fuelUnit:fu
-  };
-}
-function navIsIcao(v){ return /^[A-Z]{3,4}$/.test(String(v||'').trim().toUpperCase()); }
-
-/* Riduce il NavLog grezzo a quello che serve all'OFP. */
-function navCleanName(raw){
-  // "MALNATE (LNN1) (LILN)" -> nome leggibile; "LILN (DEP)" -> LILN
-  let t=String(raw||'').replace(/\s+/g,' ').trim();
-  t=t.replace(/\((?:DEP|ARR|DEST|DESTINATION|ALTN?)\)/ig,'').trim();
-  return t;
-}
-function navShortName(raw){
-  const t=navCleanName(raw);
-  const head=t.split('(')[0].trim();       // il nome, senza il riferimento fra parentesi
-  return (head||t).toUpperCase();
-}
-function navlogSummary(nav){
-  const isSem = nav.mode==='semantic';
-  const legs=(nav.legs||[]).map(r=>isSem ? {
-      wpt: navShortName(r.name), full: navCleanName(r.name),
-      mh: r.hdg!=null?r.hdg:null,
-      dist: r.legDist!=null?r.legDist:null,
-      ete: r.legTime!=null?r.legTime:null,
-      fuel: r.legFuel!=null?r.legFuel:null,
-      alt:null, gs:null
-    } : {
-      wpt: navShortName((r.wpt||'').split(/\s+/)[0]), full:navCleanName(r.wpt),
-      mh: navNum(r.mh!=null?r.mh:r.mc),
-      dist: navNum(r.legDist), ete: navMinutes(r.ete), fuel: navNum(r.legFuel),
-      alt: navNum(r.alt), gs: navNum(r.gs)
-    }).filter(l=>l.wpt);
-
-  const sum=(k)=>legs.reduce((a,l)=>a+(l[k]||0),0);
-  let totals;
-  if(nav.totals){
-    totals={dist:nav.totals.dist, ete:nav.totals.time, fuel:nav.totals.fuel, fromTotals:true};
-  }else{
-    const t=nav.totalsRow||{};
-    totals={
-      dist: navNum(t.legDist) || Math.round(sum('dist')*10)/10,
-      ete:  navMinutes(t.ete) || sum('ete') || null,
-      fuel: navNum(t.legFuel) || Math.round(sum('fuel')*10)/10,
-      fromTotals: !!nav.totalsRow
-    };
-  }
-  const idents=legs.map(l=>l.wpt);
-  const dep = navIsIcao(idents[0]) ? idents[0] : null;
-  const arr = navIsIcao(idents[idents.length-1]) ? idents[idents.length-1] : null;
-  const mid = idents.slice(dep?1:0, arr?idents.length-1:idents.length);
-  const gsVals=legs.map(l=>l.gs).filter(v=>v>0);
-  const alts=legs.map(l=>l.alt).filter(v=>v>0);
-
-  // il carburante del NavLog e' nelle unita' di ForeFlight: si porta in litri solo
-  // per poterlo confrontare con il piano dell'OFP, che e' in litri
-  const k=NAV_FUEL_TO_L[nav.fuelUnit]||null;
-  const fuelLitres = (k && totals.fuel!=null) ? Math.round(totals.fuel*k*10)/10 : null;
-
-  return {
-    legs, totals, dep, arr,
-    route: mid.join(' '),
-    avgGs: gsVals.length ? Math.round(gsVals.reduce((a,b)=>a+b,0)/gsVals.length) : null,
-    cruiseAlt: alts.length ? Math.max.apply(null,alts) : null,
-    fuelUnit: nav.fuelUnit, fuelLitres,
-    roundTrip: !!(dep && arr && dep===arr)
-  };
-}
-
 /* ===================== TOLD — DECOLLO E ATTERRAGGIO =====================
    Modulo prestazioni del C172 FR, portato dal calcolatore Takeoff & Landing
    fornito a parte: stesse tabelle e stessa logica di correzione.
@@ -1661,25 +1112,6 @@ function computeTold(){
 
   if(w.tow.w>TOLD.takeoff.weightsKg[2]+0.5) warn('red','Massa','Massa al decollo oltre i 1157 kg della tabella: le distanze sono bloccate al massimo tabulato e sottostimano quelle reali.');
   warn('grey','Massa atterraggio','La tabella di atterraggio e\' pubblicata solo a 1157 kg e viene usata qualunque sia la massa: a masse inferiori e\' conservativa.');
-  return out;
-}
-
-/* Estrae temperatura, QNH e vento da un METAR. */
-function parseMetar(metar){
-  const m=String(metar||'').toUpperCase();
-  const out={};
-  let x=/\b(\d{3}|VRB)(\d{2,3})(?:G(\d{2,3}))?KT\b/.exec(m);
-  if(x){
-    out.windDir = x[1]==='VRB' ? null : parseInt(x[1],10);
-    out.windKt  = parseInt(x[2],10);
-    if(x[3]) out.gustKt=parseInt(x[3],10);
-    out.windVrb = x[1]==='VRB';
-  }
-  x=/\bQ(\d{4})\b/.exec(m);
-  if(x) out.qnh=parseInt(x[1],10);
-  else { x=/\bA(\d{4})\b/.exec(m); if(x) out.qnh=Math.round(parseInt(x[1],10)/100*33.8639); }
-  x=/(?:^|\s)(M?\d{2})\/(M?\d{2})(?:\s|=|$)/.exec(m);
-  if(x) out.oat = parseInt(x[1].replace('M','-'),10);
   return out;
 }
 
@@ -2468,155 +1900,6 @@ function onPowerChange(){ rebuildPowerSelects(); applyPowerToRoute(); render(); 
 if($('pwrAlt')) $('pwrAlt').addEventListener('input', onPowerChange);
 if($('pwrMap')) $('pwrMap').addEventListener('change', ()=>{ applyPowerToRoute(); render(); });
 
-/* ============ IMPORT NAVLOG FOREFLIGHT ============
-   Niente viene scritto nei campi senza che il pilota veda PRIMA cosa e' stato
-   letto: il riquadro di anteprima mostra tratte, prue, distanze, tempi e consumi
-   cosi' come sono stati interpretati, e solo allora si applicano. */
-window.__navlog = null;
-
-const navDrop=$('navDrop'), navFile=$('navFile'), navStatus=$('navStatus');
-function navSay(cls,msg){ if(navStatus){ navStatus.className='mb-status '+cls; navStatus.textContent=msg; } }
-if(navDrop && navFile){
-  navDrop.addEventListener('click',()=>navFile.click());
-  navDrop.addEventListener('dragover',e=>{e.preventDefault();navDrop.style.borderColor='#2f6df6';});
-  navDrop.addEventListener('dragleave',()=>navDrop.style.borderColor='');
-  navDrop.addEventListener('drop',e=>{e.preventDefault();navDrop.style.borderColor='';if(e.dataTransfer.files[0])handleNavlog(e.dataTransfer.files[0]);});
-  navFile.addEventListener('change',e=>{ if(e.target.files[0]) handleNavlog(e.target.files[0]); });
-}
-
-function handleNavlog(file){
-  navSay('busy','Leggo il NavLog\u2026');
-  const isPdf = file.type==='application/pdf' || /\.pdf$/i.test(file.name);
-  const reader=new FileReader();
-  reader.onload=async ()=>{
-    try{
-      let nav;
-      if(isPdf){
-        const pdf=await pdfjsLib.getDocument({data:reader.result.slice(0)}).promise;
-        nav=await parseNavlogPdf(pdf);
-      }else{
-        nav=parseNavlogPlainText(String(reader.result||''));
-      }
-      if(!nav.legs.length){
-        navSay('err','Non ho riconosciuto la tabella del NavLog in questo file. Controlla che sia l\'esportazione NavLog di ForeFlight, oppure inserisci rotta e distanza a mano.');
-        $('navPreview').innerHTML='';
-        return;
-      }
-      const sum=navlogSummary(nav);
-      window.__navlog={raw:nav, sum};
-      applyNavlog(sum);
-      navSay('ok',`NavLog letto: ${sum.legs.length} punti, ${sum.totals.dist!=null?sum.totals.dist+' nm':'distanza n/d'}`
-        + (sum.totals.ete?`, ${navDur(sum.totals.ete)} di volo`:'')
-        + (sum.totals.fuel?`, ${sum.totals.fuel} ${sum.fuelUnit==='l'?'L':(sum.fuelUnit||'')} di carburante secondo ForeFlight`:''));
-      $('navPreview').innerHTML=navPreviewHTML(sum);
-      renderImportState();
-      render();
-    }catch(err){
-      console.error(err);
-      navSay('err','Non sono riuscito a leggere il file: '+(err&&err.message||err));
-    }
-  };
-  if(isPdf) reader.readAsArrayBuffer(file); else reader.readAsText(file);
-}
-
-/* Fallback per NavLog incollati o esportati come testo: ogni riga utile ha un
-   identificativo seguito da numeri. Meno preciso della lettura a colonne, ma
-   sufficiente quando il PDF non c'e'. */
-function parseNavlogPlainText(text){
-  const out={legs:[], totals:null, raw:text, cols:[]};
-  String(text).split(/\r?\n/).forEach(line=>{
-    const t=line.trim();
-    if(!t) return;
-    if(/^tot/i.test(t)){
-      const n=t.match(/\d+(?:[.,]\d+)?|\d{1,2}:\d{2}/g)||[];
-      out.totals={legDist:n[0], ete:n.find(x=>/:/.test(x)), legFuel:n[n.length-1]};
-      return;
-    }
-    // il primo waypoint di un NavLog non ha numeri (la tratta parte da li'):
-    // va comunque registrato, altrimenti si perde l'aeroporto di partenza
-    const solo=/^([A-Z]{3,4})\s*$/i.exec(t);
-    if(solo && !out.legs.length){ out.legs.push({wpt:solo[1]}); return; }
-    const m=/^([A-Z0-9][A-Z0-9._-]{1,11})\s+(.*\d.*)$/i.exec(t);
-    if(!m) return;
-    if(/^(wpt|waypoint|ident|fix|name)$/i.test(m[1])) return;    // riga di intestazione
-    const nums=(m[2].match(/\d{1,2}:\d{2}|\d+(?:[.,]\d+)?/g)||[]);
-    if(nums.length<2) return;
-    out.legs.push({wpt:m[1], mh:nums[0], legDist:nums[1],
-                   ete:nums.find(x=>/:/.test(x)), legFuel:nums[nums.length-1]});
-  });
-  return out;
-}
-
-/* Durata leggibile: minToHHMM() darebbe "0030" per mezz'ora, che su una tabella
-   di tratte si legge male. */
-function navDur(min){
-  if(min==null) return '—';
-  const h=Math.floor(min/60), m=Math.round(min%60);
-  return h ? h+'h'+String(m).padStart(2,'0') : m+"'";
-}
-
-/* Riquadro di verifica, con il confronto fra quello che dice ForeFlight e quello
-   che calcola l'OFP. Le due cifre non coincidono quasi mai, ed e' giusto cosi':
-   ForeFlight usa il proprio profilo aeromobile, l'OFP usa il consumo POH del
-   settaggio di potenza scelto e aggiunge i 20 minuti di margine di procedura.
-   Mostrarle affiancate rende la differenza una verifica, non una sorpresa. */
-function navPreviewHTML(sum){
-  const u=(v,su)=>v==null?'—':v+(su||'');
-  const hdg=(v)=>v==null?'—':('00'+v).slice(-3)+'°';
-  const f=computeFuel();
-  const ffUnit = sum.fuelUnit ? (sum.fuelUnit==='l'?'L':sum.fuelUnit.toUpperCase()) : '';
-  const cmp = (lbl,ff,ofp)=>`<tr><td style="text-align:left">${lbl}</td>
-      <td style="text-align:right;padding:0 .8rem">${ff}</td>
-      <td style="text-align:right">${ofp}</td></tr>`;
-  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt)">
-    <tr style="color:var(--txt-dim)"><th style="text-align:left">WAYPOINT</th><th>MH</th><th>LEG nm</th><th>ETE</th><th>FUEL</th></tr>
-    ${sum.legs.map(l=>`<tr>
-      <td style="text-align:left">${esc(l.full||l.wpt)}</td>
-      <td style="text-align:right">${hdg(l.mh)}</td>
-      <td style="text-align:right">${u(l.dist)}</td>
-      <td style="text-align:right">${navDur(l.ete)}</td>
-      <td style="text-align:right">${u(l.fuel)}</td></tr>`).join('')}
-    <tr style="font-weight:700;border-top:1px solid var(--panel-line)">
-      <td style="text-align:left">TOTALI</td><td></td>
-      <td style="text-align:right">${u(sum.totals.dist)}</td>
-      <td style="text-align:right">${navDur(sum.totals.ete)}</td>
-      <td style="text-align:right">${u(sum.totals.fuel)}</td></tr>
-  </table>
-  ${sum.roundTrip?`<div class="calc">→ volo di rientro alla partenza: DEP e ARR sono entrambi ${esc(sum.dep)}</div>`:''}
-  <div class="calc" style="color:var(--txt-dim)">Confronto</div>
-  <table style="border-collapse:collapse;font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt);margin-top:.2rem">
-    <tr style="color:var(--txt-dim)"><th style="text-align:left">&nbsp;</th><th style="padding:0 .8rem">ForeFlight</th><th>OFP (POH)</th></tr>
-    ${cmp('Distanza', u(sum.totals.dist,' nm'), fmt(num('tripDist'))+' nm')}
-    ${cmp('Tempo',    navDur(sum.totals.ete), navDur(f.tripTime)+' *')}
-    ${cmp('Carburante', u(sum.totals.fuel,' '+ffUnit), fmt(f.tripFuel)+' L')}
-  </table>
-  <div class="hint">* il Trip Time dell'OFP comprende i 20 minuti fissi di procedura (10' in partenza, 10' in arrivo),
-    quindi &egrave; per costruzione maggiore dell'ETE di ForeFlight.
-    Il carburante dell'OFP &egrave; calcolato sul <b>consumo POH</b> del settaggio di potenza scelto e ha la
-    precedenza: quello di ForeFlight viene dal suo profilo aeromobile e serve solo da riscontro
-    (include anche rullaggio e avviamento, per questo parte gi&agrave; da un valore non nullo alla prima tratta).
-    Se le due colonne divergono molto, controlla il settaggio di potenza.</div>`;
-}
-
-/* Scrive nei campi. Distanza, rotta e aeroporti vengono dal NavLog; GS e consumo
-   restano quelli del settaggio POH, che e' l'automazione gia' esistente. */
-function applyNavlog(sum){
-  // Aeroporti e rotta vengono dal NavLog; l'alternato no, lo sceglie il pilota.
-  if(sum.dep && $('dep')) $('dep').value=sum.dep;
-  if(sum.arr && $('arr')) $('arr').value=sum.arr;
-  if(sum.route && $('route')) $('route').value=sum.route;
-  if(sum.totals.dist!=null && $('tripDist')) $('tripDist').value=sum.totals.dist;
-  if(sum.cruiseAlt && $('cruisealt') && !txt('cruisealt').trim()) $('cruisealt').value=sum.cruiseAlt+' ft';
-  if(sum.cruiseAlt){
-    if($('pwrAlt')) $('pwrAlt').value=sum.cruiseAlt;
-    if($('altAlt')) $('altAlt').value=sum.cruiseAlt;
-    if($('cruisePerfAlt')) $('cruisePerfAlt').value=sum.cruiseAlt;
-    if(typeof onPowerChange==='function') onPowerChange();
-  }
-  // la ricerca aeroporti riparte da sola sui nuovi codici
-  if(typeof scheduleAirportLookup==='function'){ oaLastKey=''; scheduleAirportLookup(); }
-}
-
 /* ============ RICERCA AEROPORTI E AUTOCOMPILAZIONE ============ */
 window.__oa = {};       // ICAO -> record OurAirports dell'ultima ricerca
 
@@ -2822,147 +2105,9 @@ function togglePreview(){
   if(previewOpen) render();
 }
 
-const wxDrop=$('wxDrop'), wxFile=$('wxFile'), wxStatus=$('wxStatus'), wxRetryBtn=$('wxRetryBtn');
-wxDrop.addEventListener('click',()=>wxFile.click());
-wxDrop.addEventListener('dragover',e=>{e.preventDefault();wxDrop.style.borderColor='#2f6df6'});
-wxDrop.addEventListener('dragleave',()=>wxDrop.style.borderColor='');
-wxDrop.addEventListener('drop',e=>{e.preventDefault();wxDrop.style.borderColor='';if(e.dataTransfer.files[0])handleWxPdf(e.dataTransfer.files[0])});
-wxFile.addEventListener('change',e=>{if(e.target.files[0])handleWxPdf(e.target.files[0])});
-/* Seconda porta d'ingresso per il briefing, nello Step 1: stesso file input e
-   stessa elaborazione, cosi' non esistono due percorsi da tenere allineati. */
-(function(){
-  const d2=$('wxDrop2'); if(!d2) return;
-  d2.addEventListener('click',()=>wxFile.click());
-  d2.addEventListener('dragover',e=>{e.preventDefault();d2.style.borderColor='#2f6df6';});
-  d2.addEventListener('dragleave',()=>d2.style.borderColor='');
-  d2.addEventListener('drop',e=>{e.preventDefault();d2.style.borderColor='';if(e.dataTransfer.files[0])handleWxPdf(e.dataTransfer.files[0]);});
-})();
-/* Lo stato del briefing si rispecchia nei due riquadri. */
-(function(){
-  const a=$('wxStatus'), b=$('wxStatus2');
-  if(!a||!b||!window.MutationObserver) return;
-  new MutationObserver(()=>{ b.className=a.className.replace('wxStatus',''); b.textContent=a.textContent; })
-    .observe(a,{childList:true,characterData:true,subtree:true,attributes:true});
-})();
-wxRetryBtn.addEventListener('click',()=>{ if(window.__wxLastFile) handleWxPdf(window.__wxLastFile); });
-
-/* Estrae data, ora di emissione e validità dal PDF del Weather Briefing.
-
-   Formati riconosciuti, in ordine di priorità:
-   0. SKYBRIEF (formato del bollettino allegato): l'intestazione della prima pagina
-      è "SKYBRIEF 08/09/2026  13:11 UTC  (15:11 LT) ETA  13:11Z". Qui l'orario NON è
-      preceduto da nessuna delle diciture classiche ("Printed at", "Issued"...):
-      l'ancora è la parola SKYBRIEF stessa, e conta l'ora marcata UTC — mai quella
-      fra parentesi, che è ora locale. Va gestito per primo, altrimenti le regole
-      generiche più sotto rischiano di agganciare la prima data qualsiasi del PDF.
-   1. Skybriefing/PIB: "Printed at (UTC) 2026SEP08 1311"
-   2. AELO/MeteoSwiss: "Issued 25. Jul. 2026 13:51" o "24 Jul 2026 07:15"
-   3. generico con ancora: "Calculated on 24/07/2026 07:53"
-   4. Skybriefing a colonne (l'ancora e il suo valore finiscono separati da pdf.js)
-   5. fallback Skybrief-like: una data gg/mm/aaaa seguita da hh:mm UTC nelle prime
-      righe del documento, anche senza la parola SKYBRIEF.
-
-   Restituisce { date:"GG.MM.AAAA", time:"HH:MM", valid:"..."|null } o null.
-   `valid` è il periodo di validità quando il documento lo dichiara. */
-function extractValidity(text){
-  text = text||'';
-  // Un intervallo di date va preso SOLO se è dichiarato come validità del briefing:
-  // in un PDF meteo ce ne sono molti altri (periodi di AIRMET, SIGMET, TAF...) e
-  // stampare quello sbagliato sull'OFP è peggio che lasciare il campo vuoto.
-  let m = /\b(?:valid(?:ity|o|ità)?|period|periodo)\b[^0-9]{0,25}(\d{1,2}\s+[A-Za-z]{3}\s+\d{2}:?\d{2}\s*Z?)\s*(?:→|->|-|to)\s*(\d{1,2}\s+[A-Za-z]{3}\s+\d{2}:?\d{2}\s*Z?)/i.exec(text);
-  if(m) return `${m[1].trim()} → ${m[2].trim()}`;
-  m = /\bvalid(?:ity)?\s*[:\s]\s*(\d{4}\/\d{4})\b/i.exec(text);
-  if(m) return m[1];
-  m = /\bPeriod\s*\(UTC\)\s*:?[^0-9]{0,20}(\d{4}[A-Z]{3}\d{2}\s+\d{4})[^0-9]{0,20}(\d{4}[A-Z]{3}\d{2}\s+\d{4})/i.exec(text);
-  if(m) return `${m[1]} → ${m[2]}`;
-  return null;
-}
-function extractPrintedAt(text){
-  text = text||'';
-  const months={JAN:'01',FEB:'02',MAR:'03',APR:'04',MAY:'05',JUN:'06',JUL:'07',AUG:'08',SEP:'09',OCT:'10',NOV:'11',DEC:'12'};
-  const anchor = '(?:printed at\\s*\\(?utc\\)?|calculated on|issued(?:\\s+(?:on|at))?|valid(?:\\s+(?:at|from))?)';
-  const valid = extractValidity(text);
-  const withValid = (o)=> o ? Object.assign(o,{valid}) : null;
-
-  // 0) SKYBRIEF gg/mm/aaaa hh:mm UTC   — il formato del briefing allegato.
-  //    L'ora locale fra parentesi viene deliberatamente ignorata: sull'OFP va l'UTC.
-  let m = /\bSKYBRIEF\b[^0-9]{0,20}([0-9]{1,2})[\/.\-]([0-9]{1,2})[\/.\-]([0-9]{4})\s+([0-9]{1,2})[:.]([0-9]{2})\s*(?:UTC|Z)/i.exec(text);
-  if(m) return withValid({ date:`${m[1].padStart(2,'0')}.${m[2].padStart(2,'0')}.${m[3]}`, time:`${m[4].padStart(2,'0')}:${m[5]}` });
-
-  // 1) YYYYMonDD HHMM  (es. "2026SEP08 1311")
-  m = new RegExp(anchor+'[:\\s]*([0-9]{4})([A-Z]{3})([0-9]{2})\\s+([0-9]{2}):?([0-9]{2})','i').exec(text);
-  if(m){ const mon=months[m[2].toUpperCase()]; if(mon) return withValid({ date:`${m[3]}.${mon}.${m[1]}`, time:`${m[4]}:${m[5]}` }); }
-
-  // 2) DD. Mon. YYYY HH:MM  (es. "25. Jul. 2026 13:51" o "24 Jul 2026 07:15")
-  m = new RegExp(anchor+'[:\\s]*([0-9]{1,2})\\.?\\s*([A-Za-z]{3})\\.?\\s*([0-9]{4})\\s+([0-9]{2}):([0-9]{2})','i').exec(text);
-  if(m){ const mon=months[m[2].toUpperCase()]; if(mon) return withValid({ date:`${m[1].padStart(2,'0')}.${mon}.${m[3]}`, time:`${m[4]}:${m[5]}` }); }
-
-  // 3) DD/MM/YYYY o DD.MM.YYYY o DD-MM-YYYY, poi HH:MM  (es. "24/07/2026 07:53")
-  m = new RegExp(anchor+'[:\\s]*([0-9]{2})[\\/.\\-]([0-9]{2})[\\/.\\-]([0-9]{4})\\s+([0-9]{2}):?([0-9]{2})','i').exec(text);
-  if(m) return withValid({ date:`${m[1]}.${m[2]}.${m[3]}`, time:`${m[4]}:${m[5]}` });
-
-  // 4) LAYOUT A COLONNE (Skybriefing reale): pdf.js emette le etichette tutte insieme
-  //    ("Period (UTC): Printed at (UTC): Datasource:") e poi i valori a blocco
-  //    ("to: 2026JUL24 1334  2026JUL24 2359  2026JUL24 1334  MeteoSwiss"), quindi
-  //    l'ancora NON è seguita dal suo valore. In questo caso raccogliamo tutte le
-  //    date-ora in formato "YYYYMonDD HHMM" presenti nell'intestazione: la riga
-  //    "Printed at" ripete l'ora di inizio del Period, quindi l'orario di stampa
-  //    coincide con la PRIMA data-ora dell'header. Prendiamo quella.
-  if(/printed at/i.test(text)){
-    const head = text.slice(0, 1200); // solo l'intestazione, non tutto il documento
-    const re = /\b([0-9]{4})([A-Z]{3})([0-9]{2})\s+([0-9]{2})([0-9]{2})\b/gi;
-    const found=[]; let mm;
-    while((mm=re.exec(head))!==null){
-      const mon=months[mm[2].toUpperCase()];
-      if(mon) found.push({ date:`${mm[3]}.${mon}.${mm[1]}`, time:`${mm[4]}:${mm[5]}` });
-    }
-    // L'ordine delle colonne dell'intestazione è: Period-from, Period-to, Printed at.
-    // Quando ci sono tutte e tre, l'orario di stampa è la TERZA data-ora — non la
-    // prima. Nei briefing in cui la stampa coincide con l'inizio del periodo le due
-    // sono uguali e la scelta è indifferente; quando NON coincidono (briefing tirato
-    // giù a metà del periodo di validità, il caso normale) prendere la prima darebbe
-    // sull'OFP un orario di emissione sbagliato di ore.
-    if(found.length>=3){
-      const period = `${found[0].date} ${found[0].time}Z → ${found[1].date} ${found[1].time}Z`;
-      return Object.assign({}, found[2], {valid: valid || period});
-    }
-    if(found.length) return withValid(found[0]);
-  }
-
-  // 5) Fallback per briefing in stile Skybrief senza la parola chiave: una data
-  //    gg/mm/aaaa seguita da un orario marcato UTC/Z nell'intestazione del documento.
-  m = /\b([0-9]{1,2})[\/.\-]([0-9]{1,2})[\/.\-]([0-9]{4})\s+([0-9]{1,2})[:.]([0-9]{2})\s*(?:UTC|Z)\b/.exec(text.slice(0,600));
-  if(m) return withValid({ date:`${m[1].padStart(2,'0')}.${m[2].padStart(2,'0')}.${m[3]}`, time:`${m[4].padStart(2,'0')}:${m[5]}` });
-
-  return valid ? {date:'', time:'', valid} : null;
-}
-
-/* Estrae le pagine "cartina" (GAFOR/SIGMET/SWC/Wind/QNH ecc.) dal PDF sorgente:
-   sono pagine con pochissimo testo selezionabile (sono per lo più immagini/grafica),
-   a differenza delle pagine METAR/TAF, dei paragrafi di prognosi testuale e dei NOTAM
-   che hanno molto testo. Si escludono sempre la prima pagina (METAR/TAF) e le ultime
-   2 (NOTAM, già gestite a parte). Ogni pagina candidata viene renderizzata su canvas
-   e restituita come immagine, per poi essere impaginata nell'OFP finale. */
-async function extractWeatherCharts(pdf){
-  const charts=[];
-  const CHART_TEXT_THRESHOLD=300; // caratteri: sotto questa soglia = pagina "grafica"
-  const n=pdf.numPages;
-  for(let p=2;p<=n-2;p++){
-    const page=await pdf.getPage(p);
-    const content=await page.getTextContent();
-    const textLen=content.items.map(it=>it.str).join('').length;
-    if(textLen>CHART_TEXT_THRESHOLD) continue; // troppo testo: è prognosi/narrativa, non una cartina
-    try{
-      const viewport=page.getViewport({scale:1.5});
-      const canvas=document.createElement('canvas');
-      canvas.width=viewport.width; canvas.height=viewport.height;
-      await page.render({canvasContext:canvas.getContext('2d'), viewport}).promise;
-      charts.push({dataUrl:canvas.toDataURL('image/jpeg',0.85), w:viewport.width, h:viewport.height});
-    }catch(e){ /* pagina non renderizzabile: la saltiamo */ }
-  }
-  return charts;
-}
-
+/* Aggancio del caricamento briefing all'interfaccia del wizard. La lettura vera e
+   propria sta in ofp-core.js ed e' condivisa con la pagina di import; qui si
+   scrivono solo i campi di questa pagina. */
 function handleWxPdf(file){
   window.__wxLastFile=file;
   wxStatus.className='mb-status busy'; wxStatus.textContent='Leggo il PDF briefing…';
@@ -2970,33 +2115,19 @@ function handleWxPdf(file){
   const reader=new FileReader();
   reader.onload=async ()=>{
     try{
-      const pdf=await pdfjsLib.getDocument({data:reader.result.slice(0)}).promise;
-      const pageTexts=[];
-      for(let p=1;p<=pdf.numPages;p++){
-        const page=await pdf.getPage(p);
-        const content=await page.getTextContent();
-        pageTexts.push(content.items.map(it=>it.str).join(' '));
+      const codes={dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(), altn:txt('altn').toUpperCase()};
+      const wx=await readBriefingPdf(reader.result.slice(0), codes);
+      window.__wxPrintedAt=wx.printedAt;
+      if(wx.printedAt){
+        if($('wxDate') && wx.printedAt.date) $('wxDate').value=wx.printedAt.date;
+        if($('wxTime') && wx.printedAt.time) $('wxTime').value=wx.printedAt.time;
+        if($('wxValid') && wx.printedAt.valid) $('wxValid').value=wx.printedAt.valid;
       }
-      const weatherText = pageTexts.join('\n');
-      // I NOTAM vengono cercati in TUTTO il documento (non solo le ultime pagine): un
-      // NOTAM dell'aeroporto di partenza può comparire ovunque, anche vicino a
-      // METAR/TAF nella prima pagina — non va mai ignorato solo per la sua posizione.
-      const notamText = pageTexts.join('\n');
-      console.log('TESTO BRIEFING (METEO + NOTAM, tutte le pagine):', weatherText);
-      // data/ora: prima la cerco in pagina 1, poi (se manca) in tutto il documento
-      window.__wxPrintedAt = extractPrintedAt(pageTexts[0]||'') || extractPrintedAt(weatherText);
-      if(window.__wxPrintedAt){
-        if($('wxDate') && window.__wxPrintedAt.date) $('wxDate').value = window.__wxPrintedAt.date;
-        if($('wxTime') && window.__wxPrintedAt.time) $('wxTime').value = window.__wxPrintedAt.time;
-        if($('wxValid') && window.__wxPrintedAt.valid) $('wxValid').value = window.__wxPrintedAt.valid;
-      }
-      window.__wxCharts = await extractWeatherCharts(pdf);
-      const codes = { dep: txt('dep').toUpperCase(), dest: txt('arr').toUpperCase(), altn: txt('altn').toUpperCase() };
-      const result = parseBriefingText(weatherText, notamText, codes);
-      applyBriefingResult(result);
-      window.__wxImported = true;
-      renderImportState();
+      window.__wxCharts=wx.charts;
+      applyBriefingResult(wx.result);
+      window.__wxImported=true;
     }catch(err){
+      console.error(err);
       wxStatus.className='mb-status'; wxStatus.textContent='Non sono riuscito a leggere questo PDF — compila i riquadri qui sotto a mano.';
       wxRetryBtn.style.display='inline-block';
     }
@@ -3004,306 +2135,13 @@ function handleWxPdf(file){
   reader.readAsArrayBuffer(file);
 }
 
-// Parole/abbreviazioni aeronautiche di 4 lettere maiuscole che NON sono mai codici
-// ICAO aeroportuali: vanno escluse da qualunque riconoscimento automatico di aeroporto.
-const ICAO_EXCLUDE = new Set([
-  'AUTO','AMSL','AVBL','SECT','TECR','YOUR','HEMS','PERM','FEW','CAVOK','VRB','EST','DIST','RMK',
-  'SCT','BKN','OVC','NSC','NCD','TEMP','TEMPO','BECMG','NOSIG','PROB','INFO','DATA','NOTE','ZULU',
-  'FROM','UNTL','WARN','FREQ','WIND','GUST','VIS','CLD','RVR','QNH','QFE','ATIS','FLNC','MISG',
-  'MTOW','ZFW','ELEV','SFC','AGL','ARR','DEP','ETA','ETD','UTC','GMT','TWR','RWY','TWY','APRN',
-  'COOR','FUEL','WHEN','POLE','BASE','APCH','ONLY','MAKE','FLOW','SURE','WITH',
-  // ricorrenti nel formato Skybrief (intestazioni, minime, tabelle vento/pista):
-  'CEIL','MINI','FONT','DECO','MASS','TAIL','HEAD','XWND','RWYC','ASPH','GRAS','SNOW','SWLL',
-  'NIGH','SIGM','AIRM','WIND','SUNR','SUNS','ALTN','DEST','TORA','TODA','ASDA','LDA',
-  'AMDT','SUPP','TRIG','AIRA','ACFT','OPER','SVCS','MAINT','LGTD','UNSE','ABDN','CLSD',
-  // ricorrenti nei NOTAM in chiaro:
-  'REF','AIP','PART','ITEM','TEXT','DATE','TIME','LOWR','UPPR','AREA','ZONE','LINE','SEE'
-]);
-/* Lettere iniziali effettivamente assegnate dall'ICAO alle regioni del mondo.
-   I, J, Q, X non sono prefissi di nessuna regione: escluderle elimina da sola
-   una buona parte dei falsi positivi (ITEM, JOIN, QNHS...). */
-const ICAO_FIRST=/^[ABCDEFGHKLMNOPRSTUVWYZ]/;
-function isValidIcao(code, codes){
-  if(!code || code.length!==4) return false;
-  if(!/^[A-Z]{4}$/.test(code)) return false;
-  // i codici della rotta pianificata sono sempre validi: li ha scritti il pilota
-  if(codes && (code===codes.dep || code===codes.dest || code===codes.altn)) return true;
-  if(ICAO_EXCLUDE.has(code)) return false;
-  if(!ICAO_FIRST.test(code)) return false;
-  return true;
-}
-
-function parseBriefingText(weatherText, notamText, codes){
-  const norm = weatherText.replace(/[ \t]+/g,' ');
-  const normNotam = notamText.replace(/[ \t]+/g,' ');
-  const result = {
-    dep:{metar:null,speci:null,taf:null,notam:[]},
-    dest:{metar:null,speci:null,taf:null,notam:[]},
-    altn:{metar:null,speci:null,taf:null,notam:[]},
-    other:{}, // { ICAO: {metar,speci,taf,notam:[]} } per aeroporti citati ma non DEP/DEST/ALTN
-    enroute:[]
-  };
-  function otherBucket(code){
-    if(!result.other[code]) result.other[code]={metar:null,speci:null,taf:null,notam:[]};
-    return result.other[code];
-  }
-  function keyForCode(code){
-    if(code===codes.dep) return 'dep';
-    if(code===codes.dest) return 'dest';
-    if(code===codes.altn) return 'altn';
-    return null;
-  }
-  /* ---- CONFINE DI UN BOLLETTINO ------------------------------------------------
-     I bollettini grezzi finiscono con "=", ma NON sempre: nel formato Skybrief il
-     terminatore manca del tutto (il TAF di LIMC si chiude senza "="), e pdf.js
-     unisce tutta la pagina con degli spazi, senza a capo. Senza un confine solido
-     un TAF si porterebbe dietro l'intera sezione successiva ("DEST ALTN ACV-OM
-     § 3.2.16 VIS ≥ 10 km CEIL...").
-
-     Il vecchio taglio "primo codice di 4 lettere maiuscole" era troppo fragile:
-     parole come CEIL o SWLL lo facevano scattare nel punto sbagliato. Qui il taglio
-     avviene solo su marcatori STRUTTURALI, che in un bollettino aeronautico non
-     possono comparire:
-       - l'inizio di un altro bollettino  ("LIMC 081250Z", "METAR ...", "TAF ...")
-       - un titolo di sezione del briefing (Skybrief e Skybriefing/PIB)
-       - un'intestazione di aeroporto ("LIMC Malpensa...", "LSZL - Locarno")
-     È lo stesso criterio sia che il testo abbia veri a capo sia che sia una riga sola. */
-  const SECTION_WORDS = [
-    'METAR','SPECI','TAF','NOTAM','NOTAMS','SIGMET','AIRMET','GAMET','ATIS','PIB',
-    'DEST ALTN','INSTRUCTOR MINIMA','STUDENT MINIMA','AD ELEV','VENTO E PISTA',
-    'DECOLLO','AVVICINAMENTO','Fonte:','Venti in quota','Immagini Satellitari',
-    'CARTA DEI FRONTI','Nessun SIGMET','Aerodrome Forecast','Aerodrome Report'
-  ];
-  const sectionBoundaryRe = new RegExp('(?:'+SECTION_WORDS.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/ /g,'\\s+')).join('|')+')','g');
-  // inizio di un altro bollettino: <ICAO> <DDHHMMZ>, con o senza etichetta davanti
-  const bulletinStartRe = /\b[A-Z]{4}\s+\d{6}Z\b/g;
-  // intestazione aeroporto: "LIMC Malpensa International Airport" / "LSZL - Locarno"
-  const airportHeaderRe = /\b[A-Z]{4}\s*(?:[-–—]\s*[A-Za-z]|[A-Z][a-z]{2})/g;
-
-  function firstIndexAfter(re, text, from){
-    re.lastIndex = from;
-    const m = re.exec(text);
-    return m ? m.index : -1;
-  }
-  /* Taglia `block` al primo confine strutturale trovato DOPO l'inizio del bollettino
-     stesso (si salta il proprio codice ICAO e il proprio gruppo data/ora). */
-  function cleanWxBlock(block, ownCode){
-    // "=" resta il confine migliore quando c'è: tutto ciò che segue è di un altro bollettino
-    const eq = block.indexOf('=');
-    if(eq>=0) block = block.slice(0, eq+1);
-    // si parte a cercare dopo l'intestazione del bollettino (etichetta + ICAO + DDHHMMZ)
-    const own = new RegExp('\\b'+ownCode+'\\b').exec(block);
-    let from = own ? own.index+4 : 0;
-    const dt = /\d{6}Z/.exec(block.slice(from));
-    if(dt) from += dt.index+dt[0].length;
-    let cut = block.length;
-    [sectionBoundaryRe, bulletinStartRe, airportHeaderRe].forEach(re=>{
-      const i = firstIndexAfter(re, block, from);
-      if(i>=0 && i<cut) cut=i;
-    });
-    return block.slice(0, cut).trim();
-  }
-  // Toglie un'etichetta di bollettino rimasta incollata in coda al blocco (es. "...
-  // Q1017= Speci" quando nel testo originale il confine con il prossimo bollettino
-  // non era netto) — METAR/SPECI/TAF, case-insensitive, isolata a fine stringa.
-  function stripTrailingLabel(block){
-    return (block||'').replace(/[\s=]*\b(?:METAR|SPECI|TAF)\b\s*$/i, '').trim();
-  }
-  function assignWx(code, field, block){
-    if(!isValidIcao(code, codes)) return;
-    block = stripTrailingLabel(cleanWxBlock(block, code));
-    // un blocco che dopo la pulizia resta vuoto non è un bollettino: ignoralo,
-    // altrimenti popola la sezione "altri aeroporti" con voci senza contenuto
-    if(!block || block.length<8) return;
-    const key = keyForCode(code);
-    if(key) result[key][field] = result[key][field] || block;
-    else otherBucket(code)[field] = otherBucket(code)[field] || block;
-  }
-
-  // ---- METAR / SPECI / TAF: trova OGNI blocco nel testo, sia con l'etichetta esplicita
-  //      ("METAR <ICAO>...") sia nel formato implicito senza etichetta ("<ICAO> DDHHMMZ..."
-  //      per METAR, "<ICAO> [AMD] DDHHMMZ DDHH/DDHH..." per TAF, riconoscibile dal periodo
-  //      di validità). Il confine del blocco è il vero terminatore "=" con cui i bollettini
-  //      grezzi finiscono SEMPRE (anche multi-riga, es. un TAF con TEMPO su una riga a
-  //      parte) — molto più affidabile che indovinare "dove inizia il prossimo bollettino",
-  //      perché un TAF può essere seguito da pagine e pagine di testo non aeronautico
-  //      (prognosi, grafici) prima del prossimo bollettino o della parola "NOTAM".
-  //      Poi smista: DEP/DEST/ALTN nel rispettivo riquadro, altrimenti OTHER AIRPORTS. ----
-  function grabAllWxBlocks(kind){
-    // Niente più "[^=]": in Skybrief il terminatore "=" può mancare del tutto.
-    // Si prende una finestra generosa e ci pensa cleanWxBlock() a tagliarla nel punto giusto.
-    //
-    // L'etichetta è tollerante alle maiuscole (METAR / Metar / metar), MA il codice
-    // ICAO deve essere maiuscolo per forza: con un flag /i globale la frase italiana
-    // "METAR/TAF dell'aeroporto non disponibili" veniva letta come il bollettino di
-    // un aeroporto chiamato "DELL".
-    const label = kind.split('').map(ch=>'['+ch.toUpperCase()+ch.toLowerCase()+']').join('');
-    const re = new RegExp(label+'\\s+([A-Z]{4})\\b([\\s\\S]{0,600})','g');
-    const out=[]; let m;
-    while((m=re.exec(norm))!==null){
-      out.push({code:m[1].toUpperCase(), block:(kind+' '+m[1]+m[2]).replace(/\s+/g,' ').trim()});
-      // La finestra catturata è volutamente lunga (fino a 600 caratteri) perché il
-      // confine vero lo decide cleanWxBlock(). Ma lasciare che lastIndex arrivi in
-      // fondo alla finestra farebbe SALTARE i bollettini che stanno lì dentro: la
-      // ricerca riparte quindi subito dopo l'intestazione di QUESTO bollettino.
-      re.lastIndex = m.index + (m[0].length - m[2].length);
-    }
-    return out;
-  }
-  // SPECI: nel formato reale la sezione "Speci" elenca un blocco per aeroporto, spesso
-  // "LSZL no data available" quando non c'è un vero bollettino. IMPORTANTE: pdf.js unisce
-  // il testo di una pagina con semplici SPAZI, mai veri "a capo" — quindi non si può
-  // affidarsi a righe separate da newline. Isoliamo il testo tra "Speci" e la prossima
-  // parola chiave di sezione (Taf/Metar/NOTAM), poi troviamo ogni codice ICAO valido al
-  // suo interno e assegnamo il testo fino al codice successivo — funziona identico sia
-  // che il testo abbia newline puliti sia che sia tutto su una riga sola.
-  function grabSpeciSection(){
-    const hm = /\bSpeci\b/i.exec(norm);
-    if(!hm) return;
-    const afterIdx = hm.index+hm[0].length;
-    const endM = /\b(?:Taf|Metar|NOTAM)\b/i.exec(norm.slice(afterIdx));
-    const sectionEnd = endM ? afterIdx+endM.index : Math.min(norm.length, afterIdx+2000);
-    const section = norm.slice(afterIdx, sectionEnd);
-    const codeRe = /\b[A-Z]{4}\b/g;
-    const positions = []; let cm;
-    while((cm=codeRe.exec(section))!==null){
-      if(isValidIcao(cm[0], codes)) positions.push({code:cm[0], idx:cm.index});
-    }
-    positions.forEach((p,i)=>{
-      const end = i+1<positions.length ? positions[i+1].idx : section.length;
-      const text = section.slice(p.idx, end).replace(/\s+/g,' ').trim();
-      if(text) assignWx(p.code, 'speci', text);
-    });
-  }
-  grabSpeciSection();
-  // SPECI con etichetta esplicita ("SPECI LIMC 081312Z ..."): stesso trattamento di METAR/TAF.
-  ['METAR','SPECI','TAF'].forEach(kind=>{
-    grabAllWxBlocks(kind).forEach(({code,block})=> assignWx(code, kind.toLowerCase(), block));
-  });
-  // TAF implicito: "[AMD] <ICAO> [AMD] DDHHMMZ DDHH/DDHH ..." — il periodo di validità
-  // DDHH/DDHH è la firma inequivocabile di un TAF, anche senza l'etichetta "TAF" davanti.
-  // AMD può comparire sia prima che dopo il codice. Confine = primo "=" (vedi sopra).
-  const tafImplicitRe = /(?:AMD\s+)?\b([A-Z]{4})\b\s+(?:AMD\s+)?(\d{6}Z\s+\d{4}\/\d{4}[\s\S]{0,600})/g;
-  let tim;
-  while((tim=tafImplicitRe.exec(norm))!==null){
-    const code=tim[1].toUpperCase();
-    assignWx(code, 'taf', ('TAF '+code+' '+tim[2]).replace(/\s+/g,' ').trim());
-    tafImplicitRe.lastIndex = tim.index + (tim[0].length - tim[2].length); // vedi nota in grabAllWxBlocks
-  }
-  // METAR implicito: "<ICAO> DDHHMMZ ..." SENZA periodo di validità subito dopo
-  // (altrimenti sarebbe un TAF, già gestito sopra). Confine = primo "=".
-  const metarImplicitRe = /\b([A-Z]{4})\s+(\d{6}Z)\b(?!\s*\d{4}\/\d{4})([\s\S]{0,400})/g;
-  let mim;
-  while((mim=metarImplicitRe.exec(norm))!==null){
-    const code=mim[1].toUpperCase();
-    assignWx(code, 'metar', ('METAR '+code+' '+mim[2]+mim[3]).replace(/\s+/g,' ').trim());
-    metarImplicitRe.lastIndex = mim.index + (mim[0].length - mim[3].length); // vedi nota in grabAllWxBlocks
-  }
-
-  // ---- NOTAM: cercati in TUTTO il documento (normNotam contiene ogni pagina).
-  //      Un'intestazione di aeroporto viene riconosciuta SOLO in due forme sicure,
-  //      mai dentro il testo E) libero di un NOTAM (altrimenti parole qualsiasi
-  //      come "LONG"/"OBST" verrebbero scambiate per nuovi aeroporti):
-  //      1) "<ICAO> ... NOTAM/NOTAMS" — titolo di sezione, anche lontano dal numero
-  //      2) "<ICAO>" a inizio riga, subito prima del numero NOTAM (prefisso inline)
-  //      Ogni NOTAM eredita l'ultima intestazione confermata, così una lista con
-  //      l'intestazione scritta una sola volta in cima viene assegnata per intero
-  //      allo stesso aeroporto. ----
-  const notamNumRe = /\b[A-Z]\d{3,5}\/\d{2}\b/g;
-  const notamStarts=[]; let nmIdx;
-  while((nmIdx=notamNumRe.exec(normNotam))!==null) notamStarts.push(nmIdx.index);
-
-  const headers=[];
-  const sectionTitleRe = /\b([A-Z]{4})\s+NOTAMS?\b/g;
-  let shm;
-  while((shm=sectionTitleRe.exec(normNotam))!==null){
-    // rischioso da usare come confine di troncamento: frasi normali come "SEE LSZL
-    // NOTAM FOR DETAILS" combaciano con questo pattern pur non essendo un titolo di
-    // sezione — va bene per il CONTESTO, mai per tagliare il testo di un NOTAM.
-    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:false});
-  }
-  // formato reale Skybriefing/PIB: "LSZL - Locarno", "LIMZ - Cuneo/Levaldigi" ecc.
-  // (codice ICAO, trattino, nome città) — molto più comune di "ICAO NOTAMS" nei
-  // briefing veri, e ogni singolo NOTAM lì sotto è prefissato solo con un codice
-  // FIR/nazionale di 2 lettere (es. "LS", "LI"), non con l'ICAO per intero.
-  // Trattino ASCII, en dash e em dash: Skybrief usa "—", i PIB classici "-".
-  const sectionDashRe = /\b([A-Z]{4})\b\s*[-–—]\s*(?=[A-Za-z])/g;
-  while((shm=sectionDashRe.exec(normNotam))!==null){
-    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:true});
-  }
-  // Formato Skybrief: "LIMC Malpensa International Airport — Milan", seguito da
-  // "AD ELEV ...". Sono due firme indipendenti, entrambe sicure: il codice ICAO
-  // seguito da un nome proprio che termina in Airport/Airfield/Aerodrome, oppure
-  // dal blocco "AD ELEV" che nel formato compare sempre subito sotto l'intestazione.
-  const namedHeaderRe = /\b([A-Z]{4})\s+(?=[A-Z][a-z][^\n]{0,60}?\b(?:Airport|Airfield|Aerodrome|Airbase|Intl|International)\b)/g;
-  while((shm=namedHeaderRe.exec(normNotam))!==null){
-    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:true});
-  }
-  const adElevHeaderRe = /\b([A-Z]{4})\b(?=[^\n]{0,80}?\bAD\s+ELEV\b)/g;
-  while((shm=adElevHeaderRe.exec(normNotam))!==null){
-    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:true});
-  }
-  // Prefisso inline: "<ICAO> A1234/26". Prima richiedeva un vero a capo davanti
-  // ((?:^|\n)), quindi con pdf.js — che unisce la pagina con soli spazi — non
-  // scattava MAI. Il numero NOTAM subito dopo è già una firma inequivocabile:
-  // basta un confine di parola.
-  const inlinePrefixRe = /\b([A-Z]{4})\s+(?=[A-Z]\d{3,5}\/\d{2}\b)/g;
-  while((shm=inlinePrefixRe.exec(normNotam))!==null){
-    if(isValidIcao(shm[1], codes)) headers.push({code:shm[1], idx:shm.index, safeTrim:true});
-  }
-  // se lo stesso codice compare più volte nella stessa posizione (due regole che
-  // hanno agganciato la stessa intestazione) ne resta una sola
-  const seenHdr=new Set();
-  headers.sort((a,b)=>a.idx-b.idx);
-  const uniqHeaders = headers.filter(h=>{ const k=h.code+'@'+h.idx; if(seenHdr.has(k)) return false; seenHdr.add(k); return true; });
-  headers.length=0; uniqHeaders.forEach(h=>headers.push(h));
-
-  function headerBefore(idx){
-    let found=null;
-    for(const h of headers){ if(h.idx<=idx) found=h; else break; }
-    return found;
-  }
-  function nextHeaderAfter(idx){
-    for(const h of headers){ if(h.idx>idx && h.safeTrim) return h; }
-    return null;
-  }
-
-  notamStarts.forEach((idx,i)=>{
-    const h = headerBefore(idx);
-    const headerCode = h ? h.code : null;
-    const nextStart = notamStarts[i+1];
-    const nh = nextHeaderAfter(idx);
-    // il blocco si ferma alla prossima intestazione (se ce n'è una prima del prossimo
-    // NOTAM) o all'inizio del prossimo NOTAM, cosi' non si tronca mai il testo E)
-    let blockEnd = nextStart!=null ? nextStart : normNotam.length;
-    if(nh && (nextStart==null || nh.idx<nextStart)) blockEnd = nh.idx;
-    const block = normNotam.slice(idx, blockEnd).replace(/\s+/g,' ').trim();
-
-    // REGOLA D'ORO — priorità assoluta: se il testo del NOTAM cita esplicitamente
-    // "REF AIP AD 2 <ICAO>", l'attribuzione usa QUEL codice, anche se diverso
-    // dall'intestazione di sezione sotto cui il NOTAM si trova nel documento.
-    const aipRef = /REF\s+AIP\s+AD\s*2\s+([A-Z]{4})\b/i.exec(block);
-    const aipCode = (aipRef && isValidIcao(aipRef[1].toUpperCase(), codes)) ? aipRef[1].toUpperCase() : null;
-    const currentCode = aipCode || headerCode;
-
-    if(currentCode===codes.dep) result.dep.notam.push(block);
-    else if(currentCode===codes.dest) result.dest.notam.push(block);
-    else if(currentCode===codes.altn) result.altn.notam.push(block);
-    else if(currentCode) otherBucket(currentCode).notam.push(block);
-    else result.enroute.push(block);
-  });
-
-  // Se ALTERNATE coincide col DEPARTURE, l'alternato eredita gli stessi dati/NOTAM
-  // del departure invece di restare vuoto — non ha senso duplicare la ricerca nel
-  // testo, i dati sono letteralmente gli stessi aeroporto.
-  if(codes.altn && codes.dep && codes.altn===codes.dep){
-    result.altn.metar = result.altn.metar || result.dep.metar;
-    result.altn.speci = result.altn.speci || result.dep.speci;
-    result.altn.taf = result.altn.taf || result.dep.taf;
-    if(!result.altn.notam.length) result.altn.notam = result.dep.notam.slice();
-  }
-  return result;
-}
+const wxDrop=$('wxDrop'), wxFile=$('wxFile'), wxStatus=$('wxStatus'), wxRetryBtn=$('wxRetryBtn');
+wxDrop.addEventListener('click',()=>wxFile.click());
+wxDrop.addEventListener('dragover',e=>{e.preventDefault();wxDrop.style.borderColor='#2f6df6'});
+wxDrop.addEventListener('dragleave',()=>wxDrop.style.borderColor='');
+wxDrop.addEventListener('drop',e=>{e.preventDefault();wxDrop.style.borderColor='';if(e.dataTransfer.files[0])handleWxPdf(e.dataTransfer.files[0])});
+wxFile.addEventListener('change',e=>{if(e.target.files[0])handleWxPdf(e.target.files[0])});
+wxRetryBtn.addEventListener('click',()=>{ if(window.__wxLastFile) handleWxPdf(window.__wxLastFile); });
 
 function applyBriefingResult(r){
   let found=0;
@@ -4110,14 +2948,15 @@ const NEW_FLIGHT_DEFAULTS = {
 
 function newFlight(){
   if(!confirm('Creare un nuovo foglio? I dati non salvati andranno persi.')) return;
+  // Un foglio nuovo riparte dall'import: e' li' che si caricano NavLog e briefing.
+  try{ sessionStorage.removeItem(HANDOFF_KEY); }catch(e){}
+  window.location.href = ($('goImport') && $('goImport').getAttribute('href')) || 'import.html';
+  return;
   window.__editingFlightId=null;
   window.__wxCharts=null;
   window.__wxPrintedAt=null;
   window.__navlog=null;
   window.__wxImported=false;
-  setUnlocked(false);                       // si riparte dall'import
-  if($('navStatus')) $('navStatus').textContent='';
-  if($('navPreview')) $('navPreview').innerHTML='';
   // svuota OGNI campo di input/select/textarea del wizard...
   document.querySelectorAll('.scroll input, .scroll select, .scroll textarea').forEach(el=>{
     if(el.type==='file') return;
@@ -4162,8 +3001,7 @@ function editFlight(flightId){
   window.__editingFlightId=flightId;
   // un volo ripreso dalla cronologia ha gia' i suoi dati dentro: rimandarlo
   // all'import sarebbe solo un ostacolo
-  setUnlocked(true);
-  closeDashboard(); goToStep(2); render();
+  closeDashboard(); goToStep(1); render();
 }
 
 function viewFlightOFP(flightId){
@@ -4171,8 +3009,7 @@ function viewFlightOFP(flightId){
   applyFlightData(f.flight_data);
   if(f.weather_data) applyWeatherData(f.weather_data);
   window.__editingFlightId=flightId;
-  setUnlocked(true);
-  closeDashboard(); goToStep(2); render();
+  closeDashboard(); goToStep(1); render();
 }
 
 // Finalizza un volo caricando il PDF del briefing: riusa lo STESSO parser del wizard,
@@ -4303,6 +3140,69 @@ $('btnCloseDash').addEventListener('click',closeDashboard);
 $('btnStandby').addEventListener('click',saveFlightDraft);
 $('btnNew').addEventListener('click',newFlight);
 
+/* ===================== DATI RICEVUTI DALLA PAGINA DI IMPORT =====================
+   La pagina di apertura lascia in sessionStorage quello che ha estratto; qui lo si
+   riprende e lo si versa nei campi. Se non c'e' nulla vuol dire che si e' arrivati
+   al foglio di volo saltando l'import, e lo si dice invece di mostrare un modulo
+   vuoto senza spiegazione. */
+const HANDOFF_KEY='ofp_handoff', HANDOFF_V=1;
+
+function readHandoff(){
+  try{
+    const raw=sessionStorage.getItem(HANDOFF_KEY);
+    if(!raw) return null;
+    const d=JSON.parse(raw);
+    return (d && d.v===HANDOFF_V) ? d : null;
+  }catch(e){ return null; }
+}
+
+/* Scrive nei campi cio' che arriva dal NavLog. Solo quello che NON dipende dal
+   POH: aeroporti, rotta, distanza, quota. Velocita' e consumi restano quelli del
+   settaggio di potenza, che ha la precedenza. */
+function applyNavlogSummary(sum){
+  if(!sum) return;
+  if(sum.dep && $('dep')) $('dep').value=sum.dep;
+  if(sum.arr && $('arr')) $('arr').value=sum.arr;
+  if(sum.route && $('route')) $('route').value=sum.route;
+  if(sum.totals && sum.totals.dist!=null && $('tripDist')) $('tripDist').value=sum.totals.dist;
+  if(sum.cruiseAlt){
+    if($('cruisealt') && !txt('cruisealt').trim()) $('cruisealt').value=sum.cruiseAlt+' ft';
+    if($('pwrAlt')) $('pwrAlt').value=sum.cruiseAlt;
+    if($('altAlt')) $('altAlt').value=sum.cruiseAlt;
+    if($('cruisePerfAlt')) $('cruisePerfAlt').value=sum.cruiseAlt;
+  }
+  window.__navlog={sum};
+}
+
+function applyHandoff(){
+  const d=readHandoff();
+  if(!d){
+    // nessun dato e nessuna scelta di compilare a mano: si torna all'import
+    $('needImport').style.display='flex';
+    return false;
+  }
+  applyNavlogSummary(d.nav);
+  if(d.wx){
+    if(d.wx.printedAt){
+      window.__wxPrintedAt=d.wx.printedAt;
+      if($('wxDate') && d.wx.printedAt.date) $('wxDate').value=d.wx.printedAt.date;
+      if($('wxTime') && d.wx.printedAt.time) $('wxTime').value=d.wx.printedAt.time;
+      if($('wxValid') && d.wx.printedAt.valid) $('wxValid').value=d.wx.printedAt.valid;
+    }
+    if(d.wx.result){ applyBriefingResult(d.wx.result); window.__wxImported=true; }
+  }
+  window.__wxCharts=d.charts||[];
+  if(d.chartsDropped) console.warn('Le cartine meteo non sono state trasferite: superavano lo spazio disponibile.');
+  return true;
+}
+
+/* Sotto Apps Script le due pagine sono lo stesso web app con un parametro. */
+if(typeof google!=='undefined' && google.script && google.script.run){
+  google.script.run.withSuccessHandler(function(url){
+    const a=$('goImport'); if(a){ a.setAttribute('href',url); a.setAttribute('target','_top'); }
+  }).getWebAppUrl();
+}
+
 /* ============================ boot ============================ */
 // Sincronizzazione automatica altitudine: quando l'utente scrive la Cruise altitude
 // nella prima pagina (es. "2500/4000 ft"), copiamo la quota di crociera nel campo
@@ -4340,7 +3240,8 @@ function applyAircraft(){
 if($('acSelect')) $('acSelect').addEventListener('change', applyAircraft);
 
 document.body.addEventListener('input',render);
-renderSteps(); goToStep(1); renderImportState();
+applyHandoff();
+renderSteps(); goToStep(1);
 syncAltitudeToPerf(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
 // su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
 if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';

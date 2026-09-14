@@ -1,7 +1,7 @@
 # OFP Generator — Cessna C172 FR (Reims Rocket FR172J)
 
 Generatore di **Operational Flight Plan** per il Reims Cessna FR172J, adattato dal
-generatore per Diamond DA40. Wizard in 8 passaggi che si apre su una pagina di import, anteprima HTML fedele al documento
+generatore per Diamond DA40. Due pagine: una di **import** e il **foglio di volo** in 7 passaggi, anteprima HTML fedele al documento
 e **PDF vettoriale A4 in Courier** (jsPDF), con estrazione automatica di
 METAR / SPECI / TAF / NOTAM dal PDF del briefing meteo.
 
@@ -12,14 +12,33 @@ la provenienza di ogni singolo numero è in **[DATI-AFM.md](DATI-AFM.md)**.
 
 | File | Cosa contiene |
 |---|---|
-| `index.html` | l'applicazione completa (markup, CSS, JS) |
-| `Codice.gs` | lato server Apps Script: voli su UserProperties, PDF su Drive |
+| `import.html` | **pagina di apertura**: carica NavLog e briefing, poi passa al foglio di volo |
+| `index.html` | il foglio di volo (wizard in 7 passaggi, anteprima, PDF) |
+| `ofp-core.js` | nucleo condiviso: lettura NavLog, briefing, METAR |
+| `ofp.css` | foglio di stile condiviso dalle due pagine |
+| `Codice.gs` | lato server Apps Script: routing, voli su UserProperties, PDF su Drive |
 | `appsscript.json` | manifest del progetto Apps Script |
 | `DATI-AFM.md` | da dove viene ogni dato aeromobile |
 
-`index.html` funziona **sia da solo sia dentro Apps Script**: rileva a runtime la
-presenza di `google.script.run` e, se manca, ripiega su `localStorage`. Non ci
-sono due versioni da tenere allineate.
+### Come si passano i dati fra le due pagine
+
+`import.html` legge i file, mostra cosa ha estratto e lo deposita in
+**`sessionStorage`** sotto la chiave `ofp_handoff`; il pulsante *Continua* porta a
+`index.html`, che al caricamento la rilegge e riversa tutto nei campi.
+
+Non un parametro nell'URL: i dati estratti sono decine di kilobyte — bollettini
+interi, tabelle di tratte, e le cartine meteo come immagini — e in un URL non
+entrerebbero. `sessionStorage` vive quanto la scheda, che è esattamente la durata
+di una compilazione. Se le cartine non ci stanno vengono omesse e il resto passa
+comunque, invece di perdere l'intero import per colpa di un allegato.
+
+Aprendo `index.html` senza essere passati dall'import, la pagina lo dice e offre
+il link per tornare indietro: è un pannello con un link e non una redirezione da
+script, perché sotto Apps Script le pagine stanno in un iframe e la navigazione
+programmatica verrebbe bloccata dal sandbox.
+
+I parser stanno una volta sola in `ofp-core.js`, caricato da entrambe le pagine:
+niente due copie che col tempo divergerebbero.
 
 ## Uso locale
 
@@ -32,8 +51,18 @@ Apri `index.html` in un browser. Serve connessione a Internet per jsPDF e pdf.js
 2. Impostazioni progetto → spunta **"Mostra il file manifest appsscript.json"**.
 3. Sostituisci il contenuto di `appsscript.json` con quello di questo repository.
 4. Rinomina `Codice.gs` (o creane uno con quel nome) e incollaci `Codice.gs`.
-5. **File → Nuovo → File HTML**, chiamalo **`index`** (Apps Script aggiunge da sé
-   `.html`), e incollaci tutto `index.html`.
+5. **File → Nuovo → File HTML** per ciascuna di queste quattro pagine (Apps Script
+   aggiunge da sé `.html`):
+   - **`import`** ← contenuto di `import.html`
+   - **`index`** ← contenuto di `index.html`
+   - **`core`** ← contenuto di `ofp-core.js` (solo il JavaScript, senza tag)
+   - **`styles`** ← contenuto di `ofp.css` (solo il CSS, senza tag)
+
+   Apps Script non serve file `.js` e `.css`: `doGet` sostituisce al volo i tag
+   `<script src="ofp-core.js">` e `<link href="ofp.css">` con il contenuto di
+   `core` e `styles`. Le pagine restano così identiche a quelle che funzionano
+   aperte direttamente in un browser. L'indirizzo del web app apre l'import;
+   `?page=ofp` apre il foglio di volo.
 6. **Distribuisci → Nuova distribuzione → Applicazione web**:
    - *Esegui come*: **Utente che accede all'app**
    - *Chi ha accesso*: a tua scelta (es. chiunque abbia un account Google, oppure
@@ -58,16 +87,19 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
 
 ## Flusso di lavoro
 
-Il wizard si apre su una **pagina di import dedicata**, e finché quella non è
-completata gli altri passaggi restano **bloccati**: compilarli prima vorrebbe dire
-inserire a mano dati che di lì a poco verrebbero sovrascritti dai file.
+**Pagina 1 — Import.** NavLog ForeFlight e briefing meteo. Ogni caricamento mostra
+cosa è stato letto — la tabella delle tratte, i METAR smistati — e aggiorna un
+riepilogo di stato. Quando ci sono entrambi il pulsante *Continua* si attiva.
+Se un file manca o non si lascia leggere c'è la via d'uscita esplicita
+*"Prosegui e compila a mano"*: un parser che fallisce non deve rendere
+inutilizzabile l'applicazione proprio quando serve.
 
-0. **Import** — NavLog ForeFlight e briefing meteo. Ogni caricamento aggiorna un
-   riepilogo di stato; quando ci sono entrambi il wizard si apre da solo.
-   Se un file manca o non si lascia leggere c'è la via d'uscita esplicita
-   *"Prosegui e compila a mano"*: un parser che fallisce non deve rendere
-   inutilizzabile l'applicazione proprio quando serve. Un volo ripreso dalla
-   cronologia parte già sbloccato, perché i suoi dati li ha già dentro.
+Se il briefing viene caricato **prima** del NavLog, lo smistamento avviene senza
+conoscere i codici di rotta; appena il NavLog arriva il testo già in memoria viene
+riletto, senza dover ricaricare il file nell'ordine giusto.
+
+**Pagina 2 — Foglio di volo**, in sette passaggi:
+
 1. **Volo & Aeromobile** — aeroporti, rotta e orari, già compilati dal NavLog.
    Appena i codici ICAO sono completi, coordinate, elevazione e piste arrivano da
    OurAirports e completano distanza e tempo dell'alternato, elevazioni,
