@@ -58,10 +58,12 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
 
 ## Flusso di lavoro
 
-1. **Volo & Aeromobile** — rotta, aeroporti, orari stimati. Il pulsante
-   **Cerca aeroporti su OurAirports** recupera coordinate, elevazione e piste e
-   compila distanza Trip, distanza e tempo dell'alternato, elevazioni, orientamenti
-   pista e le distanze dichiarate di partenza.
+1. **Volo & Aeromobile** — si parte da due import: il **NavLog ForeFlight** e il
+   **briefing meteo**. Dal NavLog vengono letti waypoint, prue magnetiche, distanze
+   di tratta e totali, tempi e consumi, e da lì si compilano aeroporti, rotta,
+   distanza Trip e quota di crociera. Appena i codici ICAO sono completi, coordinate,
+   elevazione e piste arrivano da OurAirports e completano distanza e tempo
+   dell'alternato, elevazioni, orientamenti pista e le distanze di partenza.
 2. **Rotta & Fuel** — **settaggio di potenza** (quota + RPM + MAP): i menu offrono
    solo le combinazioni pubblicate dal POH per quella quota e mostrano la
    percentuale di potenza; scegliendone una, **Ground Speed e Fuel Flow del Trip si
@@ -93,6 +95,47 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
 
 "Salva in Standby" mette il volo in attesa del meteo; dalla Dashboard lo si
 finalizza caricando il PDF del briefing anche giorni dopo.
+
+## Import NavLog ForeFlight
+
+Un NavLog è una **tabella**, e le tabelle in PDF non si leggono a righe di testo:
+pdf.js restituisce i frammenti in ordine sparso e unendoli con spazi le colonne si
+mescolano. Il parser usa invece le **coordinate** di ogni frammento: raggruppa per
+ordinata per ricostruire le righe, legge l'intestazione per capire dove cade ogni
+colonna, e assegna ogni valore alla colonna più vicina. Non dipende quindi da un
+ordine di colonne fisso: si adatta a quelle che il NavLog dichiara.
+
+Colonne riconosciute (con sinonimi, perché ForeFlight cambia le diciture fra
+versioni e impostazioni di unità): waypoint, airway, altitudine, MC/MH, vento, OAT,
+TAS, GS, distanza di tratta e rimanente, ETE, ETA, carburante di tratta e rimanente.
+La riga `TOTALS` fornisce i totali; in mancanza, si sommano le tratte.
+
+Un NavLog incollato o esportato come testo viene letto da un parser di riserva,
+meno preciso ma sufficiente.
+
+**Prima di scrivere qualsiasi campo, la tabella letta viene mostrata** per la
+verifica: tratte, prue, distanze, tempi e consumi così come sono stati
+interpretati.
+
+Cosa viene compilato: aeroporti, rotta, distanza Trip, quota di crociera. **GS e
+Fuel Flow no**: restano quelli del settaggio di potenza POH, che è l'automazione
+esistente. I consumi del NavLog sono nelle unità di ForeFlight e vengono mostrati
+solo come riscontro.
+
+> L'import **non è stato provato contro un export reale di ForeFlight**, che non è
+> stato fornito. La logica a colonne è verificata su un NavLog sintetico con la
+> stessa struttura (intestazione, righe incolonnate, riga TOTALS): riconosce tutte
+> e undici le colonne e ne estrae i valori corretti. Con un export vero si tara in
+> pochi minuti.
+
+## Campi precompilati
+
+Nessun dato di volo è precompilato: aeroporti, nome del PIC, rotta, distanze, pesi
+e persone a bordo partono vuoti, con un placeholder che spiega cosa va scritto
+(`ICAO DEP`, `ICAO ARR`, `ICAO ALT`, `Nome e Cognome PIC`). Restano precompilati
+solo i dati **di aeromobile** (peso a vuoto e momento del velivolo scelto) e le
+**impostazioni di calcolo** (settaggio di potenza di partenza, taxi, regola di
+volo, limiti di massa), che non cambiano da un volo all'altro.
 
 ## Formati di briefing riconosciuti
 

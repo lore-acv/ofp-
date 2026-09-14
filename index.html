@@ -225,17 +225,33 @@
       <!-- STEP 1 -->
       <div class="panel active" data-step="1">
         <p class="step-title">Volo &amp; Aeromobile</p>
-        <p class="step-sub">Dati generali della missione.</p>
+        <p class="step-sub">Si parte da qui: carica il <b>NavLog ForeFlight</b> e il <b>briefing meteo</b>.
+          Rotta, distanze, tempi e consumi vengono letti dal NavLog; vento, QNH e temperatura dal briefing.
+          Tutto quello che viene estratto resta modificabile a mano.</p>
+        <div class="group">
+          <h3>1 &mdash; NavLog ForeFlight</h3>
+          <div class="drop" id="navDrop">Clicca o trascina il NavLog esportato da ForeFlight (PDF o testo)</div>
+          <input type="file" id="navFile" accept="application/pdf,text/plain,.txt,.csv" hidden>
+          <div class="mb-status" id="navStatus"></div>
+          <div id="navPreview" style="margin-top:.5rem"></div>
+        </div>
+        <div class="group">
+          <h3>2 &mdash; Briefing meteo</h3>
+          <div class="drop" id="wxDrop2">Clicca o trascina il PDF del briefing WX &amp; NOTAM</div>
+          <div class="mb-status" id="wxStatus2"></div>
+          <div class="hint">Lo stesso file si pu&ograve; caricare anche dallo Step 7. METAR, SPECI, TAF e NOTAM
+            vengono smistati su DEP, ARR e ALTN, e da l&igrave; alimentano il calcolo prestazioni.</div>
+        </div>
         <div class="group">
           <div class="row">
-            <div class="fld"><label>DEP</label><input id="dep" value="LILN"></div>
-            <div class="fld"><label>ARR</label><input id="arr" value="LIMC"></div>
+            <div class="fld"><label>DEP</label><input id="dep" value="" placeholder="ICAO DEP (es. LILN)" autocapitalize="characters" spellcheck="false"></div>
+            <div class="fld"><label>ARR</label><input id="arr" value="" placeholder="ICAO ARR (es. LSZA)" autocapitalize="characters" spellcheck="false"></div>
           </div>
           <div class="row">
-            <div class="fld"><label>ALTN</label><input id="altn" value="LILN"></div>
+            <div class="fld"><label>ALTN</label><input id="altn" value="" placeholder="ICAO ALT (es. LIME)" autocapitalize="characters" spellcheck="false"></div>
             <div class="fld"><label>Reg</label><input id="reg" value="I-CCAF"></div>
           </div>
-          <div class="row"><div class="fld"><label>Flight mission</label><input id="mission" value=""></div></div>
+          <div class="row"><div class="fld"><label>Flight mission</label><input id="mission" value="" placeholder="scopo del volo"></div></div>
           <div class="mb-status" id="oaStatus"></div>
           <div id="oaInfo" style="font-size:.82rem;color:var(--txt-dim);margin-top:.4rem;font-family:'Courier New',monospace;line-height:1.5"></div>
           <div class="hint">Appena un codice ICAO &egrave; completo (quattro lettere), coordinate, elevazione e piste
@@ -245,8 +261,8 @@
         </div>
         <div class="group">
           <h3>Rotta</h3>
-          <div class="fld"><label>Route</label><textarea id="route"></textarea></div>
-          <div class="row" style="margin-top:9px"><div class="fld"><label>Cruise altitude</label><input id="cruisealt" value="5000 ft"></div></div>
+          <div class="fld"><label>Route</label><textarea id="route" placeholder="waypoint separati da spazio — compilata dal NavLog ForeFlight"></textarea></div>
+          <div class="row" style="margin-top:9px"><div class="fld"><label>Cruise altitude</label><input id="cruisealt" value="" placeholder="es. 5000 ft"></div></div>
         </div>
         <div class="group">
           <h3>Orari stimati</h3>
@@ -288,7 +304,7 @@
         <div class="group">
           <h3>Trip</h3>
           <div class="row">
-            <div class="fld"><label>Distanza (nm)</label><input id="tripDist" type="number" value="60"></div>
+            <div class="fld"><label>Distanza (nm)</label><input id="tripDist" type="number" value="" placeholder="dal NavLog"></div>
             <div class="fld"><label>GS (MPH)</label><input id="tripGS" type="number" value="124"></div>
             <div class="fld"><label>Fuel flow (L/h)</label><input id="tripFF" type="number" step="0.1" value="32.2"></div>
           </div>
@@ -301,7 +317,7 @@
           <div class="hint">Per l'alternato si usa sempre il settaggio standard <b>22 inHg / 2400 RPM</b>:
             GS e Fuel Flow qui sotto sono quelli di quel settaggio alla quota indicata e non si modificano a mano.</div>
           <div class="row" style="margin-top:8px">
-            <div class="fld"><label>Distanza (nm)</label><input id="altDist" type="number" value="30"></div>
+            <div class="fld"><label>Distanza (nm)</label><input id="altDist" type="number" value="" placeholder="da OurAirports"></div>
             <div class="fld"><label>GS (MPH)</label><input id="altGS" type="number" value="133" readonly style="opacity:.7"></div>
             <div class="fld"><label>Fuel flow (L/h)</label><input id="altFF" type="number" step="0.1" value="36.7" readonly style="opacity:.7"></div>
           </div>
@@ -374,12 +390,12 @@
         <div class="group">
           <h3>Carico</h3>
           <div class="row">
-            <div class="fld"><label>Pilota + pax anteriore (kg)</label><input id="paxFront" type="number" value="85"></div>
-            <div class="fld"><label>Pax posteriori (kg)</label><input id="paxRear" type="number" value="0"></div>
+            <div class="fld"><label>Pilota + pax anteriore (kg)</label><input id="paxFront" type="number" value="" placeholder="kg"></div>
+            <div class="fld"><label>Pax posteriori (kg)</label><input id="paxRear" type="number" value="" placeholder="kg"></div>
           </div>
           <div class="row">
-            <div class="fld"><label>Bagaglio (kg, max 91)</label><input id="baggage" type="number" value="0"></div>
-            <div class="fld"><label>EPOB / POB</label><input id="pob" type="number" value="1"></div>
+            <div class="fld"><label>Bagaglio (kg, max 91)</label><input id="baggage" type="number" value="" placeholder="kg"></div>
+            <div class="fld"><label>EPOB / POB</label><input id="pob" type="number" value="" placeholder="persone a bordo"></div>
           </div>
           <div class="calc" id="loadCalc"></div>
         </div>
@@ -628,7 +644,7 @@
         </div>
         <div class="group">
           <h3>PIC</h3>
-          <div class="fld"><label>Nome PIC (firma)</label><input id="picName" value="Riccardo Gianazza"></div>
+          <div class="fld"><label>Nome PIC (firma)</label><input id="picName" value="" placeholder="Nome e Cognome PIC"></div>
         </div>
         <div class="hint">Ultimo step. Usa "Scarica PDF" in alto per generare e scaricare il documento.</div>
       </div>
@@ -1116,6 +1132,158 @@ function climbFuelLitres(alt){
     }
   }
   return t[t.length-1][1];
+}
+
+/* ===================== IMPORT NAVLOG FOREFLIGHT =====================
+   Un NavLog e' una TABELLA, e le tabelle in PDF non si leggono a righe di testo:
+   pdf.js restituisce i frammenti in ordine sparso e unendoli con spazi le colonne
+   si mescolano. Qui si usano invece le COORDINATE di ogni frammento: si
+   raggruppano per ordinata (le righe), si legge la riga di intestazione per capire
+   dove cade ogni colonna, e si assegna ogni valore alla colonna piu' vicina.
+
+   Cosi' il parser non dipende da un ordine di colonne fisso: si adatta a quelle
+   che il NavLog dichiara davvero nella sua intestazione.
+
+   Sinonimi riconosciuti nell'intestazione: ForeFlight cambia le diciture fra
+   versioni e fra impostazioni di unita', quindi ogni colonna ha piu' nomi possibili. */
+const NAVLOG_COLS = [
+  {key:'wpt',     names:['WPT','WAYPOINT','IDENT','FIX','NAME','POINT','ROUTE']},
+  {key:'airway',  names:['AIRWAY','AWY','VIA']},
+  {key:'alt',     names:['ALT','ALTITUDE','FL']},
+  {key:'mc',      names:['MC','MAGCRS','COURSE','CRS','TC']},
+  {key:'mh',      names:['MH','HDG','HEADING','MAGHDG','TH']},
+  {key:'wind',    names:['WIND','WND']},
+  {key:'oat',     names:['OAT','TEMP']},
+  {key:'tas',     names:['TAS','CAS','IAS']},
+  {key:'gs',      names:['GS','GNDSPD','GROUNDSPEED']},
+  {key:'legDist', names:['LEG','DIST','DISTANCE','NM','LEGDIST']},
+  {key:'remDist', names:['REMDIST','REMAINING','REM']},
+  {key:'ete',     names:['ETE','TIME','LEGTIME']},
+  {key:'eta',     names:['ETA','ATA']},
+  {key:'legFuel', names:['FUEL','BURN','LEGFUEL','USED']},
+  {key:'remFuel', names:['REMFUEL','FUELREM','ONBOARD']}
+];
+function navlogNormHead(t){ return String(t||'').toUpperCase().replace(/[^A-Z]/g,''); }
+function navlogColFor(headText){
+  const h=navlogNormHead(headText);
+  if(!h) return null;
+  // match esatto prima, poi per prefisso: "DIST(NM)" -> DIST
+  for(const c of NAVLOG_COLS) if(c.names.indexOf(h)>=0) return c.key;
+  for(const c of NAVLOG_COLS) for(const n of c.names) if(h.startsWith(n)&&n.length>=3) return c.key;
+  return null;
+}
+
+/* Raggruppa i frammenti di una pagina in righe, per ordinata. */
+function navlogLines(items){
+  const frags=items.map(it=>({
+    x: it.transform[4], y: it.transform[5],
+    w: it.width||0, s: (it.str||'').trim()
+  })).filter(f=>f.s.length);
+  frags.sort((a,b)=> (b.y-a.y) || (a.x-b.x));
+  const lines=[]; let cur=null;
+  frags.forEach(f=>{
+    if(!cur || Math.abs(cur.y-f.y)>2.6){ cur={y:f.y, items:[f]}; lines.push(cur); }
+    else cur.items.push(f);
+  });
+  lines.forEach(l=>l.items.sort((a,b)=>a.x-b.x));
+  return lines;
+}
+
+/* Trova la riga di intestazione: quella con il maggior numero di colonne note. */
+function navlogHeader(lines){
+  let best=null, bestN=0;
+  lines.forEach((l,idx)=>{
+    const cols=l.items.map(it=>({key:navlogColFor(it.s), x:it.x+(it.w||0)/2, raw:it.s}))
+                      .filter(c=>c.key);
+    const uniq=new Set(cols.map(c=>c.key));
+    if(uniq.size>bestN){ bestN=uniq.size; best={idx, cols, line:l}; }
+  });
+  return bestN>=3 ? best : null;
+}
+
+/* Legge un NavLog da un documento pdf.js gia' aperto. */
+async function parseNavlogPdf(pdf){
+  const out={legs:[], totals:null, header:null, raw:'', cols:[]};
+  const allText=[];
+  for(let p=1;p<=pdf.numPages;p++){
+    const page=await pdf.getPage(p);
+    const content=await page.getTextContent();
+    allText.push(content.items.map(i=>i.str).join(' '));
+    const lines=navlogLines(content.items);
+    const head=navlogHeader(lines);
+    if(!head) continue;
+    out.cols=head.cols.map(c=>c.key);
+    const centers=head.cols;
+    for(let i=head.idx+1;i<lines.length;i++){
+      const row={};
+      lines[i].items.forEach(it=>{
+        const cx=it.x+(it.w||0)/2;
+        let bestKey=null, bestD=Infinity;
+        centers.forEach(c=>{ const d=Math.abs(c.x-cx); if(d<bestD){ bestD=d; bestKey=c.key; } });
+        if(bestKey==null) return;
+        row[bestKey] = (row[bestKey]? row[bestKey]+' ' : '') + it.s;
+      });
+      const first=(row.wpt||'').trim();
+      if(/^tot/i.test(first) || /^tot/i.test(Object.values(row).join(' ').slice(0,6))){
+        out.totals=row; continue;
+      }
+      // una riga vale solo se ha un identificativo e almeno un numero
+      const hasNum=Object.keys(row).some(k=>k!=='wpt' && /\d/.test(row[k]||''));
+      if(first && hasNum) out.legs.push(row);
+    }
+    if(out.legs.length) break;        // il NavLog sta di solito sulla prima pagina utile
+  }
+  out.raw=allText.join('\n');
+  return out;
+}
+
+/* ---- estrazione dei numeri dai campi testuali di una riga ---- */
+function navNum(v){
+  const m=/-?\d+(?:[.,]\d+)?/.exec(String(v||'').replace(/\s/g,''));
+  return m? parseFloat(m[0].replace(',','.')) : null;
+}
+/* Tempi: "1:23", "01:23", "83" (minuti), "1+23" */
+function navMinutes(v){
+  const t=String(v||'').trim();
+  let m=/(\d{1,2})\s*[:+.]\s*(\d{2})/.exec(t);
+  if(m) return parseInt(m[1],10)*60+parseInt(m[2],10);
+  m=/^(\d{1,4})$/.exec(t.replace(/\s/g,''));
+  if(m) return parseInt(m[1],10);
+  return null;
+}
+function navIsIcao(v){ return /^[A-Z]{3,4}$/.test(String(v||'').trim().toUpperCase()); }
+
+/* Riduce il NavLog grezzo a quello che serve all'OFP. */
+function navlogSummary(nav){
+  const legs=(nav.legs||[]).map(r=>({
+    wpt:(r.wpt||'').trim().toUpperCase().split(/\s+/)[0],
+    mh: navNum(r.mh!=null?r.mh:r.mc),
+    dist: navNum(r.legDist),
+    ete: navMinutes(r.ete),
+    fuel: navNum(r.legFuel),
+    alt: navNum(r.alt),
+    gs: navNum(r.gs)
+  })).filter(l=>l.wpt);
+
+  const t=nav.totals||{};
+  const sum=(k)=>legs.reduce((a,l)=>a+(l[k]||0),0);
+  const totals={
+    dist: navNum(t.legDist) || navNum(t.remDist) || Math.round(sum('dist')*10)/10,
+    ete:  navMinutes(t.ete) || sum('ete') || null,
+    fuel: navNum(t.legFuel) || Math.round(sum('fuel')*10)/10
+  };
+  const idents=legs.map(l=>l.wpt);
+  const dep = navIsIcao(idents[0]) ? idents[0] : null;
+  const arr = navIsIcao(idents[idents.length-1]) ? idents[idents.length-1] : null;
+  const mid = idents.slice(dep?1:0, arr?idents.length-1:idents.length);
+  const gsVals=legs.map(l=>l.gs).filter(v=>v>0);
+  const alts=legs.map(l=>l.alt).filter(v=>v>0);
+  return {
+    legs, totals, dep, arr,
+    route: mid.join(' '),
+    avgGs: gsVals.length ? Math.round(gsVals.reduce((a,b)=>a+b,0)/gsVals.length) : null,
+    cruiseAlt: alts.length ? Math.max.apply(null,alts) : null
+  };
 }
 
 /* ===================== TOLD — DECOLLO E ATTERRAGGIO =====================
@@ -2086,6 +2254,126 @@ function onPowerChange(){ rebuildPowerSelects(); applyPowerToRoute(); render(); 
 if($('pwrAlt')) $('pwrAlt').addEventListener('input', onPowerChange);
 if($('pwrMap')) $('pwrMap').addEventListener('change', ()=>{ applyPowerToRoute(); render(); });
 
+/* ============ IMPORT NAVLOG FOREFLIGHT ============
+   Niente viene scritto nei campi senza che il pilota veda PRIMA cosa e' stato
+   letto: il riquadro di anteprima mostra tratte, prue, distanze, tempi e consumi
+   cosi' come sono stati interpretati, e solo allora si applicano. */
+window.__navlog = null;
+
+const navDrop=$('navDrop'), navFile=$('navFile'), navStatus=$('navStatus');
+function navSay(cls,msg){ if(navStatus){ navStatus.className='mb-status '+cls; navStatus.textContent=msg; } }
+if(navDrop && navFile){
+  navDrop.addEventListener('click',()=>navFile.click());
+  navDrop.addEventListener('dragover',e=>{e.preventDefault();navDrop.style.borderColor='#2f6df6';});
+  navDrop.addEventListener('dragleave',()=>navDrop.style.borderColor='');
+  navDrop.addEventListener('drop',e=>{e.preventDefault();navDrop.style.borderColor='';if(e.dataTransfer.files[0])handleNavlog(e.dataTransfer.files[0]);});
+  navFile.addEventListener('change',e=>{ if(e.target.files[0]) handleNavlog(e.target.files[0]); });
+}
+
+function handleNavlog(file){
+  navSay('busy','Leggo il NavLog\u2026');
+  const isPdf = file.type==='application/pdf' || /\.pdf$/i.test(file.name);
+  const reader=new FileReader();
+  reader.onload=async ()=>{
+    try{
+      let nav;
+      if(isPdf){
+        const pdf=await pdfjsLib.getDocument({data:reader.result.slice(0)}).promise;
+        nav=await parseNavlogPdf(pdf);
+      }else{
+        nav=parseNavlogPlainText(String(reader.result||''));
+      }
+      if(!nav.legs.length){
+        navSay('err','Non ho riconosciuto la tabella del NavLog in questo file. Controlla che sia l\'esportazione NavLog di ForeFlight, oppure inserisci rotta e distanza a mano.');
+        $('navPreview').innerHTML='';
+        return;
+      }
+      const sum=navlogSummary(nav);
+      window.__navlog={raw:nav, sum};
+      applyNavlog(sum);
+      navSay('ok',`NavLog letto: ${sum.legs.length} punti, ${sum.totals.dist!=null?sum.totals.dist+' nm':'distanza n/d'}`
+        + (sum.totals.ete?`, ${minToHHMM(sum.totals.ete)} di volo`:'')
+        + (sum.totals.fuel?`, ${sum.totals.fuel} di carburante (unita' del NavLog)`:''));
+      $('navPreview').innerHTML=navPreviewHTML(sum);
+      render();
+    }catch(err){
+      console.error(err);
+      navSay('err','Non sono riuscito a leggere il file: '+(err&&err.message||err));
+    }
+  };
+  if(isPdf) reader.readAsArrayBuffer(file); else reader.readAsText(file);
+}
+
+/* Fallback per NavLog incollati o esportati come testo: ogni riga utile ha un
+   identificativo seguito da numeri. Meno preciso della lettura a colonne, ma
+   sufficiente quando il PDF non c'e'. */
+function parseNavlogPlainText(text){
+  const out={legs:[], totals:null, raw:text, cols:[]};
+  String(text).split(/\r?\n/).forEach(line=>{
+    const t=line.trim();
+    if(!t) return;
+    if(/^tot/i.test(t)){
+      const n=t.match(/\d+(?:[.,]\d+)?|\d{1,2}:\d{2}/g)||[];
+      out.totals={legDist:n[0], ete:n.find(x=>/:/.test(x)), legFuel:n[n.length-1]};
+      return;
+    }
+    // il primo waypoint di un NavLog non ha numeri (la tratta parte da li'):
+    // va comunque registrato, altrimenti si perde l'aeroporto di partenza
+    const solo=/^([A-Z]{3,4})\s*$/i.exec(t);
+    if(solo && !out.legs.length){ out.legs.push({wpt:solo[1]}); return; }
+    const m=/^([A-Z0-9][A-Z0-9._-]{1,11})\s+(.*\d.*)$/i.exec(t);
+    if(!m) return;
+    if(/^(wpt|waypoint|ident|fix|name)$/i.test(m[1])) return;    // riga di intestazione
+    const nums=(m[2].match(/\d{1,2}:\d{2}|\d+(?:[.,]\d+)?/g)||[]);
+    if(nums.length<2) return;
+    out.legs.push({wpt:m[1], mh:nums[0], legDist:nums[1],
+                   ete:nums.find(x=>/:/.test(x)), legFuel:nums[nums.length-1]});
+  });
+  return out;
+}
+
+/* Riquadro di verifica. */
+function navPreviewHTML(sum){
+  const u=(v,su)=>v==null?'—':v+(su||'');
+  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt)">
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">WPT</th><th>MH</th><th>Leg nm</th><th>ETE</th><th>Fuel</th></tr>
+    ${sum.legs.map(l=>`<tr>
+      <td style="text-align:left">${esc(l.wpt)}</td>
+      <td style="text-align:right">${u(l.mh,'&deg;')}</td>
+      <td style="text-align:right">${u(l.dist)}</td>
+      <td style="text-align:right">${l.ete!=null?minToHHMM(l.ete):'—'}</td>
+      <td style="text-align:right">${u(l.fuel)}</td></tr>`).join('')}
+    <tr style="font-weight:700;border-top:1px solid var(--panel-line)">
+      <td style="text-align:left">TOTALI</td><td></td>
+      <td style="text-align:right">${u(sum.totals.dist)}</td>
+      <td style="text-align:right">${sum.totals.ete?minToHHMM(sum.totals.ete):'—'}</td>
+      <td style="text-align:right">${u(sum.totals.fuel)}</td></tr>
+  </table>
+  <div class="hint">I consumi del NavLog sono nelle unit&agrave; impostate in ForeFlight e vengono mostrati solo
+    come riscontro: il carburante dell'OFP resta calcolato sul consumo POH del settaggio di potenza scelto.
+    Controlla la tabella prima di proseguire.</div>`;
+}
+
+/* Scrive nei campi. Distanza, rotta e aeroporti vengono dal NavLog; GS e consumo
+   restano quelli del settaggio POH, che e' l'automazione gia' esistente. */
+function applyNavlog(sum){
+  if(sum.dep && $('dep') && !txt('dep').trim()) $('dep').value=sum.dep;
+  if(sum.arr && $('arr') && !txt('arr').trim()) $('arr').value=sum.arr;
+  if(sum.dep && $('dep') && txt('dep').trim()!==sum.dep) $('dep').value=sum.dep;
+  if(sum.arr && $('arr') && txt('arr').trim()!==sum.arr) $('arr').value=sum.arr;
+  if(sum.route && $('route')) $('route').value=sum.route;
+  if(sum.totals.dist!=null && $('tripDist')) $('tripDist').value=sum.totals.dist;
+  if(sum.cruiseAlt && $('cruisealt') && !txt('cruisealt').trim()) $('cruisealt').value=sum.cruiseAlt+' ft';
+  if(sum.cruiseAlt){
+    if($('pwrAlt')) $('pwrAlt').value=sum.cruiseAlt;
+    if($('altAlt')) $('altAlt').value=sum.cruiseAlt;
+    if($('cruisePerfAlt')) $('cruisePerfAlt').value=sum.cruiseAlt;
+    if(typeof onPowerChange==='function') onPowerChange();
+  }
+  // la ricerca aeroporti riparte da sola sui nuovi codici
+  if(typeof scheduleAirportLookup==='function'){ oaLastKey=''; scheduleAirportLookup(); }
+}
+
 /* ============ RICERCA AEROPORTI E AUTOCOMPILAZIONE ============ */
 window.__oa = {};       // ICAO -> record OurAirports dell'ultima ricerca
 
@@ -2297,6 +2585,22 @@ wxDrop.addEventListener('dragover',e=>{e.preventDefault();wxDrop.style.borderCol
 wxDrop.addEventListener('dragleave',()=>wxDrop.style.borderColor='');
 wxDrop.addEventListener('drop',e=>{e.preventDefault();wxDrop.style.borderColor='';if(e.dataTransfer.files[0])handleWxPdf(e.dataTransfer.files[0])});
 wxFile.addEventListener('change',e=>{if(e.target.files[0])handleWxPdf(e.target.files[0])});
+/* Seconda porta d'ingresso per il briefing, nello Step 1: stesso file input e
+   stessa elaborazione, cosi' non esistono due percorsi da tenere allineati. */
+(function(){
+  const d2=$('wxDrop2'); if(!d2) return;
+  d2.addEventListener('click',()=>wxFile.click());
+  d2.addEventListener('dragover',e=>{e.preventDefault();d2.style.borderColor='#2f6df6';});
+  d2.addEventListener('dragleave',()=>d2.style.borderColor='');
+  d2.addEventListener('drop',e=>{e.preventDefault();d2.style.borderColor='';if(e.dataTransfer.files[0])handleWxPdf(e.dataTransfer.files[0]);});
+})();
+/* Lo stato del briefing si rispecchia nei due riquadri. */
+(function(){
+  const a=$('wxStatus'), b=$('wxStatus2');
+  if(!a||!b||!window.MutationObserver) return;
+  new MutationObserver(()=>{ b.className=a.className.replace('wxStatus',''); b.textContent=a.textContent; })
+    .observe(a,{childList:true,characterData:true,subtree:true,attributes:true});
+})();
 wxRetryBtn.addEventListener('click',()=>{ if(window.__wxLastFile) handleWxPdf(window.__wxLastFile); });
 
 /* Estrae data, ora di emissione e validità dal PDF del Weather Briefing.
@@ -3530,8 +3834,10 @@ function applyWeatherData(w){
 /* ==================== Nuovo foglio / reset ==================== */
 // Valori che restano SEMPRE precompilati come default a ogni nuovo volo.
 // Tutti gli altri campi (input, select, textarea) vengono svuotati.
+/* Default di un foglio nuovo. Contengono SOLO dati di aeromobile e impostazioni
+   di calcolo — niente aeroporti, niente nomi, niente pesi: quelli cambiano a ogni
+   volo e restano vuoti, con il placeholder a spiegare cosa va scritto. */
 const NEW_FLIGHT_DEFAULTS = {
-  reg:'I-CCAF',              // immatricolazione del C172 FR di riferimento
   pwrAlt:'5000', pwrRpm:'2400', pwrMap:'22',   // settaggio di partenza: 22"/2400 a 5000 ft
   tripGS:'133',              // TAS MPH di quel settaggio (AFM fig. 5-1)
   tripFF:'36.7',             // consumo L/h di quel settaggio
@@ -3543,9 +3849,7 @@ const NEW_FLIGHT_DEFAULTS = {
   flightRule:'VFR',
   acSelect:'I-CCAF',
   bew:'716.1', bewMoment:'693.9009',
-  paxFront:'85', paxRear:'0', baggage:'0',
-  pob:'1',
-  cruisealt:'5000 ft',
+  pob:'',
   cruisePerfAlt:'5000',
   mzfw:'1157',               // AFM: nessun MZFW pubblicato, si usa il MTOW
   mtow:'1157',               // MTOW categoria NORMALE (2550 lb)
