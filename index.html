@@ -1201,39 +1201,100 @@ function navlogHeader(lines){
   return bestN>=3 ? best : null;
 }
 
-/* Legge un NavLog da un documento pdf.js gia' aperto. */
+/* Legge un NavLog da un documento pdf.js gia' aperto.
+
+   Due strategie, provate in quest'ordine:
+   1. SEMANTICA — ogni valore porta la sua unita' ("3 nm", "2,1 l", "2m49s"), quindi
+      si riconosce da se'. E' il formato del NavLog vero di ForeFlight, dove LEG e
+      TOTALS raggruppano tre valori ciascuna sotto un'unica intestazione.
+   2. A COLONNE — per gli export in cui i valori sono nudi e l'intestazione nomina
+      ogni colonna: si ricostruiscono le colonne dalle coordinate.
+
+   In entrambi i casi le righe si ricostruiscono dalle ordinate dei frammenti,
+   perche' unendo il testo con spazi le colonne si mescolerebbero. */
 async function parseNavlogPdf(pdf){
-  const out={legs:[], totals:null, header:null, raw:'', cols:[]};
+  const out={legs:[], totals:null, raw:'', cols:[], mode:null, fuelUnit:null};
   const allText=[];
+  const pageLines=[];
   for(let p=1;p<=pdf.numPages;p++){
     const page=await pdf.getPage(p);
     const content=await page.getTextContent();
     allText.push(content.items.map(i=>i.str).join(' '));
-    const lines=navlogLines(content.items);
-    const head=navlogHeader(lines);
+    pageLines.push({items:content.items, lines:navlogLines(content.items)});
+  }
+  out.raw=allText.join('\n');
+
+  // ---- 1. semantica ----
+  for(const pg of pageLines){
+    const rows=[];
+    let pending=[], depSeen=false;
+    pg.lines.forEach(l=>{
+      let text=l.items.map(i=>i.s).join(' ');
+      // Le etichette di intestazione cadono sulla stessa ordinata del primo
+      // waypoint e gli si incollerebbero al nome ("LILN HDG LEG TOTALS"): si
+      // tolgono come parole isolate, invece di scartare l'intera riga.
+      text=text.replace(/\b(WAYPOINT|HDG|LEG|TOTALS?|ForeFlight Mobile - NavLog)\b/gi,' ')
+               .replace(/\s+/g,' ').trim();
+      if(!text) return;
+      if(/^\d{4}-\d{2}-\d{2}/.test(text)) return;              // piede con data di export
+      const r=navParseLine(text);
+      if(!r) return;
+      if(r.textOnly){
+        // ForeFlight manda a capo i nomi lunghi e allinea i numeri alla PRIMA
+        // riga del nome: "MALNATE (LNN1)" sta con i suoi valori e "(LILN)" finisce
+        // sulla riga sotto. Quella coda appartiene quindi alla tratta PRECEDENTE,
+        // non alla successiva — attribuirla alla successiva sposterebbe di un
+        // punto tutti i nomi della rotta.
+        const cont = /^\(/.test(r.textOnly);
+        const prev = rows.length ? rows[rows.length-1] : null;
+        if(cont && prev) prev.name=[prev.name, r.textOnly].filter(Boolean).join(' ').trim();
+        else if(!depSeen && !rows.length){ rows.push({name:r.textOnly}); depSeen=true; }
+        else pending.push(r.textOnly);
+        return;
+      }
+      r.name=[...pending, r.name].filter(Boolean).join(' ').trim();
+      pending=[];
+      rows.push(r);
+    });
+    if(rows.filter(r=>r.hdg!=null).length>=2){
+      out.mode='semantic';
+      out.legs=rows;
+      const last=rows[rows.length-1];
+      if(last && (last.totDist!=null || last.totTime!=null)){
+        // ForeFlight non stampa una riga TOTALS: i totali sono i progressivi
+        // dell'ultima riga. Usarli e' anche piu' esatto che sommare le tratte,
+        // che sono arrotondate singolarmente.
+        out.totals={dist:last.totDist, fuel:last.totFuel, time:last.totTime};
+      }
+      out.fuelUnit=(rows.find(r=>r.fuelUnit)||{}).fuelUnit||null;
+      return out;
+    }
+  }
+
+  // ---- 2. a colonne ----
+  for(const pg of pageLines){
+    const head=navlogHeader(pg.lines);
     if(!head) continue;
     out.cols=head.cols.map(c=>c.key);
     const centers=head.cols;
-    for(let i=head.idx+1;i<lines.length;i++){
+    const legs=[];
+    for(let i=head.idx+1;i<pg.lines.length;i++){
       const row={};
-      lines[i].items.forEach(it=>{
+      pg.lines[i].items.forEach(it=>{
         const cx=it.x+(it.w||0)/2;
         let bestKey=null, bestD=Infinity;
         centers.forEach(c=>{ const d=Math.abs(c.x-cx); if(d<bestD){ bestD=d; bestKey=c.key; } });
         if(bestKey==null) return;
-        row[bestKey] = (row[bestKey]? row[bestKey]+' ' : '') + it.s;
+        row[bestKey]=(row[bestKey]? row[bestKey]+' ' : '')+it.s;
       });
       const first=(row.wpt||'').trim();
-      if(/^tot/i.test(first) || /^tot/i.test(Object.values(row).join(' ').slice(0,6))){
-        out.totals=row; continue;
-      }
-      // una riga vale solo se ha un identificativo e almeno un numero
+      if(/^tot/i.test(first)){ out.totalsRow=row; continue; }
       const hasNum=Object.keys(row).some(k=>k!=='wpt' && /\d/.test(row[k]||''));
-      if(first && hasNum) out.legs.push(row);
+      if(first && hasNum) legs.push(row);
+      else if(first && !legs.length) legs.push({wpt:first});
     }
-    if(out.legs.length) break;        // il NavLog sta di solito sulla prima pagina utile
+    if(legs.length){ out.mode='columns'; out.legs=legs; break; }
   }
-  out.raw=allText.join('\n');
   return out;
 }
 
@@ -1242,47 +1303,123 @@ function navNum(v){
   const m=/-?\d+(?:[.,]\d+)?/.exec(String(v||'').replace(/\s/g,''));
   return m? parseFloat(m[0].replace(',','.')) : null;
 }
-/* Tempi: "1:23", "01:23", "83" (minuti), "1+23" */
+/* Tempi. ForeFlight scrive "2m49s" per le tratte corte e "0h12m" appena si supera
+   l'ora di riferimento, quindi servono entrambi; restano supportati i formati
+   classici "1:23" e i minuti secchi. */
 function navMinutes(v){
   const t=String(v||'').trim();
-  let m=/(\d{1,2})\s*[:+.]\s*(\d{2})/.exec(t);
+  let m=/(\d+)\s*h\s*(\d+)\s*m/i.exec(t);                 // 0h12m
   if(m) return parseInt(m[1],10)*60+parseInt(m[2],10);
+  m=/(\d+)\s*m\s*(\d+)\s*s/i.exec(t);                     // 2m49s
+  if(m) return Math.round(parseInt(m[1],10)+parseInt(m[2],10)/60);
+  m=/(\d{1,3})\s*[:+]\s*(\d{2})/.exec(t);                  // 1:23
+  if(m) return parseInt(m[1],10)*60+parseInt(m[2],10);
+  m=/^(\d+)\s*m$/i.exec(t);                                 // 47m
+  if(m) return parseInt(m[1],10);
   m=/^(\d{1,4})$/.exec(t.replace(/\s/g,''));
   if(m) return parseInt(m[1],10);
   return null;
 }
+
+/* ---- lettura "semantica" di una riga di NavLog ----
+   Nel NavLog reale di ForeFlight l'intestazione ha due soli gruppi numerici, LEG e
+   TOTALS, e ognuno contiene TRE valori (distanza, carburante, tempo). Assegnare i
+   valori alla colonna piu' vicina li accorperebbe tutti insieme.
+
+   I valori pero' portano con se' la propria unita' — "3 nm", "2,1 l", "2m49s" —
+   quindi si riconoscono per quello che sono, non per dove stanno. Il primo valore
+   di ogni tipo e' della tratta, il secondo e' il progressivo. E' anche piu' robusto
+   di qualunque ipotesi sulle coordinate. */
+const NAV_RE = {
+  hdg  : /(\d{1,3})\s*°\s*M?/i,
+  dist : /(\d+(?:[.,]\d+)?)\s*(?:nm|nmi|mn)\b/gi,
+  fuel : /(\d+(?:[.,]\d+)?)\s*(l|lt|ltr|litri|gal|usg|us gal|kg|lbs?)\b/gi,
+  time : /(\d+\s*h\s*\d+\s*m|\d+\s*m\s*\d+\s*s|\d{1,3}:\d{2}|\d+\s*m(?![a-z]))/gi
+};
+const NAV_FUEL_TO_L = {l:1, lt:1, ltr:1, litri:1, gal:3.785, usg:3.785, 'us gal':3.785};
+
+function navParseLine(text){
+  const t=String(text||'').replace(/\s+/g,' ').trim();
+  if(!t) return null;
+  const h=NAV_RE.hdg.exec(t);
+  if(!h) return {textOnly:t};
+  const name=t.slice(0,h.index).trim();
+  const rest=t.slice(h.index+h[0].length);
+  const grab=(re)=>{ re.lastIndex=0; const out=[]; let m; while((m=re.exec(rest))!==null) out.push(m); return out; };
+  const dists=grab(NAV_RE.dist), fuels=grab(NAV_RE.fuel), times=grab(NAV_RE.time);
+  const n=(m)=>m?parseFloat(m[1].replace(',','.')):null;
+  const fu=fuels.length?String(fuels[0][2]||'').toLowerCase():null;
+  return {
+    name, hdg:parseInt(h[1],10),
+    legDist:n(dists[0]),  totDist:n(dists[1]),
+    legFuel:n(fuels[0]),  totFuel:n(fuels[1]),
+    legTime:times[0]?navMinutes(times[0][0]):null,
+    totTime:times[1]?navMinutes(times[1][0]):null,
+    fuelUnit:fu
+  };
+}
 function navIsIcao(v){ return /^[A-Z]{3,4}$/.test(String(v||'').trim().toUpperCase()); }
 
 /* Riduce il NavLog grezzo a quello che serve all'OFP. */
+function navCleanName(raw){
+  // "MALNATE (LNN1) (LILN)" -> nome leggibile; "LILN (DEP)" -> LILN
+  let t=String(raw||'').replace(/\s+/g,' ').trim();
+  t=t.replace(/\((?:DEP|ARR|DEST|DESTINATION|ALTN?)\)/ig,'').trim();
+  return t;
+}
+function navShortName(raw){
+  const t=navCleanName(raw);
+  const head=t.split('(')[0].trim();       // il nome, senza il riferimento fra parentesi
+  return (head||t).toUpperCase();
+}
 function navlogSummary(nav){
-  const legs=(nav.legs||[]).map(r=>({
-    wpt:(r.wpt||'').trim().toUpperCase().split(/\s+/)[0],
-    mh: navNum(r.mh!=null?r.mh:r.mc),
-    dist: navNum(r.legDist),
-    ete: navMinutes(r.ete),
-    fuel: navNum(r.legFuel),
-    alt: navNum(r.alt),
-    gs: navNum(r.gs)
-  })).filter(l=>l.wpt);
+  const isSem = nav.mode==='semantic';
+  const legs=(nav.legs||[]).map(r=>isSem ? {
+      wpt: navShortName(r.name), full: navCleanName(r.name),
+      mh: r.hdg!=null?r.hdg:null,
+      dist: r.legDist!=null?r.legDist:null,
+      ete: r.legTime!=null?r.legTime:null,
+      fuel: r.legFuel!=null?r.legFuel:null,
+      alt:null, gs:null
+    } : {
+      wpt: navShortName((r.wpt||'').split(/\s+/)[0]), full:navCleanName(r.wpt),
+      mh: navNum(r.mh!=null?r.mh:r.mc),
+      dist: navNum(r.legDist), ete: navMinutes(r.ete), fuel: navNum(r.legFuel),
+      alt: navNum(r.alt), gs: navNum(r.gs)
+    }).filter(l=>l.wpt);
 
-  const t=nav.totals||{};
   const sum=(k)=>legs.reduce((a,l)=>a+(l[k]||0),0);
-  const totals={
-    dist: navNum(t.legDist) || navNum(t.remDist) || Math.round(sum('dist')*10)/10,
-    ete:  navMinutes(t.ete) || sum('ete') || null,
-    fuel: navNum(t.legFuel) || Math.round(sum('fuel')*10)/10
-  };
+  let totals;
+  if(nav.totals){
+    totals={dist:nav.totals.dist, ete:nav.totals.time, fuel:nav.totals.fuel, fromTotals:true};
+  }else{
+    const t=nav.totalsRow||{};
+    totals={
+      dist: navNum(t.legDist) || Math.round(sum('dist')*10)/10,
+      ete:  navMinutes(t.ete) || sum('ete') || null,
+      fuel: navNum(t.legFuel) || Math.round(sum('fuel')*10)/10,
+      fromTotals: !!nav.totalsRow
+    };
+  }
   const idents=legs.map(l=>l.wpt);
   const dep = navIsIcao(idents[0]) ? idents[0] : null;
   const arr = navIsIcao(idents[idents.length-1]) ? idents[idents.length-1] : null;
   const mid = idents.slice(dep?1:0, arr?idents.length-1:idents.length);
   const gsVals=legs.map(l=>l.gs).filter(v=>v>0);
   const alts=legs.map(l=>l.alt).filter(v=>v>0);
+
+  // il carburante del NavLog e' nelle unita' di ForeFlight: si porta in litri solo
+  // per poterlo confrontare con il piano dell'OFP, che e' in litri
+  const k=NAV_FUEL_TO_L[nav.fuelUnit]||null;
+  const fuelLitres = (k && totals.fuel!=null) ? Math.round(totals.fuel*k*10)/10 : null;
+
   return {
     legs, totals, dep, arr,
     route: mid.join(' '),
     avgGs: gsVals.length ? Math.round(gsVals.reduce((a,b)=>a+b,0)/gsVals.length) : null,
-    cruiseAlt: alts.length ? Math.max.apply(null,alts) : null
+    cruiseAlt: alts.length ? Math.max.apply(null,alts) : null,
+    fuelUnit: nav.fuelUnit, fuelLitres,
+    roundTrip: !!(dep && arr && dep===arr)
   };
 }
 
@@ -2292,8 +2429,8 @@ function handleNavlog(file){
       window.__navlog={raw:nav, sum};
       applyNavlog(sum);
       navSay('ok',`NavLog letto: ${sum.legs.length} punti, ${sum.totals.dist!=null?sum.totals.dist+' nm':'distanza n/d'}`
-        + (sum.totals.ete?`, ${minToHHMM(sum.totals.ete)} di volo`:'')
-        + (sum.totals.fuel?`, ${sum.totals.fuel} di carburante (unita' del NavLog)`:''));
+        + (sum.totals.ete?`, ${navDur(sum.totals.ete)} di volo`:'')
+        + (sum.totals.fuel?`, ${sum.totals.fuel} ${sum.fuelUnit==='l'?'L':(sum.fuelUnit||'')} di carburante secondo ForeFlight`:''));
       $('navPreview').innerHTML=navPreviewHTML(sum);
       render();
     }catch(err){
@@ -2332,35 +2469,63 @@ function parseNavlogPlainText(text){
   return out;
 }
 
-/* Riquadro di verifica. */
+/* Durata leggibile: minToHHMM() darebbe "0030" per mezz'ora, che su una tabella
+   di tratte si legge male. */
+function navDur(min){
+  if(min==null) return '—';
+  const h=Math.floor(min/60), m=Math.round(min%60);
+  return h ? h+'h'+String(m).padStart(2,'0') : m+"'";
+}
+
+/* Riquadro di verifica, con il confronto fra quello che dice ForeFlight e quello
+   che calcola l'OFP. Le due cifre non coincidono quasi mai, ed e' giusto cosi':
+   ForeFlight usa il proprio profilo aeromobile, l'OFP usa il consumo POH del
+   settaggio di potenza scelto e aggiunge i 20 minuti di margine di procedura.
+   Mostrarle affiancate rende la differenza una verifica, non una sorpresa. */
 function navPreviewHTML(sum){
   const u=(v,su)=>v==null?'—':v+(su||'');
+  const hdg=(v)=>v==null?'—':('00'+v).slice(-3)+'°';
+  const f=computeFuel();
+  const ffUnit = sum.fuelUnit ? (sum.fuelUnit==='l'?'L':sum.fuelUnit.toUpperCase()) : '';
+  const cmp = (lbl,ff,ofp)=>`<tr><td style="text-align:left">${lbl}</td>
+      <td style="text-align:right;padding:0 .8rem">${ff}</td>
+      <td style="text-align:right">${ofp}</td></tr>`;
   return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt)">
-    <tr style="color:var(--txt-dim)"><th style="text-align:left">WPT</th><th>MH</th><th>Leg nm</th><th>ETE</th><th>Fuel</th></tr>
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">WAYPOINT</th><th>MH</th><th>LEG nm</th><th>ETE</th><th>FUEL</th></tr>
     ${sum.legs.map(l=>`<tr>
-      <td style="text-align:left">${esc(l.wpt)}</td>
-      <td style="text-align:right">${u(l.mh,'&deg;')}</td>
+      <td style="text-align:left">${esc(l.full||l.wpt)}</td>
+      <td style="text-align:right">${hdg(l.mh)}</td>
       <td style="text-align:right">${u(l.dist)}</td>
-      <td style="text-align:right">${l.ete!=null?minToHHMM(l.ete):'—'}</td>
+      <td style="text-align:right">${navDur(l.ete)}</td>
       <td style="text-align:right">${u(l.fuel)}</td></tr>`).join('')}
     <tr style="font-weight:700;border-top:1px solid var(--panel-line)">
       <td style="text-align:left">TOTALI</td><td></td>
       <td style="text-align:right">${u(sum.totals.dist)}</td>
-      <td style="text-align:right">${sum.totals.ete?minToHHMM(sum.totals.ete):'—'}</td>
+      <td style="text-align:right">${navDur(sum.totals.ete)}</td>
       <td style="text-align:right">${u(sum.totals.fuel)}</td></tr>
   </table>
-  <div class="hint">I consumi del NavLog sono nelle unit&agrave; impostate in ForeFlight e vengono mostrati solo
-    come riscontro: il carburante dell'OFP resta calcolato sul consumo POH del settaggio di potenza scelto.
-    Controlla la tabella prima di proseguire.</div>`;
+  ${sum.roundTrip?`<div class="calc">→ volo di rientro alla partenza: DEP e ARR sono entrambi ${esc(sum.dep)}</div>`:''}
+  <div class="calc" style="color:var(--txt-dim)">Confronto</div>
+  <table style="border-collapse:collapse;font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt);margin-top:.2rem">
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">&nbsp;</th><th style="padding:0 .8rem">ForeFlight</th><th>OFP (POH)</th></tr>
+    ${cmp('Distanza', u(sum.totals.dist,' nm'), fmt(num('tripDist'))+' nm')}
+    ${cmp('Tempo',    navDur(sum.totals.ete), navDur(f.tripTime)+' *')}
+    ${cmp('Carburante', u(sum.totals.fuel,' '+ffUnit), fmt(f.tripFuel)+' L')}
+  </table>
+  <div class="hint">* il Trip Time dell'OFP comprende i 20 minuti fissi di procedura (10' in partenza, 10' in arrivo),
+    quindi &egrave; per costruzione maggiore dell'ETE di ForeFlight.
+    Il carburante dell'OFP &egrave; calcolato sul <b>consumo POH</b> del settaggio di potenza scelto e ha la
+    precedenza: quello di ForeFlight viene dal suo profilo aeromobile e serve solo da riscontro
+    (include anche rullaggio e avviamento, per questo parte gi&agrave; da un valore non nullo alla prima tratta).
+    Se le due colonne divergono molto, controlla il settaggio di potenza.</div>`;
 }
 
 /* Scrive nei campi. Distanza, rotta e aeroporti vengono dal NavLog; GS e consumo
    restano quelli del settaggio POH, che e' l'automazione gia' esistente. */
 function applyNavlog(sum){
-  if(sum.dep && $('dep') && !txt('dep').trim()) $('dep').value=sum.dep;
-  if(sum.arr && $('arr') && !txt('arr').trim()) $('arr').value=sum.arr;
-  if(sum.dep && $('dep') && txt('dep').trim()!==sum.dep) $('dep').value=sum.dep;
-  if(sum.arr && $('arr') && txt('arr').trim()!==sum.arr) $('arr').value=sum.arr;
+  // Aeroporti e rotta vengono dal NavLog; l'alternato no, lo sceglie il pilota.
+  if(sum.dep && $('dep')) $('dep').value=sum.dep;
+  if(sum.arr && $('arr')) $('arr').value=sum.arr;
   if(sum.route && $('route')) $('route').value=sum.route;
   if(sum.totals.dist!=null && $('tripDist')) $('tripDist').value=sum.totals.dist;
   if(sum.cruiseAlt && $('cruisealt') && !txt('cruisealt').trim()) $('cruisealt').value=sum.cruiseAlt+' ft';

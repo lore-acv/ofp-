@@ -98,35 +98,54 @@ finalizza caricando il PDF del briefing anche giorni dopo.
 
 ## Import NavLog ForeFlight
 
+Verificato contro un export reale di ForeFlight Mobile.
+
 Un NavLog è una **tabella**, e le tabelle in PDF non si leggono a righe di testo:
 pdf.js restituisce i frammenti in ordine sparso e unendoli con spazi le colonne si
-mescolano. Il parser usa invece le **coordinate** di ogni frammento: raggruppa per
-ordinata per ricostruire le righe, legge l'intestazione per capire dove cade ogni
-colonna, e assegna ogni valore alla colonna più vicina. Non dipende quindi da un
-ordine di colonne fisso: si adatta a quelle che il NavLog dichiara.
+mescolano. Le righe si ricostruiscono quindi dalle **coordinate** dei frammenti.
+Per interpretarle il parser prova due strategie, in quest'ordine:
 
-Colonne riconosciute (con sinonimi, perché ForeFlight cambia le diciture fra
-versioni e impostazioni di unità): waypoint, airway, altitudine, MC/MH, vento, OAT,
-TAS, GS, distanza di tratta e rimanente, ETE, ETA, carburante di tratta e rimanente.
-La riga `TOTALS` fornisce i totali; in mancanza, si sommano le tratte.
+**1. Semantica** — è quella che serve al NavLog vero. ForeFlight stampa solo
+quattro intestazioni (`WAYPOINT`, `HDG`, `LEG`, `TOTALS`), ma `LEG` e `TOTALS`
+contengono **tre valori ciascuna**: distanza, carburante e tempo. Assegnare i
+valori alla colonna più vicina li accorperebbe. I valori però portano con sé la
+propria unità — `3 nm`, `2,1 l`, `2m49s` — quindi si riconoscono per quello che
+sono: il primo valore di ogni tipo è della tratta, il secondo è il progressivo.
 
-Un NavLog incollato o esportato come testo viene letto da un parser di riserva,
-meno preciso ma sufficiente.
+**2. A colonne** — per export in cui i valori sono nudi e l'intestazione nomina
+ogni colonna (WPT, MC, MH, TAS, GS, ETE, FUEL…): si ricostruiscono le colonne
+dalle coordinate dell'intestazione.
 
-**Prima di scrivere qualsiasi campo, la tabella letta viene mostrata** per la
-verifica: tratte, prue, distanze, tempi e consumi così come sono stati
-interpretati.
+Dettagli del formato reale già gestiti:
 
-Cosa viene compilato: aeroporti, rotta, distanza Trip, quota di crociera. **GS e
-Fuel Flow no**: restano quelli del settaggio di potenza POH, che è l'automazione
-esistente. I consumi del NavLog sono nelle unità di ForeFlight e vengono mostrati
-solo come riscontro.
+- **virgola decimale** (`2,1 l`) e unità di carburante in litri o galloni;
+- **tempi** `2m49s`, `6m05s`, `0h30m`, oltre ai classici `1:23`;
+- **nessuna riga TOTALS**: i totali sono i progressivi dell'ultima riga, che è
+  anche più esatto che sommare tratte arrotondate una per una;
+- **nomi su due righe**: ForeFlight manda a capo i nomi lunghi e allinea i numeri
+  alla *prima* riga, quindi la coda (`(LILN)`) appartiene alla tratta
+  **precedente** — attribuirla alla successiva sposterebbe di un punto tutti i
+  nomi della rotta;
+- **etichette di intestazione** che cadono sulla stessa ordinata del primo
+  waypoint e gli si incollerebbero al nome: vengono tolte come parole isolate;
+- **voli di rientro** (DEP e ARR coincidono), segnalati esplicitamente.
 
-> L'import **non è stato provato contro un export reale di ForeFlight**, che non è
-> stato fornito. La logica a colonne è verificata su un NavLog sintetico con la
-> stessa struttura (intestazione, righe incolonnate, riga TOTALS): riconosce tutte
-> e undici le colonne e ne estrae i valori corretti. Con un export vero si tara in
-> pochi minuti.
+**Prima di scrivere qualsiasi campo la tabella letta viene mostrata**, con accanto
+un confronto fra i totali di ForeFlight e quelli calcolati dall'OFP.
+
+### Cosa compila, e cosa no
+
+Il NavLog compila solo ciò che **non dipende dal POH**: aeroporti, rotta, distanza
+Trip, e la quota di crociera quando l'export la contiene. L'alternato non viene
+toccato, lo sceglie il pilota.
+
+**GS e Fuel Flow restano quelli del POH**, che ha la precedenza. I totali di
+ForeFlight si vedono solo come riscontro: vengono dal suo profilo aeromobile e il
+suo carburante include rullaggio e avviamento (nel file di prova la prima tratta
+consuma 2,1 l ma il progressivo parte da 9,7 l). Il Trip Time dell'OFP comprende
+inoltre i 20 minuti fissi di procedura, quindi è per costruzione maggiore
+dell'ETE. Se le due colonne divergono molto, è il settaggio di potenza da
+controllare.
 
 ## Campi precompilati
 
