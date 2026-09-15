@@ -113,17 +113,20 @@
           <b>MPH</b>, come sul POH del C172 FR. Massa carburante: <b>1 L = 0.72 kg</b>.
           Serbatoi: <b>174 L utilizzabili</b> (46 USG).</p>
         <div class="group">
-          <h3>Settaggio di potenza (POH)</h3>
+          <h3>Cruise power setting (POH)</h3>
           <div class="row">
             <div class="fld"><label>Quota di crociera (ft)</label><input id="pwrAlt" type="number" step="500" value="5000"></div>
             <div class="fld"><label>RPM</label><select id="pwrRpm"></select></div>
             <div class="fld"><label>MAP (inHg)</label><select id="pwrMap"></select></div>
           </div>
           <div class="calc" id="pwrCalc"></div>
+          <div class="calc" id="climbFuelCalc"></div>
           <div class="hint">Vengono proposte solo le combinazioni MAP/RPM effettivamente pubblicate dal POH
             (fig. 5-1) alla quota indicata: salendo, la MAP massima ottenibile cala di circa un pollice ogni
             1000 ft e le combinazioni piu' "grasse" spariscono. Scegliendo il settaggio, <b>Ground Speed e
-            Fuel Flow del Trip qui sotto si compilano da soli</b> con TAS e consumo di quella riga.</div>
+            Fuel Flow del Trip qui sotto si compilano da soli</b> con TAS e consumo di quella riga.
+            Salita e crociera hanno consumi diversi: <b>i minuti e i litri della salita vengono dall'AFM
+            fig. 5-6</b> e il fuel flow di crociera vale solo per il tempo rimanente.</div>
         </div>
         <div class="group">
           <h3>Trip</h3>
@@ -134,7 +137,9 @@
           </div>
           <div class="calc" id="tripCalc"></div>
           <div class="hint">La GS proposta e' la TAS del settaggio scelto, cioe' aria calma: correggila col vento
-            previsto. Il tempo viene calcolato convertendo la GS in nodi, perche' la distanza e' in miglia nautiche.</div>
+            previsto. Il tempo viene calcolato convertendo la GS in nodi, perche' la distanza e' in miglia nautiche.
+            Di quel tempo, i primi minuti sono di salita e valgono il carburante della fig. 5-6 (avviamento e
+            decollo compresi); il resto va al fuel flow di crociera.</div>
         </div>
         <div class="group">
           <h3>Alternate</h3>
@@ -354,17 +359,11 @@
         <input type="hidden" id="toGround" value="226"><input type="hidden" id="toDist50" value="375">
         <input type="hidden" id="ldgGround" value="189"><input type="hidden" id="ldgDist50" value="387">
         <input type="hidden" id="depAirport" value=""><input type="hidden" id="destAirport" value="">
-        <div class="group">
-          <h3>Cruise power setting</h3>
-          <div class="hint">Il settaggio si sceglie nello <b>Step 2 &mdash; Rotta &amp; Fuel</b>; qui se ne vede
-            l'effetto e la tabella POH completa della quota. Quota di riferimento:
-            <input id="cruisePerfAlt" type="number" value="5000" style="width:110px;display:inline-block"> ft</div>
-          <div class="calc" id="cruisePerfCalc"></div>
-          <div class="calc" id="climbFuelCalc"></div>
-        </div>
         <div class="hint">Tabella pesi/V-speeds AFM: riferimento statico, riportata identica nel PDF.
           La tabella di crociera (MAP / RPM / % / TAS / consumo) e' quella del Flight Manual Reims Rocket fig. 5-1,
-          interpolata alla quota di crociera. Quote tabulate: 2500 / 5000 / 7500 / 10000 / 15000 ft.</div>
+          interpolata alla quota di crociera, e nel documento finale compare per intero.
+          Quote tabulate: 2500 / 5000 / 7500 / 10000 / 15000 ft.
+          Il settaggio di potenza si sceglie nello <b>Step 2 &mdash; Rotta &amp; Fuel</b>.</div>
       </div>
 
       <!-- STEP 5 -->
@@ -581,13 +580,25 @@ function mphToKt(mph){ return mph/MPH_PER_KT; }
 function ktToMph(kt){ return kt*MPH_PER_KT; }
 
 function computeFuel(){
-  // Trip Time = Tempo di crociera puro + 20 min fissi di procedura (10' partenza + 10' arrivo)
-  const PROC_MARGIN_MIN = 20;
+  /* Il Trip e' diviso in due fasi con consumi diversi, invece di un unico fuel
+     flow di crociera piu' un margine fisso di procedura:
+       - SALITA fino alla quota di crociera: tempo e carburante vengono
+         dall'AFM fig. 5-6, e il carburante comprende gia' avviamento e decollo;
+       - CROCIERA per il tempo che resta, al fuel flow del settaggio scelto.
+     Il tempo totale resta quello della distanza alla GS pianificata: la salita
+     non si somma, si scala da dentro. E' un'approssimazione per difetto, perche'
+     in salita la GS e' piu' bassa di quella di crociera e la stessa distanza
+     richiederebbe qualche minuto in piu'; sul carburante invece e' cautelativa,
+     perche' quei minuti sono contati al consumo di salita, che e' il maggiore. */
+  const cAlt = num('pwrAlt');
+  const climbMin  = Math.round(climbTimeMin(cAlt));
+  const climbFuel = round2(climbFuelLitres(cAlt));
   const tripGSkt = mphToKt(num('tripGS'));
-  const cruiseTime = tripGSkt>0 ? Math.round(num('tripDist')/tripGSkt*60) : 0;
-  const tripTime = cruiseTime + PROC_MARGIN_MIN;
+  const tripTime = tripGSkt>0 ? Math.round(num('tripDist')/tripGSkt*60) : 0;
+  const cruiseTime = Math.max(0, tripTime-climbMin);
+  const climbOverruns = tripTime>0 && climbMin>=tripTime;
   const tripFF = num('tripFF'); // Fuel Flow di crociera in L/h — usato anche per Contingency e Final Reserve
-  const tripFuel = round2(tripTime/60*tripFF);
+  const tripFuel = round2(climbFuel + cruiseTime/60*tripFF);
   const altGSkt = mphToKt(num('altGS'));
   const altTime  = altGSkt>0 ? Math.round(num('altDist')/altGSkt*60) : 0;
   const altFuel  = round2(altTime/60*num('altFF'));
@@ -630,7 +641,7 @@ function computeFuel(){
   const blockTime= Math.round(minBlockTime+taxiMin+exMin);
   const toffFuel = round2(minBlockFuel+exFuel);
   const toffTime = Math.round(minBlockTime+exMin);
-  return {cruiseTime,tripTime,tripFuel,altTime,altFuel,contMin,contFuel,finMin,finFuel,
+  return {cruiseTime,tripTime,tripFuel,cAlt,climbMin,climbFuel,climbOverruns,altTime,altFuel,contMin,contFuel,finMin,finFuel,
           taxiMin,taxiFuel,exMin,exFuel,minBlockFuel,minBlockTime,toffFuel,toffTime,blockFuel,blockTime,
           minRequired, fobUsed, fobShort, fob:num('fob')};
 }
@@ -955,6 +966,32 @@ function climbFuelLitres(alt){
     }
   }
   return t[t.length-1][1];
+}
+
+/* Tempo per salire fino a una quota, a piena potenza e 1157 kg.
+   L'AFM (fig. 5-6) pubblica il RATEO di salita — 880 ft/min al livello del mare,
+   650 a 5000, 420 a 10000, 190 a 15000 — e il tempo e' il suo integrale: con un
+   rateo che varia linearmente con la quota, il tempo per andare da h1 a h2 vale
+   (h2-h1)/(R1-R2) * ln(R1/R2). Non e' una stima: e' la stessa figura, letta
+   nell'unico modo in cui il rateo diventa un tempo.
+
+   La colonna dei tempi della fig. 5-6 non e' stata trascritta, ma il risultato
+   si puo' verificare contro quella del carburante, che invece c'e': dividendo i
+   litri di ogni tratto per i minuti che escono da qui si ottengono 62, 53 e
+   46 L/h salendo da 0 a 5000, 10000 e 15000 ft. Sono i consumi a piena potenza
+   di un IO-360 da 210 HP, e calano con la quota come deve fare un motore
+   aspirato a tutto gas. Le due colonne concordano. */
+function climbTimeMin(alt){
+  const alts=AFM_SPEEDS.vy.alts, roc=AFM_SPEEDS.vy.roc[2];   // 1157 kg, come la tabella del carburante
+  const top=Math.min(Math.max(alt||0, 0), alts[alts.length-1]);  // niente estrapolazione
+  let t=0;
+  for(let i=0;i<alts.length-1 && top>alts[i];i++){
+    const h1=alts[i], h2=Math.min(top, alts[i+1]);
+    const r1=roc[i];
+    const r2=roc[i]+(roc[i+1]-roc[i])*(h2-h1)/(alts[i+1]-alts[i]);
+    t += Math.abs(r1-r2)<1e-9 ? (h2-h1)/r1 : (h2-h1)/(r1-r2)*Math.log(r1/r2);
+  }
+  return t;
 }
 
 /* ===================== TOLD — DECOLLO E ATTERRAGGIO =====================
@@ -1454,7 +1491,7 @@ function pagePerf(f,w){
   <div style="font-size:9px;margin-top:3px">${toldLegs.map(([g,ms])=>`${esc(g.label)}: ${ms.map(([c,m])=>margP(m,c)).join(' &middot; ')}`).join('<br>')}</div>
   <div style="font-size:8px">Superficie ${esc(txt('toldSurface'))} &middot; AFM fig. 5-4 e 5-5 &middot; massa e meteo propri di ciascun aeroporto.</div>`
   : `<div style="font-size:9.5px">${esc(told.reason||'Dati TOLD insufficienti.')}</div>`;
-  const cAlt=num('pwrAlt')||num('cruisePerfAlt');
+  const cAlt=num('pwrAlt');
   const sel=currentPowerRow();
   const rows=cruiseRowsAt(cAlt);
   // Tabella POH della quota pianificata: tutte le combinazioni MAP/RPM pubblicate,
@@ -1490,7 +1527,8 @@ function pagePerf(f,w){
       : `<span class="filled">settaggio non pubblicato dal POH a questa quota</span>`}</div>
     <div style="font-size:9px">Alternato (fisso ${ALTN_SETTING.mp}" / ${ALTN_SETTING.rpm} RPM a ${num('altAlt')} ft):
       ${(()=>{const a=altnSettingAt(num('altAlt')); return a.row?`${a.row.bhp}% &middot; ${a.row.mph} MPH &middot; ${a.row.lph} L/h`:'non disponibile';})()}
-      &nbsp;&middot;&nbsp; salita a ${cAlt} ft a piena potenza <b>${fmt(climbFuelLitres(cAlt))} L</b> incl. avviamento e decollo (AFM fig. 5-6).</div>
+      &nbsp;&middot;&nbsp; salita a ${cAlt} ft a piena potenza <b>${Math.round(climbTimeMin(cAlt))} min</b> e
+      <b>${fmt(climbFuelLitres(cAlt))} L</b> incl. avviamento e decollo (AFM fig. 5-6).</div>
     ${cruiseTable}`;
   return pageShell('PERFORMANCE', body, 3, 'font-size:9.5px');
 }
@@ -1690,7 +1728,14 @@ function render(){
   if($('tBLOCK')) $('tBLOCK').value=t.block;
   if($('tFLT'))   $('tFLT').value=t.flt;
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
-  if($('tripCalc')) $('tripCalc').textContent = `→ crociera ${f.cruiseTime} min + 20' proc. = Trip Time ${f.tripTime} min · fuel ${fmt(f.tripFuel)} L`;
+  if($('tripCalc')){
+    const el=$('tripCalc');
+    el.textContent = `→ salita a ${f.cAlt} ft ${f.climbMin} min / ${fmt(f.climbFuel)} L`
+      + ` + crociera ${f.cruiseTime} min a ${fmt(num('tripFF'))} L/h`
+      + ` = Trip ${f.tripTime} min · ${fmt(f.tripFuel)} L`
+      + (f.climbOverruns ? '   ⚠ la salita da sola copre tutto il tempo di volo: rivedi quota o distanza' : '');
+    el.style.color = f.climbOverruns ? '#ffd479' : '';
+  }
   if($('altCalc')){
     const a=altnSettingAt(num('altAlt'));
     const set = a.row ? `${a.row.mp}" / ${a.row.rpm} RPM = ${a.row.bhp}% · TAS ${a.row.mph} MPH · ${a.row.lph} L/h` : 'settaggio non disponibile';
@@ -1735,15 +1780,10 @@ function render(){
   if($('cgChartBox')) $('cgChartBox').innerHTML = cgChartSVG(w);
   if($('mbLimitCalc')){ const n=massNote(w); $('mbLimitCalc').textContent=n.txt; $('mbLimitCalc').style.color=n.over?'#ff7a7a':''; }
   if($('cgCalc')){ const n=cgNote(w); $('cgCalc').textContent=n.txt; $('cgCalc').style.color=n.over?'#ff7a7a':''; }
-  if($('cruisePerfCalc')){
-    const sel=currentPowerRow();
-    $('cruisePerfCalc').textContent = sel
-      ? `→ ${sel.mp}" / ${sel.rpm} RPM = ${sel.bhp}% · TAS ${sel.mph} MPH · ${sel.lph} L/h`
-      : `→ settaggio non pubblicato dal POH a questa quota: modificalo nello Step 2`;
-  }
   if($('climbFuelCalc')){
-    const a=num('cruisePerfAlt');
-    $('climbFuelCalc').textContent = `→ salita a ${a} ft: ${fmt(climbFuelLitres(a))} L a piena potenza, 1157 kg, incl. avviamento e decollo`;
+    const a=num('pwrAlt');
+    $('climbFuelCalc').textContent = `→ salita a ${a} ft: ${Math.round(climbTimeMin(a))} min e ${fmt(climbFuelLitres(a))} L`
+      + ` a piena potenza, 1157 kg, incl. avviamento e decollo (AFM fig. 5-6)`;
   }
   if($('toldBox')){
     const t=computeTold();
@@ -2629,7 +2669,7 @@ function buildPDF(){
   doc.setFontSize(6.5);
   doc.text('Superficie: '+txt('toldSurface')+'. Distanze da AFM fig. 5-4 e 5-5, massa e meteo propri di ogni aeroporto.',L,y);
   doc.setFontSize(8.5); y+=5;
-  const cAlt=num('pwrAlt')||num('cruisePerfAlt');
+  const cAlt=num('pwrAlt');
   const sel=currentPowerRow();
   const altnSet=altnSettingAt(num('altAlt'));
   dotted(doc,L,R,y); y+=6;
@@ -2642,7 +2682,7 @@ function buildPDF(){
   y=monoLine(doc,L,y, altnSet.row
     ? `ALTERNATE ${altnSet.row.mp} inHg / ${altnSet.row.rpm} RPM   POWER ${altnSet.row.bhp}%   TAS ${altnSet.row.mph} MPH   ${altnSet.row.lph} L/h`
     : `ALTERNATE ${ALTN_SETTING.mp} inHg / ${ALTN_SETTING.rpm} RPM non ottenibile a ${num('altAlt')} ft`);
-  y=monoLine(doc,L,y,`CLIMB TO ${cAlt} ft: ${fmt(climbFuelLitres(cAlt))} L incl. start & take-off - AFM fig. 5-6`);
+  y=monoLine(doc,L,y,`CLIMB TO ${cAlt} ft: ${Math.round(climbTimeMin(cAlt))} min / ${fmt(climbFuelLitres(cAlt))} L incl. start & take-off - AFM fig. 5-6`);
   dotted(doc,L,R,y); y+=6;
 
   // tabella cruise power pulita e allineata, con evidenziazione MIRATA (solo le 3 celle MP/RPM/TAS della % scelta)
@@ -2895,7 +2935,7 @@ const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route','cruisealt',
   'tOFF','tTO','tLDG','tON','picName',
   'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
-  'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50','cruisePerfAlt',
+  'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50',
   'spdUnit','toldSurface','tora','toda','lda','ldaAltn','altnRunway',
   'toldQnhDep','toldOatDep','toldWindDirDep','toldWindKtDep','toldElevDep','toldHdgDep',
   'toldQnhDest','toldOatDest','toldWindDirDest','toldWindKtDest','toldElevDest','toldHdgDest',
@@ -3005,7 +3045,6 @@ const NEW_FLIGHT_DEFAULTS = {
   acSelect:'I-CCAF',
   bew:'716.1', bewMoment:'693.9009',
   pob:'',
-  cruisePerfAlt:'5000',
   mzfw:'1157',               // AFM: nessun MZFW pubblicato, si usa il MTOW
   mtow:'1157',               // MTOW categoria NORMALE (2550 lb)
   mldw:'1157',               // MLW: il FR172J atterra allo stesso peso massimo
@@ -3243,7 +3282,6 @@ function applyNavlogSummary(sum){
     if($('cruisealt') && !txt('cruisealt').trim()) $('cruisealt').value=sum.cruiseAlt+' ft';
     if($('pwrAlt')) $('pwrAlt').value=sum.cruiseAlt;
     if($('altAlt')) $('altAlt').value=sum.cruiseAlt;
-    if($('cruisePerfAlt')) $('cruisePerfAlt').value=sum.cruiseAlt;
   }
   window.__navlog={sum};
 }
@@ -3287,7 +3325,6 @@ function syncAltitudeToPerf(){
   const nums = (raw.match(/\d{3,5}/g)||[]);
   if(nums.length){
     const a=nums[nums.length-1];
-    if($('cruisePerfAlt')) $('cruisePerfAlt').value = a;
     if($('pwrAlt')) $('pwrAlt').value = a;
     if($('altAlt')) $('altAlt').value = a;
   }

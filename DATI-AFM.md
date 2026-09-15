@@ -138,10 +138,30 @@ output, proprio per non spacciarle per due miscele diverse.
 | FF min (USG/h) | 6.9 | 8.3 | 9.6 | 11.1 |
 | FF max (USG/h) | 7.4 | 8.6 | 10.1 | 11.4 |
 
-## Salita — `CLIMB_FUEL_L`
+## Salita — `CLIMB_FUEL_L` e `climbTimeMin()`
 
-fig. 5-6, a 1157 kg e piena potenza, **incluso avviamento e decollo**:
-4,9 L al livello del mare, 11,7 L a 5000 ft, 20,1 L a 10000 ft, 33,3 L a 15000 ft.
+**Carburante** — fig. 5-6, a 1157 kg e piena potenza, **incluso avviamento e
+decollo**: 4,9 L al livello del mare, 11,7 L a 5000 ft, 20,1 L a 10000 ft,
+33,3 L a 15000 ft.
+
+**Tempo** — la colonna dei tempi della fig. 5-6 **non è trascritta**: il tempo
+viene calcolato dal *rateo* pubblicato nella stessa figura (880 / 650 / 420 /
+190 ft/min a 0 / 5000 / 10000 / 15000 ft, 1157 kg). Con un rateo che varia
+linearmente con la quota il tempo per salire da h1 a h2 è
+
+    t = (h2 - h1) / (R1 - R2) · ln(R1 / R2)
+
+cioè l'integrale di dh/R(h), non una stima. Ne escono 6,6 min a 5000 ft,
+16,1 a 10000 e 33,3 a 15000.
+
+Il risultato si può verificare contro la colonna del carburante, che invece è
+tabulata: dividendo i litri di ciascun tratto per questi minuti si ottengono
+**62, 53 e 46 L/h** salendo rispettivamente a 5000, 10000 e 15000 ft. Sono i
+consumi a piena potenza di un IO-360 da 210 HP, e calano con la quota come deve
+fare un motore aspirato a tutto gas. Le due colonne concordano.
+
+> Se l'AFM in tuo possesso riporta la colonna dei tempi, sostituiscila a questo
+> calcolo: sono valori pubblicati e vincono sempre su un valore derivato.
 
 ## Distanze pista (default dello Step 4)
 
