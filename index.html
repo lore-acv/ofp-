@@ -186,9 +186,13 @@
           <div class="calc" id="reserveCalc"></div>
           <div class="calc" id="fuelCapCalc"></div>
           <div class="row" style="margin-top:9px">
-            <div class="fld"><label>Taxi (min)</label><input id="taxiMin" type="number" value="10"></div>
+            <div class="fld"><label>Taxi (min, calcolato)</label><input id="taxiMin" type="number" value="10" readonly style="opacity:.7"></div>
             <div class="fld"><label>Taxi (L)</label><input id="taxiFuel" type="number" step="0.1" value="1.9"></div>
           </div>
+          <div class="calc" id="taxiCalc"></div>
+          <div class="hint">Il tempo di taxi non si inserisce: &egrave; il tempo a terra col motore acceso che
+            risulta dagli orari dello Step 1 &mdash; da <b>OFF a TO</b> in partenza e da <b>LDG a ON</b> all'arrivo.
+            I litri restano a mano: sono il forfait dell'aeroclub, non un consumo calcolato.</div>
         </div>
         <div class="group">
           <h3>Fuel on board &amp; extra</h3>
@@ -590,6 +594,27 @@ function syncTimeSelects(){
     const mm=Math.min(55, Math.round((parseInt(v.slice(2,4),10)||0)/TIME_STEP_MIN)*TIME_STEP_MIN);
     h.value=hh2(hh); m.value=hh2(mm); f.value=h.value+m.value;
   });
+}
+
+/* Il taxi non si stima: sta gia' negli orari. E' il tempo a terra col motore
+   acceso, cioe' dal fuori blocchi al decollo piu' dall'atterraggio al dentro
+   blocchi. Il modulo serve per i voli che scavalcano la mezzanotte, dove la
+   differenza grezza fra due orari HHMM verrebbe negativa. */
+const TAXI_LEG_MAX_MIN = 180;
+function autoTaxiTime(){
+  /* Il modulo 1440 serve ai voli che scavalcano la mezzanotte, ma da solo
+     trasformerebbe un orario messo al contrario — ON prima dell'atterraggio —
+     in un taxi di venti ore che gonfia il Plan Block senza dire niente. Oltre
+     le tre ore la tratta non e' un taxi: vale zero e viene segnalata. */
+  const gap=(a,b)=>{
+    const d=hhmmToMin(txt(b))-hhmmToMin(txt(a));
+    const m=((d%1440)+1440)%1440;
+    return m>TAXI_LEG_MAX_MIN ? {min:0, bad:true} : {min:m, bad:false};
+  };
+  const out=gap('tOFF','tTO'), inn=gap('tLDG','tON');
+  const tot=out.min+inn.min;
+  const el=$('taxiMin'); if(el) el.value=tot;
+  return {out:out.min, inn:inn.min, tot, outBad:out.bad, innBad:inn.bad};
 }
 
 /* LDG non si inserisce: e' il decollo piu' il Flight Time calcolato (salita +
@@ -1783,8 +1808,15 @@ function mbSheetRows(w){
 }
 
 function render(){
-  const f=computeFuel(); const w=weights(f);
-  autoLandingTime(f);                       // LDG = TO + Flight Time, prima di leggere gli orari
+  /* Due passaggi, e non e' uno spreco: il Trip Time non dipende dal taxi, ma il
+     taxi dipende dall'orario di atterraggio, che dipende dal Trip Time. Si
+     calcola il carburante una prima volta per avere il Trip Time, si sistemano
+     LDG e taxi, e si rilegge perche' il taxi entra nel Plan Block. */
+  let f=computeFuel();
+  autoLandingTime(f);                       // LDG = TO + Flight Time
+  const taxi=autoTaxiTime();                // taxi = (TO - OFF) + (ON - LDG)
+  f=computeFuel();
+  const w=weights(f);
   const t=computeTimes();
   if($('tBLOCK')) $('tBLOCK').value=t.block;
   if($('tFLT'))   $('tFLT').value=t.flt;
@@ -1803,6 +1835,17 @@ function render(){
     $('altCalc').textContent = `→ ${set}  ·  time ${f.altTime} min · fuel ${fmt(f.altFuel)} L`
       + (a.fallback && a.row ? `   (22" non ottenibile a ${num('altAlt')} ft: usata la MAP piu' alta a ${ALTN_SETTING.rpm} RPM)` : '');
     $('altCalc').style.color = a.fallback ? '#ffd479' : '';
+  }
+  if($('taxiCalc')){
+    const el=$('taxiCalc');
+    const warn=[];
+    if(taxi.outBad) warn.push("TO precede OFF");
+    if(taxi.innBad) warn.push("ON precede l'atterraggio");
+    el.textContent = `→ ${taxi.out} min fuori blocchi→decollo + ${taxi.inn} min atterraggio→dentro blocchi`
+      + ` = taxi ${taxi.tot} min · ${fmt(f.taxiFuel)} L`
+      + (warn.length ? `   ⚠ ${warn.join(' e ')}: quella tratta non e' conteggiata` : '')
+      + (!warn.length && taxi.tot>60 ? '   ⚠ taxi insolitamente lungo: controlla gli orari' : '');
+    el.style.color = (warn.length || taxi.tot>60) ? '#ffd479' : '';
   }
   if($('reserveCalc')) $('reserveCalc').textContent = `→ Contingency = max(5% trip, 15') = ${f.contMin} min · ${fmt(f.contFuel)} L   ·   Final Reserve = ${f.finMin} min · ${fmt(f.finFuel)} L`;
   if($('fuelCapCalc')){ const n=fuelCapacityNote(f); $('fuelCapCalc').textContent=n.txt; $('fuelCapCalc').style.color=n.over?'#ff7a7a':''; }
@@ -2503,8 +2546,10 @@ function dotted(doc,x1,x2,y){ doc.setLineDash([0.5,0.8],0); doc.setLineWidth(0.2
 function buildPDF(){
   const {jsPDF}=window.jspdf;
   const doc=patchDocText(new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}));
-  const f=computeFuel(); const w=weights(f);
-  autoLandingTime(f);
+  let f=computeFuel();
+  autoLandingTime(f); autoTaxiTime();
+  f=computeFuel();
+  const w=weights(f);
   const t=computeTimes();
   const title=titleText();
   const L=MM.ML+3, R=MM.A4W-MM.MR-3, MID=(L+R)/2;
@@ -3113,7 +3158,7 @@ const NEW_FLIGHT_DEFAULTS = {
   tripFF:'36.7',             // consumo L/h di quel settaggio
   altGS:'133', altFF:'36.7', // alternato: sempre 22"/2400
   fob:'',
-  taxiMin:'10',              // taxi standard
+  taxiMin:'10',              // ricalcolato dagli orari appena il foglio si apre
   taxiFuel:'1.9',            // consumo taxi standard, in litri
   extraMin:'0', extraFuel:'0',
   flightRule:'VFR',
