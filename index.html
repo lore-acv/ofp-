@@ -67,42 +67,58 @@
         <p class="step-sub">Dati generali della missione. Aeroporti e rotta arrivano gi&agrave; compilati
           dal NavLog: correggili qui se serve.</p>
         <div class="group">
-          <div class="row">
-            <div class="fld"><label>DEP</label><input id="dep" value="" placeholder="ICAO DEP (es. LILN)" autocapitalize="characters" spellcheck="false"></div>
-            <div class="fld"><label>ARR</label><input id="arr" value="" placeholder="ICAO ARR (es. LSZA)" autocapitalize="characters" spellcheck="false"></div>
+          <div class="apt-row">
+            <div class="fld apt-code"><label>DEP</label><input id="dep" value="" placeholder="ICAO" maxlength="4" autocapitalize="characters" spellcheck="false"></div>
+            <div class="apt-info" id="oaInfoDep"></div>
           </div>
-          <div class="row">
-            <div class="fld"><label>ALTN</label><input id="altn" value="" placeholder="ICAO ALT (es. LIME)" autocapitalize="characters" spellcheck="false"></div>
-            <div class="fld"><label>Reg</label><input id="reg" value="I-CCAF"></div>
+          <div class="apt-row">
+            <div class="fld apt-code"><label>ARR</label><input id="arr" value="" placeholder="ICAO" maxlength="4" autocapitalize="characters" spellcheck="false"></div>
+            <div class="apt-info" id="oaInfoArr"></div>
           </div>
-          <div class="row"><div class="fld"><label>Flight mission</label><input id="mission" value="" placeholder="scopo del volo"></div></div>
+          <div class="apt-row">
+            <div class="fld apt-code"><label>ALTN</label><input id="altn" value="" placeholder="ICAO" maxlength="4" autocapitalize="characters" spellcheck="false"></div>
+            <div class="apt-info" id="oaInfoAltn"></div>
+          </div>
+          <div class="apt-row">
+            <div class="fld apt-code"><label>Reg</label><input id="reg" value="I-CCAF"></div>
+            <div class="fld"><label>Flight mission</label><input id="mission" value=""></div>
+          </div>
           <div class="mb-status" id="oaStatus"></div>
-          <div id="oaInfo" style="font-size:.82rem;color:var(--txt-dim);margin-top:.4rem;font-family:'Courier New',monospace;line-height:1.5"></div>
           <div class="hint">Appena un codice ICAO &egrave; completo (quattro lettere), coordinate, elevazione e piste
-            vengono cercate da sole su OurAirports e compilano distanza Trip (DEP&rarr;ARR), distanza e tempo
-            dell'alternato (ARR&rarr;ALTN), elevazioni e piste per il calcolo prestazioni.
-            Tutti i campi restano modificabili a mano.</div>
+            vengono cercate da sole su OurAirports e compaiono qui a fianco; da l&igrave; si compilano distanza Trip
+            (DEP&rarr;ARR), distanza e tempo dell'alternato (ARR&rarr;ALTN), elevazioni e piste per il calcolo
+            prestazioni. Tutti i campi restano modificabili a mano.</div>
         </div>
         <div class="group">
           <h3>Rotta</h3>
           <div class="fld"><label>Route</label><textarea id="route" placeholder="waypoint separati da spazio — compilata dal NavLog ForeFlight"></textarea></div>
-          <div class="row" style="margin-top:9px"><div class="fld"><label>Cruise altitude</label><input id="cruisealt" value="" placeholder="es. 5000 ft"></div></div>
+          <div class="hint">La quota di crociera si imposta nello <b>Step 2 &mdash; Rotta &amp; Fuel</b>, insieme al
+            settaggio di potenza che ne dipende, e da l&igrave; arriva nel documento.</div>
         </div>
         <div class="group">
           <h3>Orari stimati</h3>
           <div class="row">
-            <div class="fld"><label>OFF</label><input id="tOFF" value="0830"></div>
-            <div class="fld"><label>TO</label><input id="tTO" value="0845"></div>
+            <div class="fld"><label>OFF</label>
+              <div class="hm"><select id="tOFFh"></select><span>:</span><select id="tOFFm"></select></div>
+              <input type="hidden" id="tOFF" value="0830"></div>
+            <div class="fld"><label>TO</label>
+              <div class="hm"><select id="tTOh"></select><span>:</span><select id="tTOm"></select></div>
+              <input type="hidden" id="tTO" value="0845"></div>
           </div>
           <div class="row">
-            <div class="fld"><label>LDG</label><input id="tLDG" value="0935"></div>
-            <div class="fld"><label>ON</label><input id="tON" value="0945"></div>
+            <div class="fld"><label>LDG (TO + FT)</label><input id="tLDG" class="time-val" value="0935" readonly style="opacity:.7"></div>
+            <div class="fld"><label>ON</label>
+              <div class="hm"><select id="tONh"></select><span>:</span><select id="tONm"></select></div>
+              <input type="hidden" id="tON" value="0945"></div>
           </div>
           <div class="row">
-            <div class="fld"><label>BLOCK (calcolato)</label><input id="tBLOCK" value="0115" readonly style="opacity:.7"></div>
-            <div class="fld"><label>FLT (calcolato)</label><input id="tFLT" value="0050" readonly style="opacity:.7"></div>
+            <div class="fld"><label>BLOCK (calcolato)</label><input id="tBLOCK" class="time-val" value="0115" readonly style="opacity:.7"></div>
+            <div class="fld"><label>FLT (calcolato)</label><input id="tFLT" class="time-val" value="0050" readonly style="opacity:.7"></div>
           </div>
           <div class="calc" id="timesCalc"></div>
+          <div class="hint">OFF, TO e ON si scelgono a passi di 5 minuti. <b>LDG non si inserisce</b>: &egrave;
+            l'orario di decollo pi&ugrave; il Flight Time calcolato nello Step 2 (salita + crociera).
+            BLOCK = ON &minus; OFF, FLT = LDG &minus; TO, come prima.</div>
         </div>
       </div>
 
@@ -541,6 +557,49 @@ const AC_LIMITS = {
   vne:161, vno:127, vfe:87, va:104,          // kt, AFM pag. 2-1
   xwindTO:20, xwindLDG:15                    // kt, AFM pag. 2-4
 };
+/* Orari a menu. Le due tendine (ore, minuti a passi di 5) scrivono nel campo
+   HHMM nascosto, che resta la sorgente di verita': lo leggono computeTimes(),
+   il salvataggio dei voli e il documento. Le automazioni di BLOCK e FLT non
+   cambiano di una riga — cambia solo come si inserisce l'orario. */
+const TIME_STEP_MIN = 5;
+const TIME_SELECTS = ['tOFF','tTO','tON'];
+const hh2 = (n)=>String(n).padStart(2,'0');
+
+function buildTimeSelects(){
+  TIME_SELECTS.forEach(id=>{
+    const h=$(id+'h'), m=$(id+'m'), f=$(id);
+    if(!h||!m||!f) return;
+    for(let i=0;i<24;i++) h.add(new Option(hh2(i), hh2(i)));
+    for(let i=0;i<60;i+=TIME_STEP_MIN) m.add(new Option(hh2(i), hh2(i)));
+    const push=()=>{ f.value=h.value+m.value; render(); };
+    h.addEventListener('change', push);
+    m.addEventListener('change', push);
+  });
+  syncTimeSelects();
+}
+
+/* Dal campo HHMM alle tendine: all'avvio e ogni volta che si riapre un foglio
+   salvato. Un minuto non multiplo di 5 — un foglio vecchio, scritto a mano —
+   viene portato al passo piu' vicino invece di sparire dalla tendina. */
+function syncTimeSelects(){
+  TIME_SELECTS.forEach(id=>{
+    const h=$(id+'h'), m=$(id+'m'), f=$(id);
+    if(!h||!m||!f) return;
+    const v=String(f.value||'').replace(/\D/g,'').padStart(4,'0');
+    const hh=Math.min(23, parseInt(v.slice(0,2),10)||0);
+    const mm=Math.min(55, Math.round((parseInt(v.slice(2,4),10)||0)/TIME_STEP_MIN)*TIME_STEP_MIN);
+    h.value=hh2(hh); m.value=hh2(mm); f.value=h.value+m.value;
+  });
+}
+
+/* LDG non si inserisce: e' il decollo piu' il Flight Time calcolato (salita +
+   crociera dello Step 2). Cosi' FLT, che resta LDG - TO, coincide sempre col
+   tempo di volo pianificato invece di poterlo contraddire. */
+function autoLandingTime(f){
+  const el=$('tLDG'); if(!el) return;
+  el.value = minToHHMM(hhmmToMin(txt('tTO')) + (f && f.tripTime || 0));
+}
+
 function computeTimes(){
   const off=hhmmToMin(txt('tOFF')), to=hhmmToMin(txt('tTO')), ldg=hhmmToMin(txt('tLDG')), on=hhmmToMin(txt('tON'));
   const block=minToHHMM(on-off), flt=minToHHMM(ldg-to);
@@ -1385,7 +1444,7 @@ ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
     <div style="border-top:1px dotted #000;margin:8px 0 14px"></div>
     <div>ROUTE: <span class="filled">${esc(txt('route'))}</span></div>
     <div style="height:24px"></div>
-    <div>CRUISE ALTITUDE: <span class="filled">${esc(txt('cruisealt'))}</span></div>
+    <div>CRUISE ALTITUDE: <span class="filled">${esc(txt('pwrAlt'))} ft</span></div>
     <div style="border-top:1px dotted #000;margin:12px 0"></div>
     ${fuelTable}
     ${altsum}`;
@@ -1724,7 +1783,9 @@ function mbSheetRows(w){
 }
 
 function render(){
-  const f=computeFuel(); const w=weights(f); const t=computeTimes();
+  const f=computeFuel(); const w=weights(f);
+  autoLandingTime(f);                       // LDG = TO + Flight Time, prima di leggere gli orari
+  const t=computeTimes();
   if($('tBLOCK')) $('tBLOCK').value=t.block;
   if($('tFLT'))   $('tFLT').value=t.flt;
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
@@ -1962,11 +2023,11 @@ async function lookupAirportsUI(){
     const rec = await OA.lookup(uniq);
     window.__oa = rec;
     const found=Object.keys(rec), miss=uniq.filter(c=>!rec[c]);
-    if(!found.length){
-      oaStatus('err','Nessuno dei codici '+uniq.join(', ')+' e\' stato trovato. Compila i campi a mano.');
-    }else{
-      oaStatus('ok','Trovati: '+found.join(', ')+(miss.length?' \u00b7 non trovati: '+miss.join(', '):''));
-    }
+    // ogni casella dice da se' com'e' andata la sua ricerca: la riga riassuntiva
+    // "Trovati: ..." ripeterebbe la stessa cosa piu' in basso e sparisce
+    window.__oaMissing = {}; miss.forEach(c=>{ window.__oaMissing[c]=true; });
+    if(found.length) oaStatus('','');
+    else oaStatus('err','Nessuno dei codici '+uniq.join(', ')+' e\' stato trovato. Compila i campi a mano.');
     applyAirportData();
     render();
   }catch(err){
@@ -2035,16 +2096,27 @@ function onRunwayChange(id){
   if(rwy.lenM) cfg.dist.forEach(d=>{ if($(d)) $(d).value = rwy.lenM; });
 }
 
+/* I dati di ogni aeroporto stanno accanto alla sua casella, non in un blocco
+   unico sotto le tre: cosi' si vede a colpo d'occhio a quale codice si
+   riferiscono, e la scheda resta corta. */
+const APT_BOXES = [['dep','oaInfoDep'],['arr','oaInfoArr'],['altn','oaInfoAltn']];
 function renderAirportInfo(){
-  const el=$('oaInfo'); if(!el) return;
   const rec=window.__oa||{};
-  const codes=Object.keys(rec);
-  if(!codes.length){ el.textContent=''; return; }
-  el.innerHTML = codes.map(c=>{
-    const a=rec[c];
-    const rw=(a.runways||[]).map(r=>`${r.ident}/${r.lenM||'?'}m`).join(' ');
-    return `${a.icao} ${esc(a.name)}<br>&nbsp;&nbsp;${a.lat.toFixed(4)} ${a.lon.toFixed(4)} · elev ${a.elevFt!=null?Math.round(a.elevFt)+' ft':'n/d'} · ${rw||'piste n/d'}`;
-  }).join('<br>');
+  const missing=window.__oaMissing||{};
+  APT_BOXES.forEach(([fld,boxId])=>{
+    const el=$(boxId); if(!el) return;
+    const code=txt(fld).trim().toUpperCase();
+    const a=code ? rec[code] : null;
+    if(a){
+      const rw=(a.runways||[]).map(r=>`${r.ident}/${r.lenM||'?'}m`).join('  ');
+      el.innerHTML = `<span class="nm">${esc(a.name)}</span><br>`
+        + `${a.lat.toFixed(4)} ${a.lon.toFixed(4)} · elev ${a.elevFt!=null?Math.round(a.elevFt)+' ft':'n/d'} · ${rw||'piste n/d'}`;
+    }else if(code && missing[code]){
+      el.innerHTML = `<span class="na">${esc(code)} non trovato su OurAirports — compila i campi a mano</span>`;
+    }else{
+      el.textContent='';
+    }
+  });
 }
 
 /* Ricerca automatica: parte da sola quando un codice ICAO e' completo, senza
@@ -2431,7 +2503,9 @@ function dotted(doc,x1,x2,y){ doc.setLineDash([0.5,0.8],0); doc.setLineWidth(0.2
 function buildPDF(){
   const {jsPDF}=window.jspdf;
   const doc=patchDocText(new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}));
-  const f=computeFuel(); const w=weights(f); const t=computeTimes();
+  const f=computeFuel(); const w=weights(f);
+  autoLandingTime(f);
+  const t=computeTimes();
   const title=titleText();
   const L=MM.ML+3, R=MM.A4W-MM.MR-3, MID=(L+R)/2;
 
@@ -2463,7 +2537,7 @@ function buildPDF(){
   let y=Math.max(yL,yR)+8;
   dotted(doc,L,R,y); y+=8;
   y=monoLine(doc,L,y,`ROUTE: ${txt('route')}`); y+=10;
-  y=monoLine(doc,L,y,`CRUISE ALTITUDE: ${txt('cruisealt')}`); y+=4;
+  y=monoLine(doc,L,y,`CRUISE ALTITUDE: ${txt('pwrAlt')} ft`); y+=4;
   dotted(doc,L,R,y); y+=8;
 
   // tabella FUEL(USG)/TIME a SINISTRA (niente linea sopra "FUEL(USG)")
@@ -2931,7 +3005,7 @@ $('btnPrint').addEventListener('click',()=>{ if(!previewOpen) togglePreview(); s
 
 /* ==================== Dashboard / Flight Manager ==================== */
 // Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)
-const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route','cruisealt',
+const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route',
   'tOFF','tTO','tLDG','tON','picName',
   'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
@@ -3017,6 +3091,7 @@ function applyFlightData(d){
   // I campi caricati valgono per gli ICAO del foglio salvato: si registra quali,
   // cosi' una rimappatura successiva non li scambia ne' li cancella per sbaglio.
   window.__wxFilled = {dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(), altn:txt('altn').toUpperCase()};
+  syncTimeSelects();   // le tendine degli orari seguono i campi appena caricati
 }
 function applyWeatherData(w){
   if(!w) return;
@@ -3279,7 +3354,6 @@ function applyNavlogSummary(sum){
   if(sum.route && $('route')) $('route').value=sum.route;
   if(sum.totals && sum.totals.dist!=null && $('tripDist')) $('tripDist').value=sum.totals.dist;
   if(sum.cruiseAlt){
-    if($('cruisealt') && !txt('cruisealt').trim()) $('cruisealt').value=sum.cruiseAlt+' ft';
     if($('pwrAlt')) $('pwrAlt').value=sum.cruiseAlt;
     if($('altAlt')) $('altAlt').value=sum.cruiseAlt;
   }
@@ -3316,20 +3390,6 @@ if(typeof google!=='undefined' && google.script && google.script.run){
 }
 
 /* ============================ boot ============================ */
-// Sincronizzazione automatica altitudine: quando l'utente scrive la Cruise altitude
-// nella prima pagina (es. "2500/4000 ft"), copiamo la quota di crociera nel campo
-// Altitude della pagina Performance, così non va riscritta. Prendiamo l'ULTIMO numero
-// (la quota di crociera effettiva se ne sono indicate più d'una, es. salita/crociera).
-function syncAltitudeToPerf(){
-  const raw = txt('cruisealt');
-  const nums = (raw.match(/\d{3,5}/g)||[]);
-  if(nums.length){
-    const a=nums[nums.length-1];
-    if($('pwrAlt')) $('pwrAlt').value = a;
-    if($('altAlt')) $('altAlt').value = a;
-  }
-}
-if($('cruisealt')) $('cruisealt').addEventListener('input', ()=>{ syncAltitudeToPerf(); render(); });
 
 /* Selettore aeromobile: compila peso a vuoto e momento dal foglio dell'aeroclub e
    li blocca, così non si modificano per sbaglio. "Altro" li sblocca, per quando
@@ -3353,7 +3413,7 @@ if($('acSelect')) $('acSelect').addEventListener('change', applyAircraft);
 document.body.addEventListener('input',render);
 applyHandoff();
 renderSteps(); goToStep(1);
-syncAltitudeToPerf(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
+buildTimeSelects(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
 // su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
 if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
 bootstrapFlights(()=>{ if($('dashboard').classList.contains('open')) renderDashboard(); });

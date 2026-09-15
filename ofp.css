@@ -68,6 +68,33 @@
   .fld textarea{resize:vertical;min-height:4.5rem;font-family:"Courier New",monospace;font-size:.95rem;line-height:1.45}
   .fld input:focus,.fld textarea:focus,.fld select:focus{outline:2px solid var(--accent-2);outline-offset:1px;border-color:var(--accent-2)}
   .hint{font-size:.82rem;color:var(--txt-dim);margin:.2rem 0 .7rem;line-height:1.55}
+
+/* Scheda Volo — aeroporti. Il codice ICAO e' quattro caratteri: una casella
+   larga quanto il campo accanto e' sprecata, e il risultato della ricerca
+   messo sotto allontana i tre aeroporti l'uno dall'altro. Casella stretta a
+   sinistra, dati dell'aeroporto nello spazio che avanza a destra. */
+.apt-row{display:flex;gap:.9rem;align-items:flex-end;margin:.5rem 0}
+.apt-row .apt-code{flex:0 0 8rem;max-width:8rem}
+.apt-row .apt-code input{text-transform:uppercase;letter-spacing:.08em}
+.apt-info{flex:1 1 0;min-width:0;padding-bottom:.55rem;line-height:1.45;overflow-wrap:anywhere;
+  font-family:"Courier New",monospace;font-size:.8rem;color:var(--txt-dim)}
+.apt-info .nm{color:var(--txt)}
+.apt-info .na{color:#ffd479}
+/* In verticale lo spazio a fianco non c'e': il dato torna sotto la sua casella. */
+@media (max-width:640px){
+  .apt-row{flex-direction:column;align-items:stretch;gap:.3rem}
+  .apt-row .apt-code{flex:1 1 auto;max-width:100%}
+  .apt-info{padding-bottom:0}
+}
+
+/* Orari a due tendine: ore e minuti affiancati dentro un solo campo. */
+/* Orari a due tendine: ore e minuti affiancati, larghi quanto basta invece che
+   distesi su tutta la riga come farebbe un campo di testo. */
+.hm{display:flex;align-items:center;gap:.35rem}
+.hm select{flex:0 1 5.5rem;min-width:3.5rem}
+.hm>span{color:var(--txt-dim);font-weight:700}
+/* I campi orario calcolati si allineano in larghezza alla coppia di tendine. */
+.time-val{max-width:11.5rem}
   .calc{font-size:.85rem;color:#7fd18b;font-family:"Courier New",monospace;margin-top:.4rem;line-height:1.5}
 
   .drop{border:1.5px dashed var(--panel-line);border-radius:.6rem;padding:1.2rem;text-align:center;cursor:pointer;font-size:.9rem;color:var(--txt-dim);background:var(--field);min-height:var(--tap)}
