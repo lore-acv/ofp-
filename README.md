@@ -53,16 +53,26 @@ Apri `index.html` in un browser. Serve connessione a Internet per jsPDF e pdf.js
 4. Rinomina `Codice.gs` (o creane uno con quel nome) e incollaci `Codice.gs`.
 5. **File → Nuovo → File HTML** per ciascuna di queste quattro pagine (Apps Script
    aggiunge da sé `.html`):
-   - **`import`** ← contenuto di `import.html`
-   - **`index`** ← contenuto di `index.html`
-   - **`core`** ← contenuto di `ofp-core.js` (solo il JavaScript, senza tag)
-   - **`styles`** ← contenuto di `ofp.css` (solo il CSS, senza tag)
+   - **`import`** ← contenuto di `import.html`, integrale
+   - **`index`** ← contenuto di `index.html`, integrale
+   - **`core`** ← contenuto di `ofp-core.js`, **avvolto in `<script>` … `</script>`**
+   - **`styles`** ← contenuto di `ofp.css` (il CSS da solo va bene; anche avvolto
+     in `<style>` … `</style>` funziona)
 
    Apps Script non serve file `.js` e `.css`: `doGet` sostituisce al volo i tag
    `<script src="ofp-core.js">` e `<link href="ofp.css">` con il contenuto di
    `core` e `styles`. Le pagine restano così identiche a quelle che funzionano
    aperte direttamente in un browser. L'indirizzo del web app apre l'import;
    `?page=ofp` apre il foglio di volo.
+
+   **Perché i tag intorno al nucleo.** Apps Script conserva questi file come HTML
+   e, a seconda di come vengono letti, ne convalida il contenuto. Il nucleo è
+   JavaScript puro, e lì dentro un `<` seguito da una lettera capita di continuo:
+   in `i+1<starts.length` il validatore legge l'inizio di un tag
+   `<starts.length …>` che non viene mai chiuso, e rifiuta il file con
+   *«Contenuti HTML non corretti»*. Dentro `<script>` quel problema non esiste,
+   perché il contenuto di uno script non viene letto come marcatura. `doGet` non
+   raddoppia i tag se ci sono già, quindi entrambe le forme sono accettate.
 6. **Distribuisci → Nuova distribuzione → Applicazione web**:
    - *Esegui come*: **Utente che accede all'app**
    - *Chi ha accesso*: a tua scelta (es. chiunque abbia un account Google, oppure

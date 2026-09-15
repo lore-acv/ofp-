@@ -42,10 +42,8 @@ function doGet(e) {
   var page = (e && e.parameter && e.parameter.page === 'ofp') ? 'index' : 'import';
   var html = HtmlService.createHtmlOutputFromFile(page).getContent();
 
-  html = inject_(html, '<script src="ofp-core.js"></script>',
-                 '<script>' + fileContent_('core') + '</script>');
-  html = inject_(html, '<link rel="stylesheet" href="ofp.css">',
-                 '<style>' + fileContent_('styles') + '</style>');
+  html = inject_(html, '<script src="ofp-core.js"></script>', wrapped_('core', 'script'));
+  html = inject_(html, '<link rel="stylesheet" href="ofp.css">',  wrapped_('styles', 'style'));
 
   return HtmlService.createHtmlOutput(html)
     .setTitle(page === 'index' ? 'OFP \u2014 Cessna C172 FR' : 'OFP \u2014 Import dati di volo')
@@ -73,9 +71,35 @@ function inject_(html, needle, replacement) {
   return html.replace(needle, function () { return replacement; });
 }
 
-/** Contenuto grezzo di un file del progetto. */
+/**
+ * Contenuto grezzo di un file del progetto.
+ *
+ * NON si usa createHtmlOutputFromFile(): quella convalida il contenuto come
+ * HTML, e il nucleo e' JavaScript puro. Basta un `<` seguito da una lettera —
+ * `i+1<starts.length` — perche' il validatore ci legga l'inizio di un tag
+ * <starts.length ...> mai chiuso e rifiuti il file con "Contenuti HTML non
+ * corretti". getRawContent() restituisce il file com'e', senza convalida.
+ *
+ * Il fallback serve solo se quella via non fosse disponibile: in quel caso il
+ * file deve essere avvolto nei suoi tag (vedi wrapped_ e il README).
+ */
 function fileContent_(name) {
-  return HtmlService.createHtmlOutputFromFile(name).getContent();
+  try {
+    return HtmlService.createTemplateFromFile(name).getRawContent();
+  } catch (e) {
+    return HtmlService.createHtmlOutputFromFile(name).getContent();
+  }
+}
+
+/**
+ * Il contenuto di un file gia' avvolto nel suo tag. Se i tag ci sono gia' —
+ * perche' sono stati incollati a mano nel file di Apps Script — non si
+ * raddoppiano: un <script> dentro un altro <script> spezzerebbe la pagina.
+ */
+function wrapped_(name, tag) {
+  var content = fileContent_(name);
+  var already = new RegExp('^\\s*<' + tag + '\\b', 'i');
+  return already.test(content) ? content : '<' + tag + '>' + content + '</' + tag + '>';
 }
 
 /** URL del web app: serve alle pagine per costruire i link fra loro. */
