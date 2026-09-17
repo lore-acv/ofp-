@@ -179,11 +179,21 @@
     html,body{height:auto;overflow:visible;background:#fff}
     .main{display:block}
     .stage{display:block!important;padding:0;background:#fff;gap:0}
-    /* 296.6 e non 297: un blocco alto quanto il foglio, sommato agli
-       arrotondamenti del browser, genera una pagina bianca di troppo ogni due. */
-    .page{box-shadow:none;page-break-after:always;break-after:page;margin:0;height:296.6mm}
-    .page.flow{height:auto;min-height:296.6mm}
-    .page.flow .frame{min-height:calc(296.6mm - 28mm)}
+    /* NIENTE misure fisse in stampa.
+       @page margin:0 funziona su Chrome e Firefox, NON su Safari iOS: quello
+       stampa comunque i suoi margini, la sua intestazione con l'URL e il suo
+       numero di pagina. Con una pagina larga 210 mm e alta 297 mm dentro
+       un'area stampabile piu' piccola il risultato e' quello che si e' visto:
+       tagliata a destra e spezzata in due fogli.
+       Larghezza e altezza automatiche: la pagina prende l'area che il browser
+       concede, qualunque essa sia, e l'interruzione la impone page-break-after.
+       Che il contenuto non superi mai l'altezza utile lo garantisce a monte
+       l'impaginazione misurata (vedi PRINT_BODY_MM in index.html). */
+    .page{box-shadow:none;page-break-after:always;break-after:page;
+          width:auto;height:auto;min-height:0;margin:0;padding:8mm;overflow:visible}
+    .page .frame{height:auto}
+    .page .pbody{height:auto}
+    .page .footer{position:static;margin:6px 0 0;left:auto;right:auto;bottom:auto}
     .page:last-child{page-break-after:auto;break-after:auto}
   }
 /* ===== menu hamburger ===== */

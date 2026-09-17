@@ -47,7 +47,7 @@
         <button type="button" role="menuitem" id="btnStandby">Salva in standby</button>
         <div class="sep"></div>
         <button type="button" role="menuitem" id="btnPreview">Anteprima documento</button>
-        <button type="button" role="menuitem" id="btnPrint">Stampa</button>
+        <button type="button" role="menuitem" id="btnPrint" title="Safari su iPhone e iPad aggiunge di suo l'indirizzo e la data: per un documento pulito usa Scarica PDF">Stampa (browser)</button>
         <div class="sep"></div>
         <button type="button" role="menuitem" id="btnDrive" style="display:none">Salva su Drive</button>
         <button type="button" role="menuitem" class="primary" id="btnPdf">Scarica PDF</button>
@@ -499,7 +499,9 @@
           <div class="fld"><label>Nome PIC (firma)</label><input id="picName" value="" placeholder="Nome e Cognome PIC"></div>
         </div>
         <div class="hint">Ultimo passaggio. Il documento si genera dal menu in alto a destra,
-            con "Scarica PDF" o "Anteprima documento".</div>
+            con <b>"Scarica PDF"</b>, che genera il documento per conto suo. La voce "Stampa" passa invece per il
+            browser: su iPhone e iPad Safari aggiunge di suo l'indirizzo della pagina e la data, e non c'&egrave;
+            modo di impedirglielo dal sito.</div>
       </div>
 
     </div>
@@ -1994,7 +1996,20 @@ function paginateBlocks(label, blocks){
   probe.innerHTML=pageShell(label,'<div id="__pb"></div>',1);
   document.body.appendChild(probe);
   const body=probe.querySelector('#__pb');
-  const avail=probe.querySelector('.pbody').clientHeight - 24;   // margine di sicurezza
+  /* Quanto contenuto sta su un foglio. NON si misura sulla pagina da 297 mm
+     dell'anteprima: in stampa l'area utile e' sempre piu' piccola, e quanto piu'
+     piccola lo decide il browser. Safari su iOS si tiene i suoi margini piu' una
+     riga di intestazione e una di pie' di pagina, e non c'e' CSS che glieli
+     tolga. 215 mm di corpo e' la misura che sta dentro anche li': su Chrome, che
+     rispetta @page margin:0, si perde qualche centimetro di carta, ed e' un
+     prezzo molto piu' basso di una pagina spezzata in due. */
+  const PRINT_BODY_MM = 215;
+  const mmProbe=document.createElement('div');
+  mmProbe.style.cssText='position:absolute;visibility:hidden;height:100mm';
+  probe.appendChild(mmProbe);
+  const pxPerMm=mmProbe.getBoundingClientRect().height/100 || 3.78;
+  mmProbe.remove();
+  const avail=Math.min(probe.querySelector('.pbody').clientHeight - 24, PRINT_BODY_MM*pxPerMm);
   /* Ogni blocco si misura UNA volta sola e poi si sommano le altezze. Rimisurare
      l'intera pagina a ogni blocco aggiunto costerebbe n scritture del DOM per
      ogni pagina, e questa funzione gira a ogni tasto premuto: su un iPad si
