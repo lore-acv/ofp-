@@ -1485,7 +1485,7 @@ ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
   const body=`
     ${topBlock}
     <div style="border-top:1px dotted #000;margin:8px 0 14px"></div>
-    <div>ROUTE: <span class="filled">${esc(txt('route'))}</span></div>
+    <div class="kv-wrap">ROUTE: <span class="filled">${esc(txt('route'))}</span></div>
     <div style="height:24px"></div>
     <div>CRUISE ALTITUDE: <span class="filled">${esc(txt('pwrAlt'))} ft</span></div>
     <div style="border-top:1px dotted #000;margin:12px 0"></div>
@@ -1518,14 +1518,14 @@ function pageMB(f,w){
   <div style="font-size:9px;margin-top:3px">
     LIMITI: MTOW/MLW ${num('mtow')} kg &middot; bagaglio ${MAX_BAGGAGE_KG} kg &middot; fuel ${USABLE_FUEL_L} L (${USABLE_FUEL_USG} USG)<br>
     CG al decollo <b>${w.tow.arm.toFixed(3)} m</b> &mdash; inviluppo NORMAL ${lim.fwd}&ndash;${lim.aft} m &mdash;
-    <b>${towChk.ok?'ENTRO I LIMITI':'FUORI LIMITE'}</b> &middot; VA a ${w.towKg} kg = ${vaFor(w.towKg)} KIAS
+    <b>${towChk.ok?'ENTRO I LIMITI':'FUORI LIMITE'}</b> &middot; VA a ${w.towKg} kg = ${spdVal(ktToMph(vaFor(w.towKg)))} ${spdLabel()}
   </div>`;
   const rem = txt('mbRemarks').trim();
   const body=`
     <div style="font-size:10px;margin-bottom:4px">A/C <span class="filled">${esc(txt('acSelect')==='CUSTOM'?txt('reg'):txt('acSelect'))}</span>
       &middot; POB <span class="filled">${num('pob')}</span></div>
     ${table}
-    <div style="margin:6px 0">${cgChartSVG(w,{w:560,h:340})}</div>
+    <div style="margin:6px 0;display:flex;justify-content:center">${cgChartSVG(w,{w:560,h:340})}</div>
     <div style="font-weight:700;font-size:11px">REMARKS:</div>
     <div class="kv filled" style="min-height:14px;font-size:10px">${esc(rem)}</div>
     <div style="margin-top:auto">
@@ -1553,17 +1553,13 @@ function pagePerf(f,w){
   const S=AFM_SPEEDS;
   const pohTable=`<table class="refTable pohTable">
     <tr><th>AFM &mdash; valori pubblicati (${u})</th><th>850 kg</th><th>1000 kg</th><th>1157 kg</th></tr>
-    <tr><td>VR / velocit&agrave; a 15 m &mdash; ${S.vr.src}</td>${S.vr.mph.map(v=>`<td>${spdVal(v)}</td>`).join('')}</tr>
-    <tr><td>VY al livello del mare &mdash; ${S.vy.src}</td>${S.vy.mph.map(r=>`<td>${spdVal(r[0])}</td>`).join('')}</tr>
+    <tr><td>VR / velocit&agrave; a 15 m</td>${S.vr.mph.map(v=>`<td>${spdVal(v)}</td>`).join('')}</tr>
+    <tr><td>VY al livello del mare</td>${S.vy.mph.map(r=>`<td>${spdVal(r[0])}</td>`).join('')}</tr>
     <tr><td>Rateo di salita SL (ft/min)</td>${S.vy.roc.map(r=>`<td>${r[0]}</td>`).join('')}</tr>
-    <tr><td>V best glide &mdash; ${S.glide.src}</td><td colspan="3">${spdVal(S.glide.mph)} ${u} &mdash; valore unico, l'AFM non lo differenzia per massa</td></tr>
-    <tr><td>Avvicinamento flap 40 &mdash; ${S.vrefLdg.src}</td><td colspan="3">${spdVal(S.vrefLdg.mph)} ${u} &mdash; pubblicato solo a 1157 kg</td></tr>
-    <tr><td>Stallo UP / 20&deg; / 40&deg; &mdash; ${S.stall.src}</td><td colspan="3">${spdVal(S.stall.up)} / ${spdVal(S.stall.f20)} / ${spdVal(S.stall.f40)} ${u} &mdash; 1157 kg, ali livellate</td></tr>
-  </table>
-  <div style="font-size:8px;margin-top:2px">Tutti i valori sono stampati nell'AFM Reims Rocket FR172J. Dove il manuale
-    pubblica pi&ugrave; masse o pi&ugrave; quote si interpola linearmente; dove ne pubblica uno solo resta quello.
-    VY &egrave; tabulata anche in quota (fig. 5-6): a ${num('pwrAlt')} ft e ${w.towKg} kg risulta
-    ${spdVal(vyFor(w.towKg,num('pwrAlt')).mph)} ${u} con ${vyFor(w.towKg,num('pwrAlt')).roc} ft/min.</div>`;
+    <tr><td>V best glide</td><td colspan="3">${spdVal(S.glide.mph)} ${u}</td></tr>
+    <tr><td>Avvicinamento flap 40</td><td colspan="3">${spdVal(S.vrefLdg.mph)} ${u}</td></tr>
+    <tr><td>Stallo UP / 20&deg; / 40&deg;</td><td colspan="3">${spdVal(S.stall.up)} / ${spdVal(S.stall.f20)} / ${spdVal(S.stall.f40)} ${u}</td></tr>
+  </table>`;
   // DEPARTURE e DESTINATION su due righe distinte: i campi del form sono separati
   // (depAirport/depRunway e destAirport/destRunway) e le distanze di decollo
   // riguardano il primo, quelle di atterraggio il secondo.
@@ -1605,8 +1601,7 @@ function pagePerf(f,w){
         <td class="${over?'bad':'crit'}">${over?'SUPERATA di '+Math.round(-m.margin)+' m':Math.round(m.margin)+' m'}</td></tr>`;
     }).join('')).join('')}
   </table>
-  <div style="font-size:8px">Superficie ${esc(txt('toldSurface'))} &middot; AFM fig. 5-4 e 5-5 &middot; massa e meteo propri di ciascun aeroporto.
-    TORA, TODA e LDA sono le distanze dichiarate dell'AIP: vanno confrontate con la richiesta, non con la corsa al suolo.</div>`
+`
   : `<div style="font-size:9.5px">${esc(told.reason||'Dati TOLD insufficienti.')}</div>`;
   const cAlt=num('pwrAlt');
   const sel=currentPowerRow();
@@ -1616,6 +1611,41 @@ function pagePerf(f,w){
   const byRpm={}; rows.forEach(r=>{ (byRpm[r.rpm]=byRpm[r.rpm]||[]).push(r); });
   const rpmList=Object.keys(byRpm).map(Number).sort((a,b)=>a-b);
   const maxRows=Math.max(1,...rpmList.map(r=>byRpm[r].length));
+  /* Il settaggio scelto, l'alternato e la salita erano tre righe di prosa con i
+     valori annegati dentro. Gli stessi numeri in tabella si leggono a colpo
+     d'occhio e si confrontano fra loro. */
+  const altnRow=altnSettingAt(num('altAlt')).row;
+  const cpsCell=(v)=>v==null?'&mdash;':v;
+  const cpsTable=`<table class="refTable" style="max-width:100%">
+    <tr><th>Fase</th><th>Quota</th><th>MAP</th><th>RPM</th><th>Potenza</th><th>TAS</th><th>Fuel flow</th><th>Tempo</th><th>Carburante</th></tr>
+    <tr>
+      <td style="text-align:left;padding-left:4px"><b>Salita</b></td>
+      <td class="filled">SL &rarr; ${cAlt} ft</td>
+      <td colspan="4" class="filled">piena potenza</td>
+      <td class="filled">&mdash;</td>
+      <td class="filled">${Math.round(climbTimeMin(cAlt))} min</td>
+      <td class="filled">${fmt(climbFuelLitres(cAlt))} L</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:4px"><b>Crociera</b></td>
+      <td class="filled">${cAlt} ft</td>
+      ${sel ? `<td class="crit">${sel.mp}&quot;</td><td class="crit">${sel.rpm}</td>
+               <td class="filled">${sel.bhp}%</td><td class="filled">${sel.mph} MPH</td>
+               <td class="filled">${sel.lph} L/h</td>`
+            : `<td colspan="5" class="bad">settaggio non pubblicato dal POH a questa quota</td>`}
+      <td class="filled">&mdash;</td><td class="filled">&mdash;</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:4px"><b>Alternato</b></td>
+      <td class="filled">${num('altAlt')} ft</td>
+      ${altnRow ? `<td class="filled">${altnRow.mp}&quot;</td><td class="filled">${altnRow.rpm}</td>
+                   <td class="filled">${altnRow.bhp}%</td><td class="filled">${altnRow.mph} MPH</td>
+                   <td class="filled">${altnRow.lph} L/h</td>`
+                : `<td colspan="5" class="bad">${ALTN_SETTING.mp}&quot; / ${ALTN_SETTING.rpm} RPM non ottenibile a questa quota</td>`}
+      <td class="filled">${num('altTblTime')} min</td><td class="filled">${fmt(f.altFuel)} L</td>
+    </tr>
+  </table>`;
+
   const cruiseTable=`<table class="refTable cruiseTable">
     <tr><th colspan="${rpmList.length*4}">POH CRUISE &mdash; ${cAlt} ft${rows.length&&!rows[0].exact?` (interpolato ${rows[0].loAlt}&ndash;${rows[0].hiAlt} ft)`:''}</th></tr>
     <tr>${rpmList.map(r=>`<th colspan="4">${r} RPM</th>`).join('')}</tr>
@@ -1626,26 +1656,17 @@ function pagePerf(f,w){
       const hl = sel && r.mp===sel.mp && r.rpm===sel.rpm ? ' class="hlCell"' : '';
       return `<td${hl}>${r.mp}</td><td${hl}>${r.bhp}</td><td${hl}>${r.mph}</td><td${hl}>${r.lph.toFixed(1)}</td>`;
     }).join('')}</tr>`).join('')}
-  </table>
-  <div style="font-size:8px;margin-top:2px">AFM Reims Rocket FR172J fig. 5-1, normal lean mixture, 1157 kg, ISA, vento nullo &middot;
-    MP in inHg &middot; velocita' TAS in MPH &middot; consumi in litri/ora &middot; cella vuota = combinazione non ottenibile a questa quota.</div>`;
+  </table>`;
   const body=`
     <div class="kv">ETOW <span class="filled">${w.towKg}</span> kg&nbsp;&nbsp;&nbsp;ELDW <span class="filled">${w.ldwKg}</span> kg&nbsp;&nbsp;&nbsp;ALTN <span class="filled">${w.altwKg}</span> kg</div>
     <div style="font-size:9.5px;margin:4px 0 2px">*ADD +5 KTS AT VREF SPEEDS &middot; VNE ${AC_LIMITS.vne} &middot; VNO ${AC_LIMITS.vno} &middot; VFE ${AC_LIMITS.vfe} KIAS &middot; XWIND T/O ${AC_LIMITS.xwindTO} kt &middot; LDG ${AC_LIMITS.xwindLDG} kt</div>
-    <div style="font-size:9.5px;margin:0 0 8px">VA ${AC_LIMITS.va} KIAS a ${AC_LIMITS.mtowNormal} kg &rarr; <b>${vaFor(w.towKg)} KIAS</b> a ${w.towKg} kg (TOW)</div>
+    <div style="font-size:9.5px;margin:0 0 8px">VA ${spdVal(ktToMph(AC_LIMITS.va))} ${u} a ${AC_LIMITS.mtowNormal} kg &rarr; <b>${spdVal(ktToMph(vaFor(w.towKg)))} ${u}</b> a ${w.towKg} kg (TOW)</div>
     ${vTable}
     ${pohTable}
     <div style="font-weight:700;margin-top:10px">DISTANZE DI DECOLLO E ATTERRAGGIO</div>
     ${rwyTable}
-    <div style="margin-top:10px;font-weight:700">CRUISE PWR SETTING &mdash; <span class="filled">${cAlt}</span> ft:
-      ${sel ? `MAP <span class="filled">${sel.mp}</span> inHg &middot; RPM <span class="filled">${sel.rpm}</span> &middot;
-      POWER <span class="filled">${sel.bhp}%</span> &middot; TAS <span class="filled">${sel.mph}</span> MPH &middot;
-      FUEL FLOW <span class="filled">${sel.lph}</span> L/h`
-      : `<span class="filled">settaggio non pubblicato dal POH a questa quota</span>`}</div>
-    <div style="font-size:9px">Alternato (fisso ${ALTN_SETTING.mp}" / ${ALTN_SETTING.rpm} RPM a ${num('altAlt')} ft):
-      ${(()=>{const a=altnSettingAt(num('altAlt')); return a.row?`${a.row.bhp}% &middot; ${a.row.mph} MPH &middot; ${a.row.lph} L/h`:'non disponibile';})()}
-      &nbsp;&middot;&nbsp; salita a ${cAlt} ft a piena potenza <b>${Math.round(climbTimeMin(cAlt))} min</b> e
-      <b>${fmt(climbFuelLitres(cAlt))} L</b> incl. avviamento e decollo (AFM fig. 5-6).</div>
+    <div style="font-weight:700;margin-top:10px">CRUISE POWER SETTING &mdash; ${cAlt} ft</div>
+    ${cpsTable}
     ${cruiseTable}`;
   return pageShell('PERFORMANCE', body, 3, 'font-size:9.5px');
 }
@@ -2092,15 +2113,13 @@ function cgChartSVG(w, opt){
          + `<text x="${(X(p.m)+dx).toFixed(1)}" y="${(Y(p.w)+dy).toFixed(1)}" font-size="9" font-weight="700" fill="${c}" text-anchor="${dx<0?'end':'start'}">${p.lbl}</text>`;
   }).join('');
 
-  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px;font-family:Helvetica,Arial,sans-serif">
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px;display:block;margin:0 auto;font-family:Helvetica,Arial,sans-serif">
     <rect x="0" y="0" width="${W}" height="${H}" fill="#fff"/>
     ${grid}
     <path d="${path(cgEnvelopePoly('normal'))}"  fill="rgba(0,120,60,.07)" stroke="#0a7d3c" stroke-width="1.3"/>
     <path d="${path(cgEnvelopePoly('utility'))}" fill="none" stroke="#a96b10" stroke-width="1" stroke-dasharray="5 3"/>
     ${line}${marks}
     <rect x="${ml}" y="${mt}" width="${W-ml-mr}" height="${H-mt-mb}" fill="none" stroke="#888" stroke-width=".8"/>
-    <text x="${ml}" y="${H-2}" font-size="8.5" fill="#333">Momento kg&#183;m</text>
-    <text x="10" y="${mt+8}" font-size="8.5" fill="#333">Massa kg</text>
     <g font-size="8.5">
       <rect x="${W-mr-146}" y="${mt+4}" width="142" height="30" fill="#fff" stroke="#ccc" stroke-width=".5"/>
       <line x1="${W-mr-140}" y1="${mt+13}" x2="${W-mr-126}" y2="${mt+13}" stroke="#0a7d3c" stroke-width="1.3"/>
@@ -2633,7 +2652,11 @@ function patchDocText(doc){
 /* Grafico di centraggio disegnato vettorialmente nel PDF: stessa geometria della
    versione SVG dell'anteprima, cosi' i due non possono divergere. */
 function drawCgChart(doc, w, x, y, boxW, boxH){
-  const ml=x+16, mr=x+boxW-3, mt=y+3, mb=y+boxH-9;
+  /* Margini simmetrici: a sinistra servono 16 mm per le quote dell'asse, e
+     lasciandone 3 a destra il riquadro restava spostato di 13 mm rispetto alla
+     pagina. Ora il disegno e' centrato nello spazio che riceve. */
+  const pad=16;
+  const ml=x+pad, mr=x+boxW-pad, mt=y+3, mb=y+boxH-9;
   const R=cgChartRange(w);
   const X=m=>ml+(m-R.mMin)/(R.mMax-R.mMin)*(mr-ml);
   const Y=kg=>mb-(kg-R.wMin)/(R.wMax-R.wMin)*(mb-mt);
@@ -2681,8 +2704,8 @@ function drawCgChart(doc, w, x, y, boxW, boxH){
   doc.setDrawColor(120); doc.setLineWidth(0.15); doc.rect(ml,mt,mr-ml,mb-mt);
   doc.setDrawColor(0);
   doc.setFontSize(5.2); doc.setTextColor(60);
-  doc.text('Momento kg*m', ml, y+boxH-1);
-  doc.text('Massa kg', x, mt+2);
+  // Gli assi sono gia' quotati dai numeri della griglia: le diciture "Massa kg"
+  // e "Momento kg*m" erano didascalia di qualcosa che si legge da se'.
   doc.text('linea continua = NORMAL 1157 kg   tratteggiata = UTILITY 998 kg', mr, y+boxH-1, {align:'right'});
   doc.setTextColor(0);
   doc.setFontSize(FS_BODY);
@@ -2729,7 +2752,9 @@ function buildPDF(){
 
   let y=Math.max(yL,yR)+8;
   dotted(doc,L,R,y); y+=8;
-  y=monoLine(doc,L,y,`ROUTE: ${txt('route')}`); y+=10;
+  // I punti di rotta sono una lista lunga: senza andare a capo uscivano dal foglio.
+  doc.splitTextToSize(`ROUTE: ${txt('route')}`, R-L).forEach(l=>{ y=monoLine(doc,L,y,l); });
+  y+=6;
   y=monoLine(doc,L,y,`CRUISE ALTITUDE: ${txt('pwrAlt')} ft`); y+=4;
   dotted(doc,L,R,y); y+=8;
 
@@ -2800,7 +2825,7 @@ function buildPDF(){
   doc.setFontSize(7.5);
   doc.text(`LIMITS: MTOW/MLW ${num('mtow')} kg - BAGGAGE ${MAX_BAGGAGE_KG} kg - FUEL ${USABLE_FUEL_L} L (${USABLE_FUEL_USG} USG)`,L,y); y+=LHmb-0.6;
   doc.text(`CG T/O ${w.tow.arm.toFixed(3)} m - NORMAL envelope ${lim.fwd}-${lim.aft} m - ${towChk.ok?'WITHIN LIMITS':'*** OUT OF LIMITS ***'}`,L,y); y+=LHmb-0.6;
-  doc.text(`CATEGORY AVAILABLE: ${utilChk.ok?'UTILITY and NORMAL':'NORMAL'} - VA at ${w.towKg} kg = ${vaFor(w.towKg)} KIAS`,L,y); y+=LHmb-0.6;
+  doc.text(`CATEGORY AVAILABLE: ${utilChk.ok?'UTILITY and NORMAL':'NORMAL'} - VA at ${w.towKg} kg = ${spdVal(ktToMph(vaFor(w.towKg)))} ${spdLabel()}`,L,y); y+=LHmb-0.6;
   doc.setFontSize(9);
   y+=2;
 
@@ -2831,7 +2856,7 @@ function buildPDF(){
   y=monoLine(doc,L,y,`TOW ${w.towKg} kg   LAW ${w.ldwKg} kg   ALTN ${w.altwKg} kg`);
   y=monoLine(doc,L,y,'*ADD +5 KTS AT VREF SPEEDS');
   y=monoLine(doc,L,y,`VNE ${AC_LIMITS.vne}  VNO ${AC_LIMITS.vno}  VFE ${AC_LIMITS.vfe} KIAS   XWIND T/O ${AC_LIMITS.xwindTO} kt  LDG ${AC_LIMITS.xwindLDG} kt`);
-  y=monoLine(doc,L,y,`VA ${AC_LIMITS.va} KIAS a ${AC_LIMITS.mtowNormal} kg -> ${vaFor(w.towKg)} KIAS a ${w.towKg} kg (TOW)`); y+=3;
+  y=monoLine(doc,L,y,`VA ${spdVal(ktToMph(AC_LIMITS.va))} ${spdLabel()} a ${AC_LIMITS.mtowNormal} kg -> ${spdVal(ktToMph(vaFor(w.towKg)))} ${spdLabel()} a ${w.towKg} kg (TOW)`); y+=3;
   const uSp=spdLabel();
   const vDep=vspeedsFor(w.towKg,0), vDest=vspeedsFor(w.ldwKg,0), vAltn=vspeedsFor(w.altwKg,0);
   const vColW=[52,20,20,20];
@@ -2858,8 +2883,8 @@ function buildPDF(){
   doc.setFillColor(230,230,230); doc.rect(L-2,pohTblTop,pohTblW+4,LH+0.6,'F');
   [850,1000,1157].forEach((ww,i)=>doc.text(ww+' kg',colRight(i),y,{align:'right'})); y+=LH+1;
   const pohRows=[
-    ['VR - 15 m  '+S.vr.src, S.vr.mph.map(spdVal)],
-    ['VY at SL   '+S.vy.src, S.vy.mph.map(r=>spdVal(r[0]))],
+    ['VR - 15 m',  S.vr.mph.map(spdVal)],
+    ['VY at SL',    S.vy.mph.map(r=>spdVal(r[0]))],
     ['ROC SL ft/min',        S.vy.roc.map(r=>r[0])]
   ];
   pohRows.forEach(([lbl,vals],ri)=>{
@@ -2868,9 +2893,9 @@ function buildPDF(){
     vals.forEach((v,i)=>doc.text(String(v),colRight(i),y,{align:'right'}));
     y+=LH;
   });
-  [['V best glide '+S.glide.src, spdVal(S.glide.mph)+' '+uSp+' - valore unico, non differenziato per massa'],
-   ['Vref flap 40 '+S.vrefLdg.src, spdVal(S.vrefLdg.mph)+' '+uSp+' - pubblicato solo a 1157 kg'],
-   ['Stall UP/20/40 '+S.stall.src, spdVal(S.stall.up)+' / '+spdVal(S.stall.f20)+' / '+spdVal(S.stall.f40)+' '+uSp+' a 1157 kg']
+  [['V best glide',    spdVal(S.glide.mph)+' '+uSp],
+   ['Vref flap 40',    spdVal(S.vrefLdg.mph)+' '+uSp],
+   ['Stall UP/20/40',  spdVal(S.stall.up)+' / '+spdVal(S.stall.f20)+' / '+spdVal(S.stall.f40)+' '+uSp]
   ].forEach(([lbl,v],i)=>{
     if((pohRows.length+i)%2===1){ doc.setFillColor(245,245,245); doc.rect(L-2,y-3.2,pohTblW+4,LH+0.4,'F'); }
     doc.text(lbl,L,y); doc.text(v,L+pw[0],y);
@@ -2878,10 +2903,7 @@ function buildPDF(){
   });
   doc.setDrawColor(150); doc.setLineWidth(0.15); doc.rect(L-2,pohTblTop,pohTblW+4,(y-pohTblTop)); doc.setDrawColor(0);
   y+=4;
-  doc.setFontSize(6.5);
-  doc.text("Tutti i valori sono stampati nell'AFM Reims Rocket FR172J. Interpolazione lineare dove il manuale tabula piu' masse o quote.",L,y);
-  doc.setFontSize(8.5);
-  y+=5;
+  y+=2;
   dotted(doc,L,R,y); y+=6;
   doc.setFont('courier','bold'); y=monoLine(doc,L,y,'TAKE-OFF & LANDING DISTANCES'); doc.setFont('courier','normal');
   dotted(doc,L,R,y); y+=5;
@@ -2905,11 +2927,22 @@ function buildPDF(){
     const mm=(v)=>L+v*(R-L)/176;
     const fase=(g)=>(g.isTakeoff?'T/O ':'LDG ')+(g.label.match(/DEP|DEST|ALTN/)||[''])[0];
     doc.setFontSize(6.8);
-    const cond=[46,62,98,120,140,157,176].map(mm);
+    /* Ogni colonna dichiara il proprio bordo: `l` quelle di testo, allineate a
+       sinistra, `r` quelle numeriche, allineate a destra. Derivare l'inizio di
+       una colonna dalla fine della precedente non basta — le due si toccano
+       appena una stringa e' lunga quanto la colonna. */
+    const cols=[{l:22},{r:64},{l:68},{r:122},{r:142},{r:158},{r:176}];
+    const put=(v,i,bold)=>{
+      doc.setFont('courier', bold?'bold':'normal');
+      const c=cols[i];
+      if(c.l!=null) doc.text(String(v), mm(c.l), y);
+      else          doc.text(String(v), mm(c.r), y, {align:'right'});
+      doc.setFont('courier','normal');
+    };
     doc.setFont('courier','bold');
     doc.text('FASE',L,y);
     ['AEROPORTO/RWY','MASSA','QNH / T / VENTO','PA / DA','HW / XW','CORSA','15 m']
-      .forEach((h,i)=>doc.text(h,cond[i],y,{align:'right'}));
+      .forEach((h,i)=>put(h,i,true));
     doc.setFont('courier','normal'); y+=1.2;
     doc.setLineWidth(0.15); doc.line(L,y,R,y); y+=3.6;
     legs.forEach((pair,ri)=>{
@@ -2920,7 +2953,7 @@ function buildPDF(){
        `${g.qnh} / ${g.oat}C / ${g.haveWind?g.windDir+'-'+g.windKt+'kt':'n/d'}`,
        `${g.pa} / ${g.da} ft`, `${g.head>=0?'HW':'TW'}${Math.abs(g.head)} / XW${g.cross}`,
        `${g.ground} m`, `${g.total} m`
-      ].forEach((v,i)=>doc.text(v,cond[i],y,{align:'right'}));
+      ].forEach((v,i)=>put(v,i,false));
       y+=3.9;
     });
     doc.line(L,y-2.6,R,y-2.6); y+=4;
@@ -2957,35 +2990,43 @@ function buildPDF(){
     });
     doc.line(L,y-3.6,R,y-3.6); y+=1.5;
 
-    const wArr=(told.warns||[]).filter(x=>x.level!=='grey');
-    if(wArr.length){
-      doc.setFontSize(6.5);
-      wArr.slice(0,4).forEach(x=>{
-        const lines=doc.splitTextToSize('! '+x.label+': '+x.text, R-L);
-        doc.text(lines,L,y); y+=lines.length*3.1;
-      });
-    }
     doc.setFontSize(8.5);
     y+=2;
   }
-  doc.setFontSize(6.5);
-  doc.text('Superficie: '+txt('toldSurface')+'. Distanze da AFM fig. 5-4 e 5-5, massa e meteo propri di ogni aeroporto.',L,y);
-  doc.setFontSize(8.5); y+=5;
   const cAlt=num('pwrAlt');
   const sel=currentPowerRow();
   const altnSet=altnSettingAt(num('altAlt'));
   dotted(doc,L,R,y); y+=6;
   doc.setFont('courier','bold');
   y=monoLine(doc,L,y,`CRUISE POWER SETTING - ${cAlt} ft`);
-  doc.setFont('courier','normal');
-  y=monoLine(doc,L,y, sel
-    ? `MAP ${sel.mp} inHg   RPM ${sel.rpm}   POWER ${sel.bhp}%   TAS ${sel.mph} MPH   FUEL FLOW ${sel.lph} L/h`
-    : `Settaggio non pubblicato dal POH a ${cAlt} ft`);
-  y=monoLine(doc,L,y, altnSet.row
-    ? `ALTERNATE ${altnSet.row.mp} inHg / ${altnSet.row.rpm} RPM   POWER ${altnSet.row.bhp}%   TAS ${altnSet.row.mph} MPH   ${altnSet.row.lph} L/h`
-    : `ALTERNATE ${ALTN_SETTING.mp} inHg / ${ALTN_SETTING.rpm} RPM non ottenibile a ${num('altAlt')} ft`);
-  y=monoLine(doc,L,y,`CLIMB TO ${cAlt} ft: ${Math.round(climbTimeMin(cAlt))} min / ${fmt(climbFuelLitres(cAlt))} L incl. start & take-off - AFM fig. 5-6`);
-  dotted(doc,L,R,y); y+=6;
+  doc.setFont('courier','normal'); y+=1;
+
+  /* Salita, crociera e alternato erano tre righe di prosa con i numeri annegati
+     dentro. In colonna si leggono a colpo d'occhio e si confrontano fra loro. */
+  const cp=[42,56,70,90,112,136,176].map(v=>L+v*(R-L)/176);
+  doc.setFontSize(7); doc.setFont('courier','bold');
+  doc.text('FASE',L,y);
+  ['QUOTA','MAP','RPM','POTENZA','TAS','FUEL FLOW','TEMPO / L']
+    .forEach((h,i)=>doc.text(h,cp[i],y,{align:'right'}));
+  doc.setFont('courier','normal'); y+=1.2;
+  doc.setLineWidth(0.15); doc.line(L,y,R,y); y+=3.8;
+  const cpRow=(lab,vals,shade)=>{
+    if(shade){ doc.setFillColor(245,245,245); doc.rect(L-1,y-2.9,R-L+2,4,'F'); }
+    doc.setFont('courier','bold'); doc.text(lab,L,y); doc.setFont('courier','normal');
+    vals.forEach((v,i)=>doc.text(v==null?'-':String(v),cp[i],y,{align:'right'}));
+    y+=4;
+  };
+  cpRow('SALITA', [`SL-${cAlt} ft`, '-', '-', 'piena', '-', '-',
+                   `${Math.round(climbTimeMin(cAlt))} min / ${fmt(climbFuelLitres(cAlt))} L`], false);
+  cpRow('CROCIERA', sel
+    ? [`${cAlt} ft`, `${sel.mp}"`, sel.rpm, `${sel.bhp}%`, `${sel.mph} MPH`, `${sel.lph} L/h`, '-']
+    : [`${cAlt} ft`, '-', '-', '-', '-', '-', 'non pubblicato dal POH'], true);
+  cpRow('ALTERNATO', altnSet.row
+    ? [`${num('altAlt')} ft`, `${altnSet.row.mp}"`, altnSet.row.rpm, `${altnSet.row.bhp}%`,
+       `${altnSet.row.mph} MPH`, `${altnSet.row.lph} L/h`, `${num('altTblTime')} min / ${fmt(f.altFuel)} L`]
+    : [`${num('altAlt')} ft`, '-', '-', '-', '-', '-', `${ALTN_SETTING.mp}"/${ALTN_SETTING.rpm} non ottenibile`], false);
+  doc.line(L,y-2.8,R,y-2.8);
+  doc.setFontSize(8.5); y+=5;
 
   // tabella cruise power pulita e allineata, con evidenziazione MIRATA (solo le 3 celle MP/RPM/TAS della % scelta)
   // Tabella POH della quota pianificata, raggruppata per RPM: sono le combinazioni
@@ -2993,21 +3034,37 @@ function buildPDF(){
   const cRows=cruiseRowsAt(cAlt);
   const byRpm={}; cRows.forEach(r=>{ (byRpm[r.rpm]=byRpm[r.rpm]||[]).push(r); });
   const rpmList=Object.keys(byRpm).map(Number).sort((a,b)=>a-b);
-  const subW=[7,7,9,10], groupW=subW.reduce((a,b)=>a+b,0);
-  const gx=(g)=>L+g*groupW;
+  /* La larghezza dei gruppi si ricava dallo spazio disponibile invece di essere
+     fissa: cosi' la tabella e' centrata sotto il titolo e non resta spostata a
+     sinistra quando le colonne sono poche. */
+  const groupW=Math.min(38, (R-L)/Math.max(1,rpmList.length));
+  const pad=(groupW-33)/4;
+  const subW=[7+pad,7+pad,9+pad,10+pad];
+  const tblW=rpmList.length*groupW;
+  const tblL=L+((R-L)-tblW)/2;
+  const gx=(g)=>tblL+g*groupW;
   const colX=(g,sIdx)=>gx(g)+subW.slice(0,sIdx+1).reduce((a,b)=>a+b,0);
-  const tblRight=L+rpmList.length*groupW;
+  const tblRight=tblL+tblW;
   doc.setFontSize(7);
   rpmList.forEach((rp,g)=>doc.text(rp+' RPM', gx(g)+groupW/2, y, {align:'center'})); y+=3.4;
   ['MP','%','MPH','L/h'].forEach((h,sIdx)=>{ rpmList.forEach((_,g)=>doc.text(h,colX(g,sIdx),y,{align:'right'})); }); y+=3.6;
-  doc.setLineWidth(0.15); doc.line(L,y-2.6,tblRight,y-2.6);
+  doc.setLineWidth(0.15); doc.line(tblL,y-2.6,tblRight,y-2.6);
   const maxRows=Math.max(1,...rpmList.map(r=>byRpm[r].length));
   for(let i=0;i<maxRows;i++){
-    if(i%2===1){ doc.setFillColor(245,245,245); doc.rect(L-1,y-3,tblRight-L+2,3.8,'F'); }
+    /* Tutti i fondini PRIMA di qualunque testo della riga. Disegnandoli gruppo
+       per gruppo insieme al testo, il rettangolo giallo del gruppo successivo
+       copriva l'ultima cifra del consumo di quello precedente. */
+    if(i%2===1){ doc.setFillColor(245,245,245); doc.rect(tblL-1,y-3,tblW+2,3.8,'F'); }
+    rpmList.forEach((rp,g)=>{
+      const r=byRpm[rp][i];
+      if(r && sel && r.mp===sel.mp && r.rpm===sel.rpm){
+        doc.setFillColor(255,243,176);
+        doc.rect(gx(g)+0.6,y-3,groupW-1.2,3.8,'F');
+      }
+    });
     rpmList.forEach((rp,g)=>{
       const r=byRpm[rp][i]; if(!r) return;
       const isSel = sel && r.mp===sel.mp && r.rpm===sel.rpm;
-      if(isSel){ doc.setFillColor(255,243,176); doc.rect(gx(g)-1,y-3,groupW+1,3.8,'F'); }
       doc.setFont('courier', isSel?'bold':'normal');
       doc.text(String(r.mp),   colX(g,0),y,{align:'right'});
       doc.text(String(r.bhp),  colX(g,1),y,{align:'right'});
@@ -3017,12 +3074,8 @@ function buildPDF(){
     });
     y+=3.8;
   }
-  doc.setLineWidth(0.15); doc.line(L,y-2.6,tblRight,y-2.6);
+  doc.setLineWidth(0.15); doc.line(tblL,y-2.6,tblRight,y-2.6);
   y+=3;
-  doc.setFontSize(6.5);
-  doc.text("AFM Reims Rocket FR172J fig. 5-1 - normal lean mixture, 1157 kg, ISA, vento nullo. MP inHg, TAS in MPH, consumi in litri/ora.",L,y);
-  y+=3;
-  doc.text("Sono elencate solo le combinazioni MAP/RPM pubblicate dal manuale a questa quota; una casella mancante non e' ottenibile.",L,y);
   doc.setFontSize(FS_BODY);
 
   /* PAGE 4 — DEST CHARTS */
