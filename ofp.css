@@ -81,7 +81,7 @@
 .apt-info .nm{color:var(--txt)}
 .apt-info .na{color:#ffd479}
 /* In verticale lo spazio a fianco non c'e': il dato torna sotto la sua casella. */
-@media (max-width:640px){
+@media screen and (max-width:640px){
   .apt-row{flex-direction:column;align-items:stretch;gap:.3rem}
   .apt-row .apt-code{flex:1 1 auto;max-width:100%}
   .apt-info{padding-bottom:0}
@@ -114,7 +114,14 @@
   .refTable th,.refTable td{border:1px solid #999;padding:3px 5px;text-align:center}
   .refTable th{background:#e2e2e2;font-weight:700;color:#111}
   .cruiseTable td,.cruiseTable th{padding:2.5px 4px;font-size:9.5px}
-  .cruiseTable td.hlCell{background:#fff3b0;font-weight:700}
+  /* righe alternate anche nella tabella di crociera; la riga scelta resta gialla
+     e vince sullo zebrato */
+  .cruiseTable tr:nth-child(even) td{background:#f7f7f7}
+  .cruiseTable td.hlCell{background:#fff3b0!important;font-weight:700}
+  /* TORA, TODA e LDA: sono i numeri che decidono se si parte, non devono
+     confondersi con il resto della riga */
+  .refTable td.crit{background:#fff3b0;font-weight:700;font-size:12px}
+  .refTable td.bad{background:#ffd9d9;font-weight:700;font-size:12px}
   .pohTable tr:nth-child(even){background:#f2f2f2}
   .pohTable td:first-child{text-align:left;font-weight:600}
   .pohTable th:first-child{text-align:left}
@@ -130,18 +137,54 @@
   .sec-rule{border-bottom:1px dotted #000;height:1px;margin-bottom:6px}
   .footer{position:absolute;left:12mm;right:12mm;bottom:8mm;display:flex;justify-content:space-between;font-size:10.5px;border-top:1px solid #ccc;padding-top:4px}
 
+  /* Pagine a contenuto variabile: crescono invece di tagliare. Sullo schermo si
+     vedono lunghe quanto il testo, in stampa il browser le spezza su piu' fogli. */
+  .page.flow{height:auto;min-height:297mm;overflow:visible}
+  .page.flow .frame{height:auto;min-height:calc(297mm - 28mm)}
+  .page.flow .pbody{height:auto}
+  .page.flow .footer{position:static;margin:6px 12mm 0;left:auto;right:auto;bottom:auto}
   .kv{white-space:pre}
+  /* .kv serve alle colonne allineate della pagina 1, dove il testo NON deve
+     andare a capo. METAR, TAF e NOTAM sono invece testo libero e lungo: con
+     white-space:pre uscivano dal foglio di 300-400 px per riga. */
+  .kv-wrap{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+  .wx-box{border:1px solid #999;border-radius:2px;padding:4px 6px;margin-bottom:6px;break-inside:avoid;page-break-inside:avoid}
+  .wx-box>.wx-title{font-weight:700;background:#ececec;margin:-4px -6px 4px;padding:2px 6px;border-bottom:1px solid #999;font-size:10px}
+  .wx-box .wx-lbl{font-weight:700}
+  .notam-entry{margin-bottom:7px;break-inside:avoid;page-break-inside:avoid}
+  /* righe alternate: su tabelle fitte di numeri e' quello che evita di leggere
+     il valore della riga sbagliata */
+  .zebra tr:nth-child(even) td{background:#f2f2f2}
   table.times2{border-collapse:collapse;font-size:10.5px;width:100%}
   table.times2 td{padding:0;white-space:nowrap}
   .filled{color:#0033aa}
+  /* =============== STAMPA ===============
+     Il PDF che si porta in volo nasce quasi sempre da qui: "Stampa" del browser
+     sull'anteprima, non dal generatore jsPDF. Quindi queste poche regole contano
+     quanto il resto del documento.
+
+     @page margin:0 fa due cose in una. Toglie l'intestazione e il pie' di pagina
+     che il browser stampa da se' — l'URL lungo di Apps Script e la data — che
+     nessuno ha chiesto e che su un documento operativo sono rumore. E porta
+     l'area stampabile ai 210 mm pieni del foglio: con i margini di default
+     (~12 mm per lato) la pagina da 210 mm veniva spinta a destra e l'ultima
+     colonna delle tabelle finiva oltre il bordo, mentre i 297 mm di altezza non
+     ci stavano nei ~273 mm utili e ogni pagina si spezzava in due. Da qui le 14
+     pagine stampate al posto di 7, con meta' contenuto tagliato. */
+  @page{size:A4 portrait;margin:0}
   @media print{
     .filled{color:#000}
     /* in stampa resta solo il documento: niente wizard, niente topbar */
-    .topbar,.formcol,#dashboard{display:none!important}
-    body{height:auto;overflow:visible;background:#fff}
+    .topbar,.formcol,#dashboard,#needImport{display:none!important}
+    html,body{height:auto;overflow:visible;background:#fff}
     .main{display:block}
     .stage{display:block!important;padding:0;background:#fff;gap:0}
-    .page{box-shadow:none;page-break-after:always;margin:0}
+    /* 296.6 e non 297: un blocco alto quanto il foglio, sommato agli
+       arrotondamenti del browser, genera una pagina bianca di troppo ogni due. */
+    .page{box-shadow:none;page-break-after:always;break-after:page;margin:0;height:296.6mm}
+    .page.flow{height:auto;min-height:296.6mm}
+    .page.flow .frame{min-height:calc(296.6mm - 28mm)}
+    .page:last-child{page-break-after:auto;break-after:auto}
   }
 /* ===== menu hamburger ===== */
 .menu-wrap{position:relative}
@@ -164,22 +207,22 @@
 .menu button.primary{color:var(--accent-2);font-weight:700}
 
 /* ===== breakpoint: tablet e schermi stretti ===== */
-@media (max-width:1100px){
+@media screen and (max-width:1100px){
   .main{flex-direction:column}
   .formcol{width:100%}
   .stage{display:none!important}          /* su schermi stretti l'anteprima ruberebbe tutto lo spazio */
 }
-@media (min-width:768px){
+@media screen and (min-width:768px){
   html{font-size:18px}                    /* iPad e superiori: base piu' grande, tutto scala con lei */
 }
-@media (max-width:520px){
+@media screen and (max-width:520px){
   html{font-size:16px}
   .formcol .scroll{padding:1rem 1rem 1.6rem}
   .formcol .navrow{padding:.8rem 1rem}
   .topbar{padding:.6rem .8rem}
 }
 /* Su dispositivi a tocco i target crescono ancora un po'. */
-@media (pointer:coarse){
+@media screen and (pointer:coarse){
   :root{--tap:3rem}
   .step-pill{min-height:2.5rem;font-size:.9rem}
 }
