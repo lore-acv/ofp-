@@ -50,8 +50,8 @@
         <button type="button" role="menuitem" id="btnPrint" title="Safari su iPhone e iPad aggiunge di suo l'indirizzo e la data: per un documento pulito usa Scarica PDF">Stampa (browser)</button>
         <div class="sep"></div>
         <button type="button" role="menuitem" id="btnDrive" style="display:none">Salva su Drive</button>
-        <button type="button" role="menuitem" class="primary" id="btnPdf">Scarica PDF</button>
-        <button type="button" role="menuitem" id="btnNavPdf">Scarica PDF NAV-FLIGHTPLAN</button>
+        <button type="button" role="menuitem" class="primary" id="btnPdf">Scarica PDF OFP</button>
+        <button type="button" role="menuitem" class="primary" id="btnNavPdf">Scarica PDF Navlog</button>
       </div>
     </div>
   </div>
@@ -1638,88 +1638,6 @@ ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
    dell'aeroclub: intestazione, una riga per checkpoint, la riga dell'alternato
    e il riquadro carburante. Le righe sono blocchi separati, cosi' su una rotta
    lunga la tabella si spezza fra le pagine senza tagliare una tratta a meta'. */
-function navlogSection(f){
-  const c=navlogComputed(f);
-  const hdr=`<table style="width:100%;border-collapse:collapse;font-size:10px;margin-bottom:4px">
-    <tr>
-      <td style="border:1px solid #000;padding:2px 4px"><b>ACFT IDENT:</b> <span class="filled">${esc(txt('reg'))}</span></td>
-      <td style="border:1px solid #000;padding:2px 4px"><b>Date:</b> <span class="filled">${esc(txt('wxDate'))}</span></td>
-      <td style="border:1px solid #000;padding:2px 4px"><b>Off Bl.:</b> <span class="filled">${esc(txt('tOFF'))}</span></td>
-      <td style="border:1px solid #000;padding:2px 4px"><b>QNH:</b> <span class="filled">${num('toldQnhDep')||''}</span></td>
-    </tr>
-    <tr>
-      <td style="border:1px solid #000;padding:2px 4px"><b>Pilot:</b> <span class="filled">${esc(txt('picName'))}</span></td>
-      <td style="border:1px solid #000;padding:2px 4px"><b>GS:</b> <span class="filled">${fmt(c.gsMph)}</span> MPH</td>
-      <td style="border:1px solid #000;padding:2px 4px"><b>Bl. on:</b> <span class="filled">${esc(txt('tON'))}</span></td>
-      <td style="border:1px solid #000;padding:2px 4px"><b>RWY:</b> <span class="filled">${esc(txt('depRunway'))}</span></td>
-    </tr>
-  </table>`;
-
-  const th=(t,w2)=>`<th style="border:1px solid #000;padding:1px 3px;background:#e6e6e6;font-size:9px;${w2?'width:'+w2:''}">${t}</th>`;
-  const open=`<table class="navtbl" style="width:100%;border-collapse:collapse;font-size:9.5px">
-    <tr>${th('Freq.','9%')}${th('C/S','8%')}${th('Checkpoint','22%')}${th('MT','6%')}${th('Dist.','10%')}${th('Alt.','8%')}${th('EET','7%')}${th('ETO','7%')}${th('ATO','7%')}${th('Remarks','16%')}</tr>`;
-  const td=(v,al)=>`<td style="border:1px solid #000;padding:1px 3px;text-align:${al||'center'};height:13px">${v==null||v===''?'&nbsp;':v}</td>`;
-  const body=c.rows.map(r=>`<tr class="navrow">
-      ${td(esc(r.freq))}${td(esc(r.cs))}${td('<span class="filled">'+esc(r.wpt)+'</span>','left')}
-      ${td(r.mt?esc(r.mt)+'&deg;':'')}
-      ${td('<span class="filled">'+fmt(r.d)+'</span> / '+fmt(Math.round(r.cumD*10)/10))}
-      ${td(esc(r.alt))}
-      ${td(navDur(Math.round(r.cumT)))}${td(r.eto)}${td('')}
-      ${td(esc(r.rmk),'left')}
-    </tr>`);
-  const totals=`<tr>
-      <td colspan="4" style="border:1px solid #000;padding:1px 3px;text-align:right"><b>TOTALI</b></td>
-      <td style="border:1px solid #000;padding:1px 3px;text-align:center"><b>${fmt(Math.round(c.totDist*10)/10)} nm</b></td>
-      <td style="border:1px solid #000"></td>
-      <td style="border:1px solid #000;padding:1px 3px;text-align:center"><b>${navDur(Math.round(c.totTime))}</b></td>
-      <td colspan="3" style="border:1px solid #000;padding:1px 3px;text-align:center"><b>${fmt(c.totFuel)} L</b></td>
-    </tr>`;
-  const altnRow=`<tr>
-      <td colspan="2" style="border:1px solid #000"></td>
-      <td style="border:1px solid #000;padding:1px 3px;text-align:left"><b>Alternate:</b> <span class="filled">${esc(txt('altn'))}</span></td>
-      <td style="border:1px solid #000"></td>
-      <td style="border:1px solid #000;padding:1px 3px;text-align:center"><span class="filled">${num('altDist')}</span> nm</td>
-      <td style="border:1px solid #000;padding:1px 3px;text-align:center"><span class="filled">${esc(txt('altAlt'))}</span></td>
-      <td style="border:1px solid #000;padding:1px 3px;text-align:center">${navDur(f.altTime)}</td>
-      <td colspan="3" style="border:1px solid #000;padding:1px 3px;text-align:center">${fmt(f.altFuel)} L</td>
-    </tr>`;
-
-  /* Il riquadro carburante e' lo stesso piano dell'OFP, non un secondo conto:
-     Trip, alternato, riserva, minimo, extra e block vengono da computeFuel(). */
-  const fr=(lbl,min,lit,bold)=>`<tr${bold?' style="font-weight:700"':''}>
-      <td style="border:1px solid #000;padding:1px 4px;text-align:left">${lbl}</td>
-      <td style="border:1px solid #000;padding:1px 4px;text-align:center">${min==null?'':minToHHMM(Math.round(min)).replace(/^(\d\d)(\d\d)$/,'$1:$2')}</td>
-      <td style="border:1px solid #000;padding:1px 4px;text-align:right">${lit==null?'':fmt(lit)+' L'}</td>
-    </tr>`;
-  const fuelBox=`<table style="border-collapse:collapse;font-size:9.5px;margin-top:6px;min-width:200px">
-    <tr><th colspan="3" style="border:1px solid #000;padding:1px 4px;background:#e6e6e6">l/h: <span class="filled">${fmt(c.ff)}</span></th></tr>
-    <tr><th style="border:1px solid #000;padding:1px 4px"></th>
-        <th style="border:1px solid #000;padding:1px 4px;background:#e6e6e6">Time</th>
-        <th style="border:1px solid #000;padding:1px 4px;background:#e6e6e6">Fuel</th></tr>
-    ${fr('Trip',f.tripTime,f.tripFuel)}
-    ${fr('Alternate',f.altTime,f.altFuel)}
-    ${fr('Reserve',f.finMin,f.finFuel)}
-    ${fr('Minimum',f.minBlockTime,f.minBlockFuel,true)}
-    ${fr('Extra fuel',f.exMin,f.exFuel)}
-    ${fr('Taxi',f.taxiMin,f.taxiFuel)}
-    ${fr('Block fuel',f.blockTime,f.blockFuel,true)}
-  </table>`;
-
-  /* Le tratte vanno a gruppi: ogni gruppo e' un blocco che paginateBlocks() puo'
-     spostare su un foglio nuovo, e porta con se' l'intestazione della tabella,
-     cosi' non ci si ritrova mai colonne senza titolo. La riga dell'alternato e
-     i totali stanno nell'ultimo gruppo, non in un blocco a parte: altrimenti
-     l'intestazione si ripeteva anche quando restavano sulla stessa pagina. */
-  const CH=10, blocks=[hdr];
-  for(let i=0;i<Math.max(1,body.length);i+=CH){
-    const part=body.slice(i,i+CH);
-    const last=i+CH>=body.length;
-    blocks.push(open+part.join('')+(last?altnRow+totals:'')+'</table>');
-  }
-  blocks.push(`<div style="display:flex;justify-content:flex-end">${fuelBox}</div>`);
-  return {label:'NAV-FLIGHTPLAN', blocks};
-}
-
 function pageMB(f,w){
   const sh=mbSheetRows(w);
   const tRow=(l,wt,arm,mom,cls)=>`<tr${cls||''}>
@@ -2299,7 +2217,7 @@ function buildPreviewHTML(f,w,t){
      sa quante pagine ha il documento — e il pie' di pagina "X di Y" serve gia'
      alla prima. */
   const flow=[];
-  [navlogSection(f), briefingSection(), weatherSection(), notamsSection()].forEach(sec=>{
+  [briefingSection(), weatherSection(), notamsSection()].forEach(sec=>{
     paginateBlocks(sec.label, sec.blocks).forEach(pg=>flow.push({label:sec.label, ...pg}));
   });
   PREVIEW_PAGES = 4 + flow.length;
@@ -3028,93 +2946,176 @@ function drawCgChart(doc, w, x, y, boxW, boxH){
 function monoLine(doc,x,y,s){ doc.text(s,x,y); return y+LH; }
 function dotted(doc,x1,x2,y){ doc.setLineDash([0.5,0.8],0); doc.setLineWidth(0.2); doc.line(x1,y,x2,y); doc.setLineDash([]); }
 
-/* Il NAV-FLIGHTPLAN del PDF. Sta in una funzione a se' perche' lo usano in
-   due: il documento completo e l'export del solo navplan. `io` porta i margini,
-   la posizione corrente e le due primitive di impaginazione del chiamante. */
-function drawNavlogPdf(doc, f, io){
-  const L=io.L, R=io.R;
-  let y=io.y;
+/* ============================================================================
+   NAV-FLIGHTPLAN — DOCUMENTO A SE'
+   ============================================================================
+   Non e' una pagina dell'OFP e non ne eredita niente: niente cornice, niente
+   barra del titolo, niente pie' di pagina dell'OFP. E' il modulo del navplan
+   dell'aeroclub, ridisegnato: titolo in alto, griglia di testata a quattro
+   colonne, tabella a righe vuote da compilare a penna, riga dell'alternato e
+   riquadro carburante in basso a destra con l'etichetta verticale.
+
+   Quello che il sistema non sa resta BIANCO: ATO si compila in volo, e RWY,
+   orari o frequenze che nessuno ha inserito non vengono inventati.
+   ========================================================================== */
+const NAVPDF = {
+  W:210, H:297, M:10,                       // foglio e margine
+  cols:[8.6,7.0,23.2,6.4,7.2,6.2,6.5,6.7,6.5,21.7],   // % di larghezza, dal modello
+  head:['Freq.','C/S','Checkpoint','MT','Dist.','Alt.','EET','ETO','ATO','Remarks'],
+  rowH:6.2, minRows:20,
+  fuelRows:['Trip','Alternate','Reserve','Minimum','Extra fuel','Block fuel']
+};
+
+function buildNavlogPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=patchDocText(new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}));
+  let f=computeFuel();
+  autoLandingTime(f); autoTaxiTime();
+  f=computeFuel();
   const nav=navlogComputed(f);
-  doc.setFontSize(7.5);
-  const hdrCell=(lab,val,x,wd)=>{
-    doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(x,y-3.4,wd,5.4);
-    doc.setFont('courier','bold'); doc.text(lab,x+1.2,y);
-    doc.setFont('courier','normal'); doc.text(String(val||''),x+1.2+lab.length*1.6,y);
-  };
-  const hw=(R-L)/4;
-  [['ACFT IDENT:',txt('reg')],['Date:',txt('wxDate')],['Off Bl.:',txt('tOFF')],['QNH:',num('toldQnhDep')||'']]
-    .forEach(([l,v],i)=>hdrCell(l,v,L+i*hw,hw));
-  y+=5.4;
-  [['Pilot:',txt('picName')],['GS:',fmt(nav.gsMph)+' MPH'],['Bl. on:',txt('tON')],['RWY:',txt('depRunway')]]
-    .forEach(([l,v],i)=>hdrCell(l,v,L+i*hw,hw));
-  y+=8;
 
-  const nc=[16,14,38,10,24,14,12,12,12,24];              // larghezze, somma 176
-  // ascissa di inizio di ogni colonna: somma delle larghezze precedenti
-  const nx=[]; nc.reduce((acc,wd,i)=>{ nx[i]=L+acc; return acc+wd; },0);
-  const cellR=(i)=>nx[i]+nc[i]-1.2;                      // bordo destro della colonna
-  const navHead=()=>{
-    doc.setFillColor(230,230,230); doc.rect(L,y-3.4,R-L,5,'F');
-    doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(L,y-3.4,R-L,5);
-    doc.setFont('courier','bold'); doc.setFontSize(6.8);
-    ['Freq.','C/S','Checkpoint','MT','Dist.','Alt.','EET','ETO','ATO','Remarks']
-      .forEach((h,i)=>doc.text(h,nx[i]+1.2,y));
-    doc.setFont('courier','normal'); doc.setFontSize(7);
-    y+=5;
-  };
-  navHead();
-  const navLine=(cells,bold)=>{
-    if(y+5 > MM.A4H-24){ y=io.newPage('NAV-FLIGHTPLAN'); doc.setFontSize(7); navHead(); }
-    doc.setDrawColor(120); doc.setLineWidth(0.15); doc.rect(L,y-3.4,R-L,4.6);
-    nc.forEach((_,i)=>{ if(i) doc.line(nx[i],y-3.4,nx[i],y+1.2); });
-    doc.setFont('courier', bold?'bold':'normal');
-    cells.forEach((c,i)=>{
-      if(c==null||c==='') return;
-      const al=(i===2||i===9)?'left':'center';
-      if(al==='left') doc.text(String(c).slice(0,Math.floor(nc[i]/1.5)), nx[i]+1.2, y);
-      else            doc.text(String(c), nx[i]+nc[i]/2, y, {align:'center'});
-    });
-    doc.setFont('courier','normal');
-    y+=4.6;
-  };
-  nav.rows.forEach(r=>navLine([r.freq, r.cs, r.wpt, r.mt||'',
-    `${fmt(r.d)}/${fmt(Math.round(r.cumD*10)/10)}`, r.alt,
-    navDur(Math.round(r.cumT)), r.eto, '', r.rmk]));
-  navLine(['','', 'Alternate: '+txt('altn'), '', String(num('altDist')), txt('altAlt'),
-           navDur(f.altTime), '', '', fmt(f.altFuel)+' L']);
-  navLine(['','','TOTALI','', fmt(Math.round(nav.totDist*10)/10)+' nm','',
-           navDur(Math.round(nav.totTime)),'', '', fmt(nav.totFuel)+' L'], true);
-  y+=6;
+  const P=NAVPDF, L=P.M, R=P.W-P.M, W=R-L;
+  const cx=[]; P.cols.reduce((acc,c,i)=>{ cx[i]=L+W*acc/100; return acc+c; },0);
+  cx[P.cols.length]=R;
+  const colW=(i)=>cx[i+1]-cx[i];
 
-  /* Riquadro carburante: e' lo stesso piano dell'OFP, non un secondo conto. */
-  io.ensureRoom(40);
-  const fbW=74, fbX=R-fbW;
-  doc.setFontSize(7.5);
-  doc.setFillColor(230,230,230); doc.rect(fbX,y-3.4,fbW,5,'F');
-  doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(fbX,y-3.4,fbW,5);
-  doc.setFont('courier','bold'); doc.text(`l/h: ${fmt(nav.ff)}`,fbX+2,y);
-  doc.text('Time',fbX+44,y,{align:'right'}); doc.text('Fuel',fbX+fbW-2,y,{align:'right'});
-  doc.setFont('courier','normal'); y+=5;
-  const fbRow=(lab,min,lit,bold)=>{
-    doc.setDrawColor(120); doc.setLineWidth(0.15); doc.rect(fbX,y-3.4,fbW,4.6);
-    doc.setFont('courier', bold?'bold':'normal');
-    doc.text(lab,fbX+2,y);
-    if(min!=null) doc.text(minToHHMM(Math.round(min)).replace(/^(\d\d)(\d\d)$/,'$1:$2'),fbX+44,y,{align:'right'});
-    if(lit!=null) doc.text(fmt(lit)+' L',fbX+fbW-2,y,{align:'right'});
-    doc.setFont('courier','normal');
-    y+=4.6;
+  doc.setDrawColor(0);
+  const box=(x,y,w,h,fill)=>{ if(fill){ doc.setFillColor(...fill); doc.rect(x,y,w,h,'FD'); } else doc.rect(x,y,w,h); };
+  /* Il testo si adatta alla cella: prima rimpicciolendo il corpo, e solo se non
+     basta troncando. Una sigla come "MXP TWR" in una colonna stretta, scritta
+     per intero, finiva sopra il checkpoint della riga accanto. */
+  const cell=(x,y,w,h,text,opt)=>{
+    const o=opt||{};
+    box(x,y,w,h,o.fill);
+    if(text==null||text==='') return;
+    let t=String(text), size=o.size||9;
+    doc.setFont('helvetica', o.bold?'bold':'normal');
+    const avail=w-3;
+    doc.setFontSize(size);
+    while(doc.getTextWidth(t)>avail && size>6){ size-=0.5; doc.setFontSize(size); }
+    while(doc.getTextWidth(t)>avail && t.length>1){ t=t.slice(0,-1); }
+    const ty=y+h/2+size*0.35/2.4;
+    if(o.align==='center')      doc.text(t, x+w/2, ty, {align:'center'});
+    else if(o.align==='right')  doc.text(t, x+w-1.5, ty, {align:'right'});
+    else                        doc.text(t, x+1.5, ty);
   };
-  fbRow('Trip',f.tripTime,f.tripFuel);
-  fbRow('Alternate',f.altTime,f.altFuel);
-  fbRow('Reserve',f.finMin,f.finFuel);
-  fbRow('Minimum',f.minBlockTime,f.minBlockFuel,true);
-  fbRow('Extra fuel',f.exMin,f.exFuel);
-  fbRow('Taxi',f.taxiMin,f.taxiFuel);
-  fbRow('Block fuel',f.blockTime,f.blockFuel,true);
-  doc.setFontSize(FS_BODY);
 
+  let y=P.M;
 
-  io.y=y;
+  /* --- titolo --- */
+  const titleH=13;
+  box(L,y,W,titleH);
+  doc.setFont('helvetica','bold'); doc.setFontSize(19);
+  doc.text('NAV-FLIGHTPLAN', L+W/2, y+titleH/2+2.6, {align:'center'});
+  y+=titleH;
+
+  /* --- testata: due righe da quattro celle --- */
+  const hRowH=8, hw=[0.40,0.20,0.19,0.21].map(v=>W*v);
+  const hx=[L, L+hw[0], L+hw[0]+hw[1], L+hw[0]+hw[1]+hw[2]];
+  const hcell=(i,yy,lab,val)=>{
+    box(hx[i],yy,hw[i],hRowH);
+    doc.setFont('helvetica','bold'); doc.setFontSize(9.5);
+    doc.text(lab, hx[i]+1.8, yy+hRowH/2+1.4);
+    if(val!=null && val!==''){
+      const lw=doc.getTextWidth(lab);
+      doc.setFont('helvetica','normal');
+      doc.text(String(val), hx[i]+2.6+lw, yy+hRowH/2+1.4);
+    }
+  };
+  const gsTxt = nav.gsMph>0 ? `GS: ${Math.round(mphToKt(nav.gsMph))}kt` : 'GS:';
+  hcell(0,y,'ACFT IDENT:', txt('reg'));
+  hcell(1,y,'Date:',       txt('wxDate'));
+  hcell(2,y,'Off Bl.:',    txt('tOFF'));
+  hcell(3,y,'QNH:',        num('toldQnhDep')>0?num('toldQnhDep'):'');
+  y+=hRowH;
+  hcell(0,y,'Pilot:',  txt('picName'));
+  box(hx[1],y,hw[1],hRowH);
+  doc.setFont('helvetica','bold'); doc.setFontSize(9.5);
+  doc.text(gsTxt, hx[1]+1.8, y+hRowH/2+1.4);
+  hcell(2,y,'Bl. on:', txt('tON'));
+  hcell(3,y,'RWY:',    txt('depRunway'));
+  y+=hRowH;
+
+  /* --- intestazione della tabella, su grigio --- */
+  const GREY=[170,170,170], GREY_L=[214,214,214];
+  const headH=7.4;
+  P.head.forEach((h,i)=>cell(cx[i],y,colW(i),headH,h,{bold:true,size:9.5,fill:GREY,align:i>=3&&i<=8?'center':'left'}));
+  y+=headH;
+
+  /* --- righe: prima quelle con dati, poi righe vuote fino a riempire il modulo --- */
+  const rows=nav.rows.map(r=>[
+    r.freq, r.cs, r.wpt,
+    r.mt||'',                                   // solo il numero: niente gradi
+    String(r.dist||'').trim()!=='' ? `${fmt(r.d)}/${fmt(Math.round(r.cumD*10)/10)}` : '',
+    r.alt, navDur(Math.round(r.cumT)), r.eto, '', r.rmk
+  ]);
+  const total=Math.max(P.minRows, rows.length);
+  for(let i=0;i<total;i++){
+    const r=rows[i];
+    for(let c=0;c<P.cols.length;c++){
+      cell(cx[c],y,colW(c),P.rowH, r?r[c]:'', {size:8.5, align:(c>=3&&c<=8)?'center':'left'});
+    }
+    y+=P.rowH;
+  }
+
+  /* --- riga dell'alternato, con la voce sottolineata come nel modello --- */
+  for(let c=0;c<P.cols.length;c++) cell(cx[c],y,colW(c),P.rowH,'',{});
+  doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
+  const altLab='Alternate:';
+  doc.text(altLab, cx[2]+1.5, y+P.rowH/2+1.2);
+  doc.setLineWidth(0.2);
+  doc.line(cx[2]+1.5, y+P.rowH/2+2, cx[2]+1.5+doc.getTextWidth(altLab), y+P.rowH/2+2);
+  if(txt('altn')) doc.text(txt('altn'), cx[2]+3+doc.getTextWidth(altLab), y+P.rowH/2+1.2);
+  if(num('altDist')>0) doc.text(String(num('altDist')), cx[4]+colW(4)/2, y+P.rowH/2+1.2, {align:'center'});
+  if(txt('altAlt'))    doc.text(txt('altAlt'), cx[5]+colW(5)/2, y+P.rowH/2+1.2, {align:'center'});
+  if(f.altTime)        doc.text(navDur(f.altTime), cx[6]+colW(6)/2, y+P.rowH/2+1.2, {align:'center'});
+  y+=P.rowH;
+  for(let c=0;c<P.cols.length;c++) cell(cx[c],y,colW(c),P.rowH,'',{});
+  y+=P.rowH;
+
+  /* --- fondo: a sinistra righe vuote, a destra il riquadro carburante --- */
+  const fbL=cx[6];                              // il riquadro comincia dove comincia EET
+  const labW=colW(6);                           // etichetta verticale "Fuel calc."
+  const rest=R-(fbL+labW);
+  const wLab=rest*0.42, wTime=rest*0.29, wFuel=rest-wLab-wTime;
+  const fx=[fbL+labW, fbL+labW+wLab, fbL+labW+wLab+wTime];
+  const fRows=P.fuelRows.length+1;              // intestazione + voci
+  const fbTop=y, fbH=P.rowH*fRows;
+
+  // righe vuote a sinistra del riquadro
+  for(let i=0;i<fRows;i++){
+    cell(L,y+i*P.rowH, fbL-L, P.rowH, '', {});
+  }
+  // etichetta verticale su grigio
+  box(fbL,fbTop,labW,fbH,GREY);
+  doc.setFont('helvetica','bold'); doc.setFontSize(10);
+  doc.text('Fuel calc.', fbL+labW/2+1.8, fbTop+fbH/2, {align:'center', angle:90});
+
+  // intestazione del riquadro
+  const lph = nav.ff>0 ? `l/h: ${fmt(nav.ff)}` : 'l/h:';
+  cell(fx[0],fbTop,wLab,P.rowH,lph,{bold:true,size:9,fill:GREY_L});
+  cell(fx[1],fbTop,wTime,P.rowH,'Time',{bold:true,size:9,fill:GREY_L,align:'right'});
+  cell(fx[2],fbTop,wFuel,P.rowH,'Fuel',{bold:true,size:9,fill:GREY_L,align:'right'});
+
+  const hhmm=(m)=> m==null ? '' : minToHHMM(Math.round(m)).replace(/^(\d\d)(\d\d)$/,'$1:$2');
+  const litres=(l)=> l==null ? '' : fmt(l);
+  const vals={
+    'Trip':       [f.tripTime,      f.tripFuel],
+    'Alternate':  [f.altTime,       f.altFuel],
+    'Reserve':    [f.finMin,        f.finFuel],
+    'Minimum':    [f.minBlockTime,  f.minBlockFuel],
+    'Extra fuel': [f.exMin,         f.exFuel],
+    'Block fuel': [f.blockTime,     f.blockFuel]
+  };
+  P.fuelRows.forEach((lab,i)=>{
+    const yy=fbTop+(i+1)*P.rowH, v=vals[lab];
+    cell(fx[0],yy,wLab,P.rowH,lab,{size:9});
+    cell(fx[1],yy,wTime,P.rowH,hhmm(v[0]),{size:9,align:'right'});
+    cell(fx[2],yy,wFuel,P.rowH,litres(v[1]),{size:9,align:'right'});
+  });
+  y=fbTop+fbH;
+
+  return doc;
 }
 
 function buildPDF(){
@@ -3555,14 +3556,6 @@ function buildPDF(){
     y+=1.5;
   }
 
-  /* PAGE 5 — NAV-FLIGHTPLAN */
-  newPage('NAV-FLIGHTPLAN');
-  {
-    const io={L,R,y, newPage:(lab)=>{ newPage(lab); return y; }, ensureRoom:(h)=>{ ensureRoom(h); return y; }};
-    Object.defineProperty(io,'y',{get:()=>y,set:(v)=>{y=v;}});
-    drawNavlogPdf(doc,f,io);
-  }
-
   /* PAGE 5 — BRIEFING (include Aircraft Status e Remarks) */
   newPage('BRIEFING');
   const briefBlock=(title2,proc,thr,mit)=>{
@@ -3680,30 +3673,6 @@ function ofpFileName(){
    Quindi su Apps Script si apre il PDF in una scheda nuova — da lì il browser lo
    salva normalmente — e in più lo si archivia su Google Drive. In un browser
    normale resta il download diretto di sempre. */
-/* Export del solo NAV-FLIGHTPLAN, su un PDF a parte: in cabina il navplan e'
-   il foglio che si tiene in mano, e non sempre serve portarsi dietro l'OFP
-   intero. Il disegno e' lo stesso del documento completo — drawNavlogPdf() —
-   quindi i due non possono divergere. */
-function buildNavlogPDF(){
-  const {jsPDF}=window.jspdf;
-  const doc=patchDocText(new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}));
-  let f=computeFuel();
-  autoLandingTime(f); autoTaxiTime();
-  f=computeFuel();
-  const title=titleText();
-  const L=MM.ML+3, R=MM.A4W-MM.MR-3;
-  let pageNo=1, y=drawFrame(doc,title,'NAV-FLIGHTPLAN',1);
-  doc.setFont('courier','normal'); doc.setFontSize(FS_BODY);
-  const io={L,R,
-    newPage:(lab)=>{ pageNo++; doc.addPage(); y=drawFrame(doc,title,lab||'NAV-FLIGHTPLAN',pageNo);
-                     doc.setFontSize(FS_BODY); return y; },
-    ensureRoom:(h)=>{ if(y+h>MM.A4H-24) io.newPage('NAV-FLIGHTPLAN'); return y; }};
-  Object.defineProperty(io,'y',{get:()=>y,set:(v)=>{y=v;}});
-  drawNavlogPdf(doc,f,io);
-  stampFooters(doc);
-  return doc;
-}
-
 function navlogFileName(){
   const d=(txt('wxDate')||'').replace(/\D/g,'') || new Date().toISOString().slice(0,10).replace(/-/g,'');
   return `NAVLOG_${(txt('dep')||'DEP').toUpperCase()}-${(txt('arr')||'ARR').toUpperCase()}_${d}.pdf`;
