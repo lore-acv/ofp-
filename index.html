@@ -51,6 +51,7 @@
         <div class="sep"></div>
         <button type="button" role="menuitem" id="btnDrive" style="display:none">Salva su Drive</button>
         <button type="button" role="menuitem" class="primary" id="btnPdf">Scarica PDF</button>
+        <button type="button" role="menuitem" id="btnNavPdf">Scarica PDF NAV-FLIGHTPLAN</button>
       </div>
     </div>
   </div>
@@ -159,6 +160,22 @@
             previsto. Il tempo viene calcolato convertendo la GS in nodi, perche' la distanza e' in miglia nautiche.
             Di quel tempo, i primi minuti sono di salita e valgono il carburante della fig. 5-6 (avviamento e
             decollo compresi); il resto va al fuel flow di crociera.</div>
+        </div>
+        <div class="group">
+          <h3>NAV-FLIGHTPLAN</h3>
+          <div class="row">
+            <div class="fld"><label>GS navplan (MPH)</label><input id="navGs" type="number" placeholder="dal settaggio"></div>
+            <div class="fld"><label>Fuel flow navplan (L/h)</label><input id="navFF" type="number" step="0.1" placeholder="dal settaggio"></div>
+            <div class="fld" style="justify-content:flex-end"><button type="button" class="btn" id="btnNavAdd">+ Riga</button></div>
+          </div>
+          <div id="navTableBox" style="overflow-x:auto"></div>
+          <div class="calc" id="navCalc"></div>
+          <div class="hint">I checkpoint, la rotta magnetica e le distanze arrivano dal NavLog di ForeFlight.
+            <b>Frequenze, nominativi e note</b> non stanno nell'export: si scrivono qui e restano.
+            Tempi e consumi non vengono ricopiati da ForeFlight, si <b>ricalcolano</b> con la GS e il settaggio
+            di potenza qui sopra &mdash; sommando le tratte si riottiene esattamente il Trip Fuel del piano
+            carburante. Lasciando vuoti GS e fuel flow si usano quelli del Trip.</div>
+          <input type="hidden" id="navRows" value="[]">
         </div>
         <div class="group">
           <h3>Alternate</h3>
@@ -683,8 +700,14 @@ function computeFuel(){
   const climbMin  = Math.round(climbTimeMin(cAlt));
   const climbFuel = round2(climbFuelLitres(cAlt));
   const tripGSkt = mphToKt(num('tripGS'));
-  const tripTime = tripGSkt>0 ? Math.round(num('tripDist')/tripGSkt*60) : 0;
-  const cruiseTime = Math.max(0, tripTime-climbMin);
+  /* Il tempo di volo si arrotonda per scriverlo, ma il carburante si calcola sui
+     minuti esatti: mescolare le due misure faceva differire di qualche decilitro
+     il Trip Fuel dell'OFP dalla somma delle tratte del NAV-FLIGHTPLAN, che i
+     minuti esatti li usa. Due documenti che parlano dello stesso volo non
+     possono dare due numeri diversi. */
+  const tripMin  = tripGSkt>0 ? num('tripDist')/tripGSkt*60 : 0;
+  const tripTime = Math.round(tripMin);
+  const cruiseTime = Math.max(0, tripMin-climbMin);
   const climbOverruns = tripTime>0 && climbMin>=tripTime;
   const tripFF = num('tripFF'); // Fuel Flow di crociera in L/h — usato anche per Contingency e Final Reserve
   const tripFuel = round2(climbFuel + cruiseTime/60*tripFF);
@@ -1199,10 +1222,10 @@ function computeTold(){
     const windDir=num('toldWindDir'+key), windKt=num('toldWindKt'+key);
     if(!(qnh>0) || !isFinite(oat)) return null;
     const pa=pressAlt(elev, qnh), da=densAlt(pa,oat);
-    let head=0, cross=0, haveWind=false;
+    let head=0, cross=0, haveWind=false, crossRight=true;
     if(isFinite(rwyHdg) && isFinite(windDir) && windKt>0){
       const c=windComponents(rwyHdg, windDir, windKt);
-      head=c.head; cross=Math.abs(c.cross); haveWind=true;
+      head=c.head; cross=Math.abs(c.cross); crossRight=c.cross>=0; haveWind=true;
     }
     const ctx={mass:massKg, head, pa, oat, surface};
     const tagged=(lvl,lab,t)=>warn(lvl,lab,label+' \u2014 '+t);
@@ -1215,8 +1238,9 @@ function computeTold(){
     const v=vspeedsFor(massKg, isTakeoff?0:pa);
     return {label, isTakeoff, pa:Math.round(pa), da:Math.round(da),
             isaDev:Math.round((oat-isaTemp(pa))*10)/10,
-            head:Math.round(head*10)/10, cross:Math.round(cross*10)/10, haveWind,
-            qnh, oat, windDir, windKt,
+            head:Math.round(head*10)/10, cross:Math.round(cross*10)/10, haveWind, crossRight,
+            qnh, oat, windDir, windKt, rwyHdg: isFinite(rwyHdg)?rwyHdg:null,
+            xwLimit,
             ground:Math.round(d[0]), total:Math.round(d[1]), mass:Math.round(massKg),
             icao:txt(key==='Dep'?'dep':key==='Dest'?'arr':'altn'),
             rwy:txt('told'+key+'RwyName')||txt(key==='Dep'?'depRunway':key==='Dest'?'destRunway':'altnRunway'),
@@ -1407,6 +1431,122 @@ function gcDistanceNm(a, b){
   return Math.round(2*R*Math.asin(Math.min(1,Math.sqrt(h))));
 }
 
+/* La tabella modificabile dello Step 2. Ogni cella scrive nella riga
+   corrispondente e ricalcola: e' l'unico posto in cui il navplan si corregge. */
+function renderNavlogEditor(f){
+  const box=$('navTableBox'); if(!box) return;
+  const c=navlogComputed(f);
+  const inp=(i,k,v,w)=>`<input data-nav="${i}" data-k="${k}" value="${esc(v||'')}" style="width:${w};min-width:${w};padding:.3rem .35rem;font-size:.85rem;min-height:2rem">`;
+  const head=['Freq.','C/S','Checkpoint','MT','Dist.','Alt.','EET','ETO','Fuel','Remarks','']
+    .map(h=>`<th style="padding:.25rem .3rem;font-size:.72rem;color:var(--txt-dim);text-align:left;white-space:nowrap">${h}</th>`).join('');
+  const rows=c.rows.map((r,i)=>`<tr>
+    <td>${inp(i,'freq',r.freq,'4.5rem')}</td>
+    <td>${inp(i,'cs',r.cs,'4rem')}</td>
+    <td>${inp(i,'wpt',r.wpt,'9rem')}</td>
+    <td>${inp(i,'mt',r.mt,'3.2rem')}</td>
+    <td>${inp(i,'dist',r.dist,'3.6rem')}</td>
+    <td>${inp(i,'alt',r.alt,'4.2rem')}</td>
+    <td style="font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt-dim);white-space:nowrap">${navDur(Math.round(r.ete))}</td>
+    <td style="font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt-dim)">${r.eto}</td>
+    <td style="font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt-dim);white-space:nowrap">${fmt(r.fuel)} L</td>
+    <td>${inp(i,'rmk',r.rmk,'10rem')}</td>
+    <td><button type="button" class="btn ghost" data-navdel="${i}" style="padding:.2rem .5rem;min-height:2rem;font-size:.8rem">&times;</button></td>
+  </tr>`).join('');
+  box.innerHTML = c.rows.length
+    ? `<table style="border-collapse:separate;border-spacing:2px 3px"><tr>${head}</tr>${rows}</table>`
+    : `<div class="hint" style="margin:0">Nessun checkpoint. Arrivano dall'import del NavLog, oppure aggiungi una riga a mano.</div>`;
+  box.querySelectorAll('input[data-nav]').forEach(el=>{
+    el.addEventListener('input',()=>{
+      const rows=navRowsRaw();
+      const i=+el.dataset.nav;
+      if(rows[i]){ rows[i][el.dataset.k]=el.value; navRowsSave(rows); render(); }
+    });
+  });
+  box.querySelectorAll('button[data-navdel]').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const rows=navRowsRaw(); rows.splice(+el.dataset.navdel,1); navRowsSave(rows); render();
+    });
+  });
+  if($('navCalc')){
+    $('navCalc').textContent = c.rows.length
+      ? `\u2192 ${c.rows.length} tratte \u00b7 ${fmt(c.totDist)} nm \u00b7 ${navDur(Math.round(c.totTime))} \u00b7 ${fmt(c.totFuel)} L a GS ${fmt(c.gsMph)} MPH e ${fmt(c.ff)} L/h`
+      : '';
+  }
+}
+
+/* ============================================================================
+   NAV-FLIGHTPLAN
+   ============================================================================
+   Il navplan dell'aeroclub, riga per riga: Freq / C/S / Checkpoint / MT /
+   Dist. / Alt. / EET / ETO / ATO / Remarks, e in fondo il riquadro carburante.
+
+   Le righe arrivano dal NavLog di ForeFlight (checkpoint, rotta magnetica,
+   distanze, quote) e restano modificabili: frequenze, nominativi e note non
+   stanno nell'export e li scrive il pilota.
+
+   I tempi e i consumi NON vengono ricopiati da ForeFlight: si ricalcolano con
+   la GS e il settaggio di potenza dell'OFP, cosi' il navplan e il piano
+   carburante non possono raccontare due storie diverse. Il POH ha la
+   precedenza, come per il resto del documento.
+   ========================================================================== */
+const NAV_COLS = ['freq','cs','wpt','mt','dist','alt','rmk'];
+
+function navRowsRaw(){
+  try{ const v=JSON.parse(txt('navRows')||'[]'); return Array.isArray(v)?v:[]; }
+  catch(e){ return []; }
+}
+function navRowsSave(rows){
+  if($('navRows')) $('navRows').value = JSON.stringify(rows);
+}
+
+/* Dalla sintesi del NavLog alle righe del navplan. Si sovrascrive solo quando
+   il navplan e' vuoto o quando i checkpoint sono cambiati: le frequenze e le
+   note scritte a mano non vanno perse a ogni ricalcolo. */
+function navRowsFromNavlog(sum){
+  if(!sum || !(sum.legs||[]).length) return null;
+  const prev=navRowsRaw();
+  const same = prev.length===sum.legs.length && prev.every((r,i)=>r.wpt===sum.legs[i].wpt);
+  return sum.legs.map((l,i)=>({
+    freq: same ? (prev[i].freq||'') : '',
+    cs:   same ? (prev[i].cs||'')   : '',
+    wpt:  l.wpt || '',
+    mt:   l.mh!=null ? String(l.mh) : '',
+    dist: l.dist!=null ? String(l.dist) : '',
+    alt:  l.alt!=null ? String(l.alt) : '',
+    rmk:  same ? (prev[i].rmk||'') : ''
+  }));
+}
+
+/* Consumo di una tratta secondo il modello dell'OFP: i primi minuti del volo
+   sono di salita e bruciano al rateo della fig. 5-6, il resto va al fuel flow
+   di crociera. Sommando tutte le tratte si riottiene ESATTAMENTE il Trip Fuel
+   del piano carburante — e' lo stesso conto, distribuito sulle tratte. */
+function navLegFuel(startMin, durMin, f, ffLph){
+  const climbRate = f.climbMin>0 ? f.climbFuel/f.climbMin : 0;
+  const cruiseRate = (ffLph||0)/60;
+  const end = startMin + durMin;
+  const inClimb = Math.max(0, Math.min(end, f.climbMin) - Math.min(startMin, f.climbMin));
+  return inClimb*climbRate + (durMin-inClimb)*cruiseRate;
+}
+
+/* Il navplan calcolato: distanze progressive, tempi, orari stimati e consumi. */
+function navlogComputed(f){
+  const rows=navRowsRaw();
+  const gsMph=num('navGs')>0 ? num('navGs') : num('tripGS');
+  const gsKt=mphToKt(gsMph);
+  const ff=num('navFF')>0 ? num('navFF') : num('tripFF');
+  const t0=hhmmToMin(txt('tTO'));           // gli ETO partono dal decollo
+  let cumD=0, cumT=0, cumF=0;
+  const out=rows.map(r=>{
+    const d=parseFloat(String(r.dist).replace(',','.'))||0;
+    const ete = gsKt>0 ? d/gsKt*60 : 0;
+    const fuel = navLegFuel(cumT, ete, f, ff);
+    cumD+=d; cumT+=ete; cumF+=fuel;
+    return {...r, d, ete, fuel, cumD, cumT, cumF, eto:minToHHMM(t0+Math.round(cumT))};
+  });
+  return {rows:out, gsMph, ff, totDist:cumD, totTime:cumT, totFuel:cumF};
+}
+
 /* ============================ HTML PREVIEW ============================ */
 function titleText(){ return `${txt('dep')||"A/P"}-${txt('arr')||"A/P"} CESSNA C172 FR ${txt('reg')||"Reg:"}`; }
 /* Numero totale di pagine dell'anteprima: serve al pie' di pagina "X di Y".
@@ -1492,6 +1632,92 @@ ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
     ${fuelTable}
     ${altsum}`;
   return pageShell('OFP', body, 1);
+}
+
+/* La pagina NAV-FLIGHTPLAN del documento, sul modello del navplan
+   dell'aeroclub: intestazione, una riga per checkpoint, la riga dell'alternato
+   e il riquadro carburante. Le righe sono blocchi separati, cosi' su una rotta
+   lunga la tabella si spezza fra le pagine senza tagliare una tratta a meta'. */
+function navlogSection(f){
+  const c=navlogComputed(f);
+  const hdr=`<table style="width:100%;border-collapse:collapse;font-size:10px;margin-bottom:4px">
+    <tr>
+      <td style="border:1px solid #000;padding:2px 4px"><b>ACFT IDENT:</b> <span class="filled">${esc(txt('reg'))}</span></td>
+      <td style="border:1px solid #000;padding:2px 4px"><b>Date:</b> <span class="filled">${esc(txt('wxDate'))}</span></td>
+      <td style="border:1px solid #000;padding:2px 4px"><b>Off Bl.:</b> <span class="filled">${esc(txt('tOFF'))}</span></td>
+      <td style="border:1px solid #000;padding:2px 4px"><b>QNH:</b> <span class="filled">${num('toldQnhDep')||''}</span></td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000;padding:2px 4px"><b>Pilot:</b> <span class="filled">${esc(txt('picName'))}</span></td>
+      <td style="border:1px solid #000;padding:2px 4px"><b>GS:</b> <span class="filled">${fmt(c.gsMph)}</span> MPH</td>
+      <td style="border:1px solid #000;padding:2px 4px"><b>Bl. on:</b> <span class="filled">${esc(txt('tON'))}</span></td>
+      <td style="border:1px solid #000;padding:2px 4px"><b>RWY:</b> <span class="filled">${esc(txt('depRunway'))}</span></td>
+    </tr>
+  </table>`;
+
+  const th=(t,w2)=>`<th style="border:1px solid #000;padding:1px 3px;background:#e6e6e6;font-size:9px;${w2?'width:'+w2:''}">${t}</th>`;
+  const open=`<table class="navtbl" style="width:100%;border-collapse:collapse;font-size:9.5px">
+    <tr>${th('Freq.','9%')}${th('C/S','8%')}${th('Checkpoint','22%')}${th('MT','6%')}${th('Dist.','10%')}${th('Alt.','8%')}${th('EET','7%')}${th('ETO','7%')}${th('ATO','7%')}${th('Remarks','16%')}</tr>`;
+  const td=(v,al)=>`<td style="border:1px solid #000;padding:1px 3px;text-align:${al||'center'};height:13px">${v==null||v===''?'&nbsp;':v}</td>`;
+  const body=c.rows.map(r=>`<tr class="navrow">
+      ${td(esc(r.freq))}${td(esc(r.cs))}${td('<span class="filled">'+esc(r.wpt)+'</span>','left')}
+      ${td(r.mt?esc(r.mt)+'&deg;':'')}
+      ${td('<span class="filled">'+fmt(r.d)+'</span> / '+fmt(Math.round(r.cumD*10)/10))}
+      ${td(esc(r.alt))}
+      ${td(navDur(Math.round(r.cumT)))}${td(r.eto)}${td('')}
+      ${td(esc(r.rmk),'left')}
+    </tr>`);
+  const totals=`<tr>
+      <td colspan="4" style="border:1px solid #000;padding:1px 3px;text-align:right"><b>TOTALI</b></td>
+      <td style="border:1px solid #000;padding:1px 3px;text-align:center"><b>${fmt(Math.round(c.totDist*10)/10)} nm</b></td>
+      <td style="border:1px solid #000"></td>
+      <td style="border:1px solid #000;padding:1px 3px;text-align:center"><b>${navDur(Math.round(c.totTime))}</b></td>
+      <td colspan="3" style="border:1px solid #000;padding:1px 3px;text-align:center"><b>${fmt(c.totFuel)} L</b></td>
+    </tr>`;
+  const altnRow=`<tr>
+      <td colspan="2" style="border:1px solid #000"></td>
+      <td style="border:1px solid #000;padding:1px 3px;text-align:left"><b>Alternate:</b> <span class="filled">${esc(txt('altn'))}</span></td>
+      <td style="border:1px solid #000"></td>
+      <td style="border:1px solid #000;padding:1px 3px;text-align:center"><span class="filled">${num('altDist')}</span> nm</td>
+      <td style="border:1px solid #000;padding:1px 3px;text-align:center"><span class="filled">${esc(txt('altAlt'))}</span></td>
+      <td style="border:1px solid #000;padding:1px 3px;text-align:center">${navDur(f.altTime)}</td>
+      <td colspan="3" style="border:1px solid #000;padding:1px 3px;text-align:center">${fmt(f.altFuel)} L</td>
+    </tr>`;
+
+  /* Il riquadro carburante e' lo stesso piano dell'OFP, non un secondo conto:
+     Trip, alternato, riserva, minimo, extra e block vengono da computeFuel(). */
+  const fr=(lbl,min,lit,bold)=>`<tr${bold?' style="font-weight:700"':''}>
+      <td style="border:1px solid #000;padding:1px 4px;text-align:left">${lbl}</td>
+      <td style="border:1px solid #000;padding:1px 4px;text-align:center">${min==null?'':minToHHMM(Math.round(min)).replace(/^(\d\d)(\d\d)$/,'$1:$2')}</td>
+      <td style="border:1px solid #000;padding:1px 4px;text-align:right">${lit==null?'':fmt(lit)+' L'}</td>
+    </tr>`;
+  const fuelBox=`<table style="border-collapse:collapse;font-size:9.5px;margin-top:6px;min-width:200px">
+    <tr><th colspan="3" style="border:1px solid #000;padding:1px 4px;background:#e6e6e6">l/h: <span class="filled">${fmt(c.ff)}</span></th></tr>
+    <tr><th style="border:1px solid #000;padding:1px 4px"></th>
+        <th style="border:1px solid #000;padding:1px 4px;background:#e6e6e6">Time</th>
+        <th style="border:1px solid #000;padding:1px 4px;background:#e6e6e6">Fuel</th></tr>
+    ${fr('Trip',f.tripTime,f.tripFuel)}
+    ${fr('Alternate',f.altTime,f.altFuel)}
+    ${fr('Reserve',f.finMin,f.finFuel)}
+    ${fr('Minimum',f.minBlockTime,f.minBlockFuel,true)}
+    ${fr('Extra fuel',f.exMin,f.exFuel)}
+    ${fr('Taxi',f.taxiMin,f.taxiFuel)}
+    ${fr('Block fuel',f.blockTime,f.blockFuel,true)}
+  </table>`;
+
+  /* Le tratte vanno a gruppi: ogni gruppo e' un blocco che paginateBlocks() puo'
+     spostare su un foglio nuovo, e porta con se' l'intestazione della tabella,
+     cosi' non ci si ritrova mai colonne senza titolo. La riga dell'alternato e
+     i totali stanno nell'ultimo gruppo, non in un blocco a parte: altrimenti
+     l'intestazione si ripeteva anche quando restavano sulla stessa pagina. */
+  const CH=10, blocks=[hdr];
+  for(let i=0;i<Math.max(1,body.length);i+=CH){
+    const part=body.slice(i,i+CH);
+    const last=i+CH>=body.length;
+    blocks.push(open+part.join('')+(last?altnRow+totals:'')+'</table>');
+  }
+  blocks.push(`<div style="display:flex;justify-content:flex-end">${fuelBox}</div>`);
+  return {label:'NAV-FLIGHTPLAN', blocks};
 }
 
 function pageMB(f,w){
@@ -1890,7 +2116,20 @@ function mbSheetRows(w){
   };
 }
 
+/* Somma delle distanze del navplan, senza bisogno del piano carburante: serve
+   PRIMA di calcolarlo, perche' e' la distanza da cui scendono tempo di volo,
+   Trip Fuel e a cascata contingency, minimo e block. */
+function navTotalDist(){
+  return navRowsRaw().reduce((a,r)=>a+(parseFloat(String(r.dist).replace(',','.'))||0),0);
+}
+function syncTripDistFromNavlog(){
+  if(!navRowsRaw().length || !$('tripDist')) return;   // navplan vuoto: vale quella a mano
+  const d=Math.round(navTotalDist()*10)/10;
+  if(Math.abs(num('tripDist')-d)>0.05) $('tripDist').value=d;
+}
+
 function render(){
+  syncTripDistFromNavlog();
   /* Due passaggi, e non e' uno spreco: il Trip Time non dipende dal taxi, ma il
      taxi dipende dall'orario di atterraggio, che dipende dal Trip Time. Si
      calcola il carburante una prima volta per avere il Trip Time, si sistemano
@@ -1904,10 +2143,11 @@ function render(){
   if($('tBLOCK')) $('tBLOCK').value=t.block;
   if($('tFLT'))   $('tFLT').value=t.flt;
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
+  renderNavlogEditor(f);
   if($('tripCalc')){
     const el=$('tripCalc');
     el.textContent = `→ salita a ${f.cAlt} ft ${f.climbMin} min / ${fmt(f.climbFuel)} L`
-      + ` + crociera ${f.cruiseTime} min a ${fmt(num('tripFF'))} L/h`
+      + ` + crociera ${Math.round(f.cruiseTime)} min a ${fmt(num('tripFF'))} L/h`
       + ` = Trip ${f.tripTime} min · ${fmt(f.tripFuel)} L`
       + (f.climbOverruns ? '   ⚠ la salita da sola copre tutto il tempo di volo: rivedi quota o distanza' : '');
     el.style.color = f.climbOverruns ? '#ffd479' : '';
@@ -2059,7 +2299,7 @@ function buildPreviewHTML(f,w,t){
      sa quante pagine ha il documento — e il pie' di pagina "X di Y" serve gia'
      alla prima. */
   const flow=[];
-  [briefingSection(), weatherSection(), notamsSection()].forEach(sec=>{
+  [navlogSection(f), briefingSection(), weatherSection(), notamsSection()].forEach(sec=>{
     paginateBlocks(sec.label, sec.blocks).forEach(pg=>flow.push({label:sec.label, ...pg}));
   });
   PREVIEW_PAGES = 4 + flow.length;
@@ -2382,36 +2622,110 @@ TOLD_LEGS.forEach(L=>{
 });
 
 /* Riquadro dei risultati TOLD nel wizard. */
+/* Rosa vento: la pista ruota col suo orientamento magnetico, la freccia col
+   vento. Due numeri e un disegno dicono in un colpo solo quello che tre righe
+   di testo facevano faticare a immaginare. */
+function windRoseSVG(g){
+  const r = g.rwyHdg==null ? null : ((g.rwyHdg%360)+360)%360;
+  const w = (g.haveWind && g.windDir!=null) ? ((g.windDir%360)+360)%360 : null;
+  let lab='--';
+  if(r!=null){ let n=Math.round(r/10); if(n===0) n=36; lab=('0'+n).slice(-2); }
+  return `<svg viewBox="0 0 120 120" role="img" aria-label="Pista e vento">
+    <circle cx="60" cy="60" r="52" fill="none" stroke="var(--panel-line)" stroke-width="1"/>
+    <circle cx="60" cy="60" r="34" fill="none" stroke="var(--panel-line)" stroke-width="1" stroke-dasharray="2 4"/>
+    <g${r!=null?` transform="rotate(${r} 60 60)"`:''}>
+      <rect x="55" y="16" width="10" height="88" rx="1.5" fill="var(--panel-2)" stroke="var(--txt-dim)" stroke-width="1"/>
+      <line x1="60" y1="26" x2="60" y2="94" stroke="var(--txt-dim)" stroke-width="1" stroke-dasharray="5 6"/>
+      <text x="60" y="112" text-anchor="middle" font-size="10" font-weight="700" fill="var(--txt-dim)"
+        ${r!=null?`transform="rotate(${-r} 60 112)"`:''}>${lab}</text>
+    </g>
+    ${w!=null?`<g transform="rotate(${w} 60 60)">
+      <line x1="60" y1="8" x2="60" y2="42" stroke="var(--accent-2)" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M60 46 L55 36 L65 36 Z" fill="var(--accent-2)"/>
+    </g>`:''}
+    <circle cx="60" cy="60" r="2.5" fill="var(--txt-dim)"/>
+  </svg>`;
+}
+
+/* Una distanza: valore, quanta pista se ne usa, e l'esito a parole. */
+function perfResHTML(name, code, metres, m, codeLbl, info){
+  const alt = `${Math.round(metres*3.28084)} ft`;
+  let bar='', stat = info
+    ? `<p class="status idle">${info}</p>`
+    : `<p class="status idle">Inserisci ${codeLbl} per il controllo</p>`;
+  if(m && m.avail>0){
+    const ratio=m.req/m.avail, pct=Math.round(ratio*100), margin=Math.round(m.margin);
+    const col = ratio>1 ? '#E5544B' : (ratio>0.85 ? '#E8A33D' : '#4CC38A');
+    const cls = ratio>1 ? 'fail' : (ratio>0.85 ? 'caution' : 'ok');
+    bar=`<div class="bar"><i style="width:${Math.min(100,pct)}%;background:${col}"></i></div>`;
+    stat = ratio>1
+      ? `<p class="status fail">${codeLbl} superata di ${-margin} m &mdash; ${pct}% di ${m.avail} m</p>`
+      : `<p class="status ${cls}">${ratio>0.85?'Margine ridotto':'Entro i limiti'} &mdash; ${margin} m di margine, ${pct}% di ${m.avail} m</p>`;
+  }
+  return `<div class="res">
+    <div class="res-top">
+      <div><p class="name">${name}</p><p class="code">${code}</p></div>
+      <div class="num"><b>${Math.round(metres)} <small>m</small></b><i>${alt}</i></div>
+    </div>${bar}${stat}</div>`;
+}
+
 function toldBoxHTML(t){
-  if(!t.ok) return `<div style="color:#ffd479;font-size:12px">${esc(t.reason||'Dati insufficienti.')}</div>`;
-  const marg=(m,code)=>{
-    if(!m) return `<span style="color:#8fa3b8">${code} n/d</span>`;
-    const pct=Math.round(m.req/m.avail*100);
-    const col=m.margin<0?'#ff7a7a':(pct>85?'#ffd479':'#7fd18b');
-    return `<span style="color:${col}">${code} ${m.avail} m &middot; ${m.req} m (${pct}%) &middot; ${m.margin<0?'SUPERATA di '+Math.round(-m.margin):Math.round(m.margin)+' m margine'} m</span>`;
-  };
+  if(!t.ok) return `<div class="alert a-amber"><span class="lbl">Dati</span><span>${esc(t.reason||'Dati insufficienti.')}</span></div>`;
+  const u=spdLabel();
   const legs=[[t.legs.dep,[['TORA',t.tora],['TODA',t.toda]]],
               [t.legs.dest,[['LDA',t.lda]]],
               [t.legs.altn,[['LDA',t.ldaAltn]]]].filter(x=>x[0]);
-  const u=spdLabel();
-  return legs.map(([g,margins])=>`
-    <div style="margin-bottom:10px">
-      <div style="color:#8fa3b8">${esc(g.label)} &mdash; ${esc(g.icao||'----')} rwy ${esc(g.rwy||'--')} &middot; <b>${g.mass} kg</b></div>
-      <table style="font-family:'Courier New',monospace;font-size:11.5px;color:#dbe4ee">
-        <tr><td style="padding-right:12px">QNH ${g.qnh} &middot; ${g.oat}&deg;C &middot; ${g.haveWind?esc(String(g.windDir))+'&deg;/'+g.windKt+'kt':'vento n/d'}</td>
-            <td>PA <b>${g.pa}</b> ft &middot; DA <b>${g.da}</b> ft &middot; ISA ${g.isaDev>=0?'+':''}${g.isaDev}&deg;C</td></tr>
-        <tr><td>${g.head>=0?'Vento frontale':'Vento in coda'} <b>${Math.abs(g.head)}</b> kt &middot; traverso <b>${g.cross}</b> kt</td>
-            <td>Corsa <b>${g.ground}</b> m &middot; ${g.isTakeoff?'per 15 m':'da 15 m'} <b>${g.total}</b> m</td></tr>
-        <tr><td colspan="2">${g.isTakeoff
-              ? `VR <b>${spdVal(g.v.vrMph)}</b> ${u} &middot; VY <b>${spdVal(g.v.vyMph)}</b> ${u} (${g.v.roc} ft/min)`
-              : `Vref flap 40 <b>${spdVal(g.v.vrefMph)}</b> ${u} &middot; avvicinamento ${spdRange(g.v.approachDown)} ${u}`}</td></tr>
-        <tr><td colspan="2" style="padding-top:3px">${margins.map(([c,m])=>marg(m,c)).join(' &nbsp; ')}</td></tr>
-      </table>
-    </div>`).join('');
+  return legs.map(([g,margins])=>{
+    const cond = g.isTakeoff
+      ? `Flap 10&deg; &middot; VR <b>${spdVal(g.v.vrMph)} ${u}</b> &middot; VY <b>${spdVal(g.v.vyMph)} ${u}</b>`
+      : `Flap 40&deg;, motore al minimo &middot; Vref <b>${spdVal(g.v.vrefMph)} ${u}</b>`;
+    const xw = g.haveWind ? g.cross : null;
+    const chipCls = (lim)=> xw==null ? '' : (xw>lim ? ' fail' : (xw>lim*0.8 ? ' caution' : ' ok'));
+    const hw = g.haveWind
+      ? `<dd class="${g.head>=0?'head-c':'tail-c'}">${Math.abs(g.head).toFixed(1)} kt</dd>`
+      : `<dd class="none-c">&mdash;</dd>`;
+    const cw = g.haveWind
+      ? `<dd>${g.cross.toFixed(1)} kt<small>da ${g.crossRight?'destra':'sinistra'}</small></dd>`
+      : `<dd class="none-c">&mdash;</dd>`;
+    const res = g.isTakeoff
+      ? perfResHTML('Corsa di decollo','TORR &middot; fino al distacco', g.ground, margins[0][1], 'TORA')
+        + perfResHTML('Distanza di decollo','TODR &middot; per superare 15 m', g.total, margins[1][1], 'TODA')
+      : perfResHTML('Corsa di atterraggio','dal contatto all\'arresto', g.ground, null, 'LDA',
+                      'Informativa &mdash; il controllo usa la distanza da 15 m')
+        + perfResHTML('Distanza di atterraggio','LDR &middot; da 15 m', g.total, margins[0][1], 'LDA');
+    return `<section class="perf-card">
+      <h4>${esc(g.label)} &mdash; ${esc(g.icao||'----')} ${esc(g.rwy||'')} &middot; ${g.mass} kg
+        <span class="cond">${cond}</span></h4>
+      <div class="perf-body">
+        <dl class="atmos">
+          <div><dt>Quota di pressione</dt><dd>${g.pa}<small>ft</small></dd></div>
+          <div><dt>Quota di densit&agrave;</dt><dd>${g.da}<small>ft</small></dd></div>
+          <div><dt>Scostamento ISA</dt><dd>${g.isaDev>=0?'+':'\u2212'}${Math.abs(g.isaDev).toFixed(1)}<small>&deg;C</small></dd></div>
+        </dl>
+        <div class="perf-wind">
+          ${windRoseSVG(g)}
+          <div>
+            <dl class="comp"><dt>${g.head>=0?'Vento frontale':'Vento in coda'}</dt>${hw}</dl>
+            <dl class="comp"><dt>Vento al traverso</dt>${cw}
+              <div class="chips"><span class="chip${chipCls(g.xwLimit)}">limite ${g.isTakeoff?'T/O':'LDG'} ${g.xwLimit} kt</span>
+                <span class="chip">QNH ${g.qnh} &middot; ${g.oat}&deg;C</span></div>
+            </dl>
+          </div>
+        </div>
+        ${res}
+      </div>
+    </section>`;
+  }).join('');
 }
+
 function toldWarnsHTML(t){
-  const col={red:'#ff7a7a',amber:'#ffd479',grey:'#8fa3b8'};
-  return (t.warns||[]).map(w=>`<div style="font-size:11px;color:${col[w.level]};margin:3px 0"><b>${w.label}:</b> ${esc(w.text)}</div>`).join('');
+  const ord={red:0,amber:1,grey:2};
+  const cls={red:'a-red',amber:'a-amber',grey:'a-grey'};
+  const list=(t.warns||[]).slice().sort((a,b)=>ord[a.level]-ord[b.level]);
+  if(!list.length) return '';
+  return `<div class="alerts">${list.map(w=>
+    `<div class="alert ${cls[w.level]}"><span class="lbl">${esc(w.label)}</span><span>${esc(w.text)}</span></div>`
+  ).join('')}</div>`;
 }
 
 function togglePreview(){
@@ -2713,6 +3027,95 @@ function drawCgChart(doc, w, x, y, boxW, boxH){
 
 function monoLine(doc,x,y,s){ doc.text(s,x,y); return y+LH; }
 function dotted(doc,x1,x2,y){ doc.setLineDash([0.5,0.8],0); doc.setLineWidth(0.2); doc.line(x1,y,x2,y); doc.setLineDash([]); }
+
+/* Il NAV-FLIGHTPLAN del PDF. Sta in una funzione a se' perche' lo usano in
+   due: il documento completo e l'export del solo navplan. `io` porta i margini,
+   la posizione corrente e le due primitive di impaginazione del chiamante. */
+function drawNavlogPdf(doc, f, io){
+  const L=io.L, R=io.R;
+  let y=io.y;
+  const nav=navlogComputed(f);
+  doc.setFontSize(7.5);
+  const hdrCell=(lab,val,x,wd)=>{
+    doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(x,y-3.4,wd,5.4);
+    doc.setFont('courier','bold'); doc.text(lab,x+1.2,y);
+    doc.setFont('courier','normal'); doc.text(String(val||''),x+1.2+lab.length*1.6,y);
+  };
+  const hw=(R-L)/4;
+  [['ACFT IDENT:',txt('reg')],['Date:',txt('wxDate')],['Off Bl.:',txt('tOFF')],['QNH:',num('toldQnhDep')||'']]
+    .forEach(([l,v],i)=>hdrCell(l,v,L+i*hw,hw));
+  y+=5.4;
+  [['Pilot:',txt('picName')],['GS:',fmt(nav.gsMph)+' MPH'],['Bl. on:',txt('tON')],['RWY:',txt('depRunway')]]
+    .forEach(([l,v],i)=>hdrCell(l,v,L+i*hw,hw));
+  y+=8;
+
+  const nc=[16,14,38,10,24,14,12,12,12,24];              // larghezze, somma 176
+  // ascissa di inizio di ogni colonna: somma delle larghezze precedenti
+  const nx=[]; nc.reduce((acc,wd,i)=>{ nx[i]=L+acc; return acc+wd; },0);
+  const cellR=(i)=>nx[i]+nc[i]-1.2;                      // bordo destro della colonna
+  const navHead=()=>{
+    doc.setFillColor(230,230,230); doc.rect(L,y-3.4,R-L,5,'F');
+    doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(L,y-3.4,R-L,5);
+    doc.setFont('courier','bold'); doc.setFontSize(6.8);
+    ['Freq.','C/S','Checkpoint','MT','Dist.','Alt.','EET','ETO','ATO','Remarks']
+      .forEach((h,i)=>doc.text(h,nx[i]+1.2,y));
+    doc.setFont('courier','normal'); doc.setFontSize(7);
+    y+=5;
+  };
+  navHead();
+  const navLine=(cells,bold)=>{
+    if(y+5 > MM.A4H-24){ y=io.newPage('NAV-FLIGHTPLAN'); doc.setFontSize(7); navHead(); }
+    doc.setDrawColor(120); doc.setLineWidth(0.15); doc.rect(L,y-3.4,R-L,4.6);
+    nc.forEach((_,i)=>{ if(i) doc.line(nx[i],y-3.4,nx[i],y+1.2); });
+    doc.setFont('courier', bold?'bold':'normal');
+    cells.forEach((c,i)=>{
+      if(c==null||c==='') return;
+      const al=(i===2||i===9)?'left':'center';
+      if(al==='left') doc.text(String(c).slice(0,Math.floor(nc[i]/1.5)), nx[i]+1.2, y);
+      else            doc.text(String(c), nx[i]+nc[i]/2, y, {align:'center'});
+    });
+    doc.setFont('courier','normal');
+    y+=4.6;
+  };
+  nav.rows.forEach(r=>navLine([r.freq, r.cs, r.wpt, r.mt||'',
+    `${fmt(r.d)}/${fmt(Math.round(r.cumD*10)/10)}`, r.alt,
+    navDur(Math.round(r.cumT)), r.eto, '', r.rmk]));
+  navLine(['','', 'Alternate: '+txt('altn'), '', String(num('altDist')), txt('altAlt'),
+           navDur(f.altTime), '', '', fmt(f.altFuel)+' L']);
+  navLine(['','','TOTALI','', fmt(Math.round(nav.totDist*10)/10)+' nm','',
+           navDur(Math.round(nav.totTime)),'', '', fmt(nav.totFuel)+' L'], true);
+  y+=6;
+
+  /* Riquadro carburante: e' lo stesso piano dell'OFP, non un secondo conto. */
+  io.ensureRoom(40);
+  const fbW=74, fbX=R-fbW;
+  doc.setFontSize(7.5);
+  doc.setFillColor(230,230,230); doc.rect(fbX,y-3.4,fbW,5,'F');
+  doc.setDrawColor(0); doc.setLineWidth(0.2); doc.rect(fbX,y-3.4,fbW,5);
+  doc.setFont('courier','bold'); doc.text(`l/h: ${fmt(nav.ff)}`,fbX+2,y);
+  doc.text('Time',fbX+44,y,{align:'right'}); doc.text('Fuel',fbX+fbW-2,y,{align:'right'});
+  doc.setFont('courier','normal'); y+=5;
+  const fbRow=(lab,min,lit,bold)=>{
+    doc.setDrawColor(120); doc.setLineWidth(0.15); doc.rect(fbX,y-3.4,fbW,4.6);
+    doc.setFont('courier', bold?'bold':'normal');
+    doc.text(lab,fbX+2,y);
+    if(min!=null) doc.text(minToHHMM(Math.round(min)).replace(/^(\d\d)(\d\d)$/,'$1:$2'),fbX+44,y,{align:'right'});
+    if(lit!=null) doc.text(fmt(lit)+' L',fbX+fbW-2,y,{align:'right'});
+    doc.setFont('courier','normal');
+    y+=4.6;
+  };
+  fbRow('Trip',f.tripTime,f.tripFuel);
+  fbRow('Alternate',f.altTime,f.altFuel);
+  fbRow('Reserve',f.finMin,f.finFuel);
+  fbRow('Minimum',f.minBlockTime,f.minBlockFuel,true);
+  fbRow('Extra fuel',f.exMin,f.exFuel);
+  fbRow('Taxi',f.taxiMin,f.taxiFuel);
+  fbRow('Block fuel',f.blockTime,f.blockFuel,true);
+  doc.setFontSize(FS_BODY);
+
+
+  io.y=y;
+}
 
 function buildPDF(){
   const {jsPDF}=window.jspdf;
@@ -3152,6 +3555,14 @@ function buildPDF(){
     y+=1.5;
   }
 
+  /* PAGE 5 — NAV-FLIGHTPLAN */
+  newPage('NAV-FLIGHTPLAN');
+  {
+    const io={L,R,y, newPage:(lab)=>{ newPage(lab); return y; }, ensureRoom:(h)=>{ ensureRoom(h); return y; }};
+    Object.defineProperty(io,'y',{get:()=>y,set:(v)=>{y=v;}});
+    drawNavlogPdf(doc,f,io);
+  }
+
   /* PAGE 5 — BRIEFING (include Aircraft Status e Remarks) */
   newPage('BRIEFING');
   const briefBlock=(title2,proc,thr,mit)=>{
@@ -3269,6 +3680,51 @@ function ofpFileName(){
    Quindi su Apps Script si apre il PDF in una scheda nuova — da lì il browser lo
    salva normalmente — e in più lo si archivia su Google Drive. In un browser
    normale resta il download diretto di sempre. */
+/* Export del solo NAV-FLIGHTPLAN, su un PDF a parte: in cabina il navplan e'
+   il foglio che si tiene in mano, e non sempre serve portarsi dietro l'OFP
+   intero. Il disegno e' lo stesso del documento completo — drawNavlogPdf() —
+   quindi i due non possono divergere. */
+function buildNavlogPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=patchDocText(new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}));
+  let f=computeFuel();
+  autoLandingTime(f); autoTaxiTime();
+  f=computeFuel();
+  const title=titleText();
+  const L=MM.ML+3, R=MM.A4W-MM.MR-3;
+  let pageNo=1, y=drawFrame(doc,title,'NAV-FLIGHTPLAN',1);
+  doc.setFont('courier','normal'); doc.setFontSize(FS_BODY);
+  const io={L,R,
+    newPage:(lab)=>{ pageNo++; doc.addPage(); y=drawFrame(doc,title,lab||'NAV-FLIGHTPLAN',pageNo);
+                     doc.setFontSize(FS_BODY); return y; },
+    ensureRoom:(h)=>{ if(y+h>MM.A4H-24) io.newPage('NAV-FLIGHTPLAN'); return y; }};
+  Object.defineProperty(io,'y',{get:()=>y,set:(v)=>{y=v;}});
+  drawNavlogPdf(doc,f,io);
+  stampFooters(doc);
+  return doc;
+}
+
+function navlogFileName(){
+  const d=(txt('wxDate')||'').replace(/\D/g,'') || new Date().toISOString().slice(0,10).replace(/-/g,'');
+  return `NAVLOG_${(txt('dep')||'DEP').toUpperCase()}-${(txt('arr')||'ARR').toUpperCase()}_${d}.pdf`;
+}
+
+async function exportNavlogPDF(){
+  const btn=$('btnNavPdf'); if(btn){ btn.disabled=true; }
+  const old=btn?btn.textContent:'';
+  if(btn) btn.textContent='Genero…';
+  try{
+    if(!navRowsRaw().length){ alert('Il NAV-FLIGHTPLAN e\' vuoto: importa un NavLog o aggiungi le tratte a mano nello Step 2.'); return; }
+    const doc=buildNavlogPDF(), name=navlogFileName();
+    if(IS_APPS_SCRIPT){
+      const win=window.open(doc.output('bloburl'),'_blank');
+      if(!win) doc.save(name);
+    }else doc.save(name);
+  }
+  catch(err){ alert('Errore nella generazione del NAV-FLIGHTPLAN: '+err.message); console.error(err); }
+  finally{ if(btn){ btn.disabled=false; btn.textContent=old; } }
+}
+
 async function exportPDF(){
   const btn=$('btnPdf'); btn.disabled=true; const old=btn.textContent; btn.textContent='Genero…';
   try{
@@ -3295,7 +3751,13 @@ function saveToDrive(){
     .withFailureHandler(err=>{ btn.disabled=false; btn.textContent=old; alert('Salvataggio su Drive fallito: '+(err&&err.message||err)); })
     .saveOfpToDrive(base64, ofpFileName());
 }
+if($('btnNavAdd')) $('btnNavAdd').addEventListener('click',()=>{
+  const rows=navRowsRaw();
+  rows.push({freq:'',cs:'',wpt:'',mt:'',dist:'',alt:'',rmk:''});
+  navRowsSave(rows); render();
+});
 $('btnPdf').addEventListener('click',exportPDF);
+if($('btnNavPdf')) $('btnNavPdf').addEventListener('click',exportNavlogPDF);
 if($('btnDrive')) $('btnDrive').addEventListener('click',saveToDrive);
 $('btnPreview').addEventListener('click',togglePreview);
 $('btnPrint').addEventListener('click',()=>{ if(!previewOpen) togglePreview(); setTimeout(()=>window.print(),120); });
@@ -3304,7 +3766,7 @@ $('btnPrint').addEventListener('click',()=>{ if(!previewOpen) togglePreview(); s
 // Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)
 const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route',
   'tOFF','tTO','tLDG','tON','picName',
-  'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
+  'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','navRows','navGs','navFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
   'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50',
   'spdUnit','toldSurface','tora','toda','lda','ldaAltn','altnRunway',
@@ -3650,6 +4112,8 @@ function applyNavlogSummary(sum){
   if(sum.arr && $('arr')) $('arr').value=sum.arr;
   if(sum.route && $('route')) $('route').value=sum.route;
   if(sum.totals && sum.totals.dist!=null && $('tripDist')) $('tripDist').value=sum.totals.dist;
+  const nr=navRowsFromNavlog(sum);
+  if(nr) navRowsSave(nr);
   if(sum.cruiseAlt){
     if($('pwrAlt')) $('pwrAlt').value=sum.cruiseAlt;
     if($('altAlt')) $('altAlt').value=sum.cruiseAlt;
