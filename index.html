@@ -3260,8 +3260,10 @@ const NAVPDF = {
   W:148, H:210, M:6,
   /* Larghezze in % ribilanciate per l'A5: C/S e Freq. hanno bisogno di piu'
      spazio di quanto ne lascino le proporzioni dell'A4, perche' "MXP TWR" e
-     "118.90" restino leggibili senza rimpicciolirsi troppo. */
-  cols:[9,10,20,6,7,7,6.5,7,7,20.5],
+     "118.90" restino leggibili senza rimpicciolirsi troppo. Fra le due, la
+     frequenza e' quella che non si puo' troncare: un punto e mezzo passa da
+     C/S a Freq. */
+  cols:[10.5,8.5,20,6,7,7,6.5,7,7,20.5],
   head:['Freq.','C/S','Checkpoint','MT','Dist.','Alt.','EET','ETO','ATO','Remarks'],
   fuelRows:['Trip','Alternate','Reserve','Minimum','Extra fuel','Block fuel'],
   titleH:11, hRowH:8.5, headH:7.5,
