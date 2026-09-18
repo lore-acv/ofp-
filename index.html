@@ -2959,16 +2959,28 @@ function dotted(doc,x1,x2,y){ doc.setLineDash([0.5,0.8],0); doc.setLineWidth(0.2
    orari o frequenze che nessuno ha inserito non vengono inventati.
    ========================================================================== */
 const NAVPDF = {
-  W:210, H:297, M:10,                       // foglio e margine
-  cols:[8.6,7.0,23.2,6.4,7.2,6.2,6.5,6.7,6.5,21.7],   // % di larghezza, dal modello
+  /* A5 verticale. Su un foglio piu' piccolo lo stesso corpo di carattere pesa
+     di piu': il modulo si legge meglio stampato, ed e' il formato in cui il
+     navplan si tiene davvero in mano in cabina. */
+  W:148, H:210, M:6,
+  /* Larghezze in % ribilanciate per l'A5: C/S e Freq. hanno bisogno di piu'
+     spazio di quanto ne lascino le proporzioni dell'A4, perche' "MXP TWR" e
+     "118.90" restino leggibili senza rimpicciolirsi troppo. */
+  cols:[9,10,20,6,7,7,6.5,7,7,20.5],
   head:['Freq.','C/S','Checkpoint','MT','Dist.','Alt.','EET','ETO','ATO','Remarks'],
-  rowH:6.2, minRows:20,
-  fuelRows:['Trip','Alternate','Reserve','Minimum','Extra fuel','Block fuel']
+  fuelRows:['Trip','Alternate','Reserve','Minimum','Extra fuel','Block fuel'],
+  titleH:11, hRowH:8, headH:7,
+  fsBody:8.5, fsHead:9, fsTitle:16, fsFuel:8.5,
+  lwGrid:0.45, lwOuter:0.8,          // griglia marcata come nel modello
+  /* Righe alte e poche: il foglio si riempie allargando le righe, non
+     aggiungendone di vuote. `spare` e' il margine per scrivere a penna in
+     volo, `minData` il minimo perche' il modulo resti usabile anche vuoto. */
+  minRowH:6.2, maxRowH:9.5, minData:10, spare:4
 };
 
 function buildNavlogPDF(){
   const {jsPDF}=window.jspdf;
-  const doc=patchDocText(new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}));
+  const doc=patchDocText(new jsPDF({unit:'mm',format:'a5',orientation:'portrait',compress:true}));
   let f=computeFuel();
   autoLandingTime(f); autoTaxiTime();
   f=computeFuel();
@@ -2979,141 +2991,167 @@ function buildNavlogPDF(){
   cx[P.cols.length]=R;
   const colW=(i)=>cx[i+1]-cx[i];
 
-  doc.setDrawColor(0);
-  const box=(x,y,w,h,fill)=>{ if(fill){ doc.setFillColor(...fill); doc.rect(x,y,w,h,'FD'); } else doc.rect(x,y,w,h); };
-  /* Il testo si adatta alla cella: prima rimpicciolendo il corpo, e solo se non
-     basta troncando. Una sigla come "MXP TWR" in una colonna stretta, scritta
-     per intero, finiva sopra il checkpoint della riga accanto. */
-  const cell=(x,y,w,h,text,opt)=>{
-    const o=opt||{};
-    box(x,y,w,h,o.fill);
-    if(text==null||text==='') return;
-    let t=String(text), size=o.size||9;
-    doc.setFont('helvetica', o.bold?'bold':'normal');
-    const avail=w-3;
-    doc.setFontSize(size);
-    while(doc.getTextWidth(t)>avail && size>6){ size-=0.5; doc.setFontSize(size); }
-    while(doc.getTextWidth(t)>avail && t.length>1){ t=t.slice(0,-1); }
-    const ty=y+h/2+size*0.35/2.4;
-    if(o.align==='center')      doc.text(t, x+w/2, ty, {align:'center'});
-    else if(o.align==='right')  doc.text(t, x+w-1.5, ty, {align:'right'});
-    else                        doc.text(t, x+1.5, ty);
-  };
-
-  let y=P.M;
-
-  /* --- titolo --- */
-  const titleH=13;
-  box(L,y,W,titleH);
-  doc.setFont('helvetica','bold'); doc.setFontSize(19);
-  doc.text('NAV-FLIGHTPLAN', L+W/2, y+titleH/2+2.6, {align:'center'});
-  y+=titleH;
-
-  /* --- testata: due righe da quattro celle --- */
-  const hRowH=8, hw=[0.40,0.20,0.19,0.21].map(v=>W*v);
-  const hx=[L, L+hw[0], L+hw[0]+hw[1], L+hw[0]+hw[1]+hw[2]];
-  const hcell=(i,yy,lab,val)=>{
-    box(hx[i],yy,hw[i],hRowH);
-    doc.setFont('helvetica','bold'); doc.setFontSize(9.5);
-    doc.text(lab, hx[i]+1.8, yy+hRowH/2+1.4);
-    if(val!=null && val!==''){
-      const lw=doc.getTextWidth(lab);
-      doc.setFont('helvetica','normal');
-      doc.text(String(val), hx[i]+2.6+lw, yy+hRowH/2+1.4);
-    }
-  };
-  const gsTxt = nav.gsMph>0 ? `GS: ${Math.round(mphToKt(nav.gsMph))}kt` : 'GS:';
-  hcell(0,y,'ACFT IDENT:', txt('reg'));
-  hcell(1,y,'Date:',       txt('wxDate'));
-  hcell(2,y,'Off Bl.:',    txt('tOFF'));
-  hcell(3,y,'QNH:',        num('toldQnhDep')>0?num('toldQnhDep'):'');
-  y+=hRowH;
-  hcell(0,y,'Pilot:',  txt('picName'));
-  box(hx[1],y,hw[1],hRowH);
-  doc.setFont('helvetica','bold'); doc.setFontSize(9.5);
-  doc.text(gsTxt, hx[1]+1.8, y+hRowH/2+1.4);
-  hcell(2,y,'Bl. on:', txt('tON'));
-  hcell(3,y,'RWY:',    txt('depRunway'));
-  y+=hRowH;
-
-  /* --- intestazione della tabella, su grigio --- */
-  const GREY=[170,170,170], GREY_L=[214,214,214];
-  const headH=7.4;
-  P.head.forEach((h,i)=>cell(cx[i],y,colW(i),headH,h,{bold:true,size:9.5,fill:GREY,align:i>=3&&i<=8?'center':'left'}));
-  y+=headH;
-
-  /* --- righe: prima quelle con dati, poi righe vuote fino a riempire il modulo --- */
   const rows=nav.rows.map(r=>[
     r.freq, r.cs, r.wpt,
-    r.mt||'',                                   // solo il numero: niente gradi
-    String(r.dist||'').trim()!=='' ? `${fmt(r.d)}/${fmt(Math.round(r.cumD*10)/10)}` : '',
+    r.mt||'',                                    // solo il numero: niente gradi
+    String(r.dist||'').trim()!=='' ? fmt(r.d) : '',   // solo la tratta, senza progressiva
     r.alt, navDur(Math.round(r.cumT)), r.eto, '', r.rmk
   ]);
-  const total=Math.max(P.minRows, rows.length);
-  for(let i=0;i<total;i++){
-    const r=rows[i];
-    for(let c=0;c<P.cols.length;c++){
-      cell(cx[c],y,colW(c),P.rowH, r?r[c]:'', {size:8.5, align:(c>=3&&c<=8)?'center':'left'});
-    }
-    y+=P.rowH;
-  }
 
-  /* --- riga dell'alternato, con la voce sottolineata come nel modello --- */
-  for(let c=0;c<P.cols.length;c++) cell(cx[c],y,colW(c),P.rowH,'',{});
-  doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
-  const altLab='Alternate:';
-  doc.text(altLab, cx[2]+1.5, y+P.rowH/2+1.2);
-  doc.setLineWidth(0.2);
-  doc.line(cx[2]+1.5, y+P.rowH/2+2, cx[2]+1.5+doc.getTextWidth(altLab), y+P.rowH/2+2);
-  if(txt('altn')) doc.text(txt('altn'), cx[2]+3+doc.getTextWidth(altLab), y+P.rowH/2+1.2);
-  if(num('altDist')>0) doc.text(String(num('altDist')), cx[4]+colW(4)/2, y+P.rowH/2+1.2, {align:'center'});
-  if(txt('altAlt'))    doc.text(txt('altAlt'), cx[5]+colW(5)/2, y+P.rowH/2+1.2, {align:'center'});
-  if(f.altTime)        doc.text(navDur(f.altTime), cx[6]+colW(6)/2, y+P.rowH/2+1.2, {align:'center'});
-  y+=P.rowH;
-  for(let c=0;c<P.cols.length;c++) cell(cx[c],y,colW(c),P.rowH,'',{});
-  y+=P.rowH;
+  /* Il foglio si riempie sempre fino in fondo, ma allargando le righe invece
+     di moltiplicare quelle vuote: il numero di righe parte dalle tratte reali
+     piu' un piccolo margine, e solo se le tratte non ci stanno si passa alla
+     pagina successiva. */
+  const FUEL_ROWS=P.fuelRows.length+1, ALT_ROWS=2, FIXED=FUEL_ROWS+ALT_ROWS;
+  const avail=(P.H-P.M) - (P.M + P.titleH + 2*P.hRowH + P.headH);
+  const maxFit=Math.floor(avail/P.minRowH) - FIXED;
+  let nData=Math.min(Math.max(P.minData, rows.length+P.spare), maxFit);
+  let rowH=avail/(nData+FIXED);
+  while(rowH>P.maxRowH && nData<maxFit){ nData++; rowH=avail/(nData+FIXED); }
+  const pages=Math.max(1, Math.ceil(rows.length/nData));
 
-  /* --- fondo: a sinistra righe vuote, a destra il riquadro carburante --- */
-  const fbL=cx[6];                              // il riquadro comincia dove comincia EET
-  const labW=colW(6);                           // etichetta verticale "Fuel calc."
-  const rest=R-(fbL+labW);
-  const wLab=rest*0.42, wTime=rest*0.29, wFuel=rest-wLab-wTime;
-  const fx=[fbL+labW, fbL+labW+wLab, fbL+labW+wLab+wTime];
-  const fRows=P.fuelRows.length+1;              // intestazione + voci
-  const fbTop=y, fbH=P.rowH*fRows;
-
-  // righe vuote a sinistra del riquadro
-  for(let i=0;i<fRows;i++){
-    cell(L,y+i*P.rowH, fbL-L, P.rowH, '', {});
-  }
-  // etichetta verticale su grigio
-  box(fbL,fbTop,labW,fbH,GREY);
-  doc.setFont('helvetica','bold'); doc.setFontSize(10);
-  doc.text('Fuel calc.', fbL+labW/2+1.8, fbTop+fbH/2, {align:'center', angle:90});
-
-  // intestazione del riquadro
-  const lph = nav.ff>0 ? `l/h: ${fmt(nav.ff)}` : 'l/h:';
-  cell(fx[0],fbTop,wLab,P.rowH,lph,{bold:true,size:9,fill:GREY_L});
-  cell(fx[1],fbTop,wTime,P.rowH,'Time',{bold:true,size:9,fill:GREY_L,align:'right'});
-  cell(fx[2],fbTop,wFuel,P.rowH,'Fuel',{bold:true,size:9,fill:GREY_L,align:'right'});
-
-  const hhmm=(m)=> m==null ? '' : minToHHMM(Math.round(m)).replace(/^(\d\d)(\d\d)$/,'$1:$2');
-  const litres=(l)=> l==null ? '' : fmt(l);
-  const vals={
-    'Trip':       [f.tripTime,      f.tripFuel],
-    'Alternate':  [f.altTime,       f.altFuel],
-    'Reserve':    [f.finMin,        f.finFuel],
-    'Minimum':    [f.minBlockTime,  f.minBlockFuel],
-    'Extra fuel': [f.exMin,         f.exFuel],
-    'Block fuel': [f.blockTime,     f.blockFuel]
+  const GREY=[150,150,150], GREY_L=[205,205,205];
+  const box=(x,y,w,h,fill,lw)=>{
+    doc.setLineWidth(lw||P.lwGrid); doc.setDrawColor(0);
+    if(fill){ doc.setFillColor(fill[0],fill[1],fill[2]); doc.rect(x,y,w,h,'FD'); }
+    else doc.rect(x,y,w,h);
   };
-  P.fuelRows.forEach((lab,i)=>{
-    const yy=fbTop+(i+1)*P.rowH, v=vals[lab];
-    cell(fx[0],yy,wLab,P.rowH,lab,{size:9});
-    cell(fx[1],yy,wTime,P.rowH,hhmm(v[0]),{size:9,align:'right'});
-    cell(fx[2],yy,wFuel,P.rowH,litres(v[1]),{size:9,align:'right'});
-  });
-  y=fbTop+fbH;
+  /* Il testo si adatta alla cella: prima rimpicciolendo il corpo, e solo se non
+     basta troncando. Una sigla come "MXP TWR" scritta per intero in una colonna
+     stretta finiva sopra il checkpoint della riga accanto. */
+  const cell=(x,y,w,h,text,opt)=>{
+    const o=opt||{};
+    box(x,y,w,h,o.fill,o.lw);
+    if(text==null||text==='') return;
+    let t=String(text), size=o.size||P.fsBody;
+    doc.setFont('helvetica', o.bold?'bold':'normal');
+    const room=w-2.4;
+    doc.setFontSize(size);
+    while(doc.getTextWidth(t)>room && size>5.5){ size-=0.25; doc.setFontSize(size); }
+    while(doc.getTextWidth(t)>room && t.length>1){ t=t.slice(0,-1); }
+    const ty=y+h/2+size*0.35/2.4;
+    if(o.align==='center')     doc.text(t, x+w/2, ty, {align:'center'});
+    else if(o.align==='right') doc.text(t, x+w-1.2, ty, {align:'right'});
+    else                       doc.text(t, x+1.2, ty);
+  };
+
+  for(let pg=0; pg<pages; pg++){
+    if(pg) doc.addPage();
+    let y=P.M;
+
+    /* --- titolo --- */
+    box(L,y,W,P.titleH,null,P.lwOuter);
+    doc.setFont('helvetica','bold'); doc.setFontSize(P.fsTitle);
+    doc.text('NAV-FLIGHTPLAN', L+W/2, y+P.titleH/2+P.fsTitle*0.35/2.2, {align:'center'});
+    y+=P.titleH;
+
+    /* --- testata: due righe da quattro celle --- */
+    const hw=[0.40,0.20,0.19,0.21].map(v=>W*v);
+    const hx=[L, L+hw[0], L+hw[0]+hw[1], L+hw[0]+hw[1]+hw[2]];
+    const hcell=(i,yy,lab,val)=>{
+      box(hx[i],yy,hw[i],P.hRowH);
+      doc.setFont('helvetica','bold'); doc.setFontSize(P.fsHead);
+      doc.text(lab, hx[i]+1.6, yy+P.hRowH/2+1.3);
+      if(val!=null && val!==''){
+        doc.setFont('helvetica','normal');
+        doc.text(String(val), hx[i]+2.4+doc.getTextWidth(lab), yy+P.hRowH/2+1.3);
+      }
+    };
+    hcell(0,y,'ACFT IDENT:', txt('reg'));
+    hcell(1,y,'Date:',       txt('wxDate'));
+    hcell(2,y,'Off Bl.:',    txt('tOFF'));
+    hcell(3,y,'QNH:',        num('toldQnhDep')>0?num('toldQnhDep'):'');
+    y+=P.hRowH;
+    hcell(0,y,'Pilot:', txt('picName'));
+    box(hx[1],y,hw[1],P.hRowH);
+    doc.setFont('helvetica','bold'); doc.setFontSize(P.fsHead);
+    doc.text(nav.gsMph>0?`GS: ${Math.round(mphToKt(nav.gsMph))}kt`:'GS:', hx[1]+1.6, y+P.hRowH/2+1.3);
+    hcell(2,y,'Bl. on:', txt('tON'));
+    hcell(3,y,'RWY:',    txt('depRunway'));
+    y+=P.hRowH;
+
+    /* --- intestazione colonne, su grigio --- */
+    P.head.forEach((h,i)=>cell(cx[i],y,colW(i),P.headH,h,
+      {bold:true,size:P.fsHead,fill:GREY,align:(i>=3&&i<=8)?'center':'left'}));
+    y+=P.headH;
+
+    /* --- righe della tratta --- */
+    const slice=rows.slice(pg*nData,(pg+1)*nData);
+    for(let i=0;i<nData;i++){
+      const r=slice[i];
+      for(let c=0;c<P.cols.length;c++)
+        cell(cx[c],y,colW(c),rowH, r?r[c]:'', {align:(c>=3&&c<=8)?'center':'left'});
+      y+=rowH;
+    }
+
+    const last = pg===pages-1;
+
+    /* --- riga dell'alternato --- */
+    for(let c=0;c<P.cols.length;c++) cell(cx[c],y,colW(c),rowH,'',{});
+    if(last){
+      doc.setFont('helvetica','normal'); doc.setFontSize(P.fsBody);
+      const lab='Alternate:';
+      doc.text(lab, cx[2]+1.2, y+rowH/2+1.2);
+      doc.setLineWidth(0.3);
+      doc.line(cx[2]+1.2, y+rowH/2+2, cx[2]+1.2+doc.getTextWidth(lab), y+rowH/2+2);
+      if(txt('altn')) doc.text(txt('altn'), cx[2]+2.6+doc.getTextWidth(lab), y+rowH/2+1.2);
+      if(num('altDist')>0) doc.text(String(num('altDist')), cx[4]+colW(4)/2, y+rowH/2+1.2, {align:'center'});
+      if(txt('altAlt'))    doc.text(txt('altAlt'),          cx[5]+colW(5)/2, y+rowH/2+1.2, {align:'center'});
+      if(f.altTime)        doc.text(navDur(f.altTime),      cx[6]+colW(6)/2, y+rowH/2+1.2, {align:'center'});
+    }
+    y+=rowH;
+    for(let c=0;c<P.cols.length;c++) cell(cx[c],y,colW(c),rowH,'',{});
+    y+=rowH;
+
+    /* --- riquadro carburante, incastrato sotto le colonne di destra --- */
+    const fbL=cx[6], labW=colW(6);        // la colonna verticale sta sotto EET
+    const rest=R-(fbL+labW);
+    const wLab=rest*0.42, wTime=rest*0.29, wFuel=rest-wLab-wTime;
+    const fx=[fbL+labW, fbL+labW+wLab, fbL+labW+wLab+wTime];
+    const fbTop=y, fbH=rowH*FUEL_ROWS;
+
+    for(let i=0;i<FUEL_ROWS;i++) cell(L,y+i*rowH, fbL-L, rowH, '', {});
+
+    /* "Fuel calc." dentro la sua cella verticale. jsPDF, con angle:90, applica
+       l'allineamento sull'asse sbagliato: la scritta finiva fuori dal grigio,
+       sopra la tabella dei commenti. La centro a mano — la base parte dal fondo
+       della cella e sale, i glifi crescono verso sinistra. */
+    box(fbL,fbTop,labW,fbH,GREY);
+    const flab='Fuel calc.';
+    let fs=P.fsFuel+1;
+    doc.setFont('helvetica','bold'); doc.setFontSize(fs);
+    while(doc.getTextWidth(flab)>fbH-4 && fs>5.5){ fs-=0.25; doc.setFontSize(fs); }
+    const ftw=doc.getTextWidth(flab), fcap=fs*0.3528*0.72;
+    doc.text(flab, fbL+labW/2+fcap/2, fbTop+fbH/2+ftw/2, {angle:90});
+
+    if(last){
+      cell(fx[0],fbTop,wLab, rowH, nav.ff>0?`l/h: ${fmt(nav.ff)}`:'l/h:', {bold:true,size:P.fsFuel,fill:GREY_L});
+      cell(fx[1],fbTop,wTime,rowH,'Time',{bold:true,size:P.fsFuel,fill:GREY_L,align:'right'});
+      cell(fx[2],fbTop,wFuel,rowH,'Fuel',{bold:true,size:P.fsFuel,fill:GREY_L,align:'right'});
+      const hhmm=(m)=> m==null ? '' : minToHHMM(Math.round(m)).replace(/^(\d\d)(\d\d)$/,'$1:$2');
+      const vals={
+        'Trip':[f.tripTime,f.tripFuel], 'Alternate':[f.altTime,f.altFuel],
+        'Reserve':[f.finMin,f.finFuel], 'Minimum':[f.minBlockTime,f.minBlockFuel],
+        'Extra fuel':[f.exMin,f.exFuel], 'Block fuel':[f.blockTime,f.blockFuel]
+      };
+      P.fuelRows.forEach((lab,i)=>{
+        const yy=fbTop+(i+1)*rowH, v=vals[lab];
+        cell(fx[0],yy,wLab, rowH,lab,{size:P.fsFuel});
+        cell(fx[1],yy,wTime,rowH,hhmm(v[0]),{size:P.fsFuel,align:'right'});
+        cell(fx[2],yy,wFuel,rowH,v[1]==null?'':fmt(v[1]),{size:P.fsFuel,align:'right'});
+      });
+    }else{
+      for(let i=0;i<FUEL_ROWS;i++){
+        cell(fx[0],fbTop+i*rowH,wLab, rowH,'',{});
+        cell(fx[1],fbTop+i*rowH,wTime,rowH,'',{});
+        cell(fx[2],fbTop+i*rowH,wFuel,rowH,'',{});
+      }
+    }
+
+    /* cornice esterna marcata, come nel modello */
+    doc.setLineWidth(P.lwOuter); doc.setDrawColor(0);
+    doc.rect(L, P.M, W, (fbTop+fbH)-P.M);
+  }
 
   return doc;
 }
