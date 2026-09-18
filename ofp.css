@@ -336,3 +336,36 @@
   .perf-wind{grid-template-columns:1fr;justify-items:center}
   .alerts{grid-template-columns:1fr}
 }
+
+/* ============================================================================
+   NAVLOG — la tabella delle tratte nello Step 5
+   ============================================================================
+   Prima era una tabella nuda con gli stili scritti dentro l'HTML riga per riga.
+   Qui prende l'aspetto del resto dell'app: fondo del pannello, righe separate
+   da una linea invece che da spazio vuoto, intestazione che resta visibile
+   quando la tabella scorre in orizzontale sul telefono. */
+.navtools{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.2rem 0 .7rem}
+.navtools .mb-status{margin-top:0}
+
+.navtable-box{background:var(--panel-2);border:1px solid var(--panel-line);border-radius:.6rem;
+  padding:.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.navtable{border-collapse:collapse;width:100%;min-width:46rem}
+.navtable th{position:sticky;top:0;background:var(--panel-2);text-align:left;white-space:nowrap;
+  font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--txt-dim);
+  font-weight:700;padding:.25rem .3rem .45rem}
+.navtable td{padding:.18rem .22rem;border-top:1px solid var(--panel-line);vertical-align:middle}
+.navtable tr:first-child td{border-top:none}
+.navtable input{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);
+  border-radius:.4rem;padding:.42rem .45rem;font-size:.92rem;font-family:inherit;width:100%;
+  min-height:2.3rem}
+.navtable input:focus{outline:2px solid var(--accent-2);outline-offset:1px;border-color:var(--accent-2)}
+/* Le colonne calcolate non si toccano: stesso monospace dei riquadri "calc",
+   cosi' si distinguono a colpo d'occhio da quelle che si compilano. */
+.navtable .ro{font-family:"Courier New",monospace;font-size:.85rem;color:var(--txt-dim);
+  white-space:nowrap;text-align:center;padding-left:.45rem;padding-right:.45rem}
+.navtable .del{padding:.2rem .5rem;min-height:2.3rem;font-size:.85rem;line-height:1}
+/* Larghezze: il checkpoint e le note hanno bisogno di spazio, i numeri no. */
+.navtable .c-freq{width:6rem}   .navtable .c-cs{width:5.5rem}
+.navtable .c-wpt{width:11rem}   .navtable .c-mt{width:4.2rem}
+.navtable .c-dist{width:4.6rem} .navtable .c-alt{width:5.4rem}
+.navtable .c-rmk{width:12rem}

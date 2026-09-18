@@ -449,11 +449,16 @@ async function extractWeatherCharts(pdf){
     const textLen=content.items.map(it=>it.str).join('').length;
     if(textLen>CHART_TEXT_THRESHOLD) continue; // troppo testo: è prognosi/narrativa, non una cartina
     try{
-      const viewport=page.getViewport({scale:1.5});
+      /* Scala 2.4: nell'OFP la cartina occupa la pagina intera, cioe' circa
+         176 mm di larghezza. A 1.5 uscivano 124 punti per pollice e i simboli
+         piccoli — quota delle basi, sigle dei fronti — si impastavano appena
+         stampati. A 2.4 si sta sopra i 200 dpi, che e' quello che serve per
+         leggerli su carta. */
+      const viewport=page.getViewport({scale:2.4});
       const canvas=document.createElement('canvas');
       canvas.width=viewport.width; canvas.height=viewport.height;
       await page.render({canvasContext:canvas.getContext('2d'), viewport}).promise;
-      charts.push({dataUrl:canvas.toDataURL('image/jpeg',0.85), w:viewport.width, h:viewport.height});
+      charts.push({dataUrl:canvas.toDataURL('image/jpeg',0.9), w:viewport.width, h:viewport.height});
     }catch(e){ /* pagina non renderizzabile: la saltiamo */ }
   }
   return charts;

@@ -132,16 +132,23 @@ briefing non copre uno dei due l'import lo dice subito.
    masse, bagaglio e **inviluppo di centraggio** al decollo e a entrambi gli
    atterraggi. Mostra anche la **VA alla massa effettiva**.
 4. **Performance** — V-speeds (in **MPH**, con selettore per i nodi), tabella POH
-   completa della quota pianificata, e calcolo **TOLD** per **tutti e tre gli
+   completa della quota pianificata, e **Takeoff & Landing Data** per **tutti e tre gli
    aeroporti**: decollo a DEP, atterraggio a DEST e ad ALTN. Ogni aeroporto usa il
    **proprio** METAR e la **propria** massa (decollo per DEP, atterraggio per DEST e
    ALTN): pressure e density altitude, componenti di vento, corsa al suolo e
-   distanza per 15 m, confrontate con TORA, TODA e LDA.
-5. **Dest Charts** — fino a 2 cartine, più le note operative.
-6. **Briefing** — threat & error management per fase, stato aeromobile, remarks.
-7. **NOTAM & Weather** — METAR / SPECI / TAF e NOTAM smistati su DEP / ARR / ALTN;
+   distanza per 15 m, confrontate con TORA, TODA e LDA. Vento, QNH e temperatura
+   non si importano a mano: arrivano dallo stesso import del briefing.
+5. **Navlog** — il NAV-FLIGHTPLAN riga per riga: checkpoint, rotta magnetica e
+   distanze dal NavLog di ForeFlight, **quota di crociera** portata da sola su ogni
+   punto e modificabile punto per punto, **frequenze** di aeroporti e radioassistenze
+   cercate su OurAirports (solo il numero: il nominativo lo scrive il pilota).
+   È un documento **a sé**, con il suo pulsante di download, e non entra mai
+   nell'OFP stampato.
+6. **Dest Charts** — fino a 2 cartine, più le note operative.
+7. **Briefing** — threat & error management per fase, stato aeromobile, remarks.
+8. **NOTAM & Weather** — METAR / SPECI / TAF e NOTAM smistati su DEP / ARR / ALTN;
    le pagine grafiche del briefing (SWC, venti, satellite) finiscono nell'OFP come
-   cartine.
+   cartine, una per pagina intera.
 
 "Salva in standby" mette il volo in attesa del meteo; dalla Dashboard lo si
 finalizza caricando il PDF del briefing anche giorni dopo.

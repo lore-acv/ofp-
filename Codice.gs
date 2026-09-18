@@ -238,6 +238,96 @@ function lookupAirports(codesCsv) {
   return JSON.stringify(out);
 }
 
+/* ---------------------------------------------------------------------------
+ * FREQUENZE — aeroporti (airport-frequencies.csv) e radioassistenze (navaids.csv)
+ *
+ * Servono al navplan: accanto al checkpoint ci va il numero da mettere in radio.
+ * Stessa strategia degli aeroporti — CSV scaricati dal server, record del singolo
+ * identificativo nelle ScriptProperties. Si memorizza anche il "non trovato",
+ * altrimenti ogni checkpoint senza radio farebbe riscaricare due CSV.
+ */
+var OAQ_PROP_PREFIX = 'oaq_';
+
+/* Ordine di utilita' per un VFR che passa sopra un campo: prima chi da' il
+ * traffico, poi chi da' informazioni, per ultimi i servizi che non si chiamano. */
+var OAQ_ORDER = ['TWR','AFIS','A/D','INFO','UNIC','UNICOM','CTAF','RDO','MULTICOM',
+                 'APP','ARR','DEP','ATIS','GND','CLD','OPS'];
+
+/**
+ * @param {string} identsCsv Identificativi separati da virgola, es. "LILN,SRN".
+ * @return {string} JSON {IDENT: {freq, type, desc}}. Chi non ha frequenza vale null.
+ */
+function lookupFrequencies(identsCsv) {
+  var ids = String(identsCsv || '').toUpperCase().split(',')
+      .map(function (c) { return c.trim(); })
+      .filter(function (c) { return /^[A-Z0-9]{2,5}$/.test(c); });
+  if (!ids.length) return '{}';
+
+  var props = PropertiesService.getScriptProperties();
+  var out = {}, missing = [];
+  ids.forEach(function (c) {
+    var v = props.getProperty(OAQ_PROP_PREFIX + c);
+    if (v === null) { missing.push(c); return; }
+    try { out[c] = JSON.parse(v); } catch (e) { missing.push(c); }
+  });
+  if (!missing.length) return JSON.stringify(out);
+
+  var recs = oaqBuild_(oaFetch_('airport-frequencies.csv'), oaFetch_('navaids.csv'), missing);
+  var toStore = {};
+  missing.forEach(function (c) {
+    var rec = recs[c] || null;
+    out[c] = rec;
+    toStore[OAQ_PROP_PREFIX + c] = JSON.stringify(rec);
+  });
+  props.setProperties(toStore);
+  return JSON.stringify(out);
+}
+
+/* Una VHF si scrive con due decimali, tre se e' una canalizzazione 8.33:
+ * 122.60, 113.70, 126.425. "122.6" e' corretto in matematica e sbagliato in radio. */
+function oaqVhf_(mhz) {
+  return Number(mhz).toFixed(3).replace(/(\.\d\d)0$/, '$1');
+}
+
+/* kHz del CSV -> il numero che si scrive sul navplan: sopra i 30 MHz e' una VHF
+ * e si scrive in megahertz, sotto e' un NDB e resta in kHz (380). */
+function oaqFromKhz_(khz) {
+  var k = parseFloat(khz);
+  if (!isFinite(k) || k <= 0) return '';
+  return k >= 30000 ? oaqVhf_(k / 1000) : String(+k.toFixed(1));
+}
+
+function oaqBuild_(freqCsv, navCsv, want) {
+  var freqs = oaIndex_(oaParseCsv_(freqCsv));
+  var navs  = oaIndex_(oaParseCsv_(navCsv));
+  var wantSet = {};
+  want.forEach(function (c) { wantSet[c] = true; });
+
+  var out = {}, fi = freqs.idx;
+  freqs.rows.forEach(function (r) {
+    var ap = String(r[fi.airport_ident] || '').toUpperCase();
+    if (!wantSet[ap]) return;
+    var mhz = parseFloat(r[fi.frequency_mhz]);
+    if (!isFinite(mhz) || mhz <= 0) return;
+    var type = String(r[fi.type] || '').toUpperCase();
+    var rank = OAQ_ORDER.indexOf(type);
+    if (rank < 0) rank = 99;
+    if (!out[ap] || rank < out[ap].rank) {
+      out[ap] = {freq: oaqVhf_(mhz), type: type, desc: r[fi.description] || '', rank: rank};
+    }
+  });
+
+  var ni = navs.idx;
+  navs.rows.forEach(function (r) {
+    var id = String(r[ni.ident] || '').toUpperCase();
+    if (!wantSet[id] || out[id]) return;        // un aeroporto ha la precedenza
+    var f = oaqFromKhz_(r[ni.frequency_khz]);
+    if (!f) return;
+    out[id] = {freq: f, type: String(r[ni.type] || '').toUpperCase(), desc: r[ni.name] || '', rank: 0};
+  });
+  return out;
+}
+
 /** Scarica un CSV, tenendolo in cache sei ore. */
 function oaFetch_(name) {
   var cache = CacheService.getScriptCache();
@@ -334,12 +424,12 @@ function oaBuild_(airportsCsv, runwaysCsv, want) {
   return out;
 }
 
-/** Svuota la cache degli aeroporti, per forzare un aggiornamento dei dati. */
+/** Svuota la cache degli aeroporti e delle frequenze, per forzare un aggiornamento. */
 function resetAirportCache() {
   var props = PropertiesService.getScriptProperties();
   var all = props.getProperties();
   Object.keys(all).forEach(function (k) {
-    if (k.indexOf(OA_PROP_PREFIX) === 0) props.deleteProperty(k);
+    if (k.indexOf(OA_PROP_PREFIX) === 0 || k.indexOf(OAQ_PROP_PREFIX) === 0) props.deleteProperty(k);
   });
 }
 

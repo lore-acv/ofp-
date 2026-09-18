@@ -101,24 +101,27 @@
           <div class="row">
             <div class="fld"><label>OFF</label>
               <div class="hm"><select id="tOFFh"></select><span>:</span><select id="tOFFm"></select></div>
-              <input type="hidden" id="tOFF" value="0830"></div>
+              <input type="hidden" id="tOFF" value=""></div>
             <div class="fld"><label>TO</label>
               <div class="hm"><select id="tTOh"></select><span>:</span><select id="tTOm"></select></div>
-              <input type="hidden" id="tTO" value="0845"></div>
+              <input type="hidden" id="tTO" value=""></div>
           </div>
           <div class="row">
-            <div class="fld"><label>LDG (TO + FT)</label><input id="tLDG" class="time-val" value="0935" readonly style="opacity:.7"></div>
-            <div class="fld"><label>ON</label>
+            <div class="fld"><label>LDG (TO + FT)</label><input id="tLDG" class="time-val" value="" placeholder="--:--" readonly style="opacity:.7"></div>
+            <div class="fld"><label>ON (proposto)</label>
               <div class="hm"><select id="tONh"></select><span>:</span><select id="tONm"></select></div>
-              <input type="hidden" id="tON" value="0945"></div>
+              <input type="hidden" id="tON" value=""><input type="hidden" id="tONman" value=""></div>
           </div>
           <div class="row">
-            <div class="fld"><label>BLOCK (calcolato)</label><input id="tBLOCK" class="time-val" value="0115" readonly style="opacity:.7"></div>
-            <div class="fld"><label>FLT (calcolato)</label><input id="tFLT" class="time-val" value="0050" readonly style="opacity:.7"></div>
+            <div class="fld"><label>BLOCK (calcolato)</label><input id="tBLOCK" class="time-val" value="" placeholder="--:--" readonly style="opacity:.7"></div>
+            <div class="fld"><label>FLT (calcolato)</label><input id="tFLT" class="time-val" value="" placeholder="--:--" readonly style="opacity:.7"></div>
           </div>
           <div class="calc" id="timesCalc"></div>
-          <div class="hint">OFF, TO e ON si scelgono a passi di 5 minuti. <b>LDG non si inserisce</b>: &egrave;
-            l'orario di decollo pi&ugrave; il Flight Time calcolato nello Step 2 (salita + crociera).
+          <div class="hint">Si compila solo l'orario di <b>fuori blocchi</b> e quello di <b>decollo</b>, a passi di
+            5 minuti. Gli altri due si propongono da soli: <b>LDG</b> &egrave; il decollo pi&ugrave; il Flight Time
+            calcolato nello Step 2 (salita + crociera), <b>ON</b> &egrave; l'atterraggio pi&ugrave; lo stesso
+            rullaggio fatto in partenza. L'ON resta modificabile: appena lo si sceglie a mano smette di
+            aggiornarsi, e rimettendolo su <b>--:--</b> torna automatico.
             BLOCK = ON &minus; OFF, FLT = LDG &minus; TO, come prima.</div>
         </div>
       </div>
@@ -162,22 +165,6 @@
             decollo compresi); il resto va al fuel flow di crociera.</div>
         </div>
         <div class="group">
-          <h3>NAV-FLIGHTPLAN</h3>
-          <div class="row">
-            <div class="fld"><label>GS navplan (MPH)</label><input id="navGs" type="number" placeholder="dal settaggio"></div>
-            <div class="fld"><label>Fuel flow navplan (L/h)</label><input id="navFF" type="number" step="0.1" placeholder="dal settaggio"></div>
-            <div class="fld" style="justify-content:flex-end"><button type="button" class="btn" id="btnNavAdd">+ Riga</button></div>
-          </div>
-          <div id="navTableBox" style="overflow-x:auto"></div>
-          <div class="calc" id="navCalc"></div>
-          <div class="hint">I checkpoint, la rotta magnetica e le distanze arrivano dal NavLog di ForeFlight.
-            <b>Frequenze, nominativi e note</b> non stanno nell'export: si scrivono qui e restano.
-            Tempi e consumi non vengono ricopiati da ForeFlight, si <b>ricalcolano</b> con la GS e il settaggio
-            di potenza qui sopra &mdash; sommando le tratte si riottiene esattamente il Trip Fuel del piano
-            carburante. Lasciando vuoti GS e fuel flow si usano quelli del Trip.</div>
-          <input type="hidden" id="navRows" value="[]">
-        </div>
-        <div class="group">
           <h3>Alternate</h3>
           <div class="hint">Per l'alternato si usa sempre il settaggio standard <b>22 inHg / 2400 RPM</b>:
             GS e Fuel Flow qui sotto sono quelli di quel settaggio alla quota indicata e non si modificano a mano.</div>
@@ -188,7 +175,7 @@
           </div>
           <div class="row">
             <div class="fld"><label>Altitude (ft)</label><input id="altAlt" type="number" step="500" value="5000"></div>
-            <div class="fld"><label>Tempo tabella (min)</label><input id="altTblTime" type="number" value="20"></div>
+            <div class="fld"><label>Flight Time (min)</label><input id="altTblTime" type="number" value="20"></div>
           </div>
           <div class="calc" id="altCalc"></div>
         </div>
@@ -206,13 +193,14 @@
           <div class="calc" id="reserveCalc"></div>
           <div class="calc" id="fuelCapCalc"></div>
           <div class="row" style="margin-top:9px">
-            <div class="fld"><label>Taxi (min, calcolato)</label><input id="taxiMin" type="number" value="10" readonly style="opacity:.7"></div>
-            <div class="fld"><label>Taxi (L)</label><input id="taxiFuel" type="number" step="0.1" value="1.9"></div>
+            <div class="fld"><label>Taxi (min, calcolato)</label><input id="taxiMin" type="number" value="0" readonly style="opacity:.7"></div>
+            <div class="fld"><label>Taxi (L, calcolato)</label><input id="taxiFuel" type="number" step="0.1" value="0" readonly style="opacity:.7"></div>
           </div>
           <div class="calc" id="taxiCalc"></div>
-          <div class="hint">Il tempo di taxi non si inserisce: &egrave; il tempo a terra col motore acceso che
-            risulta dagli orari dello Step 1 &mdash; da <b>OFF a TO</b> in partenza e da <b>LDG a ON</b> all'arrivo.
-            I litri restano a mano: sono il forfait dell'aeroclub, non un consumo calcolato.</div>
+          <div class="hint">N&eacute; i minuti n&eacute; i litri si inseriscono. Il tempo &egrave; quello a terra col
+            motore acceso che risulta dagli orari dello Step 1 &mdash; da <b>OFF a TO</b> in partenza e da
+            <b>LDG a ON</b> all'arrivo &mdash; e i litri sono quel tempo al consumo di rullaggio del
+            Continental IO-360 da 210 HP, <b>7,5 L/h</b> a 1000&ndash;1200 RPM.</div>
         </div>
         <div class="group">
           <h3>Fuel on board &amp; extra</h3>
@@ -300,8 +288,9 @@
       <div class="panel" data-step="4">
         <p class="step-title">Performance</p>
         <p class="step-sub">V-speeds lette dalla tabella AFM (nessuna interpolazione, arrotondamento conservativo)
-          e calcolo <b>TOLD</b> di decollo e atterraggio: le distanze vengono calcolate da AFM fig. 5-4 e 5-5 con
-          quota, QNH, temperatura, vento e la massa che arriva dal Mass &amp; Balance, e confrontate con TORA, TODA e LDA.</p>
+          e <b>Takeoff &amp; Landing Data</b>: le distanze vengono calcolate da AFM fig. 5-4 e 5-5 con
+          quota, QNH, temperatura, vento e la massa che arriva dal Mass &amp; Balance, e confrontate con TORA, TODA e LDA.
+          Vento, QNH e temperatura di ogni aeroporto arrivano dal <b>suo</b> METAR, gi&agrave; all'import del briefing.</p>
         <div class="group">
           <h3>Velocit&agrave;</h3>
           <div class="row">
@@ -320,14 +309,15 @@
             predefinita. Il selettore cambia solo la visualizzazione, i calcoli restano gli stessi.</div>
         </div>
         <div class="group">
-          <h3>TOLD &mdash; meteo per aeroporto</h3>
-          <button class="btn" id="btnMetarFill" style="margin-bottom:8px">Prendi vento, QNH e temperatura dai METAR</button>
+          <h3>Meteo per aeroporto</h3>
           <div class="mb-status" id="toldMetarStatus"></div>
-          <div class="hint">Ogni aeroporto usa il <b>proprio</b> METAR: quello di partenza per il decollo, quello di
-            destinazione e dell'alternato per i rispettivi atterraggi.</div>
+          <div class="hint">Non c'&egrave; niente da premere: vento, QNH e temperatura si compilano da soli
+            dall'import del briefing, e ogni aeroporto usa il <b>proprio</b> METAR &mdash; quello di partenza
+            per il decollo, quello di destinazione e dell'alternato per i rispettivi atterraggi.
+            Restano correggibili a mano qui sotto.</div>
         </div>
         <div class="group">
-          <h3>TOLD &mdash; Departure &mdash; decollo</h3>
+          <h3>Departure &mdash; decollo</h3>
           <div class="row">
             <div class="fld"><label>Aeroporto</label><input id="toldDepIcao" value="" readonly style="opacity:.7"></div>
             <div class="fld"><label>Pista</label><select id="toldRwyDep"><option value="">—</option></select></div>
@@ -348,7 +338,7 @@
           <input type="hidden" id="toldDepRwyName" value="">
         </div>
         <div class="group">
-          <h3>TOLD &mdash; Destination &mdash; atterraggio</h3>
+          <h3>Destination &mdash; atterraggio</h3>
           <div class="row">
             <div class="fld"><label>Aeroporto</label><input id="toldDestIcao" value="" readonly style="opacity:.7"></div>
             <div class="fld"><label>Pista</label><select id="toldRwyDest"><option value="">—</option></select></div>
@@ -368,7 +358,7 @@
           <input type="hidden" id="toldDestRwyName" value="">
         </div>
         <div class="group">
-          <h3>TOLD &mdash; Alternate &mdash; atterraggio</h3>
+          <h3>Alternate &mdash; atterraggio</h3>
           <div class="row">
             <div class="fld"><label>Aeroporto</label><input id="toldAltnIcao" value="" readonly style="opacity:.7"></div>
             <div class="fld"><label>Pista</label><select id="toldRwyAltn"><option value="">—</option></select></div>
@@ -388,7 +378,7 @@
           <input type="hidden" id="toldAltnRwyName" value="">
         </div>
         <div class="group">
-          <h3>TOLD &mdash; risultato</h3>
+          <h3>Takeoff &amp; Landing Data</h3>
           <div id="toldBox"></div>
           <div id="toldWarns" style="margin-top:8px"></div>
           <div class="hint"><b>TORA / TODA / LDA:</b> OurAirports pubblica la <i>lunghezza fisica</i> della pista,
@@ -408,6 +398,40 @@
 
       <!-- STEP 5 -->
       <div class="panel" data-step="5">
+        <p class="step-title">Navlog</p>
+        <p class="step-sub">Il NAV-FLIGHTPLAN che si porta in cabina: un documento a s&eacute;, che si scarica
+          con il suo pulsante e <b>non entra mai nell'OFP stampato</b>.</p>
+        <div class="group">
+          <h3>Velocit&agrave; e consumo</h3>
+          <div class="row">
+            <div class="fld"><label>GS navplan (MPH)</label><input id="navGs" type="number" placeholder="dal settaggio"></div>
+            <div class="fld"><label>Fuel flow navplan (L/h)</label><input id="navFF" type="number" step="0.1" placeholder="dal settaggio"></div>
+          </div>
+          <div class="hint">Lasciandoli vuoti si usano la GS e il fuel flow del Trip, scelti nello
+            <b>Step 2 &mdash; Rotta &amp; Fuel</b>. Tempi e consumi non vengono ricopiati da ForeFlight:
+            si <b>ricalcolano</b> qui, cos&igrave; sommando le tratte si riottiene esattamente il Trip Fuel
+            del piano carburante.</div>
+        </div>
+        <div class="group">
+          <h3>Tratte</h3>
+          <div class="navtools">
+            <button type="button" class="btn" id="btnNavAdd">+ Riga</button>
+            <button type="button" class="btn ghost" id="btnNavFreq">Compila frequenze</button>
+            <span class="mb-status" id="navFreqStatus"></span>
+          </div>
+          <div class="navtable-box" id="navTableBox"></div>
+          <div class="calc" id="navCalc"></div>
+          <div class="hint">Checkpoint, rotta magnetica e distanze arrivano dal NavLog di ForeFlight.
+            La <b>quota</b> viene precompilata con la quota di crociera dello Step 2 e resta modificabile
+            punto per punto. Le <b>frequenze</b> di aeroporti e radioassistenze si cercano da sole su
+            OurAirports quando il checkpoint &egrave; riconosciuto &mdash; solo il numero, niente unit&agrave;
+            di misura. <b>Nominativi e note</b> non stanno in nessun database: si scrivono qui e restano.</div>
+          <input type="hidden" id="navRows" value="[]">
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="panel" data-step="6">
         <p class="step-title">Dest Charts</p>
         <p class="step-sub">Carica fino a 2 immagini (cartine) e compila le note operative.</p>
         <div class="group">
@@ -428,8 +452,8 @@
         </div>
       </div>
 
-      <!-- STEP 6 -->
-      <div class="panel" data-step="6">
+      <!-- STEP 7 -->
+      <div class="panel" data-step="7">
         <p class="step-title">Briefing</p>
         <p class="step-sub">Threat &amp; error management per fase di volo, stato aeromobile, note.</p>
         <div class="group">
@@ -460,8 +484,8 @@
         </div>
       </div>
 
-      <!-- STEP 7 -->
-      <div class="panel" data-step="7">
+      <!-- STEP 8 -->
+      <div class="panel" data-step="8">
         <p class="step-title">NOTAM &amp; Weather</p>
         <p class="step-sub">Un riquadro per aeroporto (METAR + TAF + NOTAM), più i NOTAM di rotta.</p>
         <div class="group">
@@ -591,13 +615,31 @@ const TIME_STEP_MIN = 5;
 const TIME_SELECTS = ['tOFF','tTO','tON'];
 const hh2 = (n)=>String(n).padStart(2,'0');
 
+const TIME_EMPTY = '--';
+/* Un orario vuoto e' un orario vuoto: nessun campo parte da un valore
+   inventato. Le tendine hanno quindi una voce "--" e i campi calcolati
+   mostrano il segnaposto finche' non c'e' abbastanza per calcolarli. */
+function timeMin(id){
+  const v=String(txt(id)||'').replace(/\D/g,'');
+  return v.length===4 ? hhmmToMin(v) : null;
+}
+const roundToStep = (m)=>Math.round(m/TIME_STEP_MIN)*TIME_STEP_MIN;
+
 function buildTimeSelects(){
   TIME_SELECTS.forEach(id=>{
     const h=$(id+'h'), m=$(id+'m'), f=$(id);
     if(!h||!m||!f) return;
+    h.add(new Option(TIME_EMPTY,'')); m.add(new Option(TIME_EMPTY,''));
     for(let i=0;i<24;i++) h.add(new Option(hh2(i), hh2(i)));
     for(let i=0;i<60;i+=TIME_STEP_MIN) m.add(new Option(hh2(i), hh2(i)));
-    const push=()=>{ f.value=h.value+m.value; render(); };
+    /* Mezzo orario non e' un orario: finche' manca l'ora o il minuto il campo
+       resta vuoto, invece di valere mezzanotte. */
+    const push=()=>{
+      f.value = (h.value && m.value) ? h.value+m.value : '';
+      // l'ON scelto a mano smette di essere proposto; rimesso su --:-- torna automatico
+      if(id==='tON' && $('tONman')) $('tONman').value = f.value ? '1' : '';
+      render();
+    };
     h.addEventListener('change', push);
     m.addEventListener('change', push);
   });
@@ -611,9 +653,10 @@ function syncTimeSelects(){
   TIME_SELECTS.forEach(id=>{
     const h=$(id+'h'), m=$(id+'m'), f=$(id);
     if(!h||!m||!f) return;
-    const v=String(f.value||'').replace(/\D/g,'').padStart(4,'0');
+    const v=String(f.value||'').replace(/\D/g,'');
+    if(v.length!==4){ h.value=''; m.value=''; f.value=''; return; }
     const hh=Math.min(23, parseInt(v.slice(0,2),10)||0);
-    const mm=Math.min(55, Math.round((parseInt(v.slice(2,4),10)||0)/TIME_STEP_MIN)*TIME_STEP_MIN);
+    const mm=Math.min(55, roundToStep(parseInt(v.slice(2,4),10)||0));
     h.value=hh2(hh); m.value=hh2(mm); f.value=h.value+m.value;
   });
 }
@@ -627,10 +670,13 @@ function autoTaxiTime(){
   /* Il modulo 1440 serve ai voli che scavalcano la mezzanotte, ma da solo
      trasformerebbe un orario messo al contrario — ON prima dell'atterraggio —
      in un taxi di venti ore che gonfia il Plan Block senza dire niente. Oltre
-     le tre ore la tratta non e' un taxi: vale zero e viene segnalata. */
+     le tre ore la tratta non e' un taxi: vale zero e viene segnalata.
+     Se uno dei due orari manca, quella tratta di rullaggio semplicemente non
+     si conosce ancora e vale zero, senza segnalazioni. */
   const gap=(a,b)=>{
-    const d=hhmmToMin(txt(b))-hhmmToMin(txt(a));
-    const m=((d%1440)+1440)%1440;
+    const ma=timeMin(a), mb=timeMin(b);
+    if(ma==null||mb==null) return {min:0, bad:false};
+    const m=(((mb-ma)%1440)+1440)%1440;
     return m>TAXI_LEG_MAX_MIN ? {min:0, bad:true} : {min:m, bad:false};
   };
   const out=gap('tOFF','tTO'), inn=gap('tLDG','tON');
@@ -644,18 +690,41 @@ function autoTaxiTime(){
    tempo di volo pianificato invece di poterlo contraddire. */
 function autoLandingTime(f){
   const el=$('tLDG'); if(!el) return;
-  el.value = minToHHMM(hhmmToMin(txt('tTO')) + (f && f.tripTime || 0));
+  const to=timeMin('tTO');
+  el.value = to==null ? '' : minToHHMM(to + (f && f.tripTime || 0));
 }
 
+/* ON BLOCK proposto: l'atterraggio piu' lo stesso rullaggio fatto in partenza.
+   E' l'unica stima di rullaggio che esiste sul foglio — il tempo per liberare
+   la pista e raggiungere il parcheggio non lo sa nessun database — e arrotondata
+   al passo di 5 minuti delle tendine, cosi' scegliendola non cambia da sola.
+   Appena il pilota sceglie un ON a mano il calcolo si ferma: tONman lo ricorda
+   anche a foglio riaperto. Rimettendo le tendine su --:-- torna automatico. */
+function autoOnBlockTime(){
+  const el=$('tON'); if(!el) return;
+  if(txt('tONman')==='1') return;
+  const off=timeMin('tOFF'), to=timeMin('tTO'), ldg=timeMin('tLDG');
+  if(off==null||to==null||ldg==null){
+    if(el.value){ el.value=''; syncTimeSelects(); }
+    return;
+  }
+  const taxiOut=(((to-off)%1440)+1440)%1440;
+  const v=minToHHMM(roundToStep(ldg + (taxiOut>TAXI_LEG_MAX_MIN?0:taxiOut)));
+  if(el.value!==v){ el.value=v; syncTimeSelects(); }
+}
+
+const TIME_PLACEHOLDER='--:--';
 function computeTimes(){
-  const off=hhmmToMin(txt('tOFF')), to=hhmmToMin(txt('tTO')), ldg=hhmmToMin(txt('tLDG')), on=hhmmToMin(txt('tON'));
-  const block=minToHHMM(on-off), flt=minToHHMM(ldg-to);
-  return {off:txt('tOFF'),to:txt('tTO'),ldg:txt('tLDG'),on:txt('tON'),block,flt};
+  const off=timeMin('tOFF'), to=timeMin('tTO'), ldg=timeMin('tLDG'), on=timeMin('tON');
+  const span=(a,b)=> (a==null||b==null) ? TIME_PLACEHOLDER : minToHHMM(b-a);
+  return {off:txt('tOFF'), to:txt('tTO'), ldg:txt('tLDG'), on:txt('tON'),
+          block:span(off,on), flt:span(to,ldg)};
 }
 
 /* ============================ wizard nav ============================ */
-const STEP_LABELS=['Volo','Rotta&Fuel','M&B','Perf.','Charts','Briefing','NOTAM&Wx'];
-let currentStep=1; const totalSteps=7;
+const STEP_LABELS=['Volo','Rotta&Fuel','M&B','Perf.','Navlog','Charts','Briefing','NOTAM&Wx'];
+const NAVLOG_STEP = STEP_LABELS.indexOf('Navlog')+1;
+let currentStep=1; const totalSteps=STEP_LABELS.length;
 
 function renderSteps(){
   $('steps').innerHTML = STEP_LABELS.map((lbl,i)=>{
@@ -670,6 +739,11 @@ function goToStep(n){
   $('btnBack').disabled = currentStep===1;
   $('btnNext').style.display = currentStep===totalSteps ? 'none' : 'inline-block';
   renderSteps(); $('scrollArea').scrollTop=0; render();
+  /* Le frequenze si cercano quando si apre il Navlog, non prima: sono due CSV
+     da qualche mega, e chi compila solo l'OFP non deve scaricarli mai. Quello
+     che e' gia' stato cercato resta in cache, quindi rientrare nello step non
+     ripete nessuna richiesta. */
+  if(currentStep===NAVLOG_STEP && navRowsRaw().length) navFillFreqs({quiet:true});
 }
 $('btnNext').addEventListener('click',()=>goToStep(currentStep+1));
 $('btnBack').addEventListener('click',()=>goToStep(currentStep-1));
@@ -682,6 +756,7 @@ function round2(n){ return Math.round(n*100)/100; }
    GS in nodi. Sbagliare questa conversione allungherebbe del 15% ogni tempo di
    volo e, a cascata, tutto il carburante. */
 const MPH_PER_KT = 1.15078;
+const TAXI_LPH = 7.5;        // consumo al rullaggio, IO-360-D 210 HP
 function mphToKt(mph){ return mph/MPH_PER_KT; }
 function ktToMph(kt){ return kt*MPH_PER_KT; }
 
@@ -723,7 +798,15 @@ function computeFuel(){
   const finMin  = txt('flightRule')==='IFR' ? 45 : 30;
   const finFuel = round2((tripFF/60)*finMin);
 
-  const taxiMin=Math.round(num('taxiMin')), taxiFuel=round2(num('taxiFuel'));
+  /* Taxi: i minuti li danno gli orari, i litri li da' il motore. Il Continental
+     IO-360-D da 210 HP a regime di rullaggio (1000-1200 RPM, miscela ricca)
+     consuma intorno ai 7,5 L/h — circa 2 galloni/ora. E' il valore alto della
+     forchetta osservata, e va bene cosi': sul carburante l'errore si fa per
+     eccesso. Come controprova, i 15 minuti di rullaggio tipici danno 1,9 L,
+     cioe' esattamente il forfait che l'aeroclub usa da sempre. */
+  const taxiMin=Math.round(num('taxiMin'));
+  const taxiFuel=round2(taxiMin/60*TAXI_LPH);
+  if($('taxiFuel')) $('taxiFuel').value = taxiFuel;
 
   /* EXTRA — due modi, a seconda che sia stato dichiarato il carburante a bordo:
      - con il FOB compilato l'extra e' quello che avanza rispetto al minimo
@@ -1106,7 +1189,7 @@ function climbTimeMin(alt){
   return t;
 }
 
-/* ===================== TOLD — DECOLLO E ATTERRAGGIO =====================
+/* ============ TAKEOFF & LANDING DATA — DECOLLO E ATTERRAGGIO ============
    Modulo prestazioni del C172 FR, portato dal calcolatore Takeoff & Landing
    fornito a parte: stesse tabelle e stessa logica di correzione.
 
@@ -1116,7 +1199,7 @@ function climbTimeMin(alt){
    1157 kg soltanto, quindi a masse inferiori e' conservativo.
 
    Ogni valore e' [corsa al suolo, distanza per superare 15 m], in metri. */
-const TOLD = {
+const PERF_TBL = {
   xwind:{to:20, ld:15},
   takeoff:{
     cond:'Flaps 10\u00b0',
@@ -1164,7 +1247,7 @@ function windComponents(rwyMag, windFromMag, kt){
    applica nessun credito ulteriore. Il vento in coda NON e' pubblicato per questo
    tipo: si segnala invece di inventare una correzione. */
 function toldTakeoff(ctx, warn){
-  const s=TOLD.takeoff;
+  const s=PERF_TBL.takeoff;
   const topWind=s.winds[s.winds.length-1];
   let h=ctx.head<0?0:ctx.head;
   if(h>topWind){ h=topWind; warn('grey','Vento','Decollo: credito di vento frontale limitato ai '+topWind+' kt della tabella.'); }
@@ -1185,7 +1268,7 @@ function toldTakeoff(ctx, warn){
 }
 
 function toldLanding(ctx, warn){
-  const s=TOLD.landing;
+  const s=PERF_TBL.landing;
   const fa=toldFrac(ctx.pa,s.alts);
   let r=tMix(s.data[fa.i],s.data[fa.j],fa.t);
   let g=r[0], t=r[1];
@@ -1200,8 +1283,9 @@ function toldLanding(ctx, warn){
   return [g,t];
 }
 
-/* Calcolo completo TOLD. Prende meteo, pista e massa gia' pronti e restituisce
-   distanze, margini rispetto a TORA/TODA/LDA e l'elenco degli avvisi. */
+/* Calcolo completo di decollo e atterraggio: prende meteo, pista e massa gia'
+   pronti e restituisce distanze, margini rispetto a TORA/TODA/LDA e l'elenco
+   degli avvisi. */
 function computeTold(){
   const warns=[];
   const warn=(lvl,lab,txt)=>warns.push({level:lvl,label:lab,text:txt});
@@ -1230,10 +1314,10 @@ function computeTold(){
     const ctx={mass:massKg, head, pa, oat, surface};
     const tagged=(lvl,lab,t)=>warn(lvl,lab,label+' \u2014 '+t);
     const d=isTakeoff?toldTakeoff(ctx,tagged):toldLanding(ctx,tagged);
-    const xwLimit = isTakeoff?TOLD.xwind.to:TOLD.xwind.ld;
+    const xwLimit = isTakeoff?PERF_TBL.xwind.to:PERF_TBL.xwind.ld;
     if(haveWind && cross>xwLimit) warn('red','Vento al traverso',label+': '+cross.toFixed(1)+' kt oltre il limite di '+xwLimit+' kt.');
     if(da>5000) warn('amber','Densita\'',label+': densita\' di quota '+Math.round(da)+' ft, verifica il gradiente di salita contro gli ostacoli.');
-    const amax=TOLD.takeoff.alts[TOLD.takeoff.alts.length-1];
+    const amax=PERF_TBL.takeoff.alts[PERF_TBL.takeoff.alts.length-1];
     if(pa>amax) warn('red','Quota',label+': altitudine di pressione oltre i '+amax+' ft della tabella, distanze bloccate e sottostimate.');
     const v=vspeedsFor(massKg, isTakeoff?0:pa);
     return {label, isTakeoff, pa:Math.round(pa), da:Math.round(da),
@@ -1266,7 +1350,7 @@ function computeTold(){
   out.lda  = (out.legs.dest && g('lda')) ? {avail:g('lda'), req:out.legs.dest.total, margin:g('lda')-out.legs.dest.total} : null;
   out.ldaAltn = (out.legs.altn && g('ldaAltn')) ? {avail:g('ldaAltn'), req:out.legs.altn.total, margin:g('ldaAltn')-out.legs.altn.total} : null;
 
-  if(w.tow.w>TOLD.takeoff.weightsKg[2]+0.5) warn('red','Massa','Massa al decollo oltre i 1157 kg della tabella: le distanze sono bloccate al massimo tabulato e sottostimano quelle reali.');
+  if(w.tow.w>PERF_TBL.takeoff.weightsKg[2]+0.5) warn('red','Massa','Massa al decollo oltre i 1157 kg della tabella: le distanze sono bloccate al massimo tabulato e sottostimano quelle reali.');
   warn('grey','Massa atterraggio','La tabella di atterraggio e\' pubblicata solo a 1157 kg e viene usata qualunque sia la massa: a masse inferiori e\' conservativa.');
   return out;
 }
@@ -1385,6 +1469,127 @@ const OA = {
     });
     return out;
   },
+  /* ------------------------------------------------------------------ *
+     FREQUENZE — aeroporti (airport-frequencies.csv) e radioassistenze
+     (navaids.csv), dagli stessi CSV aperti di OurAirports.
+
+     Servono al navplan: accanto a un checkpoint ci va il numero da mettere in
+     radio, e solo quello. Nessuna sigla, nessuna unita' di misura: il pilota
+     scrive a mano il nominativo, che nei database non c'e' in forma
+     utilizzabile e cambia con l'orario di servizio.
+     ------------------------------------------------------------------ */
+  LS_FREQ: 'oaq:',
+  freqMem: {},
+  rawFreq: null,
+
+  /* Quale frequenza, fra le tante di un aeroporto. Ordine di utilita' reale per
+     un VFR che passa sopra un campo: prima chi ti da' il traffico, poi chi ti
+     da' solo informazioni, per ultimi i servizi che non si chiamano in volo. */
+  FREQ_ORDER: ['TWR','AFIS','A/D','INFO','UNIC','UNICOM','CTAF','RDO','MULTICOM','APP','ARR','DEP','ATIS','GND','CLD','OPS'],
+
+  /* Una VHF si scrive con due decimali, tre se e' una canalizzazione 8.33:
+     122.60, 113.70, 126.425. Scriverla "122.6" e' corretto in matematica e
+     sbagliato in radio. */
+  freqVhf(mhz){ return Number(mhz).toFixed(3).replace(/(\.\d\d)0$/,'$1'); },
+
+  /* kHz del CSV -> il numero che si scrive sul navplan. Sopra i 30 MHz e' una
+     VHF e si scrive in megahertz; sotto, e' un NDB e resta in kHz (380). */
+  freqFromKhz(khz){
+    const k=parseFloat(khz);
+    if(!isFinite(k)||k<=0) return '';
+    return k>=30000 ? OA.freqVhf(k/1000) : String(+k.toFixed(1));
+  },
+  freqFromMhz(mhz){
+    const v=parseFloat(mhz);
+    return isFinite(v)&&v>0 ? OA.freqVhf(v) : '';
+  },
+
+  /* undefined = mai cercato, null = cercato e senza frequenza. La differenza
+     conta: senza di essa ogni checkpoint senza radio farebbe riscaricare i CSV. */
+  fromLocalFreq(id){
+    try{ const v=localStorage.getItem(OA.LS_FREQ+id); return v===null?undefined:JSON.parse(v); }
+    catch(e){ return undefined; }
+  },
+  toLocalFreq(id, rec){
+    try{ localStorage.setItem(OA.LS_FREQ+id, JSON.stringify(rec)); }catch(e){}
+  },
+
+  async fetchFreqRaw(){
+    if(OA.rawFreq) return OA.rawFreq;
+    const [f,n] = await Promise.all([
+      fetch(OA.BASE+'airport-frequencies.csv').then(x=>{ if(!x.ok) throw new Error('airport-frequencies.csv HTTP '+x.status); return x.text(); }),
+      fetch(OA.BASE+'navaids.csv').then(x=>{ if(!x.ok) throw new Error('navaids.csv HTTP '+x.status); return x.text(); })
+    ]);
+    OA.rawFreq = { freqs: OA.index(OA.parseCSV(f)), navaids: OA.index(OA.parseCSV(n)) };
+    return OA.rawFreq;
+  },
+
+  buildFreqRecords(idents){
+    const want=new Set(idents), out={};
+    const {freqs, navaids} = OA.rawFreq;
+    const fi=freqs.idx;
+    freqs.rows.forEach(r=>{
+      const ap=(r[fi.airport_ident]||'').toUpperCase();
+      if(!want.has(ap)) return;
+      const mhz=OA.freqFromMhz(r[fi.frequency_mhz]);
+      if(!mhz) return;
+      const type=(r[fi.type]||'').toUpperCase();
+      const rank=OA.FREQ_ORDER.indexOf(type);
+      const cand={freq:mhz, type, desc:r[fi.description]||'', rank: rank<0?99:rank};
+      if(!out[ap] || cand.rank<out[ap].rank) out[ap]=cand;
+    });
+    const ni=navaids.idx;
+    navaids.rows.forEach(r=>{
+      const id=(r[ni.ident]||'').toUpperCase();
+      if(!want.has(id) || out[id]) return;      // un aeroporto ha la precedenza
+      const type=(r[ni.type]||'').toUpperCase();
+      const f=OA.freqFromKhz(r[ni.frequency_khz]);
+      if(!f) return;
+      out[id]={freq:f, type, desc:r[ni.name]||'', rank:0};
+    });
+    idents.forEach(id=>{
+      const rec=out[id]||null;                  // anche il "non trovato" va in cache
+      OA.freqMem[id]=rec; OA.toLocalFreq(id,rec);
+    });
+    return out;
+  },
+
+  /** Frequenze per una lista di identificativi (ICAO o radioassistenze).
+      Restituisce {IDENT: {freq, type, desc}}; chi non ha frequenza manca. */
+  async lookupFreqs(idents){
+    idents=[...new Set(idents.map(c=>String(c||'').trim().toUpperCase()).filter(c=>/^[A-Z0-9]{2,5}$/.test(c)))];
+    const out={}, missing=[];
+    idents.forEach(c=>{
+      let hit;
+      if(c in OA.freqMem) hit=OA.freqMem[c];
+      else{
+        hit=OA.fromLocalFreq(c);
+        if(hit===undefined){ missing.push(c); return; }
+        OA.freqMem[c]=hit;
+      }
+      if(hit) out[c]=hit;
+    });
+    if(!missing.length) return out;
+
+    if(IS_APPS_SCRIPT){
+      const rec = await new Promise((res,rej)=>{
+        google.script.run.withSuccessHandler(j=>{ try{ res(JSON.parse(j||'{}')); }catch(e){ rej(e); } })
+                         .withFailureHandler(rej)
+                         .lookupFrequencies(missing.join(','));
+      });
+      missing.forEach(c=>{
+        const v=rec[c]||null;
+        OA.freqMem[c]=v; OA.toLocalFreq(c,v);
+        if(v) out[c]=v;
+      });
+      return out;
+    }
+    await OA.fetchFreqRaw();
+    const rec=OA.buildFreqRecords(missing);
+    Object.keys(rec).forEach(k=>out[k]=rec[k]);
+    return out;
+  },
+
   identToHeading(ident){
     const m=/^(\d{1,2})/.exec(String(ident).trim());
     if(!m) return null;
@@ -1436,24 +1641,25 @@ function gcDistanceNm(a, b){
 function renderNavlogEditor(f){
   const box=$('navTableBox'); if(!box) return;
   const c=navlogComputed(f);
-  const inp=(i,k,v,w)=>`<input data-nav="${i}" data-k="${k}" value="${esc(v||'')}" style="width:${w};min-width:${w};padding:.3rem .35rem;font-size:.85rem;min-height:2rem">`;
-  const head=['Freq.','C/S','Checkpoint','MT','Dist.','Alt.','EET','ETO','Fuel','Remarks','']
-    .map(h=>`<th style="padding:.25rem .3rem;font-size:.72rem;color:var(--txt-dim);text-align:left;white-space:nowrap">${h}</th>`).join('');
+  const inp=(i,k,v)=>`<input data-nav="${i}" data-k="${k}" value="${esc(v||'')}">`;
+  const HEAD=[['Freq.','freq'],['C/S','cs'],['Checkpoint','wpt'],['MT','mt'],['Dist.','dist'],
+              ['Alt.','alt'],['EET',''],['ETO',''],['Fuel',''],['Remarks','rmk'],['','']];
+  const head=HEAD.map(([h,k])=>`<th${k?` class="c-${k}"`:''}>${h}</th>`).join('');
   const rows=c.rows.map((r,i)=>`<tr>
-    <td>${inp(i,'freq',r.freq,'4.5rem')}</td>
-    <td>${inp(i,'cs',r.cs,'4rem')}</td>
-    <td>${inp(i,'wpt',r.wpt,'9rem')}</td>
-    <td>${inp(i,'mt',r.mt,'3.2rem')}</td>
-    <td>${inp(i,'dist',r.dist,'3.6rem')}</td>
-    <td>${inp(i,'alt',r.alt,'4.2rem')}</td>
-    <td style="font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt-dim);white-space:nowrap">${navDur(Math.round(r.ete))}</td>
-    <td style="font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt-dim)">${r.eto}</td>
-    <td style="font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt-dim);white-space:nowrap">${fmt(r.fuel)} L</td>
-    <td>${inp(i,'rmk',r.rmk,'10rem')}</td>
-    <td><button type="button" class="btn ghost" data-navdel="${i}" style="padding:.2rem .5rem;min-height:2rem;font-size:.8rem">&times;</button></td>
+    <td class="c-freq">${inp(i,'freq',r.freq)}</td>
+    <td class="c-cs">${inp(i,'cs',r.cs)}</td>
+    <td class="c-wpt">${inp(i,'wpt',r.wpt)}</td>
+    <td class="c-mt">${inp(i,'mt',r.mt)}</td>
+    <td class="c-dist">${inp(i,'dist',r.dist)}</td>
+    <td class="c-alt">${inp(i,'alt',r.alt)}</td>
+    <td class="ro">${navDur(Math.round(r.ete))}</td>
+    <td class="ro">${r.eto||'--:--'}</td>
+    <td class="ro">${fmt(r.fuel)} L</td>
+    <td class="c-rmk">${inp(i,'rmk',r.rmk)}</td>
+    <td><button type="button" class="btn ghost del" data-navdel="${i}">&times;</button></td>
   </tr>`).join('');
   box.innerHTML = c.rows.length
-    ? `<table style="border-collapse:separate;border-spacing:2px 3px"><tr>${head}</tr>${rows}</table>`
+    ? `<table class="navtable"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`
     : `<div class="hint" style="margin:0">Nessun checkpoint. Arrivano dall'import del NavLog, oppure aggiungi una riga a mano.</div>`;
   box.querySelectorAll('input[data-nav]').forEach(el=>{
     el.addEventListener('input',()=>{
@@ -1491,6 +1697,27 @@ function renderNavlogEditor(f){
    ========================================================================== */
 const NAV_COLS = ['freq','cs','wpt','mt','dist','alt','rmk'];
 
+/* La quota di crociera dello Step 2 entra da sola nei punti di rotta: il NavLog
+   di ForeFlight le quote non le esporta quasi mai, e riscriverle a mano su venti
+   checkpoint e' il genere di lavoro che si finisce per non fare.
+   Si riempie solo quello che e' vuoto, e cambiando la quota di crociera si
+   aggiornano solo le celle che portavano ancora quella vecchia: un punto messo
+   a mano a 3000 ft resta a 3000 ft. */
+let NAV_ALT_LAST = null;
+function navCruiseAlt(){ const a=num('pwrAlt'); return a>0 ? String(Math.round(a)) : ''; }
+function navApplyCruiseAlt(){
+  const alt=navCruiseAlt(), prev=NAV_ALT_LAST;
+  NAV_ALT_LAST = alt;
+  if(!alt || alt===prev) return;
+  const rows=navRowsRaw(); if(!rows.length) return;
+  let touched=false;
+  rows.forEach(r=>{
+    const v=String(r.alt==null?'':r.alt).trim();
+    if(v==='' || (prev!=null && v===prev)){ r.alt=alt; touched=true; }
+  });
+  if(touched){ navRowsSave(rows); renderNavlogEditor(computeFuel()); }
+}
+
 function navRowsRaw(){
   try{ const v=JSON.parse(txt('navRows')||'[]'); return Array.isArray(v)?v:[]; }
   catch(e){ return []; }
@@ -1512,9 +1739,41 @@ function navRowsFromNavlog(sum){
     wpt:  l.wpt || '',
     mt:   l.mh!=null ? String(l.mh) : '',
     dist: l.dist!=null ? String(l.dist) : '',
-    alt:  l.alt!=null ? String(l.alt) : '',
+    alt:  l.alt!=null ? String(l.alt) : navCruiseAlt(),
     rmk:  same ? (prev[i].rmk||'') : ''
   }));
+}
+
+/* Frequenze del navplan. Si compila SOLO la colonna Freq., e solo dove e'
+   vuota: quello che il pilota ha scritto a mano non si tocca mai. La colonna
+   C/S resta sua — un nominativo dipende dall'ente che e' di turno e dall'orario
+   di servizio, e nessun database lo sa. */
+async function navFillFreqs(opts){
+  const quiet=!!(opts&&opts.quiet);
+  const el=$('navFreqStatus');
+  const say=(cls,msg)=>{ if(el && !(quiet && cls!=='err')){ el.className='mb-status '+cls; el.textContent=msg; } };
+  const rows=navRowsRaw();
+  const want=rows.filter(r=>!String(r.freq||'').trim())
+                 .map(r=>String(r.wpt||'').trim().toUpperCase())
+                 .filter(w=>/^[A-Z0-9]{2,5}$/.test(w));
+  if(!want.length){ say('', ''); return; }
+  say('busy','\u23f3 Cerco le frequenze di '+[...new Set(want)].join(', ')+'\u2026');
+  try{
+    const found=await OA.lookupFreqs(want);
+    let n=0;
+    rows.forEach(r=>{
+      if(String(r.freq||'').trim()) return;
+      const hit=found[String(r.wpt||'').trim().toUpperCase()];
+      if(hit && hit.freq){ r.freq=hit.freq; n++; }
+    });
+    if(n){ navRowsSave(rows); render(); }
+    const senza=[...new Set(want)].filter(w=>!found[w]);
+    say(n?'ok':'', (n? n+(n===1?' frequenza compilata':' frequenze compilate') : 'Nessuna frequenza nuova da compilare')
+      + (senza.length? '  \u2014 senza frequenza pubblicata: '+senza.join(', ') : ''));
+  }catch(err){
+    console.error(err);
+    say('err','Frequenze non recuperabili ('+(err&&err.message||err)+'): scrivile a mano.');
+  }
 }
 
 /* Consumo di una tratta secondo il modello dell'OFP: i primi minuti del volo
@@ -1535,14 +1794,15 @@ function navlogComputed(f){
   const gsMph=num('navGs')>0 ? num('navGs') : num('tripGS');
   const gsKt=mphToKt(gsMph);
   const ff=num('navFF')>0 ? num('navFF') : num('tripFF');
-  const t0=hhmmToMin(txt('tTO'));           // gli ETO partono dal decollo
+  const t0=timeMin('tTO');                  // gli ETO partono dal decollo
   let cumD=0, cumT=0, cumF=0;
   const out=rows.map(r=>{
     const d=parseFloat(String(r.dist).replace(',','.'))||0;
     const ete = gsKt>0 ? d/gsKt*60 : 0;
     const fuel = navLegFuel(cumT, ete, f, ff);
     cumD+=d; cumT+=ete; cumF+=fuel;
-    return {...r, d, ete, fuel, cumD, cumT, cumF, eto:minToHHMM(t0+Math.round(cumT))};
+    // senza orario di decollo non ci sono orari stimati: la colonna resta in bianco
+    return {...r, d, ete, fuel, cumD, cumT, cumF, eto: t0==null ? '' : minToHHMM(t0+Math.round(cumT))};
   });
   return {rows:out, gsMph, ff, totDist:cumD, totTime:cumT, totFuel:cumF};
 }
@@ -1746,7 +2006,7 @@ function pagePerf(f,w){
     }).join('')).join('')}
   </table>
 `
-  : `<div style="font-size:9.5px">${esc(told.reason||'Dati TOLD insufficienti.')}</div>`;
+  : `<div style="font-size:9.5px">${esc(told.reason||'Dati di decollo e atterraggio insufficienti.')}</div>`;
   const cAlt=num('pwrAlt');
   const sel=currentPowerRow();
   const rows=cruiseRowsAt(cAlt);
@@ -2054,6 +2314,7 @@ function render(){
      LDG e taxi, e si rilegge perche' il taxi entra nel Plan Block. */
   let f=computeFuel();
   autoLandingTime(f);                       // LDG = TO + Flight Time
+  autoOnBlockTime();                        // ON  = LDG + rullaggio di partenza
   const taxi=autoTaxiTime();                // taxi = (TO - OFF) + (ON - LDG)
   f=computeFuel();
   const w=weights(f);
@@ -2083,7 +2344,7 @@ function render(){
     if(taxi.outBad) warn.push("TO precede OFF");
     if(taxi.innBad) warn.push("ON precede l'atterraggio");
     el.textContent = `→ ${taxi.out} min fuori blocchi→decollo + ${taxi.inn} min atterraggio→dentro blocchi`
-      + ` = taxi ${taxi.tot} min · ${fmt(f.taxiFuel)} L`
+      + ` = taxi ${taxi.tot} min · ${fmt(f.taxiFuel)} L a ${fmt(TAXI_LPH)} L/h`
       + (warn.length ? `   ⚠ ${warn.join(' e ')}: quella tratta non e' conteggiata` : '')
       + (!warn.length && taxi.tot>60 ? '   ⚠ taxi insolitamente lungo: controlla gli orari' : '');
     el.style.color = (warn.length || taxi.tot>60) ? '#ffd479' : '';
@@ -2353,7 +2614,7 @@ function applyPowerToRoute(){
     if($('altFF')) $('altFF').value = a.row.lph;
   }
 }
-function onPowerChange(){ rebuildPowerSelects(); applyPowerToRoute(); render(); }
+function onPowerChange(){ rebuildPowerSelects(); applyPowerToRoute(); navApplyCruiseAlt(); render(); }
 ['pwrAlt','pwrRpm','altAlt'].forEach(id=>{ if($(id)) $(id).addEventListener('change', onPowerChange); });
 if($('pwrAlt')) $('pwrAlt').addEventListener('input', onPowerChange);
 if($('pwrMap')) $('pwrMap').addEventListener('change', ()=>{ applyPowerToRoute(); render(); });
@@ -2494,31 +2755,58 @@ function scheduleAirportLookup(){
   el.addEventListener('blur', scheduleAirportLookup);
 });
 
-/* ============ TOLD: aggancio a METAR, piste e risultati ============ */
+/* ====== Takeoff & Landing Data: aggancio a METAR, piste e risultati ======
+   Gli identificativi dei campi (toldQnhDep, toldRwyDep...) restano quelli di
+   sempre: sono la chiave con cui i voli gia' salvati ritrovano i propri dati. */
 
 /* Riempie QNH, temperatura e vento di OGNI aeroporto dal SUO METAR: partenza per
    il decollo, destinazione e alternato per i rispettivi atterraggi. Usare il METAR
    sbagliato darebbe distanze semplicemente sbagliate. */
-const TOLD_LEGS=[
+const PERF_LEGS=[
   {key:'Dep',  metar:'depMetar',  icao:'dep',  label:'DEP'},
   {key:'Dest', metar:'destMetar', icao:'arr',  label:'DEST'},
   {key:'Altn', metar:'altnMetar', icao:'altn', label:'ALTN'}
 ];
-function fillToldFromMetar(){
+/* Chiamata dall'import del briefing e da ogni cambio di codice ICAO: non c'e'
+   piu' un pulsante da premere. Quando gira a vuoto — nessun METAR ancora
+   caricato — non deve lamentarsi: non e' un errore, e' che il briefing non e'
+   stato importato. */
+/* Un valore scritto dal pilota non si sovrascrive mai. Senza il pulsante, la
+   compilazione parte da sola a ogni import: se ricopiasse sopra una correzione
+   fatta a mano, il calcolo delle distanze cambierebbe alle spalle di chi l'ha
+   fatta. Si riscrive solo cio' che e' vuoto, cio' che avevamo scritto noi la
+   volta prima, e i valori standard con cui il modulo nasce (1013 / 15 / vento
+   calmo), che non sono una scelta di nessuno. */
+function perfWxPut(id, val){
+  const el=$(id);
+  if(!el || val==null || val==='') return false;
+  const cur=String(el.value).trim(), mine=window.__perfWxAuto[id];
+  const stdDefault = (/^toldQnh/.test(id)  && cur==='1013')
+                  || (/^toldOat/.test(id)  && cur==='15')
+                  || (/^toldWind/.test(id) && (cur==='' || cur==='0'));
+  const nostro = mine!==undefined && cur===String(mine);
+  if(cur!=='' && !nostro && !stdDefault) return false;
+  el.value=val; window.__perfWxAuto[id]=String(val);
+  return true;
+}
+
+function fillToldFromMetar(opts){
+  const quiet=!!(opts&&opts.quiet);
   const el=$('toldMetarStatus');
   const done=[], skipped=[];
-  TOLD_LEGS.forEach(L=>{
+  window.__perfWxAuto = window.__perfWxAuto || {};
+  const putWx=perfWxPut;
+  PERF_LEGS.forEach(L=>{
     let src=txt(L.metar).trim();
     // l'alternato spesso coincide col departure: in quel caso ne eredita il METAR
     if(!src && L.key==='Altn' && txt('altn').toUpperCase()===txt('dep').toUpperCase()) src=txt('depMetar').trim();
     if(!src){ skipped.push(L.label); return; }
     const m=parseMetar(src);
     const bits=[];
-    if(m.qnh){ $('toldQnh'+L.key).value=m.qnh; bits.push('QNH '+m.qnh); }
-    if(isFinite(m.oat)){ $('toldOat'+L.key).value=m.oat; bits.push(m.oat+'\u00b0C'); }
-    if(m.windKt!=null){
-      $('toldWindKt'+L.key).value=m.windKt;
-      if(m.windDir!=null){ $('toldWindDir'+L.key).value=m.windDir; bits.push(m.windDir+'\u00b0/'+m.windKt+'kt'); }
+    if(putWx('toldQnh'+L.key, m.qnh)) bits.push('QNH '+m.qnh);
+    if(isFinite(m.oat) && putWx('toldOat'+L.key, m.oat)) bits.push(m.oat+'\u00b0C');
+    if(m.windKt!=null && putWx('toldWindKt'+L.key, m.windKt)){
+      if(m.windDir!=null && putWx('toldWindDir'+L.key, m.windDir)) bits.push(m.windDir+'\u00b0/'+m.windKt+'kt');
       else bits.push('VRB '+m.windKt+'kt');
     }
     if(m.gustKt) bits.push('raffiche '+m.gustKt+'kt');
@@ -2526,20 +2814,23 @@ function fillToldFromMetar(){
     else skipped.push(L.label);
   });
   if(el){
-    el.className='mb-status '+(done.length?'ok':'err');
-    el.textContent = done.length
-      ? done.join('  \u00b7  ') + (skipped.length?'  \u2014 senza METAR: '+skipped.join(', '):'')
-      : 'Nessun METAR utilizzabile: compila i campi a mano.';
+    if(!done.length && quiet){ el.className='mb-status'; el.textContent=''; }
+    else{
+      el.className='mb-status '+(done.length?'ok':'err');
+      el.textContent = done.length
+        ? done.join('  \u00b7  ') + (skipped.length?'  \u2014 senza METAR: '+skipped.join(', '):'')
+        : 'Nessun METAR utilizzabile: compila i campi a mano.';
+    }
   }
   render();
+  return done.length;
 }
-if($('btnMetarFill')) $('btnMetarFill').addEventListener('click', fillToldFromMetar);
-TOLD_LEGS.forEach(L=>{
+PERF_LEGS.forEach(L=>{
   const sel=$('toldRwy'+L.key);
   if(sel) sel.addEventListener('change', ()=>{ onRunwayChange('toldRwy'+L.key); render(); });
 });
 
-/* Riquadro dei risultati TOLD nel wizard. */
+/* Riquadro dei risultati di decollo e atterraggio nel wizard. */
 /* Rosa vento: la pista ruota col suo orientamento magnetico, la freccia col
    vento. Due numeri e un disegno dicono in un colpo solo quello che tre righe
    di testo facevano faticare a immaginare. */
@@ -2741,6 +3032,10 @@ function applyBriefingResult(r, opts){
 
   // aeroporti del briefing che non sono DEP/DEST/ALTN: non hanno un campo nel
   // form, li teniamo qui e il documento li stampa comunque
+  // Vento, QNH e temperatura della scheda Performance vengono dagli stessi METAR
+  // appena letti: e' lo stesso import, non un secondo gesto da fare a mano.
+  fillToldFromMetar({quiet:true});
+
   window.__briefingOther = r.other || {};
   const otherCodes = Object.keys(window.__briefingOther);
   const allCodes = Object.keys(r.byIcao || {});
@@ -2969,13 +3264,17 @@ const NAVPDF = {
   cols:[9,10,20,6,7,7,6.5,7,7,20.5],
   head:['Freq.','C/S','Checkpoint','MT','Dist.','Alt.','EET','ETO','ATO','Remarks'],
   fuelRows:['Trip','Alternate','Reserve','Minimum','Extra fuel','Block fuel'],
-  titleH:11, hRowH:8, headH:7,
-  fsBody:8.5, fsHead:9, fsTitle:16, fsFuel:8.5,
-  lwGrid:0.45, lwOuter:0.8,          // griglia marcata come nel modello
+  titleH:11, hRowH:8.5, headH:7.5,
+  /* Corpo piu' grande ovunque tranne il titolo, che era gia' della misura
+     giusta: su A5, a bordo, si legge di sbieco e con la turbolenza. */
+  fsBody:9.5, fsHead:10, fsTitle:16, fsFuel:9.5,
+  /* 1.5 px di griglia (0.4 mm). Il grassetto e' riservato ai tre riquadri che
+     delimitano le sezioni del modulo: testata, calcoli carburante, comments. */
+  lwGrid:0.4, lwBold:0.9,
   /* Righe alte e poche: il foglio si riempie allargando le righe, non
      aggiungendone di vuote. `spare` e' il margine per scrivere a penna in
      volo, `minData` il minimo perche' il modulo resti usabile anche vuoto. */
-  minRowH:6.2, maxRowH:9.5, minData:10, spare:4
+  minRowH:6.6, maxRowH:9.8, minData:10, spare:4
 };
 
 function buildNavlogPDF(){
@@ -3011,6 +3310,10 @@ function buildNavlogPDF(){
   const pages=Math.max(1, Math.ceil(rows.length/nData));
 
   const GREY=[150,150,150], GREY_L=[205,205,205];
+  /* Il grassetto delimita le sezioni, non le celle: tracciato per ultimo sopra
+     la griglia, cosi' non viene coperto dalle righe sottili che gli passano
+     accanto. */
+  const boldRect=(x,y,w,h)=>{ doc.setLineWidth(P.lwBold); doc.setDrawColor(0); doc.rect(x,y,w,h); };
   const box=(x,y,w,h,fill,lw)=>{
     doc.setLineWidth(lw||P.lwGrid); doc.setDrawColor(0);
     if(fill){ doc.setFillColor(fill[0],fill[1],fill[2]); doc.rect(x,y,w,h,'FD'); }
@@ -3040,22 +3343,34 @@ function buildNavlogPDF(){
     let y=P.M;
 
     /* --- titolo --- */
-    box(L,y,W,P.titleH,null,P.lwOuter);
+    const headTop=y;
+    box(L,y,W,P.titleH);
     doc.setFont('helvetica','bold'); doc.setFontSize(P.fsTitle);
     doc.text('NAV-FLIGHTPLAN', L+W/2, y+P.titleH/2+P.fsTitle*0.35/2.2, {align:'center'});
     y+=P.titleH;
 
     /* --- testata: due righe da quattro celle --- */
-    const hw=[0.40,0.20,0.19,0.21].map(v=>W*v);
+    const hw=[0.36,0.24,0.19,0.21].map(v=>W*v);
     const hx=[L, L+hw[0], L+hw[0]+hw[1], L+hw[0]+hw[1]+hw[2]];
+    /* Etichetta in neretto + valore, che insieme devono stare nella cella: col
+       corpo piu' grande "Date: 14.09.2026" arrivava a toccare la casella
+       accanto. Si misurano i due pezzi e si scende di corpo finche' ci stanno. */
     const hcell=(i,yy,lab,val)=>{
       box(hx[i],yy,hw[i],P.hRowH);
-      doc.setFont('helvetica','bold'); doc.setFontSize(P.fsHead);
-      doc.text(lab, hx[i]+1.6, yy+P.hRowH/2+1.3);
-      if(val!=null && val!==''){
-        doc.setFont('helvetica','normal');
-        doc.text(String(val), hx[i]+2.4+doc.getTextWidth(lab), yy+P.hRowH/2+1.3);
+      const v = (val==null?'':String(val));
+      const room=hw[i]-3.2;
+      let size=P.fsHead, wLab=0, wVal=0;
+      for(;;){
+        doc.setFontSize(size);
+        doc.setFont('helvetica','bold');   wLab=doc.getTextWidth(lab);
+        doc.setFont('helvetica','normal'); wVal=v?doc.getTextWidth(v)+0.8:0;
+        if(wLab+wVal<=room || size<=5.5) break;
+        size-=0.25;
       }
+      const ty=yy+P.hRowH/2+size*0.35/2.4;
+      doc.setFontSize(size); doc.setFont('helvetica','bold');
+      doc.text(lab, hx[i]+1.6, ty);
+      if(v){ doc.setFont('helvetica','normal'); doc.text(v, hx[i]+2.4+wLab, ty); }
     };
     hcell(0,y,'ACFT IDENT:', txt('reg'));
     hcell(1,y,'Date:',       txt('wxDate'));
@@ -3063,12 +3378,12 @@ function buildNavlogPDF(){
     hcell(3,y,'QNH:',        num('toldQnhDep')>0?num('toldQnhDep'):'');
     y+=P.hRowH;
     hcell(0,y,'Pilot:', txt('picName'));
-    box(hx[1],y,hw[1],P.hRowH);
-    doc.setFont('helvetica','bold'); doc.setFontSize(P.fsHead);
-    doc.text(nav.gsMph>0?`GS: ${Math.round(mphToKt(nav.gsMph))}kt`:'GS:', hx[1]+1.6, y+P.hRowH/2+1.3);
+    hcell(1,y,'GS:', nav.gsMph>0?`${Math.round(mphToKt(nav.gsMph))}kt`:'');
     hcell(2,y,'Bl. on:', txt('tON'));
     hcell(3,y,'RWY:',    txt('depRunway'));
     y+=P.hRowH;
+    /* 1 di 3: la testata sopra la tabella della rotta. */
+    boldRect(L, headTop, W, y-headTop);
 
     /* --- intestazione colonne, su grigio --- */
     P.head.forEach((h,i)=>cell(cx[i],y,colW(i),P.headH,h,
@@ -3125,9 +3440,15 @@ function buildNavlogPDF(){
     doc.text(flab, fbL+labW/2+fcap/2, fbTop+fbH/2+ftw/2, {angle:90});
 
     if(last){
-      cell(fx[0],fbTop,wLab, rowH, nav.ff>0?`l/h: ${fmt(nav.ff)}`:'l/h:', {bold:true,size:P.fsFuel,fill:GREY_L});
+      /* Litri interi, arrotondati per DIFETTO: sul modulo si scrive quello che
+         si legge sul contagiri e sulle spie, non un decimale che nessuno
+         misura. I conti restano sui valori esatti — qui cambia solo cosa si
+         stampa, e per difetto non si finisce mai per contare carburante che
+         non c'e'. */
+      const litri=(l)=> l==null ? '' : String(Math.floor(l));
+      cell(fx[0],fbTop,wLab, rowH, nav.ff>0?`l/h: ${Math.floor(nav.ff)}`:'l/h:', {bold:true,size:P.fsFuel,fill:GREY_L});
       cell(fx[1],fbTop,wTime,rowH,'Time',{bold:true,size:P.fsFuel,fill:GREY_L,align:'right'});
-      cell(fx[2],fbTop,wFuel,rowH,'Fuel',{bold:true,size:P.fsFuel,fill:GREY_L,align:'right'});
+      cell(fx[2],fbTop,wFuel,rowH,'Fuel',{bold:true,size:P.fsFuel,fill:GREY_L,align:'center'});
       const hhmm=(m)=> m==null ? '' : minToHHMM(Math.round(m)).replace(/^(\d\d)(\d\d)$/,'$1:$2');
       const vals={
         'Trip':[f.tripTime,f.tripFuel], 'Alternate':[f.altTime,f.altFuel],
@@ -3138,7 +3459,7 @@ function buildNavlogPDF(){
         const yy=fbTop+(i+1)*rowH, v=vals[lab];
         cell(fx[0],yy,wLab, rowH,lab,{size:P.fsFuel});
         cell(fx[1],yy,wTime,rowH,hhmm(v[0]),{size:P.fsFuel,align:'right'});
-        cell(fx[2],yy,wFuel,rowH,v[1]==null?'':fmt(v[1]),{size:P.fsFuel,align:'right'});
+        cell(fx[2],yy,wFuel,rowH,litri(v[1]),{size:P.fsFuel,align:'center'});
       });
     }else{
       for(let i=0;i<FUEL_ROWS;i++){
@@ -3148,9 +3469,10 @@ function buildNavlogPDF(){
       }
     }
 
-    /* cornice esterna marcata, come nel modello */
-    doc.setLineWidth(P.lwOuter); doc.setDrawColor(0);
-    doc.rect(L, P.M, W, (fbTop+fbH)-P.M);
+    /* 2 e 3 di 3: i calcoli carburante a destra e i comments a sinistra. La
+       tabella della rotta, in mezzo, resta con la sola griglia sottile. */
+    boldRect(fbL, fbTop, R-fbL, fbH);
+    boldRect(L,   fbTop, fbL-L, fbH);
   }
 
   return doc;
@@ -3654,20 +3976,42 @@ function buildPDF(){
 
   // Cartine meteo (GAFOR/SIGMET/SWC/Wind ecc.) estratte dal PDF sorgente: 2 per pagina,
   // subito dopo METAR/TAF e PRIMA della sezione NOTAM, come richiesto.
+  /* Quante ne stanno in una pagina lo decide la forma della cartina, non un
+     numero fisso. Le pagine di Skybrief sono A4 verticali: costrette in mezza
+     pagina venivano rimpicciolite a un quarto di foglio — leggibili quanto un
+     francobollo — e l'altra meta' del foglio restava bianca. Ora una cartina
+     alta si prende la pagina tutta per se', e solo due cartine basse
+     continuano a dividersela. */
   const charts = window.__wxCharts || [];
-  for(let i=0;i<charts.length;i+=2){
-    newPage('WEATHER — CHARTS');
-    const pair = charts.slice(i,i+2);
-    const areaTop=y, areaBot=MM.A4H-24;
-    const halfH=(areaBot-areaTop)/2-4;
-    pair.forEach((c,idx)=>{
-      const boxY = areaTop + idx*(halfH+8);
-      const maxW=R-L, maxH=halfH;
-      const aspect=c.w/c.h;
-      let boxW=maxW, boxH=boxW/aspect;
-      if(boxH>maxH){ boxH=maxH; boxW=boxH*aspect; }
-      const xOff = L+(maxW-boxW)/2;
-      try{ doc.addImage(c.dataUrl,'JPEG',xOff,boxY,boxW,boxH); }catch(e){ /* immagine non valida: la saltiamo */ }
+  if(charts.length){
+    const GAP=6;
+    const areaW=R-L;
+    /* L'area utile e' quella di una pagina appena aperta, non la y a cui siamo
+       arrivati scrivendo i METAR: le cartine cominciano sempre da una pagina
+       nuova. Il 20.2 e' quanto drawFrame() consuma fra bordo, titolo e riga
+       della sezione. */
+    const areaTop = MM.MT+20.2, areaBot = MM.A4H-22;
+    const areaH   = areaBot-areaTop;
+    const halfH   = (areaH-GAP)/2;
+    const altezza = (c,maxH)=>{ const a=c.w/c.h; let w=areaW, h=w/a; if(h>maxH){ h=maxH; w=h*a; } return {w,h}; };
+    const bassa   = (c)=> areaW*c.h/c.w <= halfH+0.5;   // a piena larghezza ci sta in mezza pagina
+
+    const pages=[];
+    for(let i=0;i<charts.length;){
+      if(bassa(charts[i]) && i+1<charts.length && bassa(charts[i+1])){ pages.push([charts[i],charts[i+1]]); i+=2; }
+      else { pages.push([charts[i]]); i+=1; }
+    }
+    pages.forEach(pair=>{
+      newPage('WEATHER \u2014 CHARTS');
+      const maxH = pair.length>1 ? halfH : areaH;
+      let cy=y;
+      pair.forEach(c=>{
+        const g=altezza(c,maxH);
+        try{ doc.addImage(c.dataUrl,'JPEG',L+(areaW-g.w)/2,cy,g.w,g.h); }
+        catch(e){ /* immagine non valida: la saltiamo */ }
+        cy+=g.h+GAP;
+      });
+      y=cy;
     });
   }
 
@@ -3721,7 +4065,7 @@ async function exportNavlogPDF(){
   const old=btn?btn.textContent:'';
   if(btn) btn.textContent='Genero…';
   try{
-    if(!navRowsRaw().length){ alert('Il NAV-FLIGHTPLAN e\' vuoto: importa un NavLog o aggiungi le tratte a mano nello Step 2.'); return; }
+    if(!navRowsRaw().length){ alert('Il NAV-FLIGHTPLAN e\' vuoto: importa un NavLog o aggiungi le tratte a mano nello Step 5 \u2014 Navlog.'); return; }
     const doc=buildNavlogPDF(), name=navlogFileName();
     if(IS_APPS_SCRIPT){
       const win=window.open(doc.output('bloburl'),'_blank');
@@ -3758,9 +4102,10 @@ function saveToDrive(){
     .withFailureHandler(err=>{ btn.disabled=false; btn.textContent=old; alert('Salvataggio su Drive fallito: '+(err&&err.message||err)); })
     .saveOfpToDrive(base64, ofpFileName());
 }
+if($('btnNavFreq')) $('btnNavFreq').addEventListener('click',()=>navFillFreqs());
 if($('btnNavAdd')) $('btnNavAdd').addEventListener('click',()=>{
   const rows=navRowsRaw();
-  rows.push({freq:'',cs:'',wpt:'',mt:'',dist:'',alt:'',rmk:''});
+  rows.push({freq:'',cs:'',wpt:'',mt:'',dist:'',alt:navCruiseAlt(),rmk:''});
   navRowsSave(rows); render();
 });
 $('btnPdf').addEventListener('click',exportPDF);
@@ -3772,7 +4117,7 @@ $('btnPrint').addEventListener('click',()=>{ if(!previewOpen) togglePreview(); s
 /* ==================== Dashboard / Flight Manager ==================== */
 // Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)
 const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route',
-  'tOFF','tTO','tLDG','tON','picName',
+  'tOFF','tTO','tLDG','tON','tONman','picName',
   'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','navRows','navGs','navFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
   'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50',
@@ -3858,6 +4203,7 @@ function applyFlightData(d){
   // cosi' una rimappatura successiva non li scambia ne' li cancella per sbaglio.
   window.__wxFilled = {dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(), altn:txt('altn').toUpperCase()};
   syncTimeSelects();   // le tendine degli orari seguono i campi appena caricati
+  NAV_ALT_LAST=null; navApplyCruiseAlt();   // quota di crociera nelle tratte senza quota
 }
 function applyWeatherData(w){
   if(!w) return;
@@ -3879,8 +4225,7 @@ const NEW_FLIGHT_DEFAULTS = {
   tripFF:'36.7',             // consumo L/h di quel settaggio
   altGS:'133', altFF:'36.7', // alternato: sempre 22"/2400
   fob:'',
-  taxiMin:'10',              // ricalcolato dagli orari appena il foglio si apre
-  taxiFuel:'1.9',            // consumo taxi standard, in litri
+  taxiMin:'0', taxiFuel:'0',  // entrambi ricalcolati dagli orari appena il foglio si apre
   extraMin:'0', extraFuel:'0',
   flightRule:'VFR',
   acSelect:'I-CCAF',
@@ -4119,12 +4464,15 @@ function applyNavlogSummary(sum){
   if(sum.arr && $('arr')) $('arr').value=sum.arr;
   if(sum.route && $('route')) $('route').value=sum.route;
   if(sum.totals && sum.totals.dist!=null && $('tripDist')) $('tripDist').value=sum.totals.dist;
-  const nr=navRowsFromNavlog(sum);
-  if(nr) navRowsSave(nr);
+  /* La quota di crociera va messa PRIMA di costruire le tratte: e' quella che
+     riempie le celle Alt. che ForeFlight lascia vuote. */
   if(sum.cruiseAlt){
     if($('pwrAlt')) $('pwrAlt').value=sum.cruiseAlt;
     if($('altAlt')) $('altAlt').value=sum.cruiseAlt;
   }
+  const nr=navRowsFromNavlog(sum);
+  if(nr) navRowsSave(nr);
+  NAV_ALT_LAST=navCruiseAlt();
   window.__navlog={sum};
 }
 
@@ -4182,6 +4530,9 @@ document.body.addEventListener('input',render);
 applyHandoff();
 renderSteps(); goToStep(1);
 buildTimeSelects(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
+/* Un foglio riaperto puo' avere tratte senza quota — salvate prima che la
+   quota di crociera arrivasse da sola. Qui si riempiono solo quelle vuote. */
+navApplyCruiseAlt();
 // su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
 if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
 bootstrapFlights(()=>{ if($('dashboard').classList.contains('open')) renderDashboard(); });
