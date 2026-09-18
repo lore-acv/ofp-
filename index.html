@@ -3268,9 +3268,10 @@ const NAVPDF = {
   /* Corpo piu' grande ovunque tranne il titolo, che era gia' della misura
      giusta: su A5, a bordo, si legge di sbieco e con la turbolenza. */
   fsBody:9.5, fsHead:10, fsTitle:16, fsFuel:9.5,
-  /* 1.5 px di griglia (0.4 mm). Il grassetto e' riservato ai tre riquadri che
-     delimitano le sezioni del modulo: testata, calcoli carburante, comments. */
-  lwGrid:0.4, lwBold:0.9,
+  /* Una sola misura per tutta la griglia: 1 px, cioe' 0.265 mm. Nessun tratto
+     piu' marcato di un altro — le sezioni si riconoscono da come sono fatte,
+     non da un bordo piu' grosso. */
+  lwGrid:0.265,
   /* Righe alte e poche: il foglio si riempie allargando le righe, non
      aggiungendone di vuote. `spare` e' il margine per scrivere a penna in
      volo, `minData` il minimo perche' il modulo resti usabile anche vuoto. */
@@ -3310,10 +3311,6 @@ function buildNavlogPDF(){
   const pages=Math.max(1, Math.ceil(rows.length/nData));
 
   const GREY=[150,150,150], GREY_L=[205,205,205];
-  /* Il grassetto delimita le sezioni, non le celle: tracciato per ultimo sopra
-     la griglia, cosi' non viene coperto dalle righe sottili che gli passano
-     accanto. */
-  const boldRect=(x,y,w,h)=>{ doc.setLineWidth(P.lwBold); doc.setDrawColor(0); doc.rect(x,y,w,h); };
   const box=(x,y,w,h,fill,lw)=>{
     doc.setLineWidth(lw||P.lwGrid); doc.setDrawColor(0);
     if(fill){ doc.setFillColor(fill[0],fill[1],fill[2]); doc.rect(x,y,w,h,'FD'); }
@@ -3343,7 +3340,6 @@ function buildNavlogPDF(){
     let y=P.M;
 
     /* --- titolo --- */
-    const headTop=y;
     box(L,y,W,P.titleH);
     doc.setFont('helvetica','bold'); doc.setFontSize(P.fsTitle);
     doc.text('NAV-FLIGHTPLAN', L+W/2, y+P.titleH/2+P.fsTitle*0.35/2.2, {align:'center'});
@@ -3382,8 +3378,6 @@ function buildNavlogPDF(){
     hcell(2,y,'Bl. on:', txt('tON'));
     hcell(3,y,'RWY:',    txt('depRunway'));
     y+=P.hRowH;
-    /* 1 di 3: la testata sopra la tabella della rotta. */
-    boldRect(L, headTop, W, y-headTop);
 
     /* --- intestazione colonne, su grigio --- */
     P.head.forEach((h,i)=>cell(cx[i],y,colW(i),P.headH,h,
@@ -3447,7 +3441,7 @@ function buildNavlogPDF(){
          non c'e'. */
       const litri=(l)=> l==null ? '' : String(Math.floor(l));
       cell(fx[0],fbTop,wLab, rowH, nav.ff>0?`l/h: ${Math.floor(nav.ff)}`:'l/h:', {bold:true,size:P.fsFuel,fill:GREY_L});
-      cell(fx[1],fbTop,wTime,rowH,'Time',{bold:true,size:P.fsFuel,fill:GREY_L,align:'right'});
+      cell(fx[1],fbTop,wTime,rowH,'Time',{bold:true,size:P.fsFuel,fill:GREY_L,align:'center'});
       cell(fx[2],fbTop,wFuel,rowH,'Fuel',{bold:true,size:P.fsFuel,fill:GREY_L,align:'center'});
       const hhmm=(m)=> m==null ? '' : minToHHMM(Math.round(m)).replace(/^(\d\d)(\d\d)$/,'$1:$2');
       const vals={
@@ -3458,7 +3452,7 @@ function buildNavlogPDF(){
       P.fuelRows.forEach((lab,i)=>{
         const yy=fbTop+(i+1)*rowH, v=vals[lab];
         cell(fx[0],yy,wLab, rowH,lab,{size:P.fsFuel});
-        cell(fx[1],yy,wTime,rowH,hhmm(v[0]),{size:P.fsFuel,align:'right'});
+        cell(fx[1],yy,wTime,rowH,hhmm(v[0]),{size:P.fsFuel,align:'center'});
         cell(fx[2],yy,wFuel,rowH,litri(v[1]),{size:P.fsFuel,align:'center'});
       });
     }else{
@@ -3469,10 +3463,8 @@ function buildNavlogPDF(){
       }
     }
 
-    /* 2 e 3 di 3: i calcoli carburante a destra e i comments a sinistra. La
-       tabella della rotta, in mezzo, resta con la sola griglia sottile. */
-    boldRect(fbL, fbTop, R-fbL, fbH);
-    boldRect(L,   fbTop, fbL-L, fbH);
+    /* Cornice esterna: stesso tratto di tutto il resto, chiude il foglio. */
+    box(L, P.M, W, (fbTop+fbH)-P.M);
   }
 
   return doc;
