@@ -292,9 +292,16 @@ OurAirports non pubblica.
 
 ## Interfaccia
 
-Barra superiore con il titolo e, sotto, le sette fasi in una riga; tutte le azioni
+Barra superiore con il titolo e, sotto, le otto fasi in una riga; tutte le azioni
 di salvataggio ed esportazione (dashboard, nuovo, standby, anteprima, stampa,
 Drive, PDF) stanno in un **menu hamburger** in alto a destra. Nessuna emoji.
+
+**Stampa e PDF sono lo stesso documento.** Il documento lo impagina `buildPDF()`,
+in A4, riga per riga: "Scarica PDF" lo salva e "Stampa OFP" manda quello alla
+stampante. L'anteprima HTML serve a guardare, non a stampare — quando la stampava
+il browser il risultato lo decideva lui, e Safari su iPad ci metteva del suo
+(margini propri, indirizzo e data in testa, pagine spezzate dove capitava e cinque
+fogli bianchi in piu').
 
 Il layout è in `rem` con base 16 px su desktop e **18 px da tablet in su**, e i
 target di tocco hanno un'altezza minima di 2,75 rem (3 rem sui dispositivi

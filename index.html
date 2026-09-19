@@ -47,7 +47,7 @@
         <button type="button" role="menuitem" id="btnStandby">Salva in standby</button>
         <div class="sep"></div>
         <button type="button" role="menuitem" id="btnPreview">Anteprima documento</button>
-        <button type="button" role="menuitem" id="btnPrint" title="Safari su iPhone e iPad aggiunge di suo l'indirizzo e la data: per un documento pulito usa Scarica PDF">Stampa (browser)</button>
+        <button type="button" role="menuitem" id="btnPrint" title="Stampa lo stesso PDF che si scarica: impaginato dall'app, non dal browser">Stampa OFP</button>
         <div class="sep"></div>
         <button type="button" role="menuitem" id="btnDrive" style="display:none">Salva su Drive</button>
         <button type="button" role="menuitem" class="primary" id="btnPdf">Scarica PDF OFP</button>
@@ -4106,7 +4106,49 @@ $('btnPdf').addEventListener('click',exportPDF);
 if($('btnNavPdf')) $('btnNavPdf').addEventListener('click',exportNavlogPDF);
 if($('btnDrive')) $('btnDrive').addEventListener('click',saveToDrive);
 $('btnPreview').addEventListener('click',togglePreview);
-$('btnPrint').addEventListener('click',()=>{ if(!previewOpen) togglePreview(); setTimeout(()=>window.print(),120); });
+/* "Stampa" non stampa piu' la pagina HTML, stampa il PDF.
+   Sono sempre stati due programmi diversi che disegnano lo stesso documento:
+   buildPDF() lo impagina lui, in A4, riga per riga; l'anteprima HTML la
+   impaginava il browser. E il browser fa come gli pare — Safari su iPad si
+   tiene i suoi margini, ci stampa sopra indirizzo e data, spezza le pagine
+   dove capita e ne aggiunge cinque bianche. Stampando il PDF il documento che
+   esce dalla stampante e' identico a quello che si salva: un solo modo di
+   generarlo, nessuna impaginazione di mezzo. */
+const IS_IOS = /iP(hone|ad|od)/.test(navigator.userAgent)
+            || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+
+async function printOFP(){
+  const btn=$('btnPrint'); if(btn) btn.disabled=true;
+  const old=btn?btn.textContent:'';
+  if(btn) btn.textContent='Genero\u2026';
+  try{
+    const doc=buildPDF();
+    const url=doc.output('bloburl');
+    /* Su iPad e dentro l'iframe di Apps Script la stampa da un iframe nascosto
+       non parte: il PDF si apre in una scheda e da li' lo stampa il visore di
+       sistema, che e' anche il modo in cui si stampa qualsiasi altro PDF. */
+    if(IS_IOS || IS_APPS_SCRIPT){
+      const win=window.open(url,'_blank');
+      if(!win) doc.save(ofpFileName());     // scheda bloccata: almeno lo si scarica
+      return;
+    }
+    const fr=document.createElement('iframe');
+    fr.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+    fr.onload=()=>{
+      try{ fr.contentWindow.focus(); fr.contentWindow.print(); }
+      catch(e){ window.open(url,'_blank'); }
+      // l'iframe va tenuto in vita finche' il dialogo di stampa e' aperto
+      setTimeout(()=>{ fr.remove(); URL.revokeObjectURL(url); }, 60000);
+    };
+    fr.src=url;
+    document.body.appendChild(fr);
+  }catch(err){
+    alert('Errore nella generazione del PDF: '+err.message); console.error(err);
+  }finally{
+    if(btn){ btn.disabled=false; btn.textContent=old; }
+  }
+}
+$('btnPrint').addEventListener('click', printOFP);
 
 /* ==================== Dashboard / Flight Manager ==================== */
 // Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)
