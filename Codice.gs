@@ -272,7 +272,7 @@ function lookupFrequencies(identsCsv) {
   });
   if (!missing.length) return JSON.stringify(out);
 
-  var recs = oaqBuild_(oaFetch_('airport-frequencies.csv'), oaFetch_('navaids.csv'), missing);
+  var recs = oaqBuild_(missing);
   var toStore = {};
   missing.forEach(function (c) {
     var rec = recs[c] || null;
@@ -297,34 +297,41 @@ function oaqFromKhz_(khz) {
   return k >= 30000 ? oaqVhf_(k / 1000) : String(+k.toFixed(1));
 }
 
-function oaqBuild_(freqCsv, navCsv, want) {
-  var freqs = oaIndex_(oaParseCsv_(freqCsv));
-  var navs  = oaIndex_(oaParseCsv_(navCsv));
+function oaqBuild_(want) {
   var wantSet = {};
   want.forEach(function (c) { wantSet[c] = true; });
+  var out = {};
 
-  var out = {}, fi = freqs.idx;
-  freqs.rows.forEach(function (r) {
+  var frows = oaParseCsv_(oaFetch_('airport-frequencies.csv')), fi = oaIndex_(frows);
+  for (var i = 1; i < frows.length; i++) {
+    var r = frows[i];
     var ap = String(r[fi.airport_ident] || '').toUpperCase();
-    if (!wantSet[ap]) return;
+    if (!wantSet[ap]) continue;
     var mhz = parseFloat(r[fi.frequency_mhz]);
-    if (!isFinite(mhz) || mhz <= 0) return;
+    if (!isFinite(mhz) || mhz <= 0) continue;
     var type = String(r[fi.type] || '').toUpperCase();
     var rank = OAQ_ORDER.indexOf(type);
     if (rank < 0) rank = 99;
     if (!out[ap] || rank < out[ap].rank) {
       out[ap] = {freq: oaqVhf_(mhz), type: type, desc: r[fi.description] || '', rank: rank};
     }
-  });
+  }
 
-  var ni = navs.idx;
-  navs.rows.forEach(function (r) {
-    var id = String(r[ni.ident] || '').toUpperCase();
-    if (!wantSet[id] || out[id]) return;        // un aeroporto ha la precedenza
-    var f = oaqFromKhz_(r[ni.frequency_khz]);
-    if (!f) return;
-    out[id] = {freq: f, type: String(r[ni.type] || '').toUpperCase(), desc: r[ni.name] || '', rank: 0};
-  });
+  /* navaids.csv si scarica solo se resta qualcosa da cercare: sono altri due
+   * megabyte e mezzo da leggere carattere per carattere, e una rotta fatta di
+   * soli aeroporti non ne ha bisogno. */
+  var resta = want.filter(function (c) { return !out[c]; });
+  if (!resta.length) return out;
+
+  var nrows = oaParseCsv_(oaFetch_('navaids.csv')), ni = oaIndex_(nrows);
+  for (var j = 1; j < nrows.length; j++) {
+    var n = nrows[j];
+    var id = String(n[ni.ident] || '').toUpperCase();
+    if (!wantSet[id] || out[id]) continue;      // un aeroporto ha la precedenza
+    var f = oaqFromKhz_(n[ni.frequency_khz]);
+    if (!f) continue;
+    out[id] = {freq: f, type: String(n[ni.type] || '').toUpperCase(), desc: n[ni.name] || '', rank: 0};
+  }
   return out;
 }
 
@@ -364,6 +371,7 @@ function oaParseCsv_(text) {
 
 function oaIndex_(rows) {
   var idx = {}, head = rows[0];
+  if (!head) throw new Error('CSV vuoto o illeggibile: nessuna riga di intestazione.');
   head.forEach(function (h, i) { idx[String(h).trim()] = i; });
   return idx;
 }
