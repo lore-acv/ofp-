@@ -1638,9 +1638,45 @@ function gcDistanceNm(a, b){
 
 /* La tabella modificabile dello Step 2. Ogni cella scrive nella riga
    corrispondente e ricalcola: e' l'unico posto in cui il navplan si corregge. */
+/* Il riepilogo sotto la tabella. */
+function navCalcLine(c){
+  if(!$('navCalc')) return;
+  $('navCalc').textContent = c.rows.length
+    ? `\u2192 ${c.rows.length} tratte \u00b7 ${fmt(c.totDist)} nm \u00b7 ${navDur(Math.round(c.totTime))} \u00b7 ${fmt(c.totFuel)} L a GS ${fmt(c.gsMph)} MPH e ${fmt(c.ff)} L/h`
+    : '';
+}
+
 function renderNavlogEditor(f){
   const box=$('navTableBox'); if(!box) return;
   const c=navlogComputed(f);
+
+  /* Aggiornamento senza ricostruire la tabella.
+     render() gira a ogni tasto premuto, e rifare innerHTML strappa via la
+     casella in cui si sta scrivendo: il browser perde il fuoco insieme
+     all'elemento e bisogna ricliccare dopo ogni lettera. Finche' il numero di
+     righe non cambia si riscrivono solo le celle calcolate e le caselle che
+     nessuno sta usando — quella sotto il cursore non si tocca. */
+  const tbody=box.querySelector('tbody');
+  if(tbody && tbody.children.length===c.rows.length && c.rows.length){
+    const attiva=document.activeElement;
+    c.rows.forEach((r,i)=>{
+      const tr=tbody.children[i];
+      tr.querySelectorAll('input[data-k]').forEach(el=>{
+        if(el===attiva) return;
+        const v=String(r[el.dataset.k]==null?'':r[el.dataset.k]);
+        if(el.value!==v) el.value=v;
+      });
+      const ro=tr.querySelectorAll('td.ro');
+      if(ro.length===3){
+        ro[0].textContent=navDur(Math.round(r.ete));
+        ro[1].textContent=r.eto||'--:--';
+        ro[2].textContent=fmt(r.fuel)+' L';
+      }
+    });
+    navCalcLine(c);
+    return;
+  }
+
   const inp=(i,k,v)=>`<input data-nav="${i}" data-k="${k}" value="${esc(v||'')}">`;
   const HEAD=[['Freq.','freq'],['C/S','cs'],['Checkpoint','wpt'],['MT','mt'],['Dist.','dist'],
               ['Alt.','alt'],['EET',''],['ETO',''],['Fuel',''],['Remarks','rmk'],['','']];
@@ -1673,11 +1709,7 @@ function renderNavlogEditor(f){
       const rows=navRowsRaw(); rows.splice(+el.dataset.navdel,1); navRowsSave(rows); render();
     });
   });
-  if($('navCalc')){
-    $('navCalc').textContent = c.rows.length
-      ? `\u2192 ${c.rows.length} tratte \u00b7 ${fmt(c.totDist)} nm \u00b7 ${navDur(Math.round(c.totTime))} \u00b7 ${fmt(c.totFuel)} L a GS ${fmt(c.gsMph)} MPH e ${fmt(c.ff)} L/h`
-      : '';
-  }
+  navCalcLine(c);
 }
 
 /* ============================================================================
@@ -3297,7 +3329,10 @@ function buildNavlogPDF(){
     r.freq, r.cs, r.wpt,
     r.mt||'',                                    // solo il numero: niente gradi
     String(r.dist||'').trim()!=='' ? fmt(r.d) : '',   // solo la tratta, senza progressiva
-    r.alt, navDur(Math.round(r.cumT)), r.eto, '', r.rmk
+    /* EET e' il tempo della SINGOLA tratta, non il progressivo dal decollo:
+       in volo serve sapere quanto manca al prossimo punto, la somma la fa
+       l'ETO della colonna accanto. */
+    r.alt, navDur(Math.round(r.ete)), r.eto, '', r.rmk
   ]);
 
   /* Il foglio si riempie sempre fino in fondo, ma allargando le righe invece
@@ -3370,14 +3405,16 @@ function buildNavlogPDF(){
       doc.text(lab, hx[i]+1.6, ty);
       if(v){ doc.setFont('helvetica','normal'); doc.text(v, hx[i]+2.4+wLab, ty); }
     };
+    /* Off Bl. e Bl. on restano vuote: sono orari che si segnano in cabina,
+       quando succedono, non stime da ricopiare. Come ATO e RWY. */
     hcell(0,y,'ACFT IDENT:', txt('reg'));
     hcell(1,y,'Date:',       txt('wxDate'));
-    hcell(2,y,'Off Bl.:',    txt('tOFF'));
+    hcell(2,y,'Off Bl.:',    '');
     hcell(3,y,'QNH:',        num('toldQnhDep')>0?num('toldQnhDep'):'');
     y+=P.hRowH;
     hcell(0,y,'Pilot:', txt('picName'));
     hcell(1,y,'GS:', nav.gsMph>0?`${Math.round(mphToKt(nav.gsMph))}kt`:'');
-    hcell(2,y,'Bl. on:', txt('tON'));
+    hcell(2,y,'Bl. on:', '');
     hcell(3,y,'RWY:',    txt('depRunway'));
     y+=P.hRowH;
 

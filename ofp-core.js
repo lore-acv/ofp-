@@ -433,21 +433,35 @@ function extractPrintedAt(text){
   return valid ? {date:'', time:'', valid} : null;
 }
 
-/* Estrae le pagine "cartina" (GAFOR/SIGMET/SWC/Wind/QNH ecc.) dal PDF sorgente:
-   sono pagine con pochissimo testo selezionabile (sono per lo più immagini/grafica),
-   a differenza delle pagine METAR/TAF, dei paragrafi di prognosi testuale e dei NOTAM
-   che hanno molto testo. Si escludono sempre la prima pagina (METAR/TAF) e le ultime
-   2 (NOTAM, già gestite a parte). Ogni pagina candidata viene renderizzata su canvas
-   e restituita come immagine, per poi essere impaginata nell'OFP finale. */
+/* Estrae le pagine "cartina" (GAFOR/SIGMET/SWC/Wind/QNH ecc.) dal PDF sorgente.
+   Una pagina e' una cartina quando ha POCO testo selezionabile e ALMENO
+   un'immagine: le pagine di METAR/TAF, di prognosi e di NOTAM sono fatte di
+   testo, le cartine sono grafica.
+
+   Prima si escludevano anche la prima pagina e le ultime due, perche' li' ci
+   stavano METAR/TAF e NOTAM. Era una regola sul posto invece che sul contenuto,
+   ed e' diventata sbagliata quando i NOTAM hanno cominciato a cercarsi in tutto
+   il documento: su un briefing di quattro pagine — la prima di testo e tre di
+   cartine — ne restava dentro una sola, e le altre due sparivano dall'OFP senza
+   dire niente. La soglia sul testo bastava gia' da sola a tenere fuori la
+   pagina dei METAR; l'immagine tiene fuori le pagine vuote. */
 async function extractWeatherCharts(pdf){
   const charts=[];
   const CHART_TEXT_THRESHOLD=300; // caratteri: sotto questa soglia = pagina "grafica"
   const n=pdf.numPages;
-  for(let p=2;p<=n-2;p++){
+  for(let p=1;p<=n;p++){
     const page=await pdf.getPage(p);
     const content=await page.getTextContent();
     const textLen=content.items.map(it=>it.str).join('').length;
     if(textLen>CHART_TEXT_THRESHOLD) continue; // troppo testo: è prognosi/narrativa, non una cartina
+    // e senza nemmeno un'immagine non c'e' niente da stampare
+    let immagini=0;
+    try{
+      const ops=await page.getOperatorList();
+      const OPS=pdfjsLib.OPS;
+      ops.fnArray.forEach(f=>{ if(f===OPS.paintImageXObject||f===OPS.paintJpegXObject||f===OPS.paintInlineImageXObject) immagini++; });
+    }catch(e){ immagini=1; }   // non si e' potuto guardare: nel dubbio si tiene
+    if(!immagini) continue;
     try{
       /* Scala 2.4: nell'OFP la cartina occupa la pagina intera, cioe' circa
          176 mm di larghezza. A 1.5 uscivano 124 punti per pollice e i simboli
