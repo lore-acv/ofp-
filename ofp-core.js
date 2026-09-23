@@ -974,15 +974,20 @@ function sigmetAirmetText(result){
 function mapBriefing(byIcao, codes, enroute){
   codes=codes||{}; byIcao=byIcao||{};
   const up=(v)=>String(v||'').trim().toUpperCase();
-  const dep=up(codes.dep), dest=up(codes.dest), altn=up(codes.altn);
+  const dep=up(codes.dep), dest=up(codes.dest), altn=up(codes.altn), tng=up(codes.tng);
   const blank=()=>({name:null, metar:null, metars:[], speci:null, taf:null, notam:[], notamDeclared:null, metarNa:false, tafNa:false});
   const pick=(c)=>{
     const b = c && byIcao[c];
     if(!b) return blank();
     return Object.assign(blank(), b, {notam:(b.notam||[]).slice(), metars:(b.metars||[]).slice()});
   };
-  const result={dep:pick(dep), dest:pick(dest), altn:pick(altn), other:{}, enroute:(enroute||[]).slice(), byIcao};
-  Object.keys(byIcao).forEach(c=>{ if(c!==dep && c!==dest && c!==altn) result.other[c]=byIcao[c]; });
+  // Il Touch & Go, quando c'e', ha il suo slot: e' un aeroporto dove si atterra,
+  // non uno di quelli "fuori rotta" da mettere in coda al documento.
+  const result={dep:pick(dep), dest:pick(dest), altn:pick(altn), tng:pick(tng),
+                other:{}, enroute:(enroute||[]).slice(), byIcao};
+  Object.keys(byIcao).forEach(c=>{
+    if(c!==dep && c!==dest && c!==altn && c!==tng) result.other[c]=byIcao[c];
+  });
   return result;
 }
 

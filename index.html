@@ -80,6 +80,13 @@
             <div class="fld apt-code"><label>ALTN</label><input id="altn" value="" placeholder="ICAO" maxlength="4" autocapitalize="characters" spellcheck="false"></div>
             <div class="apt-info" id="oaInfoAltn"></div>
           </div>
+          <!-- Aeroporto intermedio: compare da solo quando la rotta ne attraversa uno. -->
+          <div class="tng-row" id="tngRow" style="display:none">
+            <label class="tng-check"><input type="checkbox" id="tngOn"> <span>Touch &amp; Go</span></label>
+            <div class="fld apt-code"><input id="tngIcao" value="" placeholder="ICAO" maxlength="4" autocapitalize="characters" spellcheck="false"></div>
+            <div class="apt-info" id="oaInfoTng"></div>
+          </div>
+          <div class="hint" id="tngNote" style="display:none;margin-top:0"></div>
           <div class="apt-row">
             <div class="fld apt-code"><label>Reg</label><input id="reg" value="I-CCAF"></div>
             <div class="fld"><label>Flight mission</label><input id="mission" value=""></div>
@@ -357,6 +364,34 @@
           </div>
           <input type="hidden" id="toldDestRwyName" value="">
         </div>
+        <div class="group" id="tngPerfGroup" style="display:none">
+          <h3>Touch &amp; Go &mdash; aeroporto intermedio</h3>
+          <div class="row">
+            <div class="fld"><label>Aeroporto</label><input id="toldTngIcao" value="" readonly style="opacity:.7"></div>
+            <div class="fld"><label>Pista</label><select id="toldRwyTng"><option value="">Seleziona pista</option></select></div>
+            <div class="fld"><label>Runway (OFP)</label><input id="tngRunway" value=""></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>Elevazione (ft)</label><input id="toldElevTng" type="number" value="0"></div>
+            <div class="fld"><label>Orientamento (&deg;M)</label><input id="toldHdgTng" type="number" value=""></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>TORA (m)</label><input id="toraTng" type="number" value=""></div>
+            <div class="fld"><label>TODA (m)</label><input id="todaTng" type="number" value=""></div>
+            <div class="fld"><label>LDA (m)</label><input id="ldaTng" type="number" value=""></div>
+          </div>
+          <div class="row">
+            <div class="fld"><label>QNH (hPa)</label><input id="toldQnhTng" type="number" value="1013"></div>
+            <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatTng" type="number" value="15"></div>
+            <div class="fld"><label>Vento da (&deg;M)</label><input id="toldWindDirTng" type="number" min="0" max="360" value=""></div>
+            <div class="fld"><label>Vento (kt)</label><input id="toldWindKtTng" type="number" min="0" value="0"></div>
+          </div>
+          <input type="hidden" id="toldTngRwyName" value="">
+          <div class="hint">Un Touch &amp; Go &egrave; un atterraggio e un decollo sulla stessa pista, quindi si
+            calcolano <b>tutti e due</b>. Per la massa si usa quella al decollo: all'intermedio l'aeroplano ha
+            gi&agrave; bruciato del carburante e pesa meno, quindi le distanze che leggi sono <b>pi&ugrave; lunghe</b>
+            di quelle vere &mdash; l'errore sta dalla parte giusta.</div>
+        </div>
         <div class="group">
           <h3>Alternate &mdash; atterraggio</h3>
           <div class="row">
@@ -517,6 +552,13 @@
           <div class="fld" style="margin-top:6px"><label>SPECI</label><textarea id="destSpeci"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>TAF</label><textarea id="destTaf"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>NOTAM</label><textarea id="destNotam" style="min-height:80px"></textarea></div>
+        </div>
+        <div class="group" id="tngWxGroup" style="display:none">
+          <h3>Touch &amp; Go <span class="filled" id="wxTngIcao"></span></h3>
+          <div class="fld"><label>METAR</label><textarea id="tngMetar"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>SPECI</label><textarea id="tngSpeci"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>TAF</label><textarea id="tngTaf"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>NOTAM</label><textarea id="tngNotam" style="min-height:80px"></textarea></div>
         </div>
         <div class="group">
           <h3>Alternate Airport <span class="filled" id="wxAltnIcao"></span></h3>
@@ -1326,17 +1368,26 @@ function computeTold(){
             qnh, oat, windDir, windKt, rwyHdg: isFinite(rwyHdg)?rwyHdg:null,
             xwLimit,
             ground:Math.round(d[0]), total:Math.round(d[1]), mass:Math.round(massKg),
-            icao:txt(key==='Dep'?'dep':key==='Dest'?'arr':'altn'),
-            rwy:txt('told'+key+'RwyName')||txt(key==='Dep'?'depRunway':key==='Dest'?'destRunway':'altnRunway'),
+            icao:txt({Dep:'dep',Dest:'arr',Altn:'altn',Tng:'tngIcao'}[key]),
+            rwy:txt('told'+key+'RwyName')||txt({Dep:'depRunway',Dest:'destRunway',Altn:'altnRunway',Tng:'tngRunway'}[key]),
             v};
   }
 
   out.legs.dep  = leg('Dep', 'Decollo DEP',            true,  w.tow.w);
   out.legs.dest = leg('Dest','Atterraggio DEST',       false, w.ldw.w);
   out.legs.altn = leg('Altn','Atterraggio ALTN',       false, w.altw.w);
+  /* Un Touch & Go e' un atterraggio e un decollo sulla stessa pista: si
+     calcolano tutti e due. Per la massa si usa quella al DECOLLO: all'intermedio
+     l'aeroplano ha gia' bruciato carburante e pesa meno, quindi entrambe le
+     distanze escono piu' lunghe di quelle vere. Sulle piste l'errore si fa da
+     quella parte. */
+  if(tngAttivo()){
+    out.legs.tngLdg = leg('Tng','Atterraggio T&G',     false, w.tow.w);
+    out.legs.tngTo  = leg('Tng','Decollo T&G',         true,  w.tow.w);
+  }
   out.to = out.legs.dep; out.ld = out.legs.dest;      // alias per il codice esistente
 
-  if(!out.legs.dep && !out.legs.dest && !out.legs.altn){
+  if(!out.legs.dep && !out.legs.dest && !out.legs.altn && !out.legs.tngLdg){
     out.reason='Servono QNH e temperatura per almeno un aeroporto (li estrae il briefing meteo, o inseriscili a mano).';
     return out;
   }
@@ -1349,6 +1400,10 @@ function computeTold(){
   out.toda = (out.legs.dep && todaV) ? {avail:todaV, req:out.legs.dep.total, margin:todaV-out.legs.dep.total} : null;
   out.lda  = (out.legs.dest && g('lda')) ? {avail:g('lda'), req:out.legs.dest.total, margin:g('lda')-out.legs.dest.total} : null;
   out.ldaAltn = (out.legs.altn && g('ldaAltn')) ? {avail:g('ldaAltn'), req:out.legs.altn.total, margin:g('ldaAltn')-out.legs.altn.total} : null;
+  out.ldaTng  = (out.legs.tngLdg && g('ldaTng'))  ? {avail:g('ldaTng'),  req:out.legs.tngLdg.total, margin:g('ldaTng')-out.legs.tngLdg.total} : null;
+  out.toraTng = (out.legs.tngTo  && g('toraTng')) ? {avail:g('toraTng'), req:out.legs.tngTo.ground, margin:g('toraTng')-out.legs.tngTo.ground} : null;
+  const todaTngV = g('todaTng')||g('toraTng');
+  out.todaTng = (out.legs.tngTo && todaTngV) ? {avail:todaTngV, req:out.legs.tngTo.total, margin:todaTngV-out.legs.tngTo.total} : null;
 
   if(w.tow.w>PERF_TBL.takeoff.weightsKg[2]+0.5) warn('red','Massa','Massa al decollo oltre i 1157 kg della tabella: le distanze sono bloccate al massimo tabulato e sottostimano quelle reali.');
   warn('grey','Massa atterraggio','La tabella di atterraggio e\' pubblicata solo a 1157 kg e viene usata qualunque sia la massa: a masse inferiori e\' conservativa.');
@@ -1961,7 +2016,8 @@ function pageOFP(f,t){
     <div style="width:40%">
       <div class="kv" style="line-height:1.9">FLT MISSION: <span class="filled">${esc(txt('mission'))}</span>
 DEP: <span class="filled">${esc(txt('dep'))}</span>
-ARR: <span class="filled">${esc(txt('arr'))}</span>
+${tngAttivo()?`T&amp;G: <span class="filled">${esc(tngIcaoVal())}</span>
+`:''}ARR: <span class="filled">${esc(txt('arr'))}</span>
 ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
     </div>
     <div style="width:1px;background:#000;margin:0 18px"></div>
@@ -2088,9 +2144,7 @@ function pagePerf(f,w){
       ? `<b>${code} ${m.avail}</b> req ${m.req} <b>SUPERATA ${Math.round(-m.margin)} m</b>`
       : `<b>${code} ${m.avail}</b> req ${m.req} (${pct}%) margine ${Math.round(m.margin)} m`;
   };
-  const toldLegs = told.ok ? [[told.legs.dep,[['TORA',told.tora],['TODA',told.toda]]],
-                              [told.legs.dest,[['LDA',told.lda]]],
-                              [told.legs.altn,[['LDA',told.ldaAltn]]]].filter(x=>x[0]) : [];
+  const toldLegs = toldLegList(told);
   const rwyTable = told.ok ? `<table class="refTable" style="max-width:100%">
     <tr><th></th><th>Aeroporto / RWY</th><th>Massa</th><th>QNH / T / vento</th><th>PA / DA</th><th>HW / XW</th><th>Corsa</th><th>15 m</th></tr>
     ${toldLegs.map(([g])=>`<tr>
@@ -2249,6 +2303,7 @@ function weatherSection(){
   </div>`;
   const blocks=[head,
     wxBlock('DEPARTURE AIRPORT', txt('dep'), txt('depMetar'), txt('depSpeci'), txt('depTaf')),
+    tngAttivo() ? wxBlock('TOUCH &amp; GO', tngIcaoVal(), txt('tngMetar'), txt('tngSpeci'), txt('tngTaf')) : '',
     wxBlock('DESTINATION AIRPORT', txt('arr'), txt('destMetar'), txt('destSpeci'), txt('destTaf')),
     wxBlock('ALTERNATE AIRPORT', txt('altn'),
       withDepFallback(txt('altnMetar'),txt('depMetar')),
@@ -2292,6 +2347,7 @@ function notamsSection(){
   };
   const blocks=[]
     .concat(boxes(`DEPARTURE AIRPORT (${esc(txt('dep')||'----')})`, txt('depNotam')))
+    .concat(tngAttivo() ? boxes(`TOUCH &amp; GO (${esc(tngIcaoVal())})`, txt('tngNotam')) : [])
     .concat(boxes(`DESTINATION AIRPORT (${esc(txt('arr')||'----')})`, txt('destNotam')))
     .concat(boxes(`ALTERNATE AIRPORT (${esc(txt('altn')||'----')})`, withDepFallback(txt('altnNotam'),txt('depNotam'))));
   Object.keys(other).forEach(c=>{
@@ -2436,6 +2492,7 @@ function render(){
   if($('tFLT'))   $('tFLT').value=t.flt;
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
   renderNavlogEditor(f);
+  renderTng();
   if($('tripCalc')){
     const el=$('tripCalc');
     el.textContent = `→ salita a ${f.cAlt} ft ${f.climbMin} min / ${fmt(f.climbFuel)} L`
@@ -2754,7 +2811,7 @@ window.__oa = {};       // ICAO -> record OurAirports dell'ultima ricerca
 function oaStatus(cls,msg){ const el=$('oaStatus'); if(el){ el.className='mb-status '+cls; el.textContent=msg; } }
 
 async function lookupAirportsUI(){
-  const codes=[txt('dep'),txt('arr'),txt('altn')].map(c=>c.trim().toUpperCase()).filter(Boolean);
+  const codes=[txt('dep'),txt('arr'),txt('altn'),tngIcaoVal()].map(c=>c.trim().toUpperCase()).filter(Boolean);
   const uniq=[...new Set(codes)];
   if(!uniq.length){ oaStatus('','' ); return; }
   oaStatus('busy','\u23f3 Cerco '+uniq.join(', ')+' su OurAirports\u2026');
@@ -2781,6 +2838,7 @@ async function lookupAirportsUI(){
 function applyAirportData(){
   const rec=window.__oa||{};
   const dep=rec[txt('dep').toUpperCase()], arr=rec[txt('arr').toUpperCase()], altn=rec[txt('altn').toUpperCase()];
+  const tng=rec[tngIcaoVal()];
 
   /* La distanza del Trip NON si calcola piu' qui. La ortodromica DEP->ARR e' la
      linea retta fra due punti: la rotta vera ha virate, punti di riporto e
@@ -2800,7 +2858,7 @@ function applyAirportData(){
   }
 
   // elevazioni e piste per il calcolo prestazioni, per tutti e tre gli aeroporti
-  [['Dep',dep,'depAirport'],['Dest',arr,'destAirport'],['Altn',altn,null]].forEach(([k,rec,ofpId])=>{
+  [['Dep',dep,'depAirport'],['Dest',arr,'destAirport'],['Altn',altn,null],['Tng',tng,null]].forEach(([k,rec,ofpId])=>{
     if(rec){
       if(ofpId && $(ofpId)) $(ofpId).value = rec.icao;
       if($('told'+k+'Icao')) $('told'+k+'Icao').value = rec.icao;
@@ -2832,7 +2890,9 @@ function fillRunwaySelect(id, rec){
 const RWY_MAP={
   toldRwyDep : {icao:'dep',  hdg:'toldHdgDep',  name:'toldDepRwyName',  ofp:'depRunway',   dist:['tora','toda']},
   toldRwyDest: {icao:'arr',  hdg:'toldHdgDest', name:'toldDestRwyName', ofp:'destRunway',  dist:['lda']},
-  toldRwyAltn: {icao:'altn', hdg:'toldHdgAltn', name:'toldAltnRwyName', ofp:'altnRunway',  dist:['ldaAltn']}
+  toldRwyAltn: {icao:'altn', hdg:'toldHdgAltn', name:'toldAltnRwyName', ofp:'altnRunway',  dist:['ldaAltn']},
+  // al T&G si atterra E si decolla: la stessa pista serve tutte e tre le distanze
+  toldRwyTng : {icao:'tngIcao', hdg:'toldHdgTng', name:'toldTngRwyName', ofp:'tngRunway', dist:['toraTng','todaTng','ldaTng']}
 };
 function onRunwayChange(id){
   const cfg=RWY_MAP[id], sel=$(id);
@@ -2849,7 +2909,7 @@ function onRunwayChange(id){
 /* I dati di ogni aeroporto stanno accanto alla sua casella, non in un blocco
    unico sotto le tre: cosi' si vede a colpo d'occhio a quale codice si
    riferiscono, e la scheda resta corta. */
-const APT_BOXES = [['dep','oaInfoDep'],['arr','oaInfoArr'],['altn','oaInfoAltn']];
+const APT_BOXES = [['dep','oaInfoDep'],['arr','oaInfoArr'],['altn','oaInfoAltn'],['tngIcao','oaInfoTng']];
 function renderAirportInfo(){
   const rec=window.__oa||{};
   const missing=window.__oaMissing||{};
@@ -2859,8 +2919,11 @@ function renderAirportInfo(){
     const a=code ? rec[code] : null;
     if(a){
       const rw=(a.runways||[]).map(r=>`${r.ident}/${r.lenM||'?'}m`).join('  ');
+      /* Un record senza coordinate non deve far sparire la pagina: si scrive
+         quello che c'e'. */
+      const coord = (isFinite(a.lat)&&isFinite(a.lon)) ? `${a.lat.toFixed(4)} ${a.lon.toFixed(4)} · ` : '';
       el.innerHTML = `<span class="nm">${esc(a.name)}</span><br>`
-        + `${a.lat.toFixed(4)} ${a.lon.toFixed(4)} · elev ${a.elevFt!=null?Math.round(a.elevFt)+' ft':'n/d'} · ${rw||'piste n/d'}`;
+        + `${coord}elev ${a.elevFt!=null?Math.round(a.elevFt)+' ft':'n/d'} · ${rw||'piste n/d'}`;
     }else if(code && missing[code]){
       el.innerHTML = `<span class="na">${esc(code)} non trovato su OurAirports — compila i campi a mano</span>`;
     }else{
@@ -2897,9 +2960,10 @@ function scheduleAirportLookup(){
    il decollo, destinazione e alternato per i rispettivi atterraggi. Usare il METAR
    sbagliato darebbe distanze semplicemente sbagliate. */
 const PERF_LEGS=[
-  {key:'Dep',  metar:'depMetar',  icao:'dep',  label:'DEP'},
-  {key:'Dest', metar:'destMetar', icao:'arr',  label:'DEST'},
-  {key:'Altn', metar:'altnMetar', icao:'altn', label:'ALTN'}
+  {key:'Dep',  metar:'depMetar',  icao:'dep',      label:'DEP'},
+  {key:'Dest', metar:'destMetar', icao:'arr',      label:'DEST'},
+  {key:'Tng',  metar:'tngMetar',  icao:'tngIcao',  label:'T&G', soloSeTng:true},
+  {key:'Altn', metar:'altnMetar', icao:'altn',     label:'ALTN'}
 ];
 /* Chiamata dall'import del briefing e da ogni cambio di codice ICAO: non c'e'
    piu' un pulsante da premere. Quando gira a vuoto — nessun METAR ancora
@@ -2931,6 +2995,7 @@ function fillToldFromMetar(opts){
   window.__perfWxAuto = window.__perfWxAuto || {};
   const putWx=perfWxPut;
   PERF_LEGS.forEach(L=>{
+    if(L.soloSeTng && !tngAttivo()) return;
     let src=txt(L.metar).trim();
     // l'alternato spesso coincide col departure: in quel caso ne eredita il METAR
     if(!src && L.key==='Altn' && txt('altn').toUpperCase()===txt('dep').toUpperCase()) src=txt('depMetar').trim();
@@ -3012,12 +3077,22 @@ function perfResHTML(name, code, metres, m, codeLbl, info){
     </div>${bar}${stat}</div>`;
 }
 
+/* Le tratte da mostrare, nell'ordine in cui si volano, ciascuna con le
+   distanze dichiarate contro cui confrontarsi. Un posto solo: la scheda, la
+   pagina dell'anteprima e il PDF leggono tutte da qui. */
+function toldLegList(t){
+  if(!t || !t.ok) return [];
+  return [[t.legs.dep,    [['TORA',t.tora],['TODA',t.toda]]],
+          [t.legs.tngLdg, [['LDA',t.ldaTng]]],
+          [t.legs.tngTo,  [['TORA',t.toraTng],['TODA',t.todaTng]]],
+          [t.legs.dest,   [['LDA',t.lda]]],
+          [t.legs.altn,   [['LDA',t.ldaAltn]]]].filter(x=>x[0]);
+}
+
 function toldBoxHTML(t){
   if(!t.ok) return `<div class="alert a-amber"><span class="lbl">Dati</span><span>${esc(t.reason||'Dati insufficienti.')}</span></div>`;
   const u=spdLabel();
-  const legs=[[t.legs.dep,[['TORA',t.tora],['TODA',t.toda]]],
-              [t.legs.dest,[['LDA',t.lda]]],
-              [t.legs.altn,[['LDA',t.ldaAltn]]]].filter(x=>x[0]);
+  const legs=toldLegList(t);
   return legs.map(([g,margins])=>{
     const cond = g.isTakeoff
       ? `Flap 10&deg; &middot; VR <b>${spdVal(g.v.vrMph)} ${u}</b> &middot; VY <b>${spdVal(g.v.vyMph)} ${u}</b>`
@@ -3123,8 +3198,76 @@ wxRetryBtn.addEventListener('click',()=>{ if(window.__wxLastFile) handleWxPdf(wi
 const WX_SLOTS = [
   {slot:'dep',  pfx:'dep',  icao:'dep'},
   {slot:'dest', pfx:'dest', icao:'arr'},
+  {slot:'tng',  pfx:'tng',  icao:'tngIcao'},
   {slot:'altn', pfx:'altn', icao:'altn'}
 ];
+
+/* ============================================================================
+   TOUCH & GO — l'aeroporto intermedio
+   ============================================================================
+   Una navigazione di addestramento passa spesso a toccare un campo per strada.
+   Per l'OFP quel campo non e' un punto di riporto: ci si atterra e si ridecolla,
+   quindi vuole il suo METAR, i suoi NOTAM e i suoi calcoli di pista — due,
+   perche' un Touch & Go e' un atterraggio seguito da un decollo.
+
+   Il programma lo riconosce da solo fra i checkpoint della rotta (un codice
+   ICAO che non e' ne' partenza, ne' destinazione, ne' alternato) ma non decide:
+   propone, e il T&G lo spunta il pilota. Un LIMB attraversato a 4000 piedi e'
+   un waypoint, non una sosta, e solo chi vola lo sa.
+   ========================================================================== */
+function tngIcaoVal(){ return txt('tngIcao').trim().toUpperCase(); }
+function tngAttivo(){ return !!($('tngOn') && $('tngOn').checked && /^[A-Z]{4}$/.test(tngIcaoVal())); }
+
+/* Candidati: codici ICAO fra i checkpoint del navlog e nella rotta scritta a
+   mano, esclusi i tre aeroporti del volo. Se il pacchetto dati e' gia' in
+   memoria si tiene solo chi e' davvero un aeroporto, cosi' una sigla di quattro
+   lettere non diventa uno scalo per sbaglio. */
+function tngCandidati(){
+  const esclusi=new Set([txt('dep'),txt('arr'),txt('altn')].map(c=>c.trim().toUpperCase()).filter(Boolean));
+  const visti=[];
+  const aggiungi=(c)=>{
+    c=String(c||'').trim().toUpperCase();
+    if(!/^[A-Z]{4}$/.test(c) || esclusi.has(c) || visti.includes(c)) return;
+    if(OA.pack && !OA.pack.aeroporti[c]) return;      // il pacchetto dice che non e' un aeroporto
+    visti.push(c);
+  };
+  navRowsRaw().forEach(r=>aggiungi(r.wpt));
+  txt('route').split(/[^A-Za-z0-9]+/).forEach(aggiungi);
+  return visti;
+}
+
+/* La riga nella scheda Volo: compare quando c'e' qualcosa da proporre o quando
+   il T&G e' gia' stato scelto, e sparisce quando non serve. */
+function renderTng(){
+  const riga=$('tngRow'), nota=$('tngNote');
+  if(!riga) return;
+  const cand=tngCandidati();
+  const scelto=tngIcaoVal();
+  const mostra = cand.length>0 || !!scelto;
+  riga.style.display = mostra ? '' : 'none';
+  if(nota){
+    if(!mostra){ nota.style.display='none'; nota.textContent=''; }
+    else{
+      nota.style.display='';
+      const nomi=cand.map(c=>{
+        const a=(window.__oa||{})[c] || (OA.pack && OA.pack.aeroporti[c]);
+        return a&&a.name ? `${c} (${a.name})` : c;
+      });
+      nota.innerHTML = cand.length
+        ? `Lungo la rotta c'&egrave; ${cand.length>1?'un aeroporto fra':''} <b>${esc(nomi.join(', '))}</b>.
+           Spunta <b>Touch &amp; Go</b> se ci si atterra: il foglio aggiunge meteo, NOTAM e i calcoli di pista
+           di quell'aeroporto.`
+        : `Touch &amp; Go su <b>${esc(scelto)}</b>: il foglio ne porta meteo, NOTAM e i calcoli di pista.`;
+    }
+  }
+  // il codice si propone da solo, ma senza spunta non fa niente
+  if($('tngIcao') && !scelto && cand.length) $('tngIcao').value = cand[0];
+
+  const attivo=tngAttivo();
+  ['tngPerfGroup','tngWxGroup'].forEach(id=>{ if($(id)) $(id).style.display = attivo ? '' : 'none'; });
+  if($('toldTngIcao')) $('toldTngIcao').value = attivo ? tngIcaoVal() : '';
+  if($('wxTngIcao'))   $('wxTngIcao').textContent = attivo ? tngIcaoVal() : '';
+}
 const WX_NA = 'N/D — non disponibile nel briefing';
 
 /* opts.onlyEmpty: rimappatura dopo un cambio di codice. Non si tocca quello che
@@ -3193,14 +3336,21 @@ function applyBriefingResult(r, opts){
 function remapBriefing(){
   const r = window.__wxResult;
   if(!r || !r.byIcao) return;
-  const codes = {dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(), altn:txt('altn').toUpperCase()};
+  const codes = {dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(),
+                 altn:txt('altn').toUpperCase(), tng:(tngAttivo()?tngIcaoVal():'')};
   const m = mapBriefing(r.byIcao, codes, r.enroute);
   m.sigmet = r.sigmet; m.airmet = r.airmet; m.source = r.source;
   applyBriefingResult(m, {onlyEmpty:true});
 }
-['dep','arr','altn'].forEach(id=>{
+['dep','arr','altn','tngIcao'].forEach(id=>{
   const el=$(id);
   if(el) el.addEventListener('change', remapBriefing);
+});
+/* La spunta e il codice del T&G cambiano che cosa c'e' nel foglio: si
+   riscrivono le sezioni e si ricerca l'aeroporto come per gli altri tre. */
+['tngOn','tngIcao'].forEach(id=>{
+  const el=$(id);
+  if(el) el.addEventListener('change', ()=>{ renderTng(); scheduleAirportLookup(); render(); });
 });
 
 
@@ -3629,7 +3779,10 @@ function buildPDF(){
   // colonna sinistra: mission info (compatta, in alto)
   let yL=y0;
   const LHmission=LH+1.2;
-  [`FLT MISSION: ${txt('mission')}`,`DEP: ${txt('dep')}`,`ARR: ${txt('arr')}`,`ALTN: ${txt('altn')}`].forEach(l=>{ doc.text(l,L,yL); yL+=LHmission; });
+  [`FLT MISSION: ${txt('mission')}`, `DEP: ${txt('dep')}`]
+    .concat(tngAttivo() ? [`T&G: ${tngIcaoVal()}`] : [])
+    .concat([`ARR: ${txt('arr')}`,`ALTN: ${txt('altn')}`])
+    .forEach(l=>{ doc.text(l,L,yL); yL+=LHmission; });
 
   // linea verticale separatrice + tabella tempi a destra (colonne ESTIMATED/ACTUAL ravvicinate)
   const rightX0=L+80;
@@ -3808,9 +3961,7 @@ function buildPDF(){
   if(!told.ok){
     y=monoLine(doc,L,y, told.reason||'Dati insufficienti per il calcolo delle distanze.'); y+=3;
   }else{
-    const legs=[[told.legs.dep,[['TORA',told.tora],['TODA',told.toda]]],
-                [told.legs.dest,[['LDA',told.lda]]],
-                [told.legs.altn,[['LDA',told.ldaAltn]]]].filter(x=>x[0]);
+    const legs=toldLegList(told);
 
     /* Prima queste informazioni stavano in tre colonne affiancate, una per
        aeroporto, ognuna larga un terzo di pagina. Le righe dei margini — "TORA
@@ -3822,7 +3973,7 @@ function buildPDF(){
        colonna deve entrarci con un margine, altrimenti si torna a stampare un
        valore sopra l'altro. */
     const mm=(v)=>L+v*(R-L)/176;
-    const fase=(g)=>(g.isTakeoff?'T/O ':'LDG ')+(g.label.match(/DEP|DEST|ALTN/)||[''])[0];
+    const fase=(g)=>(g.isTakeoff?'T/O ':'LDG ')+(g.label.match(/DEP|DEST|ALTN|T&G/)||[''])[0];
     doc.setFontSize(6.8);
     /* Ogni colonna dichiara il proprio bordo: `l` quelle di testo, allineate a
        sinistra, `r` quelle numeriche, allineate a destra. Derivare l'inizio di
@@ -4088,6 +4239,7 @@ function buildPDF(){
     printLabelled('TAF:',   orNil(taf));   y+=6;
   };
   wxBlock('DEPARTURE AIRPORT',  txt('dep'), txt('depMetar'),  txt('depSpeci'),  txt('depTaf'));
+  if(tngAttivo()) wxBlock('TOUCH & GO', tngIcaoVal(), txt('tngMetar'), txt('tngSpeci'), txt('tngTaf'));
   wxBlock('DESTINATION AIRPORT',txt('arr'), txt('destMetar'), txt('destSpeci'), txt('destTaf'));
   // ALTERNATE: se coincide col Departure e i campi sono vuoti, eredita gli stessi dati
   // invece di mostrare NIL — non ha senso restare vuoti quando è letteralmente lo stesso aeroporto.
@@ -4164,6 +4316,7 @@ function buildPDF(){
     printNotamBlock(notamText); y+=7;
   };
   notamSection(`DEPARTURE AIRPORT (${txt('dep')||'----'})`, txt('depNotam'));
+  if(tngAttivo()) notamSection(`TOUCH & GO (${tngIcaoVal()})`, txt('tngNotam'));
   notamSection(`DESTINATION AIRPORT (${txt('arr')||'----'})`, txt('destNotam'));
   notamSection(`ALTERNATE AIRPORT (${txt('altn')||'----'})`, withDepFallback(txt('altnNotam'),txt('depNotam')));
   Object.keys(otherWx).forEach(code=>{
@@ -4292,7 +4445,7 @@ $('btnPrint').addEventListener('click', printOFP);
 /* ==================== Dashboard / Flight Manager ==================== */
 // Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)
 const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route',
-  'tOFF','tTO','tLDG','tON','tONman','picName',
+  'tOFF','tTO','tLDG','tON','tONman','picName','tngIcao',
   'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','navRows','navGs','navFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
   'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50',
@@ -4300,11 +4453,14 @@ const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route',
   'toldQnhDep','toldOatDep','toldWindDirDep','toldWindKtDep','toldElevDep','toldHdgDep',
   'toldQnhDest','toldOatDest','toldWindDirDest','toldWindKtDest','toldElevDest','toldHdgDest',
   'toldQnhAltn','toldOatAltn','toldWindDirAltn','toldWindKtAltn','toldElevAltn','toldHdgAltn',
+  'toldQnhTng','toldOatTng','toldWindDirTng','toldWindKtTng','toldElevTng','toldHdgTng',
+  'toraTng','todaTng','ldaTng','tngRunway',
   'noteTrack','noteRunway','noteAlt','noteClear','noteTiming','noteGround','noteRadios','noteSpecials',
   'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','destProc','destThreats','destMit','acStatus','briefRemarks'];
 // Campi meteo/NOTAM (weather_data)
 const WX_FIELDS = ['depMetar','depSpeci','depTaf','depNotam','destMetar','destSpeci','destTaf','destNotam',
-  'altnMetar','altnSpeci','altnTaf','altnNotam','enrouteNotam','sigmetAirmet','wxValid'];
+  'altnMetar','altnSpeci','altnTaf','altnNotam','tngMetar','tngSpeci','tngTaf','tngNotam',
+  'enrouteNotam','sigmetAirmet','wxValid'];
 
 /* ==================== PERSISTENZA ====================
    Due backend, scelti da soli in base a dove gira la pagina:
