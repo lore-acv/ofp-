@@ -1007,3 +1007,43 @@ function parseBriefingText(weatherText, notamText, codes){
   result.source=source;
   return result;
 }
+
+/* ============================================================================
+   TEMA CHIARO / SCURO
+   ============================================================================
+   L'attributo data-tema sta su <html> e vale "scuro" o "chiaro". Lo imposta uno
+   script inline nell'<head> di ciascuna pagina, prima del primo disegno, cosi'
+   non si vede il lampo della tavolozza sbagliata; qui c'e' solo il pulsante che
+   lo cambia e la memoria della scelta.
+
+   La preferenza vive in localStorage: finche' non la si tocca si segue quella
+   del sistema (prefers-color-scheme), dopo comanda la scelta dell'utente.
+
+   Cambia solo l'interfaccia. Il documento — le pagine .page dell'anteprima e i
+   PDF — resta nero su bianco in entrambi i temi: e' carta.
+   ========================================================================== */
+var TEMA_CHIAVE='ofp_tema';
+
+function temaCorrente(){
+  return document.documentElement.getAttribute('data-tema')==='chiaro' ? 'chiaro' : 'scuro';
+}
+
+function applicaTema(t){
+  t = (t==='chiaro') ? 'chiaro' : 'scuro';
+  document.documentElement.setAttribute('data-tema', t);
+  try{ localStorage.setItem(TEMA_CHIAVE, t); }catch(e){}
+  const b=$('btnTema');
+  if(b) b.setAttribute('aria-label', t==='chiaro' ? 'Passa al tema scuro' : 'Passa al tema chiaro');
+  return t;
+}
+
+function initTema(){
+  const b=$('btnTema');
+  if(!b || b.dataset.temaPronto) return;
+  b.dataset.temaPronto='1';
+  applicaTema(temaCorrente());
+  b.addEventListener('click', ()=>{ applicaTema(temaCorrente()==='chiaro' ? 'scuro' : 'chiaro'); });
+}
+
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initTema);
+else initTema();

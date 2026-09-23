@@ -18,6 +18,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OFP C172 FR — Import dati di volo</title>
 <link rel="stylesheet" href="ofp.css">
+<script>
+/* Il tema si applica prima che la pagina si disegni: leggerlo piu' tardi
+   farebbe lampeggiare lo scuro per un istante a chi ha scelto il chiaro.
+   Senza una scelta salvata si segue il sistema. */
+(function(){
+  try{
+    var t=localStorage.getItem('ofp_tema');
+    if(!t) t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'chiaro':'scuro';
+    document.documentElement.setAttribute('data-tema', t);
+  }catch(e){ document.documentElement.setAttribute('data-tema','scuro'); }
+})();
+</script>
+
 <style>
   /* La pagina di apertura non ha il wizard: una colonna sola, centrata. */
   body{display:block;height:auto;min-height:100vh;overflow:auto}
@@ -29,8 +42,8 @@
            margin:0 0 .8rem;font-weight:700}
   .state-row{display:flex;align-items:center;gap:.7rem;margin:.45rem 0;font-size:.95rem}
   .dot{width:1.5rem;height:1.5rem;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;
-       justify-content:center;font-size:.85rem;font-weight:700;background:#1c2a38;color:var(--txt-dim)}
-  .dot.ok{background:#1f7a3d;color:#fff}
+       justify-content:center;font-size:.85rem;font-weight:700;background:var(--pill-n);color:var(--txt-dim)}
+  .dot.ok{background:var(--pill-done);color:#fff}
   .actions{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin-top:1.2rem}
   a.btn{display:inline-flex;align-items:center;text-decoration:none}
   a.btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
@@ -43,6 +56,7 @@
 <div class="topbar">
   <div class="topbar-main">
     <div class="brand">C172 FR OFP <span>Import</span></div>
+    <button type="button" class="tema-btn" id="btnTema" aria-label="Cambia tema chiaro/scuro" title="Tema chiaro/scuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
   </div>
 </div>
 
@@ -219,8 +233,8 @@ function wxPreviewTable(r){
   const codes = r.byIcao || {};
   const list = Object.keys(codes);
   if(!list.length) return '<div class="calc">Nessun aeroporto riconosciuto nel briefing.</div>';
-  const yn = (v, na) => v ? '<span style="color:#7fd18b">si</span>'
-                          : (na ? '<span style="color:#ffd479">N/D</span>'
+  const yn = (v, na) => v ? '<span style="color:var(--ok)">si</span>'
+                          : (na ? '<span style="color:var(--warn)">N/D</span>'
                                 : '<span style="color:var(--txt-dim)">—</span>');
   const role = (c) => {
     const nav = State.nav || {};

@@ -407,6 +407,25 @@ target di tocco hanno un'altezza minima di 2,75 rem (3 rem sui dispositivi
 touch): su iPad campi e tabelle sono leggibili e centrabili col dito senza
 ingrandire la pagina.
 
+### Tema chiaro e scuro
+
+Il pulsante con sole/luna in barra, su entrambe le pagine, commuta la tavolozza.
+L'attributo `data-tema` su `<html>` vale `scuro` o `chiaro`; la scelta si ricorda
+in `localStorage` sotto `ofp_tema` e finché non la si tocca si segue quella del
+sistema operativo (`prefers-color-scheme`). Uno script inline nell'`<head>`
+di ogni pagina applica il tema **prima del primo disegno**, così non si vede il
+lampo della tavolozza sbagliata; il resto (pulsante e memoria) sta in
+`ofp-core.js`, condiviso fra le due pagine.
+
+I colori sono tutti variabili CSS su `:root`, ridefinite in
+`html[data-tema="chiaro"]`: le tinte semantiche — `--sem-ok`, `--sem-caution`,
+`--sem-fail` — hanno valori più scuri nel tema chiaro, perché il verde e l'ambra
+che si leggono bene sul nero non si leggono sul bianco.
+
+**Cambia solo l'interfaccia.** L'anteprima del documento (`.page`, tabelle,
+riquadri meteo) resta nera su bianco in entrambi i temi, e il PDF non cambia di
+una virgola: è carta, e la carta non ha un tema. Il pulsante non si stampa.
+
 ## Limiti noti
 
 - Il **grafico di centraggio** è costruito sull'inviluppo momento/massa dell'AFM

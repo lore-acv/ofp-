@@ -17,12 +17,25 @@
 -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="ofp.css">
+<script>
+/* Il tema si applica prima che la pagina si disegni: leggerlo piu' tardi
+   farebbe lampeggiare lo scuro per un istante a chi ha scelto il chiaro.
+   Senza una scelta salvata si segue il sistema. */
+(function(){
+  try{
+    var t=localStorage.getItem('ofp_tema');
+    if(!t) t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'chiaro':'scuro';
+    document.documentElement.setAttribute('data-tema', t);
+  }catch(e){ document.documentElement.setAttribute('data-tema','scuro'); }
+})();
+</script>
+
 
 <!-- Mostrato solo se si apre il foglio di volo senza essere passati dall'import.
      E' un pannello con un link, non una redirezione da script: sotto Apps Script
      le due pagine stanno in un iframe e la navigazione programmatica verrebbe
      bloccata dal sandbox, mentre un <a target="_top"> funziona sempre. -->
-<div id="needImport" style="display:none;position:fixed;inset:0;z-index:80;background:#070c12;
+<div id="needImport" style="display:none;position:fixed;inset:0;z-index:80;background:var(--bg);
      align-items:center;justify-content:center;padding:2rem">
   <div style="max-width:30rem;text-align:center">
     <p class="step-title">Prima serve l'import</p>
@@ -37,21 +50,24 @@
 <div class="topbar">
   <div class="topbar-main">
     <div class="brand">C172 FR OFP <span>Wizard</span></div>
-    <div class="menu-wrap">
-      <button class="hamburger" id="btnMenu" aria-expanded="false" aria-haspopup="true" aria-controls="mainMenu" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="menu" id="mainMenu" role="menu">
-        <button type="button" role="menuitem" id="btnDashboard">Dashboard</button>
-        <button type="button" role="menuitem" id="btnNew">Nuovo foglio</button>
-        <button type="button" role="menuitem" id="btnStandby">Salva in standby</button>
-        <div class="sep"></div>
-        <button type="button" role="menuitem" id="btnPreview">Anteprima documento</button>
-        <button type="button" role="menuitem" id="btnPrint" title="Stampa lo stesso PDF che si scarica: impaginato dall'app, non dal browser">Stampa OFP</button>
-        <div class="sep"></div>
-        <button type="button" role="menuitem" id="btnDrive" style="display:none">Salva su Drive</button>
-        <button type="button" role="menuitem" class="primary" id="btnPdf">Scarica PDF OFP</button>
-        <button type="button" role="menuitem" class="primary" id="btnNavPdf">Scarica PDF Navlog</button>
+    <div class="topbar-azioni">
+      <button type="button" class="tema-btn" id="btnTema" aria-label="Cambia tema chiaro/scuro" title="Tema chiaro/scuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
+      <div class="menu-wrap">
+        <button class="hamburger" id="btnMenu" aria-expanded="false" aria-haspopup="true" aria-controls="mainMenu" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="menu" id="mainMenu" role="menu">
+          <button type="button" role="menuitem" id="btnDashboard">Dashboard</button>
+          <button type="button" role="menuitem" id="btnNew">Nuovo foglio</button>
+          <button type="button" role="menuitem" id="btnStandby">Salva in standby</button>
+          <div class="sep"></div>
+          <button type="button" role="menuitem" id="btnPreview">Anteprima documento</button>
+          <button type="button" role="menuitem" id="btnPrint" title="Stampa lo stesso PDF che si scarica: impaginato dall'app, non dal browser">Stampa OFP</button>
+          <div class="sep"></div>
+          <button type="button" role="menuitem" id="btnDrive" style="display:none">Salva su Drive</button>
+          <button type="button" role="menuitem" class="primary" id="btnPdf">Scarica PDF OFP</button>
+          <button type="button" role="menuitem" class="primary" id="btnNavPdf">Scarica PDF Navlog</button>
+        </div>
       </div>
     </div>
   </div>
@@ -2695,7 +2711,7 @@ function renderPreview(f,w,t){
   requestAnimationFrame(()=>{
     previewQueued=false;
     try{ stage.innerHTML = buildPreviewHTML(f,w,t); }
-    catch(e){ stage.innerHTML = `<div style="color:#ff7a7a;font-size:13px">Anteprima non disponibile: ${esc(e.message)}</div>`; }
+    catch(e){ stage.innerHTML = `<div style="color:var(--err);font-size:13px">Anteprima non disponibile: ${esc(e.message)}</div>`; }
   });
 }
 /* Grafico di centraggio in SVG: usato sia nel wizard sia nella pagina M&B
@@ -2754,20 +2770,20 @@ function cgChartSVG(w, opt){
 /* Prospetto compatto mostrato dentro lo Step 3, con evidenza di ciò che è fuori limite. */
 function mbTableHTML(w){
   const sh=mbSheetRows(w);
-  const line=(l,wt,arm,mom,bad)=>`<tr${bad?' style="color:#ff7a7a"':''}>
+  const line=(l,wt,arm,mom,bad)=>`<tr${bad?' style="color:var(--err)"':''}>
     <td style="text-align:left;padding-right:8px">${l}</td>
     <td style="text-align:right;padding-right:8px">${fmt(wt)}</td>
     <td style="text-align:right;padding-right:8px">${wt>0?arm.toFixed(3):'—'}</td>
     <td style="text-align:right">${fmt(mom)}</td></tr>`;
-  const sep=`<tr><td colspan="4" style="border-top:1px solid #25384c;height:4px"></td></tr>`;
+  const sep=`<tr><td colspan="4" style="border-top:1px solid var(--panel-line);height:4px"></td></tr>`;
   const outRows=sh.out.map(([l,wt,arm,mom],i)=>{
     const isTow=i===1, isRamp=i===0;
     const c=wt>0?cgCheck(wt,arm,'normal'):null;
     const bad = c && ((isTow||isRamp) ? !c.ok : !c.cgOk);
     return line(l,wt,arm,mom,bad);
   }).join('');
-  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:11px;color:#dbe4ee">
-    <tr style="color:#8fa3b8"><th style="text-align:left">Voce</th><th style="text-align:right">kg</th><th style="text-align:right">braccio m</th><th style="text-align:right">kg·m</th></tr>
+  return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:11px;color:var(--txt)">
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">Voce</th><th style="text-align:right">kg</th><th style="text-align:right">braccio m</th><th style="text-align:right">kg·m</th></tr>
     ${sh.load.map(([l,wt,arm,mom])=>line(l,wt,arm,mom,l.startsWith('BAGGAGE')&&wt>MAX_BAGGAGE_KG)).join('')}
     ${sep}${line(...sh.zfw)}${sep}
     ${sh.fuel.map(([l,wt,arm,mom])=>line(l,wt,arm,mom,l==='FUEL ON BOARD'&&wt>USABLE_FUEL_USG*KG_PER_USG)).join('')}
@@ -3138,7 +3154,7 @@ function perfResHTML(name, code, metres, m, codeLbl, info){
     : `<p class="status idle">Inserisci ${codeLbl} per il controllo</p>`;
   if(m && m.avail>0){
     const ratio=m.req/m.avail, pct=Math.round(ratio*100), margin=Math.round(m.margin);
-    const col = ratio>1 ? '#E5544B' : (ratio>0.85 ? '#E8A33D' : '#4CC38A');
+    const col = ratio>1 ? 'var(--sem-fail)' : (ratio>0.85 ? 'var(--sem-caution)' : 'var(--sem-ok)');
     const cls = ratio>1 ? 'fail' : (ratio>0.85 ? 'caution' : 'ok');
     bar=`<div class="bar"><i style="width:${Math.min(100,pct)}%;background:${col}"></i></div>`;
     stat = ratio>1
