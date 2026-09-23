@@ -13,6 +13,7 @@
    Uso:  node tools/sito.mjs
    ========================================================================== */
 import { mkdir, copyFile, rm, stat, readdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 
 const RADICE = process.cwd();
@@ -29,12 +30,33 @@ const DIST = path.join(RADICE, 'dist');
    file per nome, 'index' e 'import' — e lo scambio si fa solo qui, insieme ai
    due link che le pagine si scambiano. */
 const DA_PUBBLICARE = [
-  ['ofp-core.js',         'ofp-core.js'],
-  ['ofp.css',             'ofp.css'],
   ['data/aeroporti.json', 'data/aeroporti.json'],
   ['data/guida.pdf',      'data/guida.pdf'],
   ['tools/_headers',      '_headers']
 ];
+
+/* IL NOME PORTA L'IMPRONTA DEL CONTENUTO
+
+   Le pagine non si mettono in cache, il foglio di stile e il core si': senza
+   accorgimenti, dopo un aggiornamento il browser si ritrova l'HTML nuovo e il
+   CSS vecchio, e disegna un markup di cui non conosce le regole. Su iPad e'
+   successo davvero — il pulsante del tema e' comparso come un quadratino
+   bianco, perche' Safari aveva in cache un ofp.css che .tema-btn non lo
+   conosceva ancora.
+
+   Qui il nome pubblicato porta dentro l'impronta del contenuto:
+   ofp.9d3f1a02.css. Cambia il file, cambia il nome, e il browser non ha
+   nessuna copia vecchia da riesumare: il problema non si pone piu', e in
+   cambio i due file si possono mettere in cache per sempre.
+
+   Nel repo i nomi restano quelli di sempre, perche' Apps Script li cerca cosi'
+   e li sostituisce a mano: l'impronta vive solo in dist/. */
+const CON_IMPRONTA = [
+  ['ofp-core.js', 'src="ofp-core.js"',              (n) => `src="${n}"`],
+  ['ofp.css',     'href="ofp.css"',                 (n) => `href="${n}"`]
+];
+
+const impronta = (buf) => createHash('sha256').update(buf).digest('hex').slice(0, 8);
 
 /* [sorgente, destinazione, [da, a] del link da riscrivere] */
 const PAGINE = [
@@ -73,12 +95,33 @@ async function main() {
     await copyFile(sorgente, dest);
     console.log('  ' + a);
   }
+  /* Gli asset con impronta: si pubblicano col nome nuovo e si tiene da parte
+     la sostituzione da fare nelle pagine. */
+  const riferimenti = [];
+  for (const [da, cerca, rendi] of CON_IMPRONTA) {
+    const sorgente = path.join(RADICE, da);
+    if (!await esiste(sorgente)) throw new Error(`manca ${da}`);
+    const contenuto = await readFile(sorgente);
+    const est = path.extname(da);
+    const nome = `${da.slice(0, -est.length)}.${impronta(contenuto)}${est}`;
+    await writeFile(path.join(DIST, nome), contenuto);
+    riferimenti.push([cerca, rendi(nome)]);
+    console.log(`  ${nome}  (da ${da})`);
+  }
+
   for (const [da, a, cerca, metti] of PAGINE) {
-    const html = await readFile(path.join(RADICE, da), 'utf8');
+    let html = await readFile(path.join(RADICE, da), 'utf8');
     if (!html.includes(cerca)) throw new Error(`${da}: non trovo ${cerca} — i link fra le pagine sono cambiati`);
+    html = html.split(cerca).join(metti);
+    /* Se un riferimento non c'e' piu', il sito uscirebbe senza stile o senza
+       codice e nessuno se ne accorgerebbe fino al deploy: meglio fermarsi. */
+    for (const [rif, sostituto] of riferimenti) {
+      if (!html.includes(rif)) throw new Error(`${da}: non trovo ${rif} — l'asset non verrebbe caricato`);
+      html = html.split(rif).join(sostituto);
+    }
     const dest = path.join(DIST, a);
     await mkdir(path.dirname(dest), { recursive: true });
-    await writeFile(dest, html.split(cerca).join(metti));
+    await writeFile(dest, html);
     console.log(`  ${a}  (da ${da})`);
   }
 

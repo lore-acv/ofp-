@@ -1,6 +1,13 @@
 # Intestazioni per Cloudflare Pages.
-# Le pagine non si mettono in cache: un aggiornamento deve arrivare subito, e
-# pesano poco. Il pacchetto dati e il foglio di stile invece cambiano di rado.
+#
+# Le pagine non si mettono mai in cache: un aggiornamento deve arrivare subito,
+# e pesano poco. Il foglio di stile e il core invece portano nel nome
+# l'impronta del loro contenuto (ofp.9d3f1a02.css, vedi tools/sito.mjs), quindi
+# un file con quel nome non cambiera' mai: si possono tenere per sempre.
+#
+# Prima non era cosi' e si vedeva: con l'HTML sempre fresco e il CSS a un'ora
+# di cache, per un'ora dopo ogni deploy il browser disegnava il markup nuovo
+# con le regole vecchie.
 
 /*
   X-Content-Type-Options: nosniff
@@ -10,10 +17,14 @@
 /*.html
   Cache-Control: no-cache
 
+/ofp.*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/ofp-core.*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# Il pacchetto aeroporti e la guida hanno nome fisso e li rilegge il codice a
+# runtime: un'ora di cache, poi si rinfrescano da soli mentre si continua a
+# servire la copia vecchia.
 /data/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=604800
-
-/ofp.css
-  Cache-Control: public, max-age=3600
-/ofp-core.js
-  Cache-Control: public, max-age=3600
