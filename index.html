@@ -343,6 +343,8 @@
             <div class="fld"><label>Vento (kt)</label><input id="toldWindKtDep" type="number" min="0" value="0"></div>
           </div>
           <input type="hidden" id="toldDepRwyName" value="">
+          <div class="mb-status" id="wxNoteDep"></div>
+          <button type="button" class="btn ghost" id="btnWxVicinoDep" style="display:none;margin-top:6px"></button>
         </div>
         <div class="group">
           <h3>Destination &mdash; atterraggio</h3>
@@ -363,6 +365,8 @@
             <div class="fld"><label>Vento (kt)</label><input id="toldWindKtDest" type="number" min="0" value="0"></div>
           </div>
           <input type="hidden" id="toldDestRwyName" value="">
+          <div class="mb-status" id="wxNoteDest"></div>
+          <button type="button" class="btn ghost" id="btnWxVicinoDest" style="display:none;margin-top:6px"></button>
         </div>
         <div class="group" id="tngPerfGroup" style="display:none">
           <h3>Touch &amp; Go &mdash; aeroporto intermedio</h3>
@@ -387,8 +391,8 @@
             <div class="fld"><label>Vento (kt)</label><input id="toldWindKtTng" type="number" min="0" value="0"></div>
           </div>
           <input type="hidden" id="toldTngRwyName" value="">
-          <div class="mb-status" id="tngWxNote"></div>
-          <button type="button" class="btn ghost" id="btnTngWxVicino" style="display:none;margin-top:6px"></button>
+          <div class="mb-status" id="wxNoteTng"></div>
+          <button type="button" class="btn ghost" id="btnWxVicinoTng" style="display:none;margin-top:6px"></button>
           <div class="hint">Un Touch &amp; Go &egrave; un atterraggio e un decollo sulla stessa pista, quindi si
             calcolano <b>tutti e due</b>. Per la massa si usa quella al decollo: all'intermedio l'aeroplano ha
             gi&agrave; bruciato del carburante e pesa meno, quindi le distanze che leggi sono <b>pi&ugrave; lunghe</b>
@@ -413,6 +417,8 @@
             <div class="fld"><label>Vento (kt)</label><input id="toldWindKtAltn" type="number" min="0" value="0"></div>
           </div>
           <input type="hidden" id="toldAltnRwyName" value="">
+          <div class="mb-status" id="wxNoteAltn"></div>
+          <button type="button" class="btn ghost" id="btnWxVicinoAltn" style="display:none;margin-top:6px"></button>
         </div>
         <div class="group">
           <h3>Takeoff &amp; Landing Data</h3>
@@ -2515,7 +2521,7 @@ function render(){
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
   renderNavlogEditor(f);
   renderTng();
-  renderTngWxNote();
+  renderWxNotes();
   if($('tripCalc')){
     const el=$('tripCalc');
     el.textContent = `→ salita a ${f.cAlt} ft ${f.climbMin} min / ${fmt(f.climbFuel)} L`
@@ -3030,11 +3036,22 @@ function fillToldFromMetar(opts){
   const done=[], skipped=[];
   window.__perfWxAuto = window.__perfWxAuto || {};
   const putWx=perfWxPut;
+  window.__perfWxDa = window.__perfWxDa || {};
   PERF_LEGS.forEach(L=>{
     if(L.soloSeTng && !tngAttivo()) return;
     let src=txt(L.metar).trim();
-    // l'alternato spesso coincide col departure: in quel caso ne eredita il METAR
-    if(!src && L.key==='Altn' && txt('altn').toUpperCase()===txt('dep').toUpperCase()) src=txt('depMetar').trim();
+    if(src && src!==WX_NA){
+      delete window.__perfWxDa[L.key];        // il METAR e' il suo: nessun prestito da segnalare
+    }else{
+      src='';
+      /* L'alternato spesso coincide col departure: in quel caso ne eredita il
+         METAR, e resta scritto che i valori vengono da li'. */
+      if(L.key==='Altn' && txt('altn').toUpperCase()===txt('dep').toUpperCase()){
+        src=txt('depMetar').trim();
+        if(src && src!==WX_NA) window.__perfWxDa.Altn={icao:txt('dep').toUpperCase(), dist:0, stessoAeroporto:true};
+        else src='';
+      }
+    }
     if(!src){ skipped.push(L.label); return; }
     const m=parseMetar(src);
     const bits=[];
@@ -3395,6 +3412,12 @@ function remapBriefing(){
    valori sapendo da dove vengono. Qui si fa lo stesso, con due differenze: la
    distanza la misura il programma sulle coordinate, e da dove vengono i numeri
    resta scritto, nel riquadro e nel documento. Mai di nascosto. */
+/* Oltre questa distanza un METAR non descrive piu' il campo che ti interessa.
+   Trenta miglia e' gia' generoso in pianura e troppo fra le valli: serve a
+   coprire il caso vero — un campo senza stazione accanto a uno che ce l'ha,
+   Bresso e Linate a otto miglia — non a prendere il meteo di Roma per Milano. */
+const STAZIONE_MAX_NM = 30;
+
 function stazioneVicina(icao){
   const r=window.__wxResult;
   if(!r || !r.byIcao || !/^[A-Z]{4}$/.test(icao||'')) return null;
@@ -3415,57 +3438,76 @@ function stazioneVicina(icao){
   return best;
 }
 
-/* Il riquadro sotto i campi del T&G: dice se il meteo c'e', se manca, o da
-   dove e' stato preso. */
-function renderTngWxNote(){
-  const nota=$('tngWxNote'), btn=$('btnTngWxVicino');
+/* Il riquadro sotto i campi di OGNI aeroporto: dice se il meteo c'e', se manca,
+   o da dove e' stato preso. Vale per partenza, destinazione, intermedio e
+   alternato allo stesso modo — un campo senza METAR e' cieco uguale, che sia
+   quello da cui parti o quello su cui ti dirotti. */
+function icaoDiLeg(key){ return txt({Dep:'dep',Dest:'arr',Altn:'altn',Tng:'tngIcao'}[key]).trim().toUpperCase(); }
+
+function renderWxNote(key){
+  const nota=$('wxNote'+key), btn=$('btnWxVicino'+key);
   if(!nota||!btn) return;
-  if(!tngAttivo()){ nota.textContent=''; nota.className='mb-status'; btn.style.display='none'; return; }
-  const icao=tngIcaoVal();
-  const da=(window.__perfWxDa||{}).Tng;
-  const proprio=txt('tngMetar').trim();
+  const spegni=()=>{ nota.textContent=''; nota.className='mb-status'; btn.style.display='none'; };
+  if(key==='Tng' && !tngAttivo()) return spegni();
+  const icao=icaoDiLeg(key);
+  if(!icao) return spegni();
+
+  const L=PERF_LEGS.find(x=>x.key===key);
+  const proprio=L ? txt(L.metar).trim() : '';
+  const da=(window.__perfWxDa||{})[key];
+
   if(proprio && proprio!==WX_NA){
     nota.className='mb-status ok';
     nota.textContent=`QNH, temperatura e vento dal METAR di ${icao}.`;
     btn.style.display='none';
     return;
   }
-  const vicina=stazioneVicina(icao);
   if(da){
     nota.className='mb-status ok';
-    nota.textContent=`${icao} non ha stazione meteo: valori presi dal METAR di ${da.icao}, a ${da.dist} NM.`;
+    nota.textContent = da.stessoAeroporto
+      ? `${icao} non ha un METAR suo: valori dal METAR di ${da.icao}, che e' lo stesso aeroporto.`
+      : `${icao} non ha stazione meteo: valori presi dal METAR di ${da.icao}, a ${da.dist} NM.`;
     btn.style.display='none';
     return;
   }
+  const vicina=stazioneVicina(icao);
+  const lontana = vicina && vicina.dist>STAZIONE_MAX_NM;
   nota.className='mb-status err';
   nota.textContent=`${icao} non ha METAR nel briefing: QNH, temperatura e vento sono i valori standard`
-    + ` (1013 hPa, 15\u00b0C, aria calma) e le distanze non tengono conto del meteo del giorno.`;
-  if(vicina){
+    + ` (1013 hPa, 15\u00b0C, aria calma) e le distanze non tengono conto del meteo del giorno.`
+    + (lontana ? `  Il piu' vicino con METAR e' ${vicina.icao}, ma a ${Math.round(vicina.dist)} NM`
+                 + ` non descrive questo campo: compila i valori a mano.` : '');
+  if(vicina && !lontana){
     btn.style.display='inline-block';
     btn.textContent=`Usa il METAR di ${vicina.icao} (${Math.round(vicina.dist)} NM)`;
   }else{
     btn.style.display='none';
   }
 }
+function renderWxNotes(){ PERF_LEGS.forEach(L=>renderWxNote(L.key)); }
 
 /* Presi i valori dalla stazione vicina, resta segnato da dove vengono: lo
    ripete il riquadro e lo ripete l'avviso nel documento. */
-function usaMetarVicino(){
-  const icao=tngIcaoVal(), v=stazioneVicina(icao);
-  if(!v) return;
+function usaMetarVicino(key){
+  const icao=icaoDiLeg(key), v=stazioneVicina(icao);
+  if(!v || v.dist>STAZIONE_MAX_NM) return;
   const m=parseMetar(v.metar);
   const put=(id,val)=>{ if($(id) && val!=null && val!=='') $(id).value=val; };
-  put('toldQnhTng', m.qnh);
-  if(isFinite(m.oat)) put('toldOatTng', m.oat);
+  put('toldQnh'+key, m.qnh);
+  if(isFinite(m.oat)) put('toldOat'+key, m.oat);
   if(m.windKt!=null){
-    put('toldWindKtTng', m.windKt);
-    if(m.windDir!=null) put('toldWindDirTng', m.windDir);
+    put('toldWindKt'+key, m.windKt);
+    if(m.windDir!=null) put('toldWindDir'+key, m.windDir);
   }
   window.__perfWxDa = window.__perfWxDa || {};
-  window.__perfWxDa.Tng = {icao:v.icao, dist:Math.round(v.dist)};
+  window.__perfWxDa[key] = {icao:v.icao, dist:Math.round(v.dist)};
   render();
 }
-if($('btnTngWxVicino')) $('btnTngWxVicino').addEventListener('click', usaMetarVicino);
+PERF_LEGS.forEach(L=>{
+  const btn=$('btnWxVicino'+L.key);
+  if(btn) btn.addEventListener('click', ()=>usaMetarVicino(L.key));
+});
+
 
 /* Spuntare il Touch & Go aggiunge un aeroporto al volo: il briefing gia' letto
    va riassegnato, altrimenti il METAR e i NOTAM di quel campo restano nel
