@@ -4177,24 +4177,9 @@ function buildPDF(){
     });
     doc.line(L,y-2.6,R,y-2.6); y+=4;
 
-    /* Gli avvisi finivano solo sullo schermo. Un vento al traverso oltre il
-       limite, o una distanza calcolata su un'atmosfera standard perche' quel
-       campo il METAR non ce l'ha, sono cose che vanno lette dove si leggono le
-       distanze: sul foglio che si porta in volo. Le note discorsive restano
-       fuori, qui va quello su cui si decide. */
-    const avvisi=(told.warns||[])
-      .filter(w=>w.level==='red' || w.level==='amber' || w.label==='Meteo')
-      .sort((a,b)=>({red:0,amber:1,grey:2}[a.level]-{red:0,amber:1,grey:2}[b.level]));
-    if(avvisi.length){
-      doc.setFontSize(6.4);
-      avvisi.forEach(w=>{
-        const segno = w.level==='red' ? '!! ' : (w.level==='amber' ? '!  ' : '-  ');
-        doc.splitTextToSize(segno+w.label.toUpperCase()+' — '+w.text, R-L).forEach((r,i)=>{
-          doc.text(i?'   '+r:r, L, y); y+=2.8;
-        });
-      });
-      y+=1.6; doc.setFontSize(6.8);
-    }
+    /* Gli avvisi restano nella scheda Performance dell'app e non si stampano.
+       Su una pagina gia' fitta di tabelle quattro righe di prosa a capo
+       occupavano piu' spazio delle distanze a cui si riferivano. */
 
     /* TORA, TODA e LDA sono i numeri che decidono se si parte: cella gialla,
        grassetto e un corpo piu' grande del resto della riga. Se la distanza
