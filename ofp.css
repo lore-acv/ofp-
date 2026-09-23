@@ -381,3 +381,31 @@
   .tng-row{flex-direction:column;align-items:stretch}
   .tng-row .apt-code{flex:1 1 auto;max-width:none}
 }
+
+/* ============================================================================
+   GUIDA IN SOVRAIMPRESSIONE
+   ============================================================================
+   Il PDF resta dentro la pagina, su un livello piu' alto: niente scheda nuova,
+   niente download, si chiude e si torna esattamente dov'eri.
+
+   Le pagine si disegnano su <canvas> con pdf.js invece di essere infilate in un
+   <iframe>: su iPad Safari un PDF dentro un iframe lo mostra a meta' o non lo
+   mostra affatto, e questa guida la si legge soprattutto da li'. */
+.guida-velo{position:fixed;inset:0;z-index:200;background:rgba(3,7,12,.86);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  display:none;flex-direction:column}
+.guida-velo.aperta{display:flex}
+.guida-barra{flex:0 0 auto;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+  padding:.7rem 1rem;background:var(--panel-2);border-bottom:1px solid var(--panel-line)}
+.guida-barra .tit{font-weight:700;font-size:1rem;margin-right:auto}
+.guida-barra .tit span{color:var(--txt-dim);font-weight:500;font-size:.85rem}
+.guida-fogli{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;
+  padding:1rem;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.guida-fogli canvas{width:100%;max-width:56rem;height:auto;background:#fff;
+  border-radius:.35rem;box-shadow:0 6px 26px rgba(0,0,0,.55)}
+.guida-stato{color:var(--txt-dim);font-size:.9rem;padding:2rem;text-align:center;line-height:1.6}
+@media screen and (max-width:640px){
+  .guida-barra{padding:.6rem .7rem}
+  .guida-barra .tit{font-size:.92rem;width:100%;margin-right:0}
+  .guida-fogli{padding:.5rem}
+}

@@ -32,6 +32,7 @@ const DA_PUBBLICARE = [
   ['ofp-core.js',         'ofp-core.js'],
   ['ofp.css',             'ofp.css'],
   ['data/aeroporti.json', 'data/aeroporti.json'],
+  ['data/guida.pdf',      'data/guida.pdf'],
   ['tools/_headers',      '_headers']
 ];
 
@@ -45,7 +46,7 @@ const PAGINE = [
    e lo rinfresca l'azione GitHub. Se manca, il sito funziona lo stesso — il
    client ripiega sui CSV — ma e' bene dirlo, perche' e' una differenza di
    venti megabyte per chi apre l'app. */
-const FACOLTATIVI = new Set(['data/aeroporti.json']);
+const FACOLTATIVI = new Set(['data/aeroporti.json', 'data/guida.pdf']);
 
 async function esiste(p) { try { await stat(p); return true; } catch { return false; } }
 

@@ -360,6 +360,25 @@ La radice del sito apre il foglio di volo, che se non trova un import gia'
 fatto mostra il pannello "Prima serve l'import" con il link alla pagina di
 apertura.
 
+### La guida all'uso
+
+`tools/guida.mjs` costruisce `data/guida.pdf`, la guida che si apre dal pulsante
+**Come si usa** nella pagina di apertura. Le schermate stanno in `tools/guida/` e
+vengono dall'applicazione vera, con il volo vero di un NavLog ForeFlight e di uno
+Skybrief: una guida con schermate finte invecchia il giorno dopo e si vede.
+
+Il PDF non si scarica e non apre una scheda: resta sopra la pagina, disegnato su
+`<canvas>` con pdf.js. Un `<iframe src="guida.pdf">` sarebbe stato piu' corto da
+scrivere, ma su iPad Safari un PDF dentro un iframe lo mostra a meta' o non lo
+mostra affatto, ed e' da li' che questa guida si legge.
+
+Per rigenerarla serve jsPDF, che non e' fra le dipendenze del sito — il deploy
+trova il PDF gia' pronto nel repo:
+
+```
+npm i jspdf && node tools/guida.mjs
+```
+
 ### Cosa resta fuori
 
 jsPDF e pdf.js arrivano ancora da cdnjs. Vanno spostati in casa quando si fara'

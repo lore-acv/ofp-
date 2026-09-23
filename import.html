@@ -37,6 +37,7 @@
   .skip{background:transparent;border:0;color:var(--txt-dim);text-decoration:underline;
         cursor:pointer;font:inherit;font-size:.88rem;padding:.4rem}
   .skip:hover{color:var(--txt)}
+  .apri-guida{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 </style>
 
 <div class="topbar">
@@ -46,7 +47,10 @@
 </div>
 
 <div class="wrap">
-  <p class="step-title" style="margin-top:1.2rem">Import dati di volo</p>
+  <div class="apri-guida">
+    <p class="step-title" style="margin:1.2rem 0 0">Import dati di volo</p>
+    <button type="button" class="btn ghost" id="btnGuida">Come si usa</button>
+  </div>
   <p class="lead">Il punto di partenza. Carica il <b>NavLog di ForeFlight</b> e il <b>briefing meteo</b>:
     da qui escono rotta, waypoint, distanze e tempi, e poi vento, QNH, temperatura, METAR, TAF e NOTAM.
     Quando entrambi sono stati letti si passa al foglio di volo.</p>
@@ -82,6 +86,16 @@
     <div class="hint" style="margin-top:.8rem">Manca un file o non si riesce a leggerlo? Si pu&ograve;
       proseguire lo stesso: rotta e dati meteo andranno inseriti a mano nel foglio di volo.</div>
   </div>
+</div>
+
+<!-- La guida sta qui, sopra tutto il resto, e si apre senza lasciare la pagina. -->
+<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="Guida all'uso">
+  <div class="guida-barra">
+    <div class="tit">Come si usa <span>&mdash; guida rapida</span></div>
+    <a class="btn ghost" id="guidaScarica" href="data/guida.pdf" download="OFP-C172-FR-come-si-usa.pdf">Scarica</a>
+    <button type="button" class="btn" id="guidaChiudi">Chiudi</button>
+  </div>
+  <div class="guida-fogli" id="guidaFogli"></div>
 </div>
 
 <script src="ofp-core.js"></script>
@@ -249,6 +263,71 @@ function reparseWeather(){
     manca.length ? `Attenzione: il briefing non contiene l'aeroporto di ${manca.join(' ne quello di ')}.`
                  : 'Briefing e NavLog concordano: gli aeroporti della rotta sono coperti.');
 }
+
+/* ============================================================================
+   GUIDA IN SOVRAIMPRESSIONE
+   ============================================================================
+   Il PDF si apre sopra la pagina e non la lascia: niente scheda nuova, niente
+   download forzato, si chiude e si e' esattamente dov'eravamo.
+
+   Le pagine si disegnano su <canvas> con pdf.js, che la pagina gia' carica per
+   leggere NavLog e briefing. Un <iframe src="guida.pdf"> sarebbe stato piu'
+   corto da scrivere, ma su iPad Safari un PDF dentro un iframe lo mostra a
+   meta' o non lo mostra affatto — e questa guida la si legge soprattutto da li'.
+
+   Si disegna una volta sola: riaprendola, i fogli sono gia' li'. */
+const GUIDA_URL='data/guida.pdf';
+let guidaResa=false;
+
+function apriGuida(){
+  const velo=$('guidaVelo'); if(!velo) return;
+  velo.classList.add('aperta');
+  document.body.style.overflow='hidden';     // dietro non si scorre
+  disegnaGuida();
+}
+function chiudiGuida(){
+  const velo=$('guidaVelo'); if(!velo) return;
+  velo.classList.remove('aperta');
+  document.body.style.overflow='';
+}
+
+async function disegnaGuida(){
+  if(guidaResa) return;
+  const box=$('guidaFogli'); if(!box) return;
+  if(!window.pdfjsLib){
+    box.innerHTML='<div class="guida-stato">Non riesco a leggere il PDF: la libreria non si e\' caricata.'
+      + '<br>Usa <b>Scarica</b> qui sopra per aprirlo.</div>';
+    return;
+  }
+  box.innerHTML='<div class="guida-stato">Apro la guida\u2026</div>';
+  try{
+    const buf=await fetch(GUIDA_URL).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.arrayBuffer(); });
+    const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+    box.innerHTML='';
+    /* Si disegna al doppio della larghezza di lettura: su schermi a punti
+       raddoppiati una pagina resa a misura esatta si vede sfocata. */
+    const larghezza=Math.min(box.clientWidth-32, 900);
+    for(let n=1;n<=pdf.numPages;n++){
+      const pagina=await pdf.getPage(n);
+      const base=pagina.getViewport({scale:1});
+      const vp=pagina.getViewport({scale: Math.min(3, (larghezza*2)/base.width)});
+      const c=document.createElement('canvas');
+      c.width=vp.width; c.height=vp.height;
+      c.setAttribute('aria-label','Guida, pagina '+n+' di '+pdf.numPages);
+      box.appendChild(c);
+      await pagina.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
+    }
+    guidaResa=true;
+  }catch(e){
+    box.innerHTML='<div class="guida-stato">Non riesco ad aprire la guida ('+esc(e.message)+').'
+      + '<br>Usa <b>Scarica</b> qui sopra.</div>';
+  }
+}
+
+if($('btnGuida'))    $('btnGuida').addEventListener('click', apriGuida);
+if($('guidaChiudi')) $('guidaChiudi').addEventListener('click', chiudiGuida);
+if($('guidaVelo'))   $('guidaVelo').addEventListener('click', e=>{ if(e.target===$('guidaVelo')) chiudiGuida(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') chiudiGuida(); });
 
 /* ---------------- stato e consegna ---------------- */
 function refresh(){
