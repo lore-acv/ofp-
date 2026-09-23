@@ -387,6 +387,8 @@
             <div class="fld"><label>Vento (kt)</label><input id="toldWindKtTng" type="number" min="0" value="0"></div>
           </div>
           <input type="hidden" id="toldTngRwyName" value="">
+          <div class="mb-status" id="tngWxNote"></div>
+          <button type="button" class="btn ghost" id="btnTngWxVicino" style="display:none;margin-top:6px"></button>
           <div class="hint">Un Touch &amp; Go &egrave; un atterraggio e un decollo sulla stessa pista, quindi si
             calcolano <b>tutti e due</b>. Per la massa si usa quella al decollo: all'intermedio l'aeroplano ha
             gi&agrave; bruciato del carburante e pesa meno, quindi le distanze che leggi sono <b>pi&ugrave; lunghe</b>
@@ -1342,6 +1344,25 @@ function computeTold(){
   const surface=txt('toldSurface')||'hard';
   const out={warns, ok:false, legs:{}};
 
+  /* Senza METAR il calcolo non si ferma — parte dai valori standard del campo,
+     1013 hPa e 15 gradi — ma quei numeri NON sono il meteo del giorno, e una
+     distanza di decollo calcolata su un'atmosfera inventata, stampata accanto a
+     quelle vere, e' peggio di una casella vuota. Si dice a chiare lettere, una
+     volta per aeroporto, e l'avviso finisce anche nel documento. */
+  const giaDetto={};
+  const senzaMetar=(key)=>{
+    const L=PERF_LEGS.find(x=>x.key===key);
+    const t=L ? txt(L.metar).trim() : '';
+    return !t || t===WX_NA;
+  };
+  const avvisaMeteo=(key,label,icao)=>{
+    if(giaDetto[key]) return;
+    giaDetto[key]=true;
+    const da=(window.__perfWxDa||{})[key];
+    if(da) warn('grey','Meteo',`${icao||label}: QNH, temperatura e vento presi dal METAR di ${da.icao}, a ${da.dist} NM \u2014 questo aeroporto non ha una stazione.`);
+    else if(senzaMetar(key)) warn('amber','Meteo',`${icao||label}: nessun METAR nel briefing. QNH, temperatura e vento sono i valori standard (1013 hPa, 15\u00b0C, aria calma): queste distanze non tengono conto del meteo del giorno.`);
+  };
+
   function leg(key, label, isTakeoff, massKg){
     const elev=num('toldElev'+key), rwyHdg=num('toldHdg'+key);
     const qnh=num('toldQnh'+key), oat=num('toldOat'+key);
@@ -1362,6 +1383,7 @@ function computeTold(){
     const amax=PERF_TBL.takeoff.alts[PERF_TBL.takeoff.alts.length-1];
     if(pa>amax) warn('red','Quota',label+': altitudine di pressione oltre i '+amax+' ft della tabella, distanze bloccate e sottostimate.');
     const v=vspeedsFor(massKg, isTakeoff?0:pa);
+    avvisaMeteo(key, label, txt({Dep:'dep',Dest:'arr',Altn:'altn',Tng:'tngIcao'}[key]));
     return {label, isTakeoff, pa:Math.round(pa), da:Math.round(da),
             isaDev:Math.round((oat-isaTemp(pa))*10)/10,
             head:Math.round(head*10)/10, cross:Math.round(cross*10)/10, haveWind, crossRight,
@@ -2493,6 +2515,7 @@ function render(){
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
   renderNavlogEditor(f);
   renderTng();
+  renderTngWxNote();
   if($('tripCalc')){
     const el=$('tripCalc');
     el.textContent = `→ salita a ${f.cAlt} ft ${f.climbMin} min / ${fmt(f.climbFuel)} L`
@@ -3366,11 +3389,92 @@ function remapBriefing(){
   if(el) el.addEventListener('change', ()=>{ attivaTng(); });
 });
 
+/* Un campo come Bresso una stazione meteo non ce l'ha: nel briefing i suoi
+   METAR non esistono e non esisteranno. Quello che fa un pilota e' guardare il
+   campo attrezzato piu' vicino — Linate sta a otto miglia — e usare quei
+   valori sapendo da dove vengono. Qui si fa lo stesso, con due differenze: la
+   distanza la misura il programma sulle coordinate, e da dove vengono i numeri
+   resta scritto, nel riquadro e nel documento. Mai di nascosto. */
+function stazioneVicina(icao){
+  const r=window.__wxResult;
+  if(!r || !r.byIcao || !/^[A-Z]{4}$/.test(icao||'')) return null;
+  const coord=(c)=>(window.__oa||{})[c] || (OA.pack && OA.pack.aeroporti[c]) || null;
+  const base=coord(icao);
+  if(!base || !isFinite(base.lat)) return null;
+  let best=null;
+  Object.keys(r.byIcao).forEach(c=>{
+    if(c===icao) return;
+    const b=r.byIcao[c];
+    if(!b || !b.metar) return;                 // ci interessa solo chi il METAR ce l'ha
+    const a=coord(c);
+    if(!a || !isFinite(a.lat)) return;
+    const d=gcDistanceNm(base,a);
+    if(d==null) return;
+    if(!best || d<best.dist) best={icao:c, dist:d, metar:b.metar};
+  });
+  return best;
+}
+
+/* Il riquadro sotto i campi del T&G: dice se il meteo c'e', se manca, o da
+   dove e' stato preso. */
+function renderTngWxNote(){
+  const nota=$('tngWxNote'), btn=$('btnTngWxVicino');
+  if(!nota||!btn) return;
+  if(!tngAttivo()){ nota.textContent=''; nota.className='mb-status'; btn.style.display='none'; return; }
+  const icao=tngIcaoVal();
+  const da=(window.__perfWxDa||{}).Tng;
+  const proprio=txt('tngMetar').trim();
+  if(proprio && proprio!==WX_NA){
+    nota.className='mb-status ok';
+    nota.textContent=`QNH, temperatura e vento dal METAR di ${icao}.`;
+    btn.style.display='none';
+    return;
+  }
+  const vicina=stazioneVicina(icao);
+  if(da){
+    nota.className='mb-status ok';
+    nota.textContent=`${icao} non ha stazione meteo: valori presi dal METAR di ${da.icao}, a ${da.dist} NM.`;
+    btn.style.display='none';
+    return;
+  }
+  nota.className='mb-status err';
+  nota.textContent=`${icao} non ha METAR nel briefing: QNH, temperatura e vento sono i valori standard`
+    + ` (1013 hPa, 15\u00b0C, aria calma) e le distanze non tengono conto del meteo del giorno.`;
+  if(vicina){
+    btn.style.display='inline-block';
+    btn.textContent=`Usa il METAR di ${vicina.icao} (${Math.round(vicina.dist)} NM)`;
+  }else{
+    btn.style.display='none';
+  }
+}
+
+/* Presi i valori dalla stazione vicina, resta segnato da dove vengono: lo
+   ripete il riquadro e lo ripete l'avviso nel documento. */
+function usaMetarVicino(){
+  const icao=tngIcaoVal(), v=stazioneVicina(icao);
+  if(!v) return;
+  const m=parseMetar(v.metar);
+  const put=(id,val)=>{ if($(id) && val!=null && val!=='') $(id).value=val; };
+  put('toldQnhTng', m.qnh);
+  if(isFinite(m.oat)) put('toldOatTng', m.oat);
+  if(m.windKt!=null){
+    put('toldWindKtTng', m.windKt);
+    if(m.windDir!=null) put('toldWindDirTng', m.windDir);
+  }
+  window.__perfWxDa = window.__perfWxDa || {};
+  window.__perfWxDa.Tng = {icao:v.icao, dist:Math.round(v.dist)};
+  render();
+}
+if($('btnTngWxVicino')) $('btnTngWxVicino').addEventListener('click', usaMetarVicino);
+
 /* Spuntare il Touch & Go aggiunge un aeroporto al volo: il briefing gia' letto
    va riassegnato, altrimenti il METAR e i NOTAM di quel campo restano nel
    documento senza mai arrivare nella sua casella. E' lo stesso gesto che si fa
    cambiando un ICAO, solo che qui a cambiarlo e' una spunta. */
+let TNG_ULTIMO=null;
 function attivaTng(){
+  const ora=tngAttivo()?tngIcaoVal():'';
+  if(ora!==TNG_ULTIMO){ if(window.__perfWxDa) delete window.__perfWxDa.Tng; TNG_ULTIMO=ora; }
   renderTng();
   remapBriefing();          // METAR, SPECI, TAF e NOTAM dell'intermedio
   scheduleAirportLookup();  // elevazione e piste
@@ -4030,6 +4134,25 @@ function buildPDF(){
       y+=3.9;
     });
     doc.line(L,y-2.6,R,y-2.6); y+=4;
+
+    /* Gli avvisi finivano solo sullo schermo. Un vento al traverso oltre il
+       limite, o una distanza calcolata su un'atmosfera standard perche' quel
+       campo il METAR non ce l'ha, sono cose che vanno lette dove si leggono le
+       distanze: sul foglio che si porta in volo. Le note discorsive restano
+       fuori, qui va quello su cui si decide. */
+    const avvisi=(told.warns||[])
+      .filter(w=>w.level==='red' || w.level==='amber' || w.label==='Meteo')
+      .sort((a,b)=>({red:0,amber:1,grey:2}[a.level]-{red:0,amber:1,grey:2}[b.level]));
+    if(avvisi.length){
+      doc.setFontSize(6.4);
+      avvisi.forEach(w=>{
+        const segno = w.level==='red' ? '!! ' : (w.level==='amber' ? '!  ' : '-  ');
+        doc.splitTextToSize(segno+w.label.toUpperCase()+' — '+w.text, R-L).forEach((r,i)=>{
+          doc.text(i?'   '+r:r, L, y); y+=2.8;
+        });
+      });
+      y+=1.6; doc.setFontSize(6.8);
+    }
 
     /* TORA, TODA e LDA sono i numeri che decidono se si parte: cella gialla,
        grassetto e un corpo piu' grande del resto della riga. Se la distanza
