@@ -135,7 +135,7 @@
         <div class="group">
           <h3>Cruise power setting (POH)</h3>
           <div class="row">
-            <div class="fld"><label>Quota di crociera (ft)</label><input id="pwrAlt" type="number" step="500" value="5000"></div>
+            <div class="fld"><label>Quota di crociera (ft)</label><input id="pwrAlt" type="number" step="500" value="" placeholder="alt"></div>
             <div class="fld"><label>RPM</label><select id="pwrRpm"></select></div>
             <div class="fld"><label>MAP (inHg)</label><select id="pwrMap"></select></div>
           </div>
@@ -174,7 +174,7 @@
             <div class="fld"><label>Fuel flow (L/h)</label><input id="altFF" type="number" step="0.1" value="36.7" readonly style="opacity:.7"></div>
           </div>
           <div class="row">
-            <div class="fld"><label>Altitude (ft)</label><input id="altAlt" type="number" step="500" value="5000"></div>
+            <div class="fld"><label>Altitude (ft)</label><input id="altAlt" type="number" step="500" value="" placeholder="alt"></div>
             <div class="fld"><label>Flight Time (min)</label><input id="altTblTime" type="number" value="20"></div>
           </div>
           <div class="calc" id="altCalc"></div>
@@ -320,7 +320,7 @@
           <h3>Departure &mdash; decollo</h3>
           <div class="row">
             <div class="fld"><label>Aeroporto</label><input id="toldDepIcao" value="" readonly style="opacity:.7"></div>
-            <div class="fld"><label>Pista</label><select id="toldRwyDep"><option value="">—</option></select></div>
+            <div class="fld"><label>Pista</label><select id="toldRwyDep"><option value="">Seleziona pista</option></select></div>
             <div class="fld"><label>Runway (OFP)</label><input id="depRunway" value=""></div>
           </div>
           <div class="row">
@@ -341,7 +341,7 @@
           <h3>Destination &mdash; atterraggio</h3>
           <div class="row">
             <div class="fld"><label>Aeroporto</label><input id="toldDestIcao" value="" readonly style="opacity:.7"></div>
-            <div class="fld"><label>Pista</label><select id="toldRwyDest"><option value="">—</option></select></div>
+            <div class="fld"><label>Pista</label><select id="toldRwyDest"><option value="">Seleziona pista</option></select></div>
             <div class="fld"><label>Runway (OFP)</label><input id="destRunway" value=""></div>
           </div>
           <div class="row">
@@ -361,7 +361,7 @@
           <h3>Alternate &mdash; atterraggio</h3>
           <div class="row">
             <div class="fld"><label>Aeroporto</label><input id="toldAltnIcao" value="" readonly style="opacity:.7"></div>
-            <div class="fld"><label>Pista</label><select id="toldRwyAltn"><option value="">—</option></select></div>
+            <div class="fld"><label>Pista</label><select id="toldRwyAltn"><option value="">Seleziona pista</option></select></div>
             <div class="fld"><label>Runway (OFP)</label><input id="altnRunway" value=""></div>
           </div>
           <div class="row">
@@ -1730,7 +1730,7 @@ function renderNavlogEditor(f){
       const ro=tr.querySelectorAll('td.ro');
       if(ro.length===3){
         ro[0].textContent=navDur(Math.round(r.ete));
-        ro[1].textContent=r.eto||'--:--';
+        ro[1].textContent=etoMin(r.eto)||'--:--';
         ro[2].textContent=fmt(r.fuel)+' L';
       }
     });
@@ -1750,7 +1750,7 @@ function renderNavlogEditor(f){
     <td class="c-dist">${inp(i,'dist',r.dist)}</td>
     <td class="c-alt">${inp(i,'alt',r.alt)}</td>
     <td class="ro">${navDur(Math.round(r.ete))}</td>
-    <td class="ro">${r.eto||'--:--'}</td>
+    <td class="ro">${etoMin(r.eto)||'--:--'}</td>
     <td class="ro">${fmt(r.fuel)} L</td>
     <td class="c-rmk">${inp(i,'rmk',r.rmk)}</td>
     <td><button type="button" class="btn ghost del" data-navdel="${i}">&times;</button></td>
@@ -1790,6 +1790,21 @@ function renderNavlogEditor(f){
    ========================================================================== */
 const NAV_COLS = ['freq','cs','wpt','mt','dist','alt','rmk'];
 
+/* Una prua si scrive a tre cifre: 090, non 90. E' la stessa ragione per cui in
+   radio si dice "zero-nove-zero" — due cifre si leggono male e si confondono
+   con altro. Quello che non e' un numero di prua si lascia com'e'. */
+function mt3(v){
+  const t=String(v==null?'':v).trim();
+  return /^\d{1,3}$/.test(t) ? t.padStart(3,'0') : t;
+}
+
+/* Sul navplan l'orario stimato si segna con i soli minuti dell'ora: 0930 -> 30'.
+   L'ora si sa, i minuti sono quelli che si confrontano col cronometro. */
+function etoMin(hhmm){
+  const v=String(hhmm||'').replace(/\D/g,'');
+  return v.length===4 ? v.slice(2)+"'" : '';
+}
+
 /* La quota di crociera dello Step 2 entra da sola nei punti di rotta: il NavLog
    di ForeFlight le quote non le esporta quasi mai, e riscriverle a mano su venti
    checkpoint e' il genere di lavoro che si finisce per non fare.
@@ -1799,9 +1814,14 @@ const NAV_COLS = ['freq','cs','wpt','mt','dist','alt','rmk'];
 let NAV_ALT_LAST = null;
 function navCruiseAlt(){ const a=num('pwrAlt'); return a>0 ? String(Math.round(a)) : ''; }
 function navApplyCruiseAlt(){
-  const alt=navCruiseAlt(), prev=NAV_ALT_LAST;
+  const alt=navCruiseAlt();
+  /* Campo vuoto: non e' una quota, e' un campo a meta'. Si tiene l'ultima
+     buona, altrimenti svuotando e riscrivendo si perde il riferimento e le
+     tratte non si aggiornerebbero mai piu'. */
+  if(!alt) return;
+  const prev=NAV_ALT_LAST;
   NAV_ALT_LAST = alt;
-  if(!alt || alt===prev) return;
+  if(alt===prev) return;
   const rows=navRowsRaw(); if(!rows.length) return;
   let touched=false;
   rows.forEach(r=>{
@@ -1830,7 +1850,7 @@ function navRowsFromNavlog(sum){
     freq: same ? (prev[i].freq||'') : '',
     cs:   same ? (prev[i].cs||'')   : '',
     wpt:  l.wpt || '',
-    mt:   l.mh!=null ? String(l.mh) : '',
+    mt:   l.mh!=null ? mt3(l.mh) : '',
     dist: l.dist!=null ? String(l.dist) : '',
     alt:  l.alt!=null ? String(l.alt) : navCruiseAlt(),
     rmk:  same ? (prev[i].rmk||'') : ''
@@ -2674,24 +2694,33 @@ function mbTableHTML(w){
 function currentPowerRow(){
   return findSetting(num('pwrAlt'), parseInt(txt('pwrMap'),10), parseInt(txt('pwrRpm'),10));
 }
+/* Le tendine non scelgono per conto loro: partono da " - " e il settaggio lo
+   decide il pilota. Un regime proposto dal programma, su un foglio che poi
+   detta GS e consumo di tutto il volo, si finisce per non guardarlo. */
+const PWR_VUOTO = ' - ';
 function rebuildPowerSelects(){
   const alt=num('pwrAlt');
   const rpmSel=$('pwrRpm'), mapSel=$('pwrMap');
   if(!rpmSel||!mapSel) return;
+  const vuota=(sel)=>{ sel.innerHTML=`<option value="">${PWR_VUOTO}</option>`; sel.value=''; };
+
+  if(!(alt>0)){ vuota(rpmSel); vuota(mapSel); return; }   // senza quota non c'e' tabella
 
   const rows=cruiseRowsAt(alt);
   const rpms=RPM_CHOICES.filter(r=>rows.some(x=>x.rpm===r));
   const wantRpm=parseInt(rpmSel.value,10);
-  const rpm = rpms.indexOf(wantRpm)>=0 ? wantRpm : (rpms[rpms.length-1]||2400);
-  rpmSel.innerHTML = rpms.map(r=>`<option value="${r}"${r===rpm?' selected':''}>${r}</option>`).join('');
+  const rpm = rpms.indexOf(wantRpm)>=0 ? wantRpm : null;
+  rpmSel.innerHTML = `<option value=""${rpm==null?' selected':''}>${PWR_VUOTO}</option>`
+    + rpms.map(r=>`<option value="${r}"${r===rpm?' selected':''}>${r}</option>`).join('');
 
-  const maps=mapsFor(alt, rpm);
+  const maps = rpm==null ? [] : mapsFor(alt, rpm);
   const wantMap=parseInt(mapSel.value,10);
-  const mp = maps.indexOf(wantMap)>=0 ? wantMap : (maps[0]||maps[maps.length-1]);
-  mapSel.innerHTML = maps.map(m=>{
-    const r=findSetting(alt,m,rpm);
-    return `<option value="${m}"${m===mp?' selected':''}>${m}" — ${r?r.bhp+'%':''}</option>`;
-  }).join('');
+  const mp = maps.indexOf(wantMap)>=0 ? wantMap : null;
+  mapSel.innerHTML = `<option value=""${mp==null?' selected':''}>${PWR_VUOTO}</option>`
+    + maps.map(m=>{
+        const r=findSetting(alt,m,rpm);
+        return `<option value="${m}"${m===mp?' selected':''}>${m}" — ${r?r.bhp+'%':''}</option>`;
+      }).join('');
 }
 /* Riporta TAS e consumo del settaggio scelto nei campi Trip, e quelli del
    settaggio fisso dell'alternato (22"/2400) nei campi Alternate. */
@@ -2707,9 +2736,16 @@ function applyPowerToRoute(){
     if($('altFF')) $('altFF').value = a.row.lph;
   }
 }
-function onPowerChange(){ rebuildPowerSelects(); applyPowerToRoute(); navApplyCruiseAlt(); render(); }
+function onPowerChange(){ rebuildPowerSelects(); applyPowerToRoute(); render(); }
 ['pwrAlt','pwrRpm','altAlt'].forEach(id=>{ if($(id)) $(id).addEventListener('change', onPowerChange); });
 if($('pwrAlt')) $('pwrAlt').addEventListener('input', onPowerChange);
+
+/* La quota nelle tratte si aggiorna sul valore CONFERMATO, non a ogni tasto.
+   Inseguendo ogni carattere il navlog copiava i valori a meta': cancellando
+   all'indietro 500 -> 50 -> 5 le tratte restavano a 5, e svuotando il campo
+   per riscriverlo non si aggiornavano piu' affatto. Un numero a meta' non e'
+   una quota di crociera. */
+if($('pwrAlt')) $('pwrAlt').addEventListener('change', ()=>{ navApplyCruiseAlt(); render(); });
 if($('pwrMap')) $('pwrMap').addEventListener('change', ()=>{ applyPowerToRoute(); render(); });
 
 /* ============ RICERCA AEROPORTI E AUTOCOMPILAZIONE ============ */
@@ -2775,14 +2811,19 @@ function applyAirportData(){
   renderAirportInfo();
 }
 
+/* Nessuna pista preselezionata. OurAirports le ordina per lunghezza, quindi
+   la prima della lista e' semplicemente la piu' lunga: sceglierla per conto
+   del pilota vuol dire mettere nel foglio un orientamento, una TORA e una LDA
+   che nessuno ha guardato, e su cui poi si calcolano le distanze di decollo.
+   La pista la decide il vento del giorno. */
 function fillRunwaySelect(id, rec){
   const sel=$(id); if(!sel) return;
   const prev=sel.value;
   const rwys=(rec&&rec.runways)||[];
-  sel.innerHTML = rwys.length
-    ? rwys.map(r=>`<option value="${r.ident}">${r.ident} — ${r.lenM?r.lenM+' m':'? m'}${r.surface?' '+r.surface:''}</option>`).join('')
-    : '<option value="">— nessuna pista nota —</option>';
-  if(prev && rwys.some(r=>r.ident===prev)) sel.value=prev;
+  sel.innerHTML = '<option value="">Seleziona pista</option>'
+    + rwys.map(r=>`<option value="${r.ident}">${r.ident} — ${r.lenM?r.lenM+' m':'? m'}${r.surface?' '+r.surface:''}</option>`).join('');
+  // si conserva solo una scelta gia' fatta dal pilota
+  sel.value = (prev && rwys.some(r=>r.ident===prev)) ? prev : '';
   onRunwayChange(id);
 }
 
@@ -3388,12 +3429,12 @@ function buildNavlogPDF(){
 
   const rows=nav.rows.map(r=>[
     r.freq, r.cs, r.wpt,
-    r.mt||'',                                    // solo il numero: niente gradi
+    mt3(r.mt),                                   // tre cifre, niente gradi
     String(r.dist||'').trim()!=='' ? fmt(r.d) : '',   // solo la tratta, senza progressiva
     /* EET e' il tempo della SINGOLA tratta, non il progressivo dal decollo:
        in volo serve sapere quanto manca al prossimo punto, la somma la fa
        l'ETO della colonna accanto. */
-    r.alt, navDur(Math.round(r.ete)), r.eto, '', r.rmk
+    r.alt, navDur(Math.round(r.ete)), etoMin(r.eto), '', r.rmk
   ]);
 
   /* Il foglio si riempie sempre fino in fondo, ma allargando le righe invece
@@ -4354,9 +4395,7 @@ function applyWeatherData(w){
    di calcolo — niente aeroporti, niente nomi, niente pesi: quelli cambiano a ogni
    volo e restano vuoti, con il placeholder a spiegare cosa va scritto. */
 const NEW_FLIGHT_DEFAULTS = {
-  pwrAlt:'5000', pwrRpm:'2400', pwrMap:'22',   // settaggio di partenza: 22"/2400 a 5000 ft
-  tripGS:'133',              // TAS MPH di quel settaggio (AFM fig. 5-1)
-  tripFF:'36.7',             // consumo L/h di quel settaggio
+  // quota e settaggio non si propongono: li sceglie il pilota (vedi PWR_VUOTO)
   altGS:'133', altFF:'36.7', // alternato: sempre 22"/2400
   fob:'',
   taxiMin:'0', taxiFuel:'0',  // entrambi ricalcolati dagli orari appena il foglio si apre

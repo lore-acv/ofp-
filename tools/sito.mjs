@@ -12,20 +12,33 @@
 
    Uso:  node tools/sito.mjs
    ========================================================================== */
-import { mkdir, copyFile, rm, stat, readdir } from 'node:fs/promises';
+import { mkdir, copyFile, rm, stat, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const RADICE = process.cwd();
 const DIST = path.join(RADICE, 'dist');
 
-/* [sorgente, destinazione dentro dist] */
+/* Le due pagine si scambiano di posto nel sito pubblicato.
+
+   Il volo comincia dall'import: e' li' che si caricano NavLog e briefing, e da
+   li' si arriva al foglio gia' compilato. Aprire la radice sul foglio vuoto
+   vuol dire far cominciare tutti da un cartello che dice "prima serve
+   l'import".
+
+   Nel repo i nomi restano quelli che vuole Apps Script — HtmlService cerca i
+   file per nome, 'index' e 'import' — e lo scambio si fa solo qui, insieme ai
+   due link che le pagine si scambiano. */
 const DA_PUBBLICARE = [
-  ['index.html',          'index.html'],
-  ['import.html',         'import.html'],
   ['ofp-core.js',         'ofp-core.js'],
   ['ofp.css',             'ofp.css'],
   ['data/aeroporti.json', 'data/aeroporti.json'],
   ['tools/_headers',      '_headers']
+];
+
+/* [sorgente, destinazione, [da, a] del link da riscrivere] */
+const PAGINE = [
+  ['import.html', 'index.html', 'href="index.html"',  'href="ofp.html"'],
+  ['index.html',  'ofp.html',   'href="import.html"', 'href="./"']
 ];
 
 /* Il pacchetto dati non si committa a mano: lo costruisce tools/dati-aeroporti.mjs
@@ -59,6 +72,15 @@ async function main() {
     await copyFile(sorgente, dest);
     console.log('  ' + a);
   }
+  for (const [da, a, cerca, metti] of PAGINE) {
+    const html = await readFile(path.join(RADICE, da), 'utf8');
+    if (!html.includes(cerca)) throw new Error(`${da}: non trovo ${cerca} — i link fra le pagine sono cambiati`);
+    const dest = path.join(DIST, a);
+    await mkdir(path.dirname(dest), { recursive: true });
+    await writeFile(dest, html.split(cerca).join(metti));
+    console.log(`  ${a}  (da ${da})`);
+  }
+
   console.log(`\ndist/ pronta — ${(await peso(DIST) / 1024).toFixed(0)} kB`);
   if (mancanti.length) {
     console.log(`\nATTENZIONE: manca ${mancanti.join(', ')}.`);
