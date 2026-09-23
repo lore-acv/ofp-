@@ -3051,13 +3051,14 @@ function scheduleAirportLookup(){
    e rimappare svuoterebbe le caselle a ogni lettera. */
 let remapTimer=null;
 function scheduleRemap(){
-  const codici=[txt('dep'),txt('arr'),txt('altn'),tngIcaoVal()].map(c=>c.trim().toUpperCase());
-  if(codici.some(c=>c && !/^[A-Z]{4}$/.test(c))) return;   // qualcuno sta ancora scrivendo
-  /* Niente memoria dell'ultima combinazione gia' vista: era un risparmio da
-     niente — la pausa di 400 ms accorpa gia' i tasti — e poteva restare
-     disallineata dai campi, saltando proprio l'aggiornamento che serviva.
-     Rifarlo non costa: applyBriefingResult non sovrascrive quello che il
-     pilota ha scritto a mano. */
+  /* Nessun controllo globale prima di partire: chi sta ancora scrivendo lo
+     filtra codicePronto(), campo per campo, e la pausa di 400 ms accorpa i
+     tasti. Rifarlo non costa: applyBriefingResult non sovrascrive quello che il
+     pilota ha scritto a mano.
+
+     Niente memoria dell'ultima combinazione gia' vista: era un risparmio da
+     niente e poteva restare disallineata dai campi, saltando proprio
+     l'aggiornamento che serviva. */
   clearTimeout(remapTimer);
   remapTimer=setTimeout(()=>{ remapBriefing(); render(); }, 400);
 }
@@ -3462,11 +3463,22 @@ function applyBriefingResult(r, opts){
   const otherCodes = Object.keys(window.__briefingOther);
   const allCodes = Object.keys(r.byIcao || {});
 
-  if(found>0){
+  /* Un codice scritto nel foglio che il briefing non copre: e' l'unica cosa
+     che il pilota deve sapere quando l'alternato lo si aggiunge dopo, e prima
+     non la diceva nessuno. */
+  const scoperti = WX_SLOTS.map(({icao})=>codicePronto(txt(icao)))
+    .filter(c=>c && !(r.byIcao||{})[c]);
+
+  /* Il messaggio si decide su quello che il briefing CONTIENE, non su quanti
+     campi si sono scritti adesso: a ogni riabbinamento i campi sono gia' pieni
+     e found torna zero, e prima bastava questo per far comparire un "non ho
+     trovato niente" su un briefing letto benissimo. */
+  if(allCodes.length){
     const otherNote = otherCodes.length ? ` · off route: ${otherCodes.join(', ')}` : '';
-    wxStatus.className='mb-status ok';
+    const mancaNote = scoperti.length ? ` · not in the briefing: ${scoperti.join(', ')}` : '';
+    wxStatus.className = 'mb-status ' + (scoperti.length ? 'busy' : 'ok');
     wxStatus.textContent = `Briefing read (${r.source||'generic'}) — airports found: `
-      + (allCodes.join(', ') || 'none') + ` · ${found} fields filled in${otherNote}`;
+      + allCodes.join(', ') + ` · ${found} fields filled in${otherNote}${mancaNote}`;
     wxRetryBtn.style.display='none';
   }else{
     wxStatus.className='mb-status';
@@ -3478,11 +3490,26 @@ function applyBriefingResult(r, opts){
 /* Rimappatura su cambio di codice ICAO: i dati del briefing sono gia' in
    memoria indicizzati per aeroporto, basta riassegnarli agli slot. E' cosi' che
    un alternato scelto dopo l'import riceve comunque il suo METAR e i suoi NOTAM. */
+/* Un codice e' "pronto" quando e' un identificativo intero: tre o quattro
+   lettere, le stesse che accetta il NavLog (navIsIcao). Quelli a meta' valgono
+   come vuoti, uno per uno.
+
+   Prima il controllo era globale — se UN campo qualsiasi non aveva esattamente
+   quattro lettere, l'abbinamento non si rifaceva per NESSUNO — e siccome il
+   NavLog di ForeFlight accetta anche identificativi di tre lettere, bastava un
+   LIN in partenza per non vedere mai comparire il meteo dell'alternato scritto
+   dopo. */
+const ICAO_INTERO = /^[A-Z]{3,4}$/;
+function codicePronto(v){
+  const c = String(v||'').trim().toUpperCase();
+  return ICAO_INTERO.test(c) ? c : '';
+}
+
 function remapBriefing(){
   const r = window.__wxResult;
   if(!r || !r.byIcao) return;
-  const codes = {dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(),
-                 altn:txt('altn').toUpperCase(), tng:(tngAttivo()?tngIcaoVal():'')};
+  const codes = {dep:codicePronto(txt('dep')), dest:codicePronto(txt('arr')),
+                 altn:codicePronto(txt('altn')), tng:(tngAttivo()?codicePronto(tngIcaoVal()):'')};
   const m = mapBriefing(r.byIcao, codes, r.enroute);
   m.sigmet = r.sigmet; m.airmet = r.airmet; m.source = r.source;
   applyBriefingResult(m, {onlyEmpty:true});
