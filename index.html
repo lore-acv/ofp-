@@ -2979,7 +2979,7 @@ function renderAirportInfo(){
    digitare, e non si ripete per una combinazione di codici gia' cercata. */
 let oaTimer=null, oaLastKey='';
 function scheduleAirportLookup(){
-  const codes=[txt('dep'),txt('arr'),txt('altn')].map(c=>c.trim().toUpperCase());
+  const codes=[txt('dep'),txt('arr'),txt('altn'),tngIcaoVal()].map(c=>c.trim().toUpperCase());
   const valid=codes.filter(c=>/^[A-Z]{4}$/.test(c));
   if(!valid.length) return;
   const key=valid.slice().sort().join(',');
@@ -2987,10 +2987,32 @@ function scheduleAirportLookup(){
   clearTimeout(oaTimer);
   oaTimer=setTimeout(()=>{ oaLastKey=key; lookupAirportsUI(); }, 450);
 }
-['dep','arr','altn'].forEach(id=>{
+/* Il briefing si riassegnava solo al `change`, cioe' uscendo dal campo, mentre
+   la ricerca dell'aeroporto parte gia' mentre si scrive. Chi compilava
+   l'alternato dopo l'import e passava subito allo step successivo vedeva
+   comparire elevazione e piste — e credeva che fosse tutto aggiornato — ma
+   METAR e NOTAM di quell'aeroporto restavano vuoti. Adesso le due cose partono
+   insieme, appena il codice e' completo.
+
+   La condizione conta: finche' un codice e' a meta' (LIM) non e' un aeroporto,
+   e rimappare svuoterebbe le caselle a ogni lettera. */
+let remapTimer=null;
+function scheduleRemap(){
+  const codici=[txt('dep'),txt('arr'),txt('altn'),tngIcaoVal()].map(c=>c.trim().toUpperCase());
+  if(codici.some(c=>c && !/^[A-Z]{4}$/.test(c))) return;   // qualcuno sta ancora scrivendo
+  /* Niente memoria dell'ultima combinazione gia' vista: era un risparmio da
+     niente — la pausa di 400 ms accorpa gia' i tasti — e poteva restare
+     disallineata dai campi, saltando proprio l'aggiornamento che serviva.
+     Rifarlo non costa: applyBriefingResult non sovrascrive quello che il
+     pilota ha scritto a mano. */
+  clearTimeout(remapTimer);
+  remapTimer=setTimeout(()=>{ remapBriefing(); render(); }, 400);
+}
+
+['dep','arr','altn','tngIcao'].forEach(id=>{
   const el=$(id); if(!el) return;
-  el.addEventListener('input', ()=>{ el.value=el.value.toUpperCase(); scheduleAirportLookup(); });
-  el.addEventListener('change', scheduleAirportLookup);
+  el.addEventListener('input', ()=>{ el.value=el.value.toUpperCase(); scheduleAirportLookup(); scheduleRemap(); });
+  el.addEventListener('change', ()=>{ scheduleAirportLookup(); scheduleRemap(); });
   el.addEventListener('blur', scheduleAirportLookup);
 });
 
