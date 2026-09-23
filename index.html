@@ -342,7 +342,15 @@
             destination and alternate for their respective landings.
             They remain editable by hand below.</div>
         </div>
-        <div class="group">
+        <!-- Le quattro fasi non stanno piu' in colonna: se ne apre una alla volta.
+             ENR e' il Touch & Go, e la sua scheda compare solo quando c'e'. -->
+        <div class="perf-tabs" id="perfTabs" role="tablist" aria-label="Phase of flight">
+          <button type="button" class="perf-tab on" role="tab" data-perf="Dep"  id="perfTabDep"  aria-controls="perfPanelDep"  aria-selected="true">DEP<span class="avviso"></span></button>
+          <button type="button" class="perf-tab"    role="tab" data-perf="Dest" id="perfTabDest" aria-controls="perfPanelDest" aria-selected="false" tabindex="-1">ARR<span class="avviso"></span></button>
+          <button type="button" class="perf-tab"    role="tab" data-perf="Altn" id="perfTabAltn" aria-controls="perfPanelAltn" aria-selected="false" tabindex="-1">ALT<span class="avviso"></span></button>
+          <button type="button" class="perf-tab"    role="tab" data-perf="Tng"  id="perfTabTng"  aria-controls="tngPerfGroup"  aria-selected="false" tabindex="-1" style="display:none">ENR<span class="avviso"></span></button>
+        </div>
+        <div class="group perf-panel" id="perfPanelDep" role="tabpanel" aria-labelledby="perfTabDep">
           <h3>Departure &mdash; Takeoff</h3>
           <div class="row">
             <div class="fld"><label>Airport</label><input id="toldDepIcao" value="" readonly style="opacity:.7"></div>
@@ -365,7 +373,7 @@
           <div class="mb-status" id="wxNoteDep"></div>
           <button type="button" class="btn ghost" id="btnWxVicinoDep" style="display:none;margin-top:6px"></button>
         </div>
-        <div class="group">
+        <div class="group perf-panel" id="perfPanelDest" role="tabpanel" aria-labelledby="perfTabDest" style="display:none">
           <h3>Destination &mdash; Landing</h3>
           <div class="row">
             <div class="fld"><label>Airport</label><input id="toldDestIcao" value="" readonly style="opacity:.7"></div>
@@ -387,7 +395,7 @@
           <div class="mb-status" id="wxNoteDest"></div>
           <button type="button" class="btn ghost" id="btnWxVicinoDest" style="display:none;margin-top:6px"></button>
         </div>
-        <div class="group" id="tngPerfGroup" style="display:none">
+        <div class="group perf-panel" id="tngPerfGroup" role="tabpanel" aria-labelledby="perfTabTng" style="display:none">
           <h3>Touch &amp; Go &mdash; Intermediate Airport</h3>
           <div class="row">
             <div class="fld"><label>Airport</label><input id="toldTngIcao" value="" readonly style="opacity:.7"></div>
@@ -417,7 +425,7 @@
             fuel and weighs less, so the distances shown are <b>longer</b> than the actual ones &mdash; the
             error is on the safe side.</div>
         </div>
-        <div class="group">
+        <div class="group perf-panel" id="perfPanelAltn" role="tabpanel" aria-labelledby="perfTabAltn" style="display:none">
           <h3>Alternate &mdash; Landing</h3>
           <div class="row">
             <div class="fld"><label>Airport</label><input id="toldAltnIcao" value="" readonly style="opacity:.7"></div>
@@ -3358,7 +3366,10 @@ function renderTng(){
   if($('tngIcao') && !scelto && cand.length) $('tngIcao').value = cand[0];
 
   const attivo=tngAttivo();
-  ['tngPerfGroup','tngWxGroup'].forEach(id=>{ if($(id)) $(id).style.display = attivo ? '' : 'none'; });
+  /* Il riquadro NOTAM&Wx si mostra da se'; quello di Performance no: ora e' una
+     scheda, e ad accenderla o spegnerla ci pensa renderPerfTabs(). */
+  if($('tngWxGroup')) $('tngWxGroup').style.display = attivo ? '' : 'none';
+  renderPerfTabs();
   if($('toldTngIcao')) $('toldTngIcao').value = attivo ? tngIcaoVal() : '';
   if($('wxTngIcao'))   $('wxTngIcao').textContent = attivo ? tngIcaoVal() : '';
 }
@@ -3525,7 +3536,80 @@ function renderWxNote(key){
     btn.style.display='none';
   }
 }
-function renderWxNotes(){ PERF_LEGS.forEach(L=>renderWxNote(L.key)); }
+/* ===================== SCHEDE DELLA PAGINA PERFORMANCE =====================
+   Quattro aeroporti, uno alla volta. In colonna unica per arrivare
+   all'alternato si scorreva mezzo schermo, e su iPad in cabina e' il gesto
+   sbagliato: qui si passa da DEP ad ARR ad ALT con un dito solo.
+
+   ENR e' il Touch & Go, e la sua scheda esiste solo quando la spunta e' messa:
+   se era quella aperta e il T&G viene tolto, si torna su DEP invece di restare
+   davanti al vuoto.
+
+   I campi nascosti restano campi a tutti gli effetti — display:none non li
+   toglie dal documento — quindi computeTold() continua a leggere tutti e
+   quattro gli aeroporti, non solo quello in vista. Gli avvisi non si nascondono
+   con la scheda: quelli di sostanza finiscono comunque in Takeoff & Landing
+   Data, che sta sotto le schede e si vede sempre, e sulla linguetta compare un
+   punto quando quell'aeroporto ha qualcosa da dire. */
+const PERF_TAB_PANNELLO = {Dep:'perfPanelDep', Dest:'perfPanelDest', Altn:'perfPanelAltn', Tng:'tngPerfGroup'};
+let perfTab = 'Dep';
+
+const perfTabEsiste = (k) => k!=='Tng' || tngAttivo();
+
+function renderPerfTabs(){
+  if(!perfTabEsiste(perfTab)) perfTab='Dep';
+  Object.keys(PERF_TAB_PANNELLO).forEach(k=>{
+    const tab=$('perfTab'+k), pan=$(PERF_TAB_PANNELLO[k]);
+    const c = perfTabEsiste(k), aperta = c && k===perfTab;
+    if(tab){
+      tab.style.display = c ? '' : 'none';
+      tab.classList.toggle('on', aperta);
+      tab.setAttribute('aria-selected', aperta ? 'true' : 'false');
+      tab.tabIndex = aperta ? 0 : -1;
+    }
+    if(pan) pan.style.display = aperta ? '' : 'none';
+  });
+}
+
+function mostraPerfTab(k, fuoco){
+  if(!perfTabEsiste(k)) return;
+  perfTab=k;
+  renderPerfTabs();
+  if(fuoco && $('perfTab'+k)) $('perfTab'+k).focus();
+}
+
+/* Frecce come in una vera barra di schede: si gira solo fra quelle esistenti. */
+function perfTabAdiacente(passo){
+  const vive=Object.keys(PERF_TAB_PANNELLO).filter(perfTabEsiste);
+  const i=vive.indexOf(perfTab);
+  return vive[(i + passo + vive.length) % vive.length];
+}
+
+if($('perfTabs')){
+  $('perfTabs').addEventListener('click', e=>{
+    const b=e.target.closest('.perf-tab');
+    if(b && b.dataset.perf) mostraPerfTab(b.dataset.perf);
+  });
+  $('perfTabs').addEventListener('keydown', e=>{
+    if(e.key==='ArrowRight' || e.key==='ArrowLeft'){
+      e.preventDefault();
+      mostraPerfTab(perfTabAdiacente(e.key==='ArrowRight' ? 1 : -1), true);
+    }
+  });
+}
+
+function renderWxNotes(){
+  PERF_LEGS.forEach(L=>renderWxNote(L.key));
+  /* Il punto sulla linguetta: dice che li' sotto c'e' una nota, e di che
+     colore. Senza, una scheda chiusa nasconderebbe un "manca il METAR". */
+  Object.keys(PERF_TAB_PANNELLO).forEach(k=>{
+    const tab=$('perfTab'+k), nota=$('wxNote'+k);
+    if(!tab) return;
+    const cls = nota ? nota.className : '';
+    const grave = /\berr\b/.test(cls) && (nota.textContent||'').trim()!=='';
+    tab.classList.toggle('ha-avviso', grave);
+  });
+}
 
 /* Presi i valori dalla stazione vicina, resta segnato da dove vengono: lo
    ripete il riquadro e lo ripete l'avviso nel documento. */
