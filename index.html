@@ -1379,6 +1379,39 @@ const OA = {
   raw: null,                     // CSV grezzi, tenuti solo finche' la pagina e' aperta
   LS_PREFIX: 'oa:',
 
+  /* ------------------------------------------------------------------ *
+     IL PACCHETTO — la strada breve, quando c'e'
+
+     Sul sito statico l'app trova accanto a se' un file preparato al momento
+     del deploy (tools/dati-aeroporti.mjs): Italia e paesi confinanti, i soli
+     campi che servono, ottantadue kilobyte compressi al posto di venti
+     megabyte di CSV. Si scarica una volta e da li' in poi ogni ricerca e'
+     immediata, anche senza rete.
+
+     Sotto Apps Script il file non c'e' — HtmlService non serve file statici —
+     e si continua a passare dal server, che ha la sua cache condivisa. Se
+     manca tutto e due, restano i CSV scaricati dal browser: lento, ma
+     funziona.
+
+     I record del pacchetto NON finiscono in localStorage di proposito: il
+     pacchetto si rinnova ogni mese, e una copia locale eterna lo terrebbe
+     indietro per sempre.
+     ------------------------------------------------------------------ */
+  PACK_URL: 'data/aeroporti.json',
+  pack: undefined,               // undefined = non provato, null = non c'e'
+  packPromise: null,
+
+  caricaPacchetto(){
+    if(IS_APPS_SCRIPT){ OA.pack=null; return Promise.resolve(null); }
+    if(OA.pack!==undefined) return Promise.resolve(OA.pack);
+    if(OA.packPromise) return OA.packPromise;
+    OA.packPromise = fetch(OA.PACK_URL)
+      .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(j=>{ OA.pack = (j && j.aeroporti) ? j : null; return OA.pack; })
+      .catch(()=>{ OA.pack=null; return null; });   // non c'e': si passa dalle altre strade
+    return OA.packPromise;
+  },
+
   fromLocal(icao){
     try{ const v=localStorage.getItem(OA.LS_PREFIX+icao); return v?JSON.parse(v):null; }catch(e){ return null; }
   },
@@ -1558,7 +1591,7 @@ const OA = {
       Restituisce {IDENT: {freq, type, desc}}; chi non ha frequenza manca. */
   async lookupFreqs(idents){
     idents=[...new Set(idents.map(c=>String(c||'').trim().toUpperCase()).filter(c=>/^[A-Z0-9]{2,5}$/.test(c)))];
-    const out={}, missing=[];
+    const out={}; let missing=[];
     idents.forEach(c=>{
       let hit;
       if(c in OA.freqMem) hit=OA.freqMem[c];
@@ -1570,6 +1603,21 @@ const OA = {
       if(hit) out[c]=hit;
     });
     if(!missing.length) return out;
+
+    const pack = await OA.caricaPacchetto();
+    if(pack){
+      missing.forEach(c=>{
+        const rec = pack.freq[c] || pack.navaids[c] || null;   // l'aeroporto ha la precedenza
+        OA.freqMem[c]=rec;                                     // anche il "non trovato"
+        if(rec) out[c]=rec;
+      });
+      /* Col pacchetto in mano non si scende ai CSV. I checkpoint di un navlog
+         sono quasi tutti punti di riporto VFR — MALNATE, ROMAGNANO, WHISKY —
+         che una radio non ce l'hanno e in nessun database stanno: cercarli
+         vorrebbe dire scaricare venti megabyte per non trovare niente, a ogni
+         rotta. */
+      return out;
+    }
 
     if(IS_APPS_SCRIPT){
       const rec = await new Promise((res,rej)=>{
@@ -1601,12 +1649,25 @@ const OA = {
   /** Cerca i codici richiesti. Restituisce {ICAO: record}; i codici non trovati mancano. */
   async lookup(codes){
     codes = codes.map(c=>String(c||'').trim().toUpperCase()).filter(c=>/^[A-Z]{4}$/.test(c));
-    const out={}, missing=[];
+    const out={}; let missing=[];
     codes.forEach(c=>{
       const hit = OA.mem[c] || OA.fromLocal(c);
       if(hit){ OA.mem[c]=hit; out[c]=hit; } else missing.push(c);
     });
     if(!missing.length) return out;
+
+    const pack = await OA.caricaPacchetto();
+    if(pack){
+      const resta=[];
+      missing.forEach(c=>{
+        const rec = pack.aeroporti[c];
+        if(rec){ OA.mem[c]=rec; out[c]=rec; } else resta.push(c);
+      });
+      /* Un codice fuori dai paesi del pacchetto esiste lo stesso: per quello
+         si scende ai CSV, che sono il mondo intero. */
+      missing = resta;
+      if(!missing.length) return out;
+    }
 
     if(IS_APPS_SCRIPT){
       const rec = await new Promise((res,rej)=>{

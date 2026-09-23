@@ -1,0 +1,19 @@
+# Intestazioni per Cloudflare Pages.
+# Le pagine non si mettono in cache: un aggiornamento deve arrivare subito, e
+# pesano poco. Il pacchetto dati e il foglio di stile invece cambiano di rado.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+
+/*.html
+  Cache-Control: no-cache
+
+/data/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+
+/ofp.css
+  Cache-Control: public, max-age=3600
+/ofp-core.js
+  Cache-Control: public, max-age=3600

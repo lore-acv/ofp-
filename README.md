@@ -290,6 +290,86 @@ OurAirports non pubblica.
 > dall'AIP: su piste con stopway, clearway o soglia spostata i valori non
 > coincidono.
 
+## Pubblicare come sito statico
+
+L'app e' gia' un sito statico: parsing del briefing, calcoli AFM, jsPDF e
+pdf.js girano tutti nel browser, e i link fra le due pagine sono relativi.
+Apps Script e' l'adattatore, non il contrario — sotto Apps Script il client
+chiama il server per aeroporti, frequenze e archivio voli; fuori, fa tutto da
+solo. Le due strade convivono: lo stesso codice gira in tutti e due i posti.
+
+Pubblicarlo su un dominio proprio toglie di mezzo l'iframe sandbox (i download
+partono, la stampa non prende l'intestazione di Safari), l'URL
+`script.google.com/macros/s/AKfycb...` e i deployment versionati.
+
+### Il pacchetto dati
+
+OurAirports pubblica quattro CSV che insieme fanno una ventina di megabyte.
+Farli scaricare a chi apre l'app, in aeroclub, con la rete che c'e', e' la
+differenza fra una ricerca istantanea e mezzo minuto di attesa.
+
+`tools/dati-aeroporti.mjs` li scarica una volta sola, al momento del deploy,
+tiene l'Europa e i soli campi che servono, e scrive `data/aeroporti.json`:
+
+```
+node tools/dati-aeroporti.mjs
+```
+
+3100 aeroporti con piste e frequenze, 1500 radioassistenze, **189 kB
+compressi** invece di venti megabyte. Il JSON sta nel repo di proposito, cosi'
+il deploy copia un file che c'e' gia' senza dipendere dalla rete. Lo rinfresca
+da solo, il primo di ogni mese, l'azione `.github/workflows/dati-aeroporti.yml`
+— o a mano dalla scheda Actions.
+
+Il client lo cerca accanto a se' e, se lo trova, non scarica piu' niente. Se
+non c'e', ripiega sui CSV: lento, ma funziona. Sotto Apps Script non lo cerca
+nemmeno, perche' HtmlService non serve file statici.
+
+I paesi si scelgono con una variabile:
+
+```
+PAESI=IT,CH,FR,AT node tools/dati-aeroporti.mjs     # solo i confinanti: 82 kB
+```
+
+### La build
+
+```
+node tools/sito.mjs
+```
+
+Raccoglie in `dist/` solo quello che va pubblicato: le due pagine, il core, il
+foglio di stile, il pacchetto dati e gli header di Cloudflare. Restano fuori
+`Codice.gs`, `appsscript.json`, i tools e la documentazione. `dist/` non si
+committa.
+
+### Cloudflare Pages
+
+Dalla dashboard di Cloudflare, **Workers & Pages -> Create -> Pages -> Connect
+to Git**, si sceglie questo repo e si imposta:
+
+| campo | valore |
+|---|---|
+| Framework preset | None |
+| Build command | `node tools/sito.mjs` |
+| Build output directory | `dist` |
+
+Da li' in poi ogni push su `main` ripubblica il sito. Il dominio si aggiunge in
+**Custom domains**. Netlify funziona uguale, con gli stessi due valori.
+
+La radice del sito apre il foglio di volo, che se non trova un import gia'
+fatto mostra il pannello "Prima serve l'import" con il link alla pagina di
+apertura.
+
+### Cosa resta fuori
+
+jsPDF e pdf.js arrivano ancora da cdnjs. Vanno spostati in casa quando si fara'
+la PWA — servono comunque a farla funzionare senza rete — ma finche' non c'e'
+il service worker non cambierebbe niente.
+
+L'archivio dei voli, sul sito statico, e' il `localStorage` del browser: resta
+su quel dispositivo e non si vede dagli altri. Per avere account veri serve il
+passo successivo (Supabase o simili), che non e' in questo repo.
+
 ## Interfaccia
 
 Barra superiore con il titolo e, sotto, le otto fasi in una riga; tutte le azioni

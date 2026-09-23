@@ -1,0 +1,44 @@
+# Rinfresca il pacchetto dati degli aeroporti.
+#
+# OurAirports cambia di continuo — piste rifatte, frequenze spostate, campi che
+# chiudono — ma non abbastanza da doverlo guardare ogni giorno. Una volta al
+# mese e' il passo giusto; se serve prima, si lancia a mano dalla scheda
+# Actions ("Run workflow").
+#
+# Il JSON sta nel repo di proposito: cosi' il deploy su Cloudflare copia un file
+# che c'e' gia', senza dipendere dalla rete al momento della pubblicazione.
+
+name: Dati aeroporti
+
+on:
+  schedule:
+    - cron: '0 4 1 * *'      # il primo del mese, 04:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Costruisci il pacchetto
+        run: node tools/dati-aeroporti.mjs
+
+      - name: Committa se e' cambiato qualcosa
+        run: |
+          if git diff --quiet -- data/aeroporti.json; then
+            echo "Nessuna variazione: i dati sono gia' quelli di oggi."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/aeroporti.json
+          git commit -m "chore(dati): aggiornato il pacchetto aeroporti da OurAirports"
+          git push
