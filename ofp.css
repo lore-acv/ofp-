@@ -441,6 +441,31 @@
 
 /* Selettore del tema, nella barra in alto. Una sola icona che mostra dove si
    va, non dove si e': premendo la luna si passa allo scuro. */
+/* ===== Campi a sinistra, risultati a fianco =====
+   La scheda dei risultati stava sotto ai campi: si compilava vento e QNH e poi
+   si scorreva per vedere che effetto avevano. Affiancata, la si guarda mentre
+   si digita.
+
+   Il taglio in due colonne lo decide la larghezza del PANNELLO, non quella
+   della finestra: con l'anteprima del documento aperta la colonna del form si
+   dimezza, e li' due colonne non ci stanno. Serve una container query; dove non
+   c'e' (Safari < 16) resta l'impilamento di prima, che in quello spazio e'
+   esattamente il comportamento giusto.
+
+   A 26rem la scheda tiene la sua grafica senza ritocchi: nessuna regola
+   "versione stretta", che tanto scatterebbe solo quando le due colonne sono
+   gia' diventate una e la scheda ha tutta la larghezza a disposizione. */
+.perf-panel{container-type:inline-size}
+.perf-split{display:grid;gap:1.1rem;align-items:start}
+.perf-out:empty{display:none}
+.perf-out .perf-card:last-child{margin-bottom:0}
+@container (min-width:46rem){
+  .perf-split{grid-template-columns:minmax(0,1fr) minmax(0,26rem)}
+}
+/* Le tre misure dell'atmosfera restano allineate fra loro anche quando
+   un'etichetta va a capo e le altre no. */
+.atmos>div{display:flex;flex-direction:column;justify-content:space-between}
+
 /* ===== Schede della pagina Performance =====
    DEP / ARR / ALT / ENR: quattro aeroporti, uno alla volta. La linguetta
    accesa si riempie del colore del testo, cosi' l'inversione funziona in

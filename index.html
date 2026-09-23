@@ -16,6 +16,7 @@
   Anteprima HTML fedele al template; PDF vettoriale jsPDF (Courier nativo), A4.
 -->
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OFP C172 FR — Flight Plan</title>
 <link rel="stylesheet" href="ofp.css">
 <script>
@@ -352,105 +353,128 @@
         </div>
         <div class="group perf-panel" id="perfPanelDep" role="tabpanel" aria-labelledby="perfTabDep">
           <h3>Departure &mdash; Takeoff</h3>
-          <div class="row">
-            <div class="fld"><label>Airport</label><input id="toldDepIcao" value="" readonly style="opacity:.7"></div>
-            <div class="fld"><label>Runway</label><select id="toldRwyDep"><option value="">Select runway</option></select></div>
-            <div class="fld"><label>Runway (OFP)</label><input id="depRunway" value=""></div>
+          <div class="perf-split">
+            <div class="perf-in">
+              <div class="row">
+                <div class="fld"><label>Airport</label><input id="toldDepIcao" value="" readonly style="opacity:.7"></div>
+                <div class="fld"><label>Runway</label><select id="toldRwyDep"><option value="">Select runway</option></select></div>
+                <div class="fld"><label>Runway (OFP)</label><input id="depRunway" value=""></div>
+              </div>
+              <div class="row">
+                <div class="fld"><label>Elevation (ft)</label><input id="toldElevDep" type="number" value="0"></div>
+                <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgDep" type="number" value=""></div>
+                <div class="fld"><label>TORA (m)</label><input id="tora" type="number" value=""></div>
+              </div>
+                <div class="fld"><label>TODA (m)</label><input id="toda" type="number" value=""></div>
+              <div class="row">
+                <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDep" type="number" value="1013"></div>
+                <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDep" type="number" value="15"></div>
+                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDep" type="number" min="0" max="360" value=""></div>
+                <div class="fld"><label>Wind (kt)</label><input id="toldWindKtDep" type="number" min="0" value="0"></div>
+              </div>
+              <input type="hidden" id="toldDepRwyName" value="">
+              <div class="mb-status" id="wxNoteDep"></div>
+              <button type="button" class="btn ghost" id="btnWxVicinoDep" style="display:none;margin-top:6px"></button>
+            </div>
+            <div class="perf-out" id="perfOutDep"></div>
           </div>
-          <div class="row">
-            <div class="fld"><label>Elevation (ft)</label><input id="toldElevDep" type="number" value="0"></div>
-            <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgDep" type="number" value=""></div>
-            <div class="fld"><label>TORA (m)</label><input id="tora" type="number" value=""></div>
-          </div>
-            <div class="fld"><label>TODA (m)</label><input id="toda" type="number" value=""></div>
-          <div class="row">
-            <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDep" type="number" value="1013"></div>
-            <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDep" type="number" value="15"></div>
-            <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDep" type="number" min="0" max="360" value=""></div>
-            <div class="fld"><label>Wind (kt)</label><input id="toldWindKtDep" type="number" min="0" value="0"></div>
-          </div>
-          <input type="hidden" id="toldDepRwyName" value="">
-          <div class="mb-status" id="wxNoteDep"></div>
-          <button type="button" class="btn ghost" id="btnWxVicinoDep" style="display:none;margin-top:6px"></button>
         </div>
         <div class="group perf-panel" id="perfPanelDest" role="tabpanel" aria-labelledby="perfTabDest" style="display:none">
           <h3>Destination &mdash; Landing</h3>
-          <div class="row">
-            <div class="fld"><label>Airport</label><input id="toldDestIcao" value="" readonly style="opacity:.7"></div>
-            <div class="fld"><label>Runway</label><select id="toldRwyDest"><option value="">Select runway</option></select></div>
-            <div class="fld"><label>Runway (OFP)</label><input id="destRunway" value=""></div>
+          <div class="perf-split">
+            <div class="perf-in">
+              <div class="row">
+                <div class="fld"><label>Airport</label><input id="toldDestIcao" value="" readonly style="opacity:.7"></div>
+                <div class="fld"><label>Runway</label><select id="toldRwyDest"><option value="">Select runway</option></select></div>
+                <div class="fld"><label>Runway (OFP)</label><input id="destRunway" value=""></div>
+              </div>
+              <div class="row">
+                <div class="fld"><label>Elevation (ft)</label><input id="toldElevDest" type="number" value="0"></div>
+                <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgDest" type="number" value=""></div>
+                <div class="fld"><label>LDA (m)</label><input id="lda" type="number" value=""></div>
+              </div>
+              <div class="row">
+                <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDest" type="number" value="1013"></div>
+                <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDest" type="number" value="15"></div>
+                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDest" type="number" min="0" max="360" value=""></div>
+                <div class="fld"><label>Wind (kt)</label><input id="toldWindKtDest" type="number" min="0" value="0"></div>
+              </div>
+              <input type="hidden" id="toldDestRwyName" value="">
+              <div class="mb-status" id="wxNoteDest"></div>
+              <button type="button" class="btn ghost" id="btnWxVicinoDest" style="display:none;margin-top:6px"></button>
+            </div>
+            <div class="perf-out" id="perfOutDest"></div>
           </div>
-          <div class="row">
-            <div class="fld"><label>Elevation (ft)</label><input id="toldElevDest" type="number" value="0"></div>
-            <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgDest" type="number" value=""></div>
-            <div class="fld"><label>LDA (m)</label><input id="lda" type="number" value=""></div>
-          </div>
-          <div class="row">
-            <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDest" type="number" value="1013"></div>
-            <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDest" type="number" value="15"></div>
-            <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDest" type="number" min="0" max="360" value=""></div>
-            <div class="fld"><label>Wind (kt)</label><input id="toldWindKtDest" type="number" min="0" value="0"></div>
-          </div>
-          <input type="hidden" id="toldDestRwyName" value="">
-          <div class="mb-status" id="wxNoteDest"></div>
-          <button type="button" class="btn ghost" id="btnWxVicinoDest" style="display:none;margin-top:6px"></button>
         </div>
         <div class="group perf-panel" id="tngPerfGroup" role="tabpanel" aria-labelledby="perfTabTng" style="display:none">
           <h3>Touch &amp; Go &mdash; Intermediate Airport</h3>
-          <div class="row">
-            <div class="fld"><label>Airport</label><input id="toldTngIcao" value="" readonly style="opacity:.7"></div>
-            <div class="fld"><label>Runway</label><select id="toldRwyTng"><option value="">Select runway</option></select></div>
-            <div class="fld"><label>Runway (OFP)</label><input id="tngRunway" value=""></div>
+          <div class="perf-split">
+            <div class="perf-in">
+              <div class="row">
+                <div class="fld"><label>Airport</label><input id="toldTngIcao" value="" readonly style="opacity:.7"></div>
+                <div class="fld"><label>Runway</label><select id="toldRwyTng"><option value="">Select runway</option></select></div>
+                <div class="fld"><label>Runway (OFP)</label><input id="tngRunway" value=""></div>
+              </div>
+              <div class="row">
+                <div class="fld"><label>Elevation (ft)</label><input id="toldElevTng" type="number" value="0"></div>
+                <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgTng" type="number" value=""></div>
+              </div>
+              <div class="row">
+                <div class="fld"><label>TORA (m)</label><input id="toraTng" type="number" value=""></div>
+                <div class="fld"><label>TODA (m)</label><input id="todaTng" type="number" value=""></div>
+                <div class="fld"><label>LDA (m)</label><input id="ldaTng" type="number" value=""></div>
+              </div>
+              <div class="row">
+                <div class="fld"><label>QNH (hPa)</label><input id="toldQnhTng" type="number" value="1013"></div>
+                <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatTng" type="number" value="15"></div>
+                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirTng" type="number" min="0" max="360" value=""></div>
+                <div class="fld"><label>Wind (kt)</label><input id="toldWindKtTng" type="number" min="0" value="0"></div>
+              </div>
+              <input type="hidden" id="toldTngRwyName" value="">
+              <div class="mb-status" id="wxNoteTng"></div>
+              <button type="button" class="btn ghost" id="btnWxVicinoTng" style="display:none;margin-top:6px"></button>
+              <div class="hint">A Touch &amp; Go is a landing and a takeoff on the same runway, so <b>both</b> are
+                computed. The takeoff mass is used: at the intermediate airport the aeroplane has already burnt
+                fuel and weighs less, so the distances shown are <b>longer</b> than the actual ones &mdash; the
+                error is on the safe side.</div>
+            </div>
+            <div class="perf-out" id="perfOutTng"></div>
           </div>
-          <div class="row">
-            <div class="fld"><label>Elevation (ft)</label><input id="toldElevTng" type="number" value="0"></div>
-            <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgTng" type="number" value=""></div>
-          </div>
-          <div class="row">
-            <div class="fld"><label>TORA (m)</label><input id="toraTng" type="number" value=""></div>
-            <div class="fld"><label>TODA (m)</label><input id="todaTng" type="number" value=""></div>
-            <div class="fld"><label>LDA (m)</label><input id="ldaTng" type="number" value=""></div>
-          </div>
-          <div class="row">
-            <div class="fld"><label>QNH (hPa)</label><input id="toldQnhTng" type="number" value="1013"></div>
-            <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatTng" type="number" value="15"></div>
-            <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirTng" type="number" min="0" max="360" value=""></div>
-            <div class="fld"><label>Wind (kt)</label><input id="toldWindKtTng" type="number" min="0" value="0"></div>
-          </div>
-          <input type="hidden" id="toldTngRwyName" value="">
-          <div class="mb-status" id="wxNoteTng"></div>
-          <button type="button" class="btn ghost" id="btnWxVicinoTng" style="display:none;margin-top:6px"></button>
-          <div class="hint">A Touch &amp; Go is a landing and a takeoff on the same runway, so <b>both</b> are
-            computed. The takeoff mass is used: at the intermediate airport the aeroplane has already burnt
-            fuel and weighs less, so the distances shown are <b>longer</b> than the actual ones &mdash; the
-            error is on the safe side.</div>
         </div>
         <div class="group perf-panel" id="perfPanelAltn" role="tabpanel" aria-labelledby="perfTabAltn" style="display:none">
           <h3>Alternate &mdash; Landing</h3>
-          <div class="row">
-            <div class="fld"><label>Airport</label><input id="toldAltnIcao" value="" readonly style="opacity:.7"></div>
-            <div class="fld"><label>Runway</label><select id="toldRwyAltn"><option value="">Select runway</option></select></div>
-            <div class="fld"><label>Runway (OFP)</label><input id="altnRunway" value=""></div>
+          <div class="perf-split">
+            <div class="perf-in">
+              <div class="row">
+                <div class="fld"><label>Airport</label><input id="toldAltnIcao" value="" readonly style="opacity:.7"></div>
+                <div class="fld"><label>Runway</label><select id="toldRwyAltn"><option value="">Select runway</option></select></div>
+                <div class="fld"><label>Runway (OFP)</label><input id="altnRunway" value=""></div>
+              </div>
+              <div class="row">
+                <div class="fld"><label>Elevation (ft)</label><input id="toldElevAltn" type="number" value="0"></div>
+                <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgAltn" type="number" value=""></div>
+                <div class="fld"><label>LDA (m)</label><input id="ldaAltn" type="number" value=""></div>
+              </div>
+              <div class="row">
+                <div class="fld"><label>QNH (hPa)</label><input id="toldQnhAltn" type="number" value="1013"></div>
+                <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatAltn" type="number" value="15"></div>
+                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirAltn" type="number" min="0" max="360" value=""></div>
+                <div class="fld"><label>Wind (kt)</label><input id="toldWindKtAltn" type="number" min="0" value="0"></div>
+              </div>
+              <input type="hidden" id="toldAltnRwyName" value="">
+              <div class="mb-status" id="wxNoteAltn"></div>
+              <button type="button" class="btn ghost" id="btnWxVicinoAltn" style="display:none;margin-top:6px"></button>
+            </div>
+            <div class="perf-out" id="perfOutAltn"></div>
           </div>
-          <div class="row">
-            <div class="fld"><label>Elevation (ft)</label><input id="toldElevAltn" type="number" value="0"></div>
-            <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgAltn" type="number" value=""></div>
-            <div class="fld"><label>LDA (m)</label><input id="ldaAltn" type="number" value=""></div>
-          </div>
-          <div class="row">
-            <div class="fld"><label>QNH (hPa)</label><input id="toldQnhAltn" type="number" value="1013"></div>
-            <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatAltn" type="number" value="15"></div>
-            <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirAltn" type="number" min="0" max="360" value=""></div>
-            <div class="fld"><label>Wind (kt)</label><input id="toldWindKtAltn" type="number" min="0" value="0"></div>
-          </div>
-          <input type="hidden" id="toldAltnRwyName" value="">
-          <div class="mb-status" id="wxNoteAltn"></div>
-          <button type="button" class="btn ghost" id="btnWxVicinoAltn" style="display:none;margin-top:6px"></button>
         </div>
         <div class="group">
-          <h3>Takeoff &amp; Landing Data</h3>
-          <div id="toldBox"></div>
-          <div id="toldWarns" style="margin-top:8px"></div>
+          <h3>Checks &amp; Warnings</h3>
+          <!-- Le schede dei risultati sono salite accanto ai campi, una per
+               linguetta. Qui restano gli avvisi, che valgono per tutti gli
+               aeroporti insieme e devono restare in vista qualunque scheda sia
+               aperta. -->
+          <div id="toldWarns"></div>
           <div class="hint"><b>TORA / TODA / LDA:</b> OurAirports publishes the <i>physical length</i> of the
             runway, not the declared distances, which are only in the AIP. The fields are pre-filled with the
             physical length as a starting point and must be corrected from the AIP on runways with stopway,
@@ -2583,7 +2607,7 @@ function render(){
     $('pwrCalc').textContent = senzaQuota
       ? '→ enter the cruise altitude first: the available RPM and MAP depend on it'
       : (row
-        ? `→ ${row.mp}" / ${row.rpm} RPM a ${num('pwrAlt')} ft = ${row.bhp}% potenza · TAS ${row.mph} MPH (${row.kt} kt) · ${row.lph} L/h`
+        ? `→ ${row.mp}" / ${row.rpm} RPM at ${num('pwrAlt')} ft = ${row.bhp}% power · TAS ${row.mph} MPH (${row.kt} kt) · ${row.lph} L/h`
           + (row.exact ? '' : `  (interpolated between ${row.loAlt} and ${row.hiAlt} ft)`)
         : '→ select RPM and MAP from the combinations published by the POH at this altitude');
     $('pwrCalc').style.color = senzaQuota ? '#ffd479' : (row ? '' : '#ffd479');
@@ -2620,11 +2644,11 @@ function render(){
     $('climbFuelCalc').textContent = `→ climb to ${a} ft: ${Math.round(climbTimeMin(a))} min and ${fmt(climbFuelLitres(a))} L`
       + ` at full power, 1157 kg, incl. start-up and takeoff (AFM fig. 5-6)`;
   }
-  if($('toldBox')){
+  if($('toldWarns')){
     const t=computeTold();
     window.__told=t;
-    $('toldBox').innerHTML=toldBoxHTML(t);
-    if($('toldWarns')) $('toldWarns').innerHTML=toldWarnsHTML(t);
+    renderPerfCards(t);
+    $('toldWarns').innerHTML=toldWarnsHTML(t);
     // i campi che alimentano anteprima e PDF restano allineati al calcolo
     if(t.ok){
       if($('toGround'))  $('toGround').value  = t.to.ground;
@@ -3184,58 +3208,72 @@ function perfResHTML(name, code, metres, m, codeLbl, info){
    pagina dell'anteprima e il PDF leggono tutte da qui. */
 function toldLegList(t){
   if(!t || !t.ok) return [];
-  return [[t.legs.dep,    [['TORA',t.tora],['TODA',t.toda]]],
-          [t.legs.tngLdg, [['LDA',t.ldaTng]]],
-          [t.legs.tngTo,  [['TORA',t.toraTng],['TODA',t.todaTng]]],
-          [t.legs.dest,   [['LDA',t.lda]]],
-          [t.legs.altn,   [['LDA',t.ldaAltn]]]].filter(x=>x[0]);
+  /* Terzo elemento: la linguetta sotto cui va mostrata. Chi legge solo tratta e
+     margini (anteprima e PDF) continua a destrutturare i primi due e lo ignora. */
+  return [[t.legs.dep,    [['TORA',t.tora],['TODA',t.toda]],       'Dep' ],
+          [t.legs.tngLdg, [['LDA',t.ldaTng]],                      'Tng' ],
+          [t.legs.tngTo,  [['TORA',t.toraTng],['TODA',t.todaTng]], 'Tng' ],
+          [t.legs.dest,   [['LDA',t.lda]],                         'Dest'],
+          [t.legs.altn,   [['LDA',t.ldaAltn]],                     'Altn']].filter(x=>x[0]);
 }
 
-function toldBoxHTML(t){
-  if(!t.ok) return `<div class="alert a-amber"><span class="lbl">Data</span><span>${esc(t.reason||'Insufficient data.')}</span></div>`;
+/* Una scheda di risultati. Prima erano tutte in fila sotto ai campi; ora ne
+   vive una per linguetta, accanto all'aeroporto a cui si riferisce. */
+function perfCardHTML(g, margins){
   const u=spdLabel();
-  const legs=toldLegList(t);
-  return legs.map(([g,margins])=>{
-    const cond = g.isTakeoff
-      ? `Flap 10&deg; &middot; VR <b>${spdVal(g.v.vrMph)} ${u}</b> &middot; VY <b>${spdVal(g.v.vyMph)} ${u}</b>`
-      : `Flap 40&deg;, engine idle &middot; Vref <b>${spdVal(g.v.vrefMph)} ${u}</b>`;
-    const xw = g.haveWind ? g.cross : null;
-    const chipCls = (lim)=> xw==null ? '' : (xw>lim ? ' fail' : (xw>lim*0.8 ? ' caution' : ' ok'));
-    const hw = g.haveWind
-      ? `<dd class="${g.head>=0?'head-c':'tail-c'}">${Math.abs(g.head).toFixed(1)} kt</dd>`
-      : `<dd class="none-c">&mdash;</dd>`;
-    const cw = g.haveWind
-      ? `<dd>${g.cross.toFixed(1)} kt<small>from the ${g.crossRight?'right':'left'}</small></dd>`
-      : `<dd class="none-c">&mdash;</dd>`;
-    const res = g.isTakeoff
-      ? perfResHTML('Takeoff run','TORR &middot; to lift-off', g.ground, margins[0][1], 'TORA')
-        + perfResHTML('Takeoff distance','TODR &middot; to clear 15 m', g.total, margins[1][1], 'TODA')
-      : perfResHTML('Landing roll','from touchdown to stop', g.ground, null, 'LDA',
-                      'For information &mdash; the check uses the distance from 15 m')
-        + perfResHTML('Landing distance','LDR &middot; from 15 m', g.total, margins[0][1], 'LDA');
-    return `<section class="perf-card">
-      <h4>${esc(g.label)} &mdash; ${esc(g.icao||'----')} ${esc(g.rwy||'')} &middot; ${g.mass} kg
-        <span class="cond">${cond}</span></h4>
-      <div class="perf-body">
-        <dl class="atmos">
-          <div><dt>Pressure altitude</dt><dd>${g.pa}<small>ft</small></dd></div>
-          <div><dt>Density altitude</dt><dd>${g.da}<small>ft</small></dd></div>
-          <div><dt>ISA deviation</dt><dd>${g.isaDev>=0?'+':'\u2212'}${Math.abs(g.isaDev).toFixed(1)}<small>&deg;C</small></dd></div>
-        </dl>
-        <div class="perf-wind">
-          ${windRoseSVG(g)}
-          <div>
-            <dl class="comp"><dt>${g.head>=0?'Headwind':'Tailwind'}</dt>${hw}</dl>
-            <dl class="comp"><dt>Crosswind</dt>${cw}
-              <div class="chips"><span class="chip${chipCls(g.xwLimit)}">${g.isTakeoff?'T/O':'LDG'} limit ${g.xwLimit} kt</span>
-                <span class="chip">QNH ${g.qnh} &middot; ${g.oat}&deg;C</span></div>
-            </dl>
-          </div>
+  const cond = g.isTakeoff
+    ? `Flap 10&deg; &middot; VR <b>${spdVal(g.v.vrMph)} ${u}</b> &middot; VY <b>${spdVal(g.v.vyMph)} ${u}</b>`
+    : `Flap 40&deg;, engine idle &middot; Vref <b>${spdVal(g.v.vrefMph)} ${u}</b>`;
+  const xw = g.haveWind ? g.cross : null;
+  const chipCls = (lim)=> xw==null ? '' : (xw>lim ? ' fail' : (xw>lim*0.8 ? ' caution' : ' ok'));
+  const hw = g.haveWind
+    ? `<dd class="${g.head>=0?'head-c':'tail-c'}">${Math.abs(g.head).toFixed(1)} kt</dd>`
+    : `<dd class="none-c">&mdash;</dd>`;
+  const cw = g.haveWind
+    ? `<dd>${g.cross.toFixed(1)} kt<small>from the ${g.crossRight?'right':'left'}</small></dd>`
+    : `<dd class="none-c">&mdash;</dd>`;
+  const res = g.isTakeoff
+    ? perfResHTML('Takeoff run','TORR &middot; to lift-off', g.ground, margins[0][1], 'TORA')
+      + perfResHTML('Takeoff distance','TODR &middot; to clear 15 m', g.total, margins[1][1], 'TODA')
+    : perfResHTML('Landing roll','from touchdown to stop', g.ground, null, 'LDA',
+                    'For information &mdash; the check uses the distance from 15 m')
+      + perfResHTML('Landing distance','LDR &middot; from 15 m', g.total, margins[0][1], 'LDA');
+  return `<section class="perf-card">
+    <h4>${esc(g.label)} &mdash; ${esc(g.icao||'----')} ${esc(g.rwy||'')} &middot; ${g.mass} kg
+      <span class="cond">${cond}</span></h4>
+    <div class="perf-body">
+      <dl class="atmos">
+        <div><dt>Pressure altitude</dt><dd>${g.pa}<small>ft</small></dd></div>
+        <div><dt>Density altitude</dt><dd>${g.da}<small>ft</small></dd></div>
+        <div><dt>ISA deviation</dt><dd>${g.isaDev>=0?'+':'\u2212'}${Math.abs(g.isaDev).toFixed(1)}<small>&deg;C</small></dd></div>
+      </dl>
+      <div class="perf-wind">
+        ${windRoseSVG(g)}
+        <div>
+          <dl class="comp"><dt>${g.head>=0?'Headwind':'Tailwind'}</dt>${hw}</dl>
+          <dl class="comp"><dt>Crosswind</dt>${cw}
+            <div class="chips"><span class="chip${chipCls(g.xwLimit)}">${g.isTakeoff?'T/O':'LDG'} limit ${g.xwLimit} kt</span>
+              <span class="chip">QNH ${g.qnh} &middot; ${g.oat}&deg;C</span></div>
+          </dl>
         </div>
-        ${res}
       </div>
-    </section>`;
-  }).join('');
+      ${res}
+    </div>
+  </section>`;
+}
+
+/* Smista le schede sotto la linguetta giusta. ENR ne prende due, perche' un
+   Touch & Go e' un atterraggio e un decollo sulla stessa pista. */
+function renderPerfCards(t){
+  const per = {Dep:[], Dest:[], Altn:[], Tng:[]};
+  if(t && t.ok) toldLegList(t).forEach(([g, margins, key]) => {
+    if(per[key]) per[key].push(perfCardHTML(g, margins));
+  });
+  const vuoto = `<div class="alert a-amber"><span class="lbl">Data</span><span>${esc((t&&t.reason)||'Insufficient data.')}</span></div>`;
+  Object.keys(per).forEach(k=>{
+    const box=$('perfOut'+k);
+    if(box) box.innerHTML = per[k].length ? per[k].join('') : vuoto;
+  });
 }
 
 function toldWarnsHTML(t){
