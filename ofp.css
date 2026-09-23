@@ -452,15 +452,21 @@
    c'e' (Safari < 16) resta l'impilamento di prima, che in quello spazio e'
    esattamente il comportamento giusto.
 
-   A 26rem la scheda tiene la sua grafica senza ritocchi: nessuna regola
-   "versione stretta", che tanto scatterebbe solo quando le due colonne sono
-   gia' diventate una e la scheda ha tutta la larghezza a disposizione. */
+   Meta' e meta': i campi non hanno bisogno di piu' spazio della scheda, e la
+   scheda letta a meta' pagina si guarda senza cercarla. La soglia e' 50rem e
+   non 46: a meta' di 46rem la scheda scenderebbe sotto le 23rem, dove la rosa
+   dei venti comincia a schiacciare i numeri che le stanno a fianco. A 50rem
+   ogni colonna ne vale 25 abbondanti, ed e' la larghezza a cui la scheda e'
+   gia' stata vista stare bene. */
 .perf-panel{container-type:inline-size}
 .perf-split{display:grid;gap:1.1rem;align-items:start}
 .perf-out:empty{display:none}
 .perf-out .perf-card:last-child{margin-bottom:0}
-@container (min-width:46rem){
-  .perf-split{grid-template-columns:minmax(0,1fr) minmax(0,26rem)}
+@container (min-width:50rem){
+  .perf-split{grid-template-columns:repeat(2,minmax(0,1fr))}
+  /* In mezza pagina i campi vanno a capo: a colonne fisse chi va a capo resta
+     della sua misura, invece di allargarsi da solo fino a riempire la riga. */
+  .perf-in .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 /* Le tre misure dell'atmosfera restano allineate fra loro anche quando
    un'etichetta va a capo e le altre no. */
