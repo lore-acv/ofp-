@@ -26,8 +26,8 @@ let jsPDF;
 try {
   ({ jsPDF } = await import('jspdf'));
 } catch {
-  console.error('Serve jsPDF per costruire la guida:  npm i jspdf');
-  console.error("Il PDF già pronto sta in data/guida.pdf: se non lo stai cambiando, non serve rigenerarlo.");
+  console.error('jsPDF is required to build the guide:  npm i jspdf');
+  console.error("The ready-made PDF is in data/guida.pdf: if you are not changing it, there is no need to rebuild.");
   process.exit(1);
 }
 
@@ -103,23 +103,24 @@ async function main() {
   /* ---------------- copertina ---------------- */
   doc.setFillColor(15, 23, 32); doc.rect(0, 0, W, 52, 'F');
   doc.setFont('helvetica', 'bold'); doc.setFontSize(23); doc.setTextColor(255, 255, 255);
-  doc.text('Come si usa', M, 26);
+  doc.text('How To Use', M, 26);
   doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(150, 170, 190);
-  doc.text('OFP e NAV-FLIGHTPLAN — Cessna C172 FR', M, 36);
+  doc.text('OFP and NAV-FLIGHTPLAN — Cessna C172 FR', M, 36);
   doc.setFontSize(8.5);
-  doc.text('Guida rapida', M, 44);
+  doc.text('Quick guide', M, 44);
   y = 62;
 
-  titolo('Che cosa fa questo programma');
-  testo('Prende il NavLog che hai già preparato in ForeFlight e il briefing meteo che hai già scaricato, '
-      + 'e ne ricava due documenti pronti da portare in volo: l\'OFP, cioè il foglio operativo con carburante, '
-      + 'masse, centraggio, distanze di pista, meteo e NOTAM, e il NAV-FLIGHTPLAN in A5 da tenere in mano in cabina.');
-  testo('Quello che non fa: non naviga, non decide e non sostituisce il tuo giudizio. Calcola con i dati del '
-      + 'Flight Manual della Reims Rocket FR172J e con quello che gli dai, e ti mostra tutto quello che ha usato '
-      + 'per arrivarci, così puoi controllarlo.');
+  titolo('What this programme does');
+  testo('It takes the NavLog you have already prepared in ForeFlight and the weather briefing you have already '
+      + 'downloaded, and produces two documents ready to take flying: the OFP, i.e. the operational flight plan '
+      + 'with fuel, masses, balance, runway distances, weather and NOTAMs, and the A5 NAV-FLIGHTPLAN to hold in '
+      + 'the cockpit.');
+  testo('What it does not do: it does not navigate, it does not decide, and it does not replace your judgement. '
+      + 'It computes from the Reims Rocket FR172J Flight Manual data and from what you give it, and shows you '
+      + 'everything it used to get there, so you can check it.');
 
-  titolo('I due documenti da caricare', 13);
-  testo('Servono questi due. Preparali prima, poi il resto è quasi tutto automatico.');
+  titolo('The two documents to load', 13);
+  testo('These two are what you need. Prepare them first, then almost everything else is automatic.');
   const met = 0.48 * COL;
   {
     const a = await readFile(path.join(IMG, 'in-navlog.jpg'));
@@ -135,78 +136,78 @@ async function main() {
     doc.addImage(b64b, 'JPEG', M + COL - wb, y, wb, hmax); doc.rect(M + COL - wb, y, wb, hmax);
     y += hmax + 3.4;
     doc.setFont('helvetica', 'bold'); doc.setFontSize(8.6); doc.setTextColor(...SCURO);
-    doc.text('NavLog ForeFlight', M + wa / 2, y, { align: 'center' });
-    doc.text('Briefing meteo (Skybrief)', M + COL - wb / 2, y, { align: 'center' });
+    doc.text('ForeFlight NavLog', M + wa / 2, y, { align: 'center' });
+    doc.text('Weather briefing (Skybrief)', M + COL - wb / 2, y, { align: 'center' });
     y += 4;
     doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(...GRIGIO);
-    doc.text(doc.splitTextToSize('Da qui: aeroporti, waypoint, prue e distanze.', wa), M + wa / 2, y, { align: 'center' });
-    doc.text(doc.splitTextToSize('Da qui: METAR, TAF, NOTAM, SIGMET e cartine.', wb), M + COL - wb / 2, y, { align: 'center' });
+    doc.text(doc.splitTextToSize('From here: airports, waypoints, headings and distances.', wa), M + wa / 2, y, { align: 'center' });
+    doc.text(doc.splitTextToSize('From here: METAR, TAF, NOTAM, SIGMET and charts.', wb), M + COL - wb / 2, y, { align: 'center' });
     doc.setTextColor(...SCURO);
   }
 
   /* ---------------- 1. import ---------------- */
   nuovaPagina();
-  sezione(1, 'Carica i due file');
-  testo('È la pagina che si apre per prima. Trascina o scegli i due PDF. Carica prima il NavLog, se puoi: '
-      + 'da quello il programma impara i codici ICAO della rotta, e con quelli smista poi i bollettini meteo '
-      + 'sull\'aeroporto giusto.');
-  testo('Quando tutti e due sono stati letti il pulsante Continua si accende. Se un file manca o non si riesce '
-      + 'a leggere si può proseguire lo stesso e compilare a mano.');
-  await figura('01-import.jpg', 'Import riuscito: 11 punti, 94 nm, 51 minuti dal NavLog; quattro aeroporti dal briefing.');
+  sezione(1, 'Load the two files');
+  testo('This is the page that opens first. Drag or select the two PDFs. Load the NavLog first if you can: '
+      + 'from it the programme learns the ICAO codes of the route, and with those it then sorts the weather '
+      + 'reports onto the right airport.');
+  testo('Once both have been read, the Continue button lights up. If a file is missing or cannot be read, you '
+      + 'can proceed anyway and enter the data by hand.');
+  await figura('01-import.jpg', 'Import completed: 11 waypoints, 94 nm, 51 minutes from the NavLog; four airports from the briefing.');
 
   /* ---------------- 2. volo ---------------- */
   nuovaPagina();
-  sezione(2, 'Volo e aeromobile');
-  testo('Aeroporti e rotta arrivano già compilati. Qui si controllano e si mettono gli orari: basta il '
-      + 'fuori blocchi e il decollo, gli altri due si propongono da soli — l\'atterraggio è il decollo più il '
-      + 'tempo di volo calcolato, e il dentro blocchi è l\'atterraggio più lo stesso rullaggio fatto in partenza. '
-      + 'L\'orario proposto resta modificabile: appena lo scegli a mano smette di aggiornarsi.');
-  testo('Se la rotta passa da un aeroporto intermedio, il programma lo riconosce e propone il Touch & Go. '
-      + 'Spuntandolo, quel campo ottiene le sue caselle di meteo e NOTAM e i suoi calcoli di pista — due, '
-      + 'perché un T&G è un atterraggio seguito da un decollo.');
-  await figura('02-volo.jpg', 'La scheda Volo con il Touch & Go riconosciuto su LILE, lungo la rotta.');
+  sezione(2, 'Flight and aircraft');
+  testo('Airports and route arrive already filled in. Here you check them and enter the times: off-blocks and '
+      + 'takeoff are enough, the other two are proposed automatically — landing is takeoff plus the computed '
+      + 'flight time, and on-blocks is landing plus the same taxi time used at departure. '
+      + 'The proposed time stays editable: as soon as you set it by hand it stops updating.');
+  testo('If the route passes an intermediate airport, the programme recognises it and offers the Touch & Go. '
+      + 'Ticking it gives that aerodrome its own weather and NOTAM boxes and its own runway calculations — two '
+      + 'of them, because a T&G is a landing followed by a takeoff.');
+  await figura('02-volo.jpg', 'The Flight step with the Touch & Go recognised at LILE, along the route.');
 
   /* ---------------- 3. rotta e fuel ---------------- */
   nuovaPagina();
-  sezione(3, 'Rotta e Fuel');
-  testo('Qui si sceglie la quota di crociera e il settaggio di potenza. Le combinazioni di MAP e RPM proposte '
-      + 'sono solo quelle pubblicate dal POH a quella quota: scegliendone una, velocità e consumo del Trip si '
-      + 'compilano da soli con i valori di quella riga.');
-  testo('Il carburante è tutto in litri. Il Trip è diviso in due: i minuti di salita valgono il consumo della '
-      + 'fig. 5-6 (avviamento e decollo compresi), il resto va al consumo di crociera. Riserve, alternato e taxi '
-      + 'si calcolano da soli; il taxi è il tempo a terra col motore acceso che risulta dagli orari.');
-  await figura('03-rotta.jpg', 'Il settaggio di potenza: solo le combinazioni che il POH pubblica a quella quota.');
-  nota('Se le tendine di RPM e MAP sono spente, manca la quota di crociera: è da quella che dipendono.');
+  sezione(3, 'Route and Fuel');
+  testo('Here you choose the cruise altitude and the power setting. The MAP and RPM combinations offered are '
+      + 'only those published by the POH at that altitude: select one and the Trip speed and fuel flow are '
+      + 'filled in automatically with the values of that row.');
+  testo('All fuel is in litres. The Trip is split in two: the climb minutes carry the fuel flow of fig. 5-6 '
+      + '(start-up and takeoff included), the rest goes to the cruise fuel flow. Reserves, alternate and taxi '
+      + 'are computed automatically; taxi is the engine-running ground time derived from the times.');
+  await figura('03-rotta.jpg', 'The power setting: only the combinations the POH publishes at that altitude.');
+  nota('If the RPM and MAP drop-downs are greyed out, the cruise altitude is missing: they depend on it.');
 
   /* ---------------- 4. M&B e prestazioni ---------------- */
   nuovaPagina();
-  sezione(4, 'Mass & Balance e Performance');
-  testo('Nel Mass & Balance si inseriscono solo occupanti e bagaglio: il carburante arriva dal passo prima. '
-      + 'Il programma calcola masse, bracci e momenti e verifica l\'inviluppo di centraggio al decollo e a '
-      + 'entrambi gli atterraggi.');
-  testo('In Performance va scelta la pista, per ogni aeroporto: nessuna è preselezionata, perché la pista la '
-      + 'decide il vento del giorno, non la lunghezza. Scelta quella, arrivano orientamento, TORA, TODA e LDA, '
-      + 'e le distanze vengono confrontate con quelle dichiarate.');
-  await figura('04-perf.jpg', 'Un aeroporto per riquadro: quota di pressione e densità, vento scomposto, e le due distanze con il margine.');
-  nota('Vento, QNH e temperatura vengono dal METAR di quell\'aeroporto. Se un campo il METAR non ce l\'ha, il '
-     + 'riquadro lo dice e propone la stazione attrezzata più vicina, entro trenta miglia.');
+  sezione(4, 'Mass & Balance and Performance');
+  testo('In Mass & Balance you enter only occupants and baggage: fuel comes from the previous step. '
+      + 'The programme computes masses, arms and moments and checks the CG envelope at takeoff and at '
+      + 'both landings.');
+  testo('In Performance the runway must be selected, for each airport: none is pre-selected, because the runway '
+      + 'is decided by the wind of the day, not by its length. Once chosen, heading, TORA, TODA and LDA follow, '
+      + 'and the distances are compared with the declared ones.');
+  await figura('04-perf.jpg', 'One airport per card: pressure and density altitude, wind components, and the two distances with their margin.');
+  nota('Wind, QNH and temperature come from that airport\'s METAR. If an aerodrome has none, the card says so '
+     + 'and offers the nearest station with one, within thirty miles.');
 
   /* ---------------- 5. navlog ---------------- */
   nuovaPagina();
   sezione(5, 'Navlog');
-  testo('Le tratte arrivano dal NavLog di ForeFlight: checkpoint, prua magnetica e distanze. La quota di '
-      + 'crociera si mette da sola su ogni punto e resta modificabile punto per punto. Le frequenze di aeroporti '
-      + 'e radioassistenze si cercano da sole quando il checkpoint è riconosciuto.');
-  testo('Tempi e consumi non vengono ricopiati da ForeFlight: si ricalcolano con la velocità e il settaggio di '
-      + 'potenza scelti, così il navplan e il piano carburante non possono raccontare due storie diverse. '
-      + 'Nominativi e note si scrivono qui e restano.');
-  await figura('05-navlog.jpg', 'La tabella delle tratte. EET è il tempo della singola tratta, ETO i minuti dell\'ora stimata.');
+  testo('The legs come from the ForeFlight NavLog: checkpoints, magnetic track and distances. The cruise '
+      + 'altitude is applied to every waypoint automatically and stays editable waypoint by waypoint. '
+      + 'Frequencies for airports and navaids are looked up automatically when the checkpoint is recognised.');
+  testo('Times and fuel figures are not copied from ForeFlight: they are recomputed with the selected speed and '
+      + 'power setting, so the navplan and the fuel plan cannot tell two different stories. '
+      + 'Callsigns and remarks are typed here and stay.');
+  await figura('05-navlog.jpg', 'The legs table. EET is the time for the single leg, ETO the minutes of the estimated time over.');
 
   /* ---------------- 6. i documenti ---------------- */
   nuovaPagina();
-  sezione(6, 'I due documenti');
-  testo('Dal menu in alto a destra si scaricano. Sono due documenti distinti, con due pulsanti distinti: '
-      + 'l\'OFP in A4 e il NAV-FLIGHTPLAN in A5. Il navlog non entra mai nell\'OFP.');
+  sezione(6, 'The two documents');
+  testo('They are downloaded from the menu at the top right. They are two separate documents, with two separate '
+      + 'buttons: the A4 OFP and the A5 NAV-FLIGHTPLAN. The navlog never forms part of the OFP.');
   {
     const a = await readFile(path.join(IMG, '06-ofp.jpg'));
     const b = await readFile(path.join(IMG, '07-navlog.jpg'));
@@ -224,33 +225,33 @@ async function main() {
     doc.text('NAV-FLIGHTPLAN — A5', M + COL - wb / 2, y, { align: 'center' });
     y += 6;
   }
-  testo('"Stampa OFP" manda alla stampante lo stesso PDF che si scarica: il documento che esce dalla stampante '
-      + 'è identico a quello salvato.');
+  testo('"Print OFP" sends to the printer the same PDF that is downloaded: the document that comes out of the '
+      + 'printer is identical to the one saved.');
 
   /* ---------------- 7. avvertenze ---------------- */
   nuovaPagina();
-  titolo('Da tenere a mente');
-  testo('I dati del Flight Manual sono quelli della Reims Rocket FR172J e le masse sono quelle di I-CCAF. '
-      + 'Su un altro aeroplano i numeri non sarebbero approssimati: sarebbero sbagliati.');
-  testo('OurAirports pubblica la lunghezza fisica della pista, non le distanze dichiarate TORA, TODA e LDA, che '
-      + 'stanno solo nell\'AIP. I campi vengono precompilati con la lunghezza fisica: su una pista con stopway, '
-      + 'clearway o soglia spostata vanno corretti a mano.');
-  testo('La tabella di atterraggio dell\'AFM è pubblicata solo a 1157 kg e viene usata a qualunque massa: a '
-      + 'masse inferiori il risultato è conservativo, cioè le distanze reali sono più corte.');
-  testo('I voli salvati restano nel browser di questo dispositivo: non si vedono dagli altri e si perdono '
-      + 'svuotando i dati del sito.');
+  titolo('Points to bear in mind');
+  testo('The Flight Manual data are those of the Reims Rocket FR172J and the masses are those of I-CCAF. '
+      + 'On any other aeroplane the figures would not be approximate: they would be wrong.');
+  testo('OurAirports publishes the physical length of the runway, not the declared distances TORA, TODA and LDA, '
+      + 'which are only in the AIP. The fields are pre-filled with the physical length: on a runway with a '
+      + 'stopway, clearway or displaced threshold they must be corrected by hand.');
+  testo('The AFM landing table is published at 1157 kg only and is used whatever the mass: at lower masses the '
+      + 'result is conservative, i.e. the actual distances are shorter.');
+  testo('Saved flights stay in the browser of this device: they are not visible from others and are lost if the '
+      + 'site data is cleared.');
   y += 4;
   doc.setDrawColor(...BLU); doc.setLineWidth(0.6);
   doc.line(M, y, M + COL, y); y += 6;
   doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(...SCURO);
-  doc.text('Il documento aiuta a pianificare. La responsabilità del volo resta del comandante.', M, y, { maxWidth: COL });
+  doc.text('The document is an aid to planning. Responsibility for the flight remains with the pilot in command.', M, y, { maxWidth: COL });
 
   /* ---------------- pie' di pagina ---------------- */
   const tot = doc.getNumberOfPages();
   for (let i = 1; i <= tot; i++) {
     doc.setPage(i);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(7.6); doc.setTextColor(...GRIGIO);
-    doc.text('OFP C172 FR — come si usa', M, H - 10);
+    doc.text('OFP C172 FR — how to use', M, H - 10);
     doc.text(`${i} / ${tot}`, W - M, H - 10, { align: 'right' });
   }
 
@@ -258,7 +259,7 @@ async function main() {
   await mkdir(dir, { recursive: true });
   const out = path.join(dir, 'guida.pdf');
   await writeFile(out, Buffer.from(doc.output('arraybuffer')));
-  console.log(`data/guida.pdf: ${tot} pagine, ${(Buffer.from(doc.output('arraybuffer')).length / 1024).toFixed(0)} kB`);
+  console.log(`data/guida.pdf: ${tot} pages, ${(Buffer.from(doc.output('arraybuffer')).length / 1024).toFixed(0)} kB`);
 }
 
-main().catch(e => { console.error('ERRORE:', e.message); process.exit(1); });
+main().catch(e => { console.error('ERROR:', e.message); process.exit(1); });

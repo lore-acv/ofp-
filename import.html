@@ -16,7 +16,7 @@
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OFP C172 FR — Import dati di volo</title>
+<title>OFP C172 FR — Flight Data Import</title>
 <link rel="stylesheet" href="ofp.css">
 <script>
 /* Il tema si applica prima che la pagina si disegni: leggerlo piu' tardi
@@ -56,58 +56,58 @@
 <div class="topbar">
   <div class="topbar-main">
     <div class="brand">C172 FR OFP <span>Import</span></div>
-    <button type="button" class="tema-btn" id="btnTema" aria-label="Cambia tema chiaro/scuro" title="Tema chiaro/scuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
+    <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
   </div>
 </div>
 
 <div class="wrap">
   <div class="apri-guida">
-    <p class="step-title" style="margin:1.2rem 0 0">Import dati di volo</p>
-    <button type="button" class="btn ghost" id="btnGuida">Come si usa</button>
+    <p class="step-title" style="margin:1.2rem 0 0">Flight Data Import</p>
+    <button type="button" class="btn ghost" id="btnGuida">How To Use</button>
   </div>
-  <p class="lead">Il punto di partenza. Carica il <b>NavLog di ForeFlight</b> e il <b>briefing meteo</b>:
-    da qui escono rotta, waypoint, distanze e tempi, e poi vento, QNH, temperatura, METAR, TAF e NOTAM.
-    Quando entrambi sono stati letti si passa al foglio di volo.</p>
+  <p class="lead">Starting point. Load the <b>ForeFlight NavLog</b> and the <b>weather briefing</b>:
+    they provide route, waypoints, distances and times, then wind, QNH, temperature, METAR, TAF and NOTAM.
+    Once both have been read, proceed to the flight plan.</p>
 
   <div class="card">
     <h2>NavLog ForeFlight</h2>
-    <div class="drop" id="navDrop">Clicca o trascina il NavLog esportato da ForeFlight (PDF o testo)</div>
+    <div class="drop" id="navDrop">Click or drag the NavLog exported from ForeFlight (PDF or text)</div>
     <input type="file" id="navFile" accept="application/pdf,text/plain,.txt,.csv" hidden>
     <div class="mb-status" id="navStatus"></div>
     <div id="navPreview" style="margin-top:.6rem"></div>
-    <div class="hint">Da qui vengono aeroporti, rotta e distanza. Velocit&agrave; e consumi <b>no</b>:
-      quelli restano quelli del POH, che ha la precedenza.</div>
+    <div class="hint">Airports, route and distance are taken from here. Speeds and fuel flows are <b>not</b>:
+      those remain the POH figures, which take precedence.</div>
   </div>
 
   <div class="card">
-    <h2>Briefing meteo</h2>
-    <div class="drop" id="wxDrop">Clicca o trascina il PDF del briefing WX &amp; NOTAM</div>
+    <h2>Weather Briefing</h2>
+    <div class="drop" id="wxDrop">Click or drag the WX &amp; NOTAM briefing PDF</div>
     <input type="file" id="wxFile" accept="application/pdf" hidden>
     <div class="mb-status" id="wxStatus"></div>
     <div id="wxPreview" style="margin-top:.6rem"></div>
-    <div class="hint">METAR, SPECI, TAF e NOTAM vengono smistati su DEP, ARR e ALTN, e da l&igrave;
-      alimentano vento, QNH e temperatura del calcolo prestazioni.
-      Lo smistamento usa i codici ICAO letti dal NavLog: caricalo prima, se puoi.</div>
+    <div class="hint">METAR, SPECI, TAF and NOTAM are sorted onto DEP, ARR and ALTN, and from there
+      feed wind, QNH and temperature into the performance calculation.
+      Sorting uses the ICAO codes read from the NavLog: load it first if you can.</div>
   </div>
 
   <div class="card">
-    <h2>Stato</h2>
+    <h2>Status</h2>
     <div id="importState"></div>
     <div class="actions">
-      <a class="btn primary" id="btnContinue" href="index.html" aria-disabled="true">Continua</a>
-      <button type="button" class="skip" id="btnSkip">Prosegui e compila a mano</button>
+      <a class="btn primary" id="btnContinue" href="index.html" aria-disabled="true">Continue</a>
+      <button type="button" class="skip" id="btnSkip">Skip and enter manually</button>
     </div>
-    <div class="hint" style="margin-top:.8rem">Manca un file o non si riesce a leggerlo? Si pu&ograve;
-      proseguire lo stesso: rotta e dati meteo andranno inseriti a mano nel foglio di volo.</div>
+    <div class="hint" style="margin-top:.8rem">Missing a file, or it cannot be read? You can still
+      proceed: route and weather data will have to be entered manually in the flight plan.</div>
   </div>
 </div>
 
 <!-- La guida sta qui, sopra tutto il resto, e si apre senza lasciare la pagina. -->
-<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="Guida all'uso">
+<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="User guide">
   <div class="guida-barra">
-    <div class="tit">Come si usa <span>&mdash; guida rapida</span></div>
-    <a class="btn ghost" id="guidaScarica" href="data/guida.pdf" download="OFP-C172-FR-come-si-usa.pdf">Scarica</a>
-    <button type="button" class="btn" id="guidaChiudi">Chiudi</button>
+    <div class="tit">How To Use <span>&mdash; quick guide</span></div>
+    <a class="btn ghost" id="guidaScarica" href="data/guida.pdf" download="OFP-C172-FR-how-to-use.pdf">Download</a>
+    <button type="button" class="btn" id="guidaChiudi">Close</button>
   </div>
   <div class="guida-fogli" id="guidaFogli"></div>
 </div>
@@ -137,7 +137,7 @@ function wireDrop(dropId, fileId, handler){
 }
 
 function handleNavlog(file){
-  say('navStatus','busy','Leggo il NavLog…');
+  say('navStatus','busy','Reading NavLog…');
   const isPdf = file.type==='application/pdf' || /\.pdf$/i.test(file.name);
   const reader=new FileReader();
   reader.onload=async ()=>{
@@ -150,19 +150,19 @@ function handleNavlog(file){
         nav=parseNavlogPlainText(String(reader.result||''));
       }
       if(!nav.legs.length){
-        say('navStatus','err','Non ho riconosciuto la tabella del NavLog in questo file. Controlla che sia l\'esportazione NavLog di ForeFlight, oppure prosegui e compila a mano.');
+        say('navStatus','err','NavLog table not recognised in this file. Check that it is the ForeFlight NavLog export, or skip and enter the data manually.');
         $('navPreview').innerHTML=''; State.nav=null; refresh(); return;
       }
       State.nav=navlogSummary(nav);
       reparseWeather();          // ora i codici di rotta ci sono
-      say('navStatus','ok',`NavLog letto: ${State.nav.legs.length} punti, ${State.nav.totals.dist} nm`
-        + (State.nav.totals.ete?`, ${navDur(State.nav.totals.ete)} di volo`:'')
-        + (State.nav.totals.fuel?`, ${State.nav.totals.fuel} ${State.nav.fuelUnit==='l'?'L':(State.nav.fuelUnit||'')} secondo ForeFlight`:''));
+      say('navStatus','ok',`NavLog read: ${State.nav.legs.length} waypoints, ${State.nav.totals.dist} nm`
+        + (State.nav.totals.ete?`, ${navDur(State.nav.totals.ete)} flight time`:'')
+        + (State.nav.totals.fuel?`, ${State.nav.totals.fuel} ${State.nav.fuelUnit==='l'?'L':(State.nav.fuelUnit||'')} per ForeFlight`:''));
       $('navPreview').innerHTML=navPreviewTable(State.nav);
       refresh();
     }catch(err){
       console.error(err);
-      say('navStatus','err','Non sono riuscito a leggere il file: '+(err&&err.message||err));
+      say('navStatus','err','Unable to read the file: '+(err&&err.message||err));
       State.nav=null; refresh();
     }
   };
@@ -183,17 +183,17 @@ function navPreviewTable(sum){
       <td style="text-align:right">${navDur(l.ete)}</td>
       <td style="text-align:right">${u(l.fuel)}</td></tr>`).join('')}
     <tr style="font-weight:700;border-top:1px solid var(--panel-line)">
-      <td style="text-align:left">TOTALI</td><td></td>
+      <td style="text-align:left">TOTALS</td><td></td>
       <td style="text-align:right">${u(sum.totals.dist)}</td>
       <td style="text-align:right">${navDur(sum.totals.ete)}</td>
       <td style="text-align:right">${u(sum.totals.fuel)}</td></tr>
   </table>
-  ${sum.roundTrip?`<div class="calc">→ volo di rientro alla partenza: DEP e ARR sono entrambi ${esc(sum.dep)}</div>`:''}`;
+  ${sum.roundTrip?`<div class="calc">→ return flight to the field of departure: DEP and ARR are both ${esc(sum.dep)}</div>`:''}`;
 }
 
 /* ---------------- Briefing meteo ---------------- */
 function handleWx(file){
-  say('wxStatus','busy','Leggo il PDF briefing…');
+  say('wxStatus','busy','Reading briefing PDF…');
   const reader=new FileReader();
   reader.onload=async ()=>{
     try{
@@ -210,16 +210,16 @@ function handleWx(file){
       const r=wx.result;
       const found=Object.keys(r.byIcao||{});
       const conTaf=found.filter(c=>r.byIcao[c].taf).length;
-            say('wxStatus','ok','Briefing letto'
-        + (wx.printedAt&&wx.printedAt.date?` — emesso ${wx.printedAt.date} ${wx.printedAt.time||''}`:'')
-        + (found.length?` · ${found.length} aeroporti: ${found.join(', ')} (${conTaf} con TAF)`
-                       :' · nessun aeroporto riconosciuto')
-        + (State.charts.length?` · ${State.charts.length} cartine`:''));
+            say('wxStatus','ok','Briefing read'
+        + (wx.printedAt&&wx.printedAt.date?` — issued ${wx.printedAt.date} ${wx.printedAt.time||''}`:'')
+        + (found.length?` · ${found.length} airports: ${found.join(', ')} (${conTaf} with TAF)`
+                       :' · no airport recognised')
+        + (State.charts.length?` · ${State.charts.length} charts`:''));
       $('wxPreview').innerHTML = wxPreviewTable(r);
       refresh();
     }catch(err){
       console.error(err);
-      say('wxStatus','err','Non sono riuscito a leggere questo PDF — prosegui e compila i bollettini a mano.');
+      say('wxStatus','err','Unable to read this PDF — skip and enter the reports manually.');
       State.wx=null; State.charts=null; refresh();
     }
   };
@@ -232,9 +232,9 @@ function handleWx(file){
 function wxPreviewTable(r){
   const codes = r.byIcao || {};
   const list = Object.keys(codes);
-  if(!list.length) return '<div class="calc">Nessun aeroporto riconosciuto nel briefing.</div>';
-  const yn = (v, na) => v ? '<span style="color:var(--ok)">si</span>'
-                          : (na ? '<span style="color:var(--warn)">N/D</span>'
+  if(!list.length) return '<div class="calc">No airport recognised in the briefing.</div>';
+  const yn = (v, na) => v ? '<span style="color:var(--ok)">yes</span>'
+                          : (na ? '<span style="color:var(--warn)">N/A</span>'
                                 : '<span style="color:var(--txt-dim)">—</span>');
   const role = (c) => {
     const nav = State.nav || {};
@@ -254,7 +254,7 @@ function wxPreviewTable(r){
   }).join('');
   const sa = sigmetAirmetText(r);
   return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:.8rem;color:var(--txt)">
-    <tr style="color:var(--txt-dim)"><th style="text-align:left">ICAO</th><th style="text-align:left">Aeroporto</th>
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">ICAO</th><th style="text-align:left">Airport</th>
     <th>METAR</th><th>TAF</th><th style="text-align:right">NOTAM</th></tr>${rows}</table>
     ${sa?`<div class="calc" style="white-space:pre-wrap">${esc(sa)}</div>`:''}`;
 }
@@ -271,11 +271,11 @@ function reparseWeather(){
   m.sigmet=r.sigmet; m.airmet=r.airmet; m.source=r.source;
   State.wx.result = m;
   $('wxPreview').innerHTML = wxPreviewTable(m);
-  const manca = [['partenza',codes.dep],['arrivo',codes.dest]]
+  const manca = [['departure',codes.dep],['arrival',codes.dest]]
     .filter(([,c])=> c && !(r.byIcao||{})[c]).map(([lbl,c])=>`${lbl} ${c}`);
   say('wxStatus', manca.length?'busy':'ok',
-    manca.length ? `Attenzione: il briefing non contiene l'aeroporto di ${manca.join(' ne quello di ')}.`
-                 : 'Briefing e NavLog concordano: gli aeroporti della rotta sono coperti.');
+    manca.length ? `Caution: the briefing does not cover the ${manca.join(' or the ')} airport.`
+                 : 'Briefing and NavLog agree: the route airports are covered.');
 }
 
 /* ============================================================================
@@ -309,11 +309,11 @@ async function disegnaGuida(){
   if(guidaResa) return;
   const box=$('guidaFogli'); if(!box) return;
   if(!window.pdfjsLib){
-    box.innerHTML='<div class="guida-stato">Non riesco a leggere il PDF: la libreria non si e\' caricata.'
-      + '<br>Usa <b>Scarica</b> qui sopra per aprirlo.</div>';
+    box.innerHTML='<div class="guida-stato">Cannot read the PDF: the library failed to load.'
+      + '<br>Use <b>Download</b> above to open it.</div>';
     return;
   }
-  box.innerHTML='<div class="guida-stato">Apro la guida\u2026</div>';
+  box.innerHTML='<div class="guida-stato">Opening the guide\u2026</div>';
   try{
     const buf=await fetch(GUIDA_URL).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.arrayBuffer(); });
     const pdf=await pdfjsLib.getDocument({data:buf}).promise;
@@ -327,14 +327,14 @@ async function disegnaGuida(){
       const vp=pagina.getViewport({scale: Math.min(3, (larghezza*2)/base.width)});
       const c=document.createElement('canvas');
       c.width=vp.width; c.height=vp.height;
-      c.setAttribute('aria-label','Guida, pagina '+n+' di '+pdf.numPages);
+      c.setAttribute('aria-label','Guide, page '+n+' of '+pdf.numPages);
       box.appendChild(c);
       await pagina.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
     }
     guidaResa=true;
   }catch(e){
-    box.innerHTML='<div class="guida-stato">Non riesco ad aprire la guida ('+esc(e.message)+').'
-      + '<br>Usa <b>Scarica</b> qui sopra.</div>';
+    box.innerHTML='<div class="guida-stato">Cannot open the guide ('+esc(e.message)+').'
+      + '<br>Use <b>Download</b> above.</div>';
   }
 }
 
@@ -350,9 +350,9 @@ function refresh(){
       <span class="dot${ok?' ok':''}">${ok?'✓':'!'}</span>
       <span style="color:${ok?'var(--txt)':'var(--txt-dim)'}">${lbl}${extra?` <span style="color:var(--txt-dim)">— ${extra}</span>`:''}</span>
     </div>`;
-  const navInfo = State.nav ? `${State.nav.legs.length} punti, ${State.nav.totals.dist} nm` : 'in attesa';
-  const wxInfo  = State.wx ? ((State.wx.printedAt&&State.wx.printedAt.date)||'caricato') : 'in attesa';
-  box.innerHTML = row(!!State.nav,'NavLog ForeFlight',navInfo) + row(!!State.wx,'Briefing meteo',wxInfo);
+  const navInfo = State.nav ? `${State.nav.legs.length} waypoints, ${State.nav.totals.dist} nm` : 'awaiting';
+  const wxInfo  = State.wx ? ((State.wx.printedAt&&State.wx.printedAt.date)||'loaded') : 'awaiting';
+  box.innerHTML = row(!!State.nav,'ForeFlight NavLog',navInfo) + row(!!State.wx,'Weather Briefing',wxInfo);
   const ready = !!State.nav && !!State.wx;
   const a=$('btnContinue');
   a.setAttribute('aria-disabled', ready?'false':'true');
@@ -373,10 +373,10 @@ function save(manual){
     try{
       payload.charts=[]; payload.chartsDropped=true;
       sessionStorage.setItem(HANDOFF_KEY, JSON.stringify(payload));
-      say('wxStatus','busy','Briefing letto, ma le cartine erano troppo grandi per essere passate alla pagina successiva: verranno omesse dall\'OFP.');
+      say('wxStatus','busy','Briefing read, but the charts were too large to pass to the next page: they will be omitted from the OFP.');
       return true;
     }catch(e2){
-      say('wxStatus','err','Non sono riuscito a passare i dati alla pagina successiva ('+(e2&&e2.message||e2)+').');
+      say('wxStatus','err','Unable to pass the data to the next page ('+(e2&&e2.message||e2)+').');
       return false;
     }
   }
@@ -386,7 +386,7 @@ wireDrop('navDrop','navFile',handleNavlog);
 wireDrop('wxDrop','wxFile',handleWx);
 
 $('btnSkip').addEventListener('click',()=>{
-  if(!confirm('Proseguire senza import?\n\nRotta, distanze e dati meteo andranno inseriti a mano nel foglio di volo.')) return;
+  if(!confirm('Proceed without import?\n\nRoute, distances and weather data will have to be entered manually in the flight plan.')) return;
   save(true);
   window.location.href=$('btnContinue').getAttribute('href');
 });

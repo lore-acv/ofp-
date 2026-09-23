@@ -961,7 +961,7 @@ function sigmetAirmetText(result){
   [['SIGMET', result && result.sigmet], ['AIRMET', result && result.airmet]].forEach(([lbl,o])=>{
     if(!o) return;
     const where = o.fir ? ` — ${o.fir}` : '';
-    out.push(o.none ? `${lbl}${where}: nessun ${lbl} attivo.` : o.text);
+    out.push(o.none ? `${lbl}${where}: no active ${lbl}.` : o.text);
   });
   return out.join('\n\n');
 }
@@ -1033,7 +1033,7 @@ function applicaTema(t){
   document.documentElement.setAttribute('data-tema', t);
   try{ localStorage.setItem(TEMA_CHIAVE, t); }catch(e){}
   const b=$('btnTema');
-  if(b) b.setAttribute('aria-label', t==='chiaro' ? 'Passa al tema scuro' : 'Passa al tema chiaro');
+  if(b) b.setAttribute('aria-label', t==='chiaro' ? 'Switch to dark theme' : 'Switch to light theme');
   return t;
 }
 
