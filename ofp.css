@@ -26,16 +26,18 @@
     --ombra-pagina:0 6px 30px rgba(0,0,0,.5);
   }
   html[data-tema="chiaro"]{
-    --panel-bg:#ffffff; --panel-2:#f2f5fa; --panel-line:#d5dce7;
-    --accent:#c8102e; --accent-2:#1f5fd8;
-    --field:#ffffff; --txt:#16202b; --txt-dim:#5a6878;
-    --bg:#eaeef4; --stage-bg:#e2e7ef;
-    --hover-line:#94a9c4; --pill-n:#dfe6f1; --pill-done:#1a7f4b;
-    --ok:#12744a; --err:#b3261e; --warn:#8a5a00;
-    --alert-red-txt:#7a1f18; --alert-amber-txt:#6b4a06; --alert-grey-txt:#3c4a5a;
-  --sem-ok:#0e7a4e; --sem-caution:#8a5a00; --sem-fail:#bf2a1e;
-    --ombra-pagina:0 4px 18px rgba(20,35,60,.18);
-  }
+  /* Beige, non bianco. Un foglio bianco a schermo pieno in cabina acceca, e di
+     giorno lo si guarda per ore: queste sono tinte di carta, calde e smorzate,
+     con il nero appena ammorbidito verso il bruno perche' il nero puro sul
+     beige "vibra". Il documento resta bianco: quello e' carta vera e va
+     stampato. */
+  --panel-bg:#f2ece0; --panel-2:#e7dfd0; --panel-line:#cec3ad;
+  --accent:#a32a1e; --accent-2:#1f4f9c; --field:#f9f5ed; --txt:#1b1813; --txt-dim:#665e50;
+  --bg:#ddd3bf; --stage-bg:#d3c8b2; --hover-line:#a4957a; --pill-n:#e3dbc9; --pill-done:#1f6b42;
+  --ok:#1f6b42; --err:#a32a1e; --warn:#6f4a00;
+  --alert-red-txt:#5c1a12; --alert-amber-txt:#4a3305; --alert-grey-txt:#3b362c;
+  --sem-ok:#1f6b42; --sem-caution:#6f4a00; --sem-fail:#a32a1e;
+  --ombra-pagina:0 4px 18px rgba(62,48,26,.22); }
   *{box-sizing:border-box}
   /* Base tipografica in rem: 16px su desktop, 18px da tablet in su. Tutto il resto
      (campi, pulsanti, tabelle) e' espresso in rem e scala di conseguenza, invece di

@@ -420,7 +420,14 @@ lampo della tavolozza sbagliata; il resto (pulsante e memoria) sta in
 I colori sono tutti variabili CSS su `:root`, ridefinite in
 `html[data-tema="chiaro"]`: le tinte semantiche — `--sem-ok`, `--sem-caution`,
 `--sem-fail` — hanno valori più scuri nel tema chiaro, perché il verde e l'ambra
-che si leggono bene sul nero non si leggono sul bianco.
+che si leggono bene sul nero non si leggono su una tinta chiara.
+
+**Il tema chiaro è beige, non bianco.** Un foglio bianco a schermo pieno acceca,
+e in cabina di giorno lo si guarda per ore: le tinte sono quelle della carta,
+calde e smorzate (`--panel-bg:#f2ece0`, `--bg:#ddd3bf`), con il nero ammorbidito
+verso il bruno (`--txt:#1b1813`) perché il nero puro sul beige "vibra".
+Ogni coppia testo/sfondo è stata verificata contro le soglie WCAG AA: la più
+tirata è il testo attenuato sulla barra, a 4,83:1 contro un minimo di 4,5.
 
 **Cambia solo l'interfaccia.** L'anteprima del documento (`.page`, tabelle,
 riquadri meteo) resta nera su bianco in entrambi i temi, e il PDF non cambia di
