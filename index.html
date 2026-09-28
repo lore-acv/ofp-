@@ -170,14 +170,14 @@
             altitude are offered: as you climb, the maximum available MAP drops by roughly one inch every
             1000 ft and the higher-power combinations disappear. Selecting the setting <b>fills in the Trip
             Ground Speed and Fuel Flow below automatically</b> with the TAS and fuel flow of that row.
-            Climb and cruise burn differently: <b>the climb minutes and litres come from AFM fig. 5-6</b>
-            and the cruise fuel flow applies only to the remaining time.</div>
+            Climb and cruise are computed separately: <b>time, distance and litres of the climb come from
+            AFM fig. 5-6</b>, and the cruise GS and fuel flow apply from the top of climb onward.</div>
         </div>
         <div class="group">
           <h3>Trip</h3>
           <div class="row">
             <div class="fld"><label>Distance (nm, from NavLog)</label><input id="tripDist" type="number" value="" placeholder="from the ForeFlight NavLog"></div>
-            <div class="fld"><label>GS (MPH)</label><input id="tripGS" type="number" value="124"></div>
+            <div class="fld"><label>Cruise GS (MPH)</label><input id="tripGS" type="number" value="124"></div>
             <div class="fld"><label>Fuel flow (L/h)</label><input id="tripFF" type="number" step="0.1" value="32.2"></div>
           </div>
           <div class="calc" id="tripCalc"></div>
@@ -185,9 +185,9 @@
             no longer computed as the great-circle distance between DEP and ARR, which a route with turns and
             reporting points never flies. It remains editable by hand.
             The proposed GS is the TAS of the selected setting, i.e. still air: correct it for the forecast wind.
-            Time is computed by converting GS to knots, because distance is in nautical miles.
-            Of that time, the first minutes are climb and carry the fuel from fig. 5-6 (start-up and takeoff
-            included); the remainder is charged to the cruise fuel flow.</div>
+            The GS applies <b>from the top of climb</b>: the climb has its own time, distance and fuel from
+            fig. 5-6 (start-up and takeoff included), and the Trip is the climb plus the cruise over the
+            distance that remains.</div>
         </div>
         <div class="group">
           <h3>Alternate</h3>
@@ -864,31 +864,46 @@ function mphToKt(mph){ return mph/MPH_PER_KT; }
 function ktToMph(kt){ return kt*MPH_PER_KT; }
 
 function computeFuel(){
-  /* Il Trip e' diviso in due fasi con consumi diversi, invece di un unico fuel
-     flow di crociera piu' un margine fisso di procedura:
-       - SALITA fino alla quota di crociera: tempo e carburante vengono
-         dall'AFM fig. 5-6, e il carburante comprende gia' avviamento e decollo;
-       - CROCIERA per il tempo che resta, al fuel flow del settaggio scelto.
-     Il tempo totale resta quello della distanza alla GS pianificata: la salita
-     non si somma, si scala da dentro. E' un'approssimazione per difetto, perche'
-     in salita la GS e' piu' bassa di quella di crociera e la stessa distanza
-     richiederebbe qualche minuto in piu'; sul carburante invece e' cautelativa,
-     perche' quei minuti sono contati al consumo di salita, che e' il maggiore. */
+  /* Il Trip e' salita piu' crociera, e le due si SOMMANO:
+       - SALITA fino alla quota di crociera: tempo, carburante e distanza
+         percorsa dall'AFM fig. 5-6 (il carburante comprende gia' avviamento e
+         decollo, la distanza la ricava climbDistNm());
+       - CROCIERA dal top of climb alla destinazione, cioe' sulla distanza che
+         la salita lascia, alla GS e al fuel flow del settaggio scelto.
+
+     Prima la salita si scavava DENTRO il tempo di volo: il Trip restava
+     distanza / GS di crociera, e i primi minuti si pagavano al consumo di
+     salita. Sul carburante andava bene, sul tempo no — in salita si va piu'
+     piano, e quei minuti di differenza non comparivano da nessuna parte.
+
+     La discesa non si modella: volata a GS e consumo di crociera lascia qualche
+     litro in piu' nei serbatoi, non in meno.
+
+     Se la distanza di salita supera quella del Trip la quota di crociera non la
+     si raggiunge: non si ricalcola la quota che si toccherebbe, si segnala
+     (climbOverruns) e si contano salita intera e crociera nulla, che sul
+     carburante sta dalla parte giusta.
+
+     Il tempo di volo si arrotonda per scriverlo, ma tempo e carburante si
+     sommano sui valori esatti: il NAV-FLIGHTPLAN fa lo stesso conto tratta per
+     tratta, e due documenti che parlano dello stesso volo non possono dare due
+     numeri diversi. */
   const cAlt = num('pwrAlt');
-  const climbMin  = Math.round(climbTimeMin(cAlt));
+  const climbMinX = climbTimeMin(cAlt);               // esatti, per i conti
+  const climbNmX  = climbDistNm(cAlt);
+  const climbMin  = Math.round(climbMinX);            // per scriverli
   const climbFuel = round2(climbFuelLitres(cAlt));
   const tripGSkt = mphToKt(num('tripGS'));
-  /* Il tempo di volo si arrotonda per scriverlo, ma il carburante si calcola sui
-     minuti esatti: mescolare le due misure faceva differire di qualche decilitro
-     il Trip Fuel dell'OFP dalla somma delle tratte del NAV-FLIGHTPLAN, che i
-     minuti esatti li usa. Due documenti che parlano dello stesso volo non
-     possono dare due numeri diversi. */
-  const tripMin  = tripGSkt>0 ? num('tripDist')/tripGSkt*60 : 0;
-  const tripTime = Math.round(tripMin);
-  const cruiseTime = Math.max(0, tripMin-climbMin);
-  const climbOverruns = tripTime>0 && climbMin>=tripTime;
+  const dist = num('tripDist');
+  const climbOverruns = dist>0 && climbNmX>=dist;
+  const climbNm   = Math.min(climbNmX, dist);         // la salita non va oltre il Trip
+  const cruiseNm  = Math.max(0, dist-climbNm);
+  const cruiseMin = tripGSkt>0 ? cruiseNm/tripGSkt*60 : 0;
+  const tripMin   = (dist>0 && tripGSkt>0) ? climbMinX+cruiseMin : 0;
+  const tripTime  = Math.round(tripMin);
+  const cruiseTime = cruiseMin;
   const tripFF = num('tripFF'); // Fuel Flow di crociera in L/h — usato anche per Contingency e Final Reserve
-  const tripFuel = round2(climbFuel + cruiseTime/60*tripFF);
+  const tripFuel = round2(climbFuel + cruiseMin/60*tripFF);
   const altGSkt = mphToKt(num('altGS'));
   const altTime  = altGSkt>0 ? Math.round(num('altDist')/altGSkt*60) : 0;
   const altFuel  = round2(altTime/60*num('altFF'));
@@ -939,7 +954,7 @@ function computeFuel(){
   const blockTime= Math.round(minBlockTime+taxiMin+exMin);
   const toffFuel = round2(minBlockFuel+exFuel);
   const toffTime = Math.round(minBlockTime+exMin);
-  return {cruiseTime,tripTime,tripFuel,cAlt,climbMin,climbFuel,climbOverruns,altTime,altFuel,contMin,contFuel,finMin,finFuel,
+  return {cruiseTime,tripTime,tripFuel,cAlt,climbMin,climbMinX,climbNm,climbNmX,cruiseNm,climbFuel,climbOverruns,altTime,altFuel,contMin,contFuel,finMin,finFuel,
           taxiMin,taxiFuel,exMin,exFuel,minBlockFuel,minBlockTime,toffFuel,toffTime,blockFuel,blockTime,
           minRequired, fobUsed, fobShort, fob:num('fob')};
 }
@@ -1251,6 +1266,47 @@ function altnSettingAt(alt){
 /* Carburante consumato per salire fino a una quota, a piena potenza e 1157 kg
    (AFM fig. 5-6). Include gia' il consumo di avviamento e decollo. Valori in litri,
    come li stampa il manuale. */
+/* Distanza percorsa in salita, in nm, dal livello del mare a `alt` ft.
+
+   L'AFM (fig. 5-6) pubblica rateo e velocita' di salita, non la distanza: la si
+   ricava integrando la velocita' sul tempo di salita,
+
+       d = ∫ TAS(h) / ROC(h) dh
+
+   con ROC e Vy interpolati linearmente fra le quote tabulate a 1157 kg, come per
+   il tempo e il carburante. La Vy dell'AFM e' una velocita' INDICATA: si porta a
+   velocita' vera col rapporto di densita' dell'atmosfera standard,
+
+       TAS = IAS / √σ ,   σ = (1 − 6,8756·10⁻⁶ · h)^4,2559
+
+   che a 5000 ft vale ×1,077 e a 10000 ×1,164. Non la regola del 2% ogni 1000 ft,
+   che da' ×1,10 e ×1,20: sopravvaluta la velocita', allunga la salita e
+   accorcia la crociera, cioe' sposta il conto proprio dalla parte ottimista che
+   si vuole correggere. E atmosfera standard, non la temperatura del giorno,
+   perche' anche il rateo pubblicato e' standard: correggere solo la velocita'
+   sbilancerebbe il conto nello stesso verso. In salita la GS si considera
+   uguale alla TAS.
+
+   Integrazione a passi di 50 ft: sulla stessa griglia il tempo coincide al
+   secondo con la formula esatta di climbTimeMin(), e a 10 ft la distanza si
+   sposta di meno di un centesimo di miglio. */
+function climbDistNm(alt){
+  const v=AFM_SPEEDS.vy, alts=v.alts, roc=v.roc[2], vy=v.mph[2];   // 1157 kg
+  const top=Math.min(Math.max(alt||0, 0), alts[alts.length-1]);    // niente estrapolazione
+  const lin=(ys,h)=>{
+    for(let i=0;i<alts.length-1;i++) if(h<=alts[i+1]) return ys[i]+(ys[i+1]-ys[i])*(h-alts[i])/(alts[i+1]-alts[i]);
+    return ys[ys.length-1];
+  };
+  const PASSO=50;
+  let nm=0;
+  for(let h=0; h<top; h+=PASSO){
+    const dh=Math.min(PASSO, top-h), hm=h+dh/2;                    // punto medio della fascia
+    const tasKt=mphToKt(lin(vy,hm)) / Math.sqrt(Math.pow(1-6.8756e-6*hm, 4.2559));
+    nm += tasKt * (dh/lin(roc,hm)) / 60;
+  }
+  return nm;
+}
+
 const CLIMB_FUEL_L=[[0,4.9],[5000,11.7],[10000,20.1],[15000,33.3]];
 /** Litri per salire a `alt` ft, interpolando fra le quote tabulate dall'AFM. */
 function climbFuelLitres(alt){
@@ -2025,30 +2081,73 @@ async function navFillFreqs(opts){
   }
 }
 
-/* Consumo di una tratta secondo il modello dell'OFP: i primi minuti del volo
-   sono di salita e bruciano al rateo della fig. 5-6, il resto va al fuel flow
-   di crociera. Sommando tutte le tratte si riottiene ESATTAMENTE il Trip Fuel
-   del piano carburante — e' lo stesso conto, distribuito sulle tratte. */
-function navLegFuel(startMin, durMin, f, ffLph){
-  const climbRate = f.climbMin>0 ? f.climbFuel/f.climbMin : 0;
-  const cruiseRate = (ffLph||0)/60;
-  const end = startMin + durMin;
-  const inClimb = Math.max(0, Math.min(end, f.climbMin) - Math.min(startMin, f.climbMin));
-  return inClimb*climbRate + (durMin-inClimb)*cruiseRate;
+/* Tempo e consumo di una tratta secondo il profilo dell'OFP. La salita occupa
+   le prime `climbNm` miglia della rotta — le miglia, non i minuti — e li' si va
+   alla velocita' media di salita e al consumo della fig. 5-6; dal top of climb
+   in poi alla GS e al fuel flow di crociera. Una tratta a cavallo del TOC si
+   spezza in due.
+
+   Dentro la salita velocita' e consumo si prendono medi: e' il dettaglio che
+   serve a dividere le tratte, e sommandole si riottengono ESATTAMENTE Trip
+   Time e Trip Fuel del piano carburante — e' lo stesso conto, distribuito
+   sulla rotta. */
+function navLegProfile(startNm, legNm, climbNm, f, gsKt, ffLph){
+  const inClimb  = Math.max(0, Math.min(startNm+legNm, climbNm) - Math.min(startNm, climbNm));
+  const inCruise = legNm - inClimb;
+  const cruiseMin = gsKt>0 ? inCruise/gsKt*60 : 0;
+  const perNm = (v)=> climbNm>0 ? v/climbNm : 0;
+  return { min:  inClimb*perNm(f.climbMinX) + cruiseMin,
+           fuel: inClimb*perNm(f.climbFuel) + cruiseMin/60*(ffLph||0) };
 }
 
 /* Il navplan calcolato: distanze progressive, tempi, orari stimati e consumi. */
+/* Dove finisce la salita, detto come lo si legge in volo: "TOC 4 NM after SRN".
+   Si conta sulla rotta del NAV-FLIGHTPLAN, tratta per tratta; senza navlog si
+   conta dalla partenza. Le miglia si arrotondano all'intero, e quando il TOC
+   cade a meno di mezzo miglio da un punto si nomina quel punto. */
+function tocPosition(f){
+  if(!f || !(f.climbNmX>0) || !(num('tripDist')>0)) return null;
+  const nm=(v)=>Math.round(v);
+  if(f.climbOverruns) return {overruns:true,
+    text:`Cruise altitude not reached: the climb to ${f.cAlt} ft needs ${nm(f.climbNmX)} NM, the trip is ${nm(num('tripDist'))} NM`};
+  const dep=txt('dep').trim().toUpperCase() || 'DEP';
+  let cum=0, prev=dep;
+  for(const r of navRowsRaw()){
+    const d=parseFloat(String(r.dist).replace(',','.'))||0;
+    const nome=String(r.wpt||'').trim().toUpperCase();
+    if(d>0 && cum+d>=f.climbNmX){
+      const dopo=f.climbNmX-cum;
+      if(dopo<0.5)      return {nm:f.climbNmX, text:`TOC at ${prev}`};
+      if(d-dopo<0.5)    return {nm:f.climbNmX, text:`TOC at ${nome||prev}`};
+      return {nm:f.climbNmX, text:`TOC ${nm(dopo)} NM after ${prev}`};
+    }
+    cum+=d; if(nome) prev=nome;
+  }
+  return {nm:f.climbNmX, text:`TOC ${nm(f.climbNmX)} NM after ${dep}`};
+}
+
+/* La riga del TOC per la pagina Performance: la stessa frase nell'anteprima e
+   nel PDF, costruita in un posto solo perche' non possano divergere. */
+function tocLabel(f){
+  const t=tocPosition(f);
+  if(!t) return '';
+  return t.overruns ? `*** ${t.text} ***` : `${t.text} (climb ${Math.round(f.climbNmX)} NM)`;
+}
+
 function navlogComputed(f){
   const rows=navRowsRaw();
   const gsMph=num('navGs')>0 ? num('navGs') : num('tripGS');
   const gsKt=mphToKt(gsMph);
   const ff=num('navFF')>0 ? num('navFF') : num('tripFF');
   const t0=timeMin('tTO');                  // gli ETO partono dal decollo
+  const legNm=(r)=>parseFloat(String(r.dist).replace(',','.'))||0;
+  /* Stessa regola dell'OFP: la salita non va oltre la rotta. */
+  const climbNm=Math.min(f.climbNmX||0, rows.reduce((a,r)=>a+legNm(r),0));
   let cumD=0, cumT=0, cumF=0;
   const out=rows.map(r=>{
-    const d=parseFloat(String(r.dist).replace(',','.'))||0;
-    const ete = gsKt>0 ? d/gsKt*60 : 0;
-    const fuel = navLegFuel(cumT, ete, f, ff);
+    const d=legNm(r);
+    const p=navLegProfile(cumD, d, climbNm, f, gsKt, ff);
+    const ete=p.min, fuel=p.fuel;
     cumD+=d; cumT+=ete; cumF+=fuel;
     // senza orario di decollo non ci sono orari stimati: la colonna resta in bianco
     return {...r, d, ete, fuel, cumD, cumT, cumF, eto: t0==null ? '' : minToHHMM(t0+Math.round(cumT))};
@@ -2319,6 +2418,7 @@ function pagePerf(f,w){
     ${rwyTable}
     <div style="font-weight:700;margin-top:10px">CRUISE POWER SETTING &mdash; ${cAlt} ft</div>
     ${cpsTable}
+    ${tocLabel(f) ? `<div style="font-size:9.5px;font-weight:700;margin:5px 0 8px">${esc(tocLabel(f))}</div>` : ''}
     ${cruiseTable}`;
   return pageShell('PERFORMANCE', body, 3, 'font-size:9.5px');
 }
@@ -2577,18 +2677,24 @@ function render(){
   renderWxNotes();
   if($('tripCalc')){
     const el=$('tripCalc');
-    el.textContent = `→ climb to ${f.cAlt} ft ${f.climbMin} min / ${fmt(f.climbFuel)} L`
-      + ` + cruise ${Math.round(f.cruiseTime)} min at ${fmt(num('tripFF'))} L/h`
-      + ` = Trip ${f.tripTime} min · ${fmt(f.tripFuel)} L`
-      + (f.climbOverruns ? '   ⚠ the climb alone uses the whole flight time: review altitude or distance' : '');
-    el.style.color = f.climbOverruns ? '#ffd479' : '';
+    /* I minuti di crociera si scrivono come differenza, cosi' le due parti
+       danno il totale che si legge: arrotondate ciascuna per conto suo potevano
+       sbagliarlo di uno. */
+    const toc=tocPosition(f);
+    el.textContent = f.climbOverruns
+      ? `⚠ ${toc.text} — review altitude or distance  ·  Trip ${f.tripTime} min · ${fmt(f.tripFuel)} L, climb only`
+      : `→ climb to ${f.cAlt} ft: ${f.climbNmX.toFixed(1)} NM, ${f.climbMin} min, ${fmt(f.climbFuel)} L`
+        + ` + cruise ${f.cruiseNm.toFixed(1)} NM, ${Math.max(0,f.tripTime-f.climbMin)} min at ${fmt(num('tripFF'))} L/h`
+        + ` = Trip ${f.tripTime} min · ${fmt(f.tripFuel)} L`
+        + (toc ? `  ·  ${toc.text}` : '');
+    el.style.color = f.climbOverruns ? 'var(--warn)' : '';
   }
   if($('altCalc')){
     const a=altnSettingAt(num('altAlt'));
     const set = a.row ? `${a.row.mp}" / ${a.row.rpm} RPM = ${a.row.bhp}% · TAS ${a.row.mph} MPH · ${a.row.lph} L/h` : 'power setting not available';
     $('altCalc').textContent = `→ ${set}  ·  time ${f.altTime} min · fuel ${fmt(f.altFuel)} L`
       + (a.fallback && a.row ? `   (22" not obtainable at ${num('altAlt')} ft: highest available MAP used at ${ALTN_SETTING.rpm} RPM)` : '');
-    $('altCalc').style.color = a.fallback ? '#ffd479' : '';
+    $('altCalc').style.color = a.fallback ? 'var(--warn)' : '';
   }
   if($('taxiCalc')){
     const el=$('taxiCalc');
@@ -2599,10 +2705,10 @@ function render(){
       + ` = taxi ${taxi.tot} min · ${fmt(f.taxiFuel)} L at ${fmt(TAXI_LPH)} L/h`
       + (warn.length ? `   ⚠ ${warn.join(' and ')}: that segment is not counted` : '')
       + (!warn.length && taxi.tot>60 ? '   ⚠ unusually long taxi: check the times' : '');
-    el.style.color = (warn.length || taxi.tot>60) ? '#ffd479' : '';
+    el.style.color = (warn.length || taxi.tot>60) ? 'var(--warn)' : '';
   }
   if($('reserveCalc')) $('reserveCalc').textContent = `→ Contingency = max(5% trip, 15') = ${f.contMin} min · ${fmt(f.contFuel)} L   ·   Final Reserve = ${f.finMin} min · ${fmt(f.finFuel)} L`;
-  if($('fuelCapCalc')){ const n=fuelCapacityNote(f); $('fuelCapCalc').textContent=n.txt; $('fuelCapCalc').style.color=n.over?'#ff7a7a':''; }
+  if($('fuelCapCalc')){ const n=fuelCapacityNote(f); $('fuelCapCalc').textContent=n.txt; $('fuelCapCalc').style.color=n.over?'var(--err)':''; }
   if($('pwrCalc')){
     const row=currentPowerRow();
     const senzaQuota = !(num('pwrAlt')>0);
@@ -2612,14 +2718,14 @@ function render(){
         ? `→ ${row.mp}" / ${row.rpm} RPM at ${num('pwrAlt')} ft = ${row.bhp}% power · TAS ${row.mph} MPH (${row.kt} kt) · ${row.lph} L/h`
           + (row.exact ? '' : `  (interpolated between ${row.loAlt} and ${row.hiAlt} ft)`)
         : '→ select RPM and MAP from the combinations published by the POH at this altitude');
-    $('pwrCalc').style.color = senzaQuota ? '#ffd479' : (row ? '' : '#ffd479');
+    $('pwrCalc').style.color = senzaQuota ? 'var(--warn)' : (row ? '' : 'var(--warn)');
   }
   if($('extraCalc')){
     if(f.fobUsed){
       $('extraCalc').textContent = f.fobShort>0
         ? `⚠ FOB ${fmt(f.fob)} L INSUFFICIENT: ${fmt(f.fobShort)} L short of the ${fmt(f.minRequired)} L minimum required`
         : `→ minimum required ${fmt(f.minRequired)} L · extra ${fmt(f.exFuel)} L = ${f.exMin} min at the cruise fuel flow`;
-      $('extraCalc').style.color = f.fobShort>0 ? '#ff7a7a' : '';
+      $('extraCalc').style.color = f.fobShort>0 ? 'var(--err)' : '';
     }else{
       $('extraCalc').textContent = `→ minimum required ${fmt(f.minRequired)} L · without FOB the extra is the figure entered by hand (${f.exMin} min)`;
       $('extraCalc').style.color = '';
@@ -2635,15 +2741,15 @@ function render(){
     const bag=num('baggage');
     $('loadCalc').textContent = `→ ZFW = ${fmt(w.zfw)} kg · arm ${w.zfwArm.toFixed(3)} m · moment ${fmt(w.zfwMom)} kg·m`
       + (bag>MAX_BAGGAGE_KG ? `   ⚠ baggage over ${MAX_BAGGAGE_KG} kg` : '');
-    $('loadCalc').style.color = bag>MAX_BAGGAGE_KG ? '#ff7a7a' : '';
+    $('loadCalc').style.color = bag>MAX_BAGGAGE_KG ? 'var(--err)' : '';
   }
   if($('mbTableBox')) $('mbTableBox').innerHTML = mbTableHTML(w);
   if($('cgChartBox')) $('cgChartBox').innerHTML = cgChartSVG(w);
-  if($('mbLimitCalc')){ const n=massNote(w); $('mbLimitCalc').textContent=n.txt; $('mbLimitCalc').style.color=n.over?'#ff7a7a':''; }
-  if($('cgCalc')){ const n=cgNote(w); $('cgCalc').textContent=n.txt; $('cgCalc').style.color=n.over?'#ff7a7a':''; }
+  if($('mbLimitCalc')){ const n=massNote(w); $('mbLimitCalc').textContent=n.txt; $('mbLimitCalc').style.color=n.over?'var(--err)':''; }
+  if($('cgCalc')){ const n=cgNote(w); $('cgCalc').textContent=n.txt; $('cgCalc').style.color=n.over?'var(--err)':''; }
   if($('climbFuelCalc')){
     const a=num('pwrAlt');
-    $('climbFuelCalc').textContent = `→ climb to ${a} ft: ${Math.round(climbTimeMin(a))} min and ${fmt(climbFuelLitres(a))} L`
+    $('climbFuelCalc').textContent = `→ climb to ${a} ft: ${Math.round(climbTimeMin(a))} min, ${climbDistNm(a).toFixed(1)} NM and ${fmt(climbFuelLitres(a))} L`
       + ` at full power, 1157 kg, incl. start-up and takeoff (AFM fig. 5-6)`;
   }
   if($('toldWarns')){
@@ -4442,6 +4548,8 @@ function buildPDF(){
     : [`${num('altAlt')} ft`, '-', '-', '-', '-', '-', `${ALTN_SETTING.mp}"/${ALTN_SETTING.rpm} not obtainable`], false);
   doc.line(L,y-2.8,R,y-2.8);
   doc.setFontSize(8.5); y+=5;
+  const toc=tocLabel(f);
+  if(toc){ doc.setFont('courier','bold'); y=monoLine(doc,L,y,toc); doc.setFont('courier','normal'); y+=2; }
 
   // tabella cruise power pulita e allineata, con evidenziazione MIRATA (solo le 3 celle MP/RPM/TAS della % scelta)
   // Tabella POH della quota pianificata, raggruppata per RPM: sono le combinazioni

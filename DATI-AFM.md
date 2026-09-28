@@ -163,6 +163,57 @@ fare un motore aspirato a tutto gas. Le due colonne concordano.
 > Se l'AFM in tuo possesso riporta la colonna dei tempi, sostituiscila a questo
 > calcolo: sono valori pubblicati e vincono sempre su un valore derivato.
 
+**Distanza** — la fig. 5-6 **non pubblica la distanza** percorsa in salita, e
+`climbDistNm()` la ricava integrando la velocità sul tempo di salita:
+
+    d = ∫ TAS(h) / ROC(h) dh
+
+con rateo e Vy interpolati linearmente fra le quote tabulate a 1157 kg (Vy
+85 / 84 / 83 / 82 MPH, rateo come sopra). La Vy dell'AFM è una velocità
+**indicata**, e si porta a velocità vera col rapporto di densità
+dell'atmosfera standard:
+
+    TAS = IAS / √σ        σ = (1 − 6,8756·10⁻⁶ · h)^4,2559
+
+cioè ×1,077 a 5000 ft e ×1,164 a 10000. Tre scelte, e perché:
+
+- **Non** la regola del 2% ogni 1000 ft, che dà ×1,10 e ×1,20: sopravvaluta la
+  velocità, allunga la distanza di salita e accorcia quella di crociera — sposta
+  il conto dalla parte ottimista, cioè proprio quella da correggere.
+- Atmosfera **standard**, non la temperatura del giorno: anche il rateo
+  pubblicato è standard, e correggere solo la velocità sbilancerebbe il conto
+  nello stesso verso.
+- IAS presa uguale a CAS; alla Vy di questo aeroplano la differenza, come la
+  comprimibilità, è trascurabile. In salita la GS si considera uguale alla TAS.
+
+L'integrale si fa a passi di 50 ft. Sulla stessa griglia il tempo coincide al
+secondo con la formula esatta qui sopra, e a passi di 10 ft la distanza si sposta
+di meno di un centesimo di miglio. Ne escono:
+
+| quota | tempo | distanza |
+|---|---|---|
+| 2500 ft | 3,0 min | 3,8 nm |
+| 4500 ft | 5,8 min | 7,4 nm |
+| 5000 ft | 6,6 min | 8,4 nm |
+| 5500 ft | 7,4 min | 9,4 nm |
+| 7500 ft | 10,8 min | 14,0 nm |
+| 10000 ft | 16,1 min | 21,3 nm |
+
+**Come entra nel Trip** — salita e crociera si **sommano**: il Trip è il tempo
+di salita più la crociera dal top of climb alla destinazione, sulla distanza
+che la salita lascia, alla GS del settaggio scelto. Il carburante di salita resta
+quello tabulato (avviamento e decollo compresi), quello di crociera è il fuel
+flow sul tempo di crociera. La discesa non si modella: volata a consumo di
+crociera lascia carburante in più, non in meno.
+
+Se la distanza di salita supera quella del Trip, la quota di crociera non si
+raggiunge: si segnala, e si contano salita intera e crociera nulla.
+
+Il NAV-FLIGHTPLAN divide le tratte sul TOC **per distanza**, con velocità e
+consumo medi di salita, così che sommando le tratte si riottengano esattamente
+Trip Time e Trip Fuel dell'OFP. La pagina Performance dell'OFP riporta dove cade
+il TOC lungo la rotta, per esempio «TOC 4 NM after MALNATE».
+
 ## Distanze pista (default dello Step 4)
 
 - Decollo, flap 10°, 1157 kg, livello del mare, +15 °C, vento nullo, pista

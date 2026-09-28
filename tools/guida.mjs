@@ -173,9 +173,10 @@ async function main() {
   testo('Here you choose the cruise altitude and the power setting. The MAP and RPM combinations offered are '
       + 'only those published by the POH at that altitude: select one and the Trip speed and fuel flow are '
       + 'filled in automatically with the values of that row.');
-  testo('All fuel is in litres. The Trip is split in two: the climb minutes carry the fuel flow of fig. 5-6 '
-      + '(start-up and takeoff included), the rest goes to the cruise fuel flow. Reserves, alternate and taxi '
-      + 'are computed automatically; taxi is the engine-running ground time derived from the times.');
+  testo('All fuel is in litres. The Trip is the climb plus the cruise: the climb has its own time, distance and '
+      + 'fuel from fig. 5-6 (start-up and takeoff included), and from the top of climb the cruise runs at the '
+      + 'selected GS and fuel flow. Reserves, alternate and taxi are computed automatically; taxi is the '
+      + 'engine-running ground time derived from the times.');
   await figura('03-rotta.jpg', 'The power setting: only the combinations the POH publishes at that altitude.');
   nota('If the RPM and MAP drop-downs are greyed out, the cruise altitude is missing: they depend on it.');
 
@@ -188,7 +189,8 @@ async function main() {
   testo('In Performance the runway must be selected, for each airport: none is pre-selected, because the runway '
       + 'is decided by the wind of the day, not by its length. Once chosen, heading, TORA, TODA and LDA follow, '
       + 'and the distances are compared with the declared ones.');
-  await figura('04-perf.jpg', 'One airport per card: pressure and density altitude, wind components, and the two distances with their margin.');
+  // nell'app la scheda sta a mezza pagina accanto ai campi: qui la si mostra con la stessa proporzione
+  await figura('04-perf.jpg', 'One airport per card: pressure and density altitude, wind components, and the two distances with their margin.', COL * 0.52);
   nota('Wind, QNH and temperature come from that airport\'s METAR. If an aerodrome has none, the card says so '
      + 'and offers the nearest station with one, within thirty miles.');
 
