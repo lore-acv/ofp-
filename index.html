@@ -865,9 +865,10 @@ function ktToMph(kt){ return kt*MPH_PER_KT; }
 
 function computeFuel(){
   /* Il Trip e' salita piu' crociera, e le due si SOMMANO:
-       - SALITA fino alla quota di crociera: tempo, carburante e distanza
-         percorsa dall'AFM fig. 5-6 (il carburante comprende gia' avviamento e
-         decollo, la distanza la ricava climbDistNm());
+       - SALITA dal campo di partenza alla quota di crociera: tempo,
+         carburante e distanza percorsa dall'AFM fig. 5-6 (il carburante
+         comprende gia' avviamento e decollo, la distanza la ricava
+         climbDistNm(), la partenza da un campo in quota climbProfile());
        - CROCIERA dal top of climb alla destinazione, cioe' sulla distanza che
          la salita lascia, alla GS e al fuel flow del settaggio scelto.
 
@@ -889,10 +890,11 @@ function computeFuel(){
      tratta, e due documenti che parlano dello stesso volo non possono dare due
      numeri diversi. */
   const cAlt = num('pwrAlt');
-  const climbMinX = climbTimeMin(cAlt);               // esatti, per i conti
-  const climbNmX  = climbDistNm(cAlt);
+  const climb = climbProfile(cAlt, num('toldElevDep'));   // dal campo, non dal mare
+  const climbMinX = climb.min;                        // esatti, per i conti
+  const climbNmX  = climb.nm;
   const climbMin  = Math.round(climbMinX);            // per scriverli
-  const climbFuel = round2(climbFuelLitres(cAlt));
+  const climbFuel = round2(climb.fuel);
   const tripGSkt = mphToKt(num('tripGS'));
   const dist = num('tripDist');
   const climbOverruns = dist>0 && climbNmX>=dist;
@@ -954,7 +956,7 @@ function computeFuel(){
   const blockTime= Math.round(minBlockTime+taxiMin+exMin);
   const toffFuel = round2(minBlockFuel+exFuel);
   const toffTime = Math.round(minBlockTime+exMin);
-  return {cruiseTime,tripTime,tripFuel,cAlt,climbMin,climbMinX,climbNm,climbNmX,cruiseNm,climbFuel,climbOverruns,altTime,altFuel,contMin,contFuel,finMin,finFuel,
+  return {cruiseTime,tripTime,tripFuel,cAlt,climbFrom:climb.from,climbMin,climbMinX,climbNm,climbNmX,cruiseNm,climbFuel,climbOverruns,altTime,altFuel,contMin,contFuel,finMin,finFuel,
           taxiMin,taxiFuel,exMin,exFuel,minBlockFuel,minBlockTime,toffFuel,toffTime,blockFuel,blockTime,
           minRequired, fobUsed, fobShort, fob:num('fob')};
 }
@@ -1309,18 +1311,50 @@ function climbDistNm(alt){
 
 const CLIMB_FUEL_L=[[0,4.9],[5000,11.7],[10000,20.1],[15000,33.3]];
 /** Litri per salire a `alt` ft, interpolando fra le quote tabulate dall'AFM. */
-function climbFuelLitres(alt){
+function climbFuelLitres(alt){ return Math.round(climbFuelRaw(alt)*10)/10; }
+/* Lo stesso valore senza arrotondare: nella salita da un campo in quota si fa la
+   differenza di due letture, e arrotondarle prima sommerebbe due errori. */
+function climbFuelRaw(alt){
   const t=CLIMB_FUEL_L;
   if(alt<=t[0][0]) return t[0][1];
   if(alt>=t[t.length-1][0]) return t[t.length-1][1];
   for(let i=0;i<t.length-1;i++){
     if(alt>=t[i][0] && alt<=t[i+1][0]){
       const r=(alt-t[i][0])/(t[i+1][0]-t[i][0]);
-      return Math.round((t[i][1]+(t[i+1][1]-t[i][1])*r)*10)/10;
+      return t[i][1]+(t[i+1][1]-t[i][1])*r;
     }
   }
   return t[t.length-1][1];
 }
+
+/* LA SALITA DAL CAMPO DI PARTENZA, non dal livello del mare.
+
+   Le tabelle della fig. 5-6 partono dal livello del mare. Da un campo in quota
+   la salita e' la differenza fra le due letture "dal livello del mare":
+     - tempo e distanza sono integrali da zero, quindi T(A) − T(E) e D(A) − D(E)
+       sono esattamente la salita da E ad A;
+     - il carburante invece ha dentro, a quota zero, la quota fissa di
+       avviamento e decollo (4,9 L). Quella si paga da qualunque campo si parta,
+       quindi F(A) − F(E) + F(0).
+   Prima si partiva sempre da zero: da LILN, a 1100 ft, il TOC finiva un paio di
+   miglia piu' avanti del vero.
+
+   L'elevazione e' quella della scheda DEP di Performance — la stessa che usano
+   le distanze di decollo, riempita da OurAirports e correggibile a mano. Se
+   manca vale zero, cioe' il comportamento di prima. Una quota di crociera sotto
+   il campo non e' una salita: vale zero. */
+function climbProfile(cruiseAlt, fieldElev){
+  const a=Math.max(0, cruiseAlt||0);
+  const e=Math.min(Math.max(0, fieldElev||0), a);
+  return {
+    from: e, to: a,
+    min:  climbTimeMin(a) - climbTimeMin(e),
+    nm:   climbDistNm(a)  - climbDistNm(e),
+    fuel: Math.round((climbFuelRaw(a) - climbFuelRaw(e) + climbFuelRaw(0))*10)/10
+  };
+}
+/* Come si scrive la quota di partenza della salita. */
+const climbFromLabel = (c)=> c.from>0 ? `${Math.round(c.from)} ft` : 'SL';
 
 /* Tempo per salire fino a una quota, a piena potenza e 1157 kg.
    L'AFM (fig. 5-6) pubblica il RATEO di salita — 880 ft/min al livello del mare,
@@ -2371,11 +2405,11 @@ function pagePerf(f,w){
     <tr><th>Phase</th><th>Altitude</th><th>MAP</th><th>RPM</th><th>Power</th><th>TAS</th><th>Fuel flow</th><th>Time</th><th>Fuel</th></tr>
     <tr>
       <td style="text-align:left;padding-left:4px"><b>Climb</b></td>
-      <td class="filled">SL &rarr; ${cAlt} ft</td>
+      <td class="filled">${f.climbFrom>0 ? Math.round(f.climbFrom) : 'SL'} &rarr; ${cAlt} ft</td>
       <td colspan="4" class="filled">full power</td>
       <td class="filled">&mdash;</td>
-      <td class="filled">${Math.round(climbTimeMin(cAlt))} min</td>
-      <td class="filled">${fmt(climbFuelLitres(cAlt))} L</td>
+      <td class="filled">${f.climbMin} min</td>
+      <td class="filled">${fmt(f.climbFuel)} L</td>
     </tr>
     <tr>
       <td style="text-align:left;padding-left:4px"><b>Cruise</b></td>
@@ -2749,7 +2783,8 @@ function render(){
   if($('cgCalc')){ const n=cgNote(w); $('cgCalc').textContent=n.txt; $('cgCalc').style.color=n.over?'var(--err)':''; }
   if($('climbFuelCalc')){
     const a=num('pwrAlt');
-    $('climbFuelCalc').textContent = `→ climb to ${a} ft: ${Math.round(climbTimeMin(a))} min, ${climbDistNm(a).toFixed(1)} NM and ${fmt(climbFuelLitres(a))} L`
+    const c=climbProfile(a, num('toldElevDep'));
+    $('climbFuelCalc').textContent = `→ climb from ${climbFromLabel(c)} to ${a} ft: ${Math.round(c.min)} min, ${c.nm.toFixed(1)} NM and ${fmt(c.fuel)} L`
       + ` at full power, 1157 kg, incl. start-up and takeoff (AFM fig. 5-6)`;
   }
   if($('toldWarns')){
@@ -4537,8 +4572,8 @@ function buildPDF(){
     vals.forEach((v,i)=>doc.text(v==null?'-':String(v),cp[i],y,{align:'right'}));
     y+=4;
   };
-  cpRow('CLIMB', [`SL-${cAlt} ft`, '-', '-', 'full', '-', '-',
-                   `${Math.round(climbTimeMin(cAlt))} min / ${fmt(climbFuelLitres(cAlt))} L`], false);
+  cpRow('CLIMB', [`${f.climbFrom>0 ? Math.round(f.climbFrom) : 'SL'}-${cAlt} ft`, '-', '-', 'full', '-', '-',
+                   `${f.climbMin} min / ${fmt(f.climbFuel)} L`], false);
   cpRow('CRUISE', sel
     ? [`${cAlt} ft`, `${sel.mp}"`, sel.rpm, `${sel.bhp}%`, `${sel.mph} MPH`, `${sel.lph} L/h`, '-']
     : [`${cAlt} ft`, '-', '-', '-', '-', '-', 'not published by the POH'], true);

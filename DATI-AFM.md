@@ -188,7 +188,7 @@ cioè ×1,077 a 5000 ft e ×1,164 a 10000. Tre scelte, e perché:
 
 L'integrale si fa a passi di 50 ft. Sulla stessa griglia il tempo coincide al
 secondo con la formula esatta qui sopra, e a passi di 10 ft la distanza si sposta
-di meno di un centesimo di miglio. Ne escono:
+di meno di un centesimo di miglio. Dal livello del mare ne escono:
 
 | quota | tempo | distanza |
 |---|---|---|
@@ -198,6 +198,22 @@ di meno di un centesimo di miglio. Ne escono:
 | 5500 ft | 7,4 min | 9,4 nm |
 | 7500 ft | 10,8 min | 14,0 nm |
 | 10000 ft | 16,1 min | 21,3 nm |
+
+**Dal campo di partenza, non dal livello del mare** — le tre colonne partono dal
+livello del mare, e da un campo in quota la salita è la differenza fra due
+letture (`climbProfile()`):
+
+- tempo e distanza sono integrali da zero, quindi `T(A) − T(E)` e `D(A) − D(E)`
+  sono esattamente la salita dall'elevazione E alla quota A;
+- il carburante ha dentro, a quota zero, la quota fissa di avviamento e decollo
+  (4,9 L), che si paga da qualunque campo si parta: `F(A) − F(E) + F(0)`, con le
+  letture prese senza arrotondare e il risultato arrotondato una volta sola.
+
+L'elevazione è quella della scheda DEP di Performance, riempita da OurAirports e
+correggibile a mano; se manca vale zero. Da LILN (1100 ft) a 4500 ft la salita
+fa 5,8 nm, 4,5 min e 9,5 L invece di 7,4 nm, 5,8 min e 11,0 L dal livello del
+mare. Controprova: un'integrazione indipendente fatta direttamente da E ad A dà
+la stessa distanza alla quarta cifra decimale.
 
 **Come entra nel Trip** — salita e crociera si **sommano**: il Trip è il tempo
 di salita più la crociera dal top of climb alla destinazione, sulla distanza
