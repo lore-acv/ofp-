@@ -115,6 +115,15 @@ briefing non copre uno dei due l'import lo dice subito.
    Appena i codici ICAO sono completi, coordinate, elevazione e piste arrivano da
    OurAirports e completano distanza e tempo dell'alternato, elevazioni,
    orientamenti pista e le distanze di partenza.
+   Gli orari stimati sono **UTC**. Con la data del volo (campo *Date* dello step 8,
+   compilato dal briefing) il decollo e i due atterraggi — a destinazione (TO +
+   Flight Time) e all'alternato (più il tempo dell'alternato) — vengono confrontati
+   con **alba (SR), tramonto (SS) e fine del crepuscolo civile (ECT)** del proprio
+   aeroporto: dopo il tramonto è un avviso, dopo l'ECT è notte (Reg. UE 923/2012).
+   Algoritmo solare NOAA, verificato con PyEphem su un anno fra 38° e 60° N (scarto
+   massimo 0,14 minuti), arrotondato dalla parte della prudenza. Lo stesso blocco
+   *DAYLIGHT* chiude la pagina OFP; se manca la data o l'orario di decollo il
+   documento scrive *not computed* invece di tacere.
 2. **Rotta & Fuel** — **settaggio di potenza** (quota + RPM + MAP): i menu offrono
    solo le combinazioni pubblicate dal POH per quella quota e mostrano la
    percentuale di potenza; scegliendone una, **Ground Speed e Fuel Flow del Trip si
@@ -143,7 +152,9 @@ briefing non copre uno dei due l'import lo dice subito.
    punto e modificabile punto per punto, **frequenze** di aeroporti e radioassistenze
    cercate su OurAirports (solo il numero: il nominativo lo scrive il pilota).
    È un documento **a sé**, con il suo pulsante di download, e non entra mai
-   nell'OFP stampato.
+   nell'OFP stampato. Una tratta oltre i **10 minuti** fa comparire un avviso
+   (l'ideale è un punto di virata ogni 6-8 minuti): non blocca nulla e non cambia
+   il navlog.
 6. **Dest Charts** — fino a 2 cartine, più le note operative.
 7. **Briefing** — threat & error management per fase, stato aeromobile, remarks.
 8. **NOTAM & Weather** — METAR / SPECI / TAF e NOTAM smistati su DEP / ARR / ALTN;

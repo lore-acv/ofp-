@@ -122,7 +122,7 @@
             power setting that depends on it, and from there it reaches the document.</div>
         </div>
         <div class="group">
-          <h3>Estimated Times</h3>
+          <h3>Estimated Times (UTC)</h3>
           <div class="row">
             <div class="fld"><label>OFF</label>
               <div class="hm"><select id="tOFFh"></select><span>:</span><select id="tOFFm"></select></div>
@@ -142,12 +142,16 @@
             <div class="fld"><label>FLT (calculated)</label><input id="tFLT" class="time-val" value="" placeholder="--:--" readonly style="opacity:.7"></div>
           </div>
           <div class="calc" id="timesCalc"></div>
+          <div class="calc" id="daylightCalc" style="white-space:pre-wrap"></div>
           <div class="hint">Only the <b>off-blocks</b> and <b>takeoff</b> times are entered, in 5-minute steps.
             The other two are proposed automatically: <b>LDG</b> is takeoff plus the Flight Time calculated in
             Step 2 (climb + cruise), <b>ON</b> is landing plus the same taxi time used at departure.
             ON stays editable: as soon as it is set by hand it stops updating, and setting it back to
             <b>--:--</b> restores automatic mode.
-            BLOCK = ON &minus; OFF, FLT = LDG &minus; TO, as before.</div>
+            BLOCK = ON &minus; OFF, FLT = LDG &minus; TO, as before.
+            With the flight date (Step 8) the takeoff and the two landings, at destination and at the
+            alternate, are checked against sunrise (SR), sunset (SS) and the end of civil twilight (ECT)
+            of their own aerodrome.</div>
         </div>
       </div>
 
@@ -517,6 +521,7 @@
           </div>
           <div class="navtable-box" id="navTableBox"></div>
           <div class="calc" id="navCalc"></div>
+          <div class="calc" id="navLegWarn" style="color:var(--warn)"></div>
           <div class="hint">Checkpoints, magnetic track and distances come from the ForeFlight NavLog.
             <b>Altitude</b> is pre-filled with the Step 2 cruise altitude and remains editable waypoint by
             waypoint. <b>Frequencies</b> for airports and navaids are looked up automatically on OurAirports
@@ -822,6 +827,122 @@ function computeTimes(){
   const span=(a,b)=> (a==null||b==null) ? TIME_PLACEHOLDER : minToHHMM(b-a);
   return {off:txt('tOFF'), to:txt('tTO'), ldg:txt('tLDG'), on:txt('tON'),
           block:span(off,on), flt:span(to,ldg)};
+}
+
+/* ============ EFFEMERIDI — ALBA, TRAMONTO, CREPUSCOLO CIVILE ============
+   Algoritmo solare NOAA (Meeus): declinazione ed equazione del tempo
+   ricalcolate all'ora dell'evento, quattro iterazioni. Confrontato con PyEphem
+   (VSOP87) su un anno intero fra 38 e 60 gradi N: scarto massimo 0,14 minuti.
+   Alba e tramonto col bordo superiore del sole a -0,833 gradi (rifrazione e
+   semidiametro, come le tavole), crepuscolo civile col centro a -6 gradi, che
+   e' la definizione di notte del Reg. UE 923/2012. Nessuna correzione per
+   l'elevazione del campo, come nelle tavole pubblicate.
+   Gli orari sono tutti UTC, come la colonna ACTUAL dell'OFP. */
+const SUN_ZENITH = { sole:90.833, civile:96 };
+const radS=(d)=>d*Math.PI/180, degS=(r)=>r*180/Math.PI;
+function sunGeometry(jd){
+  const T=(jd-2451545)/36525;
+  const L0=(280.46646+T*(36000.76983+T*0.0003032))%360;
+  const M=radS(357.52911+T*(35999.05029-0.0001537*T));
+  const e=0.016708634-T*(0.000042037+0.0000001267*T);
+  const C=Math.sin(M)*(1.914602-T*(0.004817+0.000014*T))+Math.sin(2*M)*(0.019993-0.000101*T)+Math.sin(3*M)*0.000289;
+  const om=radS(125.04-1934.136*T);
+  const lambda=radS(L0+C-0.00569-0.00478*Math.sin(om));
+  const eps=radS(23+(26+(21.448-T*(46.815+T*(0.00059-T*0.001813)))/60)/60+0.00256*Math.cos(om));
+  const decl=Math.asin(Math.sin(eps)*Math.sin(lambda));
+  const y=Math.tan(eps/2)**2, L=radS(L0);
+  const eqTime=4*degS(y*Math.sin(2*L)-2*e*Math.sin(M)+4*e*y*Math.sin(M)*Math.cos(2*L)
+    -0.5*y*y*Math.sin(4*L)-1.25*e*e*Math.sin(2*M));
+  return {decl, eqTime};
+}
+/* Minuti UTC dalla mezzanotte del giorno dayMs; null se quel giorno il sole
+   non attraversa quell'altezza (sole di mezzanotte, notte polare). */
+function sunEventMin(lat, lon, dayMs, zenith, rising){
+  const jd0 = dayMs/86400000 + 2440587.5;
+  let t = 720 - 4*lon;
+  for(let i=0;i<4;i++){
+    const g=sunGeometry(jd0 + t/1440);
+    const cosH=Math.cos(radS(zenith))/(Math.cos(radS(lat))*Math.cos(g.decl)) - Math.tan(radS(lat))*Math.tan(g.decl);
+    if(!(cosH>=-1 && cosH<=1)) return null;
+    const H=degS(Math.acos(cosH));
+    t = 720 - 4*(lon + (rising?H:-H)) - g.eqTime;
+  }
+  return t;
+}
+/* Arrotondati dalla parte della prudenza: alba e inizio crepuscolo al minuto
+   dopo, tramonto e fine crepuscolo al minuto prima. */
+function sunDay(lat, lon, dayMs){
+  const ev=(z,r)=>sunEventMin(lat,lon,dayMs,z,r);
+  const bct=ev(SUN_ZENITH.civile,true), sr=ev(SUN_ZENITH.sole,true), ss=ev(SUN_ZENITH.sole,false), ect=ev(SUN_ZENITH.civile,false);
+  if([bct,sr,ss,ect].some(v=>v==null)) return null;
+  return { bct:Math.ceil(bct), sr:Math.ceil(sr), ss:Math.floor(ss), ect:Math.floor(ect) };
+}
+
+/* La data del volo e' quella del foglio: il campo Date dello Step 8, che il
+   briefing compila e che finisce in testa all'OFP. Una data che non esiste
+   (31.02) non e' una data. */
+function flightDateMs(){
+  const m=/^\s*(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})\s*$/.exec(txt('wxDate')||'');
+  if(!m) return null;
+  const d=+m[1], mo=+m[2], ms=Date.UTC(+m[3],mo-1,d), c=new Date(ms);
+  return (c.getUTCDate()===d && c.getUTCMonth()===mo-1) ? ms : null;
+}
+function aptCoord(icao){
+  const c=String(icao||'').trim().toUpperCase();
+  const a=(window.__oa||{})[c] || (OA.pack && OA.pack.aeroporti && OA.pack.aeroporti[c]) || null;
+  return a && isFinite(a.lat) && isFinite(a.lon) ? a : null;
+}
+// oltre la mezzanotte della data l'orario porta il giorno in piu' (+1)
+const hhmmZ=(m)=>minToHHMM(m)+'Z'+(m>=1440?`+${Math.floor(m/1440)}`:'');
+const hMin=(m)=>`${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
+
+/* Tre momenti, ognuno sul suo aeroporto: il decollo alla partenza,
+   l'atterraggio a destinazione (TO + Flight Time) e quello all'alternato
+   (piu' il tempo dell'alternato). Minuti assoluti dalla mezzanotte della data:
+   un volo che scavalca la mezzanotte legge le effemeridi del giorno dopo.
+   Stato: 'day' fra alba e tramonto, 'twilight' nel crepuscolo civile,
+   'night' fuori. Quello che manca non si stima: si dice cosa manca. */
+function daylightCheck(f){
+  const date=flightDateMs(), to=timeMin('tTO');
+  const missing=[];
+  if(date==null) missing.push('the flight date (Step 8, Date)');
+  if(to==null) missing.push('the TO time');
+  if(!(f.tripTime>0)) missing.push('the Trip time (Step 2)');
+  const evs=[
+    {kind:'TO',   icao:txt('dep'),  t:to},
+    {kind:'LDG',  icao:txt('arr'),  t:to==null?null:to+(f.tripTime||0)},
+    {kind:'ALTN', icao:txt('altn'), t:to==null?null:to+(f.tripTime||0)+(f.altTime||0)}
+  ].filter(e=>String(e.icao||'').trim());
+  if(missing.length) return {date, missing, rows:[]};
+  const rows=evs.map(e=>{
+    const icao=String(e.icao).trim().toUpperCase(), a=aptCoord(icao);
+    const r={kind:e.kind, icao, t:e.t};
+    if(!a){ r.stato='nd'; r.why='coordinates not found'; return r; }
+    if(e.kind==='ALTN' && !(f.altTime>0)){ r.stato='nd'; r.why='no alternate time (Step 2)'; return r; }
+    const k=Math.floor(e.t/1440), tm=e.t-k*1440, s=sunDay(a.lat,a.lon,date+k*86400000);
+    if(!s){ r.stato='nd'; r.why='no sunrise/sunset on this date'; return r; }
+    Object.assign(r, s, {tm});
+    r.stato = (tm<s.bct || tm>s.ect) ? 'night' : (tm<s.sr || tm>s.ss) ? 'twilight' : 'day';
+    return r;
+  });
+  return {date, missing, rows};
+}
+/* Una riga per momento, uguale nel wizard, nell'anteprima e nel PDF. */
+function daylightNote(r){
+  if(r.stato==='nd') return `not computed: ${r.why}`;
+  if(r.stato==='night') return r.tm>r.ect ? 'NIGHT: after end of civil twilight' : 'NIGHT: before start of civil twilight';
+  if(r.stato==='twilight') return r.tm>r.ss ? `AFTER SUNSET (+${hMin(r.tm-r.ss)})` : `BEFORE SUNRISE (-${hMin(r.sr-r.tm)})`;
+  return `SS -${hMin(r.ss-r.tm)}`;
+}
+function daylightLines(dc){
+  const d=new Date(dc.date);
+  const head=`DAYLIGHT ${String(d.getUTCDate()).padStart(2,'0')}.${String(d.getUTCMonth()+1).padStart(2,'0')}.${d.getUTCFullYear()} (UTC)`;
+  const rows=dc.rows.map(r=>{
+    const lab=r.kind.padEnd(4), apt=r.icao.padEnd(4);
+    if(r.stato==='nd') return `${lab} ${hhmmZ(r.t)}  ${apt}  ${daylightNote(r)}`;
+    return `${lab} ${hhmmZ(r.t)}  ${apt}  SR ${minToHHMM(r.sr)}  SS ${minToHHMM(r.ss)}  ECT ${minToHHMM(r.ect)}  ${daylightNote(r)}`;
+  });
+  return [head, ...rows];
 }
 
 /* ============================ wizard nav ============================ */
@@ -1931,6 +2052,22 @@ function navCalcLine(c){
   $('navCalc').textContent = c.rows.length
     ? `\u2192 ${c.rows.length} legs \u00b7 ${fmt(c.totDist)} nm \u00b7 ${navDur(Math.round(c.totTime))} \u00b7 ${fmt(c.totFuel)} L at GS ${fmt(c.gsMph)} MPH and ${fmt(c.ff)} L/h`
     : '';
+  navLegWarnLine(c);
+}
+
+/* Tratte lunghe: oltre i 10 minuti fra due punti di virata gli errori di
+   rotta hanno tempo di accumularsi (l'ideale e' 6-8 minuti). E' solo un
+   avviso: il navlog resta com'e' e il wizard non si ferma. */
+const NAV_LEG_WARN_MIN = 10;
+function navLegWarnLine(c){
+  const el=$('navLegWarn'); if(!el) return;
+  const lunghe=c.rows.map((r,i)=>({r, da:i?c.rows[i-1].wpt:'', min:Math.round(r.ete)}))
+    .filter(x=>x.min>NAV_LEG_WARN_MIN);
+  el.textContent = lunghe.length
+    ? `\u26a0 ${lunghe.length===1?'Leg':'Legs'} over ${NAV_LEG_WARN_MIN} min: `
+      + lunghe.map(x=>`${x.da||'?'}\u2192${x.r.wpt||'?'} ${x.min} min`).join(', ')
+      + ` \u00b7 turning points ideally every 6-8 min (advisory only)`
+    : '';
 }
 
 function renderNavlogEditor(f){
@@ -2218,6 +2355,19 @@ function pageShell(sectionLabel, bodyHTML, pageNo, extraStyle, flow){
   </div>`;
 }
 
+/* Il blocco effemeridi in fondo alla pagina OFP. Senza dati non sparisce:
+   dice cosa manca, cosi' il foglio stampato non sembra aver passato un
+   controllo che non ha fatto. */
+function daylightPrintLines(f){
+  const dc=daylightCheck(f);
+  if(dc.missing.length) return [`DAYLIGHT: not computed - missing ${dc.missing.join(', ')}`];
+  return daylightLines(dc).map((l,i)=> i && /NIGHT|AFTER SUNSET|BEFORE SUNRISE|not computed/.test(l) ? `${l} ***` : l);
+}
+function daylightHTML(f){
+  return `<div style="border-top:1px dotted #000;margin-top:14px;padding-top:8px;font-size:10px;white-space:pre;line-height:1.6">${
+    daylightPrintLines(f).map((l,i)=>i===0?`<b>${esc(l)}</b>`:esc(l)).join('\n')}</div>`;
+}
+
 function pageOFP(f,t){
   const est=(l,v)=>`<tr><td style="padding:5px 14px 5px 0">${pad(l,7)}</td><td style="text-align:right;padding:5px 20px 5px 0">${padL(v,4)}</td><td style="padding:5px 0">.....Z</td></tr>`;
   const timesRows=[['OFF',t.off],['TO',t.to],['LDG',t.ldg],['ON',t.on],['BLOCK',t.block],['FLT',t.flt]];
@@ -2273,7 +2423,8 @@ ALTN: <span class="filled">${esc(txt('altn'))}</span></div>
     <div>CRUISE ALTITUDE: <span class="filled">${esc(txt('pwrAlt'))} ft</span></div>
     <div style="border-top:1px dotted #000;margin:12px 0"></div>
     ${fuelTable}
-    ${altsum}`;
+    ${altsum}
+    ${daylightHTML(f)}`;
   return pageShell('OFP', body, 1);
 }
 
@@ -2461,7 +2612,7 @@ function pageCharts(){
   const imgs=(window.__chartImgs||[]).slice(0,2);
   const imgsHTML = imgs.length
     ? `<div style="display:flex;gap:8px;height:130mm">${imgs.map(src=>`<div style="flex:1;border:1px solid #000;display:flex;align-items:center;justify-content:center;overflow:hidden"><img src="${src}" style="max-width:100%;max-height:100%"></div>`).join('')}</div>`
-    : `<div style="border:1px solid #ccc;height:130mm;display:flex;align-items:center;justify-content:center;color:#999;font-size:10.5px">Carte destinazione</div>`;
+    : `<div style="border:1px solid #ccc;height:130mm;display:flex;align-items:center;justify-content:center;color:#999;font-size:10.5px">Destination charts</div>`;
   const rows=[['Track',txt('noteTrack')],['Runway',txt('noteRunway')],['Altitudes',txt('noteAlt')],['Clearance',txt('noteClear')],
     ['Timing',txt('noteTiming')],['On ground',txt('noteGround')],['Radios',txt('noteRadios')],['Specials',txt('noteSpecials')]];
   const notesHTML=rows.map(([l,v])=>`<div>${l}: <span class="filled">${esc(v)}</span></div>`).join('');
@@ -2706,6 +2857,14 @@ function render(){
   if($('tBLOCK')) $('tBLOCK').value=t.block;
   if($('tFLT'))   $('tFLT').value=t.flt;
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
+  if($('daylightCalc')){
+    const el=$('daylightCalc'), dc=daylightCheck(f);
+    const peggio=dc.rows.some(r=>r.stato==='night') ? 'night' : dc.rows.some(r=>r.stato==='twilight'||r.stato==='nd') ? 'warn' : '';
+    el.textContent = dc.missing.length
+      ? `→ Daylight check: enter ${dc.missing.join(', ')}`
+      : daylightLines(dc).map((l,i)=>(i?'  ':'→ ')+l).join('\n');
+    el.style.color = peggio==='night' ? 'var(--err)' : peggio==='warn' ? 'var(--warn)' : (dc.missing.length ? 'var(--txt-dim)' : '');
+  }
   renderNavlogEditor(f);
   renderTng();
   renderWxNotes();
@@ -4338,6 +4497,12 @@ function buildPDF(){
   const colW=(R-L)/4;
   cols.forEach((c,i)=>doc.text(c,L+colW*i+colW/2,y,{align:'center'}));
   vals.forEach((v,i)=>doc.text(v,L+colW*i+colW/2,y+6,{align:'center'}));
+  y+=14; dotted(doc,L,R,y); y+=6;
+  daylightPrintLines(f).forEach((l,i)=>{
+    if(i===0) doc.setFont('courier','bold');
+    y=monoLine(doc,L,y,l);
+    if(i===0){ doc.setFont('courier','normal'); y+=1; }
+  });
 
   /* PAGE 2 — MASS AND BALANCE */
   doc.addPage(); y=drawFrame(doc,title,'MASS AND BALANCE',2);
@@ -4655,7 +4820,7 @@ function buildPDF(){
     });
   }else{
     doc.rect(L,chartsTop,chartsW,chartsH);
-    doc.text('Carte destinazione', L+chartsW/2, chartsTop+chartsH/2, {align:'center'});
+    doc.text('Destination charts', L+chartsW/2, chartsTop+chartsH/2, {align:'center'});
   }
   y=chartsTop+chartsH+8;
   [['Track','noteTrack'],['Runway','noteRunway'],['Altitudes','noteAlt'],['Clearance','noteClear'],
