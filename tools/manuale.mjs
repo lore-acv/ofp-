@@ -110,10 +110,12 @@ function h1plain(t, id) {
   TOC.push({ level: 1, num: '', title: t, id });
   return `<h1 class="plain" id="${id}">${esc(t)}</h1>`;
 }
-function h2(n, t) {
+/* opts.nuovaPagina: nell'e-book il paragrafo comincia su una pagina nuova */
+function h2(n, t, opts = {}) {
   const id = `s${n.replace('.', '-')}`;
   TOC.push({ level: 2, num: n, title: t, id });
-  return `<h2 id="${id}"><span class="n">${n}</span>${esc(t)}</h2>`;
+  const np = opts.nuovaPagina ? ' data-nuova-pagina' : '';
+  return `<h2 id="${id}"${np}><span class="n">${n}</span>${esc(t)}</h2>`;
 }
 
 /* ================================================================== CONTENUTO */
@@ -301,7 +303,7 @@ A(`<table class="std keep"><caption>Daylight check &ndash; status</caption><thea
 </tbody></table>`);
 
 /* ---- step 2 */
-A(h2('3.2', 'Step 2 – Route & Fuel'));
+A(h2('3.2', 'Step 2 – Route & Fuel', { nuovaPagina: true }));
 A(dtable([
   ['Cruise Altitude', 'M', 'Pilot', 'INPUT'],
   ['RPM, MAP', 'M', 'AFM fig. 5-1 combinations only', 'SELECT'],

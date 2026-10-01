@@ -212,6 +212,7 @@
   .pg-body table.conv td:first-child{white-space:nowrap;width:1%}
   .pg-body table.conv td.verb{font-size:.82em}
   .pg-body table.abbr td:first-child{font:600 .92em PlexM,monospace;color:#1f3a5f;width:34%}
+  .pg-body table.abbr td{padding:4px 8px}
   .pg-body table.lim td:first-child,.pg-body table.chk td.ci{font-weight:650}
   .pg-body table.chk td.cr{width:58px;font-size:.92em}
   .pg-body table.chk td.cb{width:30px}
@@ -408,21 +409,25 @@ function impagina(){
   const spezzabile=(el)=> el.matches('ol.steps,ul.bul,table:not(.legend),nav.toc-list,.split,.col-text');
 
   function aggiungi(el){
+    // il build puo' chiedere che un paragrafo cominci su una pagina nuova
+    if(el.dataset && el.dataset.nuovaPagina!==undefined && !vuota()) apri('');
     if(prova(el)){ segna(el); return; }
-    // una pagina con soli titoli e' ancora "vuota": non si lascia un titolo da solo
-    const soloTitoli = !!body.firstChild && [...body.childNodes].every(tieni);
-    if(el.matches('.split')){ if(gruppo(el, soloTitoli)) return; }
-    else if(spezzabile(el) && !vuota()){ if(spezza(el)) return; }
-    if(!soloTitoli){
+    // una pagina con soli titoli e' ancora "all'inizio": non si lascia un titolo da solo
+    const inizio = vuota() || [...body.childNodes].every(tieni);
+    if(!inizio){
+      // una tabella "keep" che entra in una pagina non si spezza: va avanti intera
+      if(el.matches('.split')){ if(gruppo(el, false)) return; }
+      else if(spezzabile(el) && !el.matches('table.keep,table.dt')){ if(spezza(el)) return; }
       // a pagina nuova, portandosi dietro i titoli rimasti in fondo
       const dietro=[];
-      while(tieni(body.lastChild) && body.childNodes.length>1) dietro.unshift(body.removeChild(body.lastChild));
+      while(tieni(body.lastChild)) dietro.unshift(body.removeChild(body.lastChild));
       apri('');
       dietro.forEach(h=>{ body.appendChild(h); segna(h); });
       if(prova(el)){ segna(el); return; }
-      if(el.matches('.split')){ if(gruppo(el, true)) return; }
-      if(spezzabile(el)){ if(spezza(el)) return; }
     }
+    // si e' gia' all'inizio di una pagina: non se ne apre un'altra, si divide
+    if(el.matches('.split')){ if(gruppo(el, true)) return; }
+    else if(spezzabile(el)){ if(spezza(el)) return; }
     if(riduci(el) && prova(el)){ segna(el); return; }
     body.appendChild(el); segna(el);       // non entra neanche da sola: si taglia (non dovrebbe succedere)
     console.warn('Block taller than a page', el);
@@ -463,32 +468,34 @@ function impagina(){
 
   function spezza(el){
     if(el.matches('.col-text')){ [...el.children].forEach(x=>aggiungi(x)); return true; }
-    let voci, guscio, conteni;
+    let voci, guscio, conteni, rimetti, prima=1, dopo=1;
     if(el.tagName==='TABLE'){
       const tb=el.tBodies[0]; if(!tb || tb.rows.length<2) return false;
       voci=[...tb.rows]; guscio=()=>{ const t=el.cloneNode(false);
         if(el.caption){ t.appendChild(el.caption.cloneNode(true)); }
         if(el.tHead) t.appendChild(el.tHead.cloneNode(true));
         const b=document.createElement('tbody'); t.appendChild(b); return t; };
-      conteni=(t)=>t.tBodies[0];
+      conteni=(t)=>t.tBodies[0]; rimetti=()=>tb.append(...voci);
+      prima=3; dopo=2;                      // niente righe orfane o vedove
     }else{
       voci=[...el.children]; if(voci.length<2) return false;
-      guscio=()=>el.cloneNode(false); conteni=(t)=>t;
+      guscio=()=>el.cloneNode(false); conteni=(t)=>t; rimetti=()=>el.append(...voci);
     }
-    let t=guscio(), messi=0;
+    const t=guscio();
     body.appendChild(t);
     for(let i=0;i<voci.length;i++){
       conteni(t).appendChild(voci[i]);
       if(trabocca()){
         conteni(t).removeChild(voci[i]);
-        if(!messi){ body.removeChild(t); return false; }
+        let taglio=i;
+        while(taglio>0 && voci.length-taglio<dopo){ taglio--; conteni(t).removeChild(voci[taglio]); }
+        if(taglio<Math.min(prima, voci.length-1)){ body.removeChild(t); rimetti(); return false; }
         segna(t);
-        const resto=guscio(); voci.slice(i).forEach(v=>conteni(resto).appendChild(v));
+        const resto=guscio(); voci.slice(taglio).forEach(v=>conteni(resto).appendChild(v));
         if(resto.caption) resto.caption.classList.add('cont');
         apri(''); aggiungi(resto);
         return true;
       }
-      messi++;
     }
     segna(t); return true;
   }
