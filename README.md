@@ -14,7 +14,7 @@ la provenienza di ogni singolo numero è in **[DATI-AFM.md](DATI-AFM.md)**.
 |---|---|
 | `import.html` | **pagina di apertura**: carica NavLog e briefing, poi passa al foglio di volo |
 | `index.html` | il foglio di volo (wizard in 8 passaggi, anteprima, PDF) |
-| `manuale.html` | il manuale d'uso sfogliabile, con indice interattivo (`data/manuale.pdf` + `data/manuale.json`) |
+| `manuale.html` | il manuale d'uso come e-book sfogliabile (`data/manuale/`, PDF stampabile in `data/manuale.pdf`) |
 | `ofp-core.js` | nucleo condiviso: lettura NavLog, briefing, METAR |
 | `ofp.css` | foglio di stile condiviso dalle due pagine |
 | `Codice.gs` | lato server Apps Script: routing, voli su UserProperties, PDF su Drive |
@@ -375,29 +375,43 @@ apertura.
 
 ### Il manuale d'uso
 
-Il manuale e' un SOP in inglese (`data/manuale.pdf`) che si sfoglia come un
-libro da `manuale.html`: doppia pagina su schermo largo, pagina singola su
-telefono, girata animata, indice laterale con i numeri di pagina, e le voci
-dell'indice stampato cliccabili anche dentro il libro. Si apre da **How To Use**
-nella pagina di import, in un riquadro sopra la pagina (NavLog e briefing gia'
+Il manuale e' un SOP in inglese che si legge come un e-book da `manuale.html`
+e si scarica stampabile da `data/manuale.pdf`. Si apre da **How To Use** nella
+pagina di import, in un riquadro sopra la pagina (NavLog e briefing gia'
 caricati restano li'), e dalla voce **User Manual** del menu del foglio di
 volo, in una scheda nuova. `manuale.html#p=12` apre una pagina,
 `manuale.html#s3-2` una sezione.
 
-`tools/manuale.mjs` scrive il testo, lo impagina con Chromium e produce:
+**L'e-book non e' il PDF rimpicciolito.** Il testo (`data/manuale/libro.html`)
+viene impaginato nel browser in pagine fatte per lo schermo: corpo in Inter a
+15 px, intestazione con sezione e paragrafo correnti, piede con riferimento del
+documento e numero di pagina, margine di piega piu' largo verso il centro del
+libro. Due formati logici fissi — *book* (600x848, doppia pagina quando ci sta)
+e *phone* (380x676, una pagina alla volta) — che si scalano interi: cambiare
+finestra cambia la scala, non l'impaginazione. L'impaginatore tiene ogni figura
+accanto alla procedura che la cita (la riduce un po' se serve, altrimenti la
+porta a pagina nuova insieme alla procedura), spezza liste e tabelle per righe
+ripetendo l'intestazione, non lascia titoli soli in fondo alla pagina. Ogni
+figura ha la sua lente per vederla a schermo pieno.
 
-- `data/manuale.pdf` — con i segnalibri del PDF e l'indice a due livelli i cui
-  numeri di pagina vengono dal PDF stesso: un primo passaggio impagina e legge
-  su che pagina e' finito ogni titolo, il secondo li scrive nell'indice, e il
-  build si ferma se fra i due qualcosa si sposta;
-- `data/manuale.json` — lo stesso indice, che il libro sfogliabile usa per il
-  pannello laterale: indice stampato e indice cliccabile non possono divergere.
+La girata e' di [StPageFlip](https://github.com/Nodlik/StPageFlip) (MIT,
+copiata in `vendor/`): la pagina si piega seguendo il dito o il mouse, con le
+ombre della curvatura. L'indice laterale si apre con una transizione; su schermo
+largo spinge il libro, che si ridimensiona insieme a lui e passa da doppia a
+pagina singola con una dissolvenza.
 
-Le figure in `tools/manuale/fig/` sono schermate dell'app vera, in tema chiaro,
-con i callout (riquadri e lettere) disegnati sopra gli elementi reali; i font
-(IBM Plex) stanno in `tools/manuale/fonts/`. Per rigenerare il PDF servono
-Chromium e due pacchetti che il sito non usa — il deploy trova il PDF gia'
-pronto nel repo:
+`tools/manuale.mjs` scrive il testo una volta sola e produce:
+
+- `data/manuale.pdf` — impaginato da Chromium in A4, con segnalibri e indice a
+  due livelli i cui numeri vengono dal PDF stesso (due passaggi; il build si
+  ferma se fra i due qualcosa si sposta);
+- `data/manuale/libro.html` — lo stesso testo per l'e-book, con le voci
+  dell'indice: i numeri li mette il libro dopo aver impaginato.
+
+Figure (schermate vere in tema chiaro con i callout disegnati sopra) e font
+(Inter, IBM Plex Mono — SIL OFL) stanno in `data/manuale/`. Per rigenerare
+servono Chromium e due pacchetti che il sito non usa — il deploy trova tutto
+gia' pronto nel repo:
 
 ```
 npm i --no-save puppeteer-core pdfjs-dist@3.11.174

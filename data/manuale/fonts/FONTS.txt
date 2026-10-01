@@ -1,0 +1,8 @@
+Inter (Inter-normal.woff2, Inter-italic.woff2)
+  Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)
+IBM Plex Mono (IBMPlexMono-400.woff2, IBMPlexMono-600.woff2)
+  Copyright (c) 2017 IBM Corp. (https://github.com/IBM/plex)
+
+Both are licensed under the SIL Open Font License, Version 1.1:
+https://openfontlicense.org
+Latin subsets as distributed by Google Fonts.

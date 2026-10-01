@@ -7,13 +7,13 @@
    sono relativi. Apps Script e' l'adattatore, non il contrario.
 
    Qui si raccoglie in dist/ solo quello che va pubblicato: le due pagine, il
-   manuale sfogliabile col suo PDF e il suo indice, il core, il foglio di
+   manuale sfogliabile (testo, figure, font, PDF), il core, il foglio di
    stile, il pacchetto dati e le intestazioni di Cloudflare.
    Restano fuori Codice.gs, appsscript.json, i tools e la documentazione.
 
    Uso:  node tools/sito.mjs
    ========================================================================== */
-import { mkdir, copyFile, rm, stat, readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, copyFile, cp, rm, stat, readdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 
@@ -33,7 +33,7 @@ const DIST = path.join(RADICE, 'dist');
 const DA_PUBBLICARE = [
   ['data/aeroporti.json', 'data/aeroporti.json'],
   ['data/manuale.pdf',    'data/manuale.pdf'],
-  ['data/manuale.json',   'data/manuale.json'],
+  ['data/manuale',        'data/manuale'],          // e-book: testo, figure, font
   ['tools/_headers',      '_headers']
 ];
 
@@ -55,7 +55,8 @@ const DA_PUBBLICARE = [
    e li sostituisce a mano: l'impronta vive solo in dist/. */
 const CON_IMPRONTA = [
   ['ofp-core.js', 'src="ofp-core.js"',              (n) => `src="${n}"`],
-  ['ofp.css',     'href="ofp.css"',                 (n) => `href="${n}"`]
+  ['ofp.css',     'href="ofp.css"',                 (n) => `href="${n}"`],
+  ['vendor/page-flip.browser.js', 'src="vendor/page-flip.browser.js"', (n) => `src="${n}"`, ['manuale.html']]
 ];
 
 const impronta = (buf) => createHash('sha256').update(buf).digest('hex').slice(0, 8);
@@ -95,20 +96,22 @@ async function main() {
     }
     const dest = path.join(DIST, a);
     await mkdir(path.dirname(dest), { recursive: true });
-    await copyFile(sorgente, dest);
+    if ((await stat(sorgente)).isDirectory()) await cp(sorgente, dest, { recursive: true });
+    else await copyFile(sorgente, dest);
     console.log('  ' + a);
   }
   /* Gli asset con impronta: si pubblicano col nome nuovo e si tiene da parte
      la sostituzione da fare nelle pagine. */
   const riferimenti = [];
-  for (const [da, cerca, rendi] of CON_IMPRONTA) {
+  for (const [da, cerca, rendi, soloIn] of CON_IMPRONTA) {
     const sorgente = path.join(RADICE, da);
     if (!await esiste(sorgente)) throw new Error(`manca ${da}`);
     const contenuto = await readFile(sorgente);
     const est = path.extname(da);
     const nome = `${da.slice(0, -est.length)}.${impronta(contenuto)}${est}`;
+    await mkdir(path.dirname(path.join(DIST, nome)), { recursive: true });
     await writeFile(path.join(DIST, nome), contenuto);
-    riferimenti.push([cerca, rendi(nome)]);
+    riferimenti.push([cerca, rendi(nome), soloIn]);
     console.log(`  ${nome}  (da ${da})`);
   }
 
@@ -118,7 +121,8 @@ async function main() {
     html = html.split(cerca).join(metti);
     /* Se un riferimento non c'e' piu', il sito uscirebbe senza stile o senza
        codice e nessuno se ne accorgerebbe fino al deploy: meglio fermarsi. */
-    for (const [rif, sostituto] of riferimenti) {
+    for (const [rif, sostituto, soloIn] of riferimenti) {
+      if (soloIn && !soloIn.includes(da)) continue;     // asset di una pagina sola
       if (!html.includes(rif)) throw new Error(`${da}: non trovo ${rif} — l'asset non verrebbe caricato`);
       html = html.split(rif).join(sostituto);
     }

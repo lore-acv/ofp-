@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 /* ============================================================================
-   MANUALE SOP — costruisce data/manuale.pdf e data/manuale.json
+   MANUALE SOP — costruisce data/manuale.pdf e data/manuale/libro.html
    ============================================================================
-   Il manuale d'uso che si sfoglia da manuale.html (il pulsante "How To Use"
-   della pagina di import). Il testo e' scritto qui sotto, in stile SOP: verbi
-   di procedura, campi classificati M / A / O, figure numerate con i callout
-   disegnati sulle schermate vere dell'app (tools/manuale/fig).
+   Il manuale d'uso, scritto una volta sola qui sotto in stile SOP: verbi di
+   procedura, campi classificati M / A / O, figure numerate con i callout
+   disegnati sulle schermate vere dell'app (data/manuale/fig).
 
-   Il PDF lo impagina Chromium dall'HTML generato qui, in due passaggi: il
-   primo serve solo a sapere su che pagina e' finito ogni titolo, il secondo
-   scrive quei numeri nell'indice. Gli stessi numeri vanno in manuale.json,
-   che e' l'indice del libro sfogliabile: una sola fonte, quindi l'indice
-   stampato e quello cliccabile non possono raccontare due cose diverse.
+   Da questo testo escono due cose:
+   - data/manuale.pdf, la versione stampabile A4, impaginata da Chromium in
+     due passaggi: il primo legge su che pagina e' finito ogni titolo, il
+     secondo scrive quei numeri nell'indice;
+   - data/manuale/libro.html, lo stesso testo per l'e-book di manuale.html,
+     che lo impagina da se' in pagine fatte per lo schermo e numera l'indice
+     dopo aver impaginato.
 
    Serve Chromium e due pacchetti che il sito non usa — il deploy non
    costruisce il manuale, trova il PDF gia' pronto nel repo:
@@ -20,15 +21,29 @@
      CHROME=/percorso/chrome node tools/manuale.mjs
 
    ========================================================================== */
-import { readFile, writeFile, rm } from 'node:fs/promises';
+import { readFile, writeFile, rm, mkdir } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 
 const RADICE = process.cwd();
 const DIR = path.join(RADICE, 'tools', 'manuale');
+const DATI = path.join(RADICE, 'data', 'manuale');          // figure, font, libro.html
 const OUT_PDF = path.join(RADICE, 'data', 'manuale.pdf');
-const OUT_JSON = path.join(RADICE, 'data', 'manuale.json');
+const OUT_LIBRO = path.join(DATI, 'libro.html');
 const TMP_HTML = path.join(DIR, '_manuale.html');
+
+/* Larghezza e altezza di un JPEG, lette dall'intestazione: scritte sull'<img>
+   permettono al libro di impaginare prima ancora che l'immagine arrivi. */
+function misuraJpeg(file) {
+  const d = readFileSync(file);
+  for (let i = 2; i < d.length;) {
+    const m = d[i + 1], l = d.readUInt16BE(i + 2);
+    if (m >= 0xC0 && m <= 0xC3) return { h: d.readUInt16BE(i + 5), w: d.readUInt16BE(i + 7) };
+    i += 2 + l;
+  }
+  throw new Error('JPEG senza dimensioni: ' + file);
+}
 
 const DOC = { title: 'OFP C172 FR – SOP User Manual', revision: 'Rev. 1 DRAFT', date: '01 OCT 2026' };
 
@@ -58,7 +73,7 @@ function figure(sec, src, title, caption, rows, cls = '') {
   FIG[sec] = (FIG[sec] || 0) + 1;
   return `<figure class="fig ${cls}">
   <div class="fig-id">Figure ${sec}.${FIG[sec]} &ndash; ${esc(title)}</div>
-  <div class="fig-frame"><img src="fig/${src}" alt=""></div>
+  <div class="fig-frame"><img src="@@FIG@@${src}" width="${misuraJpeg(path.join(DATI, 'fig', src)).w}" height="${misuraJpeg(path.join(DATI, 'fig', src)).h}" alt="${esc(title)}"></div>
   <figcaption>${md(caption)}</figcaption>
   ${rows && rows.length ? legend(rows) : ''}
 </figure>`;
@@ -149,7 +164,7 @@ A(`<table class="conv">
 </table>`);
 A('<p class="small">The application does not block progress on empty fields. The classification above is the operating standard of this manual, not a software lock.</p>');
 A('<h3>Figures and callouts</h3>');
-A('<p>Figures are taken from the application in the light theme, with a real flight (LILN &ndash; T&amp;G LILE &ndash; LILN, alternate LIMF). Lettered markers <span class="mk">A</span> <span class="mk">B</span> &hellip; identify the elements described in the legend under each figure and in the procedure on the left.</p>');
+A('<p>Figures are taken from the application in the light theme, with a real flight (LILN &ndash; T&amp;G LILE &ndash; LILN, alternate LIMF). Lettered markers <span class="mk">A</span> <span class="mk">B</span> &hellip; identify the elements described in the legend under each figure and in the procedure that cites it. The figure button &#10530; enlarges a figure on screen.</p>');
 A('<h3>Notes, cautions and warnings</h3>');
 A(box('warning', 'WARNING', 'Could affect the safety of the flight if ignored.'));
 A(box('caution', 'CAUTION', 'Could produce a wrong or incomplete document.'));
@@ -213,22 +228,23 @@ A(h2('2.1', 'Pre-requisites'));
 A(steps([['PREPARE', 'the route in ForeFlight and export the **NavLog** (PDF or text).'],
   ['DOWNLOAD', 'the **weather and NOTAM briefing** PDF covering departure, destination, alternate and route.']]));
 A(h2('2.2', 'Procedure'));
-{
-  const left = steps([
-    ['LOAD', 'the ForeFlight NavLog in the NavLog drop zone [A]. Load it first: its ICAO codes are used to sort the briefing.'],
-    ['VERIFY', 'the NavLog summary [B]: number of waypoints, total distance and the waypoint table. For a return flight the application states that DEP and ARR are the same aerodrome.'],
-    ['LOAD', 'the briefing PDF in the briefing drop zone [C].'],
-    ['VERIFY', 'the briefing summary [D]: issue date and time (UTC) and, for each aerodrome, the availability of METAR, TAF and the number of NOTAMs. `N/A` means not contained in the briefing.'],
-    ['CONFIRM', 'both STATUS items are green [E].'],
-    ['SELECT', '**Continue** [F] to open the wizard.'],
-  ]) + box('note', 'NOTE', 'Only airports, route and distance are taken from the NavLog. ForeFlight speeds and fuel figures are not used: the AFM figures take precedence.')
-    + box('caution', 'CAUTION', '**Skip and enter manually** [G] opens the wizard without imported data. Route, distances and all weather and NOTAM fields must then be entered by hand.');
-  A(split(left, figure(2, 'f2-1.jpg', 'Primary Data Ingestion Interface',
-    'Import page after both files have been read: 11 waypoints and 94 NM from the NavLog, four aerodromes from the briefing.',
-    [['A', 'NavLog drop zone', 'LOAD the ForeFlight NavLog'], ['B', 'NavLog summary and waypoint table', 'VERIFY waypoints and distance'],
-      ['C', 'Briefing drop zone', 'LOAD the briefing PDF'], ['D', 'Briefing summary and aerodrome table', 'VERIFY issue time and coverage'],
-      ['E', 'Status', 'CONFIRM both items green'], ['F', 'Continue', 'SELECT to proceed'], ['G', 'Skip and enter manually', 'Manual entry only']], 'tall'), '48'));
-}
+A(split(steps([
+  ['LOAD', 'the ForeFlight NavLog in the NavLog drop zone [A]. Load it first: its ICAO codes are used to sort the briefing.'],
+  ['VERIFY', 'the NavLog summary [B]: number of waypoints, total distance and the waypoint table. For a return flight the application states that DEP and ARR are the same aerodrome.'],
+]) + box('note', 'NOTE', 'Only airports, route and distance are taken from the NavLog. ForeFlight speeds and fuel figures are not used: the AFM figures take precedence.'),
+figure(2, 'f2-1.jpg', 'NavLog Ingestion', 'NavLog read: 11 waypoints, 94 NM, return flight to the departure aerodrome.',
+  [['A', 'NavLog drop zone', 'LOAD the ForeFlight NavLog'], ['B', 'NavLog summary and waypoint table', 'VERIFY waypoints and distance']])));
+A(split(steps([
+  ['LOAD', 'the briefing PDF in the briefing drop zone [A].'],
+  ['VERIFY', 'the briefing summary [B]: issue date and time (UTC) and, for each aerodrome, the availability of METAR, TAF and the number of NOTAMs. `N/A` means not contained in the briefing.'],
+], 3), figure(2, 'f2-2.jpg', 'Weather Briefing Ingestion', 'Four aerodromes found in the briefing, two of them with TAF.',
+  [['A', 'Briefing drop zone', 'LOAD the briefing PDF'], ['B', 'Briefing summary and aerodrome table', 'VERIFY issue time and coverage']])));
+A(split(steps([
+  ['CONFIRM', 'both STATUS items are green [A].'],
+  ['SELECT', '**Continue** [B] to open the wizard.'],
+], 5) + box('caution', 'CAUTION', '**Skip and enter manually** [C] opens the wizard without imported data. Route, distances and all weather and NOTAM fields must then be entered by hand.'),
+figure(2, 'f2-3.jpg', 'Import Status', 'Both files read: the wizard can be opened.',
+  [['A', 'Status', 'CONFIRM both items green'], ['B', 'Continue', 'SELECT to proceed'], ['C', 'Skip and enter manually', 'Manual entry only']])));
 A('</section>');
 
 /* ---------------------------------------------------------------- sezione 3 */
@@ -618,12 +634,25 @@ function tocHTML(pages) {
 }
 
 async function pagina(pages) {
-  const css = await readFile(path.join(DIR, 'manuale.css'), 'utf8');
-  const body = parts.join('\n').replace('@@TOC@@', tocHTML(pages));
+  const css = (await readFile(path.join(DIR, 'manuale.css'), 'utf8')).split('@@FONT@@').join('../../data/manuale/fonts/');
+  const body = parts.join('\n').replace('@@TOC@@', tocHTML(pages)).split('@@FIG@@').join('../../data/manuale/fig/');
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(DOC.title)}</title><style>${css}</style></head><body>${body}</body></html>`;
 }
 
 /* ================================================================== BUILD */
+/* Lo stesso testo, per il libro sfogliabile: manuale.html lo impagina da se'
+   in pagine fatte per lo schermo. L'indice qui non ha numeri — dipendono da
+   come il libro impagina su quel dispositivo — ma porta le voci, che il libro
+   numera dopo aver impaginato. */
+async function scriviLibro() {
+  await mkdir(DATI, { recursive: true });
+  const voci = esc(JSON.stringify(TOC.map(({ level, num, title, id }) => ({ level, num, title, id }))));
+  const corpo = parts.join('\n')
+    .replace('@@TOC@@', `<section class="toc-slot" id="toc" data-voci="${voci}"></section>`)
+    .split('@@FIG@@').join('data/manuale/fig/');
+  await writeFile(OUT_LIBRO, `<!-- Generato da tools/manuale.mjs: non modificare a mano. ${DOC.revision} · ${DOC.date} -->\n${corpo}\n`);
+}
+
 async function carica(nome) {
   try { return await import(nome); }
   catch {
@@ -682,9 +711,9 @@ async function main() {
     if (spostati.length) throw new Error('Page numbers moved between passes: ' + spostati.join(', '));
 
     await writeFile(OUT_PDF, pdf);
-    const toc = TOC.map((t) => ({ level: t.level, num: t.num, title: t.title, id: t.id, page: pages[t.id] }));
-    await writeFile(OUT_JSON, JSON.stringify({ ...DOC, pages: verifica.numPages, pdf: 'data/manuale.pdf', toc }, null, 1) + '\n');
-    console.log(`data/manuale.pdf: ${verifica.numPages} pages, ${(pdf.length / 1024).toFixed(0)} kB · ${toc.length} index entries`);
+    await scriviLibro();
+    console.log(`data/manuale.pdf: ${verifica.numPages} pages, ${(pdf.length / 1024).toFixed(0)} kB · ${TOC.length} index entries`);
+    console.log('data/manuale/libro.html: e-book content');
   } finally {
     await browser.close();
     await rm(TMP_HTML, { force: true });

@@ -1,25 +1,28 @@
 <!--
-  CESSNA C172 FR — MANUALE D'USO SFOGLIABILE
+  CESSNA C172 FR — MANUALE D'USO SFOGLIABILE (E-BOOK)
 
-  Il manuale SOP (data/manuale.pdf, costruito da tools/manuale.mjs) letto come
-  un libro: doppia pagina su schermo largo, pagina singola su telefono, girata
-  animata, indice laterale con i numeri di pagina e i collegamenti dell'indice
-  stampato cliccabili anche qui.
+  Il manuale SOP letto come un libro. Non e' il PDF rimpicciolito: il testo
+  (data/manuale/libro.html, scritto da tools/manuale.mjs insieme al PDF) viene
+  impaginato qui, al momento, in pagine pensate per lo schermo — corpo grande,
+  intestazione e piede su ogni pagina, margine di piega verso il centro del
+  libro, figure tenute accanto alla procedura che le cita.
 
-  L'indice viene da data/manuale.json, scritto dallo stesso build che
-  impagina il PDF: i numeri sono quelli veri del PDF, non una copia a mano.
+  Due formati di pagina: "book" (tablet e computer, doppia pagina quando ci
+  sta) e "phone" (telefono, una pagina alla volta). Ogni formato ha una misura
+  logica fissa e si ingrandisce o rimpicciolisce intero: l'impaginazione non
+  cambia quando cambia la finestra, cambia solo la scala.
 
-  La pagina vive da sola (manuale.html#p=12 o manuale.html#s3-2 portano dritti
-  a una pagina o a una sezione) e dentro la pagina di import, in un riquadro
-  sopra tutto il resto (?embed=1): li' "Close" chiede alla pagina madre di
-  chiudere, cosi' NavLog e briefing gia' caricati non si perdono.
+  La girata e' di StPageFlip (vendor/page-flip.browser.js, MIT): la pagina si
+  piega seguendo il dito o il mouse, con le ombre della curvatura.
 
-  Le pagine si disegnano su <canvas> con pdf.js, come faceva la guida: su iPad
-  Safari un PDF in un iframe lo mostra a meta' o non lo mostra.
+  La pagina vive da sola (manuale.html#p=12, manuale.html#s3-2) e dentro la
+  pagina di import, in un riquadro (?embed=1): li' "Close" chiede alla pagina
+  madre di chiudere, e NavLog e briefing gia' caricati restano dove sono.
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OFP C172 FR — User Manual</title>
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="ofp.css">
 <script>
 (function(){
@@ -31,102 +34,257 @@
 })();
 </script>
 <style>
+  @font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:block;src:url(data/manuale/fonts/Inter-normal.woff2) format('woff2')}
+  @font-face{font-family:'Inter';font-style:italic;font-weight:400 700;font-display:block;src:url(data/manuale/fonts/Inter-italic.woff2) format('woff2')}
+  @font-face{font-family:'PlexM';font-weight:400;font-display:block;src:url(data/manuale/fonts/IBMPlexMono-400.woff2) format('woff2')}
+  @font-face{font-family:'PlexM';font-weight:600;font-display:block;src:url(data/manuale/fonts/IBMPlexMono-600.woff2) format('woff2')}
+
+  :root{--tocw:20rem;--ease:cubic-bezier(.4,0,.2,1)}
   body{height:100vh;height:100dvh}
+
+  /* =============================== barra ================================ */
   .fb-bar{display:flex;align-items:center;gap:.5rem;padding:.55rem .8rem;background:var(--panel-2);
-    border-bottom:1px solid var(--panel-line);flex:0 0 auto;min-width:0}
+    border-bottom:1px solid var(--panel-line);flex:0 0 auto;min-width:0;position:relative;z-index:40}
   .fb-bar .brand{font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
   .fb-bar .brand span{color:var(--txt-dim);font-weight:500}
   .fb-ico{width:var(--tap);height:var(--tap);padding:0;display:inline-flex;align-items:center;justify-content:center;
     border:1px solid var(--panel-line);background:var(--field);color:var(--txt);border-radius:.5rem;cursor:pointer;
-    flex:0 0 auto;text-decoration:none}
-  .fb-ico:hover{border-color:var(--hover-line)}
+    flex:0 0 auto;text-decoration:none;transition:background .2s,border-color .2s,color .2s}
   .fb-ico[hidden]{display:none}
+  .fb-ico:hover{border-color:var(--hover-line)}
   .fb-ico:focus-visible,.fb-toc a:focus-visible,.fb-nav:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
-  .fb-ico svg,.fb-nav svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .fb-ico svg,.fb-nav svg,.fb-zoom-x svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .fb-ico[aria-pressed="true"]{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
-  .fb-pag{display:flex;align-items:center;gap:.3rem;font-size:.9rem;color:var(--txt-dim);white-space:nowrap;flex:0 0 auto}
-  .fb-pag input{width:3.2rem;height:2.2rem;text-align:center;font:inherit;color:var(--txt);background:var(--field);
+  .fb-pag{display:flex;align-items:center;gap:.35rem;font-size:.9rem;color:var(--txt-dim);white-space:nowrap;flex:0 0 auto}
+  .fb-pag input{width:4.4rem;height:2.3rem;text-align:center;font:inherit;color:var(--txt);background:var(--field);
     border:1px solid var(--panel-line);border-radius:.4rem}
   .fb-pag input:focus{outline:2px solid var(--accent-2);outline-offset:1px}
   .fb-sep{width:1px;align-self:stretch;background:var(--panel-line);margin:0 .15rem}
 
-  .fb-main{flex:1 1 auto;display:flex;min-height:0;position:relative}
-  /* ---- indice ---- */
-  .fb-toc{width:min(22rem,86vw);flex:0 0 auto;background:var(--panel-bg);border-right:1px solid var(--panel-line);
-    overflow:auto;-webkit-overflow-scrolling:touch;padding:.6rem 0 1.4rem;display:none}
-  .fb-main.toc-open .fb-toc{display:block}
-  .fb-toc h2{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);margin:.5rem 1rem .6rem;font-weight:700}
+  /* ============================ indice laterale ========================== */
+  .fb-main{flex:1 1 auto;position:relative;min-height:0;overflow:hidden}
+  .fb-toc{position:absolute;left:0;top:0;bottom:0;width:var(--tocw);max-width:88vw;z-index:30;
+    background:var(--panel-bg);border-right:1px solid var(--panel-line);overflow:auto;-webkit-overflow-scrolling:touch;
+    padding:.7rem 0 1.6rem;transform:translateX(-102%);visibility:hidden;
+    transition:transform .38s var(--ease),visibility 0s linear .38s,box-shadow .38s var(--ease)}
+  .fb-main.toc-open .fb-toc{transform:none;visibility:visible;transition:transform .38s var(--ease),visibility 0s,box-shadow .38s var(--ease)}
+  .fb-toc h2{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);margin:.4rem 1.1rem .7rem;font-weight:700}
   .fb-toc ol{list-style:none;margin:0;padding:0}
-  .fb-toc a{display:flex;align-items:baseline;gap:.5rem;padding:.42rem 1rem;color:var(--txt);text-decoration:none;
-    font-size:.88rem;line-height:1.3;border-left:3px solid transparent}
+  .fb-toc a{display:flex;align-items:baseline;gap:.55rem;padding:.45rem 1.1rem;color:var(--txt);text-decoration:none;
+    font-size:.9rem;line-height:1.35;border-left:3px solid transparent;transition:background .2s,border-color .2s}
   .fb-toc a:hover{background:var(--panel-2)}
-  .fb-toc a.l1{font-weight:700;margin-top:.35rem}
-  .fb-toc a.l2{padding-left:2.1rem;color:var(--txt-dim)}
+  .fb-toc a.l1{font-weight:700;margin-top:.4rem}
+  .fb-toc a.l2{padding-left:2.2rem;color:var(--txt-dim)}
   .fb-toc a .n{flex:0 0 auto;min-width:2.1rem;color:var(--accent);font-weight:700;font-size:.8rem}
-  .fb-toc a.l1 .n{min-width:auto;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+  .fb-toc a.l1 .n{min-width:auto;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
   .fb-toc a .t{flex:1 1 auto}
   .fb-toc a .p{flex:0 0 auto;font-variant-numeric:tabular-nums;color:var(--txt-dim);font-weight:600;font-size:.82rem}
   .fb-toc a[aria-current="true"]{border-left-color:var(--accent-2);background:var(--panel-2);color:var(--txt)}
-  .fb-scrim{display:none}
-  /* su schermo stretto l'indice si apre sopra il libro, con un velo dietro */
-  @media (max-width:900px){
-    .fb-toc{position:absolute;left:0;top:0;bottom:0;z-index:30;box-shadow:0 0 30px rgba(0,0,0,.35)}
-    .fb-main.toc-open .fb-scrim{display:block;position:absolute;inset:0;z-index:25;background:rgba(0,0,0,.35)}
+  .fb-scrim{position:absolute;inset:0;z-index:25;background:rgba(0,0,0,.38);opacity:0;pointer-events:none;transition:opacity .38s var(--ease)}
+  /* schermo largo: l'indice spinge il libro, che si ridimensiona insieme a lui */
+  @media (min-width:1100px){
+    .fb-main.toc-open .fb-stage{padding-left:var(--tocw)}
+    .fb-main.toc-open .fb-toc{box-shadow:none}
+  }
+  /* schermo stretto: l'indice scorre sopra il libro, con un velo dietro */
+  @media (max-width:1099.98px){
+    .fb-main.toc-open .fb-toc{box-shadow:0 0 34px rgba(0,0,0,.35)}
+    .fb-main.toc-open .fb-scrim{opacity:1;pointer-events:auto}
   }
 
-  /* ---- libro ---- */
-  .fb-stage{flex:1 1 auto;position:relative;display:flex;align-items:center;justify-content:center;
-    min-width:0;overflow:hidden;touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none}
-  .fb-book{position:relative;perspective:2600px}
-  .fb-page{position:absolute;top:0;height:100%;background:#fff;overflow:hidden;
-    box-shadow:0 2px 12px rgba(0,0,0,.28)}
-  .fb-page canvas,.fb-face canvas{display:block;width:100%;height:100%}
-  .fb-page.vuota{visibility:hidden}
-  .fb-book.spread .fb-page{width:50%}
-  .fb-book.spread .fb-page.sx{left:0}
-  .fb-book.spread .fb-page.dx{left:50%}
-  .fb-book.single .fb-page.sx{display:none}
-  .fb-book.single .fb-page.dx{left:0;width:100%}
-  /* la piega al centro: un'ombra leggera su tutte e due le pagine */
-  .fb-book.spread .fb-page.sx::after,.fb-book.spread .fb-page.dx::after{content:"";position:absolute;top:0;bottom:0;width:7%;pointer-events:none}
-  .fb-book.spread .fb-page.sx::after{right:0;background:linear-gradient(to left,rgba(0,0,0,.16),rgba(0,0,0,0))}
-  .fb-book.spread .fb-page.dx::after{left:0;background:linear-gradient(to right,rgba(0,0,0,.16),rgba(0,0,0,0))}
-  .fb-carica{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#888;font-size:.85rem}
-
-  .fb-leaf{position:absolute;top:0;height:100%;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;z-index:5;
-    pointer-events:none}
-  .fb-face{position:absolute;inset:0;background:#fff;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
-  .fb-face.retro{transform:rotateY(180deg)}
-  .fb-face .ombra{position:absolute;inset:0;pointer-events:none;opacity:0}
-  .fb-face.fronte .ombra{background:linear-gradient(to left,rgba(0,0,0,.35),rgba(0,0,0,.05))}
-  .fb-face.retro .ombra{background:linear-gradient(to right,rgba(0,0,0,.35),rgba(0,0,0,.05))}
-
-  .fb-link{position:absolute;display:block;border-radius:2px;cursor:pointer;z-index:3}
-  .fb-link:hover,.fb-link:focus-visible{background:rgba(31,79,156,.12);outline:1px solid rgba(31,79,156,.45)}
-
-  .fb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:8;width:2.6rem;height:4.4rem;display:flex;
+  /* ================================ scena =============================== */
+  .fb-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    transition:padding-left .38s var(--ease);user-select:none;-webkit-user-select:none}
+  .fb-box{position:relative;flex:0 0 auto}
+  .fb-box.cambio{animation:fbCambio .42s var(--ease)}
+  @keyframes fbCambio{from{opacity:.15;transform:scale(.965)}to{opacity:1;transform:none}}
+  #fbBook{width:100%;height:100%}
+  #fbBook .stf__wrapper{position:relative;width:100%;height:100%}
+  .fb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:8;width:2.7rem;height:4.6rem;display:flex;
     align-items:center;justify-content:center;border:1px solid var(--panel-line);background:var(--panel-bg);color:var(--txt);
-    border-radius:.5rem;cursor:pointer;opacity:.85}
+    border-radius:.55rem;cursor:pointer;opacity:.9;transition:opacity .2s,border-color .2s}
   .fb-nav:hover{opacity:1;border-color:var(--hover-line)}
   .fb-nav[disabled]{opacity:.25;cursor:default}
-  .fb-nav.prev{left:.5rem} .fb-nav.next{right:.5rem}
-  @media (max-width:640px){ .fb-nav{display:none} }
-
-  .fb-foot{flex:0 0 auto;display:flex;align-items:center;gap:.8rem;padding:.4rem 1rem .6rem;background:var(--panel-2);
-    border-top:1px solid var(--panel-line)}
-  .fb-foot input[type=range]{flex:1 1 auto;accent-color:var(--accent-2);min-width:0}
-  .fb-foot .sez{font-size:.8rem;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:45%}
+  .fb-nav.prev{left:.6rem} .fb-nav.next{right:.6rem}
+  .fb-main.toc-open .fb-nav.prev{left:calc(var(--tocw) + .6rem)}
+  @media (max-width:1099.98px){ .fb-main.toc-open .fb-nav.prev{left:.6rem} }
+  .fb-nav{transition:left .38s var(--ease),opacity .2s}
+  .fb-telefono .fb-nav{display:none}
   .fb-stato{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
     color:var(--txt-dim);padding:2rem;line-height:1.6}
   .fb-stato a{color:var(--accent-2)}
+
+  .fb-foot{flex:0 0 auto;display:flex;align-items:center;gap:.9rem;padding:.4rem 1rem .6rem;background:var(--panel-2);
+    border-top:1px solid var(--panel-line)}
+  .fb-foot input[type=range]{flex:1 1 auto;accent-color:var(--accent-2);min-width:0}
+  .fb-foot .sez{font-size:.8rem;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48%}
   @media (max-width:640px){
     .fb-bar{gap:.35rem;padding:.45rem .5rem}
-    .fb-bar .brand span{display:none}
-    .fb-bar .brand b{display:none}
-    .fb-sep,.fb-solo-largo{display:none}
+    .fb-bar .brand b,.fb-bar .brand span,.fb-sep,.fb-solo-largo{display:none}
     .fb-foot .sez{display:none}
   }
-  @media (prefers-reduced-motion:reduce){ .fb-toc{transition:none} }
+
+  /* ============================== lente ================================= */
+  .fb-zoom{position:fixed;inset:0;z-index:100;background:rgba(8,12,18,.97);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:flex;flex-direction:column;
+    opacity:0;pointer-events:none;transition:opacity .25s var(--ease)}
+  .fb-zoom.aperta{opacity:1;pointer-events:auto}
+  .fb-zoom-bar{display:flex;align-items:center;gap:.8rem;padding:.6rem .9rem;color:#e8edf3;font-size:.92rem;font-weight:600}
+  .fb-zoom-bar span{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .fb-zoom-x{width:var(--tap);height:var(--tap);border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:.5rem;
+    display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .fb-zoom-area{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;touch-action:pan-x pan-y pinch-zoom}
+  .fb-zoom-area img{margin:auto;display:block;max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in;background:#fff;border-radius:4px}
+  .fb-zoom-area.piena img{max-width:none;max-height:none;cursor:zoom-out}
+  .fb-zoom-hint{color:#aeb8c4;font-size:.78rem;text-align:center;padding:.4rem 0 .7rem}
+
+  /* ========================= LA PAGINA DEL LIBRO ========================= */
+  /* Misure logiche: la pagina si disegna sempre a questa misura e poi si
+     scala intera (--k) alla misura vera. */
+  .fmt-book{--pw:600px;--ph:848px;--pt:26px;--pb:20px;--pe:44px;--pi:62px;--fs:15.4px;--hh:34px;--fh:30px}
+  .fmt-phone{--pw:380px;--ph:676px;--pt:16px;--pb:12px;--pe:20px;--pi:20px;--fs:15px;--hh:28px;--fh:26px}
+
+  .pg{background:#fff;overflow:hidden}
+  .pg-in{position:absolute;left:0;top:0;width:var(--pw);height:var(--ph);transform:scale(var(--k,1));transform-origin:0 0;
+    display:flex;flex-direction:column;box-sizing:border-box;padding:var(--pt) var(--pe) var(--pb) var(--pi);
+    font:400 var(--fs)/1.6 Inter,system-ui,sans-serif;color:#1b1f24;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  /* pagina sinistra: piega a destra; destra: piega a sinistra */
+  .pg.sx .pg-in{padding-left:var(--pe);padding-right:var(--pi)}
+  .pg.dx .pg-in{padding-left:var(--pi);padding-right:var(--pe)}
+  .pg.sx{background:linear-gradient(to left,#e9e9e9 0,#fff 5%)}
+  .pg.dx{background:linear-gradient(to right,#e9e9e9 0,#fff 5%)}
+  .pg-head{flex:0 0 var(--hh);display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+    border-bottom:1px solid #d5d9e0;padding-bottom:6px;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:#6b7480;font-weight:600}
+  .pg-head span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pg-head .r{color:#1f3a5f;text-align:right}
+  .pg-body{flex:1 1 auto;min-height:0;overflow:hidden;padding-top:16px;position:relative}
+  .pg-foot{flex:0 0 var(--fh);display:flex;align-items:flex-end;justify-content:space-between;
+    border-top:1px solid #d5d9e0;font-size:10.5px;color:#7a828c;letter-spacing:.03em}
+  .pg-foot b{color:#1f3a5f;font-weight:700;font-size:11.5px;font-variant-numeric:tabular-nums}
+  .fmt-phone .pg-head{font-size:9.5px} .fmt-phone .pg-foot{font-size:9.5px}
+
+  /* --- testo --- */
+  .pg-body p{margin:0 0 11px}
+  .pg-body b{font-weight:650}
+  .pg-body code{font:400 .86em PlexM,monospace;background:#eef1f5;padding:1px 4px;border-radius:3px;white-space:nowrap}
+  .pg-body .small{font-size:.84em;color:#5b6470}
+  .pg-body a{color:#c2410c;text-decoration:none;font-weight:600}
+  .pg-body a *{pointer-events:none}
+  .pg-body h1.sec{display:flex;flex-direction:column;gap:6px;margin:0 0 18px;padding-bottom:12px;border-bottom:3px solid #1f3a5f;font-weight:normal}
+  .pg-body h1.sec .sn{align-self:flex-start;font:700 11px Inter,sans-serif;letter-spacing:.16em;background:#1f3a5f;color:#fff;padding:5px 10px 4px;border-radius:3px}
+  .pg-body h1.sec .st{font:700 25px/1.2 Inter,sans-serif;color:#1f3a5f;letter-spacing:-.01em}
+  .pg-body h1.plain{font:700 25px/1.2 Inter,sans-serif;color:#1f3a5f;margin:0 0 16px;padding-bottom:10px;border-bottom:3px solid #1f3a5f}
+  .pg-body h2{font:700 19px/1.3 Inter,sans-serif;color:#1f3a5f;margin:22px 0 10px;display:flex;gap:10px;align-items:baseline}
+  .pg-body h2 .n{color:#c2410c;min-width:30px}
+  .pg-body > :first-child{margin-top:0}
+  .pg-body h3{font:700 11.5px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#5b6470;margin:18px 0 8px}
+  .fmt-phone .pg-body h1.sec .st,.fmt-phone .pg-body h1.plain{font-size:21px}
+  .fmt-phone .pg-body h2{font-size:17px}
+
+  .pg-body .verb{font-weight:750;font-size:.8em;letter-spacing:.07em;color:#1f3a5f}
+  .pg-body ol.steps{list-style:none;margin:0 0 12px;padding:0}
+  .pg-body ol.steps li{position:relative;padding:0 0 9px 32px}
+  .pg-body ol.steps li::before{content:attr(data-n);position:absolute;left:0;top:0;width:24px;text-align:right;font-weight:700;color:#c2410c}
+  .pg-body ul.bul{margin:0 0 12px;padding-left:20px}
+  .pg-body ul.bul li{margin-bottom:6px}
+  .pg-body .mk{display:inline-flex;align-items:center;justify-content:center;width:1.32em;height:1.32em;border-radius:50%;
+    background:#c2410c;color:#fff;font-weight:700;font-size:.78em;line-height:1;vertical-align:.1em;margin:0 1px;box-shadow:0 0 0 1.5px #fff}
+
+  .pg-body .box{border-left:4px solid;border-radius:0 6px 6px 0;padding:9px 13px 10px;margin:10px 0 14px;font-size:.93em}
+  .pg-body .box-h{font-weight:750;font-size:10.5px;letter-spacing:.16em;margin-bottom:3px}
+  .pg-body .box.warning{border-color:#b42318;background:#fcefed} .pg-body .box.warning .box-h{color:#b42318}
+  .pg-body .box.caution{border-color:#a15c07;background:#fdf5e6} .pg-body .box.caution .box-h{color:#a15c07}
+  .pg-body .box.note{border-color:#3d5470;background:#eef2f6} .pg-body .box.note .box-h{color:#3d5470}
+  .pg-body .final{margin-top:18px;border:2px solid #1f3a5f;border-radius:8px;padding:12px 16px;font-weight:650;color:#1f3a5f;text-align:center}
+
+  /* --- tabelle --- */
+  .pg-body table{width:100%;border-collapse:collapse;font-size:.86em;line-height:1.42;margin:0 0 14px}
+  .pg-body caption{caption-side:top;text-align:left;font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#5b6470;padding-bottom:6px}
+  .pg-body caption.cont::after{content:"  (cont.)";letter-spacing:0;text-transform:none;font-weight:500}
+  .pg-body th{font-weight:650;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:#fff;background:#1f3a5f;padding:6px 8px}
+  .pg-body td{padding:6px 8px;border-bottom:1px solid #e3e6eb;vertical-align:top}
+  .pg-body table.dt td.fn{font-weight:650;width:34%}
+  .pg-body table.dt td:nth-child(2){width:42px;text-align:center}
+  .pg-body table.dt tr.m td{background:#edf1f6}
+  .pg-body .cls{display:inline-block;min-width:22px;text-align:center;font-weight:750;font-size:11px;padding:3px 4px 2px;border-radius:4px;line-height:1}
+  .pg-body .cM{background:#1f3a5f;color:#fff;border:1px solid #1f3a5f}
+  .pg-body .cA{color:#1f4f9c;border:1px solid #1f4f9c;background:#fff}
+  .pg-body .cO{color:#7a828c;border:1px solid #b3b9c2;background:#fff}
+  .pg-body table.conv td:first-child{white-space:nowrap;width:1%}
+  .pg-body table.conv td.verb{font-size:.82em}
+  .pg-body table.abbr td:first-child{font:600 .92em PlexM,monospace;color:#1f3a5f;width:34%}
+  .pg-body table.lim td:first-child,.pg-body table.chk td.ci{font-weight:650}
+  .pg-body table.chk td.cr{width:58px;font-size:.92em}
+  .pg-body table.chk td.cb{width:30px}
+  .pg-body table.chk td.cb::before{content:"";display:inline-block;width:14px;height:14px;border:1.5px solid #1b1f24;border-radius:2px}
+
+  /* --- procedura + figura: una sopra l'altra, nella stessa pagina --- */
+  .pg-body .split{margin:0 0 6px}
+  .pg-body .col-text{margin-bottom:4px}
+  .pg-body figure.fig{margin:6px 0 16px;border:1.5px solid #c9ced6;border-radius:9px;overflow:hidden;background:#fff}
+  .pg-body .fig-id{display:flex;align-items:center;gap:8px;background:#eef2f6;border-bottom:1.5px solid #c9ced6;
+    padding:7px 8px 7px 12px;font-weight:700;font-size:12.5px;color:#1f3a5f;letter-spacing:.01em}
+  .pg-body .fig-id .t{flex:1 1 auto}
+  .pg-body .fig-zoom{flex:0 0 auto;width:30px;height:28px;border:1px solid #b9c2cf;border-radius:6px;background:#fff;color:#1f3a5f;
+    display:inline-flex;align-items:center;justify-content:center;cursor:zoom-in;padding:0}
+  .pg-body .fig-zoom *{pointer-events:none}
+  .pg-body .fig-zoom svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pg-body .fig-frame{background:#f3efe6;display:flex;justify-content:center;padding:8px}
+  .pg-body .fig-frame img{display:block;width:auto;height:auto;max-width:100%;max-height:var(--imgmax);border-radius:3px}
+  .pg-body figure.doc .fig-frame img{max-height:var(--docmax)}
+  .pg-body figcaption{font-size:.8em;font-style:italic;color:#5b6470;padding:7px 12px 2px}
+  .pg-body figcaption:empty{display:none}
+  .pg-body table.legend{margin:4px 0 6px;font-size:.84em}
+  .pg-body table.legend td{border-bottom:1px solid #edf0f3;padding:4px 8px}
+  .pg-body table.legend tr:last-child td{border-bottom:0}
+  .pg-body table.legend td.lk{width:28px;padding-left:12px}
+  .pg-body table.legend td.le{font-weight:650;width:50%}
+  .pg-body table.legend td.la{color:#5b6470}
+
+  /* --- schema del flusso --- */
+  .pg-body .flow{display:flex;align-items:center;gap:6px;margin:6px 0 16px;flex-wrap:wrap}
+  .pg-body .fl-col{flex:1 1 0;display:flex;flex-direction:column;gap:6px;min-width:96px}
+  .pg-body .fl-h{font-weight:750;font-size:9.5px;letter-spacing:.12em;color:#c2410c;text-align:center}
+  .pg-body .fl-b{border:1.5px solid #1f3a5f;border-radius:6px;padding:7px 6px;text-align:center;font-weight:650;font-size:12px;color:#1f3a5f;line-height:1.3}
+  .pg-body .fl-b small{display:block;font-weight:400;font-size:10px;color:#5b6470;margin-top:2px}
+  .pg-body .fl-steps{text-align:left;font-weight:500;line-height:1.5}
+  .pg-body .fl-arr{color:#c2410c;font-size:12px}
+  .fmt-phone .pg-body .flow{display:grid;grid-template-columns:1fr 1fr}
+  .fmt-phone .pg-body .fl-arr{display:none}
+
+  /* --- copertina, retro, pagina bianca --- */
+  .pg.copertina .pg-in{padding:0;display:flex;flex-direction:column;background:#fff}
+  .pg .cover{display:flex;flex-direction:column;height:100%}
+  .pg .cv-top{background:#1f3a5f;color:#fff;padding:34% 11% 9%}
+  .pg .cv-kicker{font-weight:700;font-size:11.5px;letter-spacing:.24em;color:#b9c7da}
+  .pg .cv-title{font:800 46px/1.05 Inter,sans-serif;margin-top:14px;letter-spacing:-.01em}
+  .pg .cv-sub{font-weight:500;font-size:19px;line-height:1.3;margin-top:12px;color:#dfe7f1}
+  .pg .cv-ctl{margin:34px 11% 0;border-collapse:collapse;width:78%;font-size:13px}
+  .pg .cv-ctl th{width:34%;text-align:left;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5b6470;padding:9px 0;border-bottom:1px solid #d5d9e0;vertical-align:top}
+  .pg .cv-ctl td{padding:9px 0;border-bottom:1px solid #d5d9e0}
+  .pg .cv-note{margin:auto 11% 9%;font-size:11.5px;line-height:1.5;color:#5b6470;border-left:3px solid #1f3a5f;padding:2px 0 2px 12px}
+  .fmt-phone .pg .cv-title{font-size:36px} .fmt-phone .pg .cv-ctl{font-size:11.5px;margin-top:22px}
+  .pg.retro .pg-in{background:#1f3a5f;color:#b9c7da;padding:0;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .pg.retro .pg-in b{display:block;color:#fff;font-size:20px;letter-spacing:.04em;text-transform:none;margin-bottom:8px}
+  .pg-body .bianca{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a3abb6;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+
+  /* --- indice nel libro --- */
+  .pg-body .toc-e{display:flex;align-items:baseline;gap:8px;color:#1b1f24;text-decoration:none;font-weight:500;padding:3px 0;border-radius:4px}
+  .pg-body .toc-e:hover{background:#eef2f6}
+  .pg-body .toc-e.t1{margin-top:11px;font-weight:700;color:#1f3a5f}
+  .pg-body .toc-e .tn{flex:0 0 auto;width:96px;font-weight:750;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#c2410c}
+  .pg-body .toc-e.t2 .tn{width:38px;margin-left:96px;font-size:.88em;letter-spacing:0}
+  .pg-body .toc-e .tt{flex:0 1 auto}
+  .pg-body .toc-e .tl{flex:1 1 auto;border-bottom:1.5px dotted #a3abb6;transform:translateY(-4px);min-width:14px}
+  .pg-body .toc-e .tp{flex:0 0 auto;min-width:24px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:#1f3a5f}
+  .fmt-phone .pg-body .toc-e .tn{width:70px} .fmt-phone .pg-body .toc-e.t2 .tn{margin-left:20px}
+
+  /* il banco di misura: fuori dallo schermo, alla misura logica */
+  #fbMisura{position:absolute;left:-10000px;top:0;visibility:hidden;pointer-events:none}
+  #fbMisura .pg{position:relative;width:var(--pw);height:var(--ph)}
+  @media (prefers-reduced-motion:reduce){
+    .fb-toc,.fb-stage,.fb-scrim,.fb-nav,.fb-zoom{transition:none!important}
+    .fb-box.cambio{animation:none}
+  }
 </style>
 
 <div class="fb-bar">
@@ -137,7 +295,7 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 17l-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
   <div class="fb-pag"><label for="fbNum" class="fb-solo-largo">Page</label>
     <input id="fbNum" type="text" inputmode="numeric" autocomplete="off" aria-label="Go to page"><span id="fbTot">/ –</span></div>
-  <a class="fb-ico" id="fbScarica" href="data/manuale.pdf" download="OFP-C172-FR-SOP-User-Manual.pdf" aria-label="Download PDF" title="Download PDF">
+  <a class="fb-ico" id="fbScarica" href="data/manuale.pdf" download="OFP-C172-FR-SOP-User-Manual.pdf" aria-label="Download printable PDF" title="Download printable PDF">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
   <span class="fb-sep"></span>
   <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
@@ -148,228 +306,368 @@
 </div>
 
 <div class="fb-main" id="fbMain">
-  <nav class="fb-toc" id="fbToc" aria-label="Contents"><h2>Contents</h2><ol id="fbTocList"></ol></nav>
-  <div class="fb-scrim" id="fbScrim"></div>
   <div class="fb-stage" id="fbStage" role="region" aria-roledescription="book" aria-label="User manual">
     <button type="button" class="fb-nav prev" id="fbPrev" aria-label="Previous page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
-    <div class="fb-book" id="fbBook">
-      <div class="fb-page sx" id="fbSx"></div>
-      <div class="fb-page dx" id="fbDx"></div>
-    </div>
+    <div class="fb-box" id="fbBox"><div id="fbBook"></div></div>
     <button type="button" class="fb-nav next" id="fbNext" aria-label="Next page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
     <div class="fb-stato" id="fbStato">Opening the manual&hellip;</div>
   </div>
+  <div class="fb-scrim" id="fbScrim"></div>
+  <nav class="fb-toc" id="fbToc" aria-label="Contents"><h2>Contents</h2><ol id="fbTocList"></ol></nav>
 </div>
 <div class="fb-foot">
   <input type="range" id="fbScorri" min="1" max="1" value="1" aria-label="Page">
   <div class="sez" id="fbSez" aria-live="polite"></div>
 </div>
 
+<div class="fb-zoom" id="fbZoom" role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <div class="fb-zoom-bar"><span id="fbZoomTit"></span>
+    <button type="button" class="fb-zoom-x" id="fbZoomX" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="fb-zoom-area" id="fbZoomArea"><img id="fbZoomImg" alt=""></div>
+  <div class="fb-zoom-hint">Tap the image to view it at full size &middot; pinch to zoom</div>
+</div>
+
+<div id="fbMisura" aria-hidden="true"></div>
+
 <script src="ofp-core.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script>if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }</script>
+<script src="vendor/page-flip.browser.js"></script>
 <script>
 "use strict";
-const PDF_URL='data/manuale.pdf', TOC_URL='data/manuale.json';
+const LIBRO_URL='data/manuale/libro.html';
+const DOC_REF='OFP-SOP · Rev. 1 DRAFT · 01 OCT 2026';
 const EMBED=new URLSearchParams(location.search).has('embed');
 const MOTO=!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const FORMATI={ book:{w:600,h:848, img:.56, doc:.8}, phone:{w:380,h:676, img:.52, doc:.74} };
 
-let pdf=null, N=0, ASPETTO=595/842;
-let TOC=[];                     // [{level,num,title,id,page}]
-let modo='spread';              // 'spread' due pagine, 'single' una
-let cur=1;                      // pagina di riferimento (la sinistra, o la sola)
-let anim=null;                  // girata in corso
-let misura={w:0,h:0};           // dimensione in CSS px di UNA pagina
-let scelta=null;                // voce dell'indice appena scelta: resta evidenziata finche' la si vede
+let fonte=null;                 // il libro.html, gia' letto
+let VOCI=[];                    // [{level,num,title,id}] dall'indice del build
+let formato=null, F=null;       // 'book' | 'phone' e le sue misure
+let pagine=[];                  // [{el, ids:[], h1, h2}]
+let pf=null, doppia=null;       // StPageFlip e modo corrente (true = doppia pagina)
+let paginaDi={};                // id -> indice di pagina
+let scelta=null;                // voce dell'indice appena scelta
 
-/* ------------------------------------------------------------------ pagine */
-/* Una doppia pagina e' [sinistra, destra]: la copertina sta da sola a destra,
-   poi 2-3, 4-5 … come in un libro vero. */
-const doppia=(p)=> p<=1 ? [0,1] : (p%2===0 ? [p, p+1<=N ? p+1 : 0] : [p-1, p]);
-const vista=(p)=> modo==='spread' ? doppia(p) : [0,p];
-const prima=(p)=> { const v=vista(p); return v[0]||v[1]; };
-const ultima=(p)=> { const v=vista(p); return v[1]||v[0]; };
-
-/* Pagine disegnate: poche in memoria, una pagina A4 a schermo pieno su iPad
-   e' qualche megabyte. */
-const CACHE=new Map(), CACHE_MAX=10;
-async function disegna(n){
-  const dpr=Math.min(window.devicePixelRatio||1, 2.5);
-  const key=n+'@'+Math.round(misura.w*dpr);
-  if(CACHE.has(key)){ const c=CACHE.get(key); CACHE.delete(key); CACHE.set(key,c); return c; }
-  const pg=await pdf.getPage(n);
-  const base=pg.getViewport({scale:1});
-  const vp=pg.getViewport({scale:(misura.w*dpr)/base.width});
-  const c=document.createElement('canvas');
-  c.width=Math.round(vp.width); c.height=Math.round(vp.height);
-  c.setAttribute('role','img'); c.setAttribute('aria-label',`Page ${n} of ${N}`);
-  await pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
-  CACHE.set(key,c);
-  while(CACHE.size>CACHE_MAX) CACHE.delete(CACHE.keys().next().value);
-  return c;
-}
-function copia(c){
-  const d=document.createElement('canvas'); d.width=c.width; d.height=c.height;
-  d.getContext('2d').drawImage(c,0,0); return d;
+/* ======================================================= IMPAGINAZIONE */
+function nuovaPagina(classi){
+  const pg=document.createElement('div');
+  pg.className='pg '+(classi||'');
+  pg.innerHTML='<div class="pg-in"><header class="pg-head"><span class="l"></span><span class="r"></span></header>'
+    +'<div class="pg-body"></div><footer class="pg-foot"><span></span><b></b></footer></div>';
+  return pg;
 }
 
-/* I collegamenti del PDF (l'indice stampato, i rimandi dell'appendice)
-   diventano zone cliccabili sopra la pagina. */
-const LINK=new Map();
-async function linkDi(n){
-  if(LINK.has(n)) return LINK.get(n);
-  const pg=await pdf.getPage(n), vp=pg.getViewport({scale:1});
-  const out=[];
-  for(const a of await pg.getAnnotations()){
-    if(a.subtype!=='Link' || !a.dest) continue;
-    try{
-      const dest=typeof a.dest==='string' ? await pdf.getDestination(a.dest) : a.dest;
-      if(!dest) continue;
-      const to=await pdf.getPageIndex(dest[0])+1;
-      const [x1,y1,x2,y2]=vp.convertToViewportRectangle(a.rect);
-      out.push({to, l:Math.min(x1,x2)/vp.width, t:Math.min(y1,y2)/vp.height,
-                w:Math.abs(x2-x1)/vp.width, h:Math.abs(y2-y1)/vp.height});
-    }catch(e){}
-  }
-  LINK.set(n,out); return out;
-}
-
-async function riempi(slot, n){
-  slot.innerHTML='';
-  slot.classList.toggle('vuota', !n);
-  slot.dataset.n=n||'';
-  if(!n) return;
-  slot.innerHTML='<div class="fb-carica">…</div>';
-  const c=await disegna(n);
-  if(slot.dataset.n!==String(n)) return;          // nel frattempo si e' andati altrove
-  slot.innerHTML=''; slot.appendChild(c);
-  for(const k of await linkDi(n)){
-    const a=document.createElement('a');
-    a.className='fb-link'; a.href='#p='+k.to;
-    a.setAttribute('aria-label','Go to page '+k.to);
-    a.style.cssText=`left:${k.l*100}%;top:${k.t*100}%;width:${k.w*100}%;height:${k.h*100}%`;
-    a.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); vai(k.to); });
-    slot.appendChild(a);
-  }
-}
-
-/* ------------------------------------------------------------------ misura */
+/* Il banco di misura: le pagine si riempiono qui, alla misura logica, e
+   si guarda se il corpo trabocca. */
 function impagina(){
-  const st=$('fbStage'), W=st.clientWidth-(innerWidth>640?112:16), H=st.clientHeight-24;
-  const largo = W/H > 2*ASPETTO*0.82 && W>=700;
-  modo = largo ? 'spread' : 'single';
-  const h=Math.max(100, Math.floor(Math.min(H, (largo ? W/2 : W)/ASPETTO)));
-  const w=Math.floor(h*ASPETTO);
-  const cambia = w!==misura.w;
-  misura={w,h};
-  const b=$('fbBook');
-  b.className='fb-book '+modo;
-  b.style.width=(largo?2*w:w)+'px'; b.style.height=h+'px';
-  return cambia;
+  const banco=$('fbMisura');
+  banco.className='fmt-'+formato; banco.innerHTML='';
+  const bodyH = F.h - (formato==='book' ? 26+20+34+30+16 : 16+12+28+26+16);
+  banco.style.setProperty('--imgmax', Math.round(bodyH*F.img)+'px');
+  banco.style.setProperty('--docmax', Math.round(bodyH*F.doc)+'px');
+
+  /* Le figure si dimensionano qui, in pixel, dalle misure scritte dal build:
+     un'immagine non ancora scaricata altrimenti misura zero e la pagina
+     sembrerebbe avere posto che non ha. */
+  const sonda=nuovaPagina(''); banco.appendChild(sonda);
+  const largo=sonda.querySelector('.pg-body').clientWidth - 2*1.5 - 16;
+  banco.removeChild(sonda);
+  const IMG_MAX=Math.round(bodyH*F.img), DOC_MAX=Math.round(bodyH*F.doc);
+  const misuraImg=(img, maxH)=>{
+    const a=(+img.getAttribute('width')||4)/(+img.getAttribute('height')||3);
+    const w=Math.min(largo, maxH*a);
+    img.style.width=Math.floor(w)+'px'; img.style.height=Math.floor(w/a)+'px'; img.style.maxHeight='none';
+    return Math.floor(w/a);
+  };
+  const preparaImg=(el)=>{ if(el.querySelectorAll) el.querySelectorAll('figure img').forEach(img=>misuraImg(img, img.closest('figure.doc') ? DOC_MAX : IMG_MAX)); return el; };
+
+  const out=[];
+  let pg=null, body=null, stato={h1:'', h2:''};
+  const apri=(classi)=>{
+    pg=nuovaPagina(classi); banco.appendChild(pg);
+    body=pg.querySelector('.pg-body');
+    out.push({el:pg, h1:stato.h1, h2:stato.h2, h2Primo:null});
+  };
+  const trabocca=()=> body.scrollHeight > body.clientHeight+1;
+  const prova=(el)=>{ body.appendChild(el); if(!trabocca()) return true; body.removeChild(el); return false; };
+  const vuota=()=> !body.firstChild;
+  const tieni=(el)=> el && el.nodeType===1 && /^H[123]$/.test(el.tagName);
+
+  const segna=(el)=>{                       // aggiorna intestazione corrente
+    const hs = el.matches && el.matches('h1,h2') ? [el] : [...(el.querySelectorAll ? el.querySelectorAll('h1,h2') : [])];
+    hs.forEach(h=>{
+      if(h.tagName==='H1'){ const sn=h.querySelector('.sn'), st=h.querySelector('.st');
+        stato.h1 = sn ? `${sn.textContent} · ${st.textContent}` : h.textContent; stato.h2='';
+        out[out.length-1].h1=stato.h1; out[out.length-1].h2=''; }
+      else { const t=h.textContent.replace(/^(\d+\.\d+)/,'$1 '); stato.h2=t;
+        const o=out[out.length-1]; if(!o.h2Primo) o.h2Primo=t; }
+    });
+  };
+
+  /* dove spezzare un blocco troppo lungo: liste per voci, tabelle per righe,
+     una procedura con figura nelle sue parti */
+  const spezzabile=(el)=> el.matches('ol.steps,ul.bul,table:not(.legend),nav.toc-list,.split,.col-text');
+
+  function aggiungi(el){
+    if(prova(el)){ segna(el); return; }
+    // una pagina con soli titoli e' ancora "vuota": non si lascia un titolo da solo
+    const soloTitoli = !!body.firstChild && [...body.childNodes].every(tieni);
+    if(el.matches('.split')){ if(gruppo(el, soloTitoli)) return; }
+    else if(spezzabile(el) && !vuota()){ if(spezza(el)) return; }
+    if(!soloTitoli){
+      // a pagina nuova, portandosi dietro i titoli rimasti in fondo
+      const dietro=[];
+      while(tieni(body.lastChild) && body.childNodes.length>1) dietro.unshift(body.removeChild(body.lastChild));
+      apri('');
+      dietro.forEach(h=>{ body.appendChild(h); segna(h); });
+      if(prova(el)){ segna(el); return; }
+      if(el.matches('.split')){ if(gruppo(el, true)) return; }
+      if(spezzabile(el)){ if(spezza(el)) return; }
+    }
+    if(riduci(el) && prova(el)){ segna(el); return; }
+    body.appendChild(el); segna(el);       // non entra neanche da sola: si taglia (non dovrebbe succedere)
+    console.warn('Block taller than a page', el);
+  }
+
+  /* Procedura + figura. Si tiene insieme: se non c'e' posto si prova a
+     rimpicciolire un po' la figura; se ancora non basta e il gruppo sta in
+     una pagina intera, va a pagina nuova; solo se e' piu' alto di una pagina
+     si divide, e la figura segue subito la sua procedura. */
+  function gruppo(el, quasiVuota){
+    const img=el.querySelector('figure img'), eraVuota=vuota()||!!quasiVuota;
+    if(img){
+      // su una pagina gia' iniziata la figura cede poco; su una pagina nuova
+      // un po' di piu', pur di restare accanto alla sua procedura
+      const maxPref = img.closest('figure.doc') ? DOC_MAX : IMG_MAX;
+      const pref=misuraImg(img, maxPref); body.appendChild(el);
+      const eccesso=body.scrollHeight-body.clientHeight;
+      if(eccesso>0 && pref-eccesso >= pref*(eraVuota ? 0.6 : 0.74)) misuraImg(img, pref-eccesso-2);
+      if(!trabocca()){ segna(el); return true; }
+      misuraImg(img, maxPref); body.removeChild(el);
+    }
+    if(!eraVuota) return false;             // a pagina nuova se ne occupa aggiungi()
+    // e' piu' alto di una pagina intera: testo, poi figura
+    const parti=[...el.querySelector('.col-text').children, el.querySelector('.col-fig figure')].filter(Boolean);
+    parti.forEach(x=>aggiungi(x));
+    return true;
+  }
+
+  function riduci(el){
+    const img=el.querySelector && el.querySelector('img'); if(!img) return false;
+    body.appendChild(el);
+    const h=img.getBoundingClientRect().height, ecc=body.scrollHeight-body.clientHeight;
+    body.removeChild(el);
+    if(ecc<=0) return true;
+    misuraImg(img, Math.max(120, Math.floor(h-ecc-2)));
+    return true;
+  }
+
+  function spezza(el){
+    if(el.matches('.col-text')){ [...el.children].forEach(x=>aggiungi(x)); return true; }
+    let voci, guscio, conteni;
+    if(el.tagName==='TABLE'){
+      const tb=el.tBodies[0]; if(!tb || tb.rows.length<2) return false;
+      voci=[...tb.rows]; guscio=()=>{ const t=el.cloneNode(false);
+        if(el.caption){ t.appendChild(el.caption.cloneNode(true)); }
+        if(el.tHead) t.appendChild(el.tHead.cloneNode(true));
+        const b=document.createElement('tbody'); t.appendChild(b); return t; };
+      conteni=(t)=>t.tBodies[0];
+    }else{
+      voci=[...el.children]; if(voci.length<2) return false;
+      guscio=()=>el.cloneNode(false); conteni=(t)=>t;
+    }
+    let t=guscio(), messi=0;
+    body.appendChild(t);
+    for(let i=0;i<voci.length;i++){
+      conteni(t).appendChild(voci[i]);
+      if(trabocca()){
+        conteni(t).removeChild(voci[i]);
+        if(!messi){ body.removeChild(t); return false; }
+        segna(t);
+        const resto=guscio(); voci.slice(i).forEach(v=>conteni(resto).appendChild(v));
+        if(resto.caption) resto.caption.classList.add('cont');
+        apri(''); aggiungi(resto);
+        return true;
+      }
+      messi++;
+    }
+    segna(t); return true;
+  }
+
+  /* ---- copertina ---- */
+  const sezioni=[...fonte.children];
+  const cop=sezioni.find(s=>s.classList.contains('cover'));
+  pg=nuovaPagina('copertina'); pg.dataset.density='hard';
+  pg.querySelector('.pg-in').innerHTML=''; pg.querySelector('.pg-in').appendChild(cop.cloneNode(true));
+  banco.appendChild(pg); out.push({el:pg, h1:'', h2:'', nuda:true});
+
+  /* ---- indice (i numeri si scrivono alla fine) ---- */
+  apri('');
+  const h=document.createElement('h1'); h.className='plain'; h.textContent='Contents'; h.id='toc';
+  aggiungi(h);
+  const lista=document.createElement('nav'); lista.className='toc-list';
+  VOCI.forEach(v=>{
+    const a=document.createElement('a'); a.className='toc-e t'+v.level; a.href='#'+v.id; a.dataset.voce=v.id;
+    a.innerHTML=`<span class="tn">${esc(v.num)}</span><span class="tt">${esc(v.title)}</span><span class="tl"></span><span class="tp">000</span>`;
+    lista.appendChild(a);
+  });
+  aggiungi(lista);
+  out.forEach(o=>{ if(!o.nuda){ o.h1='Contents'; } });
+
+  /* ---- il testo: ogni sezione comincia su una pagina nuova ---- */
+  sezioni.filter(s=>!s.classList.contains('cover') && !s.classList.contains('toc-slot')).forEach(sez=>{
+    apri('');
+    [...sez.children].forEach(el=>aggiungi(preparaImg(el.cloneNode(true))));
+  });
+
+  /* ---- retro: il libro chiude su una pagina sinistra ---- */
+  if(out.length%2===1){ apri(''); body.innerHTML='<div class="bianca">This page intentionally left blank</div>'; }
+  pg=nuovaPagina('retro'); pg.dataset.density='hard';
+  pg.querySelector('.pg-in').innerHTML=`<div><b>OFP C172 FR</b>Standard Operating Procedures<br>${esc(DOC_REF)}</div>`;
+  banco.appendChild(pg); out.push({el:pg, nuda:true});
+
+  /* ---- numeri, intestazioni, piedi ---- */
+  const N=out.length; paginaDi={};
+  out.forEach((o,i)=>{
+    o.el.classList.add(i===0 ? 'dx' : (i%2 ? 'sx' : 'dx'));
+    o.el.setAttribute('role','group'); o.el.setAttribute('aria-label',`Page ${i+1} of ${N}`);
+    o.el.querySelectorAll('[id]').forEach(x=>{ if(!(x.id in paginaDi)) paginaDi[x.id]=i; });
+    if(o.nuda) return;
+    o.el.querySelector('.pg-head .l').textContent = o.h1 || 'OFP C172 FR · SOP';
+    o.el.querySelector('.pg-head .r').textContent = o.h2Primo || o.h2 || '';
+    o.el.querySelector('.pg-foot span').textContent = DOC_REF;
+    o.el.querySelector('.pg-foot b').textContent = `${i+1} / ${N}`;
+  });
+  out.forEach(o=>o.el.querySelectorAll('.toc-e').forEach(a=>{
+    const p=paginaDi[a.dataset.voce]; a.querySelector('.tp').textContent = p==null ? '' : String(p+1);
+  }));
+  // la lente su ogni figura
+  out.forEach(o=>o.el.querySelectorAll('figure.fig .fig-id').forEach(fid=>{
+    if(fid.querySelector('.fig-zoom')) return;
+    fid.innerHTML=`<span class="t">${fid.innerHTML}</span>`;
+    const b=document.createElement('button'); b.type='button'; b.className='fig-zoom'; b.setAttribute('aria-label','Enlarge figure');
+    b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+    fid.appendChild(b);
+  }));
+  // le righe obbligatorie delle tabelle dati
+  out.forEach(o=>o.el.querySelectorAll('table.dt .cM').forEach(c=>c.closest('tr').classList.add('m')));
+  return out;
 }
 
-/* ------------------------------------------------------------------ stato */
-async function mostra(){
-  const [l,r]=vista(cur);
-  await Promise.all([riempi($('fbSx'), modo==='spread'?l:0), riempi($('fbDx'), r)]);
-  aggiorna();
+/* ======================================================= IL LIBRO */
+function costruisci(start){
+  if(pf){ try{ pf.destroy(); }catch(e){} pf=null; }
+  const book=$('fbBook'); book.innerHTML=''; book.className='fmt-'+formato;
+  const banco=$('fbMisura');
+  book.style.setProperty('--imgmax', banco.style.getPropertyValue('--imgmax'));
+  book.style.setProperty('--docmax', banco.style.getPropertyValue('--docmax'));
+  pagine.forEach(p=>book.appendChild(p.el));
+  doppia=null;
+  dimensiona(true);
+  pf=new St.PageFlip(book,{
+    width:F.w, height:F.h, size:'stretch', minWidth:1, maxWidth:6000, minHeight:1, maxHeight:6000,
+    autoSize:false, showCover:true, usePortrait:true, drawShadow:true, maxShadowOpacity:.55,
+    flippingTime: MOTO ? 820 : 1, startPage:Math.max(0,Math.min(pagine.length-1,start||0)),
+    mobileScrollSupport:false, clickEventForward:true, swipeDistance:24, showPageCorners:true,
+    disableFlipByClick:false, useMouseEvents:true
+  });
+  pf.loadFromHTML(pagine.map(p=>p.el));
+  // la scelta doppia/singola passa da minWidth, ma solo dopo la creazione:
+  // la libreria la userebbe anche come larghezza minima del contenitore
+  book.style.minWidth='0'; book.style.minHeight='0';
+  pf.getSettings().minWidth = doppia ? 1 : 1e6;
+  pf.update();
+  // passando da doppia a singola la libreria parte dalla pagina sinistra: si riallinea
+  const s0=Math.max(0,Math.min(pagine.length-1,start||0));
+  if(pf.getCurrentPageIndex()!==s0) pf.turnToPage(s0);
+  pf.on('flip', ()=>aggiorna());
+  pf.on('changeOrientation', ()=>{ scala(); aggiorna(); });
+  pf.on('init', ()=>{ scala(); aggiorna(); });
+  scala(); aggiorna();
+  $('fbScorri').max=pagine.length; $('fbTot').textContent='/ '+pagine.length;
+  costruisciIndice();
+}
+
+/* Misura del libro: doppia pagina se ci sta quasi a piena altezza, altrimenti
+   una pagina sola. La scelta ha un po' di isteresi, cosi' mentre l'indice si
+   apre o la finestra si ridimensiona non salta avanti e indietro. */
+function dimensiona(primo){
+  const st=$('fbStage'), cs=getComputedStyle(st);
+  const tel = innerWidth<700;
+  const W=st.clientWidth - parseFloat(cs.paddingLeft) - (tel ? 12 : 128);
+  const H=st.clientHeight - (tel ? 12 : 30);
+  if(W<50||H<50) return false;
+  const r=F.w/F.h, quoz=W/H/(2*r);
+  let dop = doppia===null ? quoz>=0.8 : (doppia ? quoz>=0.76 : quoz>=0.84);
+  if(formato==='phone' && innerWidth<innerHeight) dop=false;
+  const ph = dop ? Math.min(H, W/(2*r)) : Math.min(H, W/r), pw=ph*r;
+  const box=$('fbBox');
+  box.style.width=Math.floor(dop?2*pw:pw)+'px'; box.style.height=Math.floor(ph)+'px';
+  document.body.classList.toggle('fb-telefono', tel);
+  const cambiato = doppia!==null && dop!==doppia;
+  doppia=dop;
+  if(pf){ pf.getSettings().minWidth = dop ? 1 : 1e6; }
+  if(cambiato && MOTO && !primo){ box.classList.remove('cambio'); void box.offsetWidth; box.classList.add('cambio'); }
+  return true;
+}
+function scala(){
+  if(!pf) return;
+  const r=pf.getRender && pf.getRender().getRect ? pf.getRender().getRect() : null;
+  if(r && r.pageWidth) $('fbBook').style.setProperty('--k', r.pageWidth/F.w);
+}
+let rafLay=0;
+function ridisegna(){
+  cancelAnimationFrame(rafLay);
+  rafLay=requestAnimationFrame(()=>{
+    if(!pf) return;
+    const voglio = scegliFormato();
+    if(voglio!==formato){ return rifai(); }
+    if(dimensiona(false)){ pf.update(); scala(); aggiorna(); }
+  });
+}
+
+/* ======================================================= STATO */
+function visibili(){
+  if(!pf) return [0,0];
+  const i=pf.getCurrentPageIndex(), N=pagine.length;
+  if(!doppia || pf.getOrientation()==='portrait') return [i,i];
+  if(i===0) return [0,0];
+  const l = i%2 ? i : i-1;
+  return [l, Math.min(N-1,l+1)];
 }
 function aggiorna(){
-  const a=prima(cur), b=ultima(cur);
-  $('fbNum').value = a===b ? String(a) : `${a}–${b}`;
-  $('fbScorri').value=a;
-  $('fbPrev').disabled = a<=1;
-  $('fbNext').disabled = b>=N;
-  try{ history.replaceState(null,'','#p='+a); }catch(e){}
-  // sezione corrente: l'ultima voce che comincia entro le pagine visibili
-  let attuale=null;
-  const sc=scelta && TOC.find(t=>t.id===scelta);
-  if(sc && sc.page>=a && sc.page<=b) attuale=sc;
-  else TOC.forEach(t=>{ if(t.page<=b) attuale=t; });
-  document.querySelectorAll('#fbTocList a').forEach(x=>x.setAttribute('aria-current', attuale && x.dataset.id===attuale.id ? 'true':'false'));
-  const s1=[...TOC].reverse().find(t=>t.level===1 && t.page<=b);
-  $('fbSez').textContent = attuale ? [s1&&s1!==attuale ? (s1.num?s1.num+' · ':'')+s1.title : '', (attuale.num?attuale.num+' ':'')+attuale.title].filter(Boolean).join('  ›  ') : '';
-  // le pagine vicine si preparano in anticipo
-  const vicine=[b+1,b+2,a-1,a-2].filter(n=>n>=1&&n<=N);
-  setTimeout(()=>vicine.forEach(n=>disegna(n).catch(()=>{})), 120);
+  const [a,b]=visibili(), N=pagine.length;
+  $('fbNum').value = a===b ? String(a+1) : `${a+1}–${b+1}`;
+  $('fbScorri').value=a+1;
+  $('fbPrev').disabled = a<=0;
+  $('fbNext').disabled = b>=N-1;
+  try{ history.replaceState(null,'','#p='+(a+1)); }catch(e){}
+  let att=null;
+  const sc=scelta && VOCI.find(v=>v.id===scelta);
+  if(sc && paginaDi[sc.id]>=a && paginaDi[sc.id]<=b) att=sc;
+  else VOCI.forEach(v=>{ if(paginaDi[v.id]!=null && paginaDi[v.id]<=b) att=v; });
+  document.querySelectorAll('#fbTocList a').forEach(x=>x.setAttribute('aria-current', att && x.dataset.id===att.id ? 'true':'false'));
+  const s1=[...VOCI].reverse().find(v=>v.level===1 && paginaDi[v.id]<=b);
+  $('fbSez').textContent = att ? [s1&&s1!==att ? (s1.num?s1.num+' · ':'')+s1.title : '', (att.num?att.num+' ':'')+att.title].filter(Boolean).join('  ›  ') : '';
 }
-
-/* ------------------------------------------------------------------ girata */
-function faccia(cls, c){
-  const f=document.createElement('div'); f.className='fb-face '+cls;
-  if(c) f.appendChild(c);
-  const o=document.createElement('div'); o.className='ombra'; f.appendChild(o);
-  return f;
-}
-
-async function vai(p, voce){
-  p=Math.max(1, Math.min(N, Math.round(p)||1));
+function vai(i, voce){
+  if(!pf) return;
+  i=Math.max(0,Math.min(pagine.length-1,i));
   scelta=voce||null;
-  if(anim){ anim.finish(); await anim.finished.catch(()=>{}); }
-  const da=vista(cur), a=vista(p);
-  if(da[0]===a[0] && da[1]===a[1]){ cur=p; aggiorna(); return; }
-  const avanti = prima(p) > prima(cur);
-  if(!MOTO){ cur=p; return mostra(); }
-
-  const book=$('fbBook'), sx=$('fbSx'), dx=$('fbDx');
-  const leaf=document.createElement('div'); leaf.className='fb-leaf';
-  const dur=620, ease='cubic-bezier(.45,.05,.35,1)';
-  let fronte, retro, finale;
-
-  if(modo==='spread'){
-    // la pagina che si gira: quella di destra andando avanti, la sinistra tornando indietro
-    const vecchia = avanti ? da[1] : da[0];
-    const nuova   = avanti ? a[0]  : a[1];
-    const cv=vecchia ? copia(await disegna(vecchia)) : null;
-    const cn=nuova   ? copia(await disegna(nuova))   : null;
-    fronte=faccia('fronte', cv); retro=faccia('retro', cn);
-    leaf.style.width='50%'; leaf.style.left = avanti ? '50%' : '0';
-    leaf.style.transformOrigin = avanti ? 'left center' : 'right center';
-    leaf.append(fronte, retro);
-    if(!vecchia) fronte.style.visibility='hidden';
-    // sotto il foglio che si alza c'e' gia' la pagina che resta scoperta
-    await riempi(avanti ? dx : sx, avanti ? a[1] : a[0]);
-    book.appendChild(leaf);
-    const gira = avanti ? [{transform:'rotateY(0deg)'},{transform:'rotateY(-180deg)'}]
-                        : [{transform:'rotateY(0deg)'},{transform:'rotateY(180deg)'}];
-    anim=leaf.animate(gira,{duration:dur,easing:ease,fill:'forwards'});
-    fronte.querySelector('.ombra').animate([{opacity:0},{opacity:.9}],{duration:dur/2,easing:'ease-in',fill:'forwards'});
-    retro.querySelector('.ombra').animate([{opacity:.9},{opacity:.9,offset:.5},{opacity:0}],{duration:dur,easing:'ease-out',fill:'forwards'});
-    finale=()=>riempi(avanti ? sx : dx, avanti ? a[0] : a[1]);
-  }else{
-    // una pagina sola: avanti la pagina si solleva e scopre la nuova; indietro la nuova si posa sopra
-    const c=copia(await disegna(avanti ? cur : p));
-    fronte=faccia('fronte', c);
-    leaf.style.width='100%'; leaf.style.left='0'; leaf.style.transformOrigin='left center';
-    leaf.append(fronte);
-    if(avanti) await riempi(dx, p);
-    book.appendChild(leaf);
-    const k=[{transform:'rotateY(0deg)',opacity:1},{transform:'rotateY(-75deg)',opacity:1,offset:.7},{transform:'rotateY(-100deg)',opacity:0}];
-    anim=leaf.animate(avanti ? k : [...k].reverse(),{duration:dur*0.85,easing:ease,fill:'forwards'});
-    fronte.querySelector('.ombra').animate(avanti?[{opacity:0},{opacity:.8}]:[{opacity:.8},{opacity:0}],{duration:dur*0.85,fill:'forwards'});
-    finale=()=> avanti ? null : riempi(dx, p);
-  }
-  cur=p; aggiorna();
-  try{ await anim.finished; }catch(e){}
-  await finale();
-  leaf.remove(); anim=null;
+  const [a,b]=visibili();
+  if(i>=a && i<=b){ aggiorna(); return; }
+  if(MOTO) pf.flip(i); else pf.turnToPage(i);
 }
-const avanti=()=>{ const b=ultima(cur); if(b<N) vai(b+1); };
-const indietro=()=>{ const a=prima(cur); if(a>1) vai(modo==='spread' ? Math.max(1,a-2) : a-1); };
 
-/* ------------------------------------------------------------------ indice */
+/* ======================================================= INDICE */
 function costruisciIndice(){
   const ol=$('fbTocList'); ol.innerHTML='';
-  TOC.forEach(t=>{
-    const li=document.createElement('li');
-    const a=document.createElement('a');
-    a.className='l'+t.level; a.href='#'+t.id; a.dataset.id=t.id;
-    a.innerHTML=`<span class="n">${esc(t.num)}</span><span class="t">${esc(t.title)}</span><span class="p">${t.page}</span>`;
-    a.setAttribute('aria-label',`${t.num?t.num+' ':''}${t.title}, page ${t.page}`);
-    a.addEventListener('click',e=>{
-      e.preventDefault(); vai(t.page, t.id);
-      if(innerWidth<=900) indice(false);
-    });
+  VOCI.forEach(v=>{
+    const p=paginaDi[v.id]; if(p==null) return;
+    const li=document.createElement('li'), a=document.createElement('a');
+    a.className='l'+v.level; a.href='#'+v.id; a.dataset.id=v.id;
+    a.innerHTML=`<span class="n">${esc(v.num)}</span><span class="t">${esc(v.title)}</span><span class="p">${p+1}</span>`;
+    a.setAttribute('aria-label',`${v.num?v.num+' ':''}${v.title}, page ${p+1}`);
+    a.addEventListener('click',e=>{ e.preventDefault(); vai(p, v.id); if(innerWidth<1100) indice(false); });
     li.appendChild(a); ol.appendChild(li);
   });
 }
@@ -379,108 +677,115 @@ function indice(apri){
   m.classList.toggle('toc-open', apri);
   $('fbIndice').setAttribute('aria-pressed', apri?'true':'false');
   try{ localStorage.setItem('ofp_manuale_indice', apri?'1':'0'); }catch(e){}
-  if(pdf && impagina()){ CACHE.clear(); mostra(); }
   if(apri){ const x=document.querySelector('#fbTocList a[aria-current="true"]'); if(x) x.scrollIntoView({block:'nearest'}); }
 }
 
-/* L'indice vero e' manuale.json; se non c'e' si ricava dai segnalibri del PDF. */
-async function caricaIndice(){
-  try{
-    const j=await fetch(TOC_URL,{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); });
-    if(Array.isArray(j.toc)) return j.toc;
-  }catch(e){}
-  const out=[], giro=async(items,level)=>{ for(const it of items||[]){
-    try{ const d=typeof it.dest==='string'?await pdf.getDestination(it.dest):it.dest;
-      out.push({level:Math.min(level,2), num:'', title:it.title, id:'o'+out.length, page:await pdf.getPageIndex(d[0])+1}); }catch(e){}
-    if(level<2) await giro(it.items, level+1); } };
-  await giro(await pdf.getOutline(), 1);
-  return out;
+/* ======================================================= LENTE */
+function lente(fig){
+  const img=fig.querySelector('img'); if(!img) return;
+  $('fbZoomImg').src=img.currentSrc||img.src;
+  $('fbZoomTit').textContent=fig.querySelector('.fig-id .t').textContent;
+  $('fbZoomArea').classList.remove('piena');
+  $('fbZoom').classList.add('aperta');
+  $('fbZoomX').focus();
 }
+const chiudiLente=()=>$('fbZoom').classList.remove('aperta');
+$('fbZoomX').addEventListener('click', chiudiLente);
+$('fbZoomImg').addEventListener('click', e=>{ e.stopPropagation(); $('fbZoomArea').classList.toggle('piena'); });
+$('fbZoomArea').addEventListener('click', e=>{ if(e.target===$('fbZoomArea')) chiudiLente(); });
 
-/* Da dove partire: #p=12 per una pagina, #s3-2 per una sezione. */
-function daHash(){
-  const h=decodeURIComponent(location.hash.slice(1));
-  const m=/^p=(\d+)$/.exec(h);
-  if(m) return {p:+m[1]};
-  const t=TOC.find(x=>x.id===h);
-  return t ? {p:t.page, id:t.id} : null;
-}
+/* clic dentro le pagine: link interni e lente */
+$('fbBook').addEventListener('click', e=>{
+  const z=e.target.closest('.fig-zoom');
+  if(z){ e.preventDefault(); e.stopPropagation(); lente(z.closest('figure')); return; }
+  const a=e.target.closest('a[href^="#"]');
+  if(a){ e.preventDefault(); e.stopPropagation();
+    const id=a.getAttribute('href').slice(1);
+    const vid=a.dataset.voce||id;
+    if(paginaDi[vid]!=null) vai(paginaDi[vid], VOCI.some(v=>v.id===vid)?vid:null);
+  }
+}, true);
 
-/* ------------------------------------------------------------------ comandi */
-$('fbNext').addEventListener('click', avanti);
-$('fbPrev').addEventListener('click', indietro);
-$('fbPrima').addEventListener('click', ()=>vai(1));
+/* ======================================================= COMANDI */
+$('fbNext').addEventListener('click', ()=>pf&&pf.flipNext());
+$('fbPrev').addEventListener('click', ()=>pf&&pf.flipPrev());
+$('fbPrima').addEventListener('click', ()=>vai(0));
 $('fbIndice').addEventListener('click', ()=>indice());
 $('fbScrim').addEventListener('click', ()=>indice(false));
-$('fbScorri').addEventListener('change', e=>vai(+e.target.value));
+$('fbScorri').addEventListener('change', e=>vai(+e.target.value-1));
 $('fbScorri').addEventListener('input', e=>{ $('fbNum').value=e.target.value; });
 $('fbNum').addEventListener('focus', e=>e.target.select());
-$('fbNum').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const n=parseInt(e.target.value,10); if(n) vai(n); e.target.blur(); } });
+$('fbNum').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const n=parseInt(e.target.value,10); if(n) vai(n-1); e.target.blur(); } });
 $('fbNum').addEventListener('blur', ()=>aggiorna());
-window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h && h.p!==prima(cur)) vai(h.p, h.id); });
 
-function chiudi(){
-  if(EMBED && window.parent!==window) window.parent.postMessage({tipo:'ofp-manuale-chiudi'}, location.origin);
-}
+function chiudi(){ if(EMBED && window.parent!==window) window.parent.postMessage({tipo:'ofp-manuale-chiudi'}, location.origin); }
 if(EMBED){ $('fbChiudi').hidden=false; $('fbApp').hidden=true; }
 $('fbChiudi').addEventListener('click', chiudi);
 
 document.addEventListener('keydown', e=>{
   if(e.target.closest && e.target.closest('input')) return;
-  if(e.key==='ArrowRight'||e.key==='PageDown'||(e.key===' '&&!e.shiftKey)){ e.preventDefault(); avanti(); }
-  else if(e.key==='ArrowLeft'||e.key==='PageUp'||(e.key===' '&&e.shiftKey)){ e.preventDefault(); indietro(); }
-  else if(e.key==='Home'){ e.preventDefault(); vai(1); }
-  else if(e.key==='End'){ e.preventDefault(); vai(N); }
-  else if(e.key==='Escape'){ if($('fbMain').classList.contains('toc-open') && innerWidth<=900) indice(false); else chiudi(); }
+  if($('fbZoom').classList.contains('aperta')){ if(e.key==='Escape') chiudiLente(); return; }
+  if(!pf) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); pf.flipNext(); }
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); pf.flipPrev(); }
+  else if(e.key==='Home'){ e.preventDefault(); vai(0); }
+  else if(e.key==='End'){ e.preventDefault(); vai(pagine.length-1); }
+  else if(e.key==='Escape'){ if($('fbMain').classList.contains('toc-open') && innerWidth<1100) indice(false); else chiudi(); }
 });
 
-/* Tocco: trascinare di lato gira la pagina; un tocco sulla meta' destra va
-   avanti, sulla sinistra indietro. I collegamenti hanno la precedenza. */
-(function(){
-  const st=$('fbStage'); let x0=null, y0=0, t0=0;
-  st.addEventListener('pointerdown', e=>{ if(e.target.closest('.fb-link,.fb-nav')) return; x0=e.clientX; y0=e.clientY; t0=Date.now(); });
-  st.addEventListener('pointerup', e=>{
-    if(x0===null) return;
-    const dx=e.clientX-x0, dy=e.clientY-y0; x0=null;
-    if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.3){ dx<0 ? avanti() : indietro(); return; }
-    if(Math.abs(dx)<8 && Math.abs(dy)<8 && Date.now()-t0<400){
-      const b=$('fbBook').getBoundingClientRect();
-      if(e.clientX<b.left || e.clientX>b.right || e.clientY<b.top || e.clientY>b.bottom) return;
-      e.clientX > b.left+b.width/2 ? avanti() : indietro();
-    }
-  });
-  st.addEventListener('pointercancel', ()=>{ x0=null; });
-})();
+/* L'indice laterale si apre con una transizione: su schermo largo spinge il
+   libro, e il libro lo segue fotogramma per fotogramma. */
+new ResizeObserver(()=>ridisegna()).observe($('fbStage'));
+$('fbStage').addEventListener('transitionend', ()=>ridisegna());
 
-let tRes=null;
-window.addEventListener('resize', ()=>{
-  clearTimeout(tRes);
-  tRes=setTimeout(()=>{ if(!pdf) return; if(impagina()) CACHE.clear(); mostra(); }, 150);
-});
+/* ======================================================= FORMATO */
+const scegliFormato=()=> Math.min(innerWidth, innerHeight) < 600 ? 'phone' : 'book';
 
-/* ------------------------------------------------------------------ avvio */
+/* Cambia il formato (telefono ruotato, finestra ridotta molto): si
+   reimpagina e si torna allo stesso punto del testo. */
+function rifai(){
+  const [a]=visibili();
+  const ids=pagine[a] ? [...pagine[a].el.querySelectorAll('[id]')].map(x=>x.id) : [];
+  formato=scegliFormato(); F=FORMATI[formato];
+  pagine=impagina().map(o=>o);
+  let dove=0;
+  for(const id of ids){ if(paginaDi[id]!=null){ dove=paginaDi[id]; break; } }
+  if(!ids.length && a) dove=Math.round(a*pagine.length/Math.max(1,pagine.length));
+  costruisci(dove);
+}
+
+function daHash(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  const m=/^p=(\d+)$/.exec(h);
+  if(m) return {i:+m[1]-1};
+  if(paginaDi[h]!=null) return {i:paginaDi[h], id:VOCI.some(v=>v.id===h)?h:null};
+  return null;
+}
+window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.id); });
+
+/* ======================================================= AVVIO */
 (async function(){
   const stato=$('fbStato');
-  const ripiego=(msg)=>{ stato.innerHTML=`${msg}<br><a href="${PDF_URL}">Open the manual as PDF</a>`; };
-  if(!window.pdfjsLib) return ripiego('The page-turning viewer could not load.');
+  const ripiego=(msg)=>{ stato.innerHTML=`${msg}<br><a href="data/manuale.pdf">Open the manual as PDF</a>`; };
+  if(!window.St || !St.PageFlip) return ripiego('The page-turning viewer could not load.');
   try{
-    pdf=await pdfjsLib.getDocument(PDF_URL).promise;
-    N=pdf.numPages;
-    const v=(await pdf.getPage(1)).getViewport({scale:1}); ASPETTO=v.width/v.height;
-    TOC=await caricaIndice();
-    costruisciIndice();
-    $('fbTot').textContent='/ '+N;
-    $('fbScorri').max=N;
-    let aperto=innerWidth>900;
-    try{ const s=localStorage.getItem('ofp_manuale_indice'); if(s!==null && innerWidth>900) aperto=s==='1'; }catch(e){}
+    const html=await fetch(LIBRO_URL,{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); });
+    const t=document.createElement('template'); t.innerHTML=html; fonte=t.content;
+    const slot=fonte.querySelector('.toc-slot');
+    VOCI=JSON.parse(slot.dataset.voci||'[]');
+    // i caratteri devono esserci prima di misurare
+    await Promise.all(['400 15px Inter','700 15px Inter','italic 400 15px Inter','400 13px PlexM'].map(f=>document.fonts.load(f).catch(()=>{})));
+    formato=scegliFormato(); F=FORMATI[formato];
+    pagine=impagina();
+    let aperto=false;
+    try{ aperto = innerWidth>=1100 && localStorage.getItem('ofp_manuale_indice')==='1'; }catch(e){}
     $('fbMain').classList.toggle('toc-open', aperto);
     $('fbIndice').setAttribute('aria-pressed', aperto?'true':'false');
-    impagina();
-    const h=daHash();
-    cur=h ? Math.max(1,Math.min(N,h.p)) : 1; scelta=h&&h.id||null;
+    const h=daHash(); scelta=h&&h.id||null;
     stato.remove();
-    await mostra();
+    costruisci(h ? h.i : 0);
   }catch(e){
+    console.error(e);
     ripiego('Cannot open the manual ('+esc(e.message||e)+').');
   }
 })();
