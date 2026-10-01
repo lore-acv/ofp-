@@ -1,0 +1,254 @@
+{
+ "title": "OFP C172 FR – SOP User Manual",
+ "revision": "Rev. 1 DRAFT",
+ "date": "01 OCT 2026",
+ "pages": 27,
+ "pdf": "data/manuale.pdf",
+ "toc": [
+  {
+   "level": 1,
+   "num": "",
+   "title": "Conventions",
+   "id": "conv",
+   "page": 3
+  },
+  {
+   "level": 1,
+   "num": "",
+   "title": "Abbreviations",
+   "id": "abbr",
+   "page": 3
+  },
+  {
+   "level": 1,
+   "num": "Section 1",
+   "title": "General",
+   "id": "s1",
+   "page": 5
+  },
+  {
+   "level": 2,
+   "num": "1.1",
+   "title": "Purpose",
+   "id": "s1-1",
+   "page": 5
+  },
+  {
+   "level": 2,
+   "num": "1.2",
+   "title": "Scope and applicability",
+   "id": "s1-2",
+   "page": 5
+  },
+  {
+   "level": 2,
+   "num": "1.3",
+   "title": "System overview",
+   "id": "s1-3",
+   "page": 5
+  },
+  {
+   "level": 2,
+   "num": "1.4",
+   "title": "Data sources",
+   "id": "s1-4",
+   "page": 5
+  },
+  {
+   "level": 2,
+   "num": "1.5",
+   "title": "Responsibilities",
+   "id": "s1-5",
+   "page": 5
+  },
+  {
+   "level": 2,
+   "num": "1.6",
+   "title": "Data storage",
+   "id": "s1-6",
+   "page": 5
+  },
+  {
+   "level": 1,
+   "num": "Section 2",
+   "title": "Data Ingestion – Import Page",
+   "id": "s2",
+   "page": 6
+  },
+  {
+   "level": 2,
+   "num": "2.1",
+   "title": "Pre-requisites",
+   "id": "s2-1",
+   "page": 6
+  },
+  {
+   "level": 2,
+   "num": "2.2",
+   "title": "Procedure",
+   "id": "s2-2",
+   "page": 6
+  },
+  {
+   "level": 1,
+   "num": "Section 3",
+   "title": "Pre-flight Data Entry – Wizard",
+   "id": "s3",
+   "page": 7
+  },
+  {
+   "level": 2,
+   "num": "3.0",
+   "title": "Wizard navigation",
+   "id": "s3-0",
+   "page": 7
+  },
+  {
+   "level": 2,
+   "num": "3.1",
+   "title": "Step 1 – Flight & Aircraft",
+   "id": "s3-1",
+   "page": 7
+  },
+  {
+   "level": 2,
+   "num": "3.2",
+   "title": "Step 2 – Route & Fuel",
+   "id": "s3-2",
+   "page": 9
+  },
+  {
+   "level": 2,
+   "num": "3.3",
+   "title": "Step 3 – Mass & Balance",
+   "id": "s3-3",
+   "page": 11
+  },
+  {
+   "level": 2,
+   "num": "3.4",
+   "title": "Step 4 – Performance",
+   "id": "s3-4",
+   "page": 13
+  },
+  {
+   "level": 2,
+   "num": "3.5",
+   "title": "Step 5 – Navlog",
+   "id": "s3-5",
+   "page": 15
+  },
+  {
+   "level": 2,
+   "num": "3.6",
+   "title": "Step 6 – Destination Charts",
+   "id": "s3-6",
+   "page": 16
+  },
+  {
+   "level": 2,
+   "num": "3.7",
+   "title": "Step 7 – Briefing",
+   "id": "s3-7",
+   "page": 17
+  },
+  {
+   "level": 2,
+   "num": "3.8",
+   "title": "Step 8 – NOTAM & Weather",
+   "id": "s3-8",
+   "page": 17
+  },
+  {
+   "level": 1,
+   "num": "Section 4",
+   "title": "System Outputs & Dispatch",
+   "id": "s4",
+   "page": 19
+  },
+  {
+   "level": 2,
+   "num": "4.1",
+   "title": "Menu",
+   "id": "s4-1",
+   "page": 19
+  },
+  {
+   "level": 2,
+   "num": "4.2",
+   "title": "Operational Flight Plan (A4)",
+   "id": "s4-2",
+   "page": 19
+  },
+  {
+   "level": 2,
+   "num": "4.3",
+   "title": "NAV-FLIGHTPLAN (A5)",
+   "id": "s4-3",
+   "page": 23
+  },
+  {
+   "level": 2,
+   "num": "4.4",
+   "title": "Saved flights – Dashboard",
+   "id": "s4-4",
+   "page": 24
+  },
+  {
+   "level": 1,
+   "num": "Section 5",
+   "title": "Operational Notes – Safety & Performance Limits",
+   "id": "s5",
+   "page": 25
+  },
+  {
+   "level": 2,
+   "num": "5.1",
+   "title": "Aircraft applicability",
+   "id": "s5-1",
+   "page": 25
+  },
+  {
+   "level": 2,
+   "num": "5.2",
+   "title": "Performance limits",
+   "id": "s5-2",
+   "page": 25
+  },
+  {
+   "level": 2,
+   "num": "5.3",
+   "title": "Fuel planning as implemented",
+   "id": "s5-3",
+   "page": 25
+  },
+  {
+   "level": 2,
+   "num": "5.4",
+   "title": "Navigation data",
+   "id": "s5-4",
+   "page": 25
+  },
+  {
+   "level": 2,
+   "num": "5.5",
+   "title": "Daylight check",
+   "id": "s5-5",
+   "page": 26
+  },
+  {
+   "level": 2,
+   "num": "5.6",
+   "title": "Documents and storage",
+   "id": "s5-6",
+   "page": 26
+  },
+  {
+   "level": 1,
+   "num": "Appendix A",
+   "title": "Pre-Departure Cross-Check",
+   "id": "appA",
+   "page": 27
+  }
+ ]
+}

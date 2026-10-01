@@ -102,15 +102,8 @@
   </div>
 </div>
 
-<!-- La guida sta qui, sopra tutto il resto, e si apre senza lasciare la pagina. -->
-<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="User guide">
-  <div class="guida-barra">
-    <div class="tit">How To Use <span>&mdash; quick guide</span></div>
-    <a class="btn ghost" id="guidaScarica" href="data/guida.pdf" download="OFP-C172-FR-how-to-use.pdf">Download</a>
-    <button type="button" class="btn" id="guidaChiudi">Close</button>
-  </div>
-  <div class="guida-fogli" id="guidaFogli"></div>
-</div>
+<!-- Il manuale sta qui, sopra tutto il resto, e si apre senza lasciare la pagina. -->
+<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="User manual"></div>
 
 <script src="ofp-core.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -279,68 +272,39 @@ function reparseWeather(){
 }
 
 /* ============================================================================
-   GUIDA IN SOVRAIMPRESSIONE
+   MANUALE IN SOVRAIMPRESSIONE
    ============================================================================
-   Il PDF si apre sopra la pagina e non la lascia: niente scheda nuova, niente
-   download forzato, si chiude e si e' esattamente dov'eravamo.
+   "How To Use" apre il manuale sfogliabile (manuale.html) sopra la pagina,
+   in un riquadro: NavLog e briefing gia' caricati restano dove sono, e
+   chiudendo si e' esattamente dov'eravamo. Il riquadro si crea al primo
+   clic — chi non apre il manuale non scarica il PDF — e poi resta: riaperto,
+   il libro e' alla pagina dove lo si era lasciato.
 
-   Le pagine si disegnano su <canvas> con pdf.js, che la pagina gia' carica per
-   leggere NavLog e briefing. Un <iframe src="guida.pdf"> sarebbe stato piu'
-   corto da scrivere, ma su iPad Safari un PDF dentro un iframe lo mostra a
-   meta' o non lo mostra affatto — e questa guida la si legge soprattutto da li'.
-
-   Si disegna una volta sola: riaprendola, i fogli sono gia' li'. */
-const GUIDA_URL='data/guida.pdf';
-let guidaResa=false;
-
+   Il pulsante Close sta dentro il libro, che e' un'altra pagina: per
+   chiudere manda un messaggio qui. Esc funziona da tutte e due le parti. */
 function apriGuida(){
   const velo=$('guidaVelo'); if(!velo) return;
+  if(!velo.firstChild){
+    const f=document.createElement('iframe');
+    f.src='manuale.html?embed=1'; f.title='User manual';
+    velo.appendChild(f);
+  }
   velo.classList.add('aperta');
   document.body.style.overflow='hidden';     // dietro non si scorre
-  disegnaGuida();
+  setTimeout(()=>{ try{ velo.firstChild.contentWindow.focus(); }catch(e){} }, 50);
 }
 function chiudiGuida(){
-  const velo=$('guidaVelo'); if(!velo) return;
+  const velo=$('guidaVelo'); if(!velo || !velo.classList.contains('aperta')) return;
   velo.classList.remove('aperta');
   document.body.style.overflow='';
+  if($('btnGuida')) $('btnGuida').focus();
 }
-
-async function disegnaGuida(){
-  if(guidaResa) return;
-  const box=$('guidaFogli'); if(!box) return;
-  if(!window.pdfjsLib){
-    box.innerHTML='<div class="guida-stato">Cannot read the PDF: the library failed to load.'
-      + '<br>Use <b>Download</b> above to open it.</div>';
-    return;
-  }
-  box.innerHTML='<div class="guida-stato">Opening the guide\u2026</div>';
-  try{
-    const buf=await fetch(GUIDA_URL).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.arrayBuffer(); });
-    const pdf=await pdfjsLib.getDocument({data:buf}).promise;
-    box.innerHTML='';
-    /* Si disegna al doppio della larghezza di lettura: su schermi a punti
-       raddoppiati una pagina resa a misura esatta si vede sfocata. */
-    const larghezza=Math.min(box.clientWidth-32, 900);
-    for(let n=1;n<=pdf.numPages;n++){
-      const pagina=await pdf.getPage(n);
-      const base=pagina.getViewport({scale:1});
-      const vp=pagina.getViewport({scale: Math.min(3, (larghezza*2)/base.width)});
-      const c=document.createElement('canvas');
-      c.width=vp.width; c.height=vp.height;
-      c.setAttribute('aria-label','Guide, page '+n+' of '+pdf.numPages);
-      box.appendChild(c);
-      await pagina.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
-    }
-    guidaResa=true;
-  }catch(e){
-    box.innerHTML='<div class="guida-stato">Cannot open the guide ('+esc(e.message)+').'
-      + '<br>Use <b>Download</b> above.</div>';
-  }
-}
-
-if($('btnGuida'))    $('btnGuida').addEventListener('click', apriGuida);
-if($('guidaChiudi')) $('guidaChiudi').addEventListener('click', chiudiGuida);
-if($('guidaVelo'))   $('guidaVelo').addEventListener('click', e=>{ if(e.target===$('guidaVelo')) chiudiGuida(); });
+window.addEventListener('message', e=>{
+  if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudiGuida();
+});
+if($('btnGuida')) $('btnGuida').addEventListener('click', apriGuida);
+// sotto Apps Script il manuale non c'e': HtmlService non serve file statici
+if(typeof google!=='undefined' && google.script && google.script.run && $('btnGuida')) $('btnGuida').style.display='none';
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') chiudiGuida(); });
 
 /* ---------------- stato e consegna ---------------- */

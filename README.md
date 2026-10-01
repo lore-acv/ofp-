@@ -13,7 +13,8 @@ la provenienza di ogni singolo numero è in **[DATI-AFM.md](DATI-AFM.md)**.
 | File | Cosa contiene |
 |---|---|
 | `import.html` | **pagina di apertura**: carica NavLog e briefing, poi passa al foglio di volo |
-| `index.html` | il foglio di volo (wizard in 7 passaggi, anteprima, PDF) |
+| `index.html` | il foglio di volo (wizard in 8 passaggi, anteprima, PDF) |
+| `manuale.html` | il manuale d'uso sfogliabile, con indice interattivo (`data/manuale.pdf` + `data/manuale.json`) |
 | `ofp-core.js` | nucleo condiviso: lettura NavLog, briefing, METAR |
 | `ofp.css` | foglio di stile condiviso dalle due pagine |
 | `Codice.gs` | lato server Apps Script: routing, voli su UserProperties, PDF su Drive |
@@ -348,8 +349,9 @@ PAESI=IT,CH,FR,AT node tools/dati-aeroporti.mjs     # solo i confinanti: 82 kB
 node tools/sito.mjs
 ```
 
-Raccoglie in `dist/` solo quello che va pubblicato: le due pagine, il core, il
-foglio di stile, il pacchetto dati e gli header di Cloudflare. Restano fuori
+Raccoglie in `dist/` solo quello che va pubblicato: le due pagine, il manuale
+sfogliabile col suo PDF e il suo indice, il core, il foglio di stile, il
+pacchetto dati e gli header di Cloudflare. Restano fuori
 `Codice.gs`, `appsscript.json`, i tools e la documentazione. `dist/` non si
 committa.
 
@@ -371,23 +373,35 @@ La radice del sito apre il foglio di volo, che se non trova un import gia'
 fatto mostra il pannello "Prima serve l'import" con il link alla pagina di
 apertura.
 
-### La guida all'uso
+### Il manuale d'uso
 
-`tools/guida.mjs` costruisce `data/guida.pdf`, la guida che si apre dal pulsante
-**Come si usa** nella pagina di apertura. Le schermate stanno in `tools/guida/` e
-vengono dall'applicazione vera, con il volo vero di un NavLog ForeFlight e di uno
-Skybrief: una guida con schermate finte invecchia il giorno dopo e si vede.
+Il manuale e' un SOP in inglese (`data/manuale.pdf`) che si sfoglia come un
+libro da `manuale.html`: doppia pagina su schermo largo, pagina singola su
+telefono, girata animata, indice laterale con i numeri di pagina, e le voci
+dell'indice stampato cliccabili anche dentro il libro. Si apre da **How To Use**
+nella pagina di import, in un riquadro sopra la pagina (NavLog e briefing gia'
+caricati restano li'), e dalla voce **User Manual** del menu del foglio di
+volo, in una scheda nuova. `manuale.html#p=12` apre una pagina,
+`manuale.html#s3-2` una sezione.
 
-Il PDF non si scarica e non apre una scheda: resta sopra la pagina, disegnato su
-`<canvas>` con pdf.js. Un `<iframe src="guida.pdf">` sarebbe stato piu' corto da
-scrivere, ma su iPad Safari un PDF dentro un iframe lo mostra a meta' o non lo
-mostra affatto, ed e' da li' che questa guida si legge.
+`tools/manuale.mjs` scrive il testo, lo impagina con Chromium e produce:
 
-Per rigenerarla serve jsPDF, che non e' fra le dipendenze del sito — il deploy
-trova il PDF gia' pronto nel repo:
+- `data/manuale.pdf` — con i segnalibri del PDF e l'indice a due livelli i cui
+  numeri di pagina vengono dal PDF stesso: un primo passaggio impagina e legge
+  su che pagina e' finito ogni titolo, il secondo li scrive nell'indice, e il
+  build si ferma se fra i due qualcosa si sposta;
+- `data/manuale.json` — lo stesso indice, che il libro sfogliabile usa per il
+  pannello laterale: indice stampato e indice cliccabile non possono divergere.
+
+Le figure in `tools/manuale/fig/` sono schermate dell'app vera, in tema chiaro,
+con i callout (riquadri e lettere) disegnati sopra gli elementi reali; i font
+(IBM Plex) stanno in `tools/manuale/fonts/`. Per rigenerare il PDF servono
+Chromium e due pacchetti che il sito non usa — il deploy trova il PDF gia'
+pronto nel repo:
 
 ```
-npm i jspdf && node tools/guida.mjs
+npm i --no-save puppeteer-core pdfjs-dist@3.11.174
+CHROME=/percorso/chrome node tools/manuale.mjs
 ```
 
 ### Cosa resta fuori

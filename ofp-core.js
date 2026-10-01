@@ -1047,3 +1047,9 @@ function initTema(){
 
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initTema);
 else initTema();
+
+/* Il manuale si apre in un riquadro sopra la pagina di import: se il tema
+   cambia in una delle due, l'altra si allinea invece di restare indietro. */
+window.addEventListener('storage', e=>{
+  if(e.key===TEMA_CHIAVE && e.newValue && e.newValue!==temaCorrente()) applicaTema(e.newValue);
+});

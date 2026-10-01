@@ -1,0 +1,487 @@
+<!--
+  CESSNA C172 FR — MANUALE D'USO SFOGLIABILE
+
+  Il manuale SOP (data/manuale.pdf, costruito da tools/manuale.mjs) letto come
+  un libro: doppia pagina su schermo largo, pagina singola su telefono, girata
+  animata, indice laterale con i numeri di pagina e i collegamenti dell'indice
+  stampato cliccabili anche qui.
+
+  L'indice viene da data/manuale.json, scritto dallo stesso build che
+  impagina il PDF: i numeri sono quelli veri del PDF, non una copia a mano.
+
+  La pagina vive da sola (manuale.html#p=12 o manuale.html#s3-2 portano dritti
+  a una pagina o a una sezione) e dentro la pagina di import, in un riquadro
+  sopra tutto il resto (?embed=1): li' "Close" chiede alla pagina madre di
+  chiudere, cosi' NavLog e briefing gia' caricati non si perdono.
+
+  Le pagine si disegnano su <canvas> con pdf.js, come faceva la guida: su iPad
+  Safari un PDF in un iframe lo mostra a meta' o non lo mostra.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OFP C172 FR — User Manual</title>
+<link rel="stylesheet" href="ofp.css">
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem('ofp_tema');
+    if(!t) t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'chiaro':'scuro';
+    document.documentElement.setAttribute('data-tema', t);
+  }catch(e){ document.documentElement.setAttribute('data-tema','scuro'); }
+})();
+</script>
+<style>
+  body{height:100vh;height:100dvh}
+  .fb-bar{display:flex;align-items:center;gap:.5rem;padding:.55rem .8rem;background:var(--panel-2);
+    border-bottom:1px solid var(--panel-line);flex:0 0 auto;min-width:0}
+  .fb-bar .brand{font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
+  .fb-bar .brand span{color:var(--txt-dim);font-weight:500}
+  .fb-ico{width:var(--tap);height:var(--tap);padding:0;display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--panel-line);background:var(--field);color:var(--txt);border-radius:.5rem;cursor:pointer;
+    flex:0 0 auto;text-decoration:none}
+  .fb-ico:hover{border-color:var(--hover-line)}
+  .fb-ico[hidden]{display:none}
+  .fb-ico:focus-visible,.fb-toc a:focus-visible,.fb-nav:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
+  .fb-ico svg,.fb-nav svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .fb-ico[aria-pressed="true"]{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+  .fb-pag{display:flex;align-items:center;gap:.3rem;font-size:.9rem;color:var(--txt-dim);white-space:nowrap;flex:0 0 auto}
+  .fb-pag input{width:3.2rem;height:2.2rem;text-align:center;font:inherit;color:var(--txt);background:var(--field);
+    border:1px solid var(--panel-line);border-radius:.4rem}
+  .fb-pag input:focus{outline:2px solid var(--accent-2);outline-offset:1px}
+  .fb-sep{width:1px;align-self:stretch;background:var(--panel-line);margin:0 .15rem}
+
+  .fb-main{flex:1 1 auto;display:flex;min-height:0;position:relative}
+  /* ---- indice ---- */
+  .fb-toc{width:min(22rem,86vw);flex:0 0 auto;background:var(--panel-bg);border-right:1px solid var(--panel-line);
+    overflow:auto;-webkit-overflow-scrolling:touch;padding:.6rem 0 1.4rem;display:none}
+  .fb-main.toc-open .fb-toc{display:block}
+  .fb-toc h2{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);margin:.5rem 1rem .6rem;font-weight:700}
+  .fb-toc ol{list-style:none;margin:0;padding:0}
+  .fb-toc a{display:flex;align-items:baseline;gap:.5rem;padding:.42rem 1rem;color:var(--txt);text-decoration:none;
+    font-size:.88rem;line-height:1.3;border-left:3px solid transparent}
+  .fb-toc a:hover{background:var(--panel-2)}
+  .fb-toc a.l1{font-weight:700;margin-top:.35rem}
+  .fb-toc a.l2{padding-left:2.1rem;color:var(--txt-dim)}
+  .fb-toc a .n{flex:0 0 auto;min-width:2.1rem;color:var(--accent);font-weight:700;font-size:.8rem}
+  .fb-toc a.l1 .n{min-width:auto;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+  .fb-toc a .t{flex:1 1 auto}
+  .fb-toc a .p{flex:0 0 auto;font-variant-numeric:tabular-nums;color:var(--txt-dim);font-weight:600;font-size:.82rem}
+  .fb-toc a[aria-current="true"]{border-left-color:var(--accent-2);background:var(--panel-2);color:var(--txt)}
+  .fb-scrim{display:none}
+  /* su schermo stretto l'indice si apre sopra il libro, con un velo dietro */
+  @media (max-width:900px){
+    .fb-toc{position:absolute;left:0;top:0;bottom:0;z-index:30;box-shadow:0 0 30px rgba(0,0,0,.35)}
+    .fb-main.toc-open .fb-scrim{display:block;position:absolute;inset:0;z-index:25;background:rgba(0,0,0,.35)}
+  }
+
+  /* ---- libro ---- */
+  .fb-stage{flex:1 1 auto;position:relative;display:flex;align-items:center;justify-content:center;
+    min-width:0;overflow:hidden;touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none}
+  .fb-book{position:relative;perspective:2600px}
+  .fb-page{position:absolute;top:0;height:100%;background:#fff;overflow:hidden;
+    box-shadow:0 2px 12px rgba(0,0,0,.28)}
+  .fb-page canvas,.fb-face canvas{display:block;width:100%;height:100%}
+  .fb-page.vuota{visibility:hidden}
+  .fb-book.spread .fb-page{width:50%}
+  .fb-book.spread .fb-page.sx{left:0}
+  .fb-book.spread .fb-page.dx{left:50%}
+  .fb-book.single .fb-page.sx{display:none}
+  .fb-book.single .fb-page.dx{left:0;width:100%}
+  /* la piega al centro: un'ombra leggera su tutte e due le pagine */
+  .fb-book.spread .fb-page.sx::after,.fb-book.spread .fb-page.dx::after{content:"";position:absolute;top:0;bottom:0;width:7%;pointer-events:none}
+  .fb-book.spread .fb-page.sx::after{right:0;background:linear-gradient(to left,rgba(0,0,0,.16),rgba(0,0,0,0))}
+  .fb-book.spread .fb-page.dx::after{left:0;background:linear-gradient(to right,rgba(0,0,0,.16),rgba(0,0,0,0))}
+  .fb-carica{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#888;font-size:.85rem}
+
+  .fb-leaf{position:absolute;top:0;height:100%;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;z-index:5;
+    pointer-events:none}
+  .fb-face{position:absolute;inset:0;background:#fff;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+  .fb-face.retro{transform:rotateY(180deg)}
+  .fb-face .ombra{position:absolute;inset:0;pointer-events:none;opacity:0}
+  .fb-face.fronte .ombra{background:linear-gradient(to left,rgba(0,0,0,.35),rgba(0,0,0,.05))}
+  .fb-face.retro .ombra{background:linear-gradient(to right,rgba(0,0,0,.35),rgba(0,0,0,.05))}
+
+  .fb-link{position:absolute;display:block;border-radius:2px;cursor:pointer;z-index:3}
+  .fb-link:hover,.fb-link:focus-visible{background:rgba(31,79,156,.12);outline:1px solid rgba(31,79,156,.45)}
+
+  .fb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:8;width:2.6rem;height:4.4rem;display:flex;
+    align-items:center;justify-content:center;border:1px solid var(--panel-line);background:var(--panel-bg);color:var(--txt);
+    border-radius:.5rem;cursor:pointer;opacity:.85}
+  .fb-nav:hover{opacity:1;border-color:var(--hover-line)}
+  .fb-nav[disabled]{opacity:.25;cursor:default}
+  .fb-nav.prev{left:.5rem} .fb-nav.next{right:.5rem}
+  @media (max-width:640px){ .fb-nav{display:none} }
+
+  .fb-foot{flex:0 0 auto;display:flex;align-items:center;gap:.8rem;padding:.4rem 1rem .6rem;background:var(--panel-2);
+    border-top:1px solid var(--panel-line)}
+  .fb-foot input[type=range]{flex:1 1 auto;accent-color:var(--accent-2);min-width:0}
+  .fb-foot .sez{font-size:.8rem;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:45%}
+  .fb-stato{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
+    color:var(--txt-dim);padding:2rem;line-height:1.6}
+  .fb-stato a{color:var(--accent-2)}
+  @media (max-width:640px){
+    .fb-bar{gap:.35rem;padding:.45rem .5rem}
+    .fb-bar .brand span{display:none}
+    .fb-bar .brand b{display:none}
+    .fb-sep,.fb-solo-largo{display:none}
+    .fb-foot .sez{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){ .fb-toc{transition:none} }
+</style>
+
+<div class="fb-bar">
+  <button type="button" class="fb-ico" id="fbIndice" aria-controls="fbToc" aria-pressed="false" aria-label="Contents" title="Contents">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></button>
+  <div class="brand"><b>User Manual</b> <span>&mdash; OFP C172 FR</span></div>
+  <button type="button" class="fb-ico fb-solo-largo" id="fbPrima" aria-label="First page" title="First page">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 17l-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+  <div class="fb-pag"><label for="fbNum" class="fb-solo-largo">Page</label>
+    <input id="fbNum" type="text" inputmode="numeric" autocomplete="off" aria-label="Go to page"><span id="fbTot">/ –</span></div>
+  <a class="fb-ico" id="fbScarica" href="data/manuale.pdf" download="OFP-C172-FR-SOP-User-Manual.pdf" aria-label="Download PDF" title="Download PDF">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
+  <span class="fb-sep"></span>
+  <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
+  <a class="fb-ico" id="fbApp" href="import.html" aria-label="Open the application" title="Open the application">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+  <button type="button" class="fb-ico" id="fbChiudi" aria-label="Close the manual" title="Close" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+
+<div class="fb-main" id="fbMain">
+  <nav class="fb-toc" id="fbToc" aria-label="Contents"><h2>Contents</h2><ol id="fbTocList"></ol></nav>
+  <div class="fb-scrim" id="fbScrim"></div>
+  <div class="fb-stage" id="fbStage" role="region" aria-roledescription="book" aria-label="User manual">
+    <button type="button" class="fb-nav prev" id="fbPrev" aria-label="Previous page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="fb-book" id="fbBook">
+      <div class="fb-page sx" id="fbSx"></div>
+      <div class="fb-page dx" id="fbDx"></div>
+    </div>
+    <button type="button" class="fb-nav next" id="fbNext" aria-label="Next page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+    <div class="fb-stato" id="fbStato">Opening the manual&hellip;</div>
+  </div>
+</div>
+<div class="fb-foot">
+  <input type="range" id="fbScorri" min="1" max="1" value="1" aria-label="Page">
+  <div class="sez" id="fbSez" aria-live="polite"></div>
+</div>
+
+<script src="ofp-core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }</script>
+<script>
+"use strict";
+const PDF_URL='data/manuale.pdf', TOC_URL='data/manuale.json';
+const EMBED=new URLSearchParams(location.search).has('embed');
+const MOTO=!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+let pdf=null, N=0, ASPETTO=595/842;
+let TOC=[];                     // [{level,num,title,id,page}]
+let modo='spread';              // 'spread' due pagine, 'single' una
+let cur=1;                      // pagina di riferimento (la sinistra, o la sola)
+let anim=null;                  // girata in corso
+let misura={w:0,h:0};           // dimensione in CSS px di UNA pagina
+let scelta=null;                // voce dell'indice appena scelta: resta evidenziata finche' la si vede
+
+/* ------------------------------------------------------------------ pagine */
+/* Una doppia pagina e' [sinistra, destra]: la copertina sta da sola a destra,
+   poi 2-3, 4-5 … come in un libro vero. */
+const doppia=(p)=> p<=1 ? [0,1] : (p%2===0 ? [p, p+1<=N ? p+1 : 0] : [p-1, p]);
+const vista=(p)=> modo==='spread' ? doppia(p) : [0,p];
+const prima=(p)=> { const v=vista(p); return v[0]||v[1]; };
+const ultima=(p)=> { const v=vista(p); return v[1]||v[0]; };
+
+/* Pagine disegnate: poche in memoria, una pagina A4 a schermo pieno su iPad
+   e' qualche megabyte. */
+const CACHE=new Map(), CACHE_MAX=10;
+async function disegna(n){
+  const dpr=Math.min(window.devicePixelRatio||1, 2.5);
+  const key=n+'@'+Math.round(misura.w*dpr);
+  if(CACHE.has(key)){ const c=CACHE.get(key); CACHE.delete(key); CACHE.set(key,c); return c; }
+  const pg=await pdf.getPage(n);
+  const base=pg.getViewport({scale:1});
+  const vp=pg.getViewport({scale:(misura.w*dpr)/base.width});
+  const c=document.createElement('canvas');
+  c.width=Math.round(vp.width); c.height=Math.round(vp.height);
+  c.setAttribute('role','img'); c.setAttribute('aria-label',`Page ${n} of ${N}`);
+  await pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
+  CACHE.set(key,c);
+  while(CACHE.size>CACHE_MAX) CACHE.delete(CACHE.keys().next().value);
+  return c;
+}
+function copia(c){
+  const d=document.createElement('canvas'); d.width=c.width; d.height=c.height;
+  d.getContext('2d').drawImage(c,0,0); return d;
+}
+
+/* I collegamenti del PDF (l'indice stampato, i rimandi dell'appendice)
+   diventano zone cliccabili sopra la pagina. */
+const LINK=new Map();
+async function linkDi(n){
+  if(LINK.has(n)) return LINK.get(n);
+  const pg=await pdf.getPage(n), vp=pg.getViewport({scale:1});
+  const out=[];
+  for(const a of await pg.getAnnotations()){
+    if(a.subtype!=='Link' || !a.dest) continue;
+    try{
+      const dest=typeof a.dest==='string' ? await pdf.getDestination(a.dest) : a.dest;
+      if(!dest) continue;
+      const to=await pdf.getPageIndex(dest[0])+1;
+      const [x1,y1,x2,y2]=vp.convertToViewportRectangle(a.rect);
+      out.push({to, l:Math.min(x1,x2)/vp.width, t:Math.min(y1,y2)/vp.height,
+                w:Math.abs(x2-x1)/vp.width, h:Math.abs(y2-y1)/vp.height});
+    }catch(e){}
+  }
+  LINK.set(n,out); return out;
+}
+
+async function riempi(slot, n){
+  slot.innerHTML='';
+  slot.classList.toggle('vuota', !n);
+  slot.dataset.n=n||'';
+  if(!n) return;
+  slot.innerHTML='<div class="fb-carica">…</div>';
+  const c=await disegna(n);
+  if(slot.dataset.n!==String(n)) return;          // nel frattempo si e' andati altrove
+  slot.innerHTML=''; slot.appendChild(c);
+  for(const k of await linkDi(n)){
+    const a=document.createElement('a');
+    a.className='fb-link'; a.href='#p='+k.to;
+    a.setAttribute('aria-label','Go to page '+k.to);
+    a.style.cssText=`left:${k.l*100}%;top:${k.t*100}%;width:${k.w*100}%;height:${k.h*100}%`;
+    a.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); vai(k.to); });
+    slot.appendChild(a);
+  }
+}
+
+/* ------------------------------------------------------------------ misura */
+function impagina(){
+  const st=$('fbStage'), W=st.clientWidth-(innerWidth>640?112:16), H=st.clientHeight-24;
+  const largo = W/H > 2*ASPETTO*0.82 && W>=700;
+  modo = largo ? 'spread' : 'single';
+  const h=Math.max(100, Math.floor(Math.min(H, (largo ? W/2 : W)/ASPETTO)));
+  const w=Math.floor(h*ASPETTO);
+  const cambia = w!==misura.w;
+  misura={w,h};
+  const b=$('fbBook');
+  b.className='fb-book '+modo;
+  b.style.width=(largo?2*w:w)+'px'; b.style.height=h+'px';
+  return cambia;
+}
+
+/* ------------------------------------------------------------------ stato */
+async function mostra(){
+  const [l,r]=vista(cur);
+  await Promise.all([riempi($('fbSx'), modo==='spread'?l:0), riempi($('fbDx'), r)]);
+  aggiorna();
+}
+function aggiorna(){
+  const a=prima(cur), b=ultima(cur);
+  $('fbNum').value = a===b ? String(a) : `${a}–${b}`;
+  $('fbScorri').value=a;
+  $('fbPrev').disabled = a<=1;
+  $('fbNext').disabled = b>=N;
+  try{ history.replaceState(null,'','#p='+a); }catch(e){}
+  // sezione corrente: l'ultima voce che comincia entro le pagine visibili
+  let attuale=null;
+  const sc=scelta && TOC.find(t=>t.id===scelta);
+  if(sc && sc.page>=a && sc.page<=b) attuale=sc;
+  else TOC.forEach(t=>{ if(t.page<=b) attuale=t; });
+  document.querySelectorAll('#fbTocList a').forEach(x=>x.setAttribute('aria-current', attuale && x.dataset.id===attuale.id ? 'true':'false'));
+  const s1=[...TOC].reverse().find(t=>t.level===1 && t.page<=b);
+  $('fbSez').textContent = attuale ? [s1&&s1!==attuale ? (s1.num?s1.num+' · ':'')+s1.title : '', (attuale.num?attuale.num+' ':'')+attuale.title].filter(Boolean).join('  ›  ') : '';
+  // le pagine vicine si preparano in anticipo
+  const vicine=[b+1,b+2,a-1,a-2].filter(n=>n>=1&&n<=N);
+  setTimeout(()=>vicine.forEach(n=>disegna(n).catch(()=>{})), 120);
+}
+
+/* ------------------------------------------------------------------ girata */
+function faccia(cls, c){
+  const f=document.createElement('div'); f.className='fb-face '+cls;
+  if(c) f.appendChild(c);
+  const o=document.createElement('div'); o.className='ombra'; f.appendChild(o);
+  return f;
+}
+
+async function vai(p, voce){
+  p=Math.max(1, Math.min(N, Math.round(p)||1));
+  scelta=voce||null;
+  if(anim){ anim.finish(); await anim.finished.catch(()=>{}); }
+  const da=vista(cur), a=vista(p);
+  if(da[0]===a[0] && da[1]===a[1]){ cur=p; aggiorna(); return; }
+  const avanti = prima(p) > prima(cur);
+  if(!MOTO){ cur=p; return mostra(); }
+
+  const book=$('fbBook'), sx=$('fbSx'), dx=$('fbDx');
+  const leaf=document.createElement('div'); leaf.className='fb-leaf';
+  const dur=620, ease='cubic-bezier(.45,.05,.35,1)';
+  let fronte, retro, finale;
+
+  if(modo==='spread'){
+    // la pagina che si gira: quella di destra andando avanti, la sinistra tornando indietro
+    const vecchia = avanti ? da[1] : da[0];
+    const nuova   = avanti ? a[0]  : a[1];
+    const cv=vecchia ? copia(await disegna(vecchia)) : null;
+    const cn=nuova   ? copia(await disegna(nuova))   : null;
+    fronte=faccia('fronte', cv); retro=faccia('retro', cn);
+    leaf.style.width='50%'; leaf.style.left = avanti ? '50%' : '0';
+    leaf.style.transformOrigin = avanti ? 'left center' : 'right center';
+    leaf.append(fronte, retro);
+    if(!vecchia) fronte.style.visibility='hidden';
+    // sotto il foglio che si alza c'e' gia' la pagina che resta scoperta
+    await riempi(avanti ? dx : sx, avanti ? a[1] : a[0]);
+    book.appendChild(leaf);
+    const gira = avanti ? [{transform:'rotateY(0deg)'},{transform:'rotateY(-180deg)'}]
+                        : [{transform:'rotateY(0deg)'},{transform:'rotateY(180deg)'}];
+    anim=leaf.animate(gira,{duration:dur,easing:ease,fill:'forwards'});
+    fronte.querySelector('.ombra').animate([{opacity:0},{opacity:.9}],{duration:dur/2,easing:'ease-in',fill:'forwards'});
+    retro.querySelector('.ombra').animate([{opacity:.9},{opacity:.9,offset:.5},{opacity:0}],{duration:dur,easing:'ease-out',fill:'forwards'});
+    finale=()=>riempi(avanti ? sx : dx, avanti ? a[0] : a[1]);
+  }else{
+    // una pagina sola: avanti la pagina si solleva e scopre la nuova; indietro la nuova si posa sopra
+    const c=copia(await disegna(avanti ? cur : p));
+    fronte=faccia('fronte', c);
+    leaf.style.width='100%'; leaf.style.left='0'; leaf.style.transformOrigin='left center';
+    leaf.append(fronte);
+    if(avanti) await riempi(dx, p);
+    book.appendChild(leaf);
+    const k=[{transform:'rotateY(0deg)',opacity:1},{transform:'rotateY(-75deg)',opacity:1,offset:.7},{transform:'rotateY(-100deg)',opacity:0}];
+    anim=leaf.animate(avanti ? k : [...k].reverse(),{duration:dur*0.85,easing:ease,fill:'forwards'});
+    fronte.querySelector('.ombra').animate(avanti?[{opacity:0},{opacity:.8}]:[{opacity:.8},{opacity:0}],{duration:dur*0.85,fill:'forwards'});
+    finale=()=> avanti ? null : riempi(dx, p);
+  }
+  cur=p; aggiorna();
+  try{ await anim.finished; }catch(e){}
+  await finale();
+  leaf.remove(); anim=null;
+}
+const avanti=()=>{ const b=ultima(cur); if(b<N) vai(b+1); };
+const indietro=()=>{ const a=prima(cur); if(a>1) vai(modo==='spread' ? Math.max(1,a-2) : a-1); };
+
+/* ------------------------------------------------------------------ indice */
+function costruisciIndice(){
+  const ol=$('fbTocList'); ol.innerHTML='';
+  TOC.forEach(t=>{
+    const li=document.createElement('li');
+    const a=document.createElement('a');
+    a.className='l'+t.level; a.href='#'+t.id; a.dataset.id=t.id;
+    a.innerHTML=`<span class="n">${esc(t.num)}</span><span class="t">${esc(t.title)}</span><span class="p">${t.page}</span>`;
+    a.setAttribute('aria-label',`${t.num?t.num+' ':''}${t.title}, page ${t.page}`);
+    a.addEventListener('click',e=>{
+      e.preventDefault(); vai(t.page, t.id);
+      if(innerWidth<=900) indice(false);
+    });
+    li.appendChild(a); ol.appendChild(li);
+  });
+}
+function indice(apri){
+  const m=$('fbMain');
+  apri = apri===undefined ? !m.classList.contains('toc-open') : apri;
+  m.classList.toggle('toc-open', apri);
+  $('fbIndice').setAttribute('aria-pressed', apri?'true':'false');
+  try{ localStorage.setItem('ofp_manuale_indice', apri?'1':'0'); }catch(e){}
+  if(pdf && impagina()){ CACHE.clear(); mostra(); }
+  if(apri){ const x=document.querySelector('#fbTocList a[aria-current="true"]'); if(x) x.scrollIntoView({block:'nearest'}); }
+}
+
+/* L'indice vero e' manuale.json; se non c'e' si ricava dai segnalibri del PDF. */
+async function caricaIndice(){
+  try{
+    const j=await fetch(TOC_URL,{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); });
+    if(Array.isArray(j.toc)) return j.toc;
+  }catch(e){}
+  const out=[], giro=async(items,level)=>{ for(const it of items||[]){
+    try{ const d=typeof it.dest==='string'?await pdf.getDestination(it.dest):it.dest;
+      out.push({level:Math.min(level,2), num:'', title:it.title, id:'o'+out.length, page:await pdf.getPageIndex(d[0])+1}); }catch(e){}
+    if(level<2) await giro(it.items, level+1); } };
+  await giro(await pdf.getOutline(), 1);
+  return out;
+}
+
+/* Da dove partire: #p=12 per una pagina, #s3-2 per una sezione. */
+function daHash(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  const m=/^p=(\d+)$/.exec(h);
+  if(m) return {p:+m[1]};
+  const t=TOC.find(x=>x.id===h);
+  return t ? {p:t.page, id:t.id} : null;
+}
+
+/* ------------------------------------------------------------------ comandi */
+$('fbNext').addEventListener('click', avanti);
+$('fbPrev').addEventListener('click', indietro);
+$('fbPrima').addEventListener('click', ()=>vai(1));
+$('fbIndice').addEventListener('click', ()=>indice());
+$('fbScrim').addEventListener('click', ()=>indice(false));
+$('fbScorri').addEventListener('change', e=>vai(+e.target.value));
+$('fbScorri').addEventListener('input', e=>{ $('fbNum').value=e.target.value; });
+$('fbNum').addEventListener('focus', e=>e.target.select());
+$('fbNum').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const n=parseInt(e.target.value,10); if(n) vai(n); e.target.blur(); } });
+$('fbNum').addEventListener('blur', ()=>aggiorna());
+window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h && h.p!==prima(cur)) vai(h.p, h.id); });
+
+function chiudi(){
+  if(EMBED && window.parent!==window) window.parent.postMessage({tipo:'ofp-manuale-chiudi'}, location.origin);
+}
+if(EMBED){ $('fbChiudi').hidden=false; $('fbApp').hidden=true; }
+$('fbChiudi').addEventListener('click', chiudi);
+
+document.addEventListener('keydown', e=>{
+  if(e.target.closest && e.target.closest('input')) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'||(e.key===' '&&!e.shiftKey)){ e.preventDefault(); avanti(); }
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'||(e.key===' '&&e.shiftKey)){ e.preventDefault(); indietro(); }
+  else if(e.key==='Home'){ e.preventDefault(); vai(1); }
+  else if(e.key==='End'){ e.preventDefault(); vai(N); }
+  else if(e.key==='Escape'){ if($('fbMain').classList.contains('toc-open') && innerWidth<=900) indice(false); else chiudi(); }
+});
+
+/* Tocco: trascinare di lato gira la pagina; un tocco sulla meta' destra va
+   avanti, sulla sinistra indietro. I collegamenti hanno la precedenza. */
+(function(){
+  const st=$('fbStage'); let x0=null, y0=0, t0=0;
+  st.addEventListener('pointerdown', e=>{ if(e.target.closest('.fb-link,.fb-nav')) return; x0=e.clientX; y0=e.clientY; t0=Date.now(); });
+  st.addEventListener('pointerup', e=>{
+    if(x0===null) return;
+    const dx=e.clientX-x0, dy=e.clientY-y0; x0=null;
+    if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.3){ dx<0 ? avanti() : indietro(); return; }
+    if(Math.abs(dx)<8 && Math.abs(dy)<8 && Date.now()-t0<400){
+      const b=$('fbBook').getBoundingClientRect();
+      if(e.clientX<b.left || e.clientX>b.right || e.clientY<b.top || e.clientY>b.bottom) return;
+      e.clientX > b.left+b.width/2 ? avanti() : indietro();
+    }
+  });
+  st.addEventListener('pointercancel', ()=>{ x0=null; });
+})();
+
+let tRes=null;
+window.addEventListener('resize', ()=>{
+  clearTimeout(tRes);
+  tRes=setTimeout(()=>{ if(!pdf) return; if(impagina()) CACHE.clear(); mostra(); }, 150);
+});
+
+/* ------------------------------------------------------------------ avvio */
+(async function(){
+  const stato=$('fbStato');
+  const ripiego=(msg)=>{ stato.innerHTML=`${msg}<br><a href="${PDF_URL}">Open the manual as PDF</a>`; };
+  if(!window.pdfjsLib) return ripiego('The page-turning viewer could not load.');
+  try{
+    pdf=await pdfjsLib.getDocument(PDF_URL).promise;
+    N=pdf.numPages;
+    const v=(await pdf.getPage(1)).getViewport({scale:1}); ASPETTO=v.width/v.height;
+    TOC=await caricaIndice();
+    costruisciIndice();
+    $('fbTot').textContent='/ '+N;
+    $('fbScorri').max=N;
+    let aperto=innerWidth>900;
+    try{ const s=localStorage.getItem('ofp_manuale_indice'); if(s!==null && innerWidth>900) aperto=s==='1'; }catch(e){}
+    $('fbMain').classList.toggle('toc-open', aperto);
+    $('fbIndice').setAttribute('aria-pressed', aperto?'true':'false');
+    impagina();
+    const h=daHash();
+    cur=h ? Math.max(1,Math.min(N,h.p)) : 1; scelta=h&&h.id||null;
+    stato.remove();
+    await mostra();
+  }catch(e){
+    ripiego('Cannot open the manual ('+esc(e.message||e)+').');
+  }
+})();
+</script>

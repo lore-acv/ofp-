@@ -23,7 +23,7 @@
 /ofp-core.*.js
   Cache-Control: public, max-age=31536000, immutable
 
-# Il pacchetto aeroporti e la guida hanno nome fisso e li rilegge il codice a
+# Il pacchetto aeroporti e il manuale hanno nome fisso e li rilegge il codice a
 # runtime: un'ora di cache, poi si rinfrescano da soli mentre si continua a
 # servire la copia vecchia.
 /data/*

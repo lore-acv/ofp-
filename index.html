@@ -69,6 +69,8 @@
           <button type="button" role="menuitem" id="btnDrive" style="display:none">Save to Drive</button>
           <button type="button" role="menuitem" class="primary" id="btnPdf">Download OFP PDF</button>
           <button type="button" role="menuitem" class="primary" id="btnNavPdf">Download Navlog PDF</button>
+          <div class="sep"></div>
+          <button type="button" role="menuitem" id="btnManuale" title="Opens in a new tab: the flight plan stays as it is">User Manual</button>
         </div>
       </div>
     </div>
@@ -5441,6 +5443,12 @@ function closeDashboard(){ $('dashboard').classList.remove('open'); }
 $('btnDashboard').addEventListener('click',openDashboard);
 $('btnCloseDash').addEventListener('click',closeDashboard);
 $('btnStandby').addEventListener('click',saveFlightDraft);
+/* Il manuale in una scheda nuova: aprirlo qui farebbe perdere il foglio non
+   salvato. Sotto Apps Script non c'e' (HtmlService non serve file statici). */
+if($('btnManuale')){
+  if(IS_APPS_SCRIPT) $('btnManuale').style.display='none';
+  $('btnManuale').addEventListener('click',()=>window.open('manuale.html','_blank','noopener'));
+}
 $('btnNew').addEventListener('click',newFlight);
 
 /* ===================== DATI RICEVUTI DALLA PAGINA DI IMPORT =====================

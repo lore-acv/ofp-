@@ -7,7 +7,8 @@
    sono relativi. Apps Script e' l'adattatore, non il contrario.
 
    Qui si raccoglie in dist/ solo quello che va pubblicato: le due pagine, il
-   core, il foglio di stile, il pacchetto dati e le intestazioni di Cloudflare.
+   manuale sfogliabile col suo PDF e il suo indice, il core, il foglio di
+   stile, il pacchetto dati e le intestazioni di Cloudflare.
    Restano fuori Codice.gs, appsscript.json, i tools e la documentazione.
 
    Uso:  node tools/sito.mjs
@@ -31,7 +32,8 @@ const DIST = path.join(RADICE, 'dist');
    due link che le pagine si scambiano. */
 const DA_PUBBLICARE = [
   ['data/aeroporti.json', 'data/aeroporti.json'],
-  ['data/guida.pdf',      'data/guida.pdf'],
+  ['data/manuale.pdf',    'data/manuale.pdf'],
+  ['data/manuale.json',   'data/manuale.json'],
   ['tools/_headers',      '_headers']
 ];
 
@@ -61,14 +63,15 @@ const impronta = (buf) => createHash('sha256').update(buf).digest('hex').slice(0
 /* [sorgente, destinazione, [da, a] del link da riscrivere] */
 const PAGINE = [
   ['import.html', 'index.html', 'href="index.html"',  'href="ofp.html"'],
-  ['index.html',  'ofp.html',   'href="import.html"', 'href="./"']
+  ['index.html',  'ofp.html',   'href="import.html"', 'href="./"'],
+  ['manuale.html','manuale.html','href="import.html"', 'href="./"']
 ];
 
 /* Il pacchetto dati non si committa a mano: lo costruisce tools/dati-aeroporti.mjs
    e lo rinfresca l'azione GitHub. Se manca, il sito funziona lo stesso — il
    client ripiega sui CSV — ma e' bene dirlo, perche' e' una differenza di
    venti megabyte per chi apre l'app. */
-const FACOLTATIVI = new Set(['data/aeroporti.json', 'data/guida.pdf']);
+const FACOLTATIVI = new Set(['data/aeroporti.json']);
 
 async function esiste(p) { try { await stat(p); return true; } catch { return false; } }
 
