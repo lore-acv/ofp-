@@ -204,7 +204,7 @@
           </div>
           <div class="row">
             <div class="fld"><label>Altitude (ft)</label><input id="altAlt" type="number" step="500" value="" placeholder="alt"></div>
-            <div class="fld"><label>Flight Time (min)</label><input id="altTblTime" type="number" value="20"></div>
+            <div class="fld"><label>Flight Time (min, calculated)</label><input id="altTblTime" type="number" value="" readonly style="opacity:.7"></div>
           </div>
           <div class="calc" id="altCalc"></div>
         </div>
@@ -648,9 +648,8 @@
           <div class="fld"><label>PIC name (signature)</label><input id="picName" value="" placeholder="PIC first and last name"></div>
         </div>
         <div class="hint">Final step. The document is generated from the menu at the top right, with
-            <b>"Download OFP PDF"</b>, which lays the document out on its own. The "Print OFP" item instead goes
-            through the browser: on iPhone and iPad, Safari adds the page address and date of its own accord,
-            and there is no way for the site to prevent it.</div>
+            <b>"Download OFP PDF"</b>, which lays the document out on its own. <b>"Print OFP"</b> prints the same
+            PDF: on iPhone and iPad it opens in a new tab and is printed from the system viewer.</div>
       </div>
 
     </div>
@@ -2755,7 +2754,7 @@ function cgNote(w){
   });
   if(bad.length) return {txt:'⚠ CG OUTSIDE ENVELOPE: '+bad.join(' · '), over:true};
   const t=cgCheck(w.tow.w, w.tow.arm, 'utility');
-  const cat = t.ok ? 'UTILITY e NORMAL' : 'NORMAL';
+  const cat = t.ok ? 'UTILITY and NORMAL' : 'NORMAL';
   const lim = cgLimits(w.tow.w,'normal');
   return {txt:`→ CG at takeoff ${w.tow.arm.toFixed(3)} m (limits ${lim.fwd}–${lim.aft} m) · available category: ${cat}`, over:false};
 }
@@ -2882,6 +2881,11 @@ function render(){
         + (toc ? `  ·  ${toc.text}` : '');
     el.style.color = f.climbOverruns ? 'var(--warn)' : '';
   }
+  /* Il tempo dell'alternato era scritto una volta sola, alla ricerca degli
+     aeroporti, e non seguiva piu' quota e distanza: l'OFP poteva stampare un
+     TIME diverso da quello con cui era calcolato il carburante ALTN. Adesso e'
+     lo stesso numero, sempre. */
+  if($('altTblTime')) $('altTblTime').value = f.altTime>0 ? f.altTime : '';
   if($('altCalc')){
     const a=altnSettingAt(num('altAlt'));
     const set = a.row ? `${a.row.mp}" / ${a.row.rpm} RPM = ${a.row.bhp}% · TAS ${a.row.mph} MPH · ${a.row.lph} L/h` : 'power setting not available';
@@ -3120,7 +3124,7 @@ function mbTableHTML(w){
     return line(l,wt,arm,mom,bad);
   }).join('');
   return `<table style="width:100%;border-collapse:collapse;font-family:'Courier New',monospace;font-size:11px;color:var(--txt)">
-    <tr style="color:var(--txt-dim)"><th style="text-align:left">Voce</th><th style="text-align:right">kg</th><th style="text-align:right">braccio m</th><th style="text-align:right">kg·m</th></tr>
+    <tr style="color:var(--txt-dim)"><th style="text-align:left">Item</th><th style="text-align:right">kg</th><th style="text-align:right">arm m</th><th style="text-align:right">kg·m</th></tr>
     ${sh.load.map(([l,wt,arm,mom])=>line(l,wt,arm,mom,l.startsWith('BAGGAGE')&&wt>MAX_BAGGAGE_KG)).join('')}
     ${sep}${line(...sh.zfw)}${sep}
     ${sh.fuel.map(([l,wt,arm,mom])=>line(l,wt,arm,mom,l==='FUEL ON BOARD'&&wt>USABLE_FUEL_USG*KG_PER_USG)).join('')}
@@ -3246,11 +3250,7 @@ function applyAirportData(){
   const dAltn = gcDistanceNm(arr,altn);
   if(dAltn!==null && $('altDist')) $('altDist').value = dAltn;
 
-  // tempo alternato al settaggio fisso 22"/2400 della quota alternato
-  const a=altnSettingAt(num('altAlt'));
-  if(dAltn!==null && a.row && $('altTblTime')){
-    $('altTblTime').value = Math.round(dAltn / mphToKt(a.row.mph) * 60);
-  }
+  // il tempo dell'alternato non si scrive qui: lo ricava render() da computeFuel()
 
   // elevazioni e piste per il calcolo prestazioni, per tutti e tre gli aeroporti
   [['Dep',dep,'depAirport'],['Dest',arr,'destAirport'],['Altn',altn,null],['Tng',tng,null]].forEach(([k,rec,ofpId])=>{
@@ -5534,6 +5534,11 @@ document.body.addEventListener('input',render);
 applyHandoff();
 renderSteps(); goToStep(1);
 buildTimeSelects(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
+/* I codici arrivati dall'import non passano dai campi, quindi nessuno ha fatto
+   partire la ricerca OurAirports: elevazioni a zero, piste vuote e una parola
+   della rotta (BIELLA NORD) scambiata per un aeroporto finche' il pilota non
+   ritoccava un ICAO. La si fa partire qui, come se li avesse appena scritti. */
+scheduleAirportLookup();
 /* Un foglio riaperto puo' avere tratte senza quota — salvate prima che la
    quota di crociera arrivasse da sola. Qui si riempiono solo quelle vuote. */
 navApplyCruiseAlt();
