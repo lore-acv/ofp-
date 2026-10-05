@@ -117,21 +117,27 @@ async function parseNavlogPdf(pdf){
   out.raw=allText.join('\n');
 
   // ---- 1. semantica ----
-  for(const pg of pageLines){
+  // Un NavLog lungo continua sul foglio successivo senza ripetere
+  // l'intestazione, e un nome puo' restare a cavallo del cambio pagina: le
+  // righe di tutti i fogli si leggono quindi come un'unica sequenza.
+  {
     const rows=[];
     let pending=[], depSeen=false;
-    pg.lines.forEach(l=>{
-      let text=l.items.map(i=>i.s).join(' ');
+    pageLines.forEach(pg=>pg.lines.forEach(l=>{
+      const orig=l.items.map(i=>i.s).join(' ');
       // Le etichette di intestazione cadono sulla stessa ordinata del primo
       // waypoint e gli si incollerebbero al nome ("LILN HDG LEG TOTALS"): si
       // tolgono come parole isolate, invece di scartare l'intera riga.
-      text=text.replace(/\b(WAYPOINT|HDG|LEG|TOTALS?|ForeFlight Mobile - NavLog)\b/gi,' ')
+      const text=orig.replace(/\b(WAYPOINT|HDG|LEG|TOTALS?|ForeFlight Mobile - NavLog)\b/gi,' ')
                .replace(/\s+/g,' ').trim();
       if(!text) return;
       if(/^\d{4}-\d{2}-\d{2}/.test(text)) return;              // piede con data di export
       const r=navParseLine(text);
       if(!r) return;
       if(r.textOnly){
+        // un'intestazione ripetuta su un foglio successivo ("LILN (DEP)") non e'
+        // un waypoint: la partenza e' gia' stata letta
+        if(depSeen && /\b(HDG|LEG|TOTALS?)\b/i.test(orig)) return;
         // ForeFlight manda a capo i nomi lunghi e allinea i numeri alla PRIMA
         // riga del nome: "MALNATE (LNN1)" sta con i suoi valori e "(LILN)" finisce
         // sulla riga sotto. Quella coda appartiene quindi alla tratta PRECEDENTE,
@@ -147,7 +153,7 @@ async function parseNavlogPdf(pdf){
       r.name=[...pending, r.name].filter(Boolean).join(' ').trim();
       pending=[];
       rows.push(r);
-    });
+    }));
     if(rows.filter(r=>r.hdg!=null).length>=2){
       out.mode='semantic';
       out.legs=rows;
@@ -164,13 +170,15 @@ async function parseNavlogPdf(pdf){
   }
 
   // ---- 2. a colonne ----
+  // Le colonne si prendono dalla prima intestazione trovata e valgono anche
+  // per i fogli successivi, che possono non ripeterla.
+  let centers=null;
+  const legs=[];
   for(const pg of pageLines){
     const head=navlogHeader(pg.lines);
-    if(!head) continue;
-    out.cols=head.cols.map(c=>c.key);
-    const centers=head.cols;
-    const legs=[];
-    for(let i=head.idx+1;i<pg.lines.length;i++){
+    if(head && !centers){ centers=head.cols; out.cols=head.cols.map(c=>c.key); }
+    if(!centers) continue;
+    for(let i=(head ? head.idx+1 : 0);i<pg.lines.length;i++){
       const row={};
       pg.lines[i].items.forEach(it=>{
         const cx=it.x+(it.w||0)/2;
@@ -185,8 +193,8 @@ async function parseNavlogPdf(pdf){
       if(first && hasNum) legs.push(row);
       else if(first && !legs.length) legs.push({wpt:first});
     }
-    if(legs.length){ out.mode='columns'; out.legs=legs; break; }
   }
+  if(legs.length){ out.mode='columns'; out.legs=legs; }
   return out;
 }
 
