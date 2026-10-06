@@ -1,11 +1,13 @@
-# OFP Generator — Cessna C172 FR (Reims Rocket FR172J)
+# OFP Generator — Cessna C172 FR (Reims Rocket FR172J / FR172H)
 
-Generatore di **Operational Flight Plan** per il Reims Cessna FR172J, adattato dal
+Generatore di **Operational Flight Plan** per i Reims Cessna FR172J (I-CCAF) e
+FR172H (I-CCAB) dell'aeroclub, adattato dal
 generatore per Diamond DA40. Due pagine: una di **import** e il **foglio di volo** in 7 passaggi, anteprima HTML fedele al documento
 e **PDF vettoriale A4 in Courier** (jsPDF), con estrazione automatica di
 METAR / SPECI / TAF / NOTAM dal PDF del briefing meteo.
 
-Tutti i dati aeromobile provengono dal Flight Manual Reims Rocket Edition 3:
+I dati aeromobile provengono dai Flight Manual Reims Rocket dei due modelli
+(FR172J Edition 3, FR172H Edition 2), che differiscono solo in VR, VY, stallo e VA:
 la provenienza di ogni singolo numero è in **[DATI-AFM.md](DATI-AFM.md)**.
 
 ## File

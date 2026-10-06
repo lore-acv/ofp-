@@ -9,7 +9,7 @@
     <tr><th>Document</th><td>OFP-SOP &ndash; Application User Manual</td></tr>
     <tr><th>Revision</th><td>Rev. 1 &ndash; DRAFT for review</td></tr>
     <tr><th>Date</th><td>01 OCT 2026</td></tr>
-    <tr><th>Aircraft</th><td>Reims Cessna FR172J &ldquo;Reims Rocket&rdquo; &ndash; I-CCAF, I-CCAB</td></tr>
+    <tr><th>Aircraft</th><td>Reims Cessna &ldquo;Reims Rocket&rdquo; &ndash; I-CCAF (FR172J), I-CCAB (FR172H)</td></tr>
     <tr><th>Operations</th><td>VFR flight planning</td></tr>
     <tr><th>Outputs</th><td>Operational Flight Plan (OFP, A4) &middot; NAV-FLIGHTPLAN (A5)</td></tr>
   </table>
@@ -49,9 +49,9 @@
 <section>
 <h1 class="sec" id="s1"><span class="sn">SECTION 1</span><span class="st">General</span></h1>
 <h2 id="s1-1"><span class="n">1.1</span>Purpose</h2>
-<p>The application converts the route prepared in ForeFlight and the weather briefing into the two documents carried in flight: the <b>Operational Flight Plan (OFP)</b> and the <b>NAV-FLIGHTPLAN</b>. All performance, fuel and mass figures are computed from the Reims FR172J AFM; every intermediate result is shown so that it can be checked.</p>
+<p>The application converts the route prepared in ForeFlight and the weather briefing into the two documents carried in flight: the <b>Operational Flight Plan (OFP)</b> and the <b>NAV-FLIGHTPLAN</b>. All performance, fuel and mass figures are computed from the AFM of the selected aircraft; every intermediate result is shown so that it can be checked.</p>
 <h2 id="s1-2"><span class="n">1.2</span>Scope and applicability</h2>
-<ul class="bul"><li>Aircraft: Reims Cessna FR172J &ldquo;Reims Rocket&rdquo;, Continental IO-360-D, registrations <b>I-CCAF</b> and <b>I-CCAB</b>.</li><li>Operations: VFR flight planning. Final reserve is selectable for VFR (30 min) or IFR (45 min).</li><li>Units: fuel in <b>litres</b>, fuel flow in <b>L/h</b>, speeds in <b>MPH</b> (as in the AFM), distances in <b>NM</b>, times in <b>UTC</b>.</li></ul>
+<ul class="bul"><li>Aircraft: Reims Cessna &ldquo;Reims Rocket&rdquo;, Continental IO-360-D: <b>I-CCAF</b> (FR172J, AFM Edition 3) and <b>I-CCAB</b> (FR172H, AFM Edition 2). The two AFMs differ only in VR, VY, stall speeds and VA: the application uses those of the aircraft selected in Step 1.</li><li>Operations: VFR flight planning. Final reserve is selectable for VFR (30 min) or IFR (45 min).</li><li>Units: fuel in <b>litres</b>, fuel flow in <b>L/h</b>, speeds in <b>MPH</b> (as in the AFM), distances in <b>NM</b>, times in <b>UTC</b>.</li></ul>
 <h2 id="s1-3"><span class="n">1.3</span>System overview</h2>
 <div class="flow">
   <div class="fl-col"><div class="fl-h">INPUTS</div>
@@ -311,7 +311,7 @@
 <section>
 <h1 class="sec" id="s5"><span class="sn">SECTION 5</span><span class="st">Operational Notes – Safety &amp; Performance Limits</span></h1>
 <h2 id="s5-1"><span class="n">5.1</span>Aircraft applicability</h2>
-<div class="box warning"><div class="box-h">WARNING</div><div class="box-b">AFM data are those of the Reims FR172J; empty masses and moments are those of I-CCAF and I-CCAB. Used for any other aircraft the results are not approximate: they are wrong.</div></div>
+<div class="box warning"><div class="box-h">WARNING</div><div class="box-b">AFM data are those of the Reims FR172J (I-CCAF) and FR172H (I-CCAB); empty masses and moments are those of the two aircraft. With <b>Other</b>, speeds are those of the FR172J. Used for any other aircraft the results are not approximate: they are wrong.</div></div>
 <h2 id="s5-2"><span class="n">5.2</span>Performance limits</h2>
 <table class="std lim"><thead><tr><th>Item</th><th>Limitation</th><th>Effect</th></tr></thead><tbody>
 <tr><td>Declared distances</td><td>TORA / TODA / LDA pre-filled with the physical runway length (OurAirports)</td><td><b>Must</b> be corrected from the AIP where stopway, clearway or displaced threshold exist, or NOTAM changes apply</td></tr>

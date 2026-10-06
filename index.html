@@ -1,11 +1,12 @@
 <!--
-  CESSNA C172 FR (Reims Rocket FR172J) — OFP GENERATOR / WIZARD
+  CESSNA C172 FR (Reims Rocket FR172J / FR172H) — OFP GENERATOR / WIZARD
   Step: 1 Volo&Aeromobile  2 Rotta&Fuel  3 Mass&Balance  4 Performance
         5 Dest Charts  6 Briefing  7 NOTAM&Weather
 
-  Tutti i dati aeromobile (masse, V-speeds, crociera, consumi) provengono dal
-  Flight Manual Reims Rocket FR172J, Edition 3 (Reims Aviation) — vedi
-  DATI-AFM.md per il riferimento pagina per pagina di ogni numero.
+  Tutti i dati aeromobile (masse, V-speeds, crociera, consumi) provengono dai
+  Flight Manual Reims Rocket dei due aeroplani: FR172J Edition 3 (I-CCAF) e
+  FR172H Edition 2 (I-CCAB), che differiscono solo in VR, VY, stallo e VA —
+  vedi DATI-AFM.md per il riferimento pagina per pagina di ogni numero.
 
   Il file funziona in due modi, senza modifiche:
    - aperto direttamente in un browser (file:// o hosting statico);
@@ -309,7 +310,7 @@
             <div class="fld"><label>MTOW</label><input id="mtow" type="number" value="1157"></div>
             <div class="fld"><label>MLAW</label><input id="mldw" type="number" value="1157"></div>
           </div>
-          <div class="hint">Reims Rocket FR172J AFM limits (sect. II, pp. 2-2/2-3):
+          <div class="hint">Reims Rocket AFM limits, identical for FR172J and FR172H (sect. II, pp. 2-2/2-3):
             <b>MTOW = MLW = 1157 kg</b> (2550 lb) <b>NORMAL</b> category, <b>998 kg</b> (2200 lb)
             <b>UTILITY</b> category (baggage compartment and rear seats empty). The AFM <b>publishes no MZFW</b>:
             the field stays at MTOW because the real constraint is maximum mass + CG envelope.
@@ -696,9 +697,11 @@
 <script>
 /* ============================ helpers ============================ */
 /* ===================== AEROMOBILE: CESSNA C172 FR =====================
-   Reims Cessna FR172J "Reims Rocket" — Continental IO-360-D, 210 HP a 2800 RPM,
-   elica a giri costanti (da cui la Manifold Pressure nelle tabelle di crociera).
-   Ogni costante qui sotto e' presa dal Flight Manual Reims Rocket, Edition 3.
+   Reims Cessna FR172J / FR172H "Reims Rocket" — Continental IO-360-D, 210 HP a
+   2800 RPM, elica a giri costanti (da cui la Manifold Pressure nelle tabelle di
+   crociera). Ogni costante qui sotto e' presa dal Flight Manual Reims Rocket ed
+   e' identica nei manuali dei due modelli (FR172J Ed. 3, FR172H Ed. 2); le poche
+   velocita' che cambiano stanno in AFM_MODELLI.
 
    CARBURANTE — AVGAS. Il manuale (Sample Loading Problem, fig. 6-4) usa
    174 litri = 125,2 kg, cioe' 0,72 kg/litro; 46 US gallons = 174 litri, da cui
@@ -723,7 +726,7 @@ const AC_LIMITS = {
   mzfw       : 1157,  // l'AFM non pubblica un MZFW: il vincolo e' il MTOW + inviluppo CG
   mtowUtility:  998,  // categoria UTILITY (2200 lb) — bagagliaio e sedili posteriori vuoti
   maxBaggage :   91,  // 200 lb (AFM pag. 2-3)
-  vne:161, vno:127, vfe:87, va:104,          // kt, AFM pag. 2-1
+  vne:161, vno:127, vfe:87,                  // kt, AFM pag. 2-1 (uguali su J e H; VA in AFM_MODELLI)
   xwindTO:20, xwindLDG:15                    // kt, AFM pag. 2-4
 };
 /* Orari a menu. Le due tendine (ore, minuti a passi di 5) scrivono nel campo
@@ -1106,8 +1109,8 @@ function computeFuel(){
    momento quello che il foglio propaga davvero nei calcoli. Ricavare il braccio da momento÷peso riproduce quindi esattamente i
    numeri dell'aeroclub, mentre moltiplicare peso × braccio scritto no. */
 const AIRCRAFT = {
-  'I-CCAF': { type:'CESSNA C172FR', bew:734.0, bewMoment:679.0    },  // braccio 0,92507 m (Rev. 17; Rev. 14: 716,1 / 693,9009)
-  'I-CCAB': { type:'CESSNA C172FR', bew:724.0, bewMoment:683.0    },  // braccio 0,94337 m
+  'I-CCAF': { type:'CESSNA C172FR', model:'FR172J', bew:734.0, bewMoment:679.0    },  // braccio 0,92507 m (Rev. 17; Rev. 14: 716,1 / 693,9009)
+  'I-CCAB': { type:'CESSNA C172FR', model:'FR172H', bew:724.0, bewMoment:683.0    },  // braccio 0,94337 m
 };
 const ARM = { front:0.94, rear:1.86, baggage:2.41, fuel:1.23 };  // metri, dal foglio aeroclub
 const MAX_BAGGAGE_KG = 91;                                       // AFM pag. 2-3
@@ -1137,12 +1140,14 @@ function cgCheck(weight, arm, category){
     ok: weight<=lim.maxW && arm>=lim.fwd && arm<=lim.aft
   };
 }
-/* Velocità di manovra alla massa effettiva. L'AFM pubblica VA = 104 kt a 1157 kg
-   (pag. 2-1); VA scala con la radice del rapporto delle masse, come nel foglio
-   dell'aeroclub — che fa lo stesso conto in MPH partendo dai 61 MPH di stallo. */
+/* Velocità di manovra alla massa effettiva, in MPH come la stampa il manuale:
+   118 MPH a 1157 kg sul FR172J, 125 sul FR172H (pag. 2-1). VA scala con la
+   radice del rapporto delle masse, come nel foglio dell'aeroclub — che fa lo
+   stesso conto partendo dallo stallo: 61 MPH per I-CCAF, 64 per I-CCAB. */
 function vaFor(weight){
-  if(!(weight>0)) return AC_LIMITS.va;
-  return Math.round(AC_LIMITS.va*Math.sqrt(Math.min(weight,AC_LIMITS.mtowNormal)/AC_LIMITS.mtowNormal));
+  const va=AFM_SPEEDS.vaMph;
+  if(!(weight>0)) return va;
+  return Math.round(va*Math.sqrt(Math.min(weight,AC_LIMITS.mtowNormal)/AC_LIMITS.mtowNormal));
 }
 
 /* Catena dei pesi, identica al foglio dell'aeroclub:
@@ -1187,7 +1192,8 @@ function weights(f){
 
 /* ============================ POH reference tables ============================ */
 /* ===================== VELOCITA' — SOLO DATI AFM =====================
-   Ogni numero di questo blocco e' STAMPATO nel Flight Manual Reims Rocket FR172J.
+   Ogni numero di questo blocco e' STAMPATO nel Flight Manual Reims Rocket
+   dell'aeroplano scelto (FR172J per I-CCAF, FR172H per I-CCAB).
    Niente scalature, niente estrapolazioni: dove il manuale pubblica piu' masse o
    piu' quote si interpola LINEARMENTE fra i valori tabulati, dove ne pubblica uno
    solo resta quello e viene dichiarato come tale.
@@ -1210,27 +1216,56 @@ function weights(f){
    Non sono dati del manuale e sono state rimosse. */
 const KT_PER_MPH = 1/1.15078;
 
-const AFM_SPEEDS = {
-  /* fig. 5-4 — TAKE-OFF DISTANCE, colonna "VI 15 m" */
-  vr: { weights:[850,1000,1157], mph:[58,63,68], src:'fig. 5-4' },
-
-  /* fig. 5-6 — MAXIMUM RATE OF CLIMB DATA: velocita' e rateo per massa e quota.
-     Indici: [massa][quota] con masse 850/1000/1157 e quote 0/5000/10000/15000 ft. */
-  vy: {
-    weights:[850,1000,1157], alts:[0,5000,10000,15000],
-    mph:[[80,78,77,76],[82,81,80,79],[85,84,83,82]],
-    roc:[[1420,1115,815,515],[1120,860,595,340],[880,650,420,190]],
-    src:'fig. 5-6'
+/* I due aeroplani dell'aeroclub non sono lo stesso modello: I-CCAF e' un
+   FR172J (Flight Manual Edition 3), I-CCAB un FR172H (Flight Manual Edition 2,
+   1971). I due manuali sono stati confrontati tabella per tabella: crociera
+   (tutte le 99 righe), ratei e carburante di salita, distanze di decollo e
+   atterraggio, planata, avvicinamento, limiti di velocita', masse e inviluppo
+   coincidono al numero. Cambiano solo le velocita' qui sotto: VR, VY, stallo e
+   VA. Ogni aeroplano usa le proprie; un aeroplano "Other" usa quelle del J. */
+const AFM_MODELLI = {
+  FR172J: {
+    nome:'FR172J', manuale:'Flight Manual FR172J, Edition 3',
+    /* fig. 5-4 — TAKE-OFF DISTANCE, colonna "VI 15 m" */
+    vr: { weights:[850,1000,1157], mph:[58,63,68], src:'fig. 5-4' },
+    /* fig. 5-6 — MAXIMUM RATE OF CLIMB DATA: velocita' e rateo per massa e quota.
+       Indici: [massa][quota] con masse 850/1000/1157 e quote 0/5000/10000/15000 ft. */
+    vy: {
+      weights:[850,1000,1157], alts:[0,5000,10000,15000],
+      mph:[[80,78,77,76],[82,81,80,79],[85,84,83,82]],
+      roc:[[1420,1115,815,515],[1120,860,595,340],[880,650,420,190]],
+      src:'fig. 5-6'
+    },
+    /* Valori pubblicati per una sola condizione: restano quelli, a qualunque massa. */
+    glide:  { mph:85, src:'fig. 5-7', note:'elica in autorotazione, flap UP' },
+    vrefLdg:{ mph:73, src:'fig. 5-5', note:'approach speed, flap 40, 1157 kg' },
+    stall:  { up:61, f20:55, f40:53, src:'fig. 5-3', note:'1157 kg, potenza tolta, CG posteriore, ali livellate' },
+    /* Sez. IV "BEFORE LANDING": intervalli operativi, non valori singoli. */
+    approach:{ up:[75,85], down:[70,80], src:'sez. IV' },
+    /* pag. 2-1, Vp: 190 km/h, 104 kt, 118 MPH. Il manuale stampa 118 MPH, che e'
+       la colonna con cui si lavora qui (104 kt darebbero 120). */
+    vaMph:118
   },
-
-  /* Valori pubblicati per una sola condizione: restano quelli, a qualunque massa. */
-  glide:  { mph:85, src:'fig. 5-7', note:'elica in autorotazione, flap UP' },
-  vrefLdg:{ mph:73, src:'fig. 5-5', note:'approach speed, flap 40, 1157 kg' },
-  stall:  { up:61, f20:55, f40:53, src:'fig. 5-3', note:'1157 kg, potenza tolta, CG posteriore, ali livellate' },
-
-  /* Sez. IV "BEFORE LANDING": intervalli operativi, non valori singoli. */
-  approach:{ up:[75,85], down:[70,80], src:'sez. IV' }
+  FR172H: {
+    nome:'FR172H', manuale:'Flight Manual FR172H, Edition 2',
+    vr: { weights:[850,1000,1157], mph:[61,66,71], src:'fig. 5-4' },
+    vy: {
+      weights:[850,1000,1157], alts:[0,5000,10000,15000],
+      mph:[[88,85,82,79],[92,88,85,81],[95,91,87,83]],
+      roc:[[1420,1115,815,515],[1120,860,595,340],[880,650,420,190]],   // = FR172J
+      src:'fig. 5-6'
+    },
+    glide:  { mph:85, src:'fig. 5-7', note:'elica in autorotazione, flap UP' },
+    vrefLdg:{ mph:73, src:'fig. 5-5', note:'approach speed, flap 40, 1157 kg' },
+    stall:  { up:64, f20:58, f40:53, src:'fig. 5-3 / 2-1', note:'1157 kg, potenza tolta, CG posteriore, ali livellate' },
+    approach:{ up:[75,85], down:[70,80], src:'sez. IV' },
+    vaMph:125                                  // pag. 2-1, Vp: 201 km/h, 109 kt, 125 MPH
+  }
 };
+/* Le velocita' dell'aeroplano scelto allo Step 1. Le aggiorna syncAircraftUI(),
+   che render() chiama per prima cosa: chi legge AFM_SPEEDS trova sempre quelle
+   dell'aeroplano a schermo. */
+let AFM_SPEEDS = AFM_MODELLI.FR172J;
 
 /* Interpolazione lineare su un vettore di riferimento, con clamp agli estremi:
    fuori dal campo tabulato NON si estrapola, si resta sull'ultimo valore noto. */
@@ -2467,7 +2502,7 @@ function pageMB(f,w){
   <div style="font-size:9px;margin-top:3px">
     LIMITS: MTOW/MLW ${num('mtow')} kg &middot; baggage ${MAX_BAGGAGE_KG} kg &middot; fuel ${USABLE_FUEL_L} L (${USABLE_FUEL_USG} USG)<br>
     CG at takeoff <b>${w.tow.arm.toFixed(3)} m</b> &mdash; NORMAL envelope ${lim.fwd}&ndash;${lim.aft} m &mdash;
-    <b>${towChk.ok?'WITHIN LIMITS':'OUT OF LIMITS'}</b> &middot; VA at ${w.towKg} kg = ${spdVal(ktToMph(vaFor(w.towKg)))} ${spdLabel()}
+    <b>${towChk.ok?'WITHIN LIMITS':'OUT OF LIMITS'}</b> &middot; VA at ${w.towKg} kg = ${spdVal(vaFor(w.towKg))} ${spdLabel()}
   </div>`;
   const rem = txt('mbRemarks').trim();
   const body=`
@@ -2607,7 +2642,7 @@ function pagePerf(f,w){
   const body=`
     <div class="kv">ETOW <span class="filled">${w.towKg}</span> kg&nbsp;&nbsp;&nbsp;ELDW <span class="filled">${w.ldwKg}</span> kg&nbsp;&nbsp;&nbsp;ALTN <span class="filled">${w.altwKg}</span> kg</div>
     <div style="font-size:9.5px;margin:4px 0 2px">*ADD +5 KTS AT VREF SPEEDS &middot; VNE ${AC_LIMITS.vne} &middot; VNO ${AC_LIMITS.vno} &middot; VFE ${AC_LIMITS.vfe} KIAS &middot; XWIND T/O ${AC_LIMITS.xwindTO} kt &middot; LDG ${AC_LIMITS.xwindLDG} kt</div>
-    <div style="font-size:9.5px;margin:0 0 8px">VA ${spdVal(ktToMph(AC_LIMITS.va))} ${u} at ${AC_LIMITS.mtowNormal} kg &rarr; <b>${spdVal(ktToMph(vaFor(w.towKg)))} ${u}</b> at ${w.towKg} kg (TOW)</div>
+    <div style="font-size:9.5px;margin:0 0 8px">VA ${spdVal(AFM_SPEEDS.vaMph)} ${u} at ${AC_LIMITS.mtowNormal} kg &rarr; <b>${spdVal(vaFor(w.towKg))} ${u}</b> at ${w.towKg} kg (TOW)</div>
     ${vTable}
     ${pohTable}
     <div style="font-weight:700;margin-top:10px">TAKEOFF AND LANDING DISTANCES</div>
@@ -4557,7 +4592,7 @@ function buildPDF(){
   doc.setFontSize(7.5);
   doc.text(`LIMITS: MTOW/MLW ${num('mtow')} kg - BAGGAGE ${MAX_BAGGAGE_KG} kg - FUEL ${USABLE_FUEL_L} L (${USABLE_FUEL_USG} USG)`,L,y); y+=LHmb-0.6;
   doc.text(`CG T/O ${w.tow.arm.toFixed(3)} m - NORMAL envelope ${lim.fwd}-${lim.aft} m - ${towChk.ok?'WITHIN LIMITS':'*** OUT OF LIMITS ***'}`,L,y); y+=LHmb-0.6;
-  doc.text(`CATEGORY AVAILABLE: ${utilChk.ok?'UTILITY and NORMAL':'NORMAL'} - VA at ${w.towKg} kg = ${spdVal(ktToMph(vaFor(w.towKg)))} ${spdLabel()}`,L,y); y+=LHmb-0.6;
+  doc.text(`CATEGORY AVAILABLE: ${utilChk.ok?'UTILITY and NORMAL':'NORMAL'} - VA at ${w.towKg} kg = ${spdVal(vaFor(w.towKg))} ${spdLabel()}`,L,y); y+=LHmb-0.6;
   doc.setFontSize(9);
   y+=2;
 
@@ -4588,7 +4623,7 @@ function buildPDF(){
   y=monoLine(doc,L,y,`TOW ${w.towKg} kg   LAW ${w.ldwKg} kg   ALTN ${w.altwKg} kg`);
   y=monoLine(doc,L,y,'*ADD +5 KTS AT VREF SPEEDS');
   y=monoLine(doc,L,y,`VNE ${AC_LIMITS.vne}  VNO ${AC_LIMITS.vno}  VFE ${AC_LIMITS.vfe} KIAS   XWIND T/O ${AC_LIMITS.xwindTO} kt  LDG ${AC_LIMITS.xwindLDG} kt`);
-  y=monoLine(doc,L,y,`VA ${spdVal(ktToMph(AC_LIMITS.va))} ${spdLabel()} at ${AC_LIMITS.mtowNormal} kg -> ${spdVal(ktToMph(vaFor(w.towKg)))} ${spdLabel()} at ${w.towKg} kg (TOW)`); y+=3;
+  y=monoLine(doc,L,y,`VA ${spdVal(AFM_SPEEDS.vaMph)} ${spdLabel()} at ${AC_LIMITS.mtowNormal} kg -> ${spdVal(vaFor(w.towKg))} ${spdLabel()} at ${w.towKg} kg (TOW)`); y+=3;
   const uSp=spdLabel();
   const vDep=vspeedsFor(w.towKg,0), vDest=vspeedsFor(w.ldwKg,0), vAltn=vspeedsFor(w.altwKg,0);
   const vColW=[52,20,20,20];
@@ -5681,6 +5716,7 @@ if(typeof google!=='undefined' && google.script && google.script.run){
    riaperto dalla Dashboard si mostra coerente senza riscrivere i suoi valori. */
 function syncAircraftUI(){
   const sel=txt('acSelect'), ac=AIRCRAFT[sel];
+  AFM_SPEEDS = AFM_MODELLI[(ac && ac.model) || 'FR172J'];
   /* Per gli aeromobili in elenco peso e momento vengono sempre dal foglio in
      vigore: un volo salvato prima di un aggiornamento (Rev. 14 -> 17) si
      riapre con i valori nuovi, non con quelli che aveva in memoria. */
@@ -5697,8 +5733,8 @@ function syncAircraftUI(){
   if($('acInfo')){
     const reg=(txt('reg')||'').trim().toUpperCase();
     $('acInfo').textContent = ac
-      ? `${sel} \u2014 ${ac.type} (selected in Step 1)`
-      : `${reg||'Other aircraft'} (Step 1) \u2014 enter empty weight and moment below`;
+      ? `${sel} \u2014 ${ac.type} (Reims ${ac.model}, selected in Step 1)`
+      : `${reg||'Other aircraft'} (Step 1) \u2014 enter empty weight and moment below; speeds from the FR172J AFM`;
   }
 }
 function applyAircraft(){

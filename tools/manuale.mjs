@@ -133,7 +133,7 @@ A(`<section class="cover">
     <tr><th>Document</th><td>OFP-SOP &ndash; Application User Manual</td></tr>
     <tr><th>Revision</th><td>Rev. 1 &ndash; DRAFT for review</td></tr>
     <tr><th>Date</th><td>${DOC.date}</td></tr>
-    <tr><th>Aircraft</th><td>Reims Cessna FR172J &ldquo;Reims Rocket&rdquo; &ndash; I-CCAF, I-CCAB</td></tr>
+    <tr><th>Aircraft</th><td>Reims Cessna &ldquo;Reims Rocket&rdquo; &ndash; I-CCAF (FR172J), I-CCAB (FR172H)</td></tr>
     <tr><th>Operations</th><td>VFR flight planning</td></tr>
     <tr><th>Outputs</th><td>Operational Flight Plan (OFP, A4) &middot; NAV-FLIGHTPLAN (A5)</td></tr>
   </table>
@@ -188,9 +188,9 @@ A('</section>');
 A('<section>');
 A(h1(1, 'General'));
 A(h2('1.1', 'Purpose'));
-A(p('The application converts the route prepared in ForeFlight and the weather briefing into the two documents carried in flight: the **Operational Flight Plan (OFP)** and the **NAV-FLIGHTPLAN**. All performance, fuel and mass figures are computed from the Reims FR172J AFM; every intermediate result is shown so that it can be checked.'));
+A(p('The application converts the route prepared in ForeFlight and the weather briefing into the two documents carried in flight: the **Operational Flight Plan (OFP)** and the **NAV-FLIGHTPLAN**. All performance, fuel and mass figures are computed from the AFM of the selected aircraft; every intermediate result is shown so that it can be checked.'));
 A(h2('1.2', 'Scope and applicability'));
-A(ul(['Aircraft: Reims Cessna FR172J &ldquo;Reims Rocket&rdquo;, Continental IO-360-D, registrations **I-CCAF** and **I-CCAB**.',
+A(ul(['Aircraft: Reims Cessna &ldquo;Reims Rocket&rdquo;, Continental IO-360-D: **I-CCAF** (FR172J, AFM Edition 3) and **I-CCAB** (FR172H, AFM Edition 2). The two AFMs differ only in VR, VY, stall speeds and VA: the application uses those of the aircraft selected in Step 1.',
   'Operations: VFR flight planning. Final reserve is selectable for VFR (30 min) or IFR (45 min).',
   'Units: fuel in **litres**, fuel flow in **L/h**, speeds in **MPH** (as in the AFM), distances in **NM**, times in **UTC**.']));
 A(h2('1.3', 'System overview'));
@@ -567,7 +567,7 @@ A('</section>');
 A('<section>');
 A(h1(5, 'Operational Notes – Safety & Performance Limits'));
 A(h2('5.1', 'Aircraft applicability'));
-A(box('warning', 'WARNING', 'AFM data are those of the Reims FR172J; empty masses and moments are those of I-CCAF and I-CCAB. Used for any other aircraft the results are not approximate: they are wrong.'));
+A(box('warning', 'WARNING', 'AFM data are those of the Reims FR172J (I-CCAF) and FR172H (I-CCAB); empty masses and moments are those of the two aircraft. With **Other**, speeds are those of the FR172J. Used for any other aircraft the results are not approximate: they are wrong.'));
 A(h2('5.2', 'Performance limits'));
 A(`<table class="std lim"><thead><tr><th>Item</th><th>Limitation</th><th>Effect</th></tr></thead><tbody>
 <tr><td>Declared distances</td><td>TORA / TODA / LDA pre-filled with the physical runway length (OurAirports)</td><td><b>Must</b> be corrected from the AIP where stopway, clearway or displaced threshold exist, or NOTAM changes apply</td></tr>

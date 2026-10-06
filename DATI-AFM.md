@@ -1,10 +1,39 @@
 # Dati aeromobile — da dove viene ogni numero
 
-Tutti i valori del generatore vengono dal **Flight Manual Reims Rocket, Model FR172J,
-Edition 3** (Reims Aviation, Reims/Marne — French TC 43, FAA TC A18EU), cioè il
-manuale del "Cessna C172 FR" allegato alla richiesta.
+I due aeroplani dell'aeroclub sono due modelli diversi della stessa serie
+Reims Rocket (French TC 43, FAA TC A18EU), ciascuno con il proprio manuale:
 
-Il FR172J **non è un 172 standard**: monta un **Continental IO-360-D da 210 HP a
+| Aeromobile | Modello | Manuale |
+|---|---|---|
+| **I-CCAF** | FR172J | Flight Manual Reims Rocket, Edition 3 |
+| **I-CCAB** | FR172H | Flight Manual Reims Rocket, Edition 2 (settembre 1971; traduzione inglese di cortesia) |
+
+I due manuali sono stati confrontati tabella per tabella. **Coincidono al
+numero**: limiti di velocità (VNE, VNO, VFE), masse, inviluppo di centraggio,
+carburante, bracci, tutte le 99 righe di crociera (fig. 5-1, fogli 1-5),
+ratei e carburante di salita (fig. 5-6), distanze di decollo (fig. 5-4) e di
+atterraggio (fig. 5-5), velocità di avvicinamento e di planata. **Cambiano
+solo quattro velocità**, che nel codice stanno in `AFM_MODELLI`:
+
+| | FR172J (I-CCAF) | FR172H (I-CCAB) | Fonte |
+|---|---|---|---|
+| VR / velocità a 15 m, 850 / 1000 / 1157 kg | 58 / 63 / 68 MPH | **61 / 66 / 71 MPH** | fig. 5-4 |
+| VY a 1157 kg, SL / 5000 / 10000 / 15000 ft | 85 / 84 / 83 / 82 MPH | **95 / 91 / 87 / 83 MPH** | fig. 5-6 |
+| VY a 1000 kg | 82 / 81 / 80 / 79 | **92 / 88 / 85 / 81** | fig. 5-6 |
+| VY a 850 kg | 80 / 78 / 77 / 76 | **88 / 85 / 82 / 79** | fig. 5-6 |
+| Stallo UP / 20° / 40° a 1157 kg | 61 / 55 / 53 MPH | **64 / 58 / 53 MPH** | fig. 5-3, 2-1 |
+| VA a 1157 kg | 118 MPH (104 kt) | **125 MPH (109 kt)** | pag. 2-1 |
+
+L'app usa le velocità dell'aeroplano scelto allo Step 1. Con "Other" usa
+quelle del FR172J. La VY entra anche nella **distanza** di salita (la TAS della
+salita): con I-CCAB il top of climb cade un po' più lontano, mentre tempo e
+carburante di salita, che dipendono da ratei e consumi identici, non cambiano.
+
+Il resto di questo documento descrive i dati comuni ai due modelli, con le
+pagine del manuale FR172J; nel manuale FR172H hanno lo stesso numero di
+pagina e di figura.
+
+Il FR172J/H **non è un 172 standard**: monta un **Continental IO-360-D da 210 HP a
 2800 RPM con elica a giri costanti**. Per questo le tabelle di crociera hanno la
 Manifold Pressure, che su un 172 a elica fissa non esisterebbe. I flap hanno i
 detent **0 / 10 / 20 / 40 gradi**: "FULL" è 40°, non 30°.
@@ -19,7 +48,8 @@ detent **0 / 10 / 20 / 40 gradi**: "FULL" è 40°, non 30°.
 | MTOW, categoria Utility | **998 kg** (2200 lb) | `AC_LIMITS.mtowUtility` |
 | MZFW | **non pubblicato dall'AFM** | `AC_LIMITS.mzfw` = MTOW, vedi nota |
 | Bagaglio max | 91 kg (200 lb) | `AC_LIMITS.maxBaggage` |
-| VNE / VNO / VFE / VA | 161 / 127 / 87 / 104 kt | `AC_LIMITS.vne…va` |
+| VNE / VNO / VFE | 161 / 127 / 87 kt | `AC_LIMITS.vne…vfe` |
+| VA a 1157 kg | 118 MPH (J) / 125 MPH (H) | `AFM_MODELLI[...].vaMph` |
 | Vento al traverso T/O — LDG | 20 kt — 15 kt | `AC_LIMITS.xwindTO/LDG` |
 | Motore | 210 HP a 2800 RPM | — |
 | Arco verde MP / RPM | 15–25 inHg / 2200–2600 | rispettato da tutta `CRUISE_TABLE` |
@@ -47,11 +77,13 @@ l'inviluppo.
 
 ## Velocità di manovra alla massa effettiva
 
-L'AFM pubblica **VA = 104 kt a 1157 kg** (pag. 2-1). VA scala con la radice del
-rapporto delle masse: `VA(W) = 104 × √(W/1157)`. È lo stesso conto che fa il
-foglio dell'aeroclub, che però lo esprime in MPH partendo dai 61 MPH di stallo
-(`61 × √(W/1157) × √3,8` = 118,9 MPH a 1157 kg, cioè i 118 MPH del cartellino).
-Nel codice: `vaFor()`.
+Il manuale stampa la VA in tre unità (pag. 2-1): FR172J **190 km/h, 104 kt,
+118 MPH**; FR172H **201 km/h, 109 kt, 125 MPH**. Si usa la colonna in MPH,
+l'unità di tutte le velocità dell'app (104 kt darebbero 120 MPH, non i 118
+stampati). VA scala con la radice del rapporto delle masse:
+`VA(W) = VA₁₁₅₇ × √(W/1157)`. È lo stesso conto del foglio dell'aeroclub, che
+parte dallo stallo: `61 × √(W/1157) × √3,8` = 118,9 MPH per I-CCAF e
+`64 × √(W/1157) × √3,8` = 124,8 MPH per I-CCAB. Nel codice: `vaFor()`.
 
 ## Carburante (fig. 1-4 e fig. 6-4)
 
@@ -327,7 +359,6 @@ e taxi 5,4504 kg / momento 6,703992, come nelle celle del foglio.
 - Il file dell'aeroclub **non contiene l'inviluppo di centraggio**: i limiti CG
   vengono dall'AFM (tabella qui sopra). Le colonne del foglio che sembrano un
   inviluppo sono in realtà il calcolo di VA in funzione del peso.
-- La VA del foglio non si usa. Nella Rev. 17 il foglio di I-CCAF parte da uno
-  stallo di 61 MPH (`61 × √(W/1157) × √3,8`), quello di I-CCAB da **64 MPH**,
-  che dà 124,8 MPH a 1157 kg: più dei 61 MPH dell'AFM (fig. 5-3), che valgono
-  per entrambi, e quindi non prudente. L'app usa per tutti e due la VA dell'AFM.
+- La VA del foglio parte dallo stallo di ciascun modello: 61 MPH per I-CCAF
+  (FR172J) e 64 MPH per I-CCAB (FR172H), come nei rispettivi manuali. L'app usa
+  la VA stampata dal manuale (118 e 125 MPH), che coincide entro un MPH.
