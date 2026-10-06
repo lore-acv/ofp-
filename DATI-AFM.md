@@ -248,21 +248,29 @@ erba asciutta, −10% ogni 5 kt di vento frontale in atterraggio.
 # Pesi e bilanciamento — dal foglio dell'aeroclub
 
 Struttura, bracci e catena dei pesi vengono dal **W. & B. Loading Form**
-dell'aeroclub (*Pesi e Bilanciamento Rev. 14*), fogli `I-CCAF` e `I-CCAB`.
+dell'aeroclub (*Pesi e Bilanciamento Rev. 17*, 2025), fogli `I-CCAF` e `I-CCAB`.
 Il file contiene tutta la flotta; i due C172FR sono questi.
 
 ## Peso a vuoto (`AIRCRAFT`)
 
 | Aeromobile | Basic Empty Weight | Momento a vuoto | Braccio ricavato |
 |---|---|---|---|
-| **I-CCAF** | 716,1 kg | 693,9009 kg·m | 0,969 m |
+| **I-CCAF** | 734,0 kg | 679,0 kg·m | **0,92507 m** |
 | **I-CCAB** | 724,0 kg | 683,0 kg·m | **0,94337 m** |
 
-Si memorizza il **momento**, non il braccio. Sul foglio di I-CCAB il braccio
-scritto in cella è 0,94 m, ma 724,0 × 0,94 = 680,6 ≠ 683,0: è il **momento**
+Con la Rev. 17 è cambiato solo I-CCAF (Rev. 14: 716,1 kg, 693,9009 kg·m,
+braccio 0,969 m). I-CCAB è invariato.
+
+Si memorizza il **momento**, non il braccio. Su entrambi i fogli il braccio
+scritto in cella non torna con il momento: I-CCAF 0,92 m, ma 734,0 × 0,92 =
+675,3 ≠ 679,0; I-CCAB 0,94 m, ma 724,0 × 0,94 = 680,6 ≠ 683,0. È il **momento**
 quello che il foglio propaga davvero nei calcoli (lo ZFW del foglio riporta
-infatti braccio 0,94337). Ricavare il braccio da momento ÷ peso riproduce
-esattamente i numeri dell'aeroclub; moltiplicare per il braccio scritto no.
+infatti braccio 0,92507 e 0,94337). Ricavare il braccio da momento ÷ peso
+riproduce esattamente i numeri dell'aeroclub; moltiplicare per il braccio
+scritto no.
+
+I voli salvati si riaprono sempre con il peso a vuoto del foglio in vigore:
+per gli aeromobili in elenco i due campi non vengono dal volo ma da `AIRCRAFT`.
 
 Con l'opzione **Altro** i due campi si sbloccano, per quando arriva una nuova
 pesata e il foglio qui dentro non è ancora aggiornato.
@@ -301,9 +309,13 @@ fasi, il che è il comportamento corretto.
 
 ## Verifica
 
-I calcoli riproducono il foglio cifra per cifra: con I-CCAF vuoto e 2 USG di
-taxi si ottiene ZFW 716,1 kg / braccio 0,969 / momento 693,9009 e taxi 5,4504 kg
-/ momento 6,703992 — gli stessi valori delle celle del file Numbers.
+I calcoli riproducono il foglio cifra per cifra. Con la Rev. 17 le formule del
+file Excel (lette dal file stesso) sono state rifatte a parte e confrontate con
+l'app su sei carichi diversi, tre per aeromobile, dal solo pilota al pieno con
+bagaglio massimo: ZFW, Ramp, TOW e i due pesi di atterraggio, con peso, braccio
+e momento, coincidono in tutti i 30 casi (scarto massimo 2·10⁻¹³). Con I-CCAF
+vuoto e 2 USG di taxi si ottiene ZFW 734,0 kg / braccio 0,92507 / momento 679,0
+e taxi 5,4504 kg / momento 6,703992, come nelle celle del foglio.
 
 ---
 
@@ -315,3 +327,7 @@ taxi si ottiene ZFW 716,1 kg / braccio 0,969 / momento 693,9009 e taxi 5,4504 kg
 - Il file dell'aeroclub **non contiene l'inviluppo di centraggio**: i limiti CG
   vengono dall'AFM (tabella qui sopra). Le colonne del foglio che sembrano un
   inviluppo sono in realtà il calcolo di VA in funzione del peso.
+- La VA del foglio non si usa. Nella Rev. 17 il foglio di I-CCAF parte da uno
+  stallo di 61 MPH (`61 × √(W/1157) × √3,8`), quello di I-CCAB da **64 MPH**,
+  che dà 124,8 MPH a 1157 kg: più dei 61 MPH dell'AFM (fig. 5-3), che valgono
+  per entrambi, e quindi non prudente. L'app usa per tutti e due la VA dell'AFM.

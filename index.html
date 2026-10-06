@@ -267,7 +267,7 @@
       <div class="panel" data-step="3">
         <p class="step-title">Mass &amp; Balance</p>
         <p class="step-sub">Loading and balance sheet, with the same layout and the same arms as the flying
-          club's <b>W. &amp; B. Loading Form</b> (Weight and Balance Rev. 14). Fuel comes from
+          club's <b>W. &amp; B. Loading Form</b> (Weight and Balance Rev. 17). Fuel comes from
           Step 2: enter only occupants and baggage here.</p>
         <div class="group">
           <h3>Aircraft</h3>
@@ -277,8 +277,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="fld"><label>Basic Empty Weight (kg)</label><input id="bew" type="number" step="0.1" value="716.1"></div>
-            <div class="fld"><label>Moment BEW (kg&middot;m)</label><input id="bewMoment" type="number" step="0.0001" value="693.9009"></div>
+            <div class="fld"><label>Basic Empty Weight (kg)</label><input id="bew" type="number" step="0.1" value="734"></div>
+            <div class="fld"><label>Moment BEW (kg&middot;m)</label><input id="bewMoment" type="number" step="0.0001" value="679"></div>
           </div>
           <div class="calc" id="bewCalc"></div>
           <div class="hint">The aircraft is chosen in Step 1. Empty weight and moment come from the flying club's
@@ -1094,19 +1094,19 @@ function computeFuel(){
 }
 /* ===================== PESI E BILANCIAMENTO =====================
    Struttura, bracci e catena dei pesi presi dal "W. & B. LOADING FORM"
-   dell'aeroclub (Pesi e Bilanciamento Rev. 14), fogli I-CCAF e I-CCAB.
+   dell'aeroclub (Pesi e Bilanciamento Rev. 17), fogli I-CCAF e I-CCAB.
 
    I bracci delle stazioni sono identici sui due esemplari (sono di cellula):
    pilota + pax anteriore 0,94 m, pax posteriori 1,86 m, bagaglio 2,41 m,
    carburante 1,23 m. Cambiano solo peso a vuoto e momento a vuoto.
 
-   Si memorizza il MOMENTO, non il braccio: sul foglio di I-CCAB il braccio
-   scritto in cella (0,94 m) non corrisponde al momento (683,0 kg·m su 724,0 kg,
-   cioè 0,94337 m), ed è il momento quello che il foglio propaga davvero nei
-   calcoli. Ricavare il braccio da momento÷peso riproduce quindi esattamente i
+   Si memorizza il MOMENTO, non il braccio: sui fogli il braccio scritto in
+   cella non corrisponde al momento (I-CCAF: 0,92 m, ma 679,0 kg·m su 734,0 kg
+   fa 0,92507 m; I-CCAB: 0,94 m, ma 683,0 su 724,0 fa 0,94337 m), ed è il
+   momento quello che il foglio propaga davvero nei calcoli. Ricavare il braccio da momento÷peso riproduce quindi esattamente i
    numeri dell'aeroclub, mentre moltiplicare peso × braccio scritto no. */
 const AIRCRAFT = {
-  'I-CCAF': { type:'CESSNA C172FR', bew:716.1, bewMoment:693.9009 },  // braccio 0,969 m
+  'I-CCAF': { type:'CESSNA C172FR', bew:734.0, bewMoment:679.0    },  // braccio 0,92507 m (Rev. 17; Rev. 14: 716,1 / 693,9009)
   'I-CCAB': { type:'CESSNA C172FR', bew:724.0, bewMoment:683.0    },  // braccio 0,94337 m
 };
 const ARM = { front:0.94, rear:1.86, baggage:2.41, fuel:1.23 };  // metri, dal foglio aeroclub
@@ -5379,7 +5379,7 @@ const NEW_FLIGHT_DEFAULTS = {
   extraMin:'0', extraFuel:'0',
   flightRule:'VFR',
   acSelect:'I-CCAF',
-  bew:'716.1', bewMoment:'693.9009',
+  bew:'734', bewMoment:'679',
   pob:'',
   mzfw:'1157',               // AFM: nessun MZFW pubblicato, si usa il MTOW
   mtow:'1157',               // MTOW categoria NORMALE (2550 lb)
@@ -5681,6 +5681,13 @@ if(typeof google!=='undefined' && google.script && google.script.run){
    riaperto dalla Dashboard si mostra coerente senza riscrivere i suoi valori. */
 function syncAircraftUI(){
   const sel=txt('acSelect'), ac=AIRCRAFT[sel];
+  /* Per gli aeromobili in elenco peso e momento vengono sempre dal foglio in
+     vigore: un volo salvato prima di un aggiornamento (Rev. 14 -> 17) si
+     riapre con i valori nuovi, non con quelli che aveva in memoria. */
+  if(ac){
+    if($('bew') && num('bew')!==ac.bew) $('bew').value=ac.bew;
+    if($('bewMoment') && num('bewMoment')!==ac.bewMoment) $('bewMoment').value=ac.bewMoment;
+  }
   ['bew','bewMoment'].forEach(id=>{
     if(!$(id)) return;
     $(id).readOnly = !!ac;

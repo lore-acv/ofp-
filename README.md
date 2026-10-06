@@ -139,8 +139,9 @@ briefing non copre uno dei due l'import lo dice subito.
    Tutto il carburante in **litri**, i consumi in **L/h**, le velocità in **MPH**.
 3. **Mass & Balance** — foglio di carico e centraggio completo, con la stessa
    struttura e gli stessi bracci del *W. & B. Loading Form* dell'aeroclub
-   (Pesi e Bilanciamento Rev. 14). Si sceglie l'aeromobile (**I-CCAF** o
-   **I-CCAB**, con peso a vuoto e momento precaricati) e si inseriscono solo
+   (Pesi e Bilanciamento Rev. 17). L'aeromobile (**I-CCAF** o
+   **I-CCAB**, con peso a vuoto e momento precaricati) si sceglie allo Step 1;
+   qui si inseriscono solo
    occupanti e bagaglio: il carburante arriva dallo step precedente. Calcola ZFW,
    Ramp, TOW e i due pesi di atterraggio con peso, braccio e momento, e verifica
    masse, bagaglio e **inviluppo di centraggio** al decollo e a entrambi gli
@@ -550,8 +551,8 @@ una virgola: è carta, e la carta non ha un tema. Il pulsante non si stampa.
   l'ambiente di sviluppo non ha accesso a quel dominio. Parser, cache e
   autocompilazione sono verificati su dati di prova; al primo uso, se il servizio
   non risponde, l'applicazione lo dice e lascia tutti i campi compilabili a mano.
-- I pesi a vuoto sono quelli del foglio Rev. 14. Dopo una nuova pesata vanno
-  aggiornati (opzione **Altro** nel selettore, o `AIRCRAFT` in `index.html`).
+- I pesi a vuoto sono quelli del foglio Rev. 17. Dopo una nuova pesata vanno
+  aggiornati (opzione **Other** nel selettore dello Step 1, o `AIRCRAFT` in `index.html`).
 - Le distanze pista sono campi liberi con i default AFM a livello del mare: le
   correzioni per quota, temperatura, vento ed erba vanno applicate dal pilota.
 - Le V-speeds usano la fascia di peso AFM più vicina senza interpolare

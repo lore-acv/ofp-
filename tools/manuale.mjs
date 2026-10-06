@@ -212,7 +212,7 @@ A(`<table class="std"><thead><tr><th>Data</th><th>Source</th></tr></thead><tbody
 <tr><td>Cruise power, TAS, fuel flow</td><td>AFM fig. 5-1, interpolated between 2500 / 5000 / 7500 / 10000 / 15000 ft</td></tr>
 <tr><td>Climb time, fuel (incl. start-up and take-off)</td><td>AFM fig. 5-6, 1157 kg; climb distance derived from the same data</td></tr>
 <tr><td>Take-off / landing distances</td><td>AFM fig. 5-4 / 5-5</td></tr>
-<tr><td>Basic empty weight, moments, arms</td><td>Flying club W. &amp; B. Loading Form (Rev. 14)</td></tr>
+<tr><td>Basic empty weight, moments, arms</td><td>Flying club W. &amp; B. Loading Form (Rev. 17)</td></tr>
 <tr><td>Aerodrome position, elevation, runways, frequencies</td><td>OurAirports database (physical runway length only)</td></tr>
 <tr><td>Route, checkpoints, tracks, distances</td><td>ForeFlight NavLog</td></tr>
 <tr><td>METAR, SPECI, TAF, NOTAM, SIGMET/AIRMET, charts</td><td>Weather briefing PDF</td></tr>
