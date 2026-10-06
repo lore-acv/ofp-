@@ -451,7 +451,7 @@ A(steps([
   ['INPUT', 'callsigns [D] (not in any database).'],
   ['VERIFY', 'checkpoints, magnetic tracks and distances [E].'],
   ['VERIFY', 'the altitude of each waypoint [F]; CORRECT where different from cruise.'],
-  ['VERIFY', 'EET per leg, ETO (minutes after TO) and fuel [G].'],
+  ['VERIFY', 'EET per leg, ETO (minutes after TO) and fuel [G]. A leg from or to an aerodrome reads e.g. `7/+5`: 7 min en route + 5 aerodrome minutes (Section 5.3), already included in ETO, Trip and fuel.'],
   ['INPUT', 'remarks [H] (optional).'],
   ['CROSS-CHECK', 'the totals line [I] with the Trip of Step 2: time and fuel must be the same.'],
 ], 2));
@@ -582,9 +582,9 @@ A(`<table class="std lim"><thead><tr><th>Item</th><th>Limitation</th><th>Effect<
 </tbody></table>`);
 A(h2('5.3', 'Fuel planning as implemented'));
 A(`<table class="std lim"><thead><tr><th>Item</th><th>Method</th></tr></thead><tbody>
-<tr><td>Trip</td><td>Climb from DEP elevation to cruise altitude (AFM fig. 5-6, 1157 kg, start-up and take-off included) + cruise over the remaining distance at the selected GS and fuel flow. Descent is not modelled separately (included in cruise).</td></tr>
+<tr><td>Trip</td><td>Climb from DEP elevation to cruise altitude (AFM fig. 5-6, 1157 kg, start-up and take-off included) + cruise over the remaining distance at the selected GS and fuel flow. Descent is not modelled separately (included in cruise). + <b>aerodrome minutes</b>: 5 min for each leg from or to an aerodrome (first and last leg; the two legs around an en-route aerodrome only if Touch &amp; Go is selected), at cruise fuel flow.</td></tr>
 <tr><td>Contingency</td><td>max(5% of Trip, 15 min at cruise fuel flow)</td></tr>
-<tr><td>Alternate</td><td>Cruise only, 22 inHg / 2400 RPM at the alternate altitude, over the alternate distance. No climb or approach allowance.</td></tr>
+<tr><td>Alternate</td><td>Cruise, 22 inHg / 2400 RPM at the alternate altitude, over the alternate distance, + 5 aerodrome minutes. No climb allowance.</td></tr>
 <tr><td>Final reserve</td><td>30 min (VFR) or 45 min (IFR) at cruise fuel flow</td></tr>
 <tr><td>Taxi</td><td>(TO &minus; OFF) + (ON &minus; LDG) at 7.5 L/h</td></tr>
 <tr><td>Units</td><td>1 L = 0.72 kg; 174 L (46 USG) usable</td></tr>

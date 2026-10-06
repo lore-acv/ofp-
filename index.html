@@ -998,6 +998,43 @@ const TAXI_LPH = 7.5;        // consumo al rullaggio, IO-360-D 210 HP
 function mphToKt(mph){ return mph/MPH_PER_KT; }
 function ktToMph(kt){ return kt*MPH_PER_KT; }
 
+/* ===================== MINUTI DI AERODROMO =====================
+   Ogni tratta che parte da un aeroporto o vi arriva costa 5 minuti in piu' di
+   quelli di rotta: uscita e rientro per i punti di riporto obbligatori,
+   circuito, avvicinamento. Valgono:
+     - la prima tratta (dalla partenza) e l'ultima (alla destinazione);
+     - le due tratte attorno a un aeroporto in rotta, ma SOLO se e' segnato
+       Touch & Go: un aeroporto sorvolato e' un punto come un altro;
+     - la tratta verso l'alternato (si arriva su un aeroporto).
+   Entrano nel Trip (tempo e carburante, al fuel flow di crociera), negli ETO
+   del navlog, che slittano, e nel tempo e carburante dell'alternato. Sul
+   navlog la tratta si legge "7/+5": i minuti di rotta e quelli aggiunti. */
+const AD_EXTRA_MIN = 5;
+function navAdExtra(){
+  const rows=navRowsRaw();
+  const icao=(w)=>String(w||'').trim().toUpperCase().split(/[\s(]+/)[0];
+  const tng=tngAttivo() ? tngIcaoVal() : '';
+  if(!rows.length) return {perRow:[], total:(2+(tng?2:0))*AD_EXTRA_MIN};   // partenza, arrivo, T&G
+  const legNm=(r)=>parseFloat(String(r.dist).replace(',','.'))||0;
+  const legs=rows.map((r,i)=>legNm(r)>0 ? i : -1).filter(i=>i>=0);
+  const first=legs[0], last=legs[legs.length-1];
+  const perRow=rows.map((r,i)=>{
+    if(!(legNm(r)>0)) return 0;
+    const da = i>0 ? icao(rows[i-1].wpt) : '';
+    const a  = icao(r.wpt);
+    let n=0;
+    if(i===first || (tng && da===tng)) n++;      // AD -> WPT
+    if(i===last  || (tng && a===tng))  n++;      // WPT -> AD
+    return n*AD_EXTRA_MIN;
+  });
+  return {perRow, total:perRow.reduce((x,y)=>x+y,0)};
+}
+/* "7/+5": minuti di rotta e minuti di aerodromo, come li vuole il navlog. */
+function navEet(baseMin, adMin){
+  const b=navDur(Math.round(baseMin));
+  return adMin ? `${b.replace(/'$/,'')}/+${adMin}` : b;
+}
+
 function computeFuel(){
   /* Il Trip e' salita piu' crociera, e le due si SOMMANO:
        - SALITA dal campo di partenza alla quota di crociera: tempo,
@@ -1036,13 +1073,16 @@ function computeFuel(){
   const climbNm   = Math.min(climbNmX, dist);         // la salita non va oltre il Trip
   const cruiseNm  = Math.max(0, dist-climbNm);
   const cruiseMin = tripGSkt>0 ? cruiseNm/tripGSkt*60 : 0;
-  const tripMin   = (dist>0 && tripGSkt>0) ? climbMinX+cruiseMin : 0;
+  const adMin     = (dist>0 && tripGSkt>0) ? navAdExtra().total : 0;   // minuti di aerodromo
+  const tripMin   = (dist>0 && tripGSkt>0) ? climbMinX+cruiseMin+adMin : 0;
   const tripTime  = Math.round(tripMin);
   const cruiseTime = cruiseMin;
   const tripFF = num('tripFF'); // Fuel Flow di crociera in L/h — usato anche per Contingency e Final Reserve
-  const tripFuel = round2(climbFuel + cruiseMin/60*tripFF);
+  const tripFuel = round2(climbFuel + (cruiseMin+adMin)/60*tripFF);
   const altGSkt = mphToKt(num('altGS'));
-  const altTime  = altGSkt>0 ? Math.round(num('altDist')/altGSkt*60) : 0;
+  const altTimeBase = altGSkt>0 ? Math.round(num('altDist')/altGSkt*60) : 0;
+  const altAdMin = altTimeBase>0 ? AD_EXTRA_MIN : 0;                  // si arriva su un aeroporto
+  const altTime  = altTimeBase + altAdMin;
   const altFuel  = round2(altTime/60*num('altFF'));
 
   // CONTINGENCY = MAX(Trip Time * 0.05, 15) min ; MAX(Trip Fuel * 0.05, (FF/60)*15) USG
@@ -1091,7 +1131,7 @@ function computeFuel(){
   const blockTime= Math.round(minBlockTime+taxiMin+exMin);
   const toffFuel = round2(minBlockFuel+exFuel);
   const toffTime = Math.round(minBlockTime+exMin);
-  return {cruiseTime,tripTime,tripFuel,cAlt,climbFrom:climb.from,climbMin,climbMinX,climbNm,climbNmX,cruiseNm,climbFuel,climbOverruns,altTime,altFuel,contMin,contFuel,finMin,finFuel,
+  return {cruiseTime,tripTime,tripFuel,cAlt,climbFrom:climb.from,climbMin,climbMinX,climbNm,climbNmX,cruiseNm,climbFuel,climbOverruns,adMin,altTime,altTimeBase,altAdMin,altFuel,contMin,contFuel,finMin,finFuel,
           taxiMin,taxiFuel,exMin,exFuel,minBlockFuel,minBlockTime,toffFuel,toffTime,blockFuel,blockTime,
           minRequired, fobUsed, fobShort, fob:num('fob')};
 }
@@ -2107,7 +2147,7 @@ function navCalcLine(c){
 const NAV_LEG_WARN_MIN = 10;
 function navLegWarnLine(c){
   const el=$('navLegWarn'); if(!el) return;
-  const lunghe=c.rows.map((r,i)=>({r, da:i?c.rows[i-1].wpt:'', min:Math.round(r.ete)}))
+  const lunghe=c.rows.map((r,i)=>({r, da:i?c.rows[i-1].wpt:'', min:Math.round(r.eteBase)}))   // solo rotta
     .filter(x=>x.min>NAV_LEG_WARN_MIN);
   el.textContent = lunghe.length
     ? `\u26a0 ${lunghe.length===1?'Leg':'Legs'} over ${NAV_LEG_WARN_MIN} min: `
@@ -2138,7 +2178,7 @@ function renderNavlogEditor(f){
       });
       const ro=tr.querySelectorAll('td.ro');
       if(ro.length===3){
-        ro[0].textContent=navDur(Math.round(r.ete));
+        ro[0].textContent=navEet(r.eteBase, r.adMin);
         ro[1].textContent=etoMin(r.eto)||'--:--';
         ro[2].textContent=fmt(r.fuel)+' L';
       }
@@ -2158,7 +2198,7 @@ function renderNavlogEditor(f){
     <td class="c-mt">${inp(i,'mt',r.mt)}</td>
     <td class="c-dist">${inp(i,'dist',r.dist)}</td>
     <td class="c-alt">${inp(i,'alt',r.alt)}</td>
-    <td class="ro">${navDur(Math.round(r.ete))}</td>
+    <td class="ro">${navEet(r.eteBase, r.adMin)}</td>
     <td class="ro">${etoMin(r.eto)||'--:--'}</td>
     <td class="ro">${fmt(r.fuel)} L</td>
     <td class="c-rmk">${inp(i,'rmk',r.rmk)}</td>
@@ -2360,14 +2400,16 @@ function navlogComputed(f){
   const legNm=(r)=>parseFloat(String(r.dist).replace(',','.'))||0;
   /* Stessa regola dell'OFP: la salita non va oltre la rotta. */
   const climbNm=Math.min(f.climbNmX||0, rows.reduce((a,r)=>a+legNm(r),0));
+  const ad=navAdExtra();                     // minuti di aerodromo, tratta per tratta
   let cumD=0, cumT=0, cumF=0;
-  const out=rows.map(r=>{
+  const out=rows.map((r,i)=>{
     const d=legNm(r);
     const p=navLegProfile(cumD, d, climbNm, f, gsKt, ff);
-    const ete=p.min, fuel=p.fuel;
+    const adMin=ad.perRow[i]||0;
+    const eteBase=p.min, ete=p.min+adMin, fuel=p.fuel+adMin/60*(ff||0);
     cumD+=d; cumT+=ete; cumF+=fuel;
     // senza orario di decollo non ci sono orari stimati: la colonna resta in bianco
-    return {...r, d, ete, fuel, cumD, cumT, cumF, eto: t0==null ? '' : minToHHMM(t0+Math.round(cumT))};
+    return {...r, d, ete, eteBase, adMin, fuel, cumD, cumT, cumF, eto: t0==null ? '' : minToHHMM(t0+Math.round(cumT))};
   });
   return {rows:out, gsMph, ff, totDist:cumD, totTime:cumT, totFuel:cumF};
 }
@@ -2924,7 +2966,8 @@ function render(){
     el.textContent = f.climbOverruns
       ? `⚠ ${toc.text} — review altitude or distance  ·  Trip ${f.tripTime} min · ${fmt(f.tripFuel)} L, climb only`
       : `→ climb to ${f.cAlt} ft: ${f.climbNmX.toFixed(1)} NM, ${f.climbMin} min, ${fmt(f.climbFuel)} L`
-        + ` + cruise ${f.cruiseNm.toFixed(1)} NM, ${Math.max(0,f.tripTime-f.climbMin)} min at ${fmt(num('tripFF'))} L/h`
+        + ` + cruise ${f.cruiseNm.toFixed(1)} NM, ${Math.max(0,f.tripTime-f.climbMin-f.adMin)} min at ${fmt(num('tripFF'))} L/h`
+        + (f.adMin ? ` + aerodromes ${f.adMin} min (${f.adMin/AD_EXTRA_MIN} × ${AD_EXTRA_MIN})` : '')
         + ` = Trip ${f.tripTime} min · ${fmt(f.tripFuel)} L`
         + (toc ? `  ·  ${toc.text}` : '');
     el.style.color = f.climbOverruns ? 'var(--warn)' : '';
@@ -2937,7 +2980,7 @@ function render(){
   if($('altCalc')){
     const a=altnSettingAt(num('altAlt'));
     const set = a.row ? `${a.row.mp}" / ${a.row.rpm} RPM = ${a.row.bhp}% · TAS ${a.row.mph} MPH · ${a.row.lph} L/h` : 'power setting not available';
-    $('altCalc').textContent = `→ ${set}  ·  time ${f.altTime} min · fuel ${fmt(f.altFuel)} L`
+    $('altCalc').textContent = `→ ${set}  ·  time ${f.altTimeBase}${f.altAdMin?`+${f.altAdMin}`:''} = ${f.altTime} min · fuel ${fmt(f.altFuel)} L`
       + (a.fallback && a.row ? `   (22" not obtainable at ${num('altAlt')} ft: highest available MAP used at ${ALTN_SETTING.rpm} RPM)` : '');
     $('altCalc').style.color = a.fallback ? 'var(--warn)' : '';
   }
@@ -4295,7 +4338,7 @@ function buildNavlogPDF(){
     /* EET e' il tempo della SINGOLA tratta, non il progressivo dal decollo:
        in volo serve sapere quanto manca al prossimo punto, la somma la fa
        l'ETO della colonna accanto. */
-    r.alt, navDur(Math.round(r.ete)), etoMin(r.eto), '', r.rmk
+    r.alt, navEet(r.eteBase, r.adMin), etoMin(r.eto), '', r.rmk
   ]);
 
   /* Il foglio si riempie sempre fino in fondo, ma allargando le righe invece
@@ -4408,7 +4451,7 @@ function buildNavlogPDF(){
       if(txt('altn')) doc.text(txt('altn'), cx[2]+2.6+doc.getTextWidth(lab), y+rowH/2+1.2);
       if(num('altDist')>0) doc.text(String(num('altDist')), cx[4]+colW(4)/2, y+rowH/2+1.2, {align:'center'});
       if(txt('altAlt'))    doc.text(txt('altAlt'),          cx[5]+colW(5)/2, y+rowH/2+1.2, {align:'center'});
-      if(f.altTime)        doc.text(navDur(f.altTime),      cx[6]+colW(6)/2, y+rowH/2+1.2, {align:'center'});
+      if(f.altTime)        doc.text(navEet(f.altTimeBase, f.altAdMin), cx[6]+colW(6)/2, y+rowH/2+1.2, {align:'center'});
     }
     y+=rowH;
     for(let c=0;c<P.cols.length;c++) cell(cx[c],y,colW(c),rowH,'',{});

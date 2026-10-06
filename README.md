@@ -138,6 +138,10 @@ briefing non copre uno dei due l'import lo dice subito.
    RPM**. Trip, alternato, riserve (contingency = max 5% trip / 15', final reserve
    30' VFR o 45' IFR) e il campo **Fuel on board**, che serve solo a ricavare
    l'extra e il tempo extra e non compare nel documento finale.
+   Ogni tratta che parte da un aeroporto o vi arriva vale **5 minuti in piu'**
+   (prima e ultima tratta; le due attorno a un aeroporto in rotta solo se e' in
+   Touch & Go; la tratta verso l'alternato): entrano in Trip e alternato, tempo e
+   carburante al consumo di crociera, e il navlog le scrive `7/+5`.
    Tutto il carburante in **litri**, i consumi in **L/h**, le velocità in **MPH**.
 3. **Mass & Balance** — foglio di carico e centraggio completo, con la stessa
    struttura e gli stessi bracci del *W. & B. Loading Form* dell'aeroclub
