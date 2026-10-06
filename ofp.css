@@ -250,6 +250,7 @@
 .menu button:hover,.menu button:focus-visible{background:var(--field);outline:none}
 .menu .sep{height:1px;background:var(--panel-line);margin:.3rem .5rem}
 .menu button.primary{color:var(--accent-2);font-weight:700}
+.menu .menu-chi{padding:.35rem .9rem .2rem;font-size:.78rem;color:var(--txt-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:20rem}
 
 /* ===== breakpoint: tablet e schermi stretti ===== */
 @media screen and (max-width:1100px){
@@ -279,6 +280,15 @@
 #dashboard.open{display:block}
 .dash-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:var(--panel-bg);border-bottom:1px solid var(--panel-line);position:sticky;top:0;z-index:2}
 .dash-head h2{margin:0;font-size:17px;color:var(--txt)}
+.dash-conto{font-size:12.5px;color:var(--txt-dim);margin-top:3px}
+.dash-sync{display:block;color:var(--warn)}
+.dash-sync.err{color:var(--err)}
+/* barra dell'account nella pagina di import (solo sul sito con accesso) */
+.conto-barra{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--txt-dim);flex-wrap:wrap;justify-content:flex-end}
+.conto-barra[hidden]{display:none}
+.conto-barra a,.conto-barra button{font:inherit;font-size:.85rem;color:var(--txt);background:var(--field);border:1px solid var(--panel-line);
+  border-radius:.45rem;padding:.35rem .7rem;cursor:pointer;text-decoration:none}
+.conto-barra a:hover,.conto-barra button:hover{border-color:var(--hover-line)}
 .dash-body{padding:20px 22px;max-width:1100px;margin:0 auto}
 .dash-section-title{font-size:13px;font-weight:700;color:var(--txt-dim);text-transform:uppercase;letter-spacing:.04em;margin:18px 0 10px}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}

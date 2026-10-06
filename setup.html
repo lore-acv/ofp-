@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<!--
+  PRIMO AVVIO. Crea il primo amministratore, una volta sola: serve la chiave
+  SETUP_TOKEN impostata nel pannello Cloudflare, e funziona solo finche' il
+  database non ha nessun utente. Dopo, il server la rifiuta sempre.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>OFP C172 FR — First setup</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="conto.css">
+<script src="conto.js"></script>
+
+<div class="topbar"><div class="brand">C172 FR OFP <span>First setup</span></div><button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button></div>
+<main class="centro">
+  <div class="card">
+    <h1>Create the administrator account</h1>
+    <p class="sub">One time only. Enter the <b>SETUP_TOKEN</b> saved in the Cloudflare settings,
+      then your name, e-mail and password. Afterwards this page stops working.</p>
+    <p class="msg err" id="msg" hidden></p>
+    <form id="fSetup" novalidate>
+      <div class="fld"><label for="token">Setup key (SETUP_TOKEN)</label>
+        <input id="token" name="token" type="password" autocomplete="off" required></div>
+      <div class="fld"><label for="nome">Your name</label>
+        <input id="nome" name="nome" type="text" autocomplete="name" required></div>
+      <div class="fld"><label for="email">E-mail</label>
+        <input id="email" name="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" required></div>
+      <div class="fld"><label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" minlength="10" required></div>
+      <div class="fld"><label for="password2">Repeat password</label>
+        <input id="password2" name="password2" type="password" autocomplete="new-password" required></div>
+      <p class="hint">At least 10 characters. A passphrase of a few words is easier to remember and harder to guess.</p>
+      <button type="submit" class="btn primary full">Create administrator</button>
+    </form>
+  </div>
+</main>
+<script>
+Conto.modulo('fSetup', async (d)=>{
+  Conto.messaggio('msg','');
+  if(d.get('password')!==d.get('password2')){ Conto.messaggio('msg','The two passwords do not match.'); return; }
+  try{
+    await Conto.chiama('POST','/api/auth/setup',{ token:d.get('token'), nome:d.get('nome'), email:d.get('email'), password:d.get('password') });
+    location.href='/admin';
+  }catch(e){ Conto.messaggio('msg', e.message); }
+});
+</script>
+</html>

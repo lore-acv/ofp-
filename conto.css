@@ -1,0 +1,86 @@
+/* Pagine dell'account (accesso, primo avvio, cambio password, amministrazione).
+   Stessi colori del sito, ma un foglio a parte: accesso e primo avvio si
+   vedono senza sessione, e non devono dipendere da file che senza sessione
+   non si raggiungono. */
+:root{
+  --panel-bg:#0f1720; --panel-2:#16212e; --panel-line:#25384c;
+  --accent:#e11d2a; --accent-2:#2f6df6; --field:#0b1219; --txt:#dbe4ee; --txt-dim:#8fa3b8;
+  --bg:#070c12; --hover-line:#3a5a80; --ok:#7fd18b; --err:#ff7a7a; --warn:#ffd479; --tap:2.75rem;
+}
+html[data-tema="chiaro"]{
+  --panel-bg:#f2ece0; --panel-2:#e7dfd0; --panel-line:#cec3ad;
+  --accent:#a32a1e; --accent-2:#1f4f9c; --field:#f9f5ed; --txt:#1b1813; --txt-dim:#665e50;
+  --bg:#ddd3bf; --hover-line:#a4957a; --ok:#1f6b42; --err:#a32a1e; --warn:#6f4a00;
+}
+*{box-sizing:border-box}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+@media (min-width:768px){ html{font-size:17px} }
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+a{color:var(--accent-2)}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1.1rem;
+  background:var(--panel-2);border-bottom:1px solid var(--panel-line)}
+.brand{font-weight:800;letter-spacing:.02em}
+.brand span{color:var(--txt-dim);font-weight:500}
+.topbar nav{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+
+.centro{max-width:26rem;margin:0 auto;padding:3rem 1rem 4rem}
+.largo{max-width:62rem;margin:0 auto;padding:1.4rem 1rem 4rem}
+.card{background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:.8rem;padding:1.4rem 1.4rem 1.5rem;margin-bottom:1.1rem}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+h2{font-size:1.05rem;margin:0 0 .8rem}
+.sub{color:var(--txt-dim);font-size:.92rem;margin:0 0 1.2rem}
+
+.fld{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.9rem}
+.fld label{font-size:.8rem;color:var(--txt-dim);font-weight:600}
+.fld input,.fld select{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);border-radius:.45rem;
+  padding:.6rem .65rem;font-size:1rem;font-family:inherit;width:100%;min-height:var(--tap)}
+.fld input:focus,.fld select:focus{outline:2px solid var(--accent-2);outline-offset:1px;border-color:var(--accent-2)}
+.riga{display:grid;grid-template-columns:1fr 1fr;gap:0 .8rem}
+@media (max-width:560px){ .riga{grid-template-columns:1fr} }
+.hint{font-size:.82rem;color:var(--txt-dim);margin:-.4rem 0 .9rem}
+
+.btn{border:1px solid var(--panel-line);background:var(--field);color:var(--txt);padding:.55rem 1rem;border-radius:.5rem;
+  font-size:.92rem;cursor:pointer;font-weight:600;min-height:var(--tap);font-family:inherit;text-decoration:none;
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn:hover{border-color:var(--hover-line)}
+.btn.primary{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+.btn.danger{color:var(--err)}
+.btn.small{min-height:2.2rem;padding:.3rem .7rem;font-size:.85rem}
+.btn[disabled]{opacity:.55;cursor:default}
+.btn.full{width:100%}
+
+.msg{border-radius:.5rem;padding:.65rem .8rem;font-size:.9rem;margin:0 0 1rem;border:1px solid var(--panel-line)}
+.msg.err{border-color:var(--err);color:var(--err)}
+.msg.ok{border-color:var(--ok);color:var(--ok)}
+.msg[hidden]{display:none}
+.piccolo{font-size:.85rem;color:var(--txt-dim)}
+
+.tema-btn{width:var(--tap);height:var(--tap);padding:0;display:flex;align-items:center;justify-content:center;border-radius:.5rem;
+  border:1px solid var(--panel-line);background:var(--field);color:var(--txt-dim);cursor:pointer}
+.tema-btn svg{width:1.25rem;height:1.25rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tema-btn .luna{display:none}
+html[data-tema="chiaro"] .tema-btn .sole{display:none}
+html[data-tema="chiaro"] .tema-btn .luna{display:inline}
+
+/* amministrazione */
+table.utenti{width:100%;border-collapse:collapse;font-size:.9rem}
+table.utenti th{text-align:left;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--txt-dim);
+  padding:.5rem .5rem;border-bottom:1px solid var(--panel-line)}
+table.utenti td{padding:.6rem .5rem;border-bottom:1px solid var(--panel-line);vertical-align:top}
+table.utenti td.az{white-space:nowrap;text-align:right}
+table.utenti td.az .btn{margin-left:.25rem}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:.1rem .45rem;border-radius:.3rem;border:1px solid var(--panel-line);color:var(--txt-dim)}
+.tag.admin{color:var(--accent-2);border-color:var(--accent-2)}
+.tag.sospeso{color:var(--err);border-color:var(--err)}
+.tag.attesa{color:var(--warn);border-color:var(--warn)}
+@media (max-width:900px){
+  table.utenti thead{display:none}
+  table.utenti tr{display:block;border-bottom:1px solid var(--panel-line);padding:.5rem 0}
+  table.utenti td{display:block;border:0;padding:.15rem 0}
+  table.utenti td.az{text-align:left;padding-top:.5rem}
+  table.utenti td.az .btn{margin:0 .3rem .3rem 0}
+}
+.credenziali{font-family:"Courier New",monospace;font-size:1.15rem;font-weight:700;letter-spacing:.04em;
+  background:var(--field);border:1px dashed var(--accent-2);border-radius:.45rem;padding:.6rem .8rem;margin:.4rem 0 .8rem;word-break:break-all}

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<!--
+  AMMINISTRAZIONE. Solo per il ruolo admin (lo controlla il server, non la
+  pagina). Si creano gli account con una password temporanea, si reimposta
+  una password dimenticata, si sospende o si elimina un utente.
+  L'amministratore non vede i voli degli altri: ne vede solo il numero.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>OFP C172 FR — Users</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="conto.css">
+<script src="conto.js"></script>
+
+<div class="topbar"><div class="brand">C172 FR OFP <span>Users</span></div>
+  <nav><a class="btn small" href="/">&larr; Flight planning</a>
+    <a class="btn small" href="/password">Change password</a>
+    <button type="button" class="btn small" id="btnEsci">Sign out</button><button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button></nav></div>
+<main class="largo">
+  <p class="msg err" id="msg" hidden></p>
+
+  <div class="card" id="cardCredenziali" hidden>
+    <h2 id="credTitolo">Account created</h2>
+    <p class="piccolo" style="margin:0">E-mail</p>
+    <div class="credenziali" id="credEmail"></div>
+    <p class="piccolo" style="margin:0">Temporary password</p>
+    <div class="credenziali" id="credPassword"></div>
+    <p class="piccolo">This password is shown <b>only now</b>. Send it to the user through a channel other than the
+      e-mail itself (message, phone, in person). At the first sign-in the user must replace it with their own.</p>
+    <button type="button" class="btn small" id="btnCopia">Copy password</button>
+    <button type="button" class="btn small" id="btnChiudiCred">Done</button>
+  </div>
+
+  <div class="card">
+    <h2>New user</h2>
+    <form id="fNuovo" novalidate>
+      <div class="riga">
+        <div class="fld"><label for="nome">Name</label><input id="nome" name="nome" type="text" autocomplete="off" required></div>
+        <div class="fld"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="off" autocapitalize="none" spellcheck="false" required></div>
+      </div>
+      <div class="riga">
+        <div class="fld"><label for="ruolo">Role</label>
+          <select id="ruolo" name="ruolo"><option value="pilota">Pilot</option><option value="admin">Administrator</option></select></div>
+        <div class="fld" style="justify-content:flex-end"><button type="submit" class="btn primary">Create account</button></div>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Users</h2>
+    <table class="utenti">
+      <thead><tr><th>Name</th><th>E-mail</th><th>Role / status</th><th>Last sign-in</th><th>Flights</th><th></th></tr></thead>
+      <tbody id="elenco"><tr><td colspan="6" class="piccolo">Loading…</td></tr></tbody>
+    </table>
+  </div>
+</main>
+<script>
+const esc=(s)=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const quando=(t)=>t ? new Date(t).toLocaleString(undefined,{dateStyle:'short',timeStyle:'short'}) : 'never';
+let IO=null;
+
+function mostraCredenziali(titolo, email, password){
+  Conto.$('credTitolo').textContent=titolo;
+  Conto.$('credEmail').textContent=email;
+  Conto.$('credPassword').textContent=password;
+  Conto.$('cardCredenziali').hidden=false;
+  Conto.$('cardCredenziali').scrollIntoView({behavior:'smooth', block:'start'});
+}
+Conto.$('btnChiudiCred').addEventListener('click',()=>{
+  Conto.$('cardCredenziali').hidden=true; Conto.$('credPassword').textContent='';
+});
+Conto.$('btnCopia').addEventListener('click',async()=>{
+  try{ await navigator.clipboard.writeText(Conto.$('credPassword').textContent); Conto.$('btnCopia').textContent='Copied'; }
+  catch(e){ Conto.$('btnCopia').textContent='Select and copy by hand'; }
+  setTimeout(()=>Conto.$('btnCopia').textContent='Copy password',1800);
+});
+
+async function carica(){
+  try{
+    const {utenti}=await Conto.chiama('GET','/api/admin/utenti');
+    Conto.$('elenco').innerHTML = utenti.map(u=>{
+      const io=IO && u.id===IO.id;
+      const tags=[
+        u.ruolo==='admin' ? '<span class="tag admin">Admin</span>' : '<span class="tag">Pilot</span>',
+        u.stato==='sospeso' ? '<span class="tag sospeso">Suspended</span>' : '',
+        u.bloccato ? '<span class="tag sospeso">Locked 15 min</span>' : '',
+        u.deve_cambiare ? '<span class="tag attesa">Temporary password</span>' : ''
+      ].join(' ');
+      const az = io ? '<span class="piccolo">you</span>' : [
+        `<button class="btn small" data-az="reset" data-id="${u.id}">Reset password</button>`,
+        u.stato==='sospeso'
+          ? `<button class="btn small" data-az="riattiva" data-id="${u.id}">Reactivate</button>`
+          : `<button class="btn small" data-az="sospendi" data-id="${u.id}">Suspend</button>`,
+        `<button class="btn small danger" data-az="elimina" data-id="${u.id}">Delete</button>`
+      ].join('');
+      return `<tr data-nome="${esc(u.nome)}" data-email="${esc(u.email)}" data-voli="${u.voli}">
+        <td><b>${esc(u.nome)}</b></td><td>${esc(u.email)}</td><td>${tags}</td>
+        <td class="piccolo">${quando(u.ultimo_accesso)}</td><td>${u.voli}</td><td class="az">${az}</td></tr>`;
+    }).join('') || '<tr><td colspan="6" class="piccolo">No users.</td></tr>';
+  }catch(e){ Conto.messaggio('msg', e.message); }
+}
+
+const DOMANDE={
+  reset:(n)=>`Reset the password of ${n}? They will be signed out and will need the new temporary password.`,
+  sospendi:(n)=>`Suspend ${n}? They will be signed out and will not be able to sign in. Their flights are kept.`,
+  riattiva:null,
+  elimina:(n,v)=>`Delete ${n} permanently, together with ${v} saved flight(s)? This cannot be undone.`
+};
+Conto.$('elenco').addEventListener('click', async (e)=>{
+  const b=e.target.closest('button[data-az]'); if(!b) return;
+  const tr=b.closest('tr'), az=b.dataset.az, nome=tr.dataset.nome+' ('+tr.dataset.email+')';
+  if(DOMANDE[az] && !confirm(DOMANDE[az](nome, tr.dataset.voli))) return;
+  b.disabled=true; Conto.messaggio('msg','');
+  try{
+    const r=await Conto.chiama('POST',`/api/admin/utenti/${b.dataset.id}/${az}`);
+    if(az==='reset') mostraCredenziali('Password reset', r.email, r.password);
+    await carica();
+  }catch(e){ Conto.messaggio('msg', e.message); b.disabled=false; }
+});
+
+Conto.modulo('fNuovo', async (d)=>{
+  Conto.messaggio('msg','');
+  try{
+    const r=await Conto.chiama('POST','/api/admin/utenti',{ nome:d.get('nome'), email:d.get('email'), ruolo:d.get('ruolo') });
+    Conto.$('fNuovo').reset();
+    mostraCredenziali('Account created', r.email, r.password);
+    await carica();
+  }catch(e){ Conto.messaggio('msg', e.message); }
+});
+
+Conto.$('btnEsci').addEventListener('click', Conto.esci);
+(async()=>{
+  try{ IO=await Conto.chiama('GET','/api/auth/io'); }catch(e){ if(e.stato===401){ location.href='/login?next=/admin'; return; } }
+  carica();
+})();
+</script>
+</html>

@@ -17,6 +17,10 @@ la provenienza di ogni singolo numero è in **[DATI-AFM.md](DATI-AFM.md)**.
 | `manuale.html` | il manuale d'uso come e-book sfogliabile (`data/manuale/`, PDF stampabile in `data/manuale.pdf`) |
 | `ofp-core.js` | nucleo condiviso: lettura NavLog, briefing, METAR |
 | `ofp.css` | foglio di stile condiviso dalle due pagine |
+| `login.html`, `setup.html`, `password.html`, `admin.html` | accesso, primo avvio, cambio password, gestione utenti (solo sito Cloudflare) |
+| `conto.css`, `conto.js` | stile e script delle pagine dell'account |
+| `functions/_middleware.js` | il cancello del sito su Cloudflare Pages: senza sessione si vede solo l'accesso |
+| `server/conto.js` | API di account, sessioni e voli per utente sul database D1 |
 | `Codice.gs` | lato server Apps Script: routing, voli su UserProperties, PDF su Drive |
 | `appsscript.json` | manifest del progetto Apps Script |
 | `DATI-AFM.md` | da dove viene ogni dato aeromobile |
@@ -372,6 +376,70 @@ Da li' in poi ogni push su `main` ripubblica il sito. Il dominio si aggiunge in
 La radice del sito apre il foglio di volo, che se non trova un import gia'
 fatto mostra il pannello "Prima serve l'import" con il link alla pagina di
 apertura.
+
+### Accesso e account
+
+Sul sito Cloudflare l'app e' riservata: senza una sessione si vede solo la
+pagina di accesso, e tutto il resto — pagine, dati, manuale, PDF — risponde
+con il rinvio al login. Non c'e' registrazione: gli account li crea
+l'amministratore, e ogni pilota trova sul proprio account solo i propri voli.
+
+**Configurazione (una volta, dal pannello Cloudflare)**
+
+1. *Storage & Databases -> D1* -> **Create**, nome `ofp-utenti`,
+   giurisdizione **EU**. Le tabelle le crea il sito alla prima richiesta.
+2. Progetto Pages -> *Settings -> Bindings* -> **D1 database**, nome `DB`,
+   database `ofp-utenti`, per Production e Preview.
+3. *Settings -> Variables and Secrets* -> **Secret** `SETUP_TOKEN`: una
+   stringa casuale di almeno 32 caratteri, per Production e Preview.
+4. Aprire `/setup`, inserire la chiave e creare l'amministratore. Funziona
+   solo finche' il database non ha utenti: dopo, il server la rifiuta sempre.
+
+Non si committa un `wrangler.toml`: se ci fosse, Cloudflare prenderebbe la
+configurazione da li' e ignorerebbe i binding impostati nel pannello.
+
+**Uso quotidiano (pagina Users, `/admin`)**
+
+- *Create account*: nome ed email; il sito genera una password temporanea,
+  mostrata una volta sola, da consegnare all'utente con un canale diverso
+  dall'email. Al primo accesso l'utente deve sostituirla: fino ad allora il
+  server non apre nient'altro.
+- *Reset password*: nuova password temporanea, sessioni chiuse.
+- *Suspend / Reactivate*: l'utente sospeso non entra piu', i voli restano.
+  *Reactivate* sblocca anche un account fermo per troppi tentativi.
+- *Delete*: elimina l'utente e i suoi voli.
+
+L'amministratore vede quanti voli ha ciascuno, non il loro contenuto.
+
+**Come funziona**
+
+- Password: PBKDF2-SHA256 con sale casuale, mai in chiaro. Le iterazioni sono
+  10.000, perche' il piano gratuito di Workers concede 10 ms di CPU per
+  richiesta e 100.000 ne costerebbero circa 50. Sul piano a pagamento si
+  alzano con la variabile `PBKDF2_ITER` (fino a 100.000): ogni password si
+  ricifra da sola al login successivo.
+- Sessione: cookie `__Host-ofp_sess`, HttpOnly, Secure, SameSite=Lax, 30
+  giorni rinnovati dall'uso; nel database c'e' solo la sua impronta SHA-256.
+- Dopo 5 password sbagliate l'account si ferma 15 minuti; un IP che sbaglia
+  troppe volte viene fermato allo stesso modo. Un'email inesistente riceve
+  la stessa risposta, negli stessi tempi, di una password sbagliata.
+- Le scritture accettano solo richieste con `Origin` del sito.
+- Voli: tabella `voli (utente, id, dati, aggiornato)`. Il proprietario lo
+  decide la sessione, mai la richiesta. Una versione piu' vecchia non
+  sovrascrive una piu' recente salvata da un altro dispositivo.
+- Il wizard tiene una copia dei voli per utente nel browser e una coda delle
+  modifiche: senza rete si continua a lavorare e la coda parte al ritorno
+  della rete. I voli salvati nel browser prima dell'accesso passano
+  all'account al primo login. Uscendo, la copia locale si cancella.
+- Sotto Apps Script o aprendo i file dal disco non cambia niente: i voli
+  restano dove stavano.
+
+**Provarlo in locale**
+
+```
+node tools/sito.mjs
+npx wrangler pages dev dist --d1 DB=ofp-test --binding SETUP_TOKEN=una-chiave-lunga-di-prova-123456
+```
 
 ### Il manuale d'uso
 

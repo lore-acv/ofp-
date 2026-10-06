@@ -6,7 +6,8 @@
    calcoli AFM, jsPDF, pdf.js — gira nel browser, e i link fra le due pagine
    sono relativi. Apps Script e' l'adattatore, non il contrario.
 
-   Qui si raccoglie in dist/ solo quello che va pubblicato: le due pagine, il
+   Qui si raccoglie in dist/ solo quello che va pubblicato: le due pagine, le
+   pagine dell'account, il
    manuale sfogliabile (testo, figure, font, PDF), il core, il foglio di
    stile, il pacchetto dati e le intestazioni di Cloudflare.
    Restano fuori Codice.gs, appsscript.json, i tools e la documentazione.
@@ -53,10 +54,18 @@ const DA_PUBBLICARE = [
 
    Nel repo i nomi restano quelli di sempre, perche' Apps Script li cerca cosi'
    e li sostituisce a mano: l'impronta vive solo in dist/. */
+/* Le pagine dell'account: accesso, primo avvio, cambio password, utenti.
+   Hanno stile e script propri, perche' le prime due si vedono senza sessione
+   e il cancello (functions/_middleware.js) lascia passare solo quelli. */
+const PAGINE_APP = ['import.html', 'index.html', 'manuale.html'];
+const PAGINE_CONTO = ['login.html', 'setup.html', 'password.html', 'admin.html'];
+
 const CON_IMPRONTA = [
-  ['ofp-core.js', 'src="ofp-core.js"',              (n) => `src="${n}"`],
-  ['ofp.css',     'href="ofp.css"',                 (n) => `href="${n}"`],
-  ['vendor/page-flip.browser.js', 'src="vendor/page-flip.browser.js"', (n) => `src="${n}"`, ['manuale.html']]
+  ['ofp-core.js', 'src="ofp-core.js"',              (n) => `src="${n}"`, PAGINE_APP],
+  ['ofp.css',     'href="ofp.css"',                 (n) => `href="${n}"`, PAGINE_APP],
+  ['vendor/page-flip.browser.js', 'src="vendor/page-flip.browser.js"', (n) => `src="${n}"`, ['manuale.html']],
+  ['conto.css',   'href="conto.css"',               (n) => `href="${n}"`, PAGINE_CONTO],
+  ['conto.js',    'src="conto.js"',                 (n) => `src="${n}"`, PAGINE_CONTO]
 ];
 
 const impronta = (buf) => createHash('sha256').update(buf).digest('hex').slice(0, 8);
@@ -65,7 +74,8 @@ const impronta = (buf) => createHash('sha256').update(buf).digest('hex').slice(0
 const PAGINE = [
   ['import.html', 'index.html', 'href="index.html"',  'href="ofp.html"'],
   ['index.html',  'ofp.html',   'href="import.html"', 'href="./"'],
-  ['manuale.html','manuale.html','href="import.html"', 'href="./"']
+  ['manuale.html','manuale.html','href="import.html"', 'href="./"'],
+  ...PAGINE_CONTO.map(p => [p, p, null, null])
 ];
 
 /* Il pacchetto dati non si committa a mano: lo costruisce tools/dati-aeroporti.mjs
@@ -117,8 +127,10 @@ async function main() {
 
   for (const [da, a, cerca, metti] of PAGINE) {
     let html = await readFile(path.join(RADICE, da), 'utf8');
-    if (!html.includes(cerca)) throw new Error(`${da}: non trovo ${cerca} — i link fra le pagine sono cambiati`);
-    html = html.split(cerca).join(metti);
+    if (cerca) {
+      if (!html.includes(cerca)) throw new Error(`${da}: non trovo ${cerca} — i link fra le pagine sono cambiati`);
+      html = html.split(cerca).join(metti);
+    }
     /* Se un riferimento non c'e' piu', il sito uscirebbe senza stile o senza
        codice e nessuno se ne accorgerebbe fino al deploy: meglio fermarsi. */
     for (const [rif, sostituto, soloIn] of riferimenti) {

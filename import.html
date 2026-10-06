@@ -56,7 +56,14 @@
 <div class="topbar">
   <div class="topbar-main">
     <div class="brand">C172 FR OFP <span>Import</span></div>
+    <div style="display:flex;align-items:center;gap:.6rem">
+    <div class="conto-barra" id="contoBarra" hidden>
+      <span id="contoChi"></span>
+      <a href="/admin" id="contoUtenti" target="_blank" rel="noopener" hidden>Users</a>
+      <button type="button" id="contoEsci">Sign out</button>
+    </div>
     <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
+    </div>
   </div>
 </div>
 
@@ -306,6 +313,17 @@ if($('btnGuida')) $('btnGuida').addEventListener('click', apriGuida);
 // sotto Apps Script il manuale non c'e': HtmlService non serve file statici
 if(typeof google!=='undefined' && google.script && google.script.run && $('btnGuida')) $('btnGuida').style.display='none';
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') chiudiGuida(); });
+
+/* ---------------- account ----------------
+   Solo sul sito con accesso: chi e' collegato e il pulsante per uscire. */
+Account.carica().then(info=>{
+  if(!info || info.offline) return;
+  $('contoChi').textContent=info.nome;
+  $('contoChi').title=info.email;
+  $('contoUtenti').hidden = info.ruolo!=='admin';
+  $('contoBarra').hidden=false;
+});
+$('contoEsci').addEventListener('click',()=>Account.esci());
 
 /* ---------------- stato e consegna ---------------- */
 function refresh(){

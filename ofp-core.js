@@ -1061,3 +1061,73 @@ else initTema();
 window.addEventListener('storage', e=>{
   if(e.key===TEMA_CHIAVE && e.newValue && e.newValue!==temaCorrente()) applicaTema(e.newValue);
 });
+
+/* ============================================================================
+   ACCOUNT — quando il sito gira dietro l'accesso (Cloudflare Pages + D1)
+   ============================================================================
+   Le pagine chiedono una volta chi e' l'utente. Se il server di account non
+   c'e' — file aperto dal disco, un server statico qualunque, Apps Script — la
+   risposta e' null e tutto funziona come prima, con i voli nel browser.
+
+   Se la rete manca si usa l'ultimo utente visto su questo browser: i voli si
+   leggono dalla sua copia locale e le modifiche partono quando la rete torna. */
+const ACCOUNT_ULTIMO='ofp_utente';
+const Account = {
+  info: undefined,            // undefined = non ancora chiesto
+  _attesa: null,
+  carica(){
+    if(Account.info!==undefined) return Promise.resolve(Account.info);
+    if(Account._attesa) return Account._attesa;
+    if(location.protocol==='file:' || (typeof google!=='undefined' && google.script && google.script.run)){
+      Account.info=null; return Promise.resolve(null);
+    }
+    Account._attesa=(async()=>{
+      try{
+        const r=await fetch('/api/auth/io',{credentials:'same-origin',headers:{Accept:'application/json'}});
+        if(r.status===401){                       // sessione scaduta mentre la pagina era aperta
+          location.href='/login?next='+encodeURIComponent(location.pathname+location.search);
+          return new Promise(()=>{});
+        }
+        Account.info = r.ok ? await r.json() : null;
+        if(Account.info){ try{ localStorage.setItem(ACCOUNT_ULTIMO, JSON.stringify(Account.info)); }catch(e){} }
+      }catch(e){
+        // senza rete: l'ultimo utente di questo browser, se c'e'
+        let u=null; try{ u=JSON.parse(localStorage.getItem(ACCOUNT_ULTIMO)||'null'); }catch(e2){}
+        Account.info = u ? Object.assign({}, u, {offline:true}) : null;
+      }
+      return Account.info;
+    })();
+    return Account._attesa;
+  },
+
+  /* Modifiche ai voli non ancora arrivate al server, per tutti gli utenti di
+     questo browser (sono chiavi ofp_pending:<id utente>). */
+  pendenti(){
+    let n=0;
+    try{
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);
+        if(k && k.startsWith('ofp_pending:')) n+=Object.keys(JSON.parse(localStorage.getItem(k)||'{}')).length;
+      }
+    }catch(e){}
+    return n;
+  },
+
+  /* Uscendo si cancella da questo browser la copia locale dei voli: su un iPad
+     condiviso chi entra dopo non trova quelli di chi e' uscito. */
+  async esci(){
+    const n=Account.pendenti();
+    if(n && !confirm(n+' change(s) to your flights have not reached the server yet and will be lost. Sign out anyway?')) return;
+    try{ await fetch('/api/auth/logout',{method:'POST',credentials:'same-origin'}); }catch(e){}
+    try{
+      const via=[];
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);
+        if(k && (k.startsWith('saved_flights:') || k.startsWith('ofp_pending:') || k===ACCOUNT_ULTIMO)) via.push(k);
+      }
+      via.forEach(k=>localStorage.removeItem(k));
+      sessionStorage.clear();
+    }catch(e){}
+    location.href='/login';
+  }
+};

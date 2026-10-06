@@ -71,6 +71,11 @@
           <button type="button" role="menuitem" class="primary" id="btnNavPdf">Download Navlog PDF</button>
           <div class="sep"></div>
           <button type="button" role="menuitem" id="btnManuale" title="Opens in a new tab: the flight plan stays as it is">User Manual</button>
+          <div class="sep conto-voce" style="display:none"></div>
+          <div class="menu-chi conto-voce" id="menuChi" style="display:none"></div>
+          <button type="button" role="menuitem" class="conto-voce" id="btnUtenti" style="display:none" title="Opens in a new tab">Users</button>
+          <button type="button" role="menuitem" class="conto-voce" id="btnPassword" style="display:none" title="Opens in a new tab">Change password</button>
+          <button type="button" role="menuitem" class="conto-voce" id="btnEsci" style="display:none">Sign out</button>
         </div>
       </div>
     </div>
@@ -666,7 +671,7 @@
 <!-- ===== Dashboard / Flight Manager ===== -->
 <div id="dashboard">
   <div class="dash-head">
-    <h2>Flight History</h2>
+    <div><h2>Flight History</h2><div class="dash-conto" id="dashConto"></div></div>
     <button class="btn primary" id="btnCloseDash">&larr; Back to Wizard</button>
   </div>
   <div class="dash-body">
@@ -5140,8 +5145,13 @@ const WX_FIELDS = ['depMetar','depSpeci','depTaf','depNotam','destMetar','destSp
   'enrouteNotam','sigmetAirmet','wxValid'];
 
 /* ==================== PERSISTENZA ====================
-   Due backend, scelti da soli in base a dove gira la pagina:
+   Tre backend, scelti da soli in base a dove gira la pagina:
 
+   - Sito con accesso (Cloudflare Pages + D1): i voli stanno sull'account
+     dell'utente, che li ritrova da qualsiasi dispositivo; nessuno vede quelli
+     degli altri. Il browser ne tiene una copia per utente e una coda delle
+     modifiche non ancora arrivate al server: senza rete si continua a
+     lavorare, e la coda parte appena la rete torna.
    - Google Apps Script (web app): i voli stanno nelle UserProperties dell'utente
      Google che ha aperto la pagina, quindi lo stesso pilota li ritrova da qualsiasi
      dispositivo e nessuno vede quelli degli altri. Le chiamate a google.script.run
@@ -5155,21 +5165,89 @@ const WX_FIELDS = ['depMetar','depSpeci','depTaf','depNotam','destMetar','destSp
 const LS_KEY='saved_flights';
 const IS_APPS_SCRIPT = typeof google!=='undefined' && google.script && google.script.run;
 let FLIGHTS_CACHE = null;   // null = non ancora caricata
+let SERVER_VOLI = false;    // true sul sito con accesso
+let UTENTE_ID = null;       // la copia locale e la coda sono per utente
+
+const chiaveLocale = ()=> UTENTE_ID ? 'saved_flights:'+UTENTE_ID : LS_KEY;
+const chiaveCoda   = ()=> 'ofp_pending:'+UTENTE_ID;
 
 function readLocal(){
-  try{ return JSON.parse(localStorage.getItem(LS_KEY))||[]; }catch(e){ return []; }
+  try{ return JSON.parse(localStorage.getItem(chiaveLocale()))||[]; }catch(e){ return []; }
 }
 function writeLocal(list){
-  try{ localStorage.setItem(LS_KEY, JSON.stringify(list)); return true; }
+  try{ localStorage.setItem(chiaveLocale(), JSON.stringify(list)); return true; }
   catch(e){ return false; }
 }
 function loadSavedFlights(){
   if(FLIGHTS_CACHE===null) FLIGHTS_CACHE = readLocal();
   return FLIGHTS_CACHE;
 }
+
+/* ---- coda verso il server ----
+   Ogni volo cambiato o cancellato entra nella coda con un contrassegno unico:
+   quando la richiesta va a buon fine lo si toglie solo se nel frattempo il volo
+   non e' cambiato di nuovo. ISTANTANEA e' come il server conosce i voli, ed e'
+   cio' con cui si confronta la lista a ogni salvataggio. */
+let ISTANTANEA = new Map();
+const fotografa = (list)=>{ ISTANTANEA = new Map(list.map(f=>[f.id, JSON.stringify(f)])); };
+function leggiCoda(){ try{ return JSON.parse(localStorage.getItem(chiaveCoda())||'{}'); }catch(e){ return {}; } }
+function scriviCoda(c){ try{ localStorage.setItem(chiaveCoda(), JSON.stringify(c)); }catch(e){} }
+let SYNC_IN_CORSO=false, SYNC_ANCORA=false, SYNC_ERRORE='';
+
+async function sincronizzaVoli(){
+  if(!SERVER_VOLI) return;
+  if(SYNC_IN_CORSO){ SYNC_ANCORA=true; return; }
+  SYNC_IN_CORSO=true; SYNC_ERRORE='';
+  try{
+    for(const [id, voce] of Object.entries(leggiCoda())){
+      const op=voce.split(':')[0];
+      const url='/api/voli/'+encodeURIComponent(id);
+      let r;
+      if(op==='put'){
+        const f=loadSavedFlights().find(x=>x.id===id);
+        if(!f){ const c=leggiCoda(); if(c[id]===voce){ delete c[id]; scriviCoda(c); } continue; }
+        r=await fetch(url,{method:'PUT',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(f)});
+      }else{
+        r=await fetch(url,{method:'DELETE',credentials:'same-origin'});
+      }
+      if(r.status===401 || r.status===403){ SYNC_ERRORE='Session expired: sign in again to save your flights to your account.'; break; }
+      if(r.status===409){
+        // il server ha una versione piu' recente (salvata da un altro dispositivo): vale quella
+        const j=await r.json().catch(()=>({}));
+        if(j.volo){
+          const list=loadSavedFlights(), i=list.findIndex(x=>x.id===id);
+          if(i>=0) list[i]=j.volo; else list.unshift(j.volo);
+          writeLocal(list); ISTANTANEA.set(id, JSON.stringify(j.volo));
+        }
+      }else if(!r.ok){
+        const j=await r.json().catch(()=>({}));
+        SYNC_ERRORE='Not saved to your account: '+(j.errore||('error '+r.status));
+        if(r.status>=500) break;            // il server ha un problema: si riprova piu' tardi
+      }
+      const c=leggiCoda(); if(c[id]===voce){ delete c[id]; scriviCoda(c); }
+    }
+  }catch(e){
+    SYNC_ERRORE='Offline: changes are kept on this device and will be sent when the connection is back.';
+  }finally{
+    SYNC_IN_CORSO=false;
+    aggiornaStatoConto();
+    if($('dashboard') && $('dashboard').classList.contains('open')) renderDashboard();
+    if(SYNC_ANCORA){ SYNC_ANCORA=false; sincronizzaVoli(); }
+  }
+}
+window.addEventListener('online', ()=>sincronizzaVoli());
+
 function persistFlights(list){
   FLIGHTS_CACHE = list;
   writeLocal(list);                       // copia locale sempre, anche su Apps Script
+  if(SERVER_VOLI){
+    const coda=leggiCoda(), ids=new Set(), seg=':'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+    list.forEach(f=>{ ids.add(f.id); if(ISTANTANEA.get(f.id)!==JSON.stringify(f)) coda[f.id]='put'+seg; });
+    ISTANTANEA.forEach((_,id)=>{ if(!ids.has(id)) coda[id]='del'+seg; });
+    scriviCoda(coda); fotografa(list);
+    sincronizzaVoli();
+    return;
+  }
   if(IS_APPS_SCRIPT){
     google.script.run
       .withFailureHandler(err=>{
@@ -5179,10 +5257,62 @@ function persistFlights(list){
       .saveFlights(JSON.stringify(list));
   }
 }
+
+/* Riga dell'account nella dashboard e voci del menu. */
+function aggiornaStatoConto(){
+  const info=Account.info;
+  const el=$('dashConto');
+  if(el){
+    if(!SERVER_VOLI) el.textContent = IS_APPS_SCRIPT ? 'Saved to your Google account' : 'Saved in this browser only';
+    else{
+      const n=Object.keys(leggiCoda()).length;
+      el.innerHTML = 'Saved to the account of <b>'+escHtml(info.nome)+'</b> ('+escHtml(info.email)+')'
+        + (SYNC_ERRORE ? '<span class="dash-sync err">'+escHtml(SYNC_ERRORE)+'</span>'
+           : n ? '<span class="dash-sync">'+n+' change(s) waiting to be sent…</span>' : '');
+    }
+  }
+}
+function escHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
 /* Caricamento iniziale dal server: fino a quando non risponde si mostra la copia
    locale, poi la si sostituisce con quella del server (che è la fonte di verità). */
 function bootstrapFlights(done){
-  if(!IS_APPS_SCRIPT){ FLIGHTS_CACHE = readLocal(); done && done(); return; }
+  if(!IS_APPS_SCRIPT){
+    Account.carica().then(async info=>{
+      if(!info){ FLIGHTS_CACHE = readLocal(); aggiornaStatoConto(); done && done(); return; }
+      SERVER_VOLI=true; UTENTE_ID=String(info.id);
+      FLIGHTS_CACHE = readLocal(); fotografa(FLIGHTS_CACHE);
+      mostraContoNelMenu(info);
+      if(info.offline){ SYNC_ERRORE='Offline: changes are kept on this device and will be sent when the connection is back.'; aggiornaStatoConto(); done && done(); return; }
+      try{
+        // i voli salvati nel browser prima dell'accesso passano all'account
+        let vecchi=[]; try{ vecchi=JSON.parse(localStorage.getItem(LS_KEY)||'[]'); }catch(e){}
+        if(Array.isArray(vecchi) && vecchi.length){
+          const r=await fetch('/api/voli/importa',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({voli:vecchi})});
+          if(r.ok) localStorage.removeItem(LS_KEY);
+        }
+        await sincronizzaVoli();                       // prima cio' che era rimasto in coda
+        const r=await fetch('/api/voli',{credentials:'same-origin'});
+        if(r.ok){
+          const {voli}=await r.json();
+          // cio' che e' ancora in coda (per esempio un errore del server) resta com'e' qui
+          const coda=leggiCoda(), locali=new Map(FLIGHTS_CACHE.map(f=>[f.id,f]));
+          let list=voli.filter(v=>!(coda[v.id]||'').startsWith('del'));
+          Object.entries(coda).forEach(([id,voce])=>{
+            if(!voce.startsWith('put') || !locali.has(id)) return;
+            const i=list.findIndex(v=>v.id===id);
+            if(i>=0) list[i]=locali.get(id); else list.unshift(locali.get(id));
+          });
+          FLIGHTS_CACHE=list; writeLocal(list); fotografa(voli);
+        }
+      }catch(e){
+        SYNC_ERRORE='Offline: changes are kept on this device and will be sent when the connection is back.';
+      }
+      aggiornaStatoConto();
+      done && done();
+    });
+    return;
+  }
   FLIGHTS_CACHE = readLocal();
   google.script.run
     .withSuccessHandler(json=>{
@@ -5194,6 +5324,14 @@ function bootstrapFlights(done){
     })
     .withFailureHandler(err=>{ console.error('Caricamento dal server fallito:', err); done && done(); })
     .loadFlights();
+}
+
+/* Le voci dell'account nel menu: chi e' collegato, utenti (solo admin),
+   cambio password, uscita. Fuori dal sito con accesso restano nascoste. */
+function mostraContoNelMenu(info){
+  document.querySelectorAll('.conto-voce').forEach(el=>{ el.style.display=''; });
+  if($('menuChi')) $('menuChi').textContent=info.nome+' · '+info.email;
+  if($('btnUtenti')) $('btnUtenti').style.display = info.ruolo==='admin' ? '' : 'none';
 }
 function collectFlightData(){ const d={}; FLIGHT_FIELDS.forEach(id=>{ if($(id)) d[id]=$(id).value; }); return d; }
 function collectWeatherData(){
@@ -5420,6 +5558,7 @@ function renderDashboard(){
   done.forEach(f=>cc.appendChild(makeCard(f)));
   $('draftEmpty').style.display=drafts.length?'none':'block';
   $('completedEmpty').style.display=done.length?'none':'block';
+  aggiornaStatoConto();
 }
 function openDashboard(){ renderDashboard(); $('dashboard').classList.add('open'); }
 function closeDashboard(){ $('dashboard').classList.remove('open'); }
@@ -5443,6 +5582,14 @@ function closeDashboard(){ $('dashboard').classList.remove('open'); }
 $('btnDashboard').addEventListener('click',openDashboard);
 $('btnCloseDash').addEventListener('click',closeDashboard);
 $('btnStandby').addEventListener('click',saveFlightDraft);
+/* Account: utenti e cambio password in una scheda nuova, come il manuale, per
+   non perdere il foglio aperto. Uscendo si avvisa se il foglio non e' salvato. */
+if($('btnUtenti')) $('btnUtenti').addEventListener('click',()=>window.open('/admin','_blank','noopener'));
+if($('btnPassword')) $('btnPassword').addEventListener('click',()=>window.open('/password','_blank','noopener'));
+if($('btnEsci')) $('btnEsci').addEventListener('click',()=>{
+  if(!confirm('Sign out? A flight plan that has not been saved with "Save to Standby" will be lost.')) return;
+  Account.esci();
+});
 /* Il manuale in una scheda nuova: aprirlo qui farebbe perdere il foglio non
    salvato. Sotto Apps Script non c'e' (HtmlService non serve file statici). */
 if($('btnManuale')){
