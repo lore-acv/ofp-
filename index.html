@@ -113,7 +113,16 @@
           </div>
           <div class="hint" id="tngNote" style="display:none;margin-top:0"></div>
           <div class="apt-row">
-            <div class="fld apt-code"><label>Reg</label><input id="reg" value="I-CCAF"></div>
+            <!-- L'aeromobile si sceglie solo qui: il Mass & Balance (Step 3) lo segue.
+                 "Other" apre la casella dell'immatricolazione e sblocca peso e momento. -->
+            <div class="fld apt-code ac-reg"><label for="acSelect">Aircraft</label>
+              <select id="acSelect">
+                <option value="I-CCAF">I-CCAF</option>
+                <option value="I-CCAB">I-CCAB</option>
+                <option value="CUSTOM">Other&hellip;</option>
+              </select>
+              <input id="reg" value="I-CCAF" placeholder="Registration" autocapitalize="characters" spellcheck="false" style="display:none;margin-top:.35rem">
+            </div>
             <div class="fld"><label>Flight Mission</label><input id="mission" value=""></div>
           </div>
           <div class="mb-status" id="oaStatus"></div>
@@ -263,12 +272,8 @@
         <div class="group">
           <h3>Aircraft</h3>
           <div class="row">
-            <div class="fld"><label>Registration</label>
-              <select id="acSelect">
-                <option value="I-CCAF">I-CCAF &mdash; Cessna C172FR</option>
-                <option value="I-CCAB">I-CCAB &mdash; Cessna C172FR</option>
-                <option value="CUSTOM">Other / updated empty weight&hellip;</option>
-              </select>
+            <div class="fld"><label>Aircraft</label>
+              <div class="calc" id="acInfo" style="margin:0"></div>
             </div>
           </div>
           <div class="row">
@@ -276,9 +281,9 @@
             <div class="fld"><label>Moment BEW (kg&middot;m)</label><input id="bewMoment" type="number" step="0.0001" value="693.9009"></div>
           </div>
           <div class="calc" id="bewCalc"></div>
-          <div class="hint">Empty weight and moment taken from the flying club's form. Selecting an aircraft fills
-            both fields automatically and leaves them read-only; with <b>Other</b> they are entered by hand, for
-            example after a re-weighing. The <b>moment</b> is the figure that counts: the arm is derived from
+          <div class="hint">The aircraft is chosen in Step 1. Empty weight and moment come from the flying club's
+            form and are read-only; with <b>Other</b> (Step 1) they are entered by hand, for example after a
+            re-weighing. The <b>moment</b> is the figure that counts: the arm is derived from
             moment&divide;weight.</div>
         </div>
         <div class="group">
@@ -2848,6 +2853,7 @@ function syncTripDistFromNavlog(){
 }
 
 function render(){
+  syncAircraftUI();
   syncTripDistFromNavlog();
   /* Due passaggi, e non e' uno spreco: il Trip Time non dipende dal taxi, ma il
      taxi dipende dall'orario di atterraggio, che dipende dal Trip Time. Si
@@ -5669,21 +5675,45 @@ if(typeof google!=='undefined' && google.script && google.script.run){
 /* Selettore aeromobile: compila peso a vuoto e momento dal foglio dell'aeroclub e
    li blocca, così non si modificano per sbaglio. "Altro" li sblocca, per quando
    arriva una nuova pesata e il foglio qui dentro non è ancora aggiornato. */
+/* L'aeromobile si sceglie una volta sola, allo Step 1; qui si allinea tutto il
+   resto: casella dell'immatricolazione, blocco di peso e momento e la riga
+   informativa del Mass & Balance. Si chiama anche da render(), cosi' un volo
+   riaperto dalla Dashboard si mostra coerente senza riscrivere i suoi valori. */
+function syncAircraftUI(){
+  const sel=txt('acSelect'), ac=AIRCRAFT[sel];
+  ['bew','bewMoment'].forEach(id=>{
+    if(!$(id)) return;
+    $(id).readOnly = !!ac;
+    $(id).style.opacity = ac ? .7 : 1;
+  });
+  if($('reg')) $('reg').style.display = ac ? 'none' : '';
+  if($('acInfo')){
+    const reg=(txt('reg')||'').trim().toUpperCase();
+    $('acInfo').textContent = ac
+      ? `${sel} \u2014 ${ac.type} (selected in Step 1)`
+      : `${reg||'Other aircraft'} (Step 1) \u2014 enter empty weight and moment below`;
+  }
+}
 function applyAircraft(){
   const sel=txt('acSelect'), ac=AIRCRAFT[sel];
-  const lock = !!ac;
-  ['bew','bewMoment'].forEach(id=>{
-    $(id).readOnly = lock;
-    $(id).style.opacity = lock ? .7 : 1;
-  });
   if(ac){
     $('bew').value = ac.bew;
     $('bewMoment').value = ac.bewMoment;
     if($('reg')) $('reg').value = sel;      // l'immatricolazione in testata segue l'aeromobile
   }
+  syncAircraftUI();
   render();
 }
-if($('acSelect')) $('acSelect').addEventListener('change', applyAircraft);
+// l'immatricolazione scritta a mano finisce maiuscola anche nei documenti
+if($('reg')) $('reg').addEventListener('input', e=>{
+  const el=e.target, c=el.selectionStart, v=el.value.toUpperCase();
+  if(v!==el.value){ el.value=v; try{ el.setSelectionRange(c,c); }catch(err){} }
+});
+if($('acSelect')) $('acSelect').addEventListener('change', ()=>{
+  // passando ad "Other" l'immatricolazione dell'aeromobile di prima non vale piu'
+  if(!AIRCRAFT[txt('acSelect')] && AIRCRAFT[(txt('reg')||'').trim().toUpperCase()]){ $('reg').value=''; $('reg').focus(); }
+  applyAircraft();
+});
 
 document.body.addEventListener('input',render);
 applyHandoff();

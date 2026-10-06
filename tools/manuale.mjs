@@ -269,7 +269,7 @@ A(dtable([
   ['Aerodrome data (name, position, elevation, runways)', 'A', 'OurAirports', 'VERIFY'],
   ['ALTN', 'M', 'Pilot', 'INPUT'],
   ['Touch & Go + ICAO', 'O', 'Proposed from route', 'SELECT if landing en route'],
-  ['Reg', 'A', 'Follows aircraft selected in Step 3', 'VERIFY'],
+  ['Aircraft (registration)', 'M', 'I-CCAF default; Other = typed by the pilot', 'SELECT'],
   ['Flight Mission', 'O', 'Pilot', 'INPUT'],
   ['Route', 'A', 'NavLog', 'VERIFY'],
   ['OFF, TO (UTC)', 'M', 'Pilot', 'SELECT'],
@@ -281,10 +281,12 @@ A(split(steps([
   ['VERIFY', 'the aerodrome data line next to each code [B]: name, coordinates, elevation and runways. The line appears automatically when the four-letter code is complete. No line = code not found: CROSS-CHECK the ICAO code.'],
   ['INPUT', 'the alternate ICAO code [C]. Its weather, NOTAMs, distance and runway data are filled in automatically.'],
   ['SELECT', '**Touch & Go** [D] only if a landing en route is planned. The application proposes the aerodromes found along the route [E].'],
-  ['INPUT', 'the flight mission [F] (optional).'],
+  ['SELECT', 'the aircraft [F]. Mass & Balance (Step 3) follows this choice. Select **Other** only for an aircraft not in the list or after a re-weighing: type its registration in the box that appears.'],
+  ['INPUT', 'the flight mission [G] (optional).'],
 ]), figure(3, 'f3-2.jpg', 'Aerodromes and Mission', 'Aerodrome codes with the data looked up automatically.',
   [['A', 'DEP / ARR', 'VERIFY'], ['B', 'Aerodrome data line', 'VERIFY elevation and runways'], ['C', 'ALTN', 'INPUT'],
-    ['D', 'Touch & Go', 'SELECT if applicable'], ['E', 'Aerodromes along the route', 'Information'], ['F', 'Flight Mission', 'INPUT (optional)']])));
+    ['D', 'Touch & Go', 'SELECT if applicable'], ['E', 'Aerodromes along the route', 'Information'], ['F', 'Aircraft', 'SELECT'],
+    ['G', 'Flight Mission', 'INPUT (optional)']])));
 A(split(steps([
   ['SELECT', 'the off-blocks time OFF [A] and the take-off time TO [B], in UTC, 5-minute steps.'],
   ['VERIFY', 'LDG [C] = TO + Flight Time computed in Step 2.'],
@@ -362,7 +364,7 @@ figure(3, 'f3-8.jpg', 'Fuel On Board & Extra', 'With FOB entered, the extra is F
 /* ---- step 3 */
 A(h2('3.3', 'Step 3 – Mass & Balance'));
 A(dtable([
-  ['Registration', 'M', 'I-CCAF default', 'SELECT'],
+  ['Aircraft', 'A', 'Selected in Step 1', 'VERIFY'],
   ['Basic Empty Weight, Moment', 'A', 'Club W&B form; editable only with Other', 'VERIFY'],
   ['Pilot + front pax', 'M', 'Pilot', 'INPUT'],
   ['Rear pax', 'O', 'Pilot', 'INPUT if carried'],
@@ -373,9 +375,9 @@ A(dtable([
   ['Remarks (M&B)', 'O', 'Pilot', 'INPUT'],
 ]));
 A(split(steps([
-  ['SELECT', 'the registration [A]. Empty weight and moment [B] are filled in and locked. Select **Other** only to enter new values after a re-weighing.'],
-]), figure(3, 'f3-9.jpg', 'Aircraft Selection', 'Empty weight and moment from the flying club form.',
-  [['A', 'Registration', 'SELECT'], ['B', 'BEW / moment (locked)', 'VERIFY']])));
+  ['VERIFY', 'the aircraft [A], selected in Step 1. Empty weight and moment [B] are filled in and locked. With **Other** (Step 1) they are entered by hand, for example after a re-weighing.'],
+]), figure(3, 'f3-9.jpg', 'Aircraft and Empty Weight', 'Empty weight and moment from the flying club form.',
+  [['A', 'Aircraft (from Step 1)', 'VERIFY'], ['B', 'BEW / moment (locked)', 'VERIFY']])));
 A(split(steps([
   ['INPUT', 'pilot and front passenger mass [A].'],
   ['INPUT', 'rear passengers [B] and baggage [C] if carried. Baggage limit 91 kg.'],
