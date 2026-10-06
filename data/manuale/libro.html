@@ -79,12 +79,12 @@
 <h2 id="s1-5"><span class="n">1.5</span>Responsibilities</h2>
 <p>The PIC is responsible for the correctness of every input, for every cross-check required by this manual, and for the decision to fly. The application does not navigate, does not decide and does not replace the AFM or the AIP.</p>
 <h2 id="s1-6"><span class="n">1.6</span>Data storage</h2>
-<p>Flights are stored only when the pilot uses <b>Save to Standby</b> (Section 4.4). Storage is local to the browser of the device in use: flights are not visible from other devices and are lost if the site data is cleared.</p>
+<p>Access is restricted: accounts are created by the administrator (Section 2.1). Flights are stored only when the pilot uses <b>Save to Standby</b> (Section 4.4). They are saved to the pilot's account, are available on any device after signing in and are not visible to other users. A copy is kept on the device in use, so work can continue without a connection: changes are sent when the connection is restored.</p>
 </section>
 <section>
 <h1 class="sec" id="s2"><span class="sn">SECTION 2</span><span class="st">Data Ingestion – Import Page</span></h1>
 <h2 id="s2-1"><span class="n">2.1</span>Pre-requisites</h2>
-<ol class="steps"><li data-n="1."><span class="verb">PREPARE</span> the route in ForeFlight and export the <b>NavLog</b> (PDF or text).</li><li data-n="2."><span class="verb">DOWNLOAD</span> the <b>weather and NOTAM briefing</b> PDF covering departure, destination, alternate and route.</li></ol>
+<ol class="steps"><li data-n="1."><span class="verb">INPUT</span> the e-mail and password provided by the administrator to sign in. At the first sign-in, replace the temporary password with your own (at least 10 characters).</li><li data-n="2."><span class="verb">PREPARE</span> the route in ForeFlight and export the <b>NavLog</b> (PDF or text).</li><li data-n="3."><span class="verb">DOWNLOAD</span> the <b>weather and NOTAM briefing</b> PDF covering departure, destination, alternate and route.</li></ol>
 <h2 id="s2-2"><span class="n">2.2</span>Procedure</h2>
 <div class="split r58"><div class="col-text"><ol class="steps"><li data-n="1."><span class="verb">LOAD</span> the ForeFlight NavLog in the NavLog drop zone <span class="mk">A</span>. Load it first: its ICAO codes are used to sort the briefing.</li><li data-n="2."><span class="verb">VERIFY</span> the NavLog summary <span class="mk">B</span>: number of waypoints, total distance and the waypoint table. For a return flight the application states that DEP and ARR are the same aerodrome.</li></ol><div class="box note"><div class="box-h">NOTE</div><div class="box-b">Only airports, route and distance are taken from the NavLog. ForeFlight speeds and fuel figures are not used: the AFM figures take precedence.</div></div></div><div class="col-fig"><figure class="fig ">
   <div class="fig-id">Figure 2.1 &ndash; NavLog Ingestion</div>
@@ -251,13 +251,13 @@
 <div class="split r48"><div class="col-text"><table class="std"><thead><tr><th></th><th>Item</th><th>Function</th></tr></thead><tbody>
 <tr><td><span class="mk">A</span></td><td>Dashboard</td><td>Saved flights (Section 4.4)</td></tr>
 <tr><td><span class="mk">B</span></td><td>New Flight Plan</td><td>Returns to the import page. Unsaved data is lost.</td></tr>
-<tr><td><span class="mk">C</span></td><td>Save to Standby</td><td>Saves the flight on this device</td></tr>
+<tr><td><span class="mk">C</span></td><td>Save to Standby</td><td>Saves the flight to your account</td></tr>
 <tr><td><span class="mk">D</span></td><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
 <tr><td><span class="mk">E</span></td><td>Print OFP</td><td>Prints the same PDF that is downloaded. On iPhone / iPad it opens in a new tab.</td></tr>
 <tr><td><span class="mk">F</span></td><td>Download OFP PDF</td><td>A4 OFP</td></tr>
 <tr><td><span class="mk">G</span></td><td>Download Navlog PDF</td><td>A5 NAV-FLIGHTPLAN (separate document)</td></tr>
 <tr><td><span class="mk">H</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
-</tbody></table></div><div class="col-fig"><figure class="fig menu">
+</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab.</p></div><div class="col-fig"><figure class="fig menu">
   <div class="fig-id">Figure 4.1 &ndash; Main Menu</div>
   <div class="fig-frame"><img src="data/manuale/fig/f4-1.jpg" width="600" height="1075" alt="Main Menu"></div>
   <figcaption>Menu at the top right of the wizard.</figcaption>
@@ -301,7 +301,7 @@
   <table class="legend"><tr><td class="lk"><span class="mk">A</span></td><td class="le">Header</td><td class="la">VERIFY</td></tr><tr><td class="lk"><span class="mk">B</span></td><td class="le">Off Bl. / Bl. on</td><td class="la">Record by hand</td></tr><tr><td class="lk"><span class="mk">C</span></td><td class="le">Legs</td><td class="la">VERIFY</td></tr><tr><td class="lk"><span class="mk">D</span></td><td class="le">ATO</td><td class="la">Record in flight</td></tr><tr><td class="lk"><span class="mk">E</span></td><td class="le">Alternate row</td><td class="la">VERIFY</td></tr><tr><td class="lk"><span class="mk">F</span></td><td class="le">Fuel calculation</td><td class="la">VERIFY</td></tr></table>
 </figure>
 <h2 id="s4-4"><span class="n">4.4</span>Saved flights – Dashboard</h2>
-<div class="split r58"><div class="col-text"><ol class="steps"><li data-n="1."><span class="verb">SELECT</span> <b>Save to Standby</b> to store the flight, for example while waiting for the weather. The Dashboard opens.</li><li data-n="2."><span class="verb">LOAD</span> the briefing PDF on the standby card <span class="mk">B</span> to finalise the flight: it moves to READY TO FLY <span class="mk">D</span>.</li><li data-n="3."><span class="verb">SELECT</span> <b>Edit data</b> <span class="mk">C</span> to reopen a standby flight in the wizard.</li><li data-n="4."><span class="verb">LOAD</span> a newer briefing on a completed card <span class="mk">E</span> to update its weather.</li><li data-n="5."><span class="verb">SELECT</span> <b>View OFP</b> <span class="mk">F</span> to reopen a completed flight in the wizard.</li></ol><div class="box caution"><div class="box-h">CAUTION</div><div class="box-b">Saved flights are stored in this browser only. Graphic weather charts are not stored with the flight.</div></div></div><div class="col-fig"><figure class="fig ">
+<div class="split r58"><div class="col-text"><ol class="steps"><li data-n="1."><span class="verb">SELECT</span> <b>Save to Standby</b> to store the flight, for example while waiting for the weather. The Dashboard opens.</li><li data-n="2."><span class="verb">LOAD</span> the briefing PDF on the standby card <span class="mk">B</span> to finalise the flight: it moves to READY TO FLY <span class="mk">D</span>.</li><li data-n="3."><span class="verb">SELECT</span> <b>Edit data</b> <span class="mk">C</span> to reopen a standby flight in the wizard.</li><li data-n="4."><span class="verb">LOAD</span> a newer briefing on a completed card <span class="mk">E</span> to update its weather.</li><li data-n="5."><span class="verb">SELECT</span> <b>View OFP</b> <span class="mk">F</span> to reopen a completed flight in the wizard.</li></ol><div class="box caution"><div class="box-h">CAUTION</div><div class="box-b">Saved flights are stored in your account. On a shared device, select <b>Sign out</b> at the end of the session: it removes the local copy from the device. Graphic weather charts are not stored with the flight.</div></div></div><div class="col-fig"><figure class="fig ">
   <div class="fig-id">Figure 4.6 &ndash; Dashboard</div>
   <div class="fig-frame"><img src="data/manuale/fig/f4-4.jpg" width="1250" height="1469" alt="Dashboard"></div>
   <figcaption></figcaption>
@@ -338,7 +338,7 @@
 <h2 id="s5-5"><span class="n">5.5</span>Daylight check</h2>
 <ul class="bul"><li>Sunrise / sunset: upper limb at &minus;0.833°; civil twilight: centre at &minus;6° (night as defined in Regulation (EU) 923/2012).</li><li>Rounded conservatively: sunset and end of twilight to the minute before, sunrise to the minute after.</li><li>Uses the flight date of Step 8 and the UTC times of Step 1. No elevation correction (as in published tables).</li></ul>
 <h2 id="s5-6"><span class="n">5.6</span>Documents and storage</h2>
-<ul class="bul"><li><b>Print OFP</b> prints the same PDF that is downloaded.</li><li>Saved flights stay in the browser of the device in use and are lost if the site data is cleared.</li><li>The A5 NAV-FLIGHTPLAN is a separate document and must be downloaded separately.</li></ul>
+<ul class="bul"><li><b>Print OFP</b> prints the same PDF that is downloaded.</li><li>Saved flights are stored in the pilot's account and are visible only to that pilot. On a shared device, <b>Sign out</b> at the end of the session.</li><li>The A5 NAV-FLIGHTPLAN is a separate document and must be downloaded separately.</li></ul>
 <div class="final">The documents produced are an aid to planning. Responsibility for the flight remains with the Pilot in Command.</div>
 </section>
 <section>

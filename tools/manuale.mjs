@@ -220,14 +220,15 @@ A(`<table class="std"><thead><tr><th>Data</th><th>Source</th></tr></thead><tbody
 A(h2('1.5', 'Responsibilities'));
 A(p('The PIC is responsible for the correctness of every input, for every cross-check required by this manual, and for the decision to fly. The application does not navigate, does not decide and does not replace the AFM or the AIP.'));
 A(h2('1.6', 'Data storage'));
-A(p('Flights are stored only when the pilot uses **Save to Standby** (Section 4.4). Storage is local to the browser of the device in use: flights are not visible from other devices and are lost if the site data is cleared.'));
+A(p('Access is restricted: accounts are created by the administrator (Section 2.1). Flights are stored only when the pilot uses **Save to Standby** (Section 4.4). They are saved to the pilot\'s account, are available on any device after signing in and are not visible to other users. A copy is kept on the device in use, so work can continue without a connection: changes are sent when the connection is restored.'));
 A('</section>');
 
 /* ---------------------------------------------------------------- sezione 2 */
 A('<section>');
 A(h1(2, 'Data Ingestion – Import Page'));
 A(h2('2.1', 'Pre-requisites'));
-A(steps([['PREPARE', 'the route in ForeFlight and export the **NavLog** (PDF or text).'],
+A(steps([['INPUT', 'the e-mail and password provided by the administrator to sign in. At the first sign-in, replace the temporary password with your own (at least 10 characters).'],
+  ['PREPARE', 'the route in ForeFlight and export the **NavLog** (PDF or text).'],
   ['DOWNLOAD', 'the **weather and NOTAM briefing** PDF covering departure, destination, alternate and route.']]));
 A(h2('2.2', 'Procedure'));
 A(split(steps([
@@ -507,13 +508,13 @@ A(h2('4.1', 'Menu'));
 A(split(`<table class="std"><thead><tr><th></th><th>Item</th><th>Function</th></tr></thead><tbody>
 <tr><td><span class="mk">A</span></td><td>Dashboard</td><td>Saved flights (Section 4.4)</td></tr>
 <tr><td><span class="mk">B</span></td><td>New Flight Plan</td><td>Returns to the import page. Unsaved data is lost.</td></tr>
-<tr><td><span class="mk">C</span></td><td>Save to Standby</td><td>Saves the flight on this device</td></tr>
+<tr><td><span class="mk">C</span></td><td>Save to Standby</td><td>Saves the flight to your account</td></tr>
 <tr><td><span class="mk">D</span></td><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
 <tr><td><span class="mk">E</span></td><td>Print OFP</td><td>Prints the same PDF that is downloaded. On iPhone / iPad it opens in a new tab.</td></tr>
 <tr><td><span class="mk">F</span></td><td>Download OFP PDF</td><td>A4 OFP</td></tr>
 <tr><td><span class="mk">G</span></td><td>Download Navlog PDF</td><td>A5 NAV-FLIGHTPLAN (separate document)</td></tr>
 <tr><td><span class="mk">H</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
-</tbody></table>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
+</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
 A(h2('4.2', 'Operational Flight Plan (A4)'));
 A(`<table class="std keep"><caption>OFP page structure (number of pages varies with NOTAMs and charts)</caption><thead><tr><th>Page</th><th>Content</th></tr></thead><tbody>
 <tr><td>OFP</td><td>Flight data, estimated / actual times, route, cruise altitude, fuel plan, alternate summary, daylight check</td></tr>
@@ -554,7 +555,7 @@ A(split(steps([
   ['SELECT', '**Edit data** [C] to reopen a standby flight in the wizard.'],
   ['LOAD', 'a newer briefing on a completed card [E] to update its weather.'],
   ['SELECT', '**View OFP** [F] to reopen a completed flight in the wizard.'],
-]) + box('caution', 'CAUTION', 'Saved flights are stored in this browser only. Graphic weather charts are not stored with the flight.'),
+]) + box('caution', 'CAUTION', 'Saved flights are stored in your account. On a shared device, select **Sign out** at the end of the session: it removes the local copy from the device. Graphic weather charts are not stored with the flight.'),
 figure(4, 'f4-4.jpg', 'Dashboard', '',
   [['A', 'Standby badge', 'Awaiting weather'], ['B', 'Load briefing', 'Finalise'], ['C', 'Edit data', 'Reopen'],
     ['D', 'Ready to fly badge', 'Weather loaded'], ['E', 'Update WX', 'LOAD newer briefing'], ['F', 'View OFP', 'Reopen']])));
@@ -597,7 +598,7 @@ A(ul(['Sunrise / sunset: upper limb at &minus;0.833°; civil twilight: centre at
   'Uses the flight date of Step 8 and the UTC times of Step 1. No elevation correction (as in published tables).']));
 A(h2('5.6', 'Documents and storage'));
 A(ul(['**Print OFP** prints the same PDF that is downloaded.',
-  'Saved flights stay in the browser of the device in use and are lost if the site data is cleared.',
+  'Saved flights are stored in the pilot\'s account and are visible only to that pilot. On a shared device, **Sign out** at the end of the session.',
   'The A5 NAV-FLIGHTPLAN is a separate document and must be downloaded separately.']));
 A('<div class="final">The documents produced are an aid to planning. Responsibility for the flight remains with the Pilot in Command.</div>');
 A('</section>');
