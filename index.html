@@ -65,7 +65,6 @@
           <button type="button" role="menuitem" id="btnStandby">Save to Standby</button>
           <div class="sep"></div>
           <button type="button" role="menuitem" id="btnPreview">Document Preview</button>
-          <button type="button" role="menuitem" id="btnPrint" title="Prints the same PDF that is downloaded: laid out by the app, not by the browser">Print OFP</button>
           <div class="sep"></div>
           <button type="button" role="menuitem" id="btnDrive" style="display:none">Save to Drive</button>
           <button type="button" role="menuitem" class="primary" id="btnPdf">Download OFP PDF</button>
@@ -661,8 +660,7 @@
           <div class="fld"><label>PIC name (signature)</label><input id="picName" value="" placeholder="PIC first and last name"></div>
         </div>
         <div class="hint">Final step. The document is generated from the menu at the top right, with
-            <b>"Download OFP PDF"</b>, which lays the document out on its own. <b>"Print OFP"</b> prints the same
-            PDF: on iPhone and iPad it opens in a new tab and is printed from the system viewer.</div>
+            <b>"Download OFP PDF"</b>, which lays the document out on its own; print it from the PDF viewer.</div>
       </div>
 
     </div>
@@ -2693,7 +2691,7 @@ function pagePerf(f,w){
     ${cpsTable}
     ${tocLabel(f) ? `<div style="font-size:9.5px;font-weight:700;margin:5px 0 8px">${esc(tocLabel(f))}</div>` : ''}
     ${cruiseTable}`;
-  return pageShell('PERFORMANCE', body, 3, 'font-size:9.5px');
+  return pageShell('PERFORMANCE', `<div class="compatto">${body}</div>`, 3, 'font-size:9.5px');
 }
 
 function pageCharts(){
@@ -3142,8 +3140,32 @@ function renderPreview(f,w,t){
   previewQueued=true;
   requestAnimationFrame(()=>{
     previewQueued=false;
-    try{ stage.innerHTML = buildPreviewHTML(f,w,t); }
+    try{ stage.innerHTML = buildPreviewHTML(f,w,t); adattaPagine(stage); }
     catch(e){ stage.innerHTML = `<div style="color:var(--err);font-size:13px">Preview not available: ${esc(e.message)}</div>`; }
+  });
+}
+/* Le pagine a misura fissa (OFP, M&B, Performance, Charts) sono un foglio A4:
+   il contenuto deve starci dentro. Con un Touch & Go, o con molte righe di
+   crociera, la pagina Performance poteva superare il fondo del foglio e
+   finire sotto il pie' di pagina. Il PDF impagina per conto suo e non ha il
+   problema; qui, se il contenuto sborda, lo si rimpicciolisce quanto basta.
+   Le pagine "flow" (briefing, meteo, NOTAM) crescono e non si toccano. */
+function adattaPagine(stage){
+  stage.querySelectorAll('.page:not(.flow) .pbody').forEach(pb=>{
+    const box=pb.lastElementChild, frame=pb.closest('.frame');
+    if(!box || !frame) return;
+    box.style.zoom='';
+    if(!(frame.getBoundingClientRect().height>0)) return;   // anteprima nascosta: niente da misurare
+    /* Il riferimento e' la cornice, che ha l'altezza del foglio: il corpo
+       invece si allunga insieme al contenuto e non segnalerebbe niente. */
+    const fondo=()=>Math.max(box.getBoundingClientRect().top, ...[...box.children].map(c=>c.getBoundingClientRect().bottom));
+    for(let i=0;i<6;i++){
+      const lim=frame.getBoundingClientRect().bottom-8, top=box.getBoundingClientRect().top, giu=fondo();
+      if(giu<=lim+0.5) break;
+      const z=(parseFloat(box.style.zoom)||1)*(lim-top)/(giu-top)*0.99;
+      if(z<0.55){ box.style.zoom='0.55'; break; }
+      box.style.zoom=z.toFixed(3);
+    }
   });
 }
 /* Grafico di centraggio in SVG: usato sia nel wizard sia nella pagina M&B
@@ -5164,49 +5186,9 @@ $('btnPdf').addEventListener('click',exportPDF);
 if($('btnNavPdf')) $('btnNavPdf').addEventListener('click',exportNavlogPDF);
 if($('btnDrive')) $('btnDrive').addEventListener('click',saveToDrive);
 $('btnPreview').addEventListener('click',togglePreview);
-/* "Stampa" non stampa piu' la pagina HTML, stampa il PDF.
-   Sono sempre stati due programmi diversi che disegnano lo stesso documento:
-   buildPDF() lo impagina lui, in A4, riga per riga; l'anteprima HTML la
-   impaginava il browser. E il browser fa come gli pare — Safari su iPad si
-   tiene i suoi margini, ci stampa sopra indirizzo e data, spezza le pagine
-   dove capita e ne aggiunge cinque bianche. Stampando il PDF il documento che
-   esce dalla stampante e' identico a quello che si salva: un solo modo di
-   generarlo, nessuna impaginazione di mezzo. */
-const IS_IOS = /iP(hone|ad|od)/.test(navigator.userAgent)
-            || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
-
-async function printOFP(){
-  const btn=$('btnPrint'); if(btn) btn.disabled=true;
-  const old=btn?btn.textContent:'';
-  if(btn) btn.textContent='Generating\u2026';
-  try{
-    const doc=buildPDF();
-    const url=doc.output('bloburl');
-    /* Su iPad e dentro l'iframe di Apps Script la stampa da un iframe nascosto
-       non parte: il PDF si apre in una scheda e da li' lo stampa il visore di
-       sistema, che e' anche il modo in cui si stampa qualsiasi altro PDF. */
-    if(IS_IOS || IS_APPS_SCRIPT){
-      const win=window.open(url,'_blank');
-      if(!win) doc.save(ofpFileName());     // scheda bloccata: almeno lo si scarica
-      return;
-    }
-    const fr=document.createElement('iframe');
-    fr.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';
-    fr.onload=()=>{
-      try{ fr.contentWindow.focus(); fr.contentWindow.print(); }
-      catch(e){ window.open(url,'_blank'); }
-      // l'iframe va tenuto in vita finche' il dialogo di stampa e' aperto
-      setTimeout(()=>{ fr.remove(); URL.revokeObjectURL(url); }, 60000);
-    };
-    fr.src=url;
-    document.body.appendChild(fr);
-  }catch(err){
-    alert('Error generating the PDF: '+err.message); console.error(err);
-  }finally{
-    if(btn){ btn.disabled=false; btn.textContent=old; }
-  }
-}
-$('btnPrint').addEventListener('click', printOFP);
+/* La stampa si fa dal PDF scaricato, con il visore di sistema: un solo
+   documento, impaginato da buildPDF(), senza un secondo percorso di stampa
+   da tenere allineato. */
 
 /* ==================== Dashboard / Flight Manager ==================== */
 // Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)

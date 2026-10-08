@@ -512,10 +512,9 @@ A(split(`<table class="std"><thead><tr><th></th><th>Item</th><th>Function</th></
 <tr><td><span class="mk">B</span></td><td>New Flight Plan</td><td>Returns to the import page. Unsaved data is lost.</td></tr>
 <tr><td><span class="mk">C</span></td><td>Save to Standby</td><td>Saves the flight to your account</td></tr>
 <tr><td><span class="mk">D</span></td><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
-<tr><td><span class="mk">E</span></td><td>Print OFP</td><td>Prints the same PDF that is downloaded. On iPhone / iPad it opens in a new tab.</td></tr>
-<tr><td><span class="mk">F</span></td><td>Download OFP PDF</td><td>A4 OFP</td></tr>
-<tr><td><span class="mk">G</span></td><td>Download Navlog PDF</td><td>A5 NAV-FLIGHTPLAN (separate document)</td></tr>
-<tr><td><span class="mk">H</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
+<tr><td><span class="mk">E</span></td><td>Download OFP PDF</td><td>A4 OFP. To print it, use the print function of the PDF viewer.</td></tr>
+<tr><td><span class="mk">F</span></td><td>Download Navlog PDF</td><td>A5 NAV-FLIGHTPLAN (separate document)</td></tr>
+<tr><td><span class="mk">G</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
 </tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
 A(h2('4.2', 'Operational Flight Plan (A4)'));
 A(`<table class="std keep"><caption>OFP page structure (number of pages varies with NOTAMs and charts)</caption><thead><tr><th>Page</th><th>Content</th></tr></thead><tbody>
@@ -599,7 +598,7 @@ A(ul(['Sunrise / sunset: upper limb at &minus;0.833°; civil twilight: centre at
   'Rounded conservatively: sunset and end of twilight to the minute before, sunrise to the minute after.',
   'Uses the flight date of Step 8 and the UTC times of Step 1. No elevation correction (as in published tables).']));
 A(h2('5.6', 'Documents and storage'));
-A(ul(['**Print OFP** prints the same PDF that is downloaded.',
+A(ul(['The OFP is printed from the downloaded PDF, with the PDF viewer.',
   'Saved flights are stored in the pilot\'s account and are visible only to that pilot. On a shared device, **Sign out** at the end of the session.',
   'The A5 NAV-FLIGHTPLAN is a separate document and must be downloaded separately.']));
 A('<div class="final">The documents produced are an aid to planning. Responsibility for the flight remains with the Pilot in Command.</div>');

@@ -147,6 +147,12 @@
      e vince sullo zebrato */
   .cruiseTable tr:nth-child(even) td{background:#f7f7f7}
   .cruiseTable td.hlCell{background:#fff3b0!important;font-weight:700}
+  /* Pagina Performance dell'anteprima: proporzioni vicine a quelle del PDF, che
+     su questa pagina usa un corpo piu' piccolo del resto del documento. */
+  .compatto .refTable{font-size:9px;margin:5px 0}
+  .compatto .refTable th,.compatto .refTable td{padding:1.5px 4px}
+  .compatto .refTable td.crit,.compatto .refTable td.bad{font-size:10px}
+  .compatto .cruiseTable td,.compatto .cruiseTable th{padding:1.5px 3px;font-size:8.5px}
   /* TORA, TODA e LDA: sono i numeri che decidono se si parte, non devono
      confondersi con il resto della riga */
   .refTable td.crit{background:#fff3b0;font-weight:700;font-size:12px}
