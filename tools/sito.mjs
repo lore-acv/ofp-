@@ -21,16 +21,11 @@ import path from 'node:path';
 const RADICE = process.cwd();
 const DIST = path.join(RADICE, 'dist');
 
-/* Le due pagine si scambiano di posto nel sito pubblicato.
-
-   Il volo comincia dall'import: e' li' che si caricano NavLog e briefing, e da
-   li' si arriva al foglio gia' compilato. Aprire la radice sul foglio vuoto
-   vuol dire far cominciare tutti da un cartello che dice "prima serve
-   l'import".
-
-   Nel repo i nomi restano quelli che vuole Apps Script — HtmlService cerca i
-   file per nome, 'index' e 'import' — e lo scambio si fa solo qui, insieme ai
-   due link che le pagine si scambiano. */
+/* Le pagine si pubblicano con il loro nome. La radice e' index.html, che apre
+   sulla Dashboard: da li' "New Flight" porta all'import (import.html), e
+   l'import riporta al foglio di volo, che e' sempre index.html. L'indirizzo
+   vecchio del foglio, /ofp.html, lo rimanda alla radice il cancello
+   (functions/_middleware.js). */
 const DA_PUBBLICARE = [
   ['data/aeroporti.json', 'data/aeroporti.json'],
   ['data/manuale.pdf',    'data/manuale.pdf'],
@@ -72,8 +67,8 @@ const impronta = (buf) => createHash('sha256').update(buf).digest('hex').slice(0
 
 /* [sorgente, destinazione, [da, a] del link da riscrivere] */
 const PAGINE = [
-  ['import.html', 'index.html', 'href="index.html"',  'href="ofp.html"'],
-  ['index.html',  'ofp.html',   'href="import.html"', 'href="./"'],
+  ['import.html', 'import.html', 'href="index.html"',  'href="./"'],
+  ['index.html',  'index.html',  null, null],
   ['manuale.html','manuale.html','href="import.html"', 'href="./"'],
   ...PAGINE_CONTO.map(p => [p, p, null, null])
 ];

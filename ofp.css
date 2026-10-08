@@ -216,7 +216,7 @@
   @media print{
     .filled{color:#000}
     /* in stampa resta solo il documento: niente wizard, niente topbar */
-    .topbar,.formcol,#dashboard,#needImport{display:none!important}
+    .topbar,.formcol,#dashboard{display:none!important}
     html,body{height:auto;overflow:visible;background:#fff}
     .main{display:block}
     .stage{display:block!important;padding:0;background:#fff;gap:0}
@@ -282,10 +282,19 @@
 /* ===== Dashboard / Flight Manager ===== */
 /* La Dashboard nasceva chiara a prescindere: ora segue il tema come il resto
    dell'interfaccia, altrimenti col tema scuro si apre un riquadro bianco. */
-#dashboard{position:fixed;inset:0;background:var(--stage-bg);z-index:50;display:none;overflow:auto}
-#dashboard.open{display:block}
-.dash-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:var(--panel-bg);border-bottom:1px solid var(--panel-line);position:sticky;top:0;z-index:2}
-.dash-head h2{margin:0;font-size:17px;color:var(--txt)}
+/* E' la prima pagina dopo l'accesso: prende il posto delle fasi e del foglio
+   sotto la barra in alto, che resta (tema, manuale, account). */
+#dashboard{flex:1;min-height:0;background:var(--stage-bg);display:none;overflow:auto}
+html.vista-dash #dashboard{display:block}
+html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:none!important}
+.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin:4px 0 16px}
+.dash-head h2{margin:0;font-size:1.35rem;color:var(--txt)}
+.dash-nuovo{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:12px;padding:16px 18px;margin-bottom:8px}
+.dash-nuovo-t{font-weight:700;font-size:1.05rem}
+.dash-nuovo-s{font-size:.88rem;color:var(--txt-dim);margin-top:2px}
+.dash-nuovo .btn,.dash-head .btn{text-decoration:none;display:inline-flex;align-items:center;min-height:var(--tap)}
+.dash-head .btn[hidden]{display:none}
 .dash-conto{font-size:12.5px;color:var(--txt-dim);margin-top:3px}
 .dash-sync{display:block;color:var(--warn)}
 .dash-sync.err{color:var(--err)}

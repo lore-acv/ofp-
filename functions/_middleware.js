@@ -59,6 +59,8 @@ export async function onRequest(context) {
     return new Response('Change your temporary password first.', { status: 403, headers: { 'Cache-Control': 'no-store' } });
   }
   if (pg === '/admin' && utente.ruolo !== 'admin') return vai('/');
+  // il foglio di volo stava qui prima che la Dashboard diventasse la prima pagina
+  if (pg === '/ofp') return vai('/');
 
   return next();
 }

@@ -2,7 +2,7 @@
 
 Generatore di **Operational Flight Plan** per i Reims Cessna FR172J (I-CCAF) e
 FR172H (I-CCAB) dell'aeroclub, adattato dal
-generatore per Diamond DA40. Due pagine: una di **import** e il **foglio di volo** in 7 passaggi, anteprima HTML fedele al documento
+generatore per Diamond DA40. Due pagine: la **Dashboard** con il **foglio di volo** in 8 passaggi e la pagina di **import**; anteprima HTML fedele al documento
 e **PDF vettoriale A4 in Courier** (jsPDF), con estrazione automatica di
 METAR / SPECI / TAF / NOTAM dal PDF del briefing meteo.
 
@@ -14,8 +14,8 @@ la provenienza di ogni singolo numero è in **[DATI-AFM.md](DATI-AFM.md)**.
 
 | File | Cosa contiene |
 |---|---|
-| `import.html` | **pagina di apertura**: carica NavLog e briefing, poi passa al foglio di volo |
-| `index.html` | il foglio di volo (wizard in 8 passaggi, anteprima, PDF) |
+| `index.html` | **prima pagina**: la Dashboard (volo nuovo o voli salvati) e il foglio di volo (wizard in 8 passaggi, anteprima, PDF) |
+| `import.html` | carica NavLog e briefing per un volo nuovo, poi passa al foglio di volo |
 | `manuale.html` | il manuale d'uso come e-book sfogliabile (`data/manuale/`, PDF stampabile in `data/manuale.pdf`) |
 | `ofp-core.js` | nucleo condiviso: lettura NavLog, briefing, METAR |
 | `ofp.css` | foglio di stile condiviso dalle due pagine |
@@ -39,10 +39,12 @@ entrerebbero. `sessionStorage` vive quanto la scheda, che è esattamente la dura
 di una compilazione. Se le cartine non ci stanno vengono omesse e il resto passa
 comunque, invece di perdere l'intero import per colpa di un allegato.
 
-Aprendo `index.html` senza essere passati dall'import, la pagina lo dice e offre
-il link per tornare indietro: è un pannello con un link e non una redirezione da
-script, perché sotto Apps Script le pagine stanno in un iframe e la navigazione
-programmatica verrebbe bloccata dal sandbox.
+`index.html` apre sempre sulla **Dashboard**: *New Flight* porta all'import, e
+i voli salvati si riaprono dalle loro schede. Il foglio di volo si mostra
+direttamente solo arrivando dall'import con *Continua*, che lo segna in
+`sessionStorage` (`ofp_apri_volo`). *New Flight* è un link e non una
+navigazione da script, perché sotto Apps Script le pagine stanno in un iframe e
+la navigazione programmatica verrebbe bloccata dal sandbox.
 
 I parser stanno una volta sola in `ofp-core.js`, caricato da entrambe le pagine:
 niente due copie che col tempo divergerebbero.
@@ -69,8 +71,8 @@ Apri `index.html` in un browser. Serve connessione a Internet per jsPDF e pdf.js
    Apps Script non serve file `.js` e `.css`: `doGet` sostituisce al volo i tag
    `<script src="ofp-core.js">` e `<link href="ofp.css">` con il contenuto di
    `core` e `styles`. Le pagine restano così identiche a quelle che funzionano
-   aperte direttamente in un browser. L'indirizzo del web app apre l'import;
-   `?page=ofp` apre il foglio di volo.
+   aperte direttamente in un browser. L'indirizzo del web app apre la
+   Dashboard; `?page=import` apre l'import.
 
    **Perché i tag intorno al nucleo.** Apps Script conserva questi file come HTML
    e, a seconda di come vengono letti, ne convalida il contenuto. Il nucleo è
@@ -380,9 +382,8 @@ to Git**, si sceglie questo repo e si imposta:
 Da li' in poi ogni push su `main` ripubblica il sito. Il dominio si aggiunge in
 **Custom domains**. Netlify funziona uguale, con gli stessi due valori.
 
-La radice del sito apre il foglio di volo, che se non trova un import gia'
-fatto mostra il pannello "Prima serve l'import" con il link alla pagina di
-apertura.
+La radice del sito apre la Dashboard (`index.html`); l'import e' `import.html`.
+Il vecchio indirizzo del foglio di volo, `/ofp.html`, rimanda alla radice.
 
 ### Accesso e account
 

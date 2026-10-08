@@ -195,11 +195,13 @@ A(ul(['Aircraft: Reims Cessna &ldquo;Reims Rocket&rdquo;, Continental IO-360-D: 
   'Units: fuel in **litres**, fuel flow in **L/h**, speeds in **MPH** (as in the AFM), distances in **NM**, times in **UTC**.']));
 A(h2('1.3', 'System overview'));
 A(`<div class="flow">
-  <div class="fl-col"><div class="fl-h">INPUTS</div>
-    <div class="fl-b">ForeFlight NavLog<small>PDF or text</small></div>
-    <div class="fl-b">Weather &amp; NOTAM briefing<small>PDF &ndash; Skybrief, Skybriefing/PIB, AELO/MeteoSwiss</small></div></div>
+  <div class="fl-col"><div class="fl-h">DASHBOARD</div>
+    <div class="fl-b">New Flight<small>to the import page</small></div>
+    <div class="fl-b">Saved flights<small>reopened in the wizard &ndash; Section 4.4</small></div></div>
   <div class="fl-arr">&#9654;</div>
-  <div class="fl-col"><div class="fl-h">IMPORT PAGE</div><div class="fl-b">Section 2<small>file reading and status</small></div></div>
+  <div class="fl-col"><div class="fl-h">IMPORT PAGE</div>
+    <div class="fl-b">ForeFlight NavLog<small>PDF or text &ndash; Section 2</small></div>
+    <div class="fl-b">Weather &amp; NOTAM briefing<small>PDF &ndash; Skybrief, Skybriefing/PIB, AELO/MeteoSwiss</small></div></div>
   <div class="fl-arr">&#9654;</div>
   <div class="fl-col"><div class="fl-h">WIZARD</div><div class="fl-b fl-steps">1 Flight<br>2 Route &amp; Fuel<br>3 M&amp;B<br>4 Performance<br>5 Navlog<br>6 Charts<br>7 Briefing<br>8 NOTAM &amp; Wx<small>Section 3</small></div></div>
   <div class="fl-arr">&#9654;</div>
@@ -227,9 +229,10 @@ A('</section>');
 A('<section>');
 A(h1(2, 'Data Ingestion – Import Page'));
 A(h2('2.1', 'Pre-requisites'));
-A(steps([['INPUT', 'the e-mail and password provided by the administrator to sign in. At the first sign-in, replace the temporary password with your own (at least 10 characters).'],
+A(steps([['INPUT', 'the e-mail and password provided by the administrator to sign in. At the first sign-in, replace the temporary password with your own (at least 10 characters). The **Dashboard** opens (Section 4.4).'],
   ['PREPARE', 'the route in ForeFlight and export the **NavLog** (PDF or text).'],
-  ['DOWNLOAD', 'the **weather and NOTAM briefing** PDF covering departure, destination, alternate and route.']]));
+  ['DOWNLOAD', 'the **weather and NOTAM briefing** PDF covering departure, destination, alternate and route.'],
+  ['SELECT', '**New Flight** on the Dashboard: the Import page opens. **&larr; Dashboard** at the top of the Import page goes back without importing.']]));
 A(h2('2.2', 'Procedure'));
 A(split(steps([
   ['LOAD', 'the ForeFlight NavLog in the NavLog drop zone [A]. Load it first: its ICAO codes are used to sort the briefing.'],
@@ -524,14 +527,14 @@ A('<section>');
 A(h1(4, 'System Outputs & Dispatch'));
 A(h2('4.1', 'Menu'));
 A(split(`<table class="std"><thead><tr><th></th><th>Item</th><th>Function</th></tr></thead><tbody>
-<tr><td><span class="mk">A</span></td><td>Dashboard</td><td>Saved flights (Section 4.4)</td></tr>
-<tr><td><span class="mk">B</span></td><td>New Flight Plan</td><td>Returns to the import page. Unsaved data is lost.</td></tr>
+<tr><td><span class="mk">A</span></td><td>Dashboard</td><td>Back to the Dashboard (Section 4.4). The flight plan stays open.</td></tr>
+<tr><td><span class="mk">B</span></td><td>New Flight Plan</td><td>Closes the flight plan and opens the import page. Unsaved data is lost.</td></tr>
 <tr><td><span class="mk">C</span></td><td>Save to Standby</td><td>Saves the flight to your account</td></tr>
 <tr><td><span class="mk">D</span></td><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
 <tr><td><span class="mk">E</span></td><td>Download OFP PDF</td><td>A4 OFP. To print it, use the print function of the PDF viewer.</td></tr>
 <tr><td><span class="mk">F</span></td><td>Download Navlog PDF</td><td>A5 NAV-FLIGHTPLAN (separate document)</td></tr>
 <tr><td><span class="mk">G</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
-</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
+</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab. On the Dashboard the menu shows only New Flight Plan, User Manual and the account items.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
 A(h2('4.2', 'Operational Flight Plan (A4)'));
 A(`<table class="std keep"><caption>OFP page structure (number of pages varies with NOTAMs and charts)</caption><thead><tr><th>Page</th><th>Content</th></tr></thead><tbody>
 <tr><td>OFP</td><td>Flight data, estimated / actual times, route, cruise altitude, fuel plan, alternate summary, daylight check</td></tr>
@@ -565,14 +568,15 @@ A(steps([
 A(figure(4, 'f4-6.jpg', 'NAV-FLIGHTPLAN', 'A5 document for the cockpit.',
   [['A', 'Header', 'VERIFY'], ['B', 'Off Bl. / Bl. on', 'Record by hand'], ['C', 'Legs', 'VERIFY'], ['D', 'ATO', 'Record in flight'],
     ['E', 'Alternate row', 'VERIFY'], ['F', 'Fuel calculation', 'VERIFY']], 'wide doc a5'));
-A(h2('4.4', 'Saved flights – Dashboard'));
+A(h2('4.4', 'Dashboard – Saved flights'));
+A(p('The Dashboard is the first page after signing in. **New Flight** opens the Import page (Section 2); saved flights are reopened from their cards. While a flight plan is open in the wizard, **Back to the open flight plan** returns to it. Reloading the page also shows the Dashboard first.'));
 A(split(steps([
   ['SELECT', '**Save to Standby** to store the flight, for example while waiting for the weather. The Dashboard opens.'],
   ['LOAD', 'the briefing PDF on the standby card [B] to finalise the flight: it moves to READY TO FLY [D].'],
   ['SELECT', '**Edit data** [C] to reopen a standby flight in the wizard.'],
   ['LOAD', 'a newer briefing on a completed card [E] to update its weather.'],
   ['SELECT', '**View OFP** [F] to reopen a completed flight in the wizard.'],
-]) + box('caution', 'CAUTION', 'Saved flights are stored in your account. On a shared device, select **Sign out** at the end of the session: it removes the local copy from the device. Graphic weather charts are not stored with the flight.'),
+]) + box('note', 'NOTE', 'Opening a saved flight or starting a new one closes the flight plan open in the wizard: save it first with **Save to Standby**.') + box('caution', 'CAUTION', 'Saved flights are stored in your account. On a shared device, select **Sign out** at the end of the session: it removes the local copy from the device. Graphic weather charts are not stored with the flight.'),
 figure(4, 'f4-4.jpg', 'Dashboard', '',
   [['A', 'Standby badge', 'Awaiting weather'], ['B', 'Load briefing', 'Finalise'], ['C', 'Edit data', 'Reopen'],
     ['D', 'Ready to fly badge', 'Weather loaded'], ['E', 'Update WX', 'LOAD newer briefing'], ['F', 'View OFP', 'Reopen']])));

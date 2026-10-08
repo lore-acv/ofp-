@@ -1,10 +1,11 @@
 <!--
-  CESSNA C172 FR — PAGINA DI APERTURA / IMPORT DATI DI VOLO
+  CESSNA C172 FR — IMPORT DATI DI VOLO
 
-  Prima delle due pagine dell'applicazione. Qui si caricano il NavLog di
+  Ci si arriva dalla Dashboard con "New Flight". Qui si caricano il NavLog di
   ForeFlight e il briefing meteo; quando entrambi sono stati letti il pulsante
   "Continua" porta al foglio di volo (index.html), a cui i dati vengono passati
-  tramite sessionStorage.
+  tramite sessionStorage. Lo stesso index.html, aperto in qualunque altro modo,
+  mostra la Dashboard.
 
   Perche' sessionStorage e non un parametro nell'URL: i dati estratti sono
   decine di kilobyte (bollettini interi, tabelle di tratte, e le cartine meteo
@@ -51,12 +52,14 @@
         cursor:pointer;font:inherit;font-size:.88rem;padding:.4rem}
   .skip:hover{color:var(--txt)}
   .apri-guida{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  #lnkDashboard{white-space:nowrap;flex:0 0 auto}
 </style>
 
 <div class="topbar">
   <div class="topbar-main">
     <div class="brand">C172 FR OFP <span>Import</span></div>
     <div style="display:flex;align-items:center;gap:.6rem">
+    <a class="btn ghost" id="lnkDashboard" href="index.html">&larr; Dashboard</a>
     <div class="conto-barra" id="contoBarra" hidden>
       <span id="contoChi"></span>
       <a href="/admin" id="contoUtenti" target="_blank" rel="noopener" hidden>Users</a>
@@ -72,7 +75,7 @@
     <p class="step-title" style="margin:1.2rem 0 0">Flight Data Import</p>
     <button type="button" class="btn ghost" id="btnGuida">How To Use</button>
   </div>
-  <p class="lead">Starting point. Load the <b>ForeFlight NavLog</b> and the <b>weather briefing</b>:
+  <p class="lead">New flight. Load the <b>ForeFlight NavLog</b> and the <b>weather briefing</b>:
     they provide route, waypoints, distances and times, then wind, QNH, temperature, METAR, TAF and NOTAM.
     Once both have been read, proceed to the flight plan.</p>
 
@@ -367,9 +370,15 @@ function save(manual){
 wireDrop('navDrop','navFile',handleNavlog);
 wireDrop('wxDrop','wxFile',handleWx);
 
+/* Il foglio di volo apre sulla Dashboard, tranne quando ci si arriva da qui:
+   questo segno in sessione gli dice di mostrare il volo appena importato. */
+const APRI_VOLO_KEY='ofp_apri_volo';
+function segnaApertura(){ try{ sessionStorage.setItem(APRI_VOLO_KEY,'1'); }catch(e){} }
+$('btnContinue').addEventListener('click',()=>{ if($('btnContinue').getAttribute('aria-disabled')!=='true') segnaApertura(); });
 $('btnSkip').addEventListener('click',()=>{
   if(!confirm('Proceed without import?\n\nRoute, distances and weather data will have to be entered manually in the flight plan.')) return;
   save(true);
+  segnaApertura();
   window.location.href=$('btnContinue').getAttribute('href');
 });
 
@@ -382,6 +391,7 @@ if(typeof google!=='undefined' && google.script && google.script.run){
     const a=$('btnContinue');
     a.setAttribute('href', url+'?page=ofp');
     a.setAttribute('target','_top');
+    const d=$('lnkDashboard'); d.setAttribute('href', url); d.setAttribute('target','_top');
   }).getWebAppUrl();
 }
 

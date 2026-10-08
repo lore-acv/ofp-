@@ -18,7 +18,7 @@
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OFP C172 FR — Flight Plan</title>
+<title>OFP C172 FR</title>
 <link rel="stylesheet" href="ofp.css">
 <script>
 /* Il tema si applica prima che la pagina si disegni: leggerlo piu' tardi
@@ -31,28 +31,16 @@
     document.documentElement.setAttribute('data-tema', t);
   }catch(e){ document.documentElement.setAttribute('data-tema','scuro'); }
 })();
+/* La pagina apre sulla Dashboard: la classe c'e' prima che si disegni, cosi'
+   chi arriva dall'accesso non vede passare il foglio di volo. Il foglio la
+   toglie solo quando arriva dall'import (vedi boot). */
+document.documentElement.classList.add('vista-dash');
 </script>
 
 
-<!-- Mostrato solo se si apre il foglio di volo senza essere passati dall'import.
-     E' un pannello con un link, non una redirezione da script: sotto Apps Script
-     le due pagine stanno in un iframe e la navigazione programmatica verrebbe
-     bloccata dal sandbox, mentre un <a target="_top"> funziona sempre. -->
-<div id="needImport" style="display:none;position:fixed;inset:0;z-index:80;background:var(--bg);
-     align-items:center;justify-content:center;padding:2rem">
-  <div style="max-width:30rem;text-align:center">
-    <p class="step-title">Import required first</p>
-    <p style="color:var(--txt-dim);line-height:1.6;margin:.6rem 0 1.4rem">
-      The flight plan is built from the ForeFlight NavLog and the weather briefing.
-      Load them on the opening page: from there you arrive here with everything already filled in.</p>
-    <a class="btn primary" id="goImport" href="import.html"
-       style="display:inline-flex;align-items:center;text-decoration:none">Go to Import</a>
-  </div>
-</div>
-
 <div class="topbar">
   <div class="topbar-main">
-    <div class="brand">C172 FR OFP <span>Wizard</span></div>
+    <div class="brand">C172 FR OFP <span id="brandVista">Dashboard</span></div>
     <div class="topbar-azioni">
       <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
       <div class="menu-wrap">
@@ -60,15 +48,15 @@
           <span></span><span></span><span></span>
         </button>
         <div class="menu" id="mainMenu" role="menu">
-          <button type="button" role="menuitem" id="btnDashboard">Dashboard</button>
+          <button type="button" role="menuitem" class="solo-volo" id="btnDashboard">Dashboard</button>
           <button type="button" role="menuitem" id="btnNew">New Flight Plan</button>
-          <button type="button" role="menuitem" id="btnStandby">Save to Standby</button>
-          <div class="sep"></div>
-          <button type="button" role="menuitem" id="btnPreview">Document Preview</button>
-          <div class="sep"></div>
-          <button type="button" role="menuitem" id="btnDrive" style="display:none">Save to Drive</button>
-          <button type="button" role="menuitem" class="primary" id="btnPdf">Download OFP PDF</button>
-          <button type="button" role="menuitem" class="primary" id="btnNavPdf">Download Navlog PDF</button>
+          <button type="button" role="menuitem" class="solo-volo" id="btnStandby">Save to Standby</button>
+          <div class="sep solo-volo"></div>
+          <button type="button" role="menuitem" class="solo-volo" id="btnPreview">Document Preview</button>
+          <div class="sep solo-volo"></div>
+          <button type="button" role="menuitem" class="solo-volo" id="btnDrive" style="display:none">Save to Drive</button>
+          <button type="button" role="menuitem" class="primary solo-volo" id="btnPdf">Download OFP PDF</button>
+          <button type="button" role="menuitem" class="primary solo-volo" id="btnNavPdf">Download Navlog PDF</button>
           <div class="sep"></div>
           <button type="button" role="menuitem" id="btnManuale" title="Opens in a new tab: the flight plan stays as it is">User Manual</button>
           <div class="sep conto-voce" style="display:none"></div>
@@ -690,13 +678,26 @@
   <div class="stage" id="stage" style="display:none"></div>
 </div>
 
-<!-- ===== Dashboard / Flight Manager ===== -->
+<!-- ===== Dashboard / Flight Manager =====
+     E' la prima pagina dopo l'accesso: da qui si comincia un volo nuovo, che
+     passa dall'import, o se ne riapre uno salvato. Il foglio di volo si vede
+     solo arrivando dall'import o da un volo salvato.
+     "New Flight" e' un link e non una navigazione da script: sotto Apps Script
+     le pagine stanno in un iframe e il sandbox la bloccherebbe, mentre un
+     <a target="_top"> funziona sempre. -->
 <div id="dashboard">
-  <div class="dash-head">
-    <div><h2>Flight History</h2><div class="dash-conto" id="dashConto"></div></div>
-    <button class="btn primary" id="btnCloseDash">&larr; Back to Wizard</button>
-  </div>
   <div class="dash-body">
+    <div class="dash-head">
+      <div><h2>Dashboard</h2><div class="dash-conto" id="dashConto"></div></div>
+      <button type="button" class="btn" id="btnCloseDash" hidden>Back to the open flight plan &rarr;</button>
+    </div>
+    <div class="dash-nuovo">
+      <div>
+        <div class="dash-nuovo-t">New flight</div>
+        <div class="dash-nuovo-s">Start from the ForeFlight NavLog and the weather briefing.</div>
+      </div>
+      <a class="btn primary" id="goImport" href="import.html">New Flight &rarr;</a>
+    </div>
     <div class="dash-section-title">Standby flights &mdash; awaiting WX</div>
     <div class="cards" id="draftCards"></div>
     <div id="draftEmpty" class="dash-empty">No standby flights. Fill in the route and press "Save to Standby".</div>
@@ -5341,7 +5342,7 @@ async function sincronizzaVoli(){
   }finally{
     SYNC_IN_CORSO=false;
     aggiornaStatoConto();
-    if($('dashboard') && $('dashboard').classList.contains('open')) renderDashboard();
+    if(dashboardAperta()) renderDashboard();
     if(SYNC_ANCORA){ SYNC_ANCORA=false; sincronizzaVoli(); }
   }
 }
@@ -5497,12 +5498,24 @@ const NEW_FLIGHT_DEFAULTS = {
   tora:'', toda:'', lda:'', ldaAltn:''
 };
 
-function newFlight(){
-  if(!confirm('Create a new flight plan? Unsaved data will be lost.')) return;
-  // Un foglio nuovo riparte dall'import: e' li' che si caricano NavLog e briefing.
+/* Un foglio nuovo riparte dall'import: e' li' che si caricano NavLog e
+   briefing. Se nel foglio c'e' un volo aperto lo si dice prima, perche' quello
+   che non e' stato salvato va perso. */
+function lasciaVoloAperto(){
+  if(VOLO_APERTO && !confirm('Start a new flight? The flight plan open in the wizard will be closed: data not saved with "Save to Standby" will be lost.')) return false;
   try{ sessionStorage.removeItem(HANDOFF_KEY); }catch(e){}
+  return true;
+}
+function newFlight(){
+  if(!lasciaVoloAperto()) return;
   window.location.href = ($('goImport') && $('goImport').getAttribute('href')) || 'import.html';
-  return;
+}
+
+/* Svuota il foglio prima di aprirci un volo salvato: dalla Dashboard se ne
+   aprono piu' d'uno nella stessa sessione, e un campo che il volo salvato non
+   ha (il meteo di un volo in standby, le carte della destinazione) non deve
+   restare quello del volo di prima. */
+function svuotaFoglio(){
   window.__editingFlightId=null;
   window.__wxCharts=null;
   window.__wxPrintedAt=null;
@@ -5521,7 +5534,6 @@ function newFlight(){
   if(typeof window.__chartImgs!=='undefined'){ window.__chartImgs=[]; if(typeof renderChartThumbs==='function') renderChartThumbs(); }
   if($('chartThumbs')) $('chartThumbs').innerHTML='';
   if($('wxStatus')) $('wxStatus').textContent='';
-  closeDashboard(); goToStep(1); render();
 }
 
 function saveFlightDraft(){
@@ -5547,23 +5559,26 @@ function deleteFlight(flightId){
   renderDashboard();
 }
 
-function editFlight(flightId){
+/* Un volo ripreso dalla Dashboard ha gia' i suoi dati dentro: rimandarlo
+   all'import sarebbe solo un ostacolo. Le carte meteo non si salvano col volo:
+   restano solo quelle lette per questo stesso volo (aggiornamento WX dalla
+   sua scheda), mai quelle di un altro. */
+function apriVoloSalvato(flightId){
   const f=loadSavedFlights().find(x=>x.id===flightId); if(!f) return;
+  if(VOLO_APERTO && window.__editingFlightId!==flightId &&
+     !confirm('Open this flight? The flight plan open in the wizard will be closed: data not saved with "Save to Standby" will be lost.')) return;
+  const carte = window.__wxChartsDi===flightId ? window.__wxCharts : null;
+  const stampa = window.__wxChartsDi===flightId ? window.__wxPrintedAt : null;
+  svuotaFoglio();
   applyFlightData(f.flight_data);
   if(f.weather_data) applyWeatherData(f.weather_data);
+  window.__wxCharts=carte; window.__wxPrintedAt=stampa;
+  scheduleAirportLookup();      // elevazioni e piste dei suoi aeroporti, come dopo l'import
   window.__editingFlightId=flightId;
-  // un volo ripreso dalla cronologia ha gia' i suoi dati dentro: rimandarlo
-  // all'import sarebbe solo un ostacolo
+  VOLO_APERTO=true;
   closeDashboard(); goToStep(1); render();
 }
-
-function viewFlightOFP(flightId){
-  const f=loadSavedFlights().find(x=>x.id===flightId); if(!f) return;
-  applyFlightData(f.flight_data);
-  if(f.weather_data) applyWeatherData(f.weather_data);
-  window.__editingFlightId=flightId;
-  closeDashboard(); goToStep(1); render();
-}
+const editFlight=apriVoloSalvato, viewFlightOFP=apriVoloSalvato;
 
 // Finalizza un volo caricando il PDF del briefing: riusa lo STESSO parser del wizard,
 // scrive i risultati nei campi del wizard (per riusare parseBriefingText/applyBriefingResult),
@@ -5587,6 +5602,7 @@ function finalizeFlightWithPDF(flightId, pdfFile, statusEl){
       const allText=pageTexts.join('\n');
       window.__wxPrintedAt=extractPrintedAt(pageTexts[0]||'');
       window.__wxCharts=await extractWeatherCharts(pdf);
+      window.__wxChartsDi=flightId;
       const codes={ dep:(f.flight_data.dep||'').toUpperCase(), dest:(f.flight_data.arr||'').toUpperCase(), altn:(f.flight_data.altn||'').toUpperCase() };
       const result=parseBriefingText(allText, allText, codes);
       applyBriefingResult(result); // scrive METAR/SPECI/TAF/NOTAM nei campi del wizard
@@ -5670,8 +5686,22 @@ function renderDashboard(){
   $('completedEmpty').style.display=done.length?'none':'block';
   aggiornaStatoConto();
 }
-function openDashboard(){ renderDashboard(); $('dashboard').classList.add('open'); }
-function closeDashboard(){ $('dashboard').classList.remove('open'); }
+/* La Dashboard e' la prima pagina: occupa il posto del foglio sotto la barra in
+   alto, che resta con il tema, il manuale e l'account. Dal menu spariscono le
+   voci che lavorano sul foglio aperto. */
+let VOLO_APERTO=false;      // c'e' un volo nel foglio (dall'import o dalla Dashboard)
+const dashboardAperta=()=>document.documentElement.classList.contains('vista-dash');
+function openDashboard(){
+  renderDashboard();
+  document.documentElement.classList.add('vista-dash');
+  if($('brandVista')) $('brandVista').textContent='Dashboard';
+  if($('btnCloseDash')) $('btnCloseDash').hidden=!VOLO_APERTO;
+  if($('dashboard')) $('dashboard').scrollTop=0;
+}
+function closeDashboard(){
+  document.documentElement.classList.remove('vista-dash');
+  if($('brandVista')) $('brandVista').textContent='Wizard';
+}
 
 /* Menu hamburger: si chiude cliccando fuori, con Escape, e dopo ogni azione. */
 (function(){
@@ -5707,13 +5737,16 @@ if($('btnManuale')){
   $('btnManuale').addEventListener('click',()=>window.open('manuale.html','_blank','noopener'));
 }
 $('btnNew').addEventListener('click',newFlight);
+/* "New Flight" della Dashboard e' un link vero (vedi il markup): qui si
+   chiede conferma solo se nel foglio c'e' un volo aperto. */
+$('goImport').addEventListener('click',e=>{ if(!lasciaVoloAperto()) e.preventDefault(); });
 
 /* ===================== DATI RICEVUTI DALLA PAGINA DI IMPORT =====================
    La pagina di apertura lascia in sessionStorage quello che ha estratto; qui lo si
    riprende e lo si versa nei campi. Se non c'e' nulla vuol dire che si e' arrivati
    al foglio di volo saltando l'import, e lo si dice invece di mostrare un modulo
    vuoto senza spiegazione. */
-const HANDOFF_KEY='ofp_handoff', HANDOFF_V=1;
+const HANDOFF_KEY='ofp_handoff', HANDOFF_V=1, APRI_VOLO_KEY='ofp_apri_volo';
 
 function readHandoff(){
   try{
@@ -5747,11 +5780,7 @@ function applyNavlogSummary(sum){
 
 function applyHandoff(){
   const d=readHandoff();
-  if(!d){
-    // nessun dato e nessuna scelta di compilare a mano: si torna all'import
-    $('needImport').style.display='flex';
-    return false;
-  }
+  if(!d) return false;
   applyNavlogSummary(d.nav);
   if(d.wx){
     if(d.wx.printedAt){
@@ -5770,7 +5799,7 @@ function applyHandoff(){
 /* Sotto Apps Script le due pagine sono lo stesso web app con un parametro. */
 if(typeof google!=='undefined' && google.script && google.script.run){
   google.script.run.withSuccessHandler(function(url){
-    const a=$('goImport'); if(a){ a.setAttribute('href',url); a.setAttribute('target','_top'); }
+    const a=$('goImport'); if(a){ a.setAttribute('href',url+'?page=import'); a.setAttribute('target','_top'); }
   }).getWebAppUrl();
 }
 
@@ -5828,7 +5857,15 @@ if($('acSelect')) $('acSelect').addEventListener('change', ()=>{
 });
 
 document.body.addEventListener('input',render);
-applyHandoff();
+/* Il foglio si mostra solo a chi ci arriva dall'import con "Continue" (la
+   pagina di import lo segna in sessione). Tutti gli altri — chi entra dopo
+   l'accesso, chi ricarica, chi torna dall'import senza proseguire — vedono la
+   Dashboard; un volo importato resta comunque aperto dietro, e "Back to the
+   open flight plan" lo riporta davanti. */
+VOLO_APERTO = applyHandoff();
+let DALL_IMPORT=false;
+try{ DALL_IMPORT = sessionStorage.getItem(APRI_VOLO_KEY)==='1'; sessionStorage.removeItem(APRI_VOLO_KEY); }catch(e){}
+if(VOLO_APERTO && DALL_IMPORT) closeDashboard(); else openDashboard();
 renderSteps(); goToStep(1);
 buildTimeSelects(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
 /* I codici arrivati dall'import non passano dai campi, quindi nessuno ha fatto
@@ -5841,5 +5878,5 @@ scheduleAirportLookup();
 navApplyCruiseAlt();
 // su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
 if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
-bootstrapFlights(()=>{ if($('dashboard').classList.contains('open')) renderDashboard(); });
+bootstrapFlights(()=>{ if(dashboardAperta()) renderDashboard(); });
 </script>

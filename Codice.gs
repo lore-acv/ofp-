@@ -28,10 +28,10 @@ var FLIGHTS_KEY = 'saved_flights';
 var CHUNK_SIZE = 8000;
 
 /**
- * L'applicazione ha due pagine: import.html (apertura) e index.html (foglio di
- * volo). Sotto Apps Script sono lo stesso web app distinto da un parametro:
- *   <url>            -> pagina di import
- *   <url>?page=ofp   -> foglio di volo
+ * L'applicazione ha due pagine: index.html (Dashboard e foglio di volo) e
+ * import.html. Sotto Apps Script sono lo stesso web app distinto da un parametro:
+ *   <url>              -> Dashboard (e foglio di volo)
+ *   <url>?page=import  -> pagina di import
  *
  * Apps Script non serve file .js e .css: i tag <script src="ofp-core.js"> e
  * <link href="ofp.css"> vengono sostituiti al volo con il contenuto dei file
@@ -39,7 +39,7 @@ var CHUNK_SIZE = 8000;
  * funzionano aperte direttamente in un browser, senza doppioni da mantenere.
  */
 function doGet(e) {
-  var page = (e && e.parameter && e.parameter.page === 'ofp') ? 'index' : 'import';
+  var page = (e && e.parameter && e.parameter.page === 'import') ? 'import' : 'index';
   var html = HtmlService.createHtmlOutputFromFile(page).getContent();
 
   html = inject_(html, '<script src="ofp-core.js"></script>', wrapped_('core', 'script'));
