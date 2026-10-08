@@ -534,7 +534,7 @@ A(split(`<table class="std"><thead><tr><th></th><th>Item</th><th>Function</th></
 <tr><td><span class="mk">E</span></td><td>Download OFP PDF</td><td>A4 OFP. To print it, use the print function of the PDF viewer.</td></tr>
 <tr><td><span class="mk">F</span></td><td>Download Navlog PDF</td><td>A5 NAV-FLIGHTPLAN (separate document)</td></tr>
 <tr><td><span class="mk">G</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
-</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab. On the Dashboard the menu shows only New Flight Plan, User Manual and the account items.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
+</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab. On the Dashboard the menu shows only New Flight Plan, User Manual and the account items. Below Download Navlog PDF, <b>Download Club Navlog PDF</b> produces the flying club form (Section 4.3).</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
 A(h2('4.2', 'Operational Flight Plan (A4)'));
 A(`<table class="std keep"><caption>OFP page structure (number of pages varies with NOTAMs and charts)</caption><thead><tr><th>Page</th><th>Content</th></tr></thead><tbody>
 <tr><td>OFP</td><td>Flight data, estimated / actual times, route, cruise altitude, fuel plan, alternate summary, daylight check</td></tr>
@@ -568,6 +568,18 @@ A(steps([
 A(figure(4, 'f4-6.jpg', 'NAV-FLIGHTPLAN', 'A5 document for the cockpit.',
   [['A', 'Header', 'VERIFY'], ['B', 'Off Bl. / Bl. on', 'Record by hand'], ['C', 'Legs', 'VERIFY'], ['D', 'ATO', 'Record in flight'],
     ['E', 'Alternate row', 'VERIFY'], ['F', 'Fuel calculation', 'VERIFY']], 'wide doc a5'));
+A(p('**Download Club Navlog PDF** produces the same navigation log on the flying club form (Aeroclub di Varese, Navigation Log): one PDF of two A4 landscape pages, front and back, to be printed double-sided. It does not replace the NAV-FLIGHTPLAN, which remains the navigation log of the application.'));
+A(steps([
+  ['SELECT', '**Download Club Navlog PDF** from the menu.'],
+  ['VERIFY', 'the main table (right side of the front): checkpoints, NAV AIDS (Ident = callsign, Freq), MC, ALT, DIST and FUEL per leg and remaining, ETE and ETO, as in the NAV-FLIGHTPLAN. Up to 13 checkpoints fit; up to 6 more continue in the left table, above the Dest. Airport row.'],
+  ['VERIFY', 'the alternate (left side of the front): one leg from destination to alternate. The MC is computed from the great circle and the WMM2025 magnetic variation, and is marked as to be verified.'],
+  ['VERIFY', 'the back: weather by aerodrome from the METAR; weight and balance with the take-off fuel; fuel calculation; take-off data (DEP) and landing data (DEST).'],
+  ['RECORD', 'block times, RETO and ATO by hand.'],
+]));
+A(box('note', 'NOTE', 'Differences from the club form as printed by hand: CLIMB fuel is the AFM fig. 5-6 block (start-up and take-off included), so no rate is given; DESC. is not published in the AFM; APP. is the 5 minutes per aerodrome; the contingency, which the form does not have, is included in MINIMUM FOB and stated in the Note. ASDA (required) is the take-off ground roll plus the landing ground roll. Emax is the best glide speed. ASDA declared, VX, VLO and VLE are left blank.'));
+A(box('caution', 'CAUTION', 'The form is an aid to flight preparation and does not replace the AFM, the SOP or the AIP. Every pre-filled value must be verified by the pilot before use.'));
+A(figure(4, 'f4-7.jpg', 'Club Navlog – Front', 'Main table on the right, alternate on the left.', [], 'wide doc'));
+A(figure(4, 'f4-8.jpg', 'Club Navlog – Back', 'Weather, weight and balance, fuel calculation, take-off and landing data.', [], 'wide doc'));
 A(h2('4.4', 'Dashboard – Saved flights'));
 A(p('The Dashboard is the first page after signing in. **New Flight** opens the Import page (Section 2); saved flights are reopened from their cards. While a flight plan is open in the wizard, **Back to the open flight plan** returns to it. Reloading the page also shows the Dashboard first.'));
 A(split(steps([
