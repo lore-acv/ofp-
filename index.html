@@ -568,9 +568,11 @@
       <!-- STEP 7 -->
       <div class="panel" data-step="7">
         <p class="step-title">Briefing</p>
-        <p class="step-sub">Threat &amp; error management by phase of flight, aircraft status, remarks.</p>
+        <p class="step-sub">Threat &amp; error management by phase of flight, aircraft status, remarks. Free text,
+          nothing is mandatory: it gives a structure to what you will do in flight, and it is printed on the
+          BRIEFING page of the OFP.</p>
         <div class="group">
-          <h3>Departure</h3>
+          <h3>Departure <span class="filled" id="briefDepIcao"></span></h3>
           <div class="fld"><label>Dep procedure</label><textarea id="depProc"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>Poss. threats</label><textarea id="depThreats"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="depMit"></textarea></div>
@@ -581,19 +583,35 @@
           <div class="fld" style="margin-top:6px"><label>Poss. threats</label><textarea id="enrThreats"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="enrMit"></textarea></div>
         </div>
+        <div class="group" id="briefTngGroup" style="display:none">
+          <h3>Touch &amp; Go <span class="filled" id="briefTngIcao"></span></h3>
+          <div class="fld"><label>T&amp;G procedure</label><textarea id="tngProc"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Poss. threats</label><textarea id="tngThreats"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="tngMit"></textarea></div>
+        </div>
         <div class="group">
-          <h3>Destination</h3>
+          <h3>Destination <span class="filled" id="briefDestIcao"></span></h3>
           <div class="fld"><label>Dest procedure</label><textarea id="destProc"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>Poss. threats</label><textarea id="destThreats"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="destMit"></textarea></div>
         </div>
         <div class="group">
+          <h3>Alternate <span class="filled" id="briefAltnIcao"></span></h3>
+          <div class="fld"><label>Altn procedure</label><textarea id="altnProc"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Poss. threats</label><textarea id="altnThreats"></textarea></div>
+          <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="altnMit"></textarea></div>
+        </div>
+        <div class="group">
           <h3>Aircraft Status</h3>
           <div class="fld"><textarea id="acStatus"></textarea></div>
+          <div class="hint">Instruments or equipment temporarily inoperative, and therefore aids that will not be
+            available in flight (e.g. ADF INOP: NDB not usable).</div>
         </div>
         <div class="group">
           <h3>Remarks</h3>
           <div class="fld"><textarea id="briefRemarks"></textarea></div>
+          <div class="hint">Important information on the conduct of the flight that has nothing to do with the
+            routing: exam flight, solo flight, dual command, SPIC flight.</div>
         </div>
       </div>
 
@@ -980,8 +998,21 @@ function goToStep(n){
      che e' gia' stato cercato resta in cache, quindi rientrare nello step non
      ripete nessuna richiesta. */
   if(currentStep===NAVLOG_STEP && navRowsRaw().length) navFillFreqs({quiet:true});
+  if(currentStep===7) briefAltezze();
 }
 $('btnNext').addEventListener('click',()=>goToStep(currentStep+1));
+/* Briefing: i riquadri crescono con il testo, cosi' una procedura lunga si
+   legge tutta senza scorrere dentro la casella. Si misurano solo quando lo
+   step e' visibile (nascosto un riquadro misura zero). */
+function briefAltezza(el){
+  if(!el || !el.offsetParent) return;
+  el.style.height='auto';
+  el.style.height=(el.scrollHeight+2)+'px';
+}
+function briefAltezze(){ document.querySelectorAll('.panel[data-step="7"] textarea').forEach(briefAltezza); }
+document.querySelectorAll('.panel[data-step="7"] textarea').forEach(el=>el.addEventListener('input',()=>briefAltezza(el)));
+// cambiando larghezza (iPad ruotato) il testo va a capo in un altro punto
+window.addEventListener('resize',()=>{ if(currentStep===7) briefAltezze(); });
 $('btnBack').addEventListener('click',()=>goToStep(currentStep-1));
 
 /* ============================ fuel calc ============================ */
@@ -2710,9 +2741,22 @@ function pageCharts(){
    distribuirli sui fogli ci pensa paginateBlocks(). Un blocco e' l'unita' che
    non ha senso spezzare — una procedura, il bollettino di un aeroporto, un
    singolo NOTAM. */
+/* Le fasi del briefing, nell'ordine del volo. Il Touch & Go c'e' solo quando e'
+   segnato; ogni titolo porta il codice dell'aeroporto. Un elenco solo, per
+   l'anteprima e per il PDF. */
+function briefPhases(){
+  const c=(id)=>{ const v=txt(id).trim().toUpperCase(); return v?` (${v})`:''; };
+  return [
+    ['DEP PROCEDURE'+c('dep')+':', 'dep'],
+    ['ENROUTE PROCEDURE:', 'enr'],
+    ...(tngAttivo() ? [[`T&G PROCEDURE (${tngIcaoVal()}):`, 'tng']] : []),
+    ['DEST PROCEDURE'+c('arr')+':', 'dest'],
+    ['ALTN PROCEDURE'+c('altn')+':', 'altn']
+  ];
+}
 function briefingSection(){
   const block=(title,proc,thr,mit)=>`<div class="kv-wrap filled" style="font-size:10px;line-height:1.6;margin-bottom:10px;break-inside:avoid;page-break-inside:avoid">
-    <div style="font-weight:700;color:#000">${title}</div>
+    <div style="font-weight:700;color:#000">${esc(title)}</div>
     <div>${esc(proc)}</div>
     <div style="margin-top:6px;color:#000">POSS.THREATS:</div><div>${esc(thr)}</div>
     <div style="margin-top:6px;color:#000">MITIGATION:</div><div>${esc(mit)}</div>
@@ -2721,9 +2765,7 @@ function briefingSection(){
     <div style="border-top:1px dotted #000;margin:6px 0 6px"></div>
     <div style="font-weight:700">${title}</div><div class="filled">${esc(body)}</div></div>`;
   return {label:'BRIEFING', blocks:[
-    block('DEP PROCEDURE:',txt('depProc'),txt('depThreats'),txt('depMit')),
-    block('ENROUTE PROCEDURE:',txt('enrProc'),txt('enrThreats'),txt('enrMit')),
-    block('DEST PROCEDURE:',txt('destProc'),txt('destThreats'),txt('destMit')),
+    ...briefPhases().map(([t,p])=>block(t,txt(p+'Proc'),txt(p+'Threats'),txt(p+'Mit'))),
     plain('AIRCRAFT STATUS', txt('acStatus')),
     plain('REMARKS', txt('briefRemarks'))
   ]};
@@ -2954,6 +2996,7 @@ function render(){
   }
   renderNavlogEditor(f);
   renderTng();
+  [['briefDepIcao','dep'],['briefDestIcao','arr'],['briefAltnIcao','altn']].forEach(([el,id])=>{ if($(el)) $(el).textContent=txt(id).trim().toUpperCase(); });
   renderWxNotes();
   if($('tripCalc')){
     const el=$('tripCalc');
@@ -3823,6 +3866,8 @@ function renderTng(){
   /* Il riquadro NOTAM&Wx si mostra da se'; quello di Performance no: ora e' una
      scheda, e ad accenderla o spegnerla ci pensa renderPerfTabs(). */
   if($('tngWxGroup')) $('tngWxGroup').style.display = attivo ? '' : 'none';
+  if($('briefTngGroup')) $('briefTngGroup').style.display = attivo ? '' : 'none';   // briefing (Step 7)
+  if($('briefTngIcao')) $('briefTngIcao').textContent = attivo ? tngIcaoVal() : '';
   renderPerfTabs();
   if($('toldTngIcao')) $('toldTngIcao').value = attivo ? tngIcaoVal() : '';
   if($('wxTngIcao'))   $('wxTngIcao').textContent = attivo ? tngIcaoVal() : '';
@@ -4996,9 +5041,7 @@ function buildPDF(){
     printLabelled('POSS.THREATS:', thr); y+=2;
     printLabelled('MITIGATION:', mit); y+=6;
   };
-  briefBlock('DEP PROCEDURE:',txt('depProc'),txt('depThreats'),txt('depMit'));
-  briefBlock('ENROUTE PROCEDURE:',txt('enrProc'),txt('enrThreats'),txt('enrMit'));
-  briefBlock('DEST PROCEDURE:',txt('destProc'),txt('destThreats'),txt('destMit'));
+  briefPhases().forEach(([t,p])=>briefBlock(t,txt(p+'Proc'),txt(p+'Threats'),txt(p+'Mit')));
   ensureRoom(LH*3); dotted(doc,L,R,y); y+=5;
   sectionHeading('AIRCRAFT STATUS');
   printLinesWithBreak(txt('acStatus')); y+=5;
@@ -5204,7 +5247,8 @@ const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route',
   'toldQnhTng','toldOatTng','toldWindDirTng','toldWindKtTng','toldElevTng','toldHdgTng',
   'toraTng','todaTng','ldaTng','tngRunway',
   'noteTrack','noteRunway','noteAlt','noteClear','noteTiming','noteGround','noteRadios','noteSpecials',
-  'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','destProc','destThreats','destMit','acStatus','briefRemarks'];
+  'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','tngProc','tngThreats','tngMit','destProc','destThreats','destMit',
+  'altnProc','altnThreats','altnMit','acStatus','briefRemarks'];
 // Campi meteo/NOTAM (weather_data)
 const WX_FIELDS = ['depMetar','depSpeci','depTaf','depNotam','destMetar','destSpeci','destTaf','destNotam',
   'altnMetar','altnSpeci','altnTaf','altnNotam','tngMetar','tngSpeci','tngTaf','tngNotam',

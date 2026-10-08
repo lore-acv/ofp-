@@ -470,11 +470,27 @@ A(steps([
 ]));
 A(p('Charts and notes are printed on the DEST CHARTS page of the OFP. Graphic pages of the briefing (e.g. significant weather, wind charts) are added to the OFP automatically, one per page.'));
 A(h2('3.7', 'Step 7 – Briefing'));
-A(steps([
-  ['INPUT', 'for Departure, Enroute and Destination: procedure, possible threats and mitigation.'],
-  ['INPUT', 'the aircraft status and any remarks.'],
+A(p('A briefing by phase of flight, written before departure, that gives a structure to everything that has to be done in flight. All fields are optional free text and nothing is checked by the application; they are printed on the BRIEFING page of the OFP (Section 4.2).'));
+A(dtable([
+  ['Procedure (DEP, ENR, T&amp;G, DEST, ALTN)', 'O', 'Pilot', 'INPUT'],
+  ['Possible threats', 'O', 'Pilot', 'INPUT'],
+  ['Mitigation', 'O', 'Pilot', 'INPUT'],
+  ['Aircraft status', 'O', 'Pilot', 'INPUT if equipment is inoperative'],
+  ['Remarks', 'O', 'Pilot', 'INPUT if applicable'],
 ]));
-A(p('These fields are not enforced by the application. Complete them in accordance with the applicable briefing requirements. They are printed on the BRIEFING page of the OFP.'));
+A(split(steps([
+  ['INPUT', 'for the phase the **procedure** [A]: what will be flown, e.g. runway, routing, reporting points, altitudes, frequencies.'],
+  ['INPUT', 'the **possible threats** [B] of that phase, e.g. weather, terrain, traffic, airspace, aircraft, pilot.'],
+  ['INPUT', 'the **mitigation** [C]: what will be done to keep each threat under control.'],
+  ['INPUT', 'the same three fields for Enroute, Touch &amp; Go, Destination and Alternate. The Touch &amp; Go block is shown only when Touch &amp; Go is selected in Step 1; each heading shows the aerodrome code.'],
+]), figure(3, 'f3-17b.jpg', 'Briefing – Departure', 'Example. Every phase has the same three fields.',
+  [['A', 'Procedure', 'INPUT'], ['B', 'Possible threats', 'INPUT'], ['C', 'Mitigation', 'INPUT']])));
+A(split(steps([
+  ['INPUT', '**Aircraft status** [A] only when instruments or equipment are temporarily inoperative, stating which aids will therefore not be available in flight.'],
+  ['INPUT', '**Remarks** [B] only for important information on the conduct of the flight that is not related to the routing: exam flight, solo flight, dual command, SPIC flight.'],
+]) + box('note', 'NOTE', 'Keep the text short and in the order it will be used: the BRIEFING page is read in flight.'),
+figure(3, 'f3-17c.jpg', 'Aircraft Status and Remarks', 'Example.',
+  [['A', 'Aircraft status', 'INPUT if applicable'], ['B', 'Remarks', 'INPUT if applicable']])));
 
 /* ---- step 8 */
 A(h2('3.8', 'Step 8 – NOTAM & Weather'));
@@ -522,7 +538,7 @@ A(`<table class="std keep"><caption>OFP page structure (number of pages varies w
 <tr><td>MASS AND BALANCE</td><td>Loading sheet, limits, CG envelope chart, remarks, PIC signature</td></tr>
 <tr><td>PERFORMANCE</td><td>Masses, V-speeds, take-off and landing distances and margins, cruise power setting, TOC, AFM cruise table</td></tr>
 <tr><td>DEST CHARTS</td><td>Charts and operational notes (Step 6)</td></tr>
-<tr><td>BRIEFING</td><td>TEM briefing, aircraft status, remarks (Step 7)</td></tr>
+<tr><td>BRIEFING</td><td>Briefing by phase (DEP, ENR, T&amp;G, DEST, ALTN): procedure, threats, mitigation; aircraft status, remarks (Step 7)</td></tr>
 <tr><td>WEATHER</td><td>METAR / SPECI / TAF by aerodrome, SIGMET / AIRMET</td></tr>
 <tr><td>NOTAM</td><td>NOTAM by aerodrome and enroute</td></tr>
 <tr><td>Charts</td><td>Graphic pages of the briefing, if any</td></tr>
