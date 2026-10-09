@@ -5,7 +5,7 @@
 import { configura, preparaSchema, utenteDi, api, json, API_PUBBLICHE, API_PRIMO_ACCESSO } from '../server/conto.js';
 
 const PAGINE_PUBBLICHE = new Set(['/login', '/setup']);
-const ASSET_PUBBLICO = /^\/conto(\.[0-9a-f]{8})?\.(css|js)$/;
+const ASSET_PUBBLICO = /^\/(conto|rotta-av)(\.[0-9a-f]{8})?\.(css|js)$/;   // rotta-av: la mappa della pagina di accesso
 
 /* /ofp.html, /ofp e /ofp/ sono la stessa pagina per Cloudflare Pages */
 const pagina = (p) => (p.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1')) || '/';

@@ -39,3 +39,6 @@
 # servire la copia vecchia.
 /data/*
   Cache-Control: private, max-age=3600, stale-while-revalidate=604800
+
+/rotta-av.*.js
+  Cache-Control: public, max-age=31536000, immutable

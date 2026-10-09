@@ -694,17 +694,7 @@ document.documentElement.classList.add('vista-dash');
       <button type="button" class="btn" id="btnCloseDash" hidden>Back to the open flight plan &rarr;</button>
     </div>
     <div class="dash-nuovo">
-      <svg class="dash-rotta" viewBox="0 0 440 200" preserveAspectRatio="xMaxYMid meet" aria-hidden="true">
-        <circle class="anello" cx="330" cy="96" r="48"/><circle class="anello" cx="330" cy="96" r="92"/><circle class="anello" cx="330" cy="96" r="136"/>
-        <circle class="tacche" cx="330" cy="96" r="92" pathLength="360"/>
-        <path class="altn" d="M372 62 C392 84 400 110 396 140"/>
-        <path class="tratta" pathLength="1" d="M60 158 C104 130 120 104 152 104 S214 132 246 124 S318 78 372 62"/>
-        <circle class="apt p0" cx="60" cy="158" r="5.5"/><circle class="wpt p1" cx="152" cy="104" r="4.5"/>
-        <circle class="wpt p2" cx="246" cy="124" r="4.5"/><circle class="apt p3" cx="372" cy="62" r="5.5"/>
-        <text class="p0" x="60" y="182" text-anchor="middle">DEP</text>
-        <text class="p3 dest" x="372" y="44" text-anchor="middle">DEST</text>
-        <g transform="translate(394 50) rotate(70) scale(1.2)"><path class="aereo" d="M0 -7 L1.6 -2 L7.5 1 L7.5 2.6 L1.6 1.2 L1.2 5 L3.2 6.4 L3.2 7.4 L0 6.6 L-3.2 7.4 L-3.2 6.4 L-1.2 5 L-1.6 1.2 L-7.5 2.6 L-7.5 1 L-1.6 -2 Z"/></g>
-      </svg>
+      <div class="dash-rotta" id="dashRotta"></div>
       <div>
         <div class="dash-nuovo-t">New flight</div>
         <div class="dash-nuovo-s">Start from the ForeFlight NavLog and the weather briefing.</div>
@@ -721,6 +711,7 @@ document.documentElement.classList.add('vista-dash');
 </div>
 
 <script src="ofp-core.js"></script>
+<script src="rotta-av.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }</script>
@@ -6451,10 +6442,12 @@ function openDashboard(){
      rotta che si disegna: e' il momento raro dove ha senso la meraviglia.
      Le volte successive appare e basta. */
   const dash=$('dashboard');
-  if(!DASH_VISTA && dash){
+  const prima=!DASH_VISTA && dash;
+  if(prima){
     DASH_VISTA=true; dash.classList.add('dash-prima');
     setTimeout(()=>dash.classList.remove('dash-prima'), 2200);
   }
+  if(window.RottaAV && $('dashRotta') && !$('dashRotta').firstChild) RottaAV.monta($('dashRotta'),'xMaxYMid meet');
   aggiornaSaluto();
   if(!DASH_OROLOGIO) DASH_OROLOGIO=setInterval(()=>{ if(dashboardAperta()) aggiornaSaluto(); }, 20000);
   renderDashboard();
@@ -6462,6 +6455,9 @@ function openDashboard(){
   if($('brandVista')) $('brandVista').textContent='Dashboard';
   if($('btnCloseDash')) $('btnCloseDash').hidden=!VOLO_APERTO;
   if($('dashboard')) $('dashboard').scrollTop=0;
+  /* la stessa rotta AV della pagina di accesso: si vola alla prima apertura,
+     quando la scheda e' visibile (la linea va misurata) */
+  if(prima && window.RottaAV) RottaAV.vola($('dashRotta'));
 }
 function closeDashboard(){
   document.documentElement.classList.remove('vista-dash');

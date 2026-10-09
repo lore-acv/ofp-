@@ -695,18 +695,8 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
 .dash-nuovo{position:relative;overflow:hidden;isolation:isolate;min-height:11.5rem;
   flex-direction:column;align-items:flex-start;justify-content:center;gap:.9rem;padding:1.5rem 1.5rem}
 .dash-nuovo>*{position:relative;z-index:1;max-width:min(24rem,46%)}
-.dash-rotta{position:absolute!important;z-index:0!important;right:0;top:0;height:100%;width:60%;max-width:none!important;pointer-events:none;
+.dash-rotta{position:absolute!important;z-index:0!important;right:0;top:0;height:100%;width:60%;max-width:none!important;pointer-events:none;padding:.6rem 0;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 22%);mask-image:linear-gradient(90deg,transparent,#000 22%)}
-.dash-rotta .anello{fill:none;stroke:color-mix(in srgb,var(--accent-2) 20%,transparent);stroke-width:1}
-.dash-rotta .tacche{fill:none;stroke:color-mix(in srgb,var(--accent-2) 38%,transparent);stroke-width:6;stroke-dasharray:1 9.47}
-.dash-rotta .tratta{fill:none;stroke:var(--attivo);stroke-width:2.4;stroke-linecap:round;
-  filter:drop-shadow(0 0 6px color-mix(in srgb,var(--attivo) 60%,transparent))}
-.dash-rotta .altn{fill:none;stroke:var(--accent-2);stroke-width:1.5;stroke-dasharray:4 5;opacity:.75}
-.dash-rotta .wpt{fill:var(--panel-bg);stroke:var(--accent-2);stroke-width:2}
-.dash-rotta .apt{fill:var(--attivo)}
-.dash-rotta .aereo{fill:var(--txt)}
-.dash-rotta text{font:600 10px ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.12em;fill:var(--txt-dim)}
-.dash-rotta text.dest{fill:var(--txt)}
 @media screen and (max-width:640px){
   .dash-nuovo{padding-top:9.5rem}
   .dash-nuovo>*{max-width:none}
@@ -727,28 +717,6 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
 .dash-prima .cards .flight-card:nth-child(4){animation-delay:330ms}
 .dash-prima .cards .flight-card:nth-child(n+5){animation-delay:380ms}
 @keyframes entra{from{opacity:0;transform:translateY(10px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
-.dash-prima .dash-rotta .anello{animation:anello 900ms var(--ease-out) both}
-.dash-prima .dash-rotta .anello:nth-child(2){animation-delay:80ms}
-.dash-prima .dash-rotta .anello:nth-child(3){animation-delay:160ms}
-@keyframes anello{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
-.dash-rotta .anello{transform-box:fill-box;transform-origin:center}
-.dash-prima .dash-rotta .tratta{stroke-dasharray:1;stroke-dashoffset:1;animation:traccia 1200ms var(--ease-traccia) 250ms forwards}
-@keyframes traccia{to{stroke-dashoffset:0}}
-.dash-rotta .wpt,.dash-rotta .apt,.dash-rotta .aereo{transform-box:fill-box;transform-origin:center}
-.dash-prima .dash-rotta .wpt,.dash-prima .dash-rotta .apt{animation:punto 360ms var(--ease-out) both}
-.dash-prima .dash-rotta .apt.p0{animation-delay:250ms}
-.dash-prima .dash-rotta .wpt.p1{animation-delay:500ms}
-.dash-prima .dash-rotta .wpt.p2{animation-delay:660ms}
-.dash-prima .dash-rotta .apt.p3{animation-delay:1190ms}
-@keyframes punto{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
-.dash-prima .dash-rotta .aereo{animation:arriva 520ms var(--ease-out) 1230ms both}
-.dash-prima .dash-rotta .altn{animation:dissolvi-in 500ms ease 1280ms both}
-.dash-prima .dash-rotta text{animation:dissolvi-in 400ms ease both}
-.dash-prima .dash-rotta text.p0{animation-delay:300ms}
-.dash-prima .dash-rotta text.p3{animation-delay:1190ms}
-.dash-prima .dash-rotta .tacche{animation:dissolvi-in 700ms ease 120ms both}
-@keyframes dissolvi-in{from{opacity:0}}
-@keyframes arriva{from{opacity:0;transform:translate(-10px,6px)}to{opacity:1;transform:none}}
 
 /* --- Import: la zona su cui si trascina un file risponde --- */
 .drop.sopra{border-color:var(--accent-2);color:var(--txt);transform:scale(1.01);
@@ -773,7 +741,6 @@ a.btn.primary[aria-disabled="false"]::after{animation:riflesso 900ms var(--ease-
   [data-verso="tastiera"] .panel.active{animation:none}
   .fase-ind,.perf-copia{transition:none}
   .dash-prima .dash-head,.dash-prima .dash-nuovo,.dash-prima .dash-section-title,.dash-prima .flight-card,.dash-prima .dash-empty{animation:fase-fade 200ms ease both}
-  .dash-prima .dash-rotta *{animation:none!important;stroke-dashoffset:0!important}
   .menu,.menu.open{filter:none}
   a.btn.primary[aria-disabled="false"]::after{animation:none}
   .drop.sopra{transform:none}
