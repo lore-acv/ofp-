@@ -145,10 +145,11 @@ table.utenti td.az .btn{margin-left:.25rem}
 }
 
 /* --- Accesso: la copertina ---
-   E' la prima cosa che si vede del sito: una mappa da GPS che si disegna da
-   sola (anelli, rosa dei venti, tratta magenta, alternato ciano tratteggiato).
+   E' la prima cosa che si vede del sito: una mappa da GPS su cui un aereo
+   decolla da DEP, passa sul reporting point LNN1 e atterra a DEST lasciando
+   dietro di se' la rotta magenta, che disegna l'AV del logo dell'aeroclub.
    Succede una volta per visita e non trattiene nessuno: il campo e-mail ha gia'
-   il fuoco e la scheda e' utilizzabile mentre la rotta si traccia. */
+   il fuoco e la scheda e' utilizzabile mentre l'aereo vola. */
 .centro.accesso{max-width:62rem;display:grid;gap:1.25rem;align-items:center;padding-top:2.4rem}
 .accesso-col{width:100%;max-width:27rem;justify-self:center}
 .eroe{position:relative;min-width:0}
@@ -156,53 +157,45 @@ table.utenti td.az .btn{margin-left:.25rem}
 .eroe-titolo{font-size:clamp(2.1rem,5.4vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1;
   background:linear-gradient(100deg,var(--txt) 40%,color-mix(in srgb,var(--attivo) 70%,var(--txt)));
   -webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em}
-.eroe-mappa{display:block;width:100%;height:auto;max-height:22rem;margin-top:.4rem;overflow:visible}
-.eroe-mappa .anello{fill:none;stroke:color-mix(in srgb,var(--accent-2) 20%,transparent);stroke-width:1}
-.eroe-mappa .tacche{fill:none;stroke:color-mix(in srgb,var(--accent-2) 40%,transparent);stroke-width:7;stroke-dasharray:.6 4.4}
-.eroe-mappa .tacche-30{fill:none;stroke:color-mix(in srgb,var(--accent-2) 75%,transparent);stroke-width:12;stroke-dasharray:1 29;stroke-dashoffset:.5}
+.eroe-mappa{display:block;width:100%;height:auto;max-height:22rem;margin-top:.2rem}
+.eroe-mappa .anello{fill:none;stroke:color-mix(in srgb,var(--accent-2) 18%,transparent);stroke-width:1}
+.eroe-mappa .tacche{fill:none;stroke:color-mix(in srgb,var(--accent-2) 38%,transparent);stroke-width:7;stroke-dasharray:.6 4.4}
+.eroe-mappa .tacche-30{fill:none;stroke:color-mix(in srgb,var(--accent-2) 72%,transparent);stroke-width:12;stroke-dasharray:1 29;stroke-dashoffset:.5}
 .eroe-mappa .nord{font:700 13px ui-monospace,"SF Mono",Menlo,monospace;fill:var(--accent-2)}
-.eroe-mappa .bussola{transform-box:view-box;transform-origin:300px 170px}
-.eroe-mappa .tratta{fill:none;stroke:var(--attivo);stroke-width:3;stroke-linecap:round;
-  filter:drop-shadow(0 0 8px color-mix(in srgb,var(--attivo) 60%,transparent))}
-.eroe-mappa .altn{fill:none;stroke:var(--accent-2);stroke-width:1.8;stroke-dasharray:5 6;opacity:.8}
-.eroe-mappa .wpt{fill:var(--panel-bg);stroke:var(--accent-2);stroke-width:2.2}
+.eroe-mappa .bussola{transform-box:view-box;transform-origin:240px 155px}
+/* come sul GPS: magenta la rotta gia' volata, puntini chiari quella da fare */
+.eroe-mappa .previsto{fill:none;stroke:color-mix(in srgb,var(--txt) 28%,transparent);stroke-width:1.6;stroke-dasharray:2 6;stroke-linecap:round}
+.eroe-mappa .tratta{fill:none;stroke:var(--attivo);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 7px color-mix(in srgb,var(--attivo) 55%,transparent))}
 .eroe-mappa .apt{fill:var(--attivo)}
+.eroe-mappa .apt-pista{stroke:var(--panel-bg);stroke-width:2;stroke-linecap:round}
+.eroe-mappa .rp{fill:none;stroke:var(--txt);stroke-width:2.2;stroke-linejoin:round}   /* reporting point */
+.eroe-mappa .etichetta{font:600 11px ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.12em;fill:var(--txt-dim)}
+.eroe-mappa .etichetta.forte{fill:var(--txt)}
 .eroe-mappa .aereo{fill:var(--txt)}
-.eroe-mappa text{font:600 11px ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.14em;fill:var(--txt-dim)}
-.eroe-mappa text.dest{fill:var(--txt)}
-.eroe-mappa .wpt,.eroe-mappa .apt,.eroe-mappa .aereo{transform-box:fill-box;transform-origin:center}
+.eroe-mappa .ombra{fill:rgba(0,0,0,.55);filter:blur(1.2px)}
+html[data-tema="chiaro"] .eroe-mappa .ombra{fill:rgba(60,40,20,.35)}
+.eroe-mappa .pop{transform-box:fill-box;transform-origin:center}
 @media (min-width:56rem){
   .centro.accesso{grid-template-columns:minmax(0,1.15fr) minmax(0,27rem);gap:3rem;padding-top:4.5rem}
   .accesso-col{justify-self:end}
 }
 @media (max-width:55.99rem){
   .eroe{width:100%;max-width:27rem;justify-self:center}
-  .eroe-mappa{max-height:12rem;margin-top:-.4rem}
+  .eroe-mappa{max-height:14rem;margin-top:-.2rem}
 }
 
-/* La sequenza: titolo, rosa dei venti che ruota in posizione, tratta che si
-   disegna dalla partenza, punti che compaiono al passaggio, aereo in fondo. */
+/* La sequenza: titolo, anelli e rosa dei venti che ruota in posizione; poi
+   l'aereo vola la rotta (lo muove Conto.copertina, in conto.js). */
 .eroe-testo{animation:materializza 520ms var(--ease-out) both}
 .eroe-mappa .anello{animation:dissolvi-in 700ms ease both}
 .eroe-mappa .bussola{animation:bussola 1100ms var(--ease-out) 80ms both}
 @keyframes bussola{from{opacity:0;transform:rotate(-24deg) scale(.96)}to{opacity:1;transform:none}}
-.eroe-mappa .tratta{stroke-dasharray:1;stroke-dashoffset:1;animation:traccia 1400ms var(--ease-traccia) 300ms forwards}
-@keyframes traccia{to{stroke-dashoffset:0}}
-.eroe-mappa .wpt,.eroe-mappa .apt{animation:punto 380ms var(--ease-out) both}
-.eroe-mappa .p0{animation-delay:300ms}
-.eroe-mappa .p1{animation-delay:620ms}
-.eroe-mappa .p2{animation-delay:820ms}
-.eroe-mappa .p3{animation-delay:1410ms}
-.eroe-mappa .p4{animation-delay:1650ms}
-@keyframes punto{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:none}}
-.eroe-mappa text{animation:dissolvi-in 400ms ease both}
-.eroe-mappa .altn{animation:dissolvi-in 500ms ease 1480ms both}
-.eroe-mappa .aereo{animation:arriva 560ms var(--ease-out) 1460ms both}
-@keyframes arriva{from{opacity:0;transform:translate(-12px,8px)}to{opacity:1;transform:none}}
+.eroe-mappa .previsto{animation:dissolvi-in 600ms ease 250ms both}
 @keyframes dissolvi-in{from{opacity:0}}
 .accesso .card{animation-delay:160ms}
 .accesso .piccolo{animation-delay:260ms}
 @media (prefers-reduced-motion:reduce){
   .eroe-testo{animation:dissolvi 200ms ease both}
-  .eroe-mappa *{animation:none!important;stroke-dashoffset:0!important}
+  .eroe-mappa *{animation:none!important}
 }

@@ -20,23 +20,28 @@
       <div class="eroe-occhiello">REIMS ROCKET · FR172</div>
       <div class="eroe-titolo">Operational<br>Flight Plan</div>
     </div>
-    <svg class="eroe-mappa" viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet">
-      <circle class="anello" cx="300" cy="170" r="62"/><circle class="anello" cx="300" cy="170" r="186"/>
+<!-- La rotta disegna l'AV del logo dell'Aeroclub di Varese: due livelli
+         orizzontali (y 110 e 199, gradino a 179) e diagonali tutte a 45 gradi,
+         con raccordi di 6 nelle virate. Senza script resta la mappa completa
+         con l'aereo atterrato a DEST; con lo script l'aereo la vola (Conto.copertina). -->
+    <svg class="eroe-mappa" id="eroeMappa" viewBox="0 0 480 310">
+      <circle class="anello" cx="240" cy="155" r="56"/><circle class="anello" cx="240" cy="155" r="136"/>
       <g class="bussola">
-        <circle class="anello" cx="300" cy="170" r="124"/>
-        <circle class="tacche" cx="300" cy="170" r="124" pathLength="360"/>
-        <circle class="tacche-30" cx="300" cy="170" r="124" pathLength="360"/>
-        <text class="nord" x="300" y="34" text-anchor="middle">N</text>
+        <circle class="anello" cx="240" cy="155" r="108"/>
+        <circle class="tacche" cx="240" cy="155" r="108" pathLength="360"/>
+        <circle class="tacche-30" cx="240" cy="155" r="108" pathLength="360"/>
+        <text class="nord" x="240" y="33" text-anchor="middle">N</text>
       </g>
-      <path class="altn" d="M418 92 C444 120 452 160 440 206"/>
-      <path class="tratta" pathLength="1" d="M56 270 C110 236 128 196 178 192 S262 226 304 206 S370 112 418 92"/>
-      <circle class="apt p0" cx="56" cy="270" r="6.5"/><circle class="wpt p1" cx="178" cy="192" r="5"/>
-      <circle class="wpt p2" cx="304" cy="206" r="5"/><circle class="apt p3" cx="418" cy="92" r="6.5"/>
-      <circle class="wpt p4" cx="440" cy="206" r="4"/>
-      <text class="p0" x="56" y="298" text-anchor="middle">DEP</text>
-      <text class="p3 dest" x="418" y="70" text-anchor="middle">DEST</text>
-      <text class="p4" x="440" y="232" text-anchor="middle">ALTN</text>
-      <g transform="translate(440 78) rotate(66) scale(1.45)"><path class="aereo" d="M0 -7 L1.6 -2 L7.5 1 L7.5 2.6 L1.6 1.2 L1.2 5 L3.2 6.4 L3.2 7.4 L0 6.6 L-3.2 7.4 L-3.2 6.4 L-1.2 5 L-1.6 1.2 L-7.5 2.6 L-7.5 1 L-1.6 -2 Z"/></g>
+      <path class="previsto" d="M70 270L156.76 183.24Q161 179 155 179L121 179Q115 179 110.76 183.24L99.24 194.76Q95 199 89 199L30 199Q24 199 28.24 194.76L108.76 114.24Q113 110 119 110L191 110Q197 110 201.24 114.24L281.76 194.76Q286 199 292 199L360 199Q366 199 370.24 194.76L450.76 114.24Q455 110 449 110L389 110Q383 110 378.76 114.24L333.24 159.76Q329 164 324.76 159.76L297.24 132.24Q293 128 297.24 123.76L381 40"/>
+      <path class="tratta" id="eroeTratta" d="M70 270L156.76 183.24Q161 179 155 179L121 179Q115 179 110.76 183.24L99.24 194.76Q95 199 89 199L30 199Q24 199 28.24 194.76L108.76 114.24Q113 110 119 110L191 110Q197 110 201.24 114.24L281.76 194.76Q286 199 292 199L360 199Q366 199 370.24 194.76L450.76 114.24Q455 110 449 110L389 110Q383 110 378.76 114.24L333.24 159.76Q329 164 324.76 159.76L297.24 132.24Q293 128 297.24 123.76L381 40"/>
+      <g class="punto" data-s="0"><circle class="apt pop" cx="70" cy="270" r="7"/><line class="apt-pista" x1="66.5" y1="273.5" x2="73.5" y2="266.5"/>
+        <text class="etichetta" x="82" y="286">DEP</text></g>
+      <g class="punto" data-x="155" data-y="110"><path class="rp pop" d="M155 139 L162 151 L148 151 Z"/>
+        <text class="etichetta forte" x="155" y="130" text-anchor="middle">LNN1</text></g>
+      <g class="punto" data-x="381" data-y="40"><circle class="apt pop" cx="381" cy="40" r="7"/><line class="apt-pista" x1="377.5" y1="43.5" x2="384.5" y2="36.5"/>
+        <text class="etichetta forte" x="393" y="32">DEST</text></g>
+      <g class="ombra" id="eroeOmbra" opacity="0"><path d="M0 -7 L1.6 -2 L7.5 1 L7.5 2.6 L1.6 1.2 L1.2 5 L3.2 6.4 L3.2 7.4 L0 6.6 L-3.2 7.4 L-3.2 6.4 L-1.2 5 L-1.6 1.2 L-7.5 2.6 L-7.5 1 L-1.6 -2 Z"/></g>
+      <g id="eroeAereo" transform="translate(381 40) rotate(45) scale(1.45)"><path class="aereo" d="M0 -7 L1.6 -2 L7.5 1 L7.5 2.6 L1.6 1.2 L1.2 5 L3.2 6.4 L3.2 7.4 L0 6.6 L-3.2 7.4 L-3.2 6.4 L-1.2 5 L-1.6 1.2 L-7.5 2.6 L-7.5 1 L-1.6 -2 Z"/></g>
     </svg>
   </section>
   <div class="accesso-col">
@@ -57,6 +62,7 @@
   </div>
 </main>
 <script>
+Conto.copertina('eroeMappa');
 Conto.$('email').focus();
 Conto.modulo('fAccesso', async (d)=>{
   Conto.messaggio('msg','');
