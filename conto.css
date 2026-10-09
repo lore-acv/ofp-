@@ -32,6 +32,20 @@ html[data-tema="chiaro"]{
   --griglia:rgba(120,95,60,.07);
   color-scheme:light;
 }
+html[data-tema="notte"]{
+  /* Notte: stessa tavolozza di ofp.css */
+  --panel-bg:#130807; --panel-2:#1a0c0b; --panel-line:#311b19;
+  --accent:#cc2827; --accent-2:#e85336; --accent-2-hi:#f76143; --on-accent:#140404; --attivo:#dd2554;
+  --field:#0c0505; --txt:#f1786d; --txt-dim:#b86057;
+  --bg:#090403; --hover-line:#572825; --ok:#d3823d; --err:#e62b30; --warn:#dd973a;
+  --ring:0 0 0 3px rgba(232,83,54,.32);
+  --ombra-scheda:inset 0 1px 0 rgba(255,120,100,.03), 0 1px 2px rgba(0,0,0,.5), 0 24px 48px -24px rgba(0,0,0,.85);
+  --bagliore-azione:0 0 0 1px rgba(232,83,54,.4), 0 8px 22px -12px rgba(232,83,54,.35);
+  --atmosfera:radial-gradient(90% 55% at 50% -5%, rgba(232,83,54,.07), transparent 60%),
+              radial-gradient(60% 40% at 100% 0%, rgba(221,37,84,.05), transparent 60%);
+  --griglia:rgba(241,120,109,.04);
+  color-scheme:dark;
+}
 *{box-sizing:border-box}
 html{font-size:16px;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 @media (min-width:768px){ html{font-size:17px} }
@@ -95,9 +109,11 @@ h2{font-size:1.05rem;font-weight:700;letter-spacing:-.01em;margin:0 0 .8rem}
 .tema-btn:active{transform:scale(.95)}
 .tema-btn:focus-visible{outline:none;box-shadow:var(--ring)}
 .tema-btn svg{width:1.25rem;height:1.25rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.tema-btn .luna{display:none}
+.tema-btn .luna,.tema-btn .cockpit{display:none}
 html[data-tema="chiaro"] .tema-btn .sole{display:none}
 html[data-tema="chiaro"] .tema-btn .luna{display:inline}
+html[data-tema="notte"] .tema-btn .sole{display:none}
+html[data-tema="notte"] .tema-btn .cockpit{display:inline}
 
 /* amministrazione */
 table.utenti{width:100%;border-collapse:collapse;font-size:.9rem}

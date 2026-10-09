@@ -11,7 +11,8 @@
 /* colore della barra di stato del telefono, per tema */
 function coloreBarra(){
   const m=document.querySelector('meta[name="theme-color"]');
-  if(m) m.setAttribute('content', document.documentElement.getAttribute('data-tema')==='chiaro' ? '#eee7d9' : '#151d28');
+  const t=document.documentElement.getAttribute('data-tema');
+  if(m) m.setAttribute('content', t==='chiaro' ? '#eee7d9' : t==='notte' ? '#1a0c0b' : '#151d28');
 }
 document.addEventListener('DOMContentLoaded', coloreBarra);
 
@@ -54,7 +55,9 @@ const Conto = {
   tema(){
     const b=Conto.$('btnTema'); if(!b) return;
     b.addEventListener('click',(e)=>{
-      const t=document.documentElement.getAttribute('data-tema')==='chiaro'?'scuro':'chiaro';
+      /* scuro -> chiaro -> notte -> scuro, come nel sito */
+      const ora=document.documentElement.getAttribute('data-tema');
+      const t={scuro:'chiaro', chiaro:'notte', notte:'scuro'}[ora]||'chiaro';
       const applica=()=>{
         document.documentElement.setAttribute('data-tema',t);
         coloreBarra();

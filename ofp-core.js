@@ -1019,7 +1019,7 @@ function parseBriefingText(weatherText, notamText, codes){
 /* ============================================================================
    TEMA CHIARO / SCURO
    ============================================================================
-   L'attributo data-tema sta su <html> e vale "scuro" o "chiaro". Lo imposta uno
+   L'attributo data-tema sta su <html> e vale "scuro", "chiaro" o "notte". Lo imposta uno
    script inline nell'<head> di ciascuna pagina, prima del primo disegno, cosi'
    non si vede il lampo della tavolozza sbagliata; qui c'e' solo il pulsante che
    lo cambia e la memoria della scelta.
@@ -1032,24 +1032,29 @@ function parseBriefingText(weatherText, notamText, codes){
    ========================================================================== */
 var TEMA_CHIAVE='ofp_tema';
 
+/* Tre temi in giro: scuro (Glass Cockpit) -> chiaro (Carta VFR) -> notte. */
+const TEMI=['scuro','chiaro','notte'];
+const TEMA_NOME={scuro:'dark', chiaro:'light', notte:'night'};
 function temaCorrente(){
-  return document.documentElement.getAttribute('data-tema')==='chiaro' ? 'chiaro' : 'scuro';
+  const t=document.documentElement.getAttribute('data-tema');
+  return TEMI.includes(t) ? t : 'scuro';
 }
+function temaSeguente(t){ return TEMI[(TEMI.indexOf(t)+1)%TEMI.length]; }
 
 /* Colore della barra di stato del telefono: quello della barra in alto della
    pagina, per tema (mobile-native, regola 10). */
-const TEMA_BARRA={scuro:'#151d28', chiaro:'#eee7d9'};
+const TEMA_BARRA={scuro:'#151d28', chiaro:'#eee7d9', notte:'#1a0c0b'};
 function coloreBarra(t){
   const m=document.querySelector('meta[name="theme-color"]');
   if(m) m.setAttribute('content', TEMA_BARRA[t]||TEMA_BARRA.scuro);
 }
 function applicaTema(t){
-  t = (t==='chiaro') ? 'chiaro' : 'scuro';
+  t = TEMI.includes(t) ? t : 'scuro';
   document.documentElement.setAttribute('data-tema', t);
   coloreBarra(t);
   try{ localStorage.setItem(TEMA_CHIAVE, t); }catch(e){}
   const b=$('btnTema');
-  if(b) b.setAttribute('aria-label', t==='chiaro' ? 'Switch to dark theme' : 'Switch to light theme');
+  if(b) b.setAttribute('aria-label', 'Switch to '+TEMA_NOME[temaSeguente(t)]+' theme');
   return t;
 }
 
@@ -1076,7 +1081,7 @@ function initTema(){
   if(!b || b.dataset.temaPronto) return;
   b.dataset.temaPronto='1';
   applicaTema(temaCorrente());
-  b.addEventListener('click', e=>cambiaTemaAnimato(b, ()=>applicaTema(temaCorrente()==='chiaro' ? 'scuro' : 'chiaro'), e.detail===0));
+  b.addEventListener('click', e=>cambiaTemaAnimato(b, ()=>applicaTema(temaSeguente(temaCorrente())), e.detail===0));
 }
 
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initTema);
