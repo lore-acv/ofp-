@@ -17,7 +17,7 @@
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#161c25">
+<meta name="theme-color" content="#151d28">
 <title>OFP C172 FR — Flight Data Import</title>
 <link rel="stylesheet" href="ofp.css">
 <script>
@@ -138,9 +138,9 @@ function wireDrop(dropId, fileId, handler){
   const d=$(dropId), f=$(fileId);
   if(!d||!f) return;
   d.addEventListener('click',()=>f.click());
-  d.addEventListener('dragover',e=>{e.preventDefault();d.style.borderColor='#2f6df6';});
-  d.addEventListener('dragleave',()=>d.style.borderColor='');
-  d.addEventListener('drop',e=>{e.preventDefault();d.style.borderColor='';if(e.dataTransfer.files[0])handler(e.dataTransfer.files[0]);});
+  d.addEventListener('dragover',e=>{e.preventDefault();d.classList.add('sopra');});
+  d.addEventListener('dragleave',()=>d.classList.remove('sopra'));
+  d.addEventListener('drop',e=>{e.preventDefault();d.classList.remove('sopra');if(e.dataTransfer.files[0])handler(e.dataTransfer.files[0]);});
   f.addEventListener('change',e=>{ if(e.target.files[0]) handler(e.target.files[0]); });
 }
 

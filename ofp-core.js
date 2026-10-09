@@ -1038,7 +1038,7 @@ function temaCorrente(){
 
 /* Colore della barra di stato del telefono: quello della barra in alto della
    pagina, per tema (mobile-native, regola 10). */
-const TEMA_BARRA={scuro:'#161c25', chiaro:'#e9e1d1'};
+const TEMA_BARRA={scuro:'#151d28', chiaro:'#eee7d9'};
 function coloreBarra(t){
   const m=document.querySelector('meta[name="theme-color"]');
   if(m) m.setAttribute('content', TEMA_BARRA[t]||TEMA_BARRA.scuro);
@@ -1053,12 +1053,30 @@ function applicaTema(t){
   return t;
 }
 
+/* Cambio di tema: il nuovo tema si allarga come un cerchio dal pulsante che
+   lo ha chiesto (View Transitions). E' un'azione occasionale, quindi ha
+   diritto a un movimento vero: 400 ms, ease-in-out perche' e' un movimento
+   sullo schermo. Con "riduci movimento" diventa una dissolvenza breve; da
+   tastiera, o dove le View Transitions non ci sono, il tema cambia e basta. */
+function cambiaTemaAnimato(btn, applica, tastiera){
+  const ridotto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(tastiera || !document.startViewTransition){ applica(); return; }
+  if(ridotto){ document.startViewTransition(applica); return; }
+  const r=btn.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+r.height/2;
+  const R=Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y));
+  const vt=document.startViewTransition(applica);
+  vt.ready.then(()=>{
+    document.documentElement.animate(
+      {clipPath:[`circle(0px at ${x}px ${y}px)`, `circle(${R}px at ${x}px ${y}px)`]},
+      {duration:400, easing:'cubic-bezier(0.77,0,0.175,1)', pseudoElement:'::view-transition-new(root)'});
+  }).catch(()=>{});
+}
 function initTema(){
   const b=$('btnTema');
   if(!b || b.dataset.temaPronto) return;
   b.dataset.temaPronto='1';
   applicaTema(temaCorrente());
-  b.addEventListener('click', ()=>{ applicaTema(temaCorrente()==='chiaro' ? 'scuro' : 'chiaro'); });
+  b.addEventListener('click', e=>cambiaTemaAnimato(b, ()=>applicaTema(temaCorrente()==='chiaro' ? 'scuro' : 'chiaro'), e.detail===0));
 }
 
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initTema);

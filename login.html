@@ -6,7 +6,7 @@
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#161c25">
+<meta name="theme-color" content="#151d28">
 <meta name="robots" content="noindex">
 <title>OFP C172 FR — Sign in</title>
 <link rel="icon" href="data:,">
@@ -14,7 +14,32 @@
 <script src="conto.js"></script>
 
 <div class="topbar"><div class="brand">C172 FR OFP <span>Sign in</span></div><button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button></div>
-<main class="centro">
+<main class="centro accesso">
+  <section class="eroe" aria-hidden="true">
+    <div class="eroe-testo">
+      <div class="eroe-occhiello">REIMS ROCKET · FR172</div>
+      <div class="eroe-titolo">Operational<br>Flight Plan</div>
+    </div>
+    <svg class="eroe-mappa" viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet">
+      <circle class="anello" cx="300" cy="170" r="62"/><circle class="anello" cx="300" cy="170" r="186"/>
+      <g class="bussola">
+        <circle class="anello" cx="300" cy="170" r="124"/>
+        <circle class="tacche" cx="300" cy="170" r="124" pathLength="360"/>
+        <circle class="tacche-30" cx="300" cy="170" r="124" pathLength="360"/>
+        <text class="nord" x="300" y="34" text-anchor="middle">N</text>
+      </g>
+      <path class="altn" d="M418 92 C444 120 452 160 440 206"/>
+      <path class="tratta" pathLength="1" d="M56 270 C110 236 128 196 178 192 S262 226 304 206 S370 112 418 92"/>
+      <circle class="apt p0" cx="56" cy="270" r="6.5"/><circle class="wpt p1" cx="178" cy="192" r="5"/>
+      <circle class="wpt p2" cx="304" cy="206" r="5"/><circle class="apt p3" cx="418" cy="92" r="6.5"/>
+      <circle class="wpt p4" cx="440" cy="206" r="4"/>
+      <text class="p0" x="56" y="298" text-anchor="middle">DEP</text>
+      <text class="p3 dest" x="418" y="70" text-anchor="middle">DEST</text>
+      <text class="p4" x="440" y="232" text-anchor="middle">ALTN</text>
+      <g transform="translate(440 78) rotate(66) scale(1.45)"><path class="aereo" d="M0 -7 L1.6 -2 L7.5 1 L7.5 2.6 L1.6 1.2 L1.2 5 L3.2 6.4 L3.2 7.4 L0 6.6 L-3.2 7.4 L-3.2 6.4 L-1.2 5 L-1.6 1.2 L-7.5 2.6 L-7.5 1 L-1.6 -2 Z"/></g>
+    </svg>
+  </section>
+  <div class="accesso-col">
   <div class="card">
     <h1>Sign in</h1>
     <p class="sub">Use the e-mail and password provided by the administrator.</p>
@@ -29,6 +54,7 @@
   </div>
   <p class="piccolo">No account yet? Accounts are created by the administrator: contact them to request access.
     Forgotten password? The administrator can reset it.</p>
+  </div>
 </main>
 <script>
 Conto.$('email').focus();

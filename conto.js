@@ -11,7 +11,7 @@
 /* colore della barra di stato del telefono, per tema */
 function coloreBarra(){
   const m=document.querySelector('meta[name="theme-color"]');
-  if(m) m.setAttribute('content', document.documentElement.getAttribute('data-tema')==='chiaro' ? '#e9e1d1' : '#161c25');
+  if(m) m.setAttribute('content', document.documentElement.getAttribute('data-tema')==='chiaro' ? '#eee7d9' : '#151d28');
 }
 document.addEventListener('DOMContentLoaded', coloreBarra);
 
@@ -53,11 +53,23 @@ const Conto = {
 
   tema(){
     const b=Conto.$('btnTema'); if(!b) return;
-    b.addEventListener('click',()=>{
+    b.addEventListener('click',(e)=>{
       const t=document.documentElement.getAttribute('data-tema')==='chiaro'?'scuro':'chiaro';
-      document.documentElement.setAttribute('data-tema',t);
-      coloreBarra();
-      try{ localStorage.setItem('ofp_tema',t); }catch(e){}
+      const applica=()=>{
+        document.documentElement.setAttribute('data-tema',t);
+        coloreBarra();
+        try{ localStorage.setItem('ofp_tema',t); }catch(e){}
+      };
+      /* come nel sito: il nuovo tema si allarga come un cerchio dal pulsante */
+      const ridotto=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(e.detail===0 || !document.startViewTransition){ applica(); return; }
+      if(ridotto){ document.startViewTransition(applica); return; }
+      const r=b.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+r.height/2;
+      const R=Math.hypot(Math.max(x,innerWidth-x), Math.max(y,innerHeight-y));
+      document.startViewTransition(applica).ready.then(()=>{
+        document.documentElement.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${R}px at ${x}px ${y}px)`]},
+          {duration:400, easing:'cubic-bezier(0.77,0,0.175,1)', pseudoElement:'::view-transition-new(root)'});
+      }).catch(()=>{});
     });
   },
 

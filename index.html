@@ -18,7 +18,7 @@
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#161c25">
+<meta name="theme-color" content="#151d28">
 <title>OFP C172 FR</title>
 <link rel="stylesheet" href="ofp.css">
 <script>
@@ -690,10 +690,21 @@ document.documentElement.classList.add('vista-dash');
 <div id="dashboard">
   <div class="dash-body">
     <div class="dash-head">
-      <div><h2>Dashboard</h2><div class="dash-conto" id="dashConto"></div></div>
+      <div><div class="dash-orario" id="dashOrario"></div><h2 id="dashSaluto">Dashboard</h2><div class="dash-conto" id="dashConto"></div></div>
       <button type="button" class="btn" id="btnCloseDash" hidden>Back to the open flight plan &rarr;</button>
     </div>
     <div class="dash-nuovo">
+      <svg class="dash-rotta" viewBox="0 0 440 200" preserveAspectRatio="xMaxYMid meet" aria-hidden="true">
+        <circle class="anello" cx="330" cy="96" r="48"/><circle class="anello" cx="330" cy="96" r="92"/><circle class="anello" cx="330" cy="96" r="136"/>
+        <circle class="tacche" cx="330" cy="96" r="92" pathLength="360"/>
+        <path class="altn" d="M372 62 C392 84 400 110 396 140"/>
+        <path class="tratta" pathLength="1" d="M60 158 C104 130 120 104 152 104 S214 132 246 124 S318 78 372 62"/>
+        <circle class="apt p0" cx="60" cy="158" r="5.5"/><circle class="wpt p1" cx="152" cy="104" r="4.5"/>
+        <circle class="wpt p2" cx="246" cy="124" r="4.5"/><circle class="apt p3" cx="372" cy="62" r="5.5"/>
+        <text class="p0" x="60" y="182" text-anchor="middle">DEP</text>
+        <text class="p3 dest" x="372" y="44" text-anchor="middle">DEST</text>
+        <g transform="translate(394 50) rotate(70) scale(1.2)"><path class="aereo" d="M0 -7 L1.6 -2 L7.5 1 L7.5 2.6 L1.6 1.2 L1.2 5 L3.2 6.4 L3.2 7.4 L0 6.6 L-3.2 7.4 L-3.2 6.4 L-1.2 5 L-1.6 1.2 L-7.5 2.6 L-7.5 1 L-1.6 -2 Z"/></g>
+      </svg>
       <div>
         <div class="dash-nuovo-t">New flight</div>
         <div class="dash-nuovo-s">Start from the ForeFlight NavLog and the weather briefing.</div>
@@ -983,31 +994,66 @@ const STEP_LABELS=['Flight','Route&Fuel','M&B','Perf.','Navlog','Charts','Briefi
 const NAVLOG_STEP = STEP_LABELS.indexOf('Navlog')+1;
 let currentStep=1; const totalSteps=STEP_LABELS.length;
 
+/* Le pastiglie si creano una volta e poi si aggiornano al loro posto: se si
+   ricostruissero a ogni cambio, l'indicatore della fase attiva non avrebbe un
+   "prima" da cui scivolare. */
+/* tastiera=true quando il cambio arriva da Invio/Spazio (click con detail 0):
+   niente animazioni, ne' sul pannello ne' sull'indicatore. */
+let STEP_DA_TASTIERA=false;
 function renderSteps(){
-  $('steps').innerHTML = STEP_LABELS.map((lbl,i)=>{
-    const n=i+1; const cls = n===currentStep?'active':(n<currentStep?'done':'');
-    return `<div class="step-pill ${cls}" data-goto="${n}"><span class="n">${n<currentStep?'✓':n}</span>${lbl}</div>`;
-  }).join('');
-  document.querySelectorAll('.step-pill').forEach(p=>p.addEventListener('click',()=>goToStep(parseInt(p.dataset.goto))));
+  const box=$('steps');
+  if(!box.querySelector('.step-pill')){
+    box.innerHTML = STEP_LABELS.map((lbl,i)=>`<div class="step-pill" data-goto="${i+1}"><span class="n"></span>${lbl}</div>`).join('');
+    box.querySelectorAll('.step-pill').forEach(p=>p.addEventListener('click',e=>goToStep(parseInt(p.dataset.goto),e.detail===0)));
+  }
+  box.querySelectorAll('.step-pill').forEach(p=>{
+    const n=parseInt(p.dataset.goto);
+    p.classList.toggle('active', n===currentStep);
+    p.classList.toggle('done', n<currentStep);
+    p.querySelector('.n').textContent = n<currentStep ? '\u2713' : n;
+  });
+  indicatoreFasi(STEP_DA_TASTIERA);
 }
-function goToStep(n){
+/* Indicatore della fase attiva: uno strato grande quanto la riga delle fasi,
+   ritagliato con clip-path sulla pastiglia attiva. Cambiando fase il ritaglio
+   scivola (transizione CSS: si puo' interrompere e ripartire a meta'). */
+function indicatoreFasi(istantaneo){
+  const box=$('steps'); if(!box) return;
+  let ind=box.querySelector('.fase-ind');
+  if(!ind){ ind=document.createElement('div'); ind.className='fase-ind'; ind.setAttribute('aria-hidden','true'); box.prepend(ind); istantaneo=true; }
+  const pill=box.querySelector('.step-pill.active');
+  if(!pill || !box.offsetWidth){ ind.style.visibility='hidden'; return; }
+  ind.style.visibility='';
+  const W=box.scrollWidth, H=box.scrollHeight;
+  ind.style.width=W+'px'; ind.style.height=H+'px';
+  const l=pill.offsetLeft, t=pill.offsetTop, r=W-l-pill.offsetWidth, b=H-t-pill.offsetHeight;
+  const clip=`inset(${t}px ${r}px ${b}px ${l}px round 999px)`;
+  if(istantaneo){ ind.style.transition='none'; ind.style.clipPath=clip; void ind.offsetWidth; ind.style.transition=''; }
+  else ind.style.clipPath=clip;
+}
+window.addEventListener('resize',()=>{ indicatoreFasi(true); indicatorePerf(true); });
+function goToStep(n, tastiera){
+  const prima=currentStep;
   currentStep=Math.min(Math.max(n,1),totalSteps);
+  STEP_DA_TASTIERA=!!tastiera;
+  if($('scrollArea')) $('scrollArea').dataset.verso = tastiera ? 'tastiera' : (currentStep<prima ? 'indietro' : 'avanti');
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', parseInt(p.dataset.step)===currentStep));
   $('btnBack').disabled = currentStep===1;
   $('btnNext').style.display = currentStep===totalSteps ? 'none' : 'inline-block';
-  renderSteps(); $('scrollArea').scrollTop=0; render();
+  renderSteps(); STEP_DA_TASTIERA=false; $('scrollArea').scrollTop=0; render();
   /* Le frequenze si cercano quando si apre il Navlog, non prima: sono due CSV
      da qualche mega, e chi compila solo l'OFP non deve scaricarli mai. Quello
      che e' gia' stato cercato resta in cache, quindi rientrare nello step non
      ripete nessuna richiesta. */
   if(currentStep===NAVLOG_STEP && navRowsRaw().length) navFillFreqs({quiet:true});
   if(currentStep===7) briefAltezze();
+  if(currentStep===4) indicatorePerf(true);
   /* Su telefono le fasi stanno su una riga che scorre: quella attiva si porta
      in vista, senza animazione (si cambia fase decine di volte). */
   const pill=document.querySelector('.step-pill.active');
   if(pill && pill.scrollIntoView) pill.scrollIntoView({block:'nearest', inline:'nearest'});
 }
-$('btnNext').addEventListener('click',()=>goToStep(currentStep+1));
+$('btnNext').addEventListener('click',e=>goToStep(currentStep+1,e.detail===0));
 /* Briefing: i riquadri crescono con il testo, cosi' una procedura lunga si
    legge tutta senza scorrere dentro la casella. Si misurano solo quando lo
    step e' visibile (nascosto un riquadro misura zero). */
@@ -1020,7 +1066,7 @@ function briefAltezze(){ document.querySelectorAll('.panel[data-step="7"] textar
 document.querySelectorAll('.panel[data-step="7"] textarea').forEach(el=>el.addEventListener('input',()=>briefAltezza(el)));
 // cambiando larghezza (iPad ruotato) il testo va a capo in un altro punto
 window.addEventListener('resize',()=>{ if(currentStep===7) briefAltezze(); });
-$('btnBack').addEventListener('click',()=>goToStep(currentStep-1));
+$('btnBack').addEventListener('click',e=>goToStep(currentStep-1,e.detail===0));
 
 /* ============================ fuel calc ============================ */
 function round2(n){ return Math.round(n*100)/100; }
@@ -4101,12 +4147,37 @@ function renderPerfTabs(){
     }
     if(pan) pan.style.display = aperta ? '' : 'none';
   });
+  indicatorePerf(PERF_DA_TASTIERA);
+}
+/* La barra delle schede ha sopra una sua copia con lo stile "acceso",
+   ritagliata sulla scheda attiva (la tecnica del ritaglio delle skill di
+   animazione): testo e fondo cambiano insieme, senza due colori che si
+   rincorrono. Dalla tastiera il cambio e' istantaneo: non si anima mai cio'
+   che parte da un tasto. */
+let PERF_DA_TASTIERA=false;
+function indicatorePerf(istantaneo){
+  const box=$('perfTabs'); if(!box) return;
+  let copia=box.querySelector('.perf-copia');
+  if(!copia){ copia=document.createElement('div'); copia.className='perf-copia'; copia.setAttribute('aria-hidden','true'); copia.inert=true; box.appendChild(copia); istantaneo=true; }
+  copia.innerHTML='';
+  box.querySelectorAll(':scope > .perf-tab').forEach(t=>{
+    const c=t.cloneNode(true); c.removeAttribute('id'); c.tabIndex=-1; c.removeAttribute('role'); copia.appendChild(c);
+  });
+  const on=box.querySelector(':scope > .perf-tab.on');
+  if(!on || !box.offsetWidth) return;
+  const W=box.clientWidth, H=box.clientHeight;
+  const l=on.offsetLeft, t=on.offsetTop, r=W-l-on.offsetWidth, b=H-t-on.offsetHeight;
+  const clip=`inset(${t}px ${r}px ${b}px ${l}px round var(--r-md))`;
+  if(istantaneo){ copia.style.transition='none'; copia.style.clipPath=clip; void copia.offsetWidth; copia.style.transition=''; }
+  else copia.style.clipPath=clip;
 }
 
 function mostraPerfTab(k, fuoco){
   if(!perfTabEsiste(k)) return;
   perfTab=k;
+  PERF_DA_TASTIERA=!!fuoco;
   renderPerfTabs();
+  PERF_DA_TASTIERA=false;
   if(fuoco && $('perfTab'+k)) $('perfTab'+k).focus();
 }
 
@@ -6111,6 +6182,7 @@ function bootstrapFlights(done){
 /* Le voci dell'account nel menu: chi e' collegato, utenti (solo admin),
    cambio password, uscita. Fuori dal sito con accesso restano nascoste. */
 function mostraContoNelMenu(info){
+  if(typeof aggiornaSaluto==='function') aggiornaSaluto();
   document.querySelectorAll('.conto-voce').forEach(el=>{ el.style.display=''; });
   if($('menuChi')) $('menuChi').textContent=info.nome+' · '+info.email;
   if($('btnUtenti')) $('btnUtenti').style.display = info.ruolo==='admin' ? '' : 'none';
@@ -6362,7 +6434,29 @@ function renderDashboard(){
    voci che lavorano sul foglio aperto. */
 let VOLO_APERTO=false;      // c'e' un volo nel foglio (dall'import o dalla Dashboard)
 const dashboardAperta=()=>document.documentElement.classList.contains('vista-dash');
+/* Saluto e ora UTC in testa alla Dashboard: l'ora e' quella che va
+   sull'OFP, in UTC come in volo. */
+function aggiornaSaluto(){
+  const d=new Date(), h=d.getHours();
+  const nome=((Account.info && Account.info.nome)||'').trim().split(/\s+/)[0];
+  const saluto=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+(nome?', '+nome:'');
+  if($('dashSaluto')) $('dashSaluto').textContent=saluto;
+  const g=['SUN','MON','TUE','WED','THU','FRI','SAT'][d.getUTCDay()], m=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][d.getUTCMonth()];
+  const p2=(x)=>String(x).padStart(2,'0');
+  if($('dashOrario')) $('dashOrario').textContent=`${g} ${p2(d.getUTCDate())} ${m} ${d.getUTCFullYear()} \u00b7 ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}Z`;
+}
+let DASH_VISTA=false, DASH_OROLOGIO=null;
 function openDashboard(){
+  /* La prima volta che si apre (una per visita) la Dashboard entra con la
+     rotta che si disegna: e' il momento raro dove ha senso la meraviglia.
+     Le volte successive appare e basta. */
+  const dash=$('dashboard');
+  if(!DASH_VISTA && dash){
+    DASH_VISTA=true; dash.classList.add('dash-prima');
+    setTimeout(()=>dash.classList.remove('dash-prima'), 2200);
+  }
+  aggiornaSaluto();
+  if(!DASH_OROLOGIO) DASH_OROLOGIO=setInterval(()=>{ if(dashboardAperta()) aggiornaSaluto(); }, 20000);
   renderDashboard();
   document.documentElement.classList.add('vista-dash');
   if($('brandVista')) $('brandVista').textContent='Dashboard';

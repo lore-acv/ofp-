@@ -3,27 +3,41 @@
    foglio a parte: accesso e primo avvio si vedono senza sessione, e non devono
    dipendere da file che senza sessione non si raggiungono. */
 :root{
-  --panel-bg:#11161d; --panel-2:#161c25; --panel-line:#232c38;
-  --accent:#ef3340; --accent-2:#3d7dff; --accent-2-hi:#5b91ff; --field:#0c1117; --txt:#e7ecf2; --txt-dim:#8f9bab;
-  --bg:#0a0d12; --hover-line:#3a4a60; --ok:#74d39c; --err:#ff7a7a; --warn:#ffd479; --tap:2.75rem;
-  --ring:0 0 0 3px rgba(61,125,255,.32);
-  --ombra-scheda:0 1px 0 rgba(255,255,255,.03) inset, 0 1px 2px rgba(0,0,0,.35);
-  --ease-out:cubic-bezier(0.23,1,0.32,1); --t-press:140ms; --t-fast:160ms;
+  /* Glass Cockpit: stessa tavolozza OKLCH di ofp.css */
+  --panel-bg:#0f1620; --panel-2:#151d28; --panel-line:#27303c;
+  --accent:#f1383e; --accent-2:#42d2f0; --accent-2-hi:#71e3fe; --on-accent:#05121a; --attivo:#ea58e2;
+  --field:#0a1019; --txt:#ecf1f5; --txt-dim:#9fabb7;
+  --bg:#070c15; --hover-line:#3c4f62; --ok:#5dd786; --err:#f85452; --warn:#fcba43; --tap:2.75rem;
+  --ring:0 0 0 3px rgba(66,210,240,.35);
+  --ombra-scheda:inset 0 1px 0 rgba(255,255,255,.045), 0 1px 2px rgba(0,0,0,.4), 0 24px 48px -24px rgba(0,0,0,.8);
+  --bagliore-azione:0 0 0 1px rgba(66,210,240,.5), 0 8px 24px -10px rgba(66,210,240,.55);
+  --atmosfera:radial-gradient(90% 55% at 50% -5%, rgba(66,210,240,.12), transparent 60%),
+              radial-gradient(60% 40% at 100% 0%, rgba(234,88,226,.08), transparent 60%);
+  --griglia:rgba(160,190,220,.05);
+  --ease-out:cubic-bezier(0.23,1,0.32,1); --ease-in-out:cubic-bezier(0.77,0,0.175,1); --ease-traccia:cubic-bezier(0.3,0,0.3,1); --t-press:140ms; --t-fast:160ms;
   --r-sm:.5rem; --r-md:.7rem; --r-lg:1rem;
   color-scheme:dark;
 }
 html[data-tema="chiaro"]{
-  --panel-bg:#f3ede1; --panel-2:#e9e1d1; --panel-line:#cfc4ae;
-  --accent:#a32a1e; --accent-2:#1f4f9c; --accent-2-hi:#2a5fb4; --field:#faf6ee; --txt:#1b1813; --txt-dim:#62594b;
-  --bg:#ddd3bf; --hover-line:#a4957a; --ok:#1f6b42; --err:#a32a1e; --warn:#6f4a00;
-  --ring:0 0 0 3px rgba(31,79,156,.25);
-  --ombra-scheda:0 1px 2px rgba(62,48,26,.08);
+  /* Carta VFR */
+  --panel-bg:#f6f1e6; --panel-2:#eee7d9; --panel-line:#cec2af;
+  --accent:#b3241f; --accent-2:#015ba6; --accent-2-hi:#136dbf; --on-accent:#ffffff; --attivo:#a90e88;
+  --field:#fdfaf4; --txt:#221811; --txt-dim:#5c5045;
+  --bg:#e8decd; --hover-line:#a18f77; --ok:#146d34; --err:#b3241f; --warn:#7f4d00;
+  --ring:0 0 0 3px rgba(1,91,166,.25);
+  --ombra-scheda:inset 0 1px 0 rgba(255,255,255,.7), 0 1px 2px rgba(62,48,26,.08), 0 20px 40px -24px rgba(62,48,26,.4);
+  --bagliore-azione:0 0 0 1px rgba(1,91,166,.35), 0 8px 20px -10px rgba(1,91,166,.45);
+  --atmosfera:radial-gradient(90% 55% at 50% -5%, rgba(255,255,255,.6), transparent 60%),
+              radial-gradient(60% 40% at 100% 0%, rgba(169,14,136,.05), transparent 60%);
+  --griglia:rgba(120,95,60,.07);
   color-scheme:light;
 }
 *{box-sizing:border-box}
 html{font-size:16px;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 @media (min-width:768px){ html{font-size:17px} }
-body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--txt);
+body{margin:0;min-height:100vh;min-height:100dvh;color:var(--txt);
+  background:var(--atmosfera),linear-gradient(to bottom,transparent 0,var(--bg) 30rem),
+    linear-gradient(var(--griglia) 1px,transparent 1px) 0 0/2rem 2rem,linear-gradient(90deg,var(--griglia) 1px,transparent 1px) 0 0/2rem 2rem,var(--bg);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:var(--accent-2)}
 button,.btn,.tema-btn{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
@@ -63,7 +77,7 @@ h2{font-size:1.05rem;font-weight:700;letter-spacing:-.01em;margin:0 0 .8rem}
   transition:transform var(--t-press) var(--ease-out),background-color var(--t-fast) ease,border-color var(--t-fast) ease,box-shadow var(--t-fast) ease}
 .btn:active:not([disabled]){transform:scale(.97)}
 .btn:focus-visible{outline:none;box-shadow:var(--ring)}
-.btn.primary{background:var(--accent-2);border-color:var(--accent-2);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.16) inset}
+.btn.primary{background:var(--accent-2);border-color:var(--accent-2);color:var(--on-accent);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),var(--bagliore-azione)}
 .btn.danger{color:var(--err)}
 .btn.small{min-height:2.2rem;padding:.3rem .75rem;font-size:.85rem}
 .btn[disabled]{opacity:.55;cursor:default}
@@ -114,4 +128,81 @@ table.utenti td.az .btn{margin-left:.25rem}
 }
 @media (prefers-reduced-motion:reduce){
   .btn:active,.tema-btn:active{transform:none}
+}
+
+/* --- Accesso: la scheda si materializza (momento raro, una volta per visita) --- */
+.centro .card{animation:materializza 480ms var(--ease-out) both}
+.centro .piccolo{animation:materializza 480ms var(--ease-out) 120ms both}
+@keyframes materializza{from{opacity:0;transform:translateY(10px) scale(.985);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.topbar{position:relative}
+.topbar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--accent-2) 55%,transparent) 30%,color-mix(in srgb,var(--attivo) 55%,transparent) 70%,transparent)}
+/* --- Cambio tema: un cerchio dal pulsante (View Transitions) --- */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+@media (prefers-reduced-motion:reduce){
+  .centro .card,.centro .piccolo{animation:dissolvi 200ms ease both}
+  @keyframes dissolvi{from{opacity:0}to{opacity:1}}
+}
+
+/* --- Accesso: la copertina ---
+   E' la prima cosa che si vede del sito: una mappa da GPS che si disegna da
+   sola (anelli, rosa dei venti, tratta magenta, alternato ciano tratteggiato).
+   Succede una volta per visita e non trattiene nessuno: il campo e-mail ha gia'
+   il fuoco e la scheda e' utilizzabile mentre la rotta si traccia. */
+.centro.accesso{max-width:62rem;display:grid;gap:1.25rem;align-items:center;padding-top:2.4rem}
+.accesso-col{width:100%;max-width:27rem;justify-self:center}
+.eroe{position:relative;min-width:0}
+.eroe-occhiello{font:600 .74rem/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.2em;color:var(--accent-2);margin-bottom:.6rem}
+.eroe-titolo{font-size:clamp(2.1rem,5.4vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1;
+  background:linear-gradient(100deg,var(--txt) 40%,color-mix(in srgb,var(--attivo) 70%,var(--txt)));
+  -webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em}
+.eroe-mappa{display:block;width:100%;height:auto;max-height:22rem;margin-top:.4rem;overflow:visible}
+.eroe-mappa .anello{fill:none;stroke:color-mix(in srgb,var(--accent-2) 20%,transparent);stroke-width:1}
+.eroe-mappa .tacche{fill:none;stroke:color-mix(in srgb,var(--accent-2) 40%,transparent);stroke-width:7;stroke-dasharray:.6 4.4}
+.eroe-mappa .tacche-30{fill:none;stroke:color-mix(in srgb,var(--accent-2) 75%,transparent);stroke-width:12;stroke-dasharray:1 29;stroke-dashoffset:.5}
+.eroe-mappa .nord{font:700 13px ui-monospace,"SF Mono",Menlo,monospace;fill:var(--accent-2)}
+.eroe-mappa .bussola{transform-box:view-box;transform-origin:300px 170px}
+.eroe-mappa .tratta{fill:none;stroke:var(--attivo);stroke-width:3;stroke-linecap:round;
+  filter:drop-shadow(0 0 8px color-mix(in srgb,var(--attivo) 60%,transparent))}
+.eroe-mappa .altn{fill:none;stroke:var(--accent-2);stroke-width:1.8;stroke-dasharray:5 6;opacity:.8}
+.eroe-mappa .wpt{fill:var(--panel-bg);stroke:var(--accent-2);stroke-width:2.2}
+.eroe-mappa .apt{fill:var(--attivo)}
+.eroe-mappa .aereo{fill:var(--txt)}
+.eroe-mappa text{font:600 11px ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.14em;fill:var(--txt-dim)}
+.eroe-mappa text.dest{fill:var(--txt)}
+.eroe-mappa .wpt,.eroe-mappa .apt,.eroe-mappa .aereo{transform-box:fill-box;transform-origin:center}
+@media (min-width:56rem){
+  .centro.accesso{grid-template-columns:minmax(0,1.15fr) minmax(0,27rem);gap:3rem;padding-top:4.5rem}
+  .accesso-col{justify-self:end}
+}
+@media (max-width:55.99rem){
+  .eroe{width:100%;max-width:27rem;justify-self:center}
+  .eroe-mappa{max-height:12rem;margin-top:-.4rem}
+}
+
+/* La sequenza: titolo, rosa dei venti che ruota in posizione, tratta che si
+   disegna dalla partenza, punti che compaiono al passaggio, aereo in fondo. */
+.eroe-testo{animation:materializza 520ms var(--ease-out) both}
+.eroe-mappa .anello{animation:dissolvi-in 700ms ease both}
+.eroe-mappa .bussola{animation:bussola 1100ms var(--ease-out) 80ms both}
+@keyframes bussola{from{opacity:0;transform:rotate(-24deg) scale(.96)}to{opacity:1;transform:none}}
+.eroe-mappa .tratta{stroke-dasharray:1;stroke-dashoffset:1;animation:traccia 1400ms var(--ease-traccia) 300ms forwards}
+@keyframes traccia{to{stroke-dashoffset:0}}
+.eroe-mappa .wpt,.eroe-mappa .apt{animation:punto 380ms var(--ease-out) both}
+.eroe-mappa .p0{animation-delay:300ms}
+.eroe-mappa .p1{animation-delay:620ms}
+.eroe-mappa .p2{animation-delay:820ms}
+.eroe-mappa .p3{animation-delay:1410ms}
+.eroe-mappa .p4{animation-delay:1650ms}
+@keyframes punto{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:none}}
+.eroe-mappa text{animation:dissolvi-in 400ms ease both}
+.eroe-mappa .altn{animation:dissolvi-in 500ms ease 1480ms both}
+.eroe-mappa .aereo{animation:arriva 560ms var(--ease-out) 1460ms both}
+@keyframes arriva{from{opacity:0;transform:translate(-12px,8px)}to{opacity:1;transform:none}}
+@keyframes dissolvi-in{from{opacity:0}}
+.accesso .card{animation-delay:160ms}
+.accesso .piccolo{animation-delay:260ms}
+@media (prefers-reduced-motion:reduce){
+  .eroe-testo{animation:dissolvi 200ms ease both}
+  .eroe-mappa *{animation:none!important;stroke-dashoffset:0!important}
 }
