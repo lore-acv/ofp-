@@ -3829,7 +3829,7 @@ function handleWxPdf(file){
 
 const wxDrop=$('wxDrop'), wxFile=$('wxFile'), wxStatus=$('wxStatus'), wxRetryBtn=$('wxRetryBtn');
 wxDrop.addEventListener('click',()=>wxFile.click());
-wxDrop.addEventListener('dragover',e=>{e.preventDefault();wxDrop.style.borderColor='#2f6df6'});
+wxDrop.addEventListener('dragover',e=>{e.preventDefault();wxDrop.style.borderColor='var(--accent-2)'});
 wxDrop.addEventListener('dragleave',()=>wxDrop.style.borderColor='');
 wxDrop.addEventListener('drop',e=>{e.preventDefault();wxDrop.style.borderColor='';if(e.dataTransfer.files[0])handleWxPdf(e.dataTransfer.files[0])});
 wxFile.addEventListener('change',e=>{if(e.target.files[0])handleWxPdf(e.target.files[0])});
@@ -4247,7 +4247,7 @@ function attivaTng(){
 const chartDrop=$('chartDrop'), chartFile=$('chartFile'), chartThumbs=$('chartThumbs');
 window.__chartImgs=[];
 chartDrop.addEventListener('click',()=>chartFile.click());
-chartDrop.addEventListener('dragover',e=>{e.preventDefault();chartDrop.style.borderColor='#2f6df6'});
+chartDrop.addEventListener('dragover',e=>{e.preventDefault();chartDrop.style.borderColor='var(--accent-2)'});
 chartDrop.addEventListener('dragleave',()=>chartDrop.style.borderColor='');
 chartDrop.addEventListener('drop',e=>{e.preventDefault();chartDrop.style.borderColor='';handleCharts(e.dataTransfer.files)});
 chartFile.addEventListener('change',e=>handleCharts(e.target.files));
@@ -6392,7 +6392,7 @@ function makeCard(f){
     const inp=document.createElement('input'); inp.type='file'; inp.accept='application/pdf'; inp.style.display='none';
     card.appendChild(inp);
     drop.addEventListener('click',()=>inp.click());
-    drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.borderColor='#2f6df6';});
+    drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.borderColor='var(--accent-2)';});
     drop.addEventListener('dragleave',()=>drop.style.borderColor='');
     drop.addEventListener('drop',e=>{e.preventDefault();drop.style.borderColor='';if(e.dataTransfer.files[0])finalizeFlightWithPDF(f.id,e.dataTransfer.files[0],statusEl);});
     inp.addEventListener('change',e=>{if(e.target.files[0])finalizeFlightWithPDF(f.id,e.target.files[0],statusEl);});

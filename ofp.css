@@ -134,6 +134,8 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,[role="bu
   transition:background-color var(--t-fast) ease,color var(--t-fast) ease}
 .step-pill.active{border-color:color-mix(in srgb,var(--attivo) 70%,transparent);color:var(--txt)}
 .step-pill.active .n{background:var(--attivo);color:#fff}
+/* i valori compilati nei titoli del modulo (es. Departure LILN): ciano come le cose che si comandano */
+.panel .filled{color:var(--accent-2)}
 .step-pill.done .n{background:var(--pill-done);color:var(--on-done)}
 .step-pill.done{color:var(--txt)}
 

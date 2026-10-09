@@ -259,11 +259,11 @@ A(h1(3, 'Pre-flight Data Entry – Wizard'));
 A(h2('3.0', 'Wizard navigation'));
 A(split(steps([
   ['SELECT', 'a step pill [A] to go to any step, or use **Back** / **Next** at the bottom of the page.'],
-  ['SELECT', 'the theme button [B] to change the display: dark, light and night, in turn. The icon shows the next one. Night uses dim reds only, to preserve dark adaptation in the cockpit; on screen the document preview is shown as dark paper with red ink. The theme does not affect the PDF documents.'],
+  ['SELECT', 'the theme button [B] to switch between dark and light display. It does not affect the documents.'],
   ['SELECT', 'the menu [C] for documents and saved flights (Section 4.1).'],
 ]) + box('caution', 'CAUTION', 'A tick on a step pill only means that the step is behind the current one. It does **not** mean that the step is complete or correct.'),
 figure(3, 'f3-1.jpg', 'Wizard Header', 'Step pills, theme button and menu.',
-  [['A', 'Step pills 1–8', 'Navigate between steps'], ['B', 'Theme button', 'Dark / light / night display'], ['C', 'Menu', 'Documents and flights']])));
+  [['A', 'Step pills 1–8', 'Navigate between steps'], ['B', 'Theme button', 'Dark / light display'], ['C', 'Menu', 'Documents and flights']])));
 
 /* ---- step 1 */
 A(h2('3.1', 'Step 1 – Flight & Aircraft'));
