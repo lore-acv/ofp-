@@ -1036,9 +1036,17 @@ function temaCorrente(){
   return document.documentElement.getAttribute('data-tema')==='chiaro' ? 'chiaro' : 'scuro';
 }
 
+/* Colore della barra di stato del telefono: quello della barra in alto della
+   pagina, per tema (mobile-native, regola 10). */
+const TEMA_BARRA={scuro:'#161c25', chiaro:'#e9e1d1'};
+function coloreBarra(t){
+  const m=document.querySelector('meta[name="theme-color"]');
+  if(m) m.setAttribute('content', TEMA_BARRA[t]||TEMA_BARRA.scuro);
+}
 function applicaTema(t){
   t = (t==='chiaro') ? 'chiaro' : 'scuro';
   document.documentElement.setAttribute('data-tema', t);
+  coloreBarra(t);
   try{ localStorage.setItem(TEMA_CHIAVE, t); }catch(e){}
   const b=$('btnTema');
   if(b) b.setAttribute('aria-label', t==='chiaro' ? 'Switch to dark theme' : 'Switch to light theme');

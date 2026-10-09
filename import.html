@@ -16,7 +16,8 @@
   condiviso con il foglio di volo: le due pagine non hanno due copie dei parser.
 -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#161c25">
 <title>OFP C172 FR — Flight Data Import</title>
 <link rel="stylesheet" href="ofp.css">
 <script>
@@ -33,26 +34,30 @@
 </script>
 
 <style>
-  /* La pagina di apertura non ha il wizard: una colonna sola, centrata. */
-  body{display:block;height:auto;min-height:100vh;overflow:auto}
-  .wrap{max-width:52rem;margin:0 auto;padding:1.4rem 1.6rem 4rem}
-  .lead{font-size:.95rem;color:var(--txt-dim);line-height:1.6;margin:.4rem 0 1.6rem}
-  .card{background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:.8rem;
-        padding:1.2rem 1.3rem;margin-bottom:1.1rem}
-  .card h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.07em;color:var(--txt-dim);
+  /* La pagina di import non ha il wizard: una colonna sola, centrata. */
+  body{display:block;height:auto;min-height:100vh;min-height:100dvh;overflow:auto}
+  .wrap{max-width:52rem;margin:0 auto;padding:1.6rem 1.6rem calc(4rem + env(safe-area-inset-bottom,0px))}
+  .lead{font-size:.98rem;color:var(--txt-dim);line-height:1.6;margin:.5rem 0 1.6rem;max-width:68ch}
+  .card{background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:var(--r-lg);
+        padding:1.2rem 1.3rem;margin-bottom:1rem;box-shadow:var(--ombra-scheda)}
+  .card h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--txt-dim);
            margin:0 0 .8rem;font-weight:700}
   .state-row{display:flex;align-items:center;gap:.7rem;margin:.45rem 0;font-size:.95rem}
   .dot{width:1.5rem;height:1.5rem;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;
-       justify-content:center;font-size:.85rem;font-weight:700;background:var(--pill-n);color:var(--txt-dim)}
+       justify-content:center;font-size:.85rem;font-weight:700;background:var(--pill-n);color:var(--txt-dim);
+       transition:background-color var(--t-med) ease,color var(--t-med) ease}
   .dot.ok{background:var(--pill-done);color:#fff}
   .actions{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin-top:1.2rem}
   a.btn{display:inline-flex;align-items:center;text-decoration:none}
   a.btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
-  .skip{background:transparent;border:0;color:var(--txt-dim);text-decoration:underline;
-        cursor:pointer;font:inherit;font-size:.88rem;padding:.4rem}
-  .skip:hover{color:var(--txt)}
+  .skip{background:transparent;border:0;color:var(--txt-dim);text-decoration:underline;text-underline-offset:.2em;
+        cursor:pointer;font:inherit;font-size:.88rem;padding:.4rem;border-radius:var(--r-sm);min-height:var(--tap)}
+  .skip:focus-visible{outline:none;box-shadow:var(--ring)}
+  @media (hover:hover) and (pointer:fine){ .skip:hover{color:var(--txt)} }
   .apri-guida{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .apri-guida .step-title{font-size:1.9rem}
   #lnkDashboard{white-space:nowrap;flex:0 0 auto}
+  @media (max-width:520px){ .wrap{padding:1.1rem 1rem calc(3rem + env(safe-area-inset-bottom,0px))} .apri-guida .step-title{font-size:1.55rem} }
 </style>
 
 <div class="topbar">

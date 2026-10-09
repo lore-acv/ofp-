@@ -14,130 +14,195 @@
    Cambia solo l'INTERFACCIA. Le pagine del documento (.page, .refTable,
    .wx-box, .zebra) restano nere su bianco in tutti e due i temi: sono carta,
    e la carta non ha un tema. */
+/* ----------------------------------------------------------------------------
+   REDESIGN 2026 — principi
+   ----------------------------------------------------------------------------
+   Le regole vengono dalle skill di design engineering in .claude/skills
+   (emil-design-eng, apple-design, mobile-native):
+   - si anima solo cio' che ha uno scopo, sotto i 300 ms, con curve ease-out
+     forti; mai ease-in, mai "transition: all";
+   - ogni cosa che si preme risponde subito (scale 0.97 su :active);
+   - gli :hover valgono solo con un mouse vero: su iPad un tocco non deve
+     lasciare un pulsante "acceso";
+   - niente flash grigio al tocco, niente zoom sui campi, rispetto del notch;
+   - una colonna di lettura centrata sugli schermi larghi, i gruppi del foglio
+     come schede: si vede dove finisce una cosa e comincia l'altra.
+   ---------------------------------------------------------------------------- */
 :root{
-    --panel-bg:#0f1720; --panel-2:#16212e; --panel-line:#25384c;
-    --accent:#e11d2a; --accent-2:#2f6df6;
-    --field:#0b1219; --txt:#dbe4ee; --txt-dim:#8fa3b8;
-    --bg:#070c12; --stage-bg:#0a0f15;
-    --hover-line:#3a5a80; --pill-n:#1c2a38; --pill-done:#1f7a3d;
-    --ok:#7fd18b; --err:#ff7a7a; --warn:#ffd479;
-    --alert-red-txt:#F6C6C2; --alert-amber-txt:#F2DCB8; --alert-grey-txt:#c9d4e0;
+  /* superfici: tela, schede, campi */
+  --bg:#0a0d12; --stage-bg:#0c1016;
+  --panel-bg:#11161d; --panel-2:#161c25; --panel-line:#232c38;
+  --field:#0c1117; --hover-line:#3a4a60;
+  --txt:#e7ecf2; --txt-dim:#8f9bab;
+  --accent:#ef3340; --accent-2:#3d7dff; --accent-2-hi:#5b91ff;
+  --pill-n:#1b2330; --pill-done:#22874a;
+  --ok:#74d39c; --err:#ff7a7a; --warn:#ffd479;
+  --alert-red-txt:#F6C6C2; --alert-amber-txt:#F2DCB8; --alert-grey-txt:#c9d4e0;
   --sem-ok:#4CC38A; --sem-caution:#E8A33D; --sem-fail:#E5544B;
-    --ombra-pagina:0 6px 30px rgba(0,0,0,.5);
-  }
-  html[data-tema="chiaro"]{
-  /* Beige, non bianco. Un foglio bianco a schermo pieno in cabina acceca, e di
-     giorno lo si guarda per ore: queste sono tinte di carta, calde e smorzate,
-     con il nero appena ammorbidito verso il bruno perche' il nero puro sul
-     beige "vibra". Il documento resta bianco: quello e' carta vera e va
-     stampato. */
-  --panel-bg:#f2ece0; --panel-2:#e7dfd0; --panel-line:#cec3ad;
-  --accent:#a32a1e; --accent-2:#1f4f9c; --field:#f9f5ed; --txt:#1b1813; --txt-dim:#665e50;
-  --bg:#ddd3bf; --stage-bg:#d3c8b2; --hover-line:#a4957a; --pill-n:#e3dbc9; --pill-done:#1f6b42;
+  --ombra-pagina:0 6px 30px rgba(0,0,0,.5);
+  --ring:0 0 0 3px rgba(61,125,255,.32);
+  --ombra-scheda:0 1px 0 rgba(255,255,255,.03) inset, 0 1px 2px rgba(0,0,0,.35);
+  --ombra-pop:0 12px 32px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.35);
+  --barra:rgba(17,22,29,.82);
+  /* movimento (emil-design-eng): curve forti, durate brevi */
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-in-out:cubic-bezier(0.77,0,0.175,1);
+  --t-press:140ms; --t-fast:160ms; --t-med:220ms;
+  /* forme */
+  --r-sm:.5rem; --r-md:.7rem; --r-lg:1rem;
+  --tap:2.75rem;
+  --colonna:52rem;
+  color-scheme:dark;
+}
+html[data-tema="chiaro"]{
+  /* Beige, non bianco: un foglio bianco a schermo pieno in cabina acceca, e di
+     giorno lo si guarda per ore. Tinte di carta, calde e smorzate, con il nero
+     ammorbidito verso il bruno. Il documento resta bianco: e' carta vera. */
+  --bg:#ddd3bf; --stage-bg:#d3c8b2;
+  --panel-bg:#f3ede1; --panel-2:#e9e1d1; --panel-line:#cfc4ae;
+  --field:#faf6ee; --hover-line:#a4957a;
+  --txt:#1b1813; --txt-dim:#62594b;
+  --accent:#a32a1e; --accent-2:#1f4f9c; --accent-2-hi:#2a5fb4;
+  --pill-n:#e3dbc9; --pill-done:#1f6b42;
   --ok:#1f6b42; --err:#a32a1e; --warn:#6f4a00;
   --alert-red-txt:#5c1a12; --alert-amber-txt:#4a3305; --alert-grey-txt:#3b362c;
   --sem-ok:#1f6b42; --sem-caution:#6f4a00; --sem-fail:#a32a1e;
-  --ombra-pagina:0 4px 18px rgba(62,48,26,.22); }
-  *{box-sizing:border-box}
-  /* Base tipografica in rem: 16px su desktop, 18px da tablet in su. Tutto il resto
-     (campi, pulsanti, tabelle) e' espresso in rem e scala di conseguenza, invece di
-     restare inchiodato ai 11-13px che su iPad erano illeggibili. */
-  html{font-size:16px;-webkit-text-size-adjust:100%}
-  html,body{margin:0;height:100%}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size:1rem;background:var(--bg);color:var(--txt);display:flex;flex-direction:column;height:100vh;overflow:hidden}
-  /* Altezza minima dei target di tocco: 44px e' la soglia sotto la quale su touch
-     si sbaglia bersaglio. */
-  :root{--tap:2.75rem}
+  --ombra-pagina:0 4px 18px rgba(62,48,26,.22);
+  --ring:0 0 0 3px rgba(31,79,156,.25);
+  --ombra-scheda:0 1px 2px rgba(62,48,26,.08);
+  --ombra-pop:0 12px 30px rgba(62,48,26,.22), 0 2px 6px rgba(62,48,26,.12);
+  --barra:rgba(233,225,209,.85);
+  color-scheme:light;
+}
 
-  /* Intestazione su due righe: titolo + hamburger sopra, fasi di compilazione
-     sotto, in una sola linea orizzontale. */
-  .topbar{display:flex;flex-direction:column;gap:.5rem;padding:.7rem 1.1rem;background:var(--panel-2);border-bottom:1px solid var(--panel-line);flex:0 0 auto}
-  .topbar-main{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-  .topbar .brand{font-weight:700;letter-spacing:.02em;font-size:1.06rem;white-space:nowrap}
-  .topbar .brand b{color:var(--accent)}
-  .topbar .brand span{color:var(--txt-dim);font-weight:500}
-  .steps{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
-  .step-pill{display:flex;align-items:center;gap:.45rem;padding:.4rem .8rem .4rem .45rem;border-radius:999px;
-    border:1px solid var(--panel-line);background:var(--field);cursor:pointer;font-size:.85rem;color:var(--txt-dim);
-    min-height:2.1rem;user-select:none}
-  .step-pill:hover{border-color:var(--hover-line);color:var(--txt)}
-  .step-pill .n{width:1.35rem;height:1.35rem;border-radius:50%;background:var(--pill-n);color:var(--txt-dim);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex:0 0 auto}
-  .step-pill.active{border-color:var(--accent-2);color:var(--txt)}
-  .step-pill.active .n{background:var(--accent-2);color:#fff}
-  .step-pill.done .n{background:var(--pill-done);color:#fff}
-  .step-pill.done{color:var(--txt)}
+*{box-sizing:border-box}
+/* Base in rem: 16px su telefono e desktop, 18px da tablet in su. */
+html{font-size:16px;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
+html,body{margin:0;height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:1rem;line-height:1.45;background:var(--bg);color:var(--txt);display:flex;flex-direction:column;
+  height:100vh;height:100dvh;overflow:hidden;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+/* Cose che si premono: niente ritardo al tocco, niente selezione del testo con
+   la pressione lunga. Il testo dei campi e dei documenti resta selezionabile. */
+button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,[role="button"]{
+  touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 
-  .btn{border:1px solid var(--panel-line);background:var(--field);color:var(--txt);padding:.6rem 1.05rem;border-radius:.5rem;
-    font-size:.92rem;cursor:pointer;font-weight:600;min-height:var(--tap);font-family:inherit}
-  .btn:hover{border-color:var(--hover-line)}
-  .btn.primary{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
-  .btn.primary:hover{filter:brightness(1.08)}
-  .btn:disabled{opacity:.45;cursor:not-allowed}
-  .btn.ghost{background:transparent}
+/* ===== barra in alto ===== */
+.topbar{display:flex;flex-direction:column;gap:.6rem;flex:0 0 auto;
+  padding:calc(.7rem + env(safe-area-inset-top,0px)) calc(1.1rem + env(safe-area-inset-right,0px)) .7rem calc(1.1rem + env(safe-area-inset-left,0px));
+  background:var(--panel-2);border-bottom:1px solid var(--panel-line)}
+.topbar-main{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.topbar .brand{display:flex;align-items:center;gap:.55rem;font-weight:700;letter-spacing:-.01em;font-size:1.06rem;white-space:nowrap}
+/* il segno: una prua stilizzata nel rosso dell'aeroclub */
+.topbar .brand::before{content:"";width:1.35rem;height:1.35rem;border-radius:.4rem;flex:0 0 auto;
+  background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v18M4 11l8-3 8 3M9 19l3-1 3 1'/%3E%3C/svg%3E") center/72% no-repeat}
+.topbar .brand b{color:var(--accent)}
+.topbar .brand span{color:var(--txt-dim);font-weight:500}
 
-  .main{display:flex;flex:1;min-height:0}
-  .formcol{width:44rem;max-width:100%;flex:1;margin:0 auto;background:var(--panel-bg);display:flex;flex-direction:column;min-height:0}
-  .formcol .scroll{flex:1;overflow-y:auto;padding:1.4rem 1.6rem 2rem;-webkit-overflow-scrolling:touch}
-  .formcol .navrow{flex:0 0 auto;display:flex;justify-content:space-between;gap:.7rem;padding:.9rem 1.6rem;border-top:1px solid var(--panel-line);background:var(--panel-2)}
-  .stage{flex:1;overflow:auto;background:var(--stage-bg);padding:28px;display:flex;flex-direction:column;align-items:center;gap:26px}
-  /* le pagine A4 hanno altezza fissa: dentro un contenitore flex verticale
-     verrebbero schiacciate per stare nello spazio disponibile */
-  .stage .page{flex:0 0 auto}
+/* ===== fasi del foglio ===== */
+.steps{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
+.step-pill{display:flex;align-items:center;gap:.45rem;padding:.32rem .8rem .32rem .35rem;border-radius:999px;
+  border:1px solid var(--panel-line);background:transparent;cursor:pointer;font-size:.85rem;color:var(--txt-dim);
+  min-height:2.1rem;font-weight:500;
+  transition:transform var(--t-press) var(--ease-out),background-color var(--t-fast) ease,border-color var(--t-fast) ease,color var(--t-fast) ease}
+.step-pill:active{transform:scale(.97)}
+.step-pill .n{width:1.4rem;height:1.4rem;border-radius:50%;background:var(--pill-n);color:var(--txt-dim);display:flex;
+  align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex:0 0 auto;font-variant-numeric:tabular-nums;
+  transition:background-color var(--t-fast) ease,color var(--t-fast) ease}
+.step-pill.active{border-color:var(--accent-2);color:var(--txt);background:color-mix(in srgb,var(--accent-2) 14%,transparent)}
+.step-pill.active .n{background:var(--accent-2);color:#fff}
+.step-pill.done .n{background:var(--pill-done);color:#fff}
+.step-pill.done{color:var(--txt)}
 
-  .step-title{font-size:1.35rem;font-weight:700;margin:0 0 .25rem}
-  .step-sub{font-size:.92rem;color:var(--txt-dim);margin:0 0 1.25rem;line-height:1.5}
-  .group{margin-bottom:1.15rem}
-  .group h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--txt-dim);margin:0 0 .55rem;font-weight:700}
-  .row{display:flex;gap:.6rem;margin:.5rem 0;flex-wrap:wrap}
-  .fld{flex:1 1 11rem;display:flex;flex-direction:column;gap:.25rem;min-width:0}
-  .fld label{font-size:.8rem;color:var(--txt-dim);font-weight:600;letter-spacing:.01em}
-  .fld input,.fld textarea,.fld select{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);
-    border-radius:.45rem;padding:.6rem .65rem;font-size:1rem;font-family:inherit;width:100%;min-height:var(--tap)}
-  .fld textarea{resize:vertical;min-height:4.5rem;font-family:"Courier New",monospace;font-size:.95rem;line-height:1.45}
-  .fld input:focus,.fld textarea:focus,.fld select:focus{outline:2px solid var(--accent-2);outline-offset:1px;border-color:var(--accent-2)}
-  .hint{font-size:.82rem;color:var(--txt-dim);margin:.2rem 0 .7rem;line-height:1.55}
+/* ===== pulsanti ===== */
+.btn{border:1px solid var(--panel-line);background:var(--panel-2);color:var(--txt);padding:.6rem 1.1rem;border-radius:var(--r-md);
+  font-size:.92rem;cursor:pointer;font-weight:600;min-height:var(--tap);font-family:inherit;line-height:1.2;
+  transition:transform var(--t-press) var(--ease-out),background-color var(--t-fast) ease,border-color var(--t-fast) ease,box-shadow var(--t-fast) ease}
+.btn:active:not(:disabled){transform:scale(.97)}
+.btn:focus-visible{outline:none;box-shadow:var(--ring)}
+.btn.primary{background:var(--accent-2);border-color:var(--accent-2);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.16) inset}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent}
 
-/* Scheda Volo — aeroporti. Il codice ICAO e' quattro caratteri: una casella
-   larga quanto il campo accanto e' sprecata, e il risultato della ricerca
-   messo sotto allontana i tre aeroporti l'uno dall'altro. Casella stretta a
-   sinistra, dati dell'aeroporto nello spazio che avanza a destra. */
-.apt-row{display:flex;gap:.9rem;align-items:flex-end;margin:.5rem 0}
+/* ===== impaginazione: colonna di lettura centrata ===== */
+.main{display:flex;flex:1;min-height:0}
+.formcol{width:44rem;max-width:100%;flex:1;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;min-height:0}
+.formcol .scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding:1.6rem max(1.6rem,calc((100% - var(--colonna))/2)) 2.4rem}
+.formcol .navrow{flex:0 0 auto;display:flex;justify-content:space-between;gap:.7rem;
+  padding:.8rem max(1.6rem,calc((100% - var(--colonna))/2)) calc(.8rem + env(safe-area-inset-bottom,0px));
+  border-top:1px solid var(--panel-line);background:var(--barra);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+.stage{flex:1;overflow:auto;overscroll-behavior:contain;background:var(--stage-bg);padding:28px;display:flex;flex-direction:column;align-items:center;gap:26px;
+  border-left:1px solid var(--panel-line)}
+/* le pagine A4 hanno altezza fissa: dentro un contenitore flex verticale
+   verrebbero schiacciate per stare nello spazio disponibile */
+.stage .page{flex:0 0 auto}
+
+/* ===== tipografia del foglio ===== */
+.step-title{font-size:1.75rem;font-weight:700;letter-spacing:-.022em;line-height:1.15;margin:0 0 .4rem}
+.step-sub{font-size:.95rem;color:var(--txt-dim);margin:0 0 1.4rem;line-height:1.55;max-width:68ch}
+/* Ogni gruppo e' una scheda: titolo piccolo in alto, campi dentro. */
+.group{margin-bottom:1rem;background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:var(--r-lg);
+  padding:1rem 1.15rem 1.1rem;box-shadow:var(--ombra-scheda)}
+.group>.group{background:transparent;border:0;box-shadow:none;padding:0;margin-bottom:.6rem}
+.group h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--txt-dim);margin:0 0 .75rem;font-weight:700}
+.row{display:flex;gap:.7rem;margin:.55rem 0;flex-wrap:wrap}
+.fld{flex:1 1 11rem;display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.fld label{font-size:.8rem;color:var(--txt-dim);font-weight:600;letter-spacing:.005em}
+.fld input,.fld textarea,.fld select{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);
+  border-radius:var(--r-sm);padding:.6rem .7rem;font-size:1rem;font-family:inherit;width:100%;min-height:var(--tap);
+  transition:border-color var(--t-fast) ease,box-shadow var(--t-fast) ease}
+.fld textarea{resize:vertical;min-height:4.5rem;font-family:ui-monospace,"SF Mono",Menlo,"Courier New",monospace;font-size:.92rem;line-height:1.5}
+.fld input:focus,.fld textarea:focus,.fld select:focus{outline:none;border-color:var(--accent-2);box-shadow:var(--ring)}
+.fld input[readonly]{background:transparent;border-style:dashed}
+.hint{font-size:.82rem;color:var(--txt-dim);margin:.3rem 0 .7rem;line-height:1.6;max-width:72ch}
+.group>.hint:last-child,.group>.calc:last-child{margin-bottom:0}
+input[type="number"],.calc,.navtable,.atmos,.res-top .num,.comp dd,.apt-info,.mb-status{font-variant-numeric:tabular-nums}
+
+/* Scheda Volo — aeroporti. Casella ICAO stretta a sinistra, dati
+   dell'aeroporto nello spazio che avanza a destra. */
+.apt-row{display:flex;gap:.9rem;align-items:flex-end;margin:.55rem 0}
 .apt-row .apt-code{flex:0 0 8rem;max-width:8rem}
-.apt-row .apt-code input{text-transform:uppercase;letter-spacing:.08em}
+.apt-row .apt-code input{text-transform:uppercase;letter-spacing:.08em;font-weight:600}
 .apt-info{flex:1 1 0;min-width:0;padding-bottom:.55rem;line-height:1.45;overflow-wrap:anywhere;
-  font-family:"Courier New",monospace;font-size:.8rem;color:var(--txt-dim)}
-.apt-info .nm{color:var(--txt)}
+  font-family:ui-monospace,"SF Mono",Menlo,"Courier New",monospace;font-size:.8rem;color:var(--txt-dim)}
+.apt-info .nm{color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:600;font-size:.88rem}
 .apt-info .na{color:var(--warn)}
-/* In verticale lo spazio a fianco non c'e': il dato torna sotto la sua casella. */
 @media screen and (max-width:640px){
   .apt-row{flex-direction:column;align-items:stretch;gap:.3rem}
   .apt-row .apt-code{flex:1 1 auto;max-width:100%}
   .apt-info{padding-bottom:0}
 }
 
-/* Orari a due tendine: ore e minuti affiancati dentro un solo campo. */
-/* Orari a due tendine: ore e minuti affiancati, larghi quanto basta invece che
-   distesi su tutta la riga come farebbe un campo di testo. */
+/* Orari a due tendine: ore e minuti affiancati, larghi quanto basta. */
 .hm{display:flex;align-items:center;gap:.35rem}
 .hm select{flex:0 1 5.5rem;min-width:3.5rem}
 .hm>span{color:var(--txt-dim);font-weight:700}
-/* I campi orario calcolati si allineano in larghezza alla coppia di tendine. */
 .time-val{max-width:11.5rem}
-  .calc{font-size:.85rem;color:var(--ok);font-family:"Courier New",monospace;margin-top:.4rem;line-height:1.5}
+/* I risultati dei calcoli: monospace e un filo di colore, come un display. */
+.calc{font-size:.84rem;color:var(--ok);font-family:ui-monospace,"SF Mono",Menlo,"Courier New",monospace;margin-top:.45rem;line-height:1.55}
+.calc:not(:empty){padding:.45rem .65rem;border-radius:var(--r-sm);background:color-mix(in srgb,var(--ok) 8%,transparent);
+  border:1px solid color-mix(in srgb,var(--ok) 22%,transparent)}
 
-  .drop{border:1.5px dashed var(--panel-line);border-radius:.6rem;padding:1.2rem;text-align:center;cursor:pointer;font-size:.9rem;color:var(--txt-dim);background:var(--field);min-height:var(--tap)}
-  .drop:hover{border-color:var(--accent-2);color:var(--txt)}
-  .mb-status{font-size:.85rem;margin-top:.5rem;font-family:"Courier New",monospace;line-height:1.5}
-  .mb-status.ok{color:var(--ok)}
-  .mb-status.err{color:var(--err)}
-  .mb-status.busy{color:var(--warn)}
-  .mb-thumb{margin-top:10px;max-width:100%;border:1px solid var(--panel-line);border-radius:6px;display:none}
-  .thumb-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-  .thumb-row img{max-width:120px;max-height:90px;border:1px solid var(--panel-line);border-radius:5px}
+/* Zone di caricamento file */
+.drop{border:1.5px dashed var(--panel-line);border-radius:var(--r-md);padding:1.3rem 1.2rem;text-align:center;cursor:pointer;
+  font-size:.9rem;color:var(--txt-dim);background:var(--field);min-height:var(--tap);
+  transition:border-color var(--t-fast) ease,color var(--t-fast) ease,background-color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
+.drop:active{transform:scale(.99)}
+.mb-status{font-size:.85rem;margin-top:.5rem;font-family:ui-monospace,"SF Mono",Menlo,"Courier New",monospace;line-height:1.5}
+.mb-status.ok{color:var(--ok)}
+.mb-status.err{color:var(--err)}
+.mb-status.busy{color:var(--warn)}
+.mb-thumb{margin-top:10px;max-width:100%;border:1px solid var(--panel-line);border-radius:6px;display:none}
+.thumb-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.thumb-row img{max-width:120px;max-height:90px;border:1px solid var(--panel-line);border-radius:6px}
 
-  .panel{display:none}
-  .panel.active{display:block}
+/* Le fasi: cambiando fase il contenuto entra con un movimento minimo. Si
+   cambia fase decine di volte per foglio: 180 ms, 6 px, niente di piu'. */
+.panel{display:none}
+.panel.active{display:block;animation:fase-in 180ms var(--ease-out)}
+@keyframes fase-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
   .refTable{width:100%;border-collapse:collapse;font-size:11px;margin:8px 0;color:#111}
   .refTable th,.refTable td{border:1px solid #999;padding:3px 5px;text-align:center}
@@ -237,23 +302,35 @@
     .page .footer{position:static;margin:6px 0 0;left:auto;right:auto;bottom:auto}
     .page:last-child{page-break-after:auto;break-after:auto}
   }
-/* ===== menu hamburger ===== */
+
+/* ===== menu hamburger =====
+   Un popover: nasce dal pulsante che lo apre (angolo in alto a destra), entra
+   in 180 ms e se ne va piu' in fretta di come e' arrivato. Visibility invece
+   di display, cosi' anche l'uscita si vede. */
 .menu-wrap{position:relative}
 .hamburger{display:flex;flex-direction:column;justify-content:center;gap:.28rem;
-  width:var(--tap);height:var(--tap);padding:0 .7rem;border:1px solid var(--panel-line);
-  background:var(--field);border-radius:.5rem;cursor:pointer}
-.hamburger span{display:block;height:2px;background:var(--txt);border-radius:2px;transition:transform .18s ease,opacity .18s ease}
+  width:var(--tap);height:var(--tap);padding:0 .72rem;border:1px solid var(--panel-line);
+  background:var(--field);border-radius:var(--r-md);cursor:pointer;
+  transition:transform var(--t-press) var(--ease-out),border-color var(--t-fast) ease,background-color var(--t-fast) ease}
+.hamburger:active{transform:scale(.95)}
+.hamburger span{display:block;height:2px;background:var(--txt);border-radius:2px;
+  transition:transform var(--t-med) var(--ease-out),opacity var(--t-fast) ease}
 .hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(.3rem) rotate(45deg)}
 .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
 .hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-.3rem) rotate(-45deg)}
-.hamburger:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
-.menu{position:absolute;right:0;top:calc(100% + .5rem);min-width:15rem;z-index:60;
-  background:var(--panel-2);border:1px solid var(--panel-line);border-radius:.65rem;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);padding:.35rem;display:none}
-.menu.open{display:block}
+.hamburger:focus-visible{outline:none;box-shadow:var(--ring)}
+.menu{position:absolute;right:0;top:calc(100% + .5rem);min-width:16rem;z-index:60;
+  background:var(--panel-2);border:1px solid var(--panel-line);border-radius:var(--r-lg);
+  box-shadow:var(--ombra-pop);padding:.35rem;
+  visibility:hidden;opacity:0;transform:translateY(-4px) scale(.97);transform-origin:top right;pointer-events:none;
+  transition:opacity 120ms ease,transform 120ms var(--ease-out),visibility 0s linear 120ms}
+.menu.open{visibility:visible;opacity:1;transform:none;pointer-events:auto;
+  transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out),visibility 0s}
 .menu button{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--txt);
-  font:inherit;font-size:.95rem;padding:.7rem .85rem;border-radius:.45rem;cursor:pointer;min-height:var(--tap)}
-.menu button:hover,.menu button:focus-visible{background:var(--field);outline:none}
+  font:inherit;font-size:.95rem;padding:.68rem .85rem;border-radius:var(--r-sm);cursor:pointer;min-height:var(--tap);
+  transition:background-color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
+.menu button:active{transform:scale(.98)}
+.menu button:focus-visible{background:var(--field);outline:none}
 .menu .sep{height:1px;background:var(--panel-line);margin:.3rem .5rem}
 .menu button.primary{color:var(--accent-2);font-weight:700}
 .menu .menu-chi{padding:.35rem .9rem .2rem;font-size:.78rem;color:var(--txt-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:20rem}
@@ -267,92 +344,106 @@
 @media screen and (min-width:768px){
   html{font-size:18px}                    /* iPad e superiori: base piu' grande, tutto scala con lei */
 }
+/* Su telefono le otto fasi su tre righe si prendevano mezzo schermo: una riga
+   sola che scorre in orizzontale, agganciata alle fasi. */
+@media screen and (max-width:640px){
+  .steps{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+    scrollbar-width:none;margin:0 -1rem;padding:0 1rem;scroll-padding:0 1rem}
+  .steps::-webkit-scrollbar{display:none}
+  .step-pill{flex:0 0 auto;scroll-snap-align:start}
+}
 @media screen and (max-width:520px){
   html{font-size:16px}
-  .formcol .scroll{padding:1rem 1rem 1.6rem}
-  .formcol .navrow{padding:.8rem 1rem}
-  .topbar{padding:.6rem .8rem}
+  .formcol .scroll{padding:1.1rem 1rem 1.8rem}
+  .formcol .navrow{padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom,0px))}
+  .topbar{padding:calc(.6rem + env(safe-area-inset-top,0px)) .8rem .6rem}
+  .group{padding:.9rem .9rem 1rem;border-radius:var(--r-md)}
+  .step-title{font-size:1.5rem}
 }
-/* Su dispositivi a tocco i target crescono ancora un po'. */
+/* Su dispositivi a tocco i target crescono ancora un po', e nessun campo sotto
+   i 16 px: iOS zoomerebbe la pagina e non tornerebbe indietro. */
 @media screen and (pointer:coarse){
   :root{--tap:3rem}
   .step-pill{min-height:2.5rem;font-size:.9rem}
+  input,select,textarea,.navtable input{font-size:max(16px,1rem)!important}
 }
 
-/* ===== Dashboard / Flight Manager ===== */
-/* La Dashboard nasceva chiara a prescindere: ora segue il tema come il resto
-   dell'interfaccia, altrimenti col tema scuro si apre un riquadro bianco. */
-/* E' la prima pagina dopo l'accesso: prende il posto delle fasi e del foglio
-   sotto la barra in alto, che resta (tema, manuale, account). */
-#dashboard{flex:1;min-height:0;background:var(--stage-bg);display:none;overflow:auto}
+/* ===== Dashboard ===== */
+#dashboard{flex:1;min-height:0;background:var(--bg);display:none;overflow:auto;overscroll-behavior:contain}
 html.vista-dash #dashboard{display:block}
 html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:none!important}
-.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin:4px 0 16px}
-.dash-head h2{margin:0;font-size:1.35rem;color:var(--txt)}
+.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin:.6rem 0 1.1rem}
+.dash-head h2{margin:0;font-size:1.9rem;font-weight:700;letter-spacing:-.025em;line-height:1.1;color:var(--txt)}
 .dash-nuovo{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:12px;padding:16px 18px;margin-bottom:8px}
-.dash-nuovo-t{font-weight:700;font-size:1.05rem}
-.dash-nuovo-s{font-size:.88rem;color:var(--txt-dim);margin-top:2px}
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent-2) 16%,var(--panel-bg)),var(--panel-bg) 60%);
+  border:1px solid color-mix(in srgb,var(--accent-2) 35%,var(--panel-line));border-radius:var(--r-lg);
+  padding:1.1rem 1.25rem;margin-bottom:.6rem;box-shadow:var(--ombra-scheda)}
+.dash-nuovo-t{font-weight:700;font-size:1.1rem;letter-spacing:-.01em}
+.dash-nuovo-s{font-size:.88rem;color:var(--txt-dim);margin-top:.15rem}
 .dash-nuovo .btn,.dash-head .btn{text-decoration:none;display:inline-flex;align-items:center;min-height:var(--tap)}
 .dash-head .btn[hidden]{display:none}
-.dash-conto{font-size:12.5px;color:var(--txt-dim);margin-top:3px}
+.dash-conto{font-size:.8rem;color:var(--txt-dim);margin-top:.35rem}
 .dash-sync{display:block;color:var(--warn)}
 .dash-sync.err{color:var(--err)}
 /* barra dell'account nella pagina di import (solo sul sito con accesso) */
 .conto-barra{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--txt-dim);flex-wrap:wrap;justify-content:flex-end}
 .conto-barra[hidden]{display:none}
 .conto-barra a,.conto-barra button{font:inherit;font-size:.85rem;color:var(--txt);background:var(--field);border:1px solid var(--panel-line);
-  border-radius:.45rem;padding:.35rem .7rem;cursor:pointer;text-decoration:none}
-.conto-barra a:hover,.conto-barra button:hover{border-color:var(--hover-line)}
-.dash-body{padding:20px 22px;max-width:1100px;margin:0 auto}
-.dash-section-title{font-size:13px;font-weight:700;color:var(--txt-dim);text-transform:uppercase;letter-spacing:.04em;margin:18px 0 10px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
-.flight-card{background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:12px;padding:15px 16px;box-shadow:0 1px 3px rgba(20,30,60,.04);color:var(--txt)}
-.flight-card .route{font-size:18px;font-weight:700;letter-spacing:.02em;margin:2px 0 4px}
-.flight-card .meta{font-size:12px;color:var(--txt-dim);line-height:1.5}
-.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:8px}
-.badge.standby{background:rgba(232,163,61,.16);color:var(--sem-caution)}
-.badge.completed{background:rgba(76,195,138,.16);color:var(--sem-ok)}
-.card-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-.card-actions .btn{font-size:12px;padding:6px 10px}
-.card-drop{margin-top:11px;border:1.5px dashed var(--panel-line);border-radius:9px;padding:12px;text-align:center;font-size:12px;color:var(--txt-dim);cursor:pointer;transition:.15s}
-.card-drop:hover{border-color:var(--accent-2);color:var(--accent-2)}
-.dash-empty{color:var(--txt-dim);font-size:13px;padding:8px 0}
-.dash-status{font-size:12px;margin-top:6px;min-height:14px}
+  border-radius:var(--r-sm);padding:.38rem .75rem;cursor:pointer;text-decoration:none;
+  transition:transform var(--t-press) var(--ease-out),border-color var(--t-fast) ease}
+.conto-barra a:active,.conto-barra button:active{transform:scale(.97)}
+.dash-body{padding:1.4rem max(1.4rem,calc((100% - 68rem)/2)) calc(2rem + env(safe-area-inset-bottom,0px))}
+.dash-section-title{font-size:.72rem;font-weight:700;color:var(--txt-dim);text-transform:uppercase;letter-spacing:.09em;margin:1.5rem 0 .7rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(18.5rem,1fr));gap:.9rem}
+.flight-card{background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:var(--r-lg);padding:1rem 1.05rem;
+  box-shadow:var(--ombra-scheda);color:var(--txt);display:flex;flex-direction:column;
+  transition:border-color var(--t-fast) ease,transform var(--t-med) var(--ease-out),box-shadow var(--t-med) var(--ease-out)}
+.flight-card .route{font-size:1.15rem;font-weight:700;letter-spacing:-.01em;margin:.15rem 0 .3rem;font-variant-numeric:tabular-nums}
+.flight-card .meta{font-size:.78rem;color:var(--txt-dim);line-height:1.55}
+.badge{display:inline-flex;align-items:center;gap:.4rem;align-self:flex-start;font-size:.68rem;font-weight:700;letter-spacing:.05em;
+  padding:.22rem .6rem;border-radius:999px;margin-bottom:.5rem}
+.badge::before{content:"";width:.42rem;height:.42rem;border-radius:50%;background:currentColor}
+.badge.standby{background:color-mix(in srgb,var(--sem-caution) 15%,transparent);color:var(--sem-caution)}
+.badge.completed{background:color-mix(in srgb,var(--sem-ok) 15%,transparent);color:var(--sem-ok)}
+.card-actions{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:auto;padding-top:.8rem}
+.card-actions .btn{font-size:.8rem;padding:.4rem .8rem;min-height:2.3rem}
+.card-drop{margin-top:.7rem;border:1.5px dashed var(--panel-line);border-radius:var(--r-md);padding:.75rem;text-align:center;
+  font-size:.78rem;color:var(--txt-dim);cursor:pointer;
+  transition:border-color var(--t-fast) ease,color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
+.card-drop:active{transform:scale(.98)}
+.dash-empty{color:var(--txt-dim);font-size:.85rem;padding:.9rem 1rem;border:1px dashed var(--panel-line);border-radius:var(--r-md)}
+.dash-status{font-size:.78rem;margin-top:.4rem;min-height:.9rem}
 .dash-status.busy{color:var(--sem-caution)}
 .dash-status.ok{color:var(--sem-ok)}
 .dash-status.err{color:var(--sem-fail)}
 
-/* ===== Scheda Perf. — prestazioni di decollo e atterraggio =====
-   Gli stessi numeri di prima, presentati come li legge un pilota: l'atmosfera
-   in cima, il vento con la rosa, e per ogni distanza il valore grande, la
-   barra di quanto se ne usa e una riga che dice se si sta dentro. */
-.perf-card{background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:.7rem;
+/* ===== Scheda Perf. — prestazioni di decollo e atterraggio ===== */
+.perf-card{background:var(--panel-2);border:1px solid var(--panel-line);border-radius:var(--r-md);
   overflow:hidden;margin-bottom:.9rem}
-.perf-card>h4{margin:0;padding:.6rem .9rem;background:var(--panel-2);border-bottom:1px solid var(--panel-line);
-  font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);
+.perf-card>h4{margin:0;padding:.6rem .9rem;background:color-mix(in srgb,var(--panel-line) 35%,var(--panel-2));border-bottom:1px solid var(--panel-line);
+  font-size:.7rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--txt-dim);
   display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;flex-wrap:wrap}
 .perf-card>h4 .cond{font-size:.75rem;font-weight:400;letter-spacing:0;text-transform:none;color:var(--txt-dim)}
 .perf-card>h4 .cond b{color:var(--txt);font-weight:600}
 .perf-body{padding:.9rem}
 
 .atmos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  border:1px solid var(--panel-line);border-radius:.5rem;overflow:hidden;margin-bottom:.9rem}
+  border:1px solid var(--panel-line);border-radius:var(--r-sm);overflow:hidden;margin-bottom:.9rem;background:var(--field)}
 .atmos>div{padding:.55rem .8rem;border-left:1px solid var(--panel-line);min-width:0}
 .atmos>div:first-child{border-left:0}
-.atmos dt{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-dim)}
-.atmos dd{margin:.2rem 0 0;font-size:1.5rem;font-weight:700;letter-spacing:-.02em;color:var(--accent-2);line-height:1}
-.atmos dd small{font-size:.7rem;font-weight:400;color:var(--txt-dim);margin-left:.15rem}
+.atmos dt{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-dim)}
+.atmos dd{margin:.25rem 0 0;font-size:1.5rem;font-weight:700;letter-spacing:-.025em;color:var(--accent-2);line-height:1}
+.atmos dd small{font-size:.7rem;font-weight:400;color:var(--txt-dim);margin-left:.15rem;letter-spacing:0}
 
 .perf-wind{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem;align-items:center;
   padding-bottom:.9rem;margin-bottom:.9rem;border-bottom:1px solid var(--panel-line)}
 .perf-wind svg{width:7rem;height:7rem;display:block}
-.comp dt{font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--txt-dim)}
+.comp dt{font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--txt-dim)}
 .comp dd{margin:.15rem 0 .7rem;font-size:1.3rem;font-weight:700;letter-spacing:-.02em;line-height:1}
-.comp dd small{font-size:.7rem;font-weight:400;color:var(--txt-dim);margin-left:.3rem}
+.comp dd small{font-size:.7rem;font-weight:400;color:var(--txt-dim);margin-left:.3rem;letter-spacing:0}
 .head-c{color:var(--sem-ok)}.tail-c{color:var(--sem-fail)}.none-c{color:var(--txt-dim)}
 .chips{display:flex;gap:.35rem;flex-wrap:wrap}
-.chip{font-size:.68rem;font-weight:600;padding:.15rem .55rem;border-radius:999px;
+.chip{font-size:.68rem;font-weight:600;padding:.16rem .58rem;border-radius:999px;
   background:var(--field);border:1px solid var(--panel-line);color:var(--txt-dim);white-space:nowrap}
 .chip.ok{color:var(--sem-ok);border-color:var(--sem-ok)}
 .chip.caution{color:var(--sem-caution);border-color:var(--sem-caution)}
@@ -361,14 +452,14 @@ html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:
 .res+.res{padding-top:.8rem;margin-top:.8rem;border-top:1px solid var(--panel-line)}
 .res-top{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
 .res-top .name{margin:0;font-size:.88rem;font-weight:600;color:var(--txt)}
-.res-top .code{margin:.1rem 0 0;font-size:.66rem;letter-spacing:.08em;color:var(--txt-dim);text-transform:uppercase}
+.res-top .code{margin:.1rem 0 0;font-size:.64rem;letter-spacing:.08em;color:var(--txt-dim);text-transform:uppercase}
 .res-top .num{text-align:right;flex:0 0 auto}
-.res-top .num b{display:block;font-size:1.6rem;font-weight:700;letter-spacing:-.02em;line-height:1.05;color:var(--txt)}
-.res-top .num b small{font-size:.72rem;font-weight:400;color:var(--txt-dim);margin-left:.15rem}
+.res-top .num b{display:block;font-size:1.6rem;font-weight:700;letter-spacing:-.025em;line-height:1.05;color:var(--txt)}
+.res-top .num b small{font-size:.72rem;font-weight:400;color:var(--txt-dim);margin-left:.15rem;letter-spacing:0}
 .res-top .num i{display:block;font-style:normal;font-size:.7rem;color:var(--txt-dim);margin-top:.1rem}
 .bar{height:.4rem;border-radius:.2rem;background:var(--field);border:1px solid var(--panel-line);
   overflow:hidden;margin:.45rem 0 .35rem}
-.bar i{display:block;height:100%;border-radius:.2rem;transition:width .25s ease}
+.bar i{display:block;height:100%;border-radius:.2rem;transform-origin:left center;transition:width var(--t-med) var(--ease-out)}
 .status{margin:0;font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:.45rem}
 .status::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:currentColor;flex:0 0 auto}
 .status.idle{color:var(--txt-dim);font-weight:400}
@@ -376,7 +467,7 @@ html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:
 .status.ok{color:var(--sem-ok)}.status.caution{color:var(--sem-caution)}.status.fail{color:var(--sem-fail)}
 
 .alerts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
-.alert{display:flex;gap:.6rem;padding:.55rem .75rem;border-radius:.5rem;font-size:.78rem;
+.alert{display:flex;gap:.6rem;padding:.55rem .75rem;border-radius:var(--r-sm);font-size:.78rem;
   line-height:1.45;border:1px solid;align-items:flex-start}
 .alert .lbl{flex:0 0 auto;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding-top:.1rem}
 .a-red{border-color:rgba(229,84,75,.38);background:rgba(229,84,75,.1);color:var(--alert-red-txt)}
@@ -395,41 +486,34 @@ html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:
 
 /* ============================================================================
    NAVLOG — la tabella delle tratte nello Step 5
-   ============================================================================
-   Prima era una tabella nuda con gli stili scritti dentro l'HTML riga per riga.
-   Qui prende l'aspetto del resto dell'app: fondo del pannello, righe separate
-   da una linea invece che da spazio vuoto, intestazione che resta visibile
-   quando la tabella scorre in orizzontale sul telefono. */
+   ============================================================================ */
 .navtools{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.2rem 0 .7rem}
 .navtools .mb-status{margin-top:0}
-
-.navtable-box{background:var(--panel-2);border:1px solid var(--panel-line);border-radius:.6rem;
-  padding:.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.navtable-box{background:var(--panel-2);border:1px solid var(--panel-line);border-radius:var(--r-md);
+  padding:.5rem;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
 .navtable{border-collapse:collapse;width:100%;min-width:46rem}
 .navtable th{position:sticky;top:0;background:var(--panel-2);text-align:left;white-space:nowrap;
-  font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--txt-dim);
+  font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:var(--txt-dim);
   font-weight:700;padding:.25rem .3rem .45rem}
-.navtable td{padding:.18rem .22rem;border-top:1px solid var(--panel-line);vertical-align:middle}
+.navtable td{padding:.2rem .22rem;border-top:1px solid var(--panel-line);vertical-align:middle}
 .navtable tr:first-child td{border-top:none}
 .navtable input{background:var(--field);border:1px solid var(--panel-line);color:var(--txt);
   border-radius:.4rem;padding:.42rem .45rem;font-size:.92rem;font-family:inherit;width:100%;
-  min-height:2.3rem}
-.navtable input:focus{outline:2px solid var(--accent-2);outline-offset:1px;border-color:var(--accent-2)}
-/* Le colonne calcolate non si toccano: stesso monospace dei riquadri "calc",
-   cosi' si distinguono a colpo d'occhio da quelle che si compilano. */
-.navtable .ro{font-family:"Courier New",monospace;font-size:.85rem;color:var(--txt-dim);
+  min-height:2.3rem;transition:border-color var(--t-fast) ease,box-shadow var(--t-fast) ease}
+.navtable input:focus{outline:none;border-color:var(--accent-2);box-shadow:var(--ring)}
+/* Le colonne calcolate non si toccano: monospace, come i riquadri "calc". */
+.navtable .ro{font-family:ui-monospace,"SF Mono",Menlo,"Courier New",monospace;font-size:.84rem;color:var(--txt-dim);
   white-space:nowrap;text-align:center;padding-left:.45rem;padding-right:.45rem}
 .navtable .del{padding:.2rem .5rem;min-height:2.3rem;font-size:.85rem;line-height:1}
-/* Larghezze: il checkpoint e le note hanno bisogno di spazio, i numeri no. */
 .navtable .c-freq{width:6rem}   .navtable .c-cs{width:5.5rem}
 .navtable .c-wpt{width:11rem}   .navtable .c-mt{width:4.2rem}
 .navtable .c-dist{width:4.6rem} .navtable .c-alt{width:5.4rem}
 .navtable .c-rmk{width:12rem}
 
 /* Touch & Go: la riga compare solo quando la rotta attraversa un aeroporto. */
-.tng-row{display:flex;gap:.9rem;align-items:flex-end;margin:.5rem 0;flex-wrap:wrap}
+.tng-row{display:flex;gap:.9rem;align-items:flex-end;margin:.55rem 0;flex-wrap:wrap}
 .tng-row .apt-code{flex:0 0 8rem;max-width:8rem}
-.tng-row .apt-code input{text-transform:uppercase;letter-spacing:.08em}
+.tng-row .apt-code input{text-transform:uppercase;letter-spacing:.08em;font-weight:600}
 .tng-check{display:flex;align-items:center;gap:.5rem;padding-bottom:.55rem;
   font-size:.9rem;font-weight:600;color:var(--txt);white-space:nowrap;cursor:pointer}
 .tng-check input{width:1.15rem;height:1.15rem;accent-color:var(--accent-2)}
@@ -437,7 +521,6 @@ html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:
   .tng-row{flex-direction:column;align-items:stretch}
   .tng-row .apt-code{flex:1 1 auto;max-width:none}
 }
-
 /* ============================================================================
    GUIDA IN SOVRAIMPRESSIONE
    ============================================================================
@@ -449,69 +532,81 @@ html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:
 .guida-velo.aperta{display:block}
 .guida-velo iframe{display:block;width:100%;height:100%;border:0}
 
-/* Selettore del tema, nella barra in alto. Una sola icona che mostra dove si
-   va, non dove si e': premendo la luna si passa allo scuro. */
+
 /* ===== Campi a sinistra, risultati a fianco =====
-   La scheda dei risultati stava sotto ai campi: si compilava vento e QNH e poi
-   si scorreva per vedere che effetto avevano. Affiancata, la si guarda mentre
-   si digita.
-
-   Il taglio in due colonne lo decide la larghezza del PANNELLO, non quella
-   della finestra: con l'anteprima del documento aperta la colonna del form si
-   dimezza, e li' due colonne non ci stanno. Serve una container query; dove non
-   c'e' (Safari < 16) resta l'impilamento di prima, che in quello spazio e'
-   esattamente il comportamento giusto.
-
-   Meta' e meta': i campi non hanno bisogno di piu' spazio della scheda, e la
-   scheda letta a meta' pagina si guarda senza cercarla. La soglia e' 50rem e
-   non 46: a meta' di 46rem la scheda scenderebbe sotto le 23rem, dove la rosa
-   dei venti comincia a schiacciare i numeri che le stanno a fianco. A 50rem
-   ogni colonna ne vale 25 abbondanti, ed e' la larghezza a cui la scheda e'
-   gia' stata vista stare bene. */
+   Il taglio in due colonne lo decide la larghezza del PANNELLO (container
+   query), non quella della finestra. Soglia 46rem: dentro la scheda del gruppo
+   la colonna di lettura e' 52rem meno i bordi. */
 .perf-panel{container-type:inline-size}
 .perf-split{display:grid;gap:1.1rem;align-items:start}
 .perf-out:empty{display:none}
 .perf-out .perf-card:last-child{margin-bottom:0}
-@container (min-width:50rem){
+@container (min-width:46rem){
   .perf-split{grid-template-columns:repeat(2,minmax(0,1fr))}
-  /* In mezza pagina i campi vanno a capo: a colonne fisse chi va a capo resta
-     della sua misura, invece di allargarsi da solo fino a riempire la riga. */
   .perf-in .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-/* Le tre misure dell'atmosfera restano allineate fra loro anche quando
-   un'etichetta va a capo e le altre no. */
 .atmos>div{display:flex;flex-direction:column;justify-content:space-between}
 
-/* ===== Schede della pagina Performance =====
-   DEP / ARR / ALT / ENR: quattro aeroporti, uno alla volta. La linguetta
-   accesa si riempie del colore del testo, cosi' l'inversione funziona in
-   entrambi i temi senza una seconda regola. */
-.perf-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:0 0 1rem}
-.perf-tab{position:relative;font-family:"Courier New",monospace;font-size:.85rem;font-weight:700;
-  letter-spacing:.09em;padding:.5rem 1.15rem;min-height:var(--tap);
-  border:1.5px solid var(--panel-line);border-radius:.6rem;background:var(--field);
-  color:var(--txt-dim);cursor:pointer;-webkit-appearance:none;appearance:none}
-.perf-tab:hover{border-color:var(--hover-line);color:var(--txt)}
-.perf-tab.on{background:var(--txt);color:var(--panel-bg);border-color:var(--txt)}
-/* Il punto compare quando quell'aeroporto ha una nota meteo da leggere: una
-   scheda chiusa non deve poter nascondere un "manca il METAR". */
+/* ===== Schede della pagina Performance: un controllo segmentato ===== */
+.perf-tabs{display:inline-flex;gap:.25rem;flex-wrap:wrap;margin:0 0 1rem;padding:.25rem;
+  background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:calc(var(--r-md) + .25rem)}
+.perf-tab{position:relative;font-family:ui-monospace,"SF Mono",Menlo,"Courier New",monospace;font-size:.82rem;font-weight:700;
+  letter-spacing:.09em;padding:.45rem 1.15rem;min-height:calc(var(--tap) - .5rem);
+  border:1px solid transparent;border-radius:var(--r-md);background:transparent;
+  color:var(--txt-dim);cursor:pointer;-webkit-appearance:none;appearance:none;
+  transition:background-color var(--t-fast) ease,color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
+.perf-tab:active{transform:scale(.96)}
+.perf-tab.on{background:var(--txt);color:var(--panel-bg);box-shadow:var(--ombra-scheda)}
+.perf-tab:focus-visible{outline:none;box-shadow:var(--ring)}
+/* Il punto compare quando quell'aeroporto ha una nota meteo da leggere. */
 .perf-tab .avviso{position:absolute;top:.3rem;right:.35rem;width:.45rem;height:.45rem;
   border-radius:50%;background:var(--sem-fail);display:none}
 .perf-tab.ha-avviso .avviso{display:block}
 @media screen and (max-width:640px){
-  .perf-tab{flex:1 1 auto;padding:.5rem .6rem;text-align:center}
+  .perf-tabs{display:flex}
+  .perf-tab{flex:1 1 auto;padding:.45rem .5rem;text-align:center}
 }
 
+/* ===== tema ===== */
 .topbar-azioni{display:flex;align-items:center;gap:.5rem;flex:0 0 auto}
 .tema-btn{width:var(--tap);height:var(--tap);padding:0;display:flex;align-items:center;
   justify-content:center;border:1px solid var(--panel-line);background:var(--field);
-  color:var(--txt);border-radius:.5rem;cursor:pointer;flex:0 0 auto}
-.tema-btn:hover{border-color:var(--hover-line)}
+  color:var(--txt);border-radius:var(--r-md);cursor:pointer;flex:0 0 auto;
+  transition:transform var(--t-press) var(--ease-out),border-color var(--t-fast) ease,background-color var(--t-fast) ease}
+.tema-btn:active{transform:scale(.95)}
+.tema-btn:focus-visible{outline:none;box-shadow:var(--ring)}
 .tema-btn svg{width:1.25rem;height:1.25rem;fill:none;stroke:currentColor;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round}
-/* L'icona mostra dove si va, non dove si e': col tema scuro attivo si vede il
-   sole (clicca per schiarire), col chiaro la luna. Cosi' combacia con l'etichetta. */
+/* L'icona mostra dove si va, non dove si e'. */
 .tema-btn .luna{display:none}
 html[data-tema="chiaro"] .tema-btn .sole{display:none}
 html[data-tema="chiaro"] .tema-btn .luna{display:block}
 @media print{ .tema-btn{display:none!important} }
+
+/* ===== hover: solo con un mouse =====
+   Su iPad il primo tocco applica :hover e lo lascia li': tutti gli hover del
+   sito stanno qui dentro (mobile-native, regola 1). */
+@media (hover:hover) and (pointer:fine){
+  .step-pill:hover{border-color:var(--hover-line);color:var(--txt)}
+  .btn:hover:not(:disabled){border-color:var(--hover-line)}
+  .btn.primary:hover:not(:disabled){background:var(--accent-2-hi);border-color:var(--accent-2-hi)}
+  .drop:hover{border-color:var(--accent-2);color:var(--txt)}
+  .hamburger:hover,.tema-btn:hover{border-color:var(--hover-line)}
+  .menu button:hover{background:var(--field)}
+  .conto-barra a:hover,.conto-barra button:hover{border-color:var(--hover-line)}
+  .card-drop:hover{border-color:var(--accent-2);color:var(--accent-2)}
+  .flight-card:hover{border-color:var(--hover-line);transform:translateY(-2px);box-shadow:var(--ombra-pop)}
+  .perf-tab:hover:not(.on){color:var(--txt);background:var(--panel-2)}
+}
+
+/* ===== meno movimento, se richiesto =====
+   Restano i cambi di colore e di opacita', che aiutano a capire; spariscono
+   spostamenti e scale (emil-design-eng, accessibilita'). */
+@media (prefers-reduced-motion:reduce){
+  .panel.active{animation:fase-fade 150ms ease}
+  @keyframes fase-fade{from{opacity:0}to{opacity:1}}
+  .btn:active,.step-pill:active,.perf-tab:active,.hamburger:active,.tema-btn:active,.drop:active,
+  .card-drop:active,.menu button:active,.conto-barra a:active,.conto-barra button:active{transform:none}
+  .menu,.menu.open{transform:none}
+  .flight-card:hover{transform:none}
+}

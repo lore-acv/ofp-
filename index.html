@@ -17,7 +17,8 @@
   Anteprima HTML fedele al template; PDF vettoriale jsPDF (Courier nativo), A4.
 -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#161c25">
 <title>OFP C172 FR</title>
 <link rel="stylesheet" href="ofp.css">
 <script>
@@ -1001,6 +1002,10 @@ function goToStep(n){
      ripete nessuna richiesta. */
   if(currentStep===NAVLOG_STEP && navRowsRaw().length) navFillFreqs({quiet:true});
   if(currentStep===7) briefAltezze();
+  /* Su telefono le fasi stanno su una riga che scorre: quella attiva si porta
+     in vista, senza animazione (si cambia fase decine di volte). */
+  const pill=document.querySelector('.step-pill.active');
+  if(pill && pill.scrollIntoView) pill.scrollIntoView({block:'nearest', inline:'nearest'});
 }
 $('btnNext').addEventListener('click',()=>goToStep(currentStep+1));
 /* Briefing: i riquadri crescono con il testo, cosi' una procedura lunga si

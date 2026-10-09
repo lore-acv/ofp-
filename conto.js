@@ -8,6 +8,12 @@
     document.documentElement.setAttribute('data-tema', t);
   }catch(e){ document.documentElement.setAttribute('data-tema','scuro'); }
 })();
+/* colore della barra di stato del telefono, per tema */
+function coloreBarra(){
+  const m=document.querySelector('meta[name="theme-color"]');
+  if(m) m.setAttribute('content', document.documentElement.getAttribute('data-tema')==='chiaro' ? '#e9e1d1' : '#161c25');
+}
+document.addEventListener('DOMContentLoaded', coloreBarra);
 
 const Conto = {
   $: (id)=>document.getElementById(id),
@@ -50,6 +56,7 @@ const Conto = {
     b.addEventListener('click',()=>{
       const t=document.documentElement.getAttribute('data-tema')==='chiaro'?'scuro':'chiaro';
       document.documentElement.setAttribute('data-tema',t);
+      coloreBarra();
       try{ localStorage.setItem('ofp_tema',t); }catch(e){}
     });
   },
