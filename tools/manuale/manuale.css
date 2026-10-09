@@ -11,7 +11,7 @@
 @page{
   size:A4; margin:19mm 15mm 17mm 15mm;
   @top-left{content:"OFP C172 FR \2013  SOP User Manual"; font:600 7.5pt Inter, sans-serif; color:#5b6470; letter-spacing:.04em; text-transform:uppercase; vertical-align:bottom; padding-bottom:3mm; border-bottom:.3mm solid #c9ced6;}
-  @top-right{content:"Rev. 1 DRAFT \00B7  01 OCT 2026"; font:600 7.5pt Inter, sans-serif; color:#5b6470; letter-spacing:.04em; vertical-align:bottom; padding-bottom:3mm; border-bottom:.3mm solid #c9ced6;}
+  @top-right{content:"Rev. 2 DRAFT \00B7  09 OCT 2026"; font:600 7.5pt Inter, sans-serif; color:#5b6470; letter-spacing:.04em; vertical-align:bottom; padding-bottom:3mm; border-bottom:.3mm solid #c9ced6;}
   @bottom-left{content:"Uncontrolled copy when printed"; font:500 7pt Inter, sans-serif; color:#8a929c; vertical-align:top; padding-top:3mm;}
   @bottom-right{content:"Page " counter(page) " of " counter(pages); font:600 7.5pt Inter, sans-serif; color:#5b6470; vertical-align:top; padding-top:3mm;}
 }

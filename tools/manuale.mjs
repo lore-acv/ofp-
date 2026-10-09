@@ -45,7 +45,7 @@ function misuraJpeg(file) {
   throw new Error('JPEG senza dimensioni: ' + file);
 }
 
-const DOC = { title: 'OFP C172 FR – SOP User Manual', revision: 'Rev. 1 DRAFT', date: '01 OCT 2026' };
+const DOC = { title: 'OFP C172 FR – SOP User Manual', revision: 'Rev. 2 DRAFT', date: '09 OCT 2026' };
 
 /* ------------------------------------------------------------------ helpers */
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -131,7 +131,7 @@ A(`<section class="cover">
   </div>
   <table class="cv-ctl">
     <tr><th>Document</th><td>OFP-SOP &ndash; Application User Manual</td></tr>
-    <tr><th>Revision</th><td>Rev. 1 &ndash; DRAFT for review</td></tr>
+    <tr><th>Revision</th><td>Rev. 2 &ndash; DRAFT for review (figures updated to the 2026 interface)</td></tr>
     <tr><th>Date</th><td>${DOC.date}</td></tr>
     <tr><th>Aircraft</th><td>Reims Cessna &ldquo;Reims Rocket&rdquo; &ndash; I-CCAF (FR172J), I-CCAB (FR172H)</td></tr>
     <tr><th>Operations</th><td>VFR flight planning</td></tr>
@@ -259,11 +259,11 @@ A(h1(3, 'Pre-flight Data Entry – Wizard'));
 A(h2('3.0', 'Wizard navigation'));
 A(split(steps([
   ['SELECT', 'a step pill [A] to go to any step, or use **Back** / **Next** at the bottom of the page.'],
-  ['SELECT', 'the theme button [B] to switch between light and dark display. It does not affect the documents.'],
+  ['SELECT', 'the theme button [B] to change the display: dark, light and night, in turn. The icon shows the next one. Night uses dim reds only, to preserve dark adaptation in the cockpit; on screen the document preview is shown as dark paper with red ink. The theme does not affect the PDF documents.'],
   ['SELECT', 'the menu [C] for documents and saved flights (Section 4.1).'],
 ]) + box('caution', 'CAUTION', 'A tick on a step pill only means that the step is behind the current one. It does **not** mean that the step is complete or correct.'),
 figure(3, 'f3-1.jpg', 'Wizard Header', 'Step pills, theme button and menu.',
-  [['A', 'Step pills 1–8', 'Navigate between steps'], ['B', 'Theme button', 'Light / dark display'], ['C', 'Menu', 'Documents and flights']])));
+  [['A', 'Step pills 1–8', 'Navigate between steps'], ['B', 'Theme button', 'Dark / light / night display'], ['C', 'Menu', 'Documents and flights']])));
 
 /* ---- step 1 */
 A(h2('3.1', 'Step 1 – Flight & Aircraft'));
@@ -533,8 +533,9 @@ A(split(`<table class="std"><thead><tr><th></th><th>Item</th><th>Function</th></
 <tr><td><span class="mk">D</span></td><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
 <tr><td><span class="mk">E</span></td><td>Download OFP PDF</td><td>A4 OFP. To print it, use the print function of the PDF viewer.</td></tr>
 <tr><td><span class="mk">F</span></td><td>Download Navlog PDF</td><td>A5 NAV-FLIGHTPLAN (separate document)</td></tr>
-<tr><td><span class="mk">G</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
-</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab. On the Dashboard the menu shows only New Flight Plan, User Manual and the account items. Below Download Navlog PDF, <b>Download Club Navlog PDF</b> produces the flying club form (Section 4.3).</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
+<tr><td><span class="mk">G</span></td><td>Download Club Navlog PDF</td><td>The flying club Navigation Log, two A4 pages (Section 4.3)</td></tr>
+<tr><td><span class="mk">H</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
+</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab. On the Dashboard the menu shows only New Flight Plan, User Manual and the account items.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
 A(h2('4.2', 'Operational Flight Plan (A4)'));
 A(`<table class="std keep"><caption>OFP page structure (number of pages varies with NOTAMs and charts)</caption><thead><tr><th>Page</th><th>Content</th></tr></thead><tbody>
 <tr><td>OFP</td><td>Flight data, estimated / actual times, route, cruise altitude, fuel plan, alternate summary, daylight check</td></tr>
