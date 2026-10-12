@@ -195,6 +195,11 @@
   .pg-body .final{margin-top:18px;border:2px solid #1f3a5f;border-radius:8px;padding:12px 16px;font-weight:650;color:#1f3a5f;text-align:center}
 
   /* --- tabelle --- */
+  /* La pagina e' in modalita' quirks (niente doctype: l'impaginazione e' misurata
+     cosi'), e li' le tabelle prendono il colore dal body e non dalla pagina:
+     nel tema scuro il testo delle tabelle diventava quasi bianco sul foglio
+     bianco. Il foglio ha i suoi colori, sempre. */
+  .pg-in table{color:inherit}
   .pg-body table{width:100%;border-collapse:collapse;font-size:.86em;line-height:1.42;margin:0 0 14px}
   .pg-body caption{caption-side:top;text-align:left;font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#5b6470;padding-bottom:6px}
   .pg-body caption.cont::after{content:"  (cont.)";letter-spacing:0;text-transform:none;font-weight:500}
@@ -652,6 +657,63 @@ function ritoccaGirata(pf){
   };
 }
 
+/* Lo swipe. StPageFlip considera swipe solo un gesto piu' breve di 250 ms: un
+   dito un po' piu' lento (280-400 ms, la norma su iPad) finiva nel ramo del
+   trascinamento, partito dal punto iniziale, e al rilascio la pagina tornava
+   indietro o girava nel verso sbagliato: sembrava che il libro si bloccasse.
+   Qui decide la velocita', non il tempo (emil-design-eng, gesti): un gesto
+   orizzontale abbastanza rapido gira nel suo verso; se la pagina era gia' in
+   mano al dito, la girata si completa o si annulla seguendo lo swipe.
+   C'e' anche un difetto peggiore: allo scadere dei 250 ms la libreria fa
+   partire il trascinamento dalla posizione ATTUALE del dito, e se il dito ha
+   gia' passato la meta' del libro piega la pagina nel verso opposto. Se a quel
+   punto il dito ha gia' fatto molta strada in orizzontale e' uno swipe, non un
+   trascinamento: il trascinamento non parte e decide il rilascio. */
+const SWIPE_VEL=.3;              // px/ms: sotto e' un trascinamento, sopra uno swipe
+function ritoccaTocco(pf){
+  const ui=pf.getUI(); if(!ui || ui.__ritoccato) return; ui.__ritoccato=true;
+  const originale=ui.onTouchEnd;
+  window.removeEventListener('touchend', originale);
+  let dito=null;                                   // ultima posizione del dito
+  ui.getDistElement().addEventListener('touchstart', e=>{ const t=e.changedTouches[0]; if(t) dito={x:t.clientX,y:t.clientY}; }, true);
+  window.addEventListener('touchmove', e=>{ const t=e.changedTouches[0]; if(t) dito={x:t.clientX,y:t.clientY}; }, {passive:true});
+  const avviaDito=pf.startUserTouch.bind(pf);
+  pf.startUserTouch=(pt)=>{
+    const tp=ui.touchPoint;
+    if(tp && dito){ const ora=ui.getMousePos(dito.x,dito.y); if(Math.abs(ora.x-tp.point.x)>3*ui.swipeDistance) return; }
+    avviaDito(pt);
+  };
+  ui.onTouchEnd=(e)=>{
+    const t=e.changedTouches && e.changedTouches[0], tp=ui.touchPoint;
+    if(!t || !tp) return originale(e);
+    const pt=ui.getMousePos(t.clientX,t.clientY);
+    const dx=pt.x-tp.point.x, dy=Math.abs(pt.y-tp.point.y), dt=Math.max(1,Date.now()-tp.time);
+    const swipe = Math.abs(dx)>ui.swipeDistance && dy<Math.abs(dx) && Math.abs(dx)/dt>SWIPE_VEL;
+    if(!swipe || dt<ui.swipeTimeout) return originale(e);     // i casi che la libreria gestisce gia'
+    ui.touchPoint=null;
+    const ctl=pf.getFlipController(), calc=ctl.getCalculation();
+    const avanti=dx<0;
+    const lato = tp.point.y < pf.getRender().getRect().height/2 ? 'top' : 'bottom';
+    if(pf.isUserTouch && calc && (calc.getDirection()===0)!==avanti && ctl.getState()!=='flipping'){
+      // piega partita nel verso sbagliato: si toglie subito e si gira nel verso dello swipe
+      pf.isUserTouch=false;
+      const ren=pf.getRender(); ren.setBottomPage(null); ren.setFlippingPage(null); ren.clearShadow(); ctl.setState('read'); ctl.reset();
+      avanti ? pf.flipNext(lato) : pf.flipPrev(lato);
+      return;
+    }
+    if(pf.isUserTouch && calc){
+      pf.isUserTouch=false;
+      const rect=ctl.getBoundsRect(), pos=calc.getPosition(), y=calc.getCorner()==='bottom'?rect.height:0;
+      if((calc.getDirection()===0)===avanti) ctl.animateFlippingTo(pos,{x:-rect.pageWidth,y},true);
+      else ctl.animateFlippingTo(pos,{x:rect.pageWidth,y},false);
+    }else{
+      pf.isUserTouch=false;
+      avanti ? pf.flipNext(lato) : pf.flipPrev(lato);
+    }
+  };
+  window.addEventListener('touchend', ui.onTouchEnd);
+}
+
 /* ======================================================= IL LIBRO */
 function costruisci(start){
   if(pf){ try{ pf.destroy(); }catch(e){} pf=null; }
@@ -671,6 +733,7 @@ function costruisci(start){
   });
   pf.loadFromHTML(pagine.map(p=>p.el));
   if(MOTO) ritoccaGirata(pf);
+  ritoccaTocco(pf);
   // la scelta doppia/singola passa da minWidth, ma solo dopo la creazione:
   // la libreria la userebbe anche come larghezza minima del contenitore
   book.style.minWidth='0'; book.style.minHeight='0';
