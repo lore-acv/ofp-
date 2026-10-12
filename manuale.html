@@ -39,7 +39,7 @@
   @font-face{font-family:'PlexM';font-weight:400;font-display:block;src:url(data/manuale/fonts/IBMPlexMono-400.woff2) format('woff2')}
   @font-face{font-family:'PlexM';font-weight:600;font-display:block;src:url(data/manuale/fonts/IBMPlexMono-600.woff2) format('woff2')}
 
-  :root{--tocw:20rem;--ease:cubic-bezier(.4,0,.2,1)}
+  :root{--tocw:20rem;--ease:cubic-bezier(.32,.72,0,1)}   /* curva da cassetto: l'indice e la lente entrano come un pannello */
   body{height:100vh;height:100dvh}
 
   /* =============================== barra ================================ */
@@ -51,7 +51,6 @@
     border:1px solid var(--panel-line);background:var(--field);color:var(--txt);border-radius:.5rem;cursor:pointer;
     flex:0 0 auto;text-decoration:none;transition:background .2s,border-color .2s,color .2s}
   .fb-ico[hidden]{display:none}
-  .fb-ico:hover{border-color:var(--hover-line)}
   .fb-ico:focus-visible,.fb-toc a:focus-visible,.fb-nav:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
   .fb-ico svg,.fb-nav svg,.fb-zoom-x svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .fb-ico[aria-pressed="true"]{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
@@ -72,7 +71,6 @@
   .fb-toc ol{list-style:none;margin:0;padding:0}
   .fb-toc a{display:flex;align-items:baseline;gap:.55rem;padding:.45rem 1.1rem;color:var(--txt);text-decoration:none;
     font-size:.9rem;line-height:1.35;border-left:3px solid transparent;transition:background .2s,border-color .2s}
-  .fb-toc a:hover{background:var(--panel-2)}
   .fb-toc a.l1{font-weight:700;margin-top:.4rem}
   .fb-toc a.l2{padding-left:2.2rem;color:var(--txt-dim)}
   .fb-toc a .n{flex:0 0 auto;min-width:2.1rem;color:var(--accent);font-weight:700;font-size:.8rem}
@@ -103,7 +101,6 @@
   .fb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:8;width:2.7rem;height:4.6rem;display:flex;
     align-items:center;justify-content:center;border:1px solid var(--panel-line);background:var(--panel-bg);color:var(--txt);
     border-radius:.55rem;cursor:pointer;opacity:.9;transition:opacity .2s,border-color .2s}
-  .fb-nav:hover{opacity:1;border-color:var(--hover-line)}
   .fb-nav[disabled]{opacity:.25;cursor:default}
   .fb-nav.prev{left:.6rem} .fb-nav.next{right:.6rem}
   .fb-main.toc-open .fb-nav.prev{left:calc(var(--tocw) + .6rem)}
@@ -150,8 +147,9 @@
   /* pagina sinistra: piega a destra; destra: piega a sinistra */
   .pg.sx .pg-in{padding-left:var(--pe);padding-right:var(--pi)}
   .pg.dx .pg-in{padding-left:var(--pi);padding-right:var(--pe)}
-  .pg.sx{background:linear-gradient(to left,#e9e9e9 0,#fff 5%)}
-  .pg.dx{background:linear-gradient(to right,#e9e9e9 0,#fff 5%)}
+  /* la piega verso la costola: un'ombra che sfuma, non uno spigolo grigio */
+  .pg.sx{background:linear-gradient(to left,rgba(40,32,24,.11) 0,rgba(40,32,24,.05) 1.6%,rgba(40,32,24,.015) 4.5%,rgba(40,32,24,0) 9%) #fff}
+  .pg.dx{background:linear-gradient(to right,rgba(40,32,24,.11) 0,rgba(40,32,24,.05) 1.6%,rgba(40,32,24,.015) 4.5%,rgba(40,32,24,0) 9%) #fff}
   .pg-head{flex:0 0 var(--hh);display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
     border-bottom:1px solid #d5d9e0;padding-bottom:6px;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:#6b7480;font-weight:600}
   .pg-head span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -270,7 +268,6 @@
 
   /* --- indice nel libro --- */
   .pg-body .toc-e{display:flex;align-items:baseline;gap:8px;color:#1b1f24;text-decoration:none;font-weight:500;padding:3px 0;border-radius:4px}
-  .pg-body .toc-e:hover{background:#eef2f6}
   .pg-body .toc-e.t1{margin-top:11px;font-weight:700;color:#1f3a5f}
   .pg-body .toc-e .tn{flex:0 0 auto;width:96px;font-weight:750;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#c2410c}
   .pg-body .toc-e.t2 .tn{width:38px;margin-left:96px;font-size:.88em;letter-spacing:0}
@@ -282,6 +279,13 @@
   /* il banco di misura: fuori dallo schermo, alla misura logica */
   #fbMisura{position:absolute;left:-10000px;top:0;visibility:hidden;pointer-events:none}
   #fbMisura .pg{position:relative;width:var(--pw);height:var(--ph)}
+  /* hover solo con un mouse vero: su iPad il primo tocco lo lascerebbe acceso */
+  @media (hover:hover) and (pointer:fine){
+    .fb-ico:hover{border-color:var(--hover-line)}
+    .fb-toc a:hover{background:var(--panel-2)}
+    .fb-nav:hover{opacity:1;border-color:var(--hover-line)}
+    .pg-body .toc-e:hover{background:#eef2f6}
+  }
   @media (prefers-reduced-motion:reduce){
     .fb-toc,.fb-stage,.fb-scrim,.fb-nav,.fb-zoom{transition:none!important}
     .fb-box.cambio{animation:none}
@@ -560,6 +564,94 @@ function impagina(){
   return out;
 }
 
+/* ======================================================= LA GIRATA
+   StPageFlip calcola bene la piega, ma la muove come una macchina: l'angolo
+   della pagina va in linea retta e a velocita' costante, e le ombre sono a
+   fasce (un riflesso lucido) e, sulla copertina rigida, partono a piena
+   intensita' e saltano di lato quando la pagina passa la verticale. Qui si
+   ritoccano quei metodi, senza toccare il file della libreria:
+   - il moto: l'angolo segue un arco (la carta si solleva verso il centro) con
+     una curva che parte morbida e si posa lenta; se la pagina e' gia' in mano
+     al lettore (trascinata e lasciata) parte veloce e frena e basta;
+   - le ombre: opache, senza bande, con un'intensita' che nasce e muore con
+     l'angolo della pagina, cosi' non c'e' un fotogramma in cui compaiono o
+     cambiano lato di colpo. */
+const GIRATA={
+  ms:760,                       // girata intera
+  tastiera:.6,                  // da tastiera piu' rapida: chi usa le frecce va veloce
+  dentroFuori:[.3,.1,.15,1],     // da ferma: risponde subito, si posa lenta
+  fuori:[.23,1,.32,1],          // gia' in movimento (lasciata dal dito): solo frenata
+  arco:.07,                     // quanto si solleva l'angolo, in altezze di pagina
+  ombra:.42                     // opacita' massima delle ombre
+};
+let girataRapida=false;
+function curva([x1,y1,x2,y2]){
+  const B=(t,a,b)=>3*(1-t)*(1-t)*t*a+3*(1-t)*t*t*b+t*t*t;
+  return x=>{ if(x<=0) return 0; if(x>=1) return 1; let lo=0,hi=1;
+    for(let i=0;i<28;i++){ const m=(lo+hi)/2; if(B(m,x1,x2)<x) lo=m; else hi=m; } return B((lo+hi)/2,y1,y2); };
+}
+function ritoccaGirata(pf){
+  const ctl=pf.getFlipController(), ren=pf.getRender();
+  const pc=Object.getPrototypeOf(ctl), pr=Object.getPrototypeOf(ren);
+  if(pc.__ritoccata) return; pc.__ritoccata=true;
+  const easeIO=curva(GIRATA.dentroFuori), easeO=curva(GIRATA.fuori);
+
+  pc.animateFlippingTo=function(da,a,gira,chiudi=true){
+    const rect=this.getBoundsRect(), dx=a.x-da.x, dy=a.y-da.y, dist=Math.hypot(dx,dy);
+    const n=Math.max(2,Math.round(dist));
+    const ease = this.getState()==='flipping' ? easeIO : easeO;
+    // l'arco solo per una girata vera, non per l'orecchia dell'angolo
+    const su = gira && Math.abs(dx)>rect.pageWidth*.6 ? rect.height*GIRATA.arco : 0;
+    const verso = a.y>rect.height/2 ? -1 : 1;
+    const cx=(da.x+a.x)/2, cy=(da.y+a.y)/2+verso*su;
+    const frames=[];
+    for(let k=0;k<=n;k++){
+      const u=ease(k/n), v=1-u;
+      const pt={x:v*v*da.x+2*v*u*cx+u*u*a.x, y:v*v*da.y+2*v*u*cy+u*u*a.y};
+      frames.push(()=>this.do(pt));
+    }
+    const dur=this.getAnimationDuration(n)*(girataRapida?GIRATA.tastiera:1);
+    this.render.startAnimation(frames, dur, ()=>{
+      if(!this.calc) return;
+      if(gira) (this.calc.getDirection()===1 ? this.app.turnToPrevPage() : this.app.turnToNextPage());
+      if(chiudi){ this.render.setBottomPage(null); this.render.setFlippingPage(null); this.render.clearShadow(); this.setState('read'); this.reset(); }
+    });
+  };
+
+  // ombre delle pagine morbide: sfumature continue, nessuna banda chiara
+  const nero=(a)=>`rgba(24,20,16,${Math.max(0,a).toFixed(3)})`;
+  const io=pr.drawInnerShadow, oo=pr.drawOuterShadow, hi=pr.drawHardInnerShadow, ho=pr.drawHardOuterShadow;
+  pr.drawInnerShadow=function(){
+    io.call(this);
+    const o=this.shadow.opacity, dir=this.getDirection()===0?'to left':'to right';
+    this.innerShadow.style.background=`linear-gradient(${dir}, ${nero(o*.55)} 0%, ${nero(o*.3)} 14%, ${nero(o*.12)} 34%, ${nero(0)} 72%)`;
+  };
+  pr.drawOuterShadow=function(){
+    oo.call(this);
+    const o=this.shadow.opacity, dir=this.getDirection()===0?'to right':'to left';
+    this.outerShadow.style.background=`linear-gradient(${dir}, ${nero(o*.8)} 0%, ${nero(o*.38)} 18%, ${nero(o*.12)} 46%, ${nero(0)} 100%)`;
+  };
+  // copertina rigida: l'ombra nasce e muore con l'angolo (seno), larghezza
+  // che segue la pagina: a 0 e a 90 gradi vale zero, quindi il cambio di lato
+  // a meta' girata non si vede
+  const angolo=(sh)=>{ const e=sh.progress>100?200-sh.progress:sh.progress; return Math.max(0,Math.min(100,e))/100; };
+  pr.drawHardOuterShadow=function(){
+    ho.call(this);
+    const t=this.getRect(), e=angolo(this.shadow), k=Math.sin(Math.PI*e);
+    const w=Math.max(1, t.pageWidth*(.18+.42*(1-e)));
+    const o=GIRATA.ombra*.7*k;
+    this.hardShadow.style.width=w+'px';
+    this.hardShadow.style.background=`linear-gradient(to left, ${nero(o)} 0%, ${nero(o*.4)} 30%, ${nero(o*.12)} 62%, ${nero(0)} 100%)`;
+  };
+  pr.drawHardInnerShadow=function(){
+    hi.call(this);
+    const t=this.getRect(), e=angolo(this.shadow);
+    const o=GIRATA.ombra*.55*e*e;           // la pagina si scurisce mentre si mette di taglio
+    this.hardInnerShadow.style.width=t.pageWidth+'px';
+    this.hardInnerShadow.style.background=`linear-gradient(to right, ${nero(o)} 0%, ${nero(o*.55)} 40%, ${nero(o*.25)} 100%)`;
+  };
+}
+
 /* ======================================================= IL LIBRO */
 function costruisci(start){
   if(pf){ try{ pf.destroy(); }catch(e){} pf=null; }
@@ -572,12 +664,13 @@ function costruisci(start){
   dimensiona(true);
   pf=new St.PageFlip(book,{
     width:F.w, height:F.h, size:'stretch', minWidth:1, maxWidth:6000, minHeight:1, maxHeight:6000,
-    autoSize:false, showCover:true, usePortrait:true, drawShadow:true, maxShadowOpacity:.55,
-    flippingTime: MOTO ? 820 : 1, startPage:Math.max(0,Math.min(pagine.length-1,start||0)),
+    autoSize:false, showCover:true, usePortrait:true, drawShadow:true, maxShadowOpacity:GIRATA.ombra,
+    flippingTime: MOTO ? GIRATA.ms : 1, startPage:Math.max(0,Math.min(pagine.length-1,start||0)),
     mobileScrollSupport:false, clickEventForward:true, swipeDistance:24, showPageCorners:true,
     disableFlipByClick:false, useMouseEvents:true
   });
   pf.loadFromHTML(pagine.map(p=>p.el));
+  if(MOTO) ritoccaGirata(pf);
   // la scelta doppia/singola passa da minWidth, ma solo dopo la creazione:
   // la libreria la userebbe anche come larghezza minima del contenitore
   book.style.minWidth='0'; book.style.minHeight='0';
@@ -733,8 +826,8 @@ document.addEventListener('keydown', e=>{
   if(e.target.closest && e.target.closest('input')) return;
   if($('fbZoom').classList.contains('aperta')){ if(e.key==='Escape') chiudiLente(); return; }
   if(!pf) return;
-  if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); pf.flipNext(); }
-  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); pf.flipPrev(); }
+  if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); girataRapida=true; pf.flipNext(); girataRapida=false; }
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); girataRapida=true; pf.flipPrev(); girataRapida=false; }
   else if(e.key==='Home'){ e.preventDefault(); vai(0); }
   else if(e.key==='End'){ e.preventDefault(); vai(pagine.length-1); }
   else if(e.key==='Escape'){ if($('fbMain').classList.contains('toc-open') && innerWidth<1100) indice(false); else chiudi(); }
