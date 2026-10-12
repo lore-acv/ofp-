@@ -298,14 +298,15 @@ A(split(steps([
   ['REVIEW', 'the DAYLIGHT check [F]. It requires the flight date (Step 8).'],
 ], 6) + box('warning', 'WARNING', 'Times are **UTC**. Times entered in local time make the daylight check wrong by the UTC offset.'),
 figure(3, 'f3-3.jpg', 'Estimated Times and Daylight Check',
-  'Take-off, landing at destination and landing at the alternate, each checked against its own aerodrome.',
+  'Take-off, landing at destination and landing at the alternate, each checked against its own aerodrome: sunrise &ndash; sunset, civil twilight and status.',
   [['A', 'OFF', 'SELECT (UTC)'], ['B', 'TO', 'SELECT (UTC)'], ['C', 'LDG', 'VERIFY'], ['D', 'ON', 'VERIFY / CORRECT'],
     ['E', 'BLOCK / FLT', 'VERIFY'], ['F', 'DAYLIGHT check', 'REVIEW']])));
 A(`<table class="std keep"><caption>Daylight check &ndash; status</caption><thead><tr><th>Indication</th><th>Meaning</th><th>Action</th></tr></thead><tbody>
-<tr><td><code>SS -h:mm</code></td><td>Daylight; margin to sunset</td><td>VERIFY margin</td></tr>
-<tr><td><code>AFTER SUNSET (+h:mm)</code> / <code>BEFORE SUNRISE</code></td><td>Within civil twilight (amber)</td><td>REVIEW plan</td></tr>
-<tr><td><code>NIGHT</code></td><td>After end / before start of civil twilight (red)</td><td>REVIEW plan</td></tr>
-<tr><td><code>not computed</code></td><td>Date, TO time, Trip time or coordinates missing</td><td>INPUT missing data</td></tr>
+<tr><td><b>Daylight</b> (green)</td><td>Between sunrise and sunset; the time left to sunset is shown</td><td>VERIFY margin</td></tr>
+<tr><td><b>Civil twilight</b> (amber)</td><td>After sunset or before sunrise, still day VFR; minutes past sunset and time left to night are shown</td><td>REVIEW plan</td></tr>
+<tr><td><b>Night</b> (red)</td><td>After the end / before the start of civil twilight</td><td>REVIEW plan</td></tr>
+<tr><td><b>Not computed</b></td><td>Date, TO time, Trip time or coordinates missing; the box says which</td><td>INPUT missing data</td></tr>
+<tr><td colspan="3">The box border takes the colour of the worst row. On the OFP the same check is printed in compact form: <code>SS -h:mm</code>, <code>AFTER SUNSET (+h:mm)</code> / <code>BEFORE SUNRISE</code>, <code>NIGHT</code>, flagged <code>***</code>.</td></tr>
 </tbody></table>`);
 
 /* ---- step 2 */
@@ -643,7 +644,7 @@ A(h1x('Appendix A', 'Pre-Departure Cross-Check', 'appA'));
 A(p('Carry out before printing the documents. Each item refers to the section where the check is described.'));
 const CHK = [
   ['Times', 'OFF / TO in UTC; LDG, ON, BLOCK, FLT plausible', '3.1'],
-  ['Daylight', 'TO, LDG and ALTN landing reviewed; no unaccepted AFTER SUNSET / NIGHT', '3.1'],
+  ['Daylight', 'TO, LDG and ALTN landing reviewed; no unaccepted Civil twilight / Night', '3.1'],
   ['Cruise', 'Altitude, RPM, MAP selected; GS corrected for wind', '3.2'],
   ['Climb', 'Cruise altitude reached; TOC position plausible', '3.2'],
   ['Alternate', 'ALTN entered; distance and altitude verified', '3.2'],

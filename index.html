@@ -148,7 +148,7 @@ document.documentElement.classList.add('vista-dash');
             <div class="fld"><label>FLT (calculated)</label><input id="tFLT" class="time-val" value="" placeholder="--:--" readonly style="opacity:.7"></div>
           </div>
           <div class="calc" id="timesCalc"></div>
-          <div class="calc" id="daylightCalc" style="white-space:pre-wrap"></div>
+          <div class="daylight" id="daylightCalc"></div>
           <div class="hint">Only the <b>off-blocks</b> and <b>takeoff</b> times are entered, in 5-minute steps.
             The other two are proposed automatically: <b>LDG</b> is takeoff plus the Flight Time calculated in
             Step 2 (climb + cruise), <b>ON</b> is landing plus the same taxi time used at departure.
@@ -978,6 +978,42 @@ function daylightLines(dc){
     return `${lab} ${hhmmZ(r.t)}  ${apt}  SR ${minToHHMM(r.sr)}  SS ${minToHHMM(r.ss)}  ECT ${minToHHMM(r.ect)}  ${daylightNote(r)}`;
   });
   return [head, ...rows];
+}
+/* Il riquadro del wizard: le stesse effemeridi, ma da leggere in un colpo
+   d'occhio. Una riga per momento, intestazioni per esteso, lo stato a parole
+   col suo colore e, sotto, la regola che si sta applicando. */
+const hmZ=(m)=>{ const s=minToHHMM(m); return `${s.slice(0,2)}:${s.slice(2)}`+(m>=1440?` +${Math.floor(m/1440)}d`:''); };
+const durata=(m)=> m<60 ? `${m} min` : `${Math.floor(m/60)} h ${String(m%60).padStart(2,'0')}`;
+function daylightStato(r){
+  if(r.stato==='nd') return {cls:'nd', tag:'Not computed', det:r.why};
+  if(r.stato==='night') return {cls:'night', tag:'Night',
+    det: r.tm>r.ect ? `civil twilight ended at ${hmZ(r.ect)}` : `civil twilight begins at ${hmZ(r.bct)}`};
+  if(r.stato==='twilight') return {cls:'twilight', tag:'Civil twilight',
+    det: r.tm>r.ss ? `${durata(r.tm-r.ss)} after sunset · night in ${durata(r.ect-r.tm)}` : `${durata(r.sr-r.tm)} before sunrise`};
+  return {cls:'day', tag:'Daylight', det:`sunset in ${durata(r.ss-r.tm)}`};
+}
+function daylightBoxHTML(dc){
+  const NOMI={TO:'Takeoff', LDG:'Landing', ALTN:'Alternate'};
+  if(dc.missing.length) return `<div class="dl-head"><b>Daylight check</b></div>
+    <p class="dl-vuoto">To check against sunrise and sunset, enter ${esc(dc.missing.join(', '))}.</p>`;
+  const d=new Date(dc.date);
+  const data=`${String(d.getUTCDate()).padStart(2,'0')} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  const righe=dc.rows.map(r=>{
+    const st=daylightStato(r), sole=r.stato!=='nd' && r.sr!=null;
+    return `<tr class="dl-${st.cls}">
+      <th scope="row">${NOMI[r.kind]||r.kind}</th>
+      <td class="dl-apt">${esc(r.icao)}</td>
+      <td class="dl-ora">${hmZ(r.t)}</td>
+      <td class="dl-sole" data-l="Sunrise – Sunset">${sole?`${hmZ(r.sr)} – ${hmZ(r.ss)}`:'—'}</td>
+      <td class="dl-sole" data-l="Civil twilight">${sole?`${hmZ(r.bct)} – ${hmZ(r.ect)}`:'—'}</td>
+      <td class="dl-stato"><span class="dl-tag">${st.tag}</span><span class="dl-det">${esc(st.det)}</span></td>
+    </tr>`;
+  }).join('');
+  return `<div class="dl-head"><b>Daylight check</b><span>${data} · times UTC</span></div>
+    <table class="dl-tab"><thead><tr><th></th><th>Aerodrome</th><th>Time</th><th>Sunrise – Sunset</th><th>Civil twilight</th><th>Status</th></tr></thead>
+    <tbody>${righe}</tbody></table>
+    <p class="dl-regola">Day VFR runs from the start of morning civil twilight to its end in the evening
+      (SERA, Reg. EU 923/2012). Times are for each aerodrome, rounded on the safe side.</p>`;
 }
 
 /* ============================ wizard nav ============================ */
@@ -3034,11 +3070,9 @@ function render(){
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
   if($('daylightCalc')){
     const el=$('daylightCalc'), dc=daylightCheck(f);
-    const peggio=dc.rows.some(r=>r.stato==='night') ? 'night' : dc.rows.some(r=>r.stato==='twilight'||r.stato==='nd') ? 'warn' : '';
-    el.textContent = dc.missing.length
-      ? `→ Daylight check: enter ${dc.missing.join(', ')}`
-      : daylightLines(dc).map((l,i)=>(i?'  ':'→ ')+l).join('\n');
-    el.style.color = peggio==='night' ? 'var(--err)' : peggio==='warn' ? 'var(--warn)' : (dc.missing.length ? 'var(--txt-dim)' : '');
+    const peggio=dc.missing.length ? 'vuoto' : dc.rows.some(r=>r.stato==='night') ? 'night' : dc.rows.some(r=>r.stato==='twilight'||r.stato==='nd') ? 'twilight' : 'day';
+    el.innerHTML = daylightBoxHTML(dc);
+    el.dataset.stato = peggio;
   }
   renderNavlogEditor(f);
   renderTng();

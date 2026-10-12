@@ -215,6 +215,41 @@ input[type="number"],.calc,.navtable,.atmos,.res-top .num,.comp dd,.apt-info,.mb
 .calc:not(:empty){padding:.45rem .65rem;border-radius:var(--r-sm);background:color-mix(in srgb,var(--ok) 8%,transparent);
   border:1px solid color-mix(in srgb,var(--ok) 22%,transparent)}
 
+/* Il controllo effemeridi: una tabellina, non un display. Il bordo prende il
+   colore del momento peggiore, ogni riga dice il suo stato a parole. */
+.daylight{margin-top:.6rem;padding:.75rem .9rem .7rem;border-radius:var(--r-sm);font-size:.86rem;line-height:1.45;
+  --dl:var(--txt-dim);border:1px solid color-mix(in srgb,var(--dl) 30%,transparent);background:color-mix(in srgb,var(--dl) 6%,transparent)}
+.daylight[data-stato="day"]{--dl:var(--ok)}
+.daylight[data-stato="twilight"]{--dl:var(--warn)}
+.daylight[data-stato="night"]{--dl:var(--err)}
+.dl-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .7rem;margin-bottom:.45rem}
+.dl-head b{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--txt)}
+.dl-head span{font-size:.8rem;color:var(--txt-dim)}
+.dl-vuoto{margin:0;color:var(--txt-dim)}
+.dl-tab{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.dl-tab thead th{font-size:.7rem;font-weight:600;color:var(--txt-dim);text-align:left;padding:0 .7rem .3rem 0;white-space:nowrap}
+.dl-tab td,.dl-tab tbody th{padding:.45rem .7rem .45rem 0;border-top:1px solid color-mix(in srgb,var(--txt) 10%,transparent);vertical-align:top;text-align:left}
+.dl-tab tbody th{font-weight:600;color:var(--txt);white-space:nowrap}
+.dl-apt,.dl-ora,.dl-sole{font-family:ui-monospace,"SF Mono",Menlo,"Courier New",monospace;font-size:.82rem;white-space:nowrap}
+.dl-sole{color:var(--txt-dim)}
+.dl-tab .dl-stato{padding-right:0;width:100%}
+.dl-tag{display:inline-flex;align-items:center;gap:.4rem;font-weight:600;color:var(--st,var(--txt-dim))}
+.dl-tag::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:currentColor;flex:none}
+.dl-det{display:block;font-size:.78rem;color:var(--txt-dim)}
+.dl-day{--st:var(--ok)}
+.dl-twilight{--st:var(--warn)}
+.dl-night{--st:var(--err)}
+.dl-regola{margin:.5rem 0 0;font-size:.76rem;color:var(--txt-dim);max-width:72ch}
+/* Stretto: ogni momento diventa una schedina su due righe. */
+@media (max-width:40rem){
+  .dl-tab thead{display:none}
+  .dl-tab tr{display:grid;grid-template-columns:auto auto 1fr;gap:.1rem .7rem;padding:.5rem 0;border-top:1px solid color-mix(in srgb,var(--txt) 10%,transparent)}
+  .dl-tab td,.dl-tab tbody th{padding:0;border:0}
+  .dl-tab .dl-stato{grid-column:1/-1;order:1;width:auto;margin:.1rem 0 .15rem}
+  .dl-tab .dl-sole{grid-column:1/-1;order:2;font-size:.78rem}
+  .dl-tab .dl-sole::before{content:attr(data-l);display:inline-block;min-width:8.5rem;font:inherit;font-family:system-ui,sans-serif}
+}
+
 /* Zone di caricamento file */
 .drop{border:1.5px dashed var(--panel-line);border-radius:var(--r-md);padding:1.3rem 1.2rem;text-align:center;cursor:pointer;
   font-size:.9rem;color:var(--txt-dim);background:var(--field);min-height:var(--tap);
