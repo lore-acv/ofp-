@@ -5492,6 +5492,14 @@ retro:[
 ["t",736.15,520.05,7.6,"n","#000000","Landing Distance"],["t",417.47,576.54,11.97,"n","#000000","1"]
 ]
 };
+/* Il modulo del club e' un foglio Excel stampato con la griglia accesa: le
+   linee grigie (#aaaaaa) sono quella griglia, che attraversa anche il testo
+   delle celle unite. Tutte le divisioni vere del modulo sono nere: le grigie
+   si tolgono e la struttura resta intera. */
+['fronte','retro'].forEach(k=>{
+  CLUBNAV_TPL[k]=CLUBNAV_TPL[k].filter(e=>!(e[0]==='l' && String(e[6]).toLowerCase()==='#aaaaaa'));
+});
+
 
 /* Coefficienti del World Magnetic Model 2025 (NOAA/BGS, valido 2025-2030):
    [n, m, g, h, dg/dt, dh/dt]. Servono solo per la rotta magnetica verso
