@@ -2672,16 +2672,18 @@ function pagePerf(f,w){
   };
   const toldLegs = toldLegList(told);
   const rwyTable = told.ok ? `<table class="refTable" style="max-width:100%">
-    <tr><th></th><th>Airport / RWY</th><th>Mass</th><th>QNH / T / wind</th><th>PA / DA</th><th>HW / XW</th><th>Ground roll</th><th>15 m</th></tr>
+    <tr><th></th><th>Airport / RWY</th><th>Mass kg</th><th>QNH hPa</th><th>OAT &deg;C</th><th>Wind</th><th>PA ft</th><th>DA ft</th><th>Head kt</th><th>Xwind kt</th></tr>
     ${toldLegs.map(([g])=>`<tr>
       <td style="text-align:left;padding-left:4px"><b>${esc(g.label)}</b></td>
       <td class="filled">${esc(g.icao||'----')} ${esc(g.rwy||'--')}</td>
-      <td class="filled">${g.mass} kg</td>
-      <td class="filled">${g.qnh} / ${g.oat}&deg; / ${g.haveWind?esc(String(g.windDir))+'&deg;'+g.windKt+'kt':'n/d'}</td>
-      <td class="filled">${g.pa} / ${g.da} ft</td>
-      <td class="filled">${g.head>=0?'HW':'TW'} ${Math.abs(g.head)} / ${g.cross}</td>
-      <td class="filled">${g.ground} m</td>
-      <td class="filled">${g.total} m</td></tr>`).join('')}
+      <td class="filled">${g.mass}</td>
+      <td class="filled">${g.qnh}</td>
+      <td class="filled">${g.oat}</td>
+      <td class="filled">${ventoTold(g)}</td>
+      <td class="filled">${g.pa}</td>
+      <td class="filled">${g.da}</td>
+      <td class="filled">${componenteTold(g.head,true)}</td>
+      <td class="filled">${componenteTold(g.cross,false)}</td></tr>`).join('')}
   </table>
   <table class="refTable" style="max-width:100%;margin-top:6px">
     <tr><th>Phase</th><th>Distance</th><th>Available</th><th>Required</th><th>Used</th><th>Margin</th></tr>
@@ -3709,6 +3711,17 @@ function perfResHTML(name, code, metres, m, codeLbl, info){
 /* Le tratte da mostrare, nell'ordine in cui si volano, ciascuna con le
    distanze dichiarate contro cui confrontarsi. Un posto solo: la scheda, la
    pagina dell'anteprima e il PDF leggono tutte da qui. */
+/* Vento e componenti nelle tabelle delle distanze: direzione/intensita' come
+   in un METAR (060/02), componenti con un decimale fisso e il verso davanti
+   (H testa, T coda) cosi' le cifre restano incolonnate. */
+function ventoTold(g){
+  return g.haveWind ? String(Math.round(g.windDir)).padStart(3,'0')+'/'+String(Math.round(g.windKt)).padStart(2,'0') : 'n/d';
+}
+function componenteTold(v, testa){
+  if(v==null || !isFinite(v)) return '-';
+  const a=Math.abs(v).toFixed(1);
+  return testa ? (v>=0?'H ':'T ')+a : a;
+}
 function toldLegList(t){
   if(!t || !t.ok) return [];
   /* Terzo elemento: la linguetta sotto cui va mostrata. Chi legge solo tratta e
@@ -4875,7 +4888,12 @@ function buildPDF(){
        sinistra, `r` quelle numeriche, allineate a destra. Derivare l'inizio di
        una colonna dalla fine della precedente non basta — le due si toccano
        appena una stringa e' lunga quanto la colonna. */
-    const cols=[{l:22},{r:64},{l:68},{r:122},{r:142},{r:158},{r:176}];
+    /* Una grandezza per colonna, unita' nel titolo e numeri allineati a destra
+       sotto il titolo: prima "918 / 896 ft" e "HW0.7 / XW1.9" stavano in una
+       colonna sola e non si allineavano ne' fra loro ne' all'intestazione.
+       Corsa al suolo e distanza ai 15 m non si ripetono qui: sono il REQUIRED
+       della tabella sotto. */
+    const cols=[{l:22},{r:58},{r:76},{r:90},{r:108},{r:124},{r:140},{r:158},{r:176}];
     const put=(v,i,bold)=>{
       doc.setFont('courier', bold?'bold':'normal');
       const c=cols[i];
@@ -4885,7 +4903,7 @@ function buildPDF(){
     };
     doc.setFont('courier','bold');
     doc.text('PHASE',L,y);
-    ['AIRPORT/RWY','MASS','QNH / T / WIND','PA / DA','HW / XW','GND ROLL','15 m']
+    ['AIRPORT/RWY','MASS kg','QNH hPa','OAT C','WIND','PA ft','DA ft','HEAD kt','XWIND kt']
       .forEach((h,i)=>put(h,i,true));
     doc.setFont('courier','normal'); y+=1.2;
     doc.setLineWidth(0.15); doc.line(L,y,R,y); y+=3.6;
@@ -4893,10 +4911,8 @@ function buildPDF(){
       const g=pair[0];
       if(ri%2===1){ doc.setFillColor(243,243,243); doc.rect(L-1,y-2.8,R-L+2,3.9,'F'); }
       doc.setFont('courier','bold'); doc.text(fase(g),L,y); doc.setFont('courier','normal');
-      [`${g.icao||'----'} ${g.rwy||'--'}`, `${g.mass} kg`,
-       `${g.qnh} / ${g.oat}C / ${g.haveWind?g.windDir+'-'+g.windKt+'kt':'n/d'}`,
-       `${g.pa} / ${g.da} ft`, `${g.head>=0?'HW':'TW'}${Math.abs(g.head)} / XW${g.cross}`,
-       `${g.ground} m`, `${g.total} m`
+      [`${g.icao||'----'} ${g.rwy||'--'}`, g.mass, g.qnh, g.oat, ventoTold(g),
+       g.pa, g.da, componenteTold(g.head,true), componenteTold(g.cross,false)
       ].forEach((v,i)=>put(v,i,false));
       y+=3.9;
     });

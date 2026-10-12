@@ -555,7 +555,7 @@ A(figure(4, 'f4-2.jpg', 'OFP – Page 1', 'The ACTUAL column and the BLOCK / ACT
 A(figure(4, 'f4-3.jpg', 'OFP – Mass and Balance', 'Followed on the same page by the CG envelope chart, remarks and PIC signature.',
   [['A', 'Weight calculation', 'VERIFY'], ['B', 'Fuel calculation', 'VERIFY'], ['C', 'Result', 'VERIFY'], ['D', 'Limits and CG', 'VERIFY within limits']], 'wide doc'));
 A(figure(4, 'f4-5.jpg', 'OFP – Performance', '',
-  [['A', 'Masses (TOW / LAW / ALTN)', 'VERIFY'], ['B', 'V-speeds by aerodrome', 'VERIFY'], ['C', 'Take-off and landing distances', 'VERIFY'],
+  [['A', 'Masses (TOW / LAW / ALTN)', 'VERIFY'], ['B', 'V-speeds by aerodrome', 'VERIFY'], ['C', 'Conditions by phase: mass, QNH, OAT, wind, PA / DA, head and crosswind', 'VERIFY'],
     ['D', 'Distances available / required / margin', 'CROSS-CHECK'], ['E', 'Cruise power setting', 'VERIFY'], ['F', 'TOC position', 'VERIFY'], ['G', 'AFM cruise table', 'Reference']], 'wide doc'));
 A(h2('4.3', 'NAV-FLIGHTPLAN (A5)'));
 A(steps([
