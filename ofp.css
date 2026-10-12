@@ -156,6 +156,9 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,[role="bu
     linear-gradient(var(--griglia) 1px,transparent 1px) 0 0/2rem 2rem,linear-gradient(90deg,var(--griglia) 1px,transparent 1px) 0 0/2rem 2rem,var(--bg)}
 .formcol .scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
   padding:1.6rem max(1.6rem,calc((100% - var(--colonna))/2)) 2.4rem}
+/* Il Navlog e' una tabella da dieci colonne: nella colonna di lettura i campi si
+   stringevano fino a tagliare i valori. In quella fase la colonna si allarga. */
+.formcol:has(.panel[data-step="5"].active){--colonna:80rem}
 .formcol .navrow{flex:0 0 auto;display:flex;justify-content:space-between;gap:.7rem;
   padding:.8rem max(1.6rem,calc((100% - var(--colonna))/2)) calc(.8rem + env(safe-area-inset-bottom,0px));
   border-top:1px solid var(--panel-line);background:var(--barra);
@@ -527,7 +530,9 @@ html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:
 .navtools .mb-status{margin-top:0}
 .navtable-box{background:var(--panel-2);border:1px solid var(--panel-line);border-radius:var(--r-md);
   padding:.5rem;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
-.navtable{border-collapse:collapse;width:100%;min-width:46rem}
+/* larghezza minima = somma delle colonne: su uno schermo stretto la tabella
+   scorre di lato dentro il riquadro, senza schiacciare i campi */
+.navtable{border-collapse:collapse;width:100%;min-width:62rem}
 .navtable th{position:sticky;top:0;background:var(--panel-2);text-align:left;white-space:nowrap;
   font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:var(--txt-dim);
   font-weight:700;padding:.25rem .3rem .45rem}
@@ -541,10 +546,10 @@ html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:
 .navtable .ro{font-family:ui-monospace,"SF Mono",Menlo,"Courier New",monospace;font-size:.84rem;color:var(--txt-dim);
   white-space:nowrap;text-align:center;padding-left:.45rem;padding-right:.45rem}
 .navtable .del{padding:.2rem .5rem;min-height:2.3rem;font-size:.85rem;line-height:1}
-.navtable .c-freq{width:6rem}   .navtable .c-cs{width:5.5rem}
+.navtable .c-freq{width:6.5rem} .navtable .c-cs{width:8.5rem}
 .navtable .c-wpt{width:11rem}   .navtable .c-mt{width:4.2rem}
 .navtable .c-dist{width:4.6rem} .navtable .c-alt{width:5.4rem}
-.navtable .c-rmk{width:12rem}
+.navtable .c-rmk{width:10rem}
 
 /* Touch & Go: la riga compare solo quando la rotta attraversa un aeroporto. */
 .tng-row{display:flex;gap:.9rem;align-items:flex-end;margin:.55rem 0;flex-wrap:wrap}

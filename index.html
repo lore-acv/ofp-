@@ -58,7 +58,7 @@ document.documentElement.classList.add('vista-dash');
           <button type="button" role="menuitem" class="solo-volo" id="btnDrive" style="display:none">Save to Drive</button>
           <button type="button" role="menuitem" class="primary solo-volo" id="btnPdf">Download OFP PDF</button>
           <button type="button" role="menuitem" class="primary solo-volo" id="btnNavPdf">Download Navlog PDF</button>
-          <button type="button" role="menuitem" class="primary solo-volo" id="btnClubNavPdf">Download Club Navlog PDF</button>
+          <button type="button" role="menuitem" class="primary solo-volo" id="btnClubNavPdf">Navlog Aeroclub Varese</button>
           <div class="sep"></div>
           <button type="button" role="menuitem" id="btnManuale" title="Opens in a new tab: the flight plan stays as it is">User Manual</button>
           <div class="sep conto-voce" style="display:none"></div>
@@ -5665,6 +5665,13 @@ function clubFasceSx(doc, tpl, tipi){
 
 async function buildClubNavlogPDF(){
   const {jsPDF}=window.jspdf;
+  /* Sul modulo del club solo numeri interi. Distanze, consumi di tratta, pesi e
+     momenti all'intero piu' vicino; nel calcolo del carburante le quantita'
+     richieste per eccesso e quello che avanza per difetto, a favore di sicurezza.
+     Solo i bracci restano in metri con tre decimali: interi non direbbero nulla. */
+  const fmt=(n)=>isFinite(n)?String(Math.round(n)):'0';
+  const su=(n)=>isFinite(n)?Math.ceil(n-1e-6):0;
+  const giu=(n)=>isFinite(n)?Math.floor(n+1e-6):0;
   let f=computeFuel();
   autoLandingTime(f); autoTaxiTime();
   f=computeFuel();
@@ -5689,11 +5696,17 @@ async function buildClubNavlogPDF(){
   const conFreq=(icao, fr)=> icao ? (fr ? icao+'  '+fr : icao) : '';
 
   const toffL=f.toffFuel;                        // a bordo al decollo: Plan Block meno il taxi
+  /* Arrotondamento cumulativo: ogni tratta e' la differenza fra i progressivi
+     arrotondati, cosi' tratte, residui e totale sommano esattamente. Il totale
+     del carburante e' per eccesso, lo stesso Trip del retro. */
+  const rD=(x)=>Math.round(x+1e-9);
+  const rF=(x)=> x>=nav.totFuel-1e-6 ? su(nav.totFuel) : Math.min(Math.round(x+1e-9), su(nav.totFuel));
+  const toffI=Math.round(toffL);
   const rigaDati=(r)=>({
     cp:String(r.wpt||'').trim(), id:String(r.cs||'').trim(), freq:String(r.freq||'').trim(),
     mc:mt3(r.mt), alt:r.alt,
-    dl:String(r.dist||'').trim()!=='' ? fmt(r.d) : '', dr:fmt(Math.max(0,nav.totDist-r.cumD)),
-    fl:fmt(r.fuel), fr:fmt(toffL-r.cumF),
+    dl:String(r.dist||'').trim()!=='' ? String(rD(r.cumD)-rD(r.cumD-r.d)) : '', dr:String(Math.max(0,rD(nav.totDist)-rD(r.cumD))),
+    fl:String(rF(r.cumF)-rF(r.cumF-r.fuel)), fr:String(toffI-rF(r.cumF)),
     ete:navEet(r.eteBase, r.adMin), eto:etoMin(r.eto)
   });
 
@@ -5707,13 +5720,24 @@ async function buildClubNavlogPDF(){
   if(A && B && isFinite(A.lat) && isFinite(B.lat) && altn){
     const tc=rottaVera(A,B), dec=wmmDeclinazione((A.lat+B.lat)/2, (A.lon+B.lon)/2, anno);
     mcAltn=mt3(String(Math.round((tc-dec+360)%360)%360));
-    notaMc=`MC ${mcAltn}: great circle ${String(Math.round(tc)%360).padStart(3,'0')}T, var ${Math.abs(dec).toFixed(1)}${dec>=0?'E':'W'} (WMM2025) - to be verified`;
+    notaMc=`MC ${mcAltn}: great circle ${String(Math.round(tc)%360).padStart(3,'0')}T, var ${Math.round(Math.abs(dec))}${dec>=0?'E':'W'} (WMM2025) - to be verified`;
   }
   const altAlt=txt('altAlt').trim() || (f.cAlt?String(f.cAlt):'');
   const fuelAltBase=round2(f.altTimeBase/60*num('altFF'));
+  /* Fuel calculation. Rate = consumo orario; la salita viene a blocchi dalla
+     fig. 5-6 (avviamento e decollo compresi). APP = i 5 minuti di aerodromo. */
+  const ff=num('tripFF'), affF=num('altFF');
+  const appL=round2(f.adMin/60*ff), cruL=round2(f.tripFuel-f.climbFuel-appL);
+  const cruMin=Math.max(0, f.tripTime-f.climbMin-f.adMin);
+  const altAppL=round2(f.altFuel-fuelAltBase);
+  /* Totali del modulo: somme dei numeri stampati, cosi' le colonne tornano. */
+  const tripI=su(f.tripFuel), climbI=su(f.climbFuel), appI=f.adMin?su(appL):0, cruI=Math.max(0,tripI-climbI-appI);
+  const altI=f.altFuel?su(f.altFuel):0, altAppI=f.altAdMin?su(altAppL):0, altCruI=Math.max(0,altI-altAppI);
+  const contI=su(f.contFuel), finI=su(f.finFuel), taxiI=su(f.taxiFuel);
+  const minI=tripI+contI+altI+finI+taxiI, blockI=Math.round(f.blockFuel), exI=Math.max(0,blockI-minI);
   const rigaAltn={ cp:altn, id:'', freq:fAltn, mc:mcAltn, alt:altAlt,
     dl:num('altDist')>0?fmt(num('altDist')):'', dr:num('altDist')>0?'0':'',
-    fl:f.altFuel?fmt(f.altFuel):'', fr:f.altFuel?fmt(toffL-f.tripFuel-f.altFuel):'',
+    fl:f.altFuel?String(altI):'', fr:f.altFuel?String(toffI-tripI-altI):'',
     ete:f.altTimeBase?navEet(f.altTimeBase, f.altAdMin):'', eto:'' };
 
   const doc=new jsPDF({unit:'pt', format:'a4', orientation:'landscape', compress:true});
@@ -5734,7 +5758,7 @@ async function buildClubNavlogPDF(){
   dx.forEach((r,i)=>clubRiga(doc, G.dx, G.righeDx[i], G.righeDx[i+1], rigaDati(r)));
   clubVal(doc, conFreq(arr,fArr), 422.82, 534.8, 503.4, 'l', 8);
   clubVal(doc, fmt(nav.totDist), 610.01, 643.43, 502.6, 'c', 8);
-  clubVal(doc, fmt(nav.totFuel), 643.43, 676.86, 502.6, 'c', 8);
+  clubVal(doc, String(rF(nav.totFuel)), 643.43, 676.86, 502.6, 'c', 8);
   clubVal(doc, Math.round(nav.totTime)+"'", 676.86, 710.29, 502.6, 'c', 8);   // in minuti, come la colonna
 
   // tabella di sinistra: eventuale seguito della rotta, poi Dest. Airport e alternato
@@ -5749,7 +5773,7 @@ async function buildClubNavlogPDF(){
   clubVal(doc, conFreq(altn,fAltn), 14.17, 126.15, 309.6, 'l', 8);
   if(altn && num('altDist')>0){
     clubVal(doc, fmt(num('altDist')), 201.36, 234.79, 308.9, 'c', 8);
-    clubVal(doc, fmt(f.altFuel), 234.79, 268.22, 308.9, 'c', 8);
+    clubVal(doc, String(altI), 234.79, 268.22, 308.9, 'c', 8);
     clubVal(doc, f.altTime+"'", 268.22, 301.64, 308.9, 'c', 8);
   }
 
@@ -5787,25 +5811,21 @@ async function buildClubNavlogPDF(){
   const RB=[168.8,193.9,219.0,243.9,268.1,292.4];
   wb.forEach((r,i)=>{
     const y=(RB[i]+RB[i+1])/2+2.9;
-    clubVal(doc, r[1].toFixed(1)+' kg', 104.5, 209.0, y, 'c', 8.5);
+    clubVal(doc, fmt(r[1])+' kg', 104.5, 209.0, y, 'c', 8.5);
     clubVal(doc, r[2].toFixed(3)+' m', 209.0, 299.2, y, 'c', 8.5);
-    clubVal(doc, r[3].toFixed(1)+' kg m', 299.2, 403.7, y, 'c', 8.5);
+    clubVal(doc, fmt(r[3])+' kg m', 299.2, 403.7, y, 'c', 8.5);
   });
-  clubVal(doc, w.tow.w.toFixed(1)+' kg', 104.5, 209.0, 308.2, 'c', 8.5, true);
-  clubVal(doc, w.tow.m.toFixed(1)+' kg m', 299.2, 403.7, 308.2, 'c', 8.5, true);
+  clubVal(doc, fmt(w.tow.w)+' kg', 104.5, 209.0, 308.2, 'c', 8.5, true);
+  clubVal(doc, fmt(w.tow.m)+' kg m', 299.2, 403.7, 308.2, 'c', 8.5, true);
 
   /* Fuel calculation. Rate = consumo orario; la salita viene a blocchi dalla
      fig. 5-6 (avviamento e decollo compresi), quindi niente rateo. La discesa
      l'AFM non la pubblica. APP = i 5 minuti di aerodromo. */
-  const ff=num('tripFF'), affF=num('altFF');
-  const appL=round2(f.adMin/60*ff), cruL=round2(f.tripFuel-f.climbFuel-appL);
-  const cruMin=Math.max(0, f.tripTime-f.climbMin-f.adMin);
-  const altAppL=round2(f.altFuel-fuelAltBase);
   const rateX=(label, x0)=>{ doc.setFont('helvetica','normal'); doc.setFontSize(8.55); return x0+doc.getTextWidth(label); };
   const RF=[[68.3,96.8,'CLIMB'],[96.8,125.3,'CRUISE'],[125.3,154.5,'DESC.'],[154.5,181.8,'APP.']];
   const fasi={
-    dest:[['AFM',f.climbMin,fmt(f.climbFuel)],[fmt(ff),cruMin,fmt(cruL)],['','-','-'],[f.adMin?fmt(ff):'',f.adMin,f.adMin?fmt(appL):'']],
-    altn:[['','-','-'],[f.altTimeBase?fmt(affF):'',f.altTimeBase,f.altTimeBase?fmt(fuelAltBase):''],['','-','-'],[f.altAdMin?fmt(affF):'',f.altAdMin,f.altAdMin?fmt(altAppL):'']]
+    dest:[['AFM',f.climbMin,climbI],[fmt(ff),cruMin,cruI],['','-','-'],[f.adMin?fmt(ff):'',f.adMin,f.adMin?appI:'']],
+    altn:[['','-','-'],[f.altTimeBase?fmt(affF):'',f.altTimeBase,f.altTimeBase?altCruI:''],['','-','-'],[f.altAdMin?fmt(affF):'',f.altAdMin,f.altAdMin?altAppI:'']]
   };
   RF.forEach(([ya,yb,lab],i)=>{
     const y=(ya+yb)/2+2.9, yr=ya+(yb-ya)/2+0.2;
@@ -5817,21 +5837,22 @@ async function buildClubNavlogPDF(){
     });
   });
   const yv=(ya,yb)=>(ya+yb)/2+2.9;
-  clubVal(doc, fmt(f.tripFuel), 590.8, 643.1, yv(181.8,206.9), 'c', 8.5, true);
-  clubVal(doc, fmt(f.altFuel),  785.5, 837.8, yv(181.8,206.9), 'c', 8.5, true);
-  clubVal(doc, fmt(f.finFuel),  785.5, 837.8, yv(206.9,233.2), 'c', 8.5);
-  clubVal(doc, fmt(f.taxiFuel), 785.5, 837.8, yv(233.2,258.9), 'c', 8.5);
-  clubVal(doc, fmt(f.minRequired), 785.5, 837.8, yv(258.9,283.1), 'c', 8.5, true);
-  clubVal(doc, fmt(f.blockFuel),   785.5, 837.8, yv(283.1,307.3), 'c', 8.5, true);
-  clubVal(doc, fmt(f.exFuel),      785.5, 837.8, yv(307.3,328.7), 'c', 8.5, true);
+  clubVal(doc, String(tripI), 590.8, 643.1, yv(181.8,206.9), 'c', 8.5, true);
+  clubVal(doc, f.altFuel?String(altI):'0',  785.5, 837.8, yv(181.8,206.9), 'c', 8.5, true);
+  clubVal(doc, String(finI),  785.5, 837.8, yv(206.9,233.2), 'c', 8.5);
+  clubVal(doc, String(taxiI), 785.5, 837.8, yv(233.2,258.9), 'c', 8.5);
+  clubVal(doc, String(minI),  785.5, 837.8, yv(258.9,283.1), 'c', 8.5, true);
+  clubVal(doc, String(blockI),785.5, 837.8, yv(283.1,307.3), 'c', 8.5, true);
+  clubVal(doc, String(exI),   785.5, 837.8, yv(307.3,328.7), 'c', 8.5, true);
   clubNote(doc, [
     'Fuel in litres (1 L = 0.72 kg).',
     'CLIMB: AFM fig. 5-6, start-up and take-off included.',
     `APP.: ${AD_EXTRA_MIN} min per aerodrome.`,
-    `CONTINGENCY ${f.contMin} min, ${fmt(f.contFuel)} L: included in MINIMUM FOB.`,
-    'MINIMUM FOB = DEST + CONT + ALTN + FINAL RES + TAXI.',
-    `W&B fuel: take-off fuel ${fmt(toffL)} L = ${fmt(round2(kgFuel))} kg.`,
-    f.fobShort ? `FOB BELOW MINIMUM BY ${fmt(f.fobShort)} L.` : ''
+    `CONTINGENCY ${f.contMin} min, ${contI} L: included in MINIMUM FOB.`,
+    'MIN. FOB = DEST + CONT + ALTN + FINAL RES + TAXI.',
+    'Whole litres: requirements rounded up.',
+    `W&B fuel: take-off fuel ${fmt(toffL)} L = ${fmt(kgFuel)} kg.`,
+    blockI<minI ? `FOB BELOW MINIMUM BY ${minI-blockI} L.` : ''
   ], 434.09, 643.07, 226.0, 9.4, 7.3, null, 326);
 
   /* Take off data (DEP) e landing data (DEST). Le stesse distanze della pagina
@@ -5842,7 +5863,7 @@ async function buildClubNavlogPDF(){
   const flap=(cond)=>{ const m=/(\d+)\s*°/.exec(cond||''); return m ? m[1]+'°' : ''; };
   const zitto=()=>{};
   const vento=(L)=> L && L.windKt>0 && isFinite(L.windDir) ? String(Math.round(L.windDir)).padStart(3,'0')+'/'+String(Math.round(L.windKt)).padStart(2,'0')+' KT' : (L && L.windKt===0 ? 'CALM' : '');
-  const comp=(L)=> L && L.haveWind ? `H ${L.head.toFixed(1)}  X ${L.cross.toFixed(1)}${L.cross>0?(L.crossRight?' R':' L'):''}` : '';
+  const comp=(L)=> L && L.haveWind ? `H ${Math.round(L.head)}  X ${Math.round(L.cross)}${Math.round(L.cross)>0?(L.crossRight?' R':' L'):''}` : '';
   const vfeMph=AC_LIMITS.vfe/KT_PER_MPH;
   const stessaPista = dep===arr && txt('depRunway').trim()!=='' && txt('depRunway').trim()===txt('destRunway').trim();
   const dich=(id)=> num(id)>0 ? Math.round(num(id))+' m' : '';
@@ -5900,7 +5921,7 @@ async function buildClubNavlogPDF(){
      ...avvisi('DEP')]);
   blocco(legs.dest, 434.09, false, w.ldw.w, num('mldw'),
     [stessaPista ? dich('tora') : '', stessaPista ? dich('toda') : '', '', dich('lda')],
-    [al && altn ? `ALTN ${al.icao} RWY ${al.rwy||'-'}: LDG roll ${al.ground} m, LDG dist ${al.total} m at ${al.mass} kg (LDA ${num('ldaAltn')||'-'}).` : '',
+    [al && altn ? `ALTN ${al.icao} RWY ${al.rwy||'-'}: LDG roll ${al.ground} m, LDG dist ${al.total} m at ${Math.round(al.mass)} kg (LDA ${num('ldaAltn')||'-'}).` : '',
      tngL ? `T&G ${tngL.icao}: LDG dist ${tngL.total} m (LDA ${num('ldaTng')||'-'}).` : '',
      ...avvisi('DEST')]);
   return doc;
