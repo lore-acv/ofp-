@@ -519,6 +519,8 @@ document.documentElement.classList.add('vista-dash');
           <div class="navtools">
             <button type="button" class="btn" id="btnNavAdd">+ Row</button>
             <button type="button" class="btn ghost" id="btnNavFreq">Fill Frequencies</button>
+            <label class="tng-check nav-round"><input type="checkbox" id="navMtRoundChk"> <span>Round MT to 5&deg;</span></label>
+            <input type="hidden" id="navMtRound" value="">
             <span class="mb-status" id="navFreqStatus"></span>
           </div>
           <div class="navtable-box" id="navTableBox"></div>
@@ -528,7 +530,9 @@ document.documentElement.classList.add('vista-dash');
             <b>Altitude</b> is pre-filled with the Step 2 cruise altitude and remains editable waypoint by
             waypoint. <b>Frequencies</b> for airports and navaids are looked up automatically on OurAirports
             when the checkpoint is recognised &mdash; the number only, no units.
-            <b>Callsigns and remarks</b> are in no database: type them here and they stay.</div>
+            <b>Callsigns and remarks</b> are in no database: type them here and they stay.
+            <b>Round MT to 5&deg;</b> shows and prints each magnetic track to the nearest 5&deg; (347 &rarr; 345,
+            358 &rarr; 360); the ForeFlight values are kept, and unticking brings them back.</div>
           <input type="hidden" id="navRows" value="[]">
         </div>
       </div>
@@ -2361,6 +2365,16 @@ function mt3(v){
   return /^\d{1,3}$/.test(t) ? t.padStart(3,'0') : t;
 }
 
+/* Prue al 5 gradi piu' vicino, se il pilota lo chiede (casella sopra la
+   tabella). E' solo come si scrivono: in navRows restano i valori di
+   ForeFlight, e togliendo la spunta tornano quelli. Il nord si scrive 360. */
+function navMtRounded(v){
+  const t=String(v==null?'':v).trim();
+  if(txt('navMtRound')!=='5' || !/^\d{1,3}$/.test(t)) return v;
+  const r=Math.round(parseInt(t,10)/5)*5 % 360;
+  return mt3(String(r===0 ? 360 : r));
+}
+
 /* Sul navplan l'orario stimato si segna con i soli minuti dell'ora: 0930 -> 30'.
    L'ora si sa, i minuti sono quelli che si confrontano col cronometro. */
 function etoMin(hhmm){
@@ -2523,7 +2537,7 @@ function navlogComputed(f){
     const eteBase=p.min, ete=p.min+adMin, fuel=p.fuel+adMin/60*(ff||0);
     cumD+=d; cumT+=ete; cumF+=fuel;
     // senza orario di decollo non ci sono orari stimati: la colonna resta in bianco
-    return {...r, d, ete, eteBase, adMin, fuel, cumD, cumT, cumF, eto: t0==null ? '' : minToHHMM(t0+Math.round(cumT))};
+    return {...r, mt:navMtRounded(r.mt), d, ete, eteBase, adMin, fuel, cumD, cumT, cumF, eto: t0==null ? '' : minToHHMM(t0+Math.round(cumT))};
   });
   return {rows:out, gsMph, ff, totDist:cumD, totTime:cumT, totFuel:cumF};
 }
@@ -3060,6 +3074,7 @@ function syncTripDistFromNavlog(){
 
 function render(){
   syncAircraftUI();
+  if($('navMtRoundChk')) $('navMtRoundChk').checked = txt('navMtRound')==='5';
   syncTripDistFromNavlog();
   /* Due passaggi, e non e' uno spreco: il Trip Time non dipende dal taxi, ma il
      taxi dipende dall'orario di atterraggio, che dipende dal Trip Time. Si
@@ -5786,8 +5801,9 @@ async function buildClubNavlogPDF(){
   let mcAltn='', notaMc='';
   if(A && B && isFinite(A.lat) && isFinite(B.lat) && altn){
     const tc=rottaVera(A,B), dec=wmmDeclinazione((A.lat+B.lat)/2, (A.lon+B.lon)/2, anno);
-    mcAltn=mt3(String(Math.round((tc-dec+360)%360)%360));
-    notaMc=`MC ${mcAltn}: great circle ${String(Math.round(tc)%360).padStart(3,'0')}T, var ${Math.round(Math.abs(dec))}${dec>=0?'E':'W'} (WMM2025) - to be verified`;
+    const mcEsatta=mt3(String(Math.round((tc-dec+360)%360)%360));
+    mcAltn=navMtRounded(mcEsatta);            // al 5 gradi se richiesto, come le tratte
+    notaMc=`MC ${mcAltn}${mcAltn!==mcEsatta?` (${mcEsatta} rounded)`:''}: great circle ${String(Math.round(tc)%360).padStart(3,'0')}T, var ${Math.round(Math.abs(dec))}${dec>=0?'E':'W'} (WMM2025) - to be verified`;
   }
   const altAlt=txt('altAlt').trim() || (f.cAlt?String(f.cAlt):'');
   const fuelAltBase=round2(f.altTimeBase/60*num('altFF'));
@@ -6041,6 +6057,10 @@ function saveToDrive(){
     .saveOfpToDrive(base64, ofpFileName());
 }
 if($('btnNavFreq')) $('btnNavFreq').addEventListener('click',()=>navFillFreqs());
+/* Su 'input', che arriva prima del ricalcolo generale del foglio: render()
+   rimette la spunta secondo il campo nascosto, che deve essere gia' aggiornato. */
+if($('navMtRoundChk')) ['input','change'].forEach(ev=>$('navMtRoundChk').addEventListener(ev,e=>{
+  const v=e.target.checked?'5':''; if($('navMtRound').value!==v){ $('navMtRound').value=v; render(); } }));
 if($('btnNavAdd')) $('btnNavAdd').addEventListener('click',()=>{
   const rows=navRowsRaw();
   rows.push({freq:'',cs:'',wpt:'',mt:'',dist:'',alt:navCruiseAlt(),rmk:''});
@@ -6059,7 +6079,7 @@ $('btnPreview').addEventListener('click',togglePreview);
 // Campi della bozza rotta salvati/ripristinati (tutto tranne WX/NOTAM, che arrivano dal PDF)
 const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route',
   'tOFF','tTO','tLDG','tON','tONman','picName','tngIcao',
-  'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','navRows','navGs','navFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
+  'pwrAlt','pwrRpm','pwrMap','tripDist','tripGS','tripFF','navRows','navMtRound','navGs','navFF','altDist','altGS','altFF','flightRule','taxiMin','taxiFuel','extraMin','extraFuel','fob',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
   'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50',
   'spdUnit','toldSurface','tora','toda','lda','ldaAltn','altnRunway',

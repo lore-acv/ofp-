@@ -454,6 +454,7 @@ A(steps([
   ['SELECT', '**Fill Frequencies** [B] to repeat the frequency look-up. VERIFY frequencies [C].'],
   ['INPUT', 'callsigns [D] (not in any database).'],
   ['VERIFY', 'checkpoints, magnetic tracks and distances [E].'],
+  ['SELECT', '**Round MT to 5°** if required: magnetic tracks are shown and printed to the nearest 5° (347 &rarr; 345, 358 &rarr; 360). The ForeFlight values are kept; untick to restore them.'],
   ['VERIFY', 'the altitude of each waypoint [F]; CORRECT where different from cruise.'],
   ['VERIFY', 'EET per leg, ETO (minutes after TO) and fuel [G]. A leg from or to an aerodrome reads e.g. `7/+5`: 7 min en route + 5 aerodrome minutes (Section 5.3), already included in ETO, Trip and fuel.'],
   ['INPUT', 'remarks [H] (optional).'],

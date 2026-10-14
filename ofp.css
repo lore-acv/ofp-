@@ -563,6 +563,7 @@ html.vista-dash .steps,html.vista-dash .main,html.vista-dash .solo-volo{display:
    ============================================================================ */
 .navtools{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.2rem 0 .7rem}
 .navtools .mb-status{margin-top:0}
+.navtools .nav-round{padding:0 .2rem;min-height:var(--tap)}
 .navtable-box{background:var(--panel-2);border:1px solid var(--panel-line);border-radius:var(--r-md);
   padding:.5rem;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
 /* larghezza minima = somma delle colonne: su uno schermo stretto la tabella
