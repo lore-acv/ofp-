@@ -1393,7 +1393,10 @@ const AFM_MODELLI = {
     approach:{ up:[75,85], down:[70,80], src:'sez. IV' },
     /* pag. 2-1, Vp: 190 km/h, 104 kt, 118 MPH. Il manuale stampa 118 MPH, che e'
        la colonna con cui si lavora qui (104 kt darebbero 120). */
-    vaMph:118
+    vaMph:118,
+    /* VX, salita alla massima pendenza: un solo valore, comunicato dall'aeroclub
+       per ciascun aeroplano. */
+    vx: { mph:68, src:'aeroclub' }
   },
   FR172H: {
     nome:'FR172H', manuale:'Flight Manual FR172H, Edition 2',
@@ -1408,7 +1411,8 @@ const AFM_MODELLI = {
     vrefLdg:{ mph:73, src:'fig. 5-5', note:'approach speed, flap 40, 1157 kg' },
     stall:  { up:64, f20:58, f40:53, src:'fig. 5-3 / 2-1', note:'1157 kg, potenza tolta, CG posteriore, ali livellate' },
     approach:{ up:[75,85], down:[70,80], src:'sez. IV' },
-    vaMph:125                                  // pag. 2-1, Vp: 201 km/h, 109 kt, 125 MPH
+    vaMph:125,                                 // pag. 2-1, Vp: 201 km/h, 109 kt, 125 MPH
+    vx: { mph:75, src:'aeroclub' }
   }
 };
 /* Le velocita' dell'aeroplano scelto allo Step 1. Le aggiorna syncAircraftUI(),
@@ -1463,6 +1467,7 @@ function vspeedsFor(massKg, altFt){
   const vy=vyFor(massKg, altFt||0);
   return {
     vrMph: Math.round(vr.v),
+    vxMph: AFM_SPEEDS.vx.mph,
     vyMph: vy.mph, roc: vy.roc,
     glideMph: AFM_SPEEDS.glide.mph,
     vrefMph: AFM_SPEEDS.vrefLdg.mph,
@@ -2680,6 +2685,7 @@ function pagePerf(f,w){
   const vTable=`<table class="refTable" style="max-width:400px">
     <tr><th>${u}</th><th>DEP (T/O)</th><th>DEST (LDG)</th><th>ALTN (LDG)</th></tr>
     ${vRow('VR &mdash; 15 m',        spdVal(vDep.vrMph), null, null)}
+    ${vRow('VX best angle',          spdVal(vDep.vxMph), null, null)}
     ${vRow('VY best rate',           spdVal(vDep.vyMph), null, null)}
     ${vRow('V best glide',           spdVal(vDep.glideMph), spdVal(vDest.glideMph), spdVal(vAltn.glideMph))}
     ${vRow('Vref flap 40',           null, spdVal(vDest.vrefMph), spdVal(vAltn.vrefMph))}
@@ -2691,6 +2697,7 @@ function pagePerf(f,w){
     <tr><td>VR / speed at 15 m</td>${S.vr.mph.map(v=>`<td>${spdVal(v)}</td>`).join('')}</tr>
     <tr><td>VY at sea level</td>${S.vy.mph.map(r=>`<td>${spdVal(r[0])}</td>`).join('')}</tr>
     <tr><td>Rate of climb SL (ft/min)</td>${S.vy.roc.map(r=>`<td>${r[0]}</td>`).join('')}</tr>
+    <tr><td>VX best angle (club)</td><td colspan="3">${spdVal(S.vx.mph)} ${u}</td></tr>
     <tr><td>V best glide</td><td colspan="3">${spdVal(S.glide.mph)} ${u}</td></tr>
     <tr><td>Approach flaps 40</td><td colspan="3">${spdVal(S.vrefLdg.mph)} ${u}</td></tr>
     <tr><td>Stall UP / 20&deg; / 40&deg;</td><td colspan="3">${spdVal(S.stall.up)} / ${spdVal(S.stall.f20)} / ${spdVal(S.stall.f40)} ${u}</td></tr>
@@ -3772,7 +3779,7 @@ function toldLegList(t){
 function perfCardHTML(g, margins){
   const u=spdLabel();
   const cond = g.isTakeoff
-    ? `Flap 10&deg; &middot; VR <b>${spdVal(g.v.vrMph)} ${u}</b> &middot; VY <b>${spdVal(g.v.vyMph)} ${u}</b>`
+    ? `Flap 10&deg; &middot; VR <b>${spdVal(g.v.vrMph)} ${u}</b> &middot; VX <b>${spdVal(g.v.vxMph)} ${u}</b> &middot; VY <b>${spdVal(g.v.vyMph)} ${u}</b>`
     : `Flap 40&deg;, engine idle &middot; Vref <b>${spdVal(g.v.vrefMph)} ${u}</b>`;
   const xw = g.haveWind ? g.cross : null;
   const chipCls = (lim)=> xw==null ? '' : (xw>lim ? ' fail' : (xw>lim*0.8 ? ' caution' : ' ok'));
@@ -4858,6 +4865,7 @@ function buildPDF(){
   doc.text('DEP',cx(1),y,{align:'right'}); doc.text('DEST',cx(2),y,{align:'right'}); doc.text('ALTN',cx(3),y,{align:'right'});
   y+=LH;
   [['VR - 15 m',      vDep.vrMph, null, null],
+   ['VX best angle',  vDep.vxMph, null, null],
    ['VY best rate',   vDep.vyMph, null, null],
    ['V best glide',   vDep.glideMph, vDest.glideMph, vAltn.glideMph],
    ['Vref flap 40',   null, vDest.vrefMph, vAltn.vrefMph]
@@ -4886,7 +4894,8 @@ function buildPDF(){
     vals.forEach((v,i)=>doc.text(String(v),colRight(i),y,{align:'right'}));
     y+=LH;
   });
-  [['V best glide',    spdVal(S.glide.mph)+' '+uSp],
+  [['VX (club)',       spdVal(S.vx.mph)+' '+uSp],
+   ['V best glide',    spdVal(S.glide.mph)+' '+uSp],
    ['Vref flap 40',    spdVal(S.vrefLdg.mph)+' '+uSp],
    ['Stall UP/20/40',  spdVal(S.stall.up)+' / '+spdVal(S.stall.f20)+' / '+spdVal(S.stall.f40)+' '+uSp]
   ].forEach(([lbl,v],i)=>{
@@ -5946,7 +5955,7 @@ async function buildClubNavlogPDF(){
     // velocita'
     const v=L ? L.v : vspeedsFor(massa, 0);
     const vel=perDecollo
-      ? [[spdText(v.vrMph),360.0,382.8],['',382.8,406.3],[spdText(v.vyMph),406.3,429.8],[spdText(vfeMph),429.8,459.0],['',459.0,483.2]]
+      ? [[spdText(v.vrMph),360.0,382.8],[spdText(v.vxMph),382.8,406.3],[spdText(v.vyMph),406.3,429.8],[spdText(vfeMph),429.8,459.0],['',459.0,483.2]]
       : [[spdRange(AFM_SPEEDS.approach.down),360.0,382.8],[spdText(vfeMph),382.8,406.3],['',406.3,429.8],['',429.8,459.0],[spdText(v.vrefMph),459.0,483.2]];
     vel.forEach(([s,ya,yb])=>clubVal(doc, s, X[4], X[5], (ya+yb)/2+3.2, 'c', 9));
     clubVal(doc, spdText(vaFor(massa)), X[0]+261.2, X[3], (429.8+459.0)/2+3.2, 'c', 9);

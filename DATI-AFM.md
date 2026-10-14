@@ -23,6 +23,7 @@ solo quattro velocità**, che nel codice stanno in `AFM_MODELLI`:
 | VY a 850 kg | 80 / 78 / 77 / 76 | **88 / 85 / 82 / 79** | fig. 5-6 |
 | Stallo UP / 20° / 40° a 1157 kg | 61 / 55 / 53 MPH | **64 / 58 / 53 MPH** | fig. 5-3, 2-1 |
 | VA a 1157 kg | 118 MPH (104 kt) | **125 MPH (109 kt)** | pag. 2-1 |
+| VX (massima pendenza) | 68 MPH | **75 MPH** | dato aeroclub |
 
 L'app usa le velocità dell'aeroplano scelto allo Step 1. Con "Other" usa
 quelle del FR172J. La VY entra anche nella **distanza** di salita (la TAS della
