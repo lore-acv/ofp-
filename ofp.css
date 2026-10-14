@@ -107,7 +107,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
   height:100vh;height:100dvh;overflow:hidden;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
 /* Cose che si premono: niente ritardo al tocco, niente selezione del testo con
    la pressione lunga. Il testo dei campi e dei documenti resta selezionabile. */
-button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,[role="button"]{
+button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-check,.fonte,[role="button"]{
   touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 
 /* ===== barra in alto ===== */
