@@ -460,7 +460,11 @@ function disegnaRotte(){
   const spunta='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.4 6.6 11.4 12.5 4.8"/></svg>';
   $('rotteLista').innerHTML = ROTTE.map(r=>{
     const n=r.nav, tappe=n.legs.filter((l,i)=>i>0).length;
-    const via=[n.dep, r.tng?`${r.tng} T&G`:'', n.arr].filter(Boolean).join(' \u2192 ');
+    /* Con un Touch & Go basta dire dove si tocca; senza, si leggono i punti di
+       virata (non i punti di riporto, che ForeFlight scrive con la sigla tra
+       parentesi), e se non ci stanno si tagliano coi puntini. */
+    const giro=n.legs.slice(1,-1).filter(l=>!/\(/.test(l.full||'')).map(l=>l.wpt);
+    const via=[n.dep, ...(r.tng?[`${r.tng} T&G`]:giro), n.arr].filter(Boolean).join(' \u2192 ');
     return `<button type="button" class="rotta" data-rotta="${esc(r.id)}" aria-pressed="false">
       <span class="rotta-nome">${esc(r.nome)}</span>
       <span class="rotta-via" title="${esc(n.route||'')}">${esc(via)}</span>

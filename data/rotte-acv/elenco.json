@@ -1,5 +1,6 @@
 [
   { "pdf": "limz-tng.pdf", "id": "limz-tng", "nome": "LIMZ Touch and Go", "tng": "LIMZ", "fonte": "ForeFlight NavLog, Oct 2026" },
   { "pdf": "lipo-tng.pdf", "id": "lipo-tng", "nome": "LIPO Touch and Go", "tng": "LIPO", "fonte": "ForeFlight NavLog, Oct 2026" },
-  { "pdf": "lile-tng.pdf", "id": "lile-tng", "nome": "LILE Touch and Go", "tng": "LILE", "fonte": "ForeFlight NavLog, Oct 2026" }
+  { "pdf": "lile-tng.pdf", "id": "lile-tng", "nome": "LILE Touch and Go", "tng": "LILE", "fonte": "ForeFlight NavLog, Oct 2026" },
+  { "pdf": "limc-ctr.pdf", "id": "limc-ctr", "nome": "LIMC CTR Circumnavigation", "tng": "", "fonte": "ForeFlight NavLog, Oct 2026" }
 ]

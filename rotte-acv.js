@@ -56,5 +56,16 @@ window.ROTTE_ACV = [
     { "wpt": "ROMAGNANO", "full": "ROMAGNANO (MCW2) (LIMC)", "mh": 71, "dist": 14, "ete": 7, "fuel": 4.3, "alt": null, "gs": null },
     { "wpt": "ARONA", "full": "ARONA", "mh": 40, "dist": 11, "ete": 6, "fuel": 3.3, "alt": null, "gs": null },
     { "wpt": "MALNATE", "full": "MALNATE (LNN1) (LILN)", "mh": 77, "dist": 14, "ete": 7, "fuel": 4.3, "alt": null, "gs": null },
-    { "wpt": "LILN", "full": "LILN", "mh": 172, "dist": 3, "ete": 2, "fuel": 1.2, "alt": null, "gs": null } ], "totals": { "dist": 94, "ete": 52, "fuel": 38.1, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE ARONA ROMAGNANO BIELLA NORD LILE BIELLA NORD ROMAGNANO ARONA MALNATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 38.1, "roundTrip": true } }
+    { "wpt": "LILN", "full": "LILN", "mh": 172, "dist": 3, "ete": 2, "fuel": 1.2, "alt": null, "gs": null } ], "totals": { "dist": 94, "ete": 52, "fuel": 38.1, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE ARONA ROMAGNANO BIELLA NORD LILE BIELLA NORD ROMAGNANO ARONA MALNATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 38.1, "roundTrip": true } },
+ { "id": "limc-ctr", "nome": "LIMC CTR Circumnavigation", "tng": "", "fonte": "ForeFlight NavLog, Oct 2026", "nav": { "legs": [
+    { "wpt": "LILN", "full": "LILN", "mh": null, "dist": null, "ete": null, "fuel": null, "alt": null, "gs": null },
+    { "wpt": "MALNATE", "full": "MALNATE (LNN1) (LILN)", "mh": 352, "dist": 3, "ete": 3, "fuel": 1.8, "alt": null, "gs": null },
+    { "wpt": "ARONA", "full": "ARONA", "mh": 259, "dist": 14, "ete": 7, "fuel": 4.3, "alt": null, "gs": null },
+    { "wpt": "ROMAGNANO", "full": "ROMAGNANO (MCW2) (LIMC)", "mh": 223, "dist": 11, "ete": 6, "fuel": 3.2, "alt": null, "gs": null },
+    { "wpt": "VERCELLI", "full": "VERCELLI", "mh": 171, "dist": 18, "ete": 10, "fuel": 5.6, "alt": null, "gs": null },
+    { "wpt": "MORTARA", "full": "MORTARA", "mh": 107, "dist": 14, "ete": 8, "fuel": 4.4, "alt": null, "gs": null },
+    { "wpt": "VIGEVANO", "full": "VIGEVANO", "mh": 49, "dist": 7, "ete": 3, "fuel": 1.9, "alt": null, "gs": null },
+    { "wpt": "SRN", "full": "SRN", "mh": 16, "dist": 21, "ete": 11, "fuel": 6.5, "alt": null, "gs": null },
+    { "wpt": "MOZZATE", "full": "MOZZATE (LNS1) (LILN)", "mh": 305, "dist": 4, "ete": 2, "fuel": 1.2, "alt": null, "gs": null },
+    { "wpt": "LILN", "full": "LILN", "mh": 321, "dist": 4, "ete": 2, "fuel": 1.6, "alt": null, "gs": null } ], "totals": { "dist": 95, "ete": 52, "fuel": 38.1, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE ARONA ROMAGNANO VERCELLI MORTARA VIGEVANO SRN MOZZATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 38.1, "roundTrip": true } }
 ];
