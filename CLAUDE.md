@@ -25,3 +25,15 @@ si controlla in tema scuro, tema chiaro e su telefono prima di pubblicarlo.
 
 `main` va in produzione su Cloudflare Pages: ci si pubblica solo su richiesta
 dell'utente. Le anteprime vanno sul branch di lavoro.
+
+## Standard Routes ACV
+
+Le rotte standard dell'aeroclub sono i NavLog ForeFlight in `data/rotte-acv/`,
+elencati in `data/rotte-acv/elenco.json` (pdf, id, nome, eventuale `tng`).
+Per aggiungerne una: copiare il PDF in quella cartella, aggiungere la riga
+all'elenco e rigenerare `rotte-acv.js` con
+
+    CHROME=/opt/pw-browsers/chromium node tools/rotte-acv.mjs
+
+che legge i PDF con lo stesso parser della pagina di import. `rotte-acv.js`
+non si modifica a mano.

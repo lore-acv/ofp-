@@ -3965,7 +3965,8 @@ function renderTng(){
         const a=(window.__oa||{})[c] || (OA.pack && OA.pack.aeroporti[c]);
         return a&&a.name ? `${c} (${a.name})` : c;
       });
-      nota.innerHTML = cand.length
+      // gia' spuntato: si dice dove si tocca, non si invita a spuntare
+      nota.innerHTML = cand.length && !tngAttivo()
         ? `${cand.length>1?'There are airports along the route, among them':'There is an airport along the route:'} <b>${esc(nomi.join(', '))}</b>.
            Tick <b>Touch &amp; Go</b> if you land there: the flight plan adds that airport's weather, NOTAMs
            and runway calculations.`
@@ -6651,6 +6652,11 @@ function applyHandoff(){
   const d=readHandoff();
   if(!d) return false;
   applyNavlogSummary(d.nav);
+  /* Una rotta standard ACV con Touch & Go arriva con l'aeroporto gia' scelto:
+     qui la spunta la mette il club, non la proposta automatica. */
+  if(d.std && /^[A-Z]{4}$/.test(d.std.tng||'') && $('tngOn') && $('tngIcao')){
+    $('tngIcao').value=d.std.tng; $('tngOn').checked=true;
+  }
   if(d.wx){
     if(d.wx.printedAt){
       window.__wxPrintedAt=d.wx.printedAt;
@@ -6745,6 +6751,7 @@ scheduleAirportLookup();
 /* Un foglio riaperto puo' avere tratte senza quota — salvate prima che la
    quota di crociera arrivasse da sola. Qui si riempiono solo quelle vuote. */
 navApplyCruiseAlt();
+if(VOLO_APERTO && tngAttivo()) attivaTng();   // T&G di una rotta standard: meteo, NOTAM e piste
 // su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
 if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
 bootstrapFlights(()=>{ if(dashboardAperta()) renderDashboard(); });

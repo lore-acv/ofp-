@@ -61,7 +61,8 @@ const CON_IMPRONTA = [
   ['vendor/page-flip.browser.js', 'src="vendor/page-flip.browser.js"', (n) => `src="${n}"`, ['manuale.html']],
   ['conto.css',   'href="conto.css"',               (n) => `href="${n}"`, PAGINE_CONTO],
   ['conto.js',    'src="conto.js"',                 (n) => `src="${n}"`, PAGINE_CONTO],
-  ['rotta-av.js', 'src="rotta-av.js"',              (n) => `src="${n}"`, ['login.html', 'index.html']]
+  ['rotta-av.js', 'src="rotta-av.js"',              (n) => `src="${n}"`, ['login.html', 'index.html']],
+  ['rotte-acv.js', 'src="rotte-acv.js"',            (n) => `src="${n}"`, ['import.html']]
 ];
 
 const impronta = (buf) => createHash('sha256').update(buf).digest('hex').slice(0, 8);

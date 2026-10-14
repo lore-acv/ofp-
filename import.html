@@ -85,6 +85,36 @@
   }
   @media (prefers-reduced-motion:reduce){ .fonte:active{transform:none} .fonte:hover .fonte-vai svg{transform:none} }
   @media (max-width:520px){ .fonte-vai .dominio{display:none} }
+
+  /* STANDARD ROUTES ACV. Interruttori, non un elenco di link: si sceglie una
+     rotta e la si puo' togliere ritoccandola. Una volta per volo, quindi un
+     cambio di stato breve e niente ingressi animati; il segno di spunta
+     compare da scale(.9), mai dal nulla. */
+  .rotte{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));margin:0 0 .2rem}
+  .rotta{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.1rem .8rem;text-align:left;
+         padding:.75rem .85rem;min-height:var(--tap);border:1px solid var(--panel-line);border-radius:var(--r-md);
+         background:var(--panel-2);color:var(--txt);font:inherit;cursor:pointer;
+         transition:border-color var(--t-fast) ease,background-color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
+  .rotta:active{transform:scale(.985)}
+  .rotta:focus-visible{outline:none;box-shadow:var(--ring)}
+  .rotta[aria-pressed="true"]{border-color:var(--accent-2);background:color-mix(in srgb,var(--accent-2) 9%,var(--panel-2))}
+  .rotta-nome{font-weight:600;font-size:.95rem}
+  .rotta-via{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.76rem;color:var(--txt-dim);
+             overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rotta-dati{font-size:.78rem;color:var(--txt-dim)}
+  .rotta-dati b{color:var(--txt);font-weight:600}
+  .rotta-spunta{grid-column:2;grid-row:1/span 3;width:1.45rem;height:1.45rem;border-radius:50%;
+                border:1.5px solid var(--panel-line);display:grid;place-items:center;
+                transition:border-color var(--t-fast) ease,background-color var(--t-fast) ease}
+  .rotta-spunta svg{width:.85rem;height:.85rem;fill:none;stroke:var(--on-accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+                    opacity:0;transform:scale(.9);transition:opacity var(--t-fast) var(--ease-out),transform var(--t-fast) var(--ease-out)}
+  .rotta[aria-pressed="true"] .rotta-spunta{border-color:var(--accent-2);background:var(--accent-2)}
+  .rotta[aria-pressed="true"] .rotta-spunta svg{opacity:1;transform:none}
+  @media (hover:hover) and (pointer:fine){ .rotta:hover{border-color:var(--hover-line)} .rotta[aria-pressed="true"]:hover{border-color:var(--accent-2)} }
+  @media (prefers-reduced-motion:reduce){ .rotta:active{transform:none} .rotta-spunta svg{transform:none} }
+  .oppure{display:flex;align-items:center;gap:.8rem;margin:.2rem 0 1rem;color:var(--txt-dim);font-size:.72rem;
+          text-transform:uppercase;letter-spacing:.09em;font-weight:700}
+  .oppure::before,.oppure::after{content:"";flex:1;height:1px;background:var(--panel-line)}
   @media (max-width:520px){ .wrap{padding:1.1rem 1rem calc(3rem + env(safe-area-inset-bottom,0px))} .apri-guida .step-title{font-size:1.55rem} }
 </style>
 
@@ -108,9 +138,19 @@
     <p class="step-title" style="margin:1.2rem 0 0">Flight Data Import</p>
     <button type="button" class="btn ghost" id="btnGuida">How To Use</button>
   </div>
-  <p class="lead">New flight. Load the <b>ForeFlight NavLog</b> and the <b>weather briefing</b>:
-    they provide route, waypoints, distances and times, then wind, QNH, temperature, METAR, TAF and NOTAM.
-    Once both have been read, proceed to the flight plan.</p>
+  <p class="lead">New flight. Choose an <b>ACV standard route</b> or load the <b>ForeFlight NavLog</b>,
+    then the <b>weather briefing</b>: they provide route, waypoints, distances and times, then wind, QNH,
+    temperature, METAR, TAF and NOTAM. Once both have been read, proceed to the flight plan.</p>
+
+  <div class="card" id="cardRotte" hidden>
+    <h2>Standard Routes ACV</h2>
+    <div class="rotte" id="rotteLista"></div>
+    <div class="mb-status" id="rottaStatus"></div>
+    <div id="rottaPreview" style="margin-top:.6rem"></div>
+    <div class="hint">Aeroclub Varese routes, read from the club's ForeFlight NavLogs: choosing one is the same
+      as loading that NavLog. Tap it again to clear it. Times and fuel are recomputed in the flight plan.</div>
+  </div>
+  <div class="oppure" id="rotteOppure" hidden>or</div>
 
   <div class="card">
     <h2>NavLog ForeFlight</h2>
@@ -155,6 +195,7 @@
 <div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="User manual"></div>
 
 <script src="ofp-core.js"></script>
+<script src="rotte-acv.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }</script>
 <script>
@@ -163,7 +204,7 @@
 /* Chiave di consegna verso il foglio di volo. La versione serve a non far
    ingoiare alla pagina successiva un formato piu' vecchio rimasto in sessione. */
 const HANDOFF_KEY='ofp_handoff', HANDOFF_V=1;
-const State = { nav:null, wx:null, charts:null };
+const State = { nav:null, wx:null, charts:null, std:null };
 
 function say(id,cls,msg){ const el=$(id); if(el){ el.className='mb-status '+cls; el.textContent=msg; } }
 
@@ -196,6 +237,7 @@ function handleNavlog(file){
         $('navPreview').innerHTML=''; State.nav=null; refresh(); return;
       }
       State.nav=navlogSummary(nav);
+      rottaScelta(null, {tieniNav:true});   // un NavLog caricato sostituisce la rotta standard
       reparseWeather();          // ora i codici di rotta ci sono
       say('navStatus','ok',`NavLog read: ${State.nav.legs.length} waypoints, ${State.nav.totals.dist} nm`
         + (State.nav.totals.ete?`, ${navDur(State.nav.totals.ete)} flight time`:'')
@@ -376,7 +418,9 @@ function refresh(){
     </div>`;
   const navInfo = State.nav ? `${State.nav.legs.length} waypoints, ${State.nav.totals.dist} nm` : 'awaiting';
   const wxInfo  = State.wx ? ((State.wx.printedAt&&State.wx.printedAt.date)||'loaded') : 'awaiting';
-  box.innerHTML = row(!!State.nav,'ForeFlight NavLog',navInfo) + row(!!State.wx,'Weather Briefing',wxInfo);
+  box.innerHTML = row(!!State.nav, State.std?'Standard route ACV':'ForeFlight NavLog',
+                     State.std ? `${State.std.nome} \u00b7 ${navInfo}` : navInfo)
+                 + row(!!State.wx,'Weather Briefing',wxInfo);
   const ready = !!State.nav && !!State.wx;
   const a=$('btnContinue');
   a.setAttribute('aria-disabled', ready?'false':'true');
@@ -389,7 +433,7 @@ function refresh(){
    import per colpa di un allegato. */
 function save(manual){
   const payload={v:HANDOFF_V, ts:Date.now(), manual:!!manual,
-                 nav:State.nav, wx:State.wx, charts:State.charts||[]};
+                 nav:State.nav, std:State.std, wx:State.wx, charts:State.charts||[]};
   try{
     sessionStorage.setItem(HANDOFF_KEY, JSON.stringify(payload));
     return true;
@@ -405,6 +449,52 @@ function save(manual){
     }
   }
 }
+
+/* ---------------- Standard Routes ACV ----------------
+   Le rotte vengono da rotte-acv.js (generato da tools/rotte-acv.mjs). Senza
+   quel file — o senza rotte — la scheda resta nascosta. */
+const ROTTE = Array.isArray(window.ROTTE_ACV) ? window.ROTTE_ACV : [];
+function disegnaRotte(){
+  if(!ROTTE.length) return;
+  $('cardRotte').hidden=false; $('rotteOppure').hidden=false;
+  const spunta='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.4 6.6 11.4 12.5 4.8"/></svg>';
+  $('rotteLista').innerHTML = ROTTE.map(r=>{
+    const n=r.nav, tappe=n.legs.filter((l,i)=>i>0).length;
+    const via=[n.dep, r.tng?`${r.tng} T&G`:'', n.arr].filter(Boolean).join(' \u2192 ');
+    return `<button type="button" class="rotta" data-rotta="${esc(r.id)}" aria-pressed="false">
+      <span class="rotta-nome">${esc(r.nome)}</span>
+      <span class="rotta-via" title="${esc(n.route||'')}">${esc(via)}</span>
+      <span class="rotta-dati"><b>${n.totals.dist} nm</b> \u00b7 ${tappe} legs</span>
+      <span class="rotta-spunta">${spunta}</span>
+    </button>`;
+  }).join('');
+  $('rotteLista').querySelectorAll('.rotta').forEach(b=>b.addEventListener('click',()=>{
+    const r=ROTTE.find(x=>x.id===b.dataset.rotta);
+    rottaScelta(State.std && State.std.id===r.id ? null : r);
+  }));
+}
+/* Sceglie (o toglie, con null) una rotta standard. Scegliendola si toglie il
+   NavLog ForeFlight eventualmente caricato: la rotta del volo e' una sola. */
+function rottaScelta(r, opt){
+  const tieniNav = opt && opt.tieniNav;
+  const prima = State.std;
+  State.std = r ? {id:r.id, nome:r.nome, tng:r.tng||''} : null;
+  $('rotteLista') && $('rotteLista').querySelectorAll('.rotta').forEach(b=>
+    b.setAttribute('aria-pressed', String(!!r && b.dataset.rotta===r.id)));
+  if(r){
+    State.nav = JSON.parse(JSON.stringify(r.nav));
+    say('navStatus','',''); $('navPreview').innerHTML=''; $('navFile').value='';
+    say('rottaStatus','ok',`Standard route loaded: ${State.nav.legs.length} waypoints, ${State.nav.totals.dist} nm`
+      + (r.tng?` \u00b7 Touch & Go at ${r.tng}, ticked in the flight plan`:''));
+    $('rottaPreview').innerHTML = navPreviewTable(State.nav);
+    reparseWeather();
+  }else{
+    if(prima && !tieniNav) State.nav=null;
+    say('rottaStatus','',''); $('rottaPreview').innerHTML='';
+  }
+  refresh();
+}
+disegnaRotte();
 
 wireDrop('navDrop','navFile',handleNavlog);
 wireDrop('wxDrop','wxFile',handleWx);
