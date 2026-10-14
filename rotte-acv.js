@@ -67,5 +67,23 @@ window.ROTTE_ACV = [
     { "wpt": "VIGEVANO", "full": "VIGEVANO", "mh": 49, "dist": 7, "ete": 3, "fuel": 1.9, "alt": null, "gs": null },
     { "wpt": "SRN", "full": "SRN", "mh": 16, "dist": 21, "ete": 11, "fuel": 6.5, "alt": null, "gs": null },
     { "wpt": "MOZZATE", "full": "MOZZATE (LNS1) (LILN)", "mh": 305, "dist": 4, "ete": 2, "fuel": 1.2, "alt": null, "gs": null },
-    { "wpt": "LILN", "full": "LILN", "mh": 321, "dist": 4, "ete": 2, "fuel": 1.6, "alt": null, "gs": null } ], "totals": { "dist": 95, "ete": 52, "fuel": 38.1, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE ARONA ROMAGNANO VERCELLI MORTARA VIGEVANO SRN MOZZATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 38.1, "roundTrip": true } }
+    { "wpt": "LILN", "full": "LILN", "mh": 321, "dist": 4, "ete": 2, "fuel": 1.6, "alt": null, "gs": null } ], "totals": { "dist": 95, "ete": 52, "fuel": 38.1, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE ARONA ROMAGNANO VERCELLI MORTARA VIGEVANO SRN MOZZATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 38.1, "roundTrip": true } },
+ { "id": "limf-tng", "nome": "LIMF Touch and Go", "tng": "LIMF", "fonte": "ForeFlight NavLog, Oct 2026", "nav": { "legs": [
+    { "wpt": "LILN", "full": "LILN", "mh": null, "dist": null, "ete": null, "fuel": null, "alt": null, "gs": null },
+    { "wpt": "MALNATE", "full": "MALNATE (LNN1) (LILN)", "mh": 351, "dist": 3, "ete": 3, "fuel": 2.1, "alt": null, "gs": null },
+    { "wpt": "ARONA", "full": "ARONA", "mh": 256, "dist": 14, "ete": 8, "fuel": 5.1, "alt": null, "gs": null },
+    { "wpt": "ROMAGNANO", "full": "ROMAGNANO (MCW2) (LIMC)", "mh": 221, "dist": 11, "ete": 6, "fuel": 3.3, "alt": null, "gs": null },
+    { "wpt": "SANTHIA", "full": "SANTHIA", "mh": 206, "dist": 18, "ete": 10, "fuel": 5.7, "alt": null, "gs": null },
+    { "wpt": "RONDISSONE", "full": "RONDISSONE (MFE3) (LIMF)", "mh": 225, "dist": 11, "ete": 6, "fuel": 3.6, "alt": null, "gs": null },
+    { "wpt": "CHIVASSO", "full": "CHIVASSO (MFE2) (LIMF)", "mh": 225, "dist": 5, "ete": 2, "fuel": 1.4, "alt": null, "gs": null },
+    { "wpt": "VOLPIANO", "full": "VOLPIANO (MFE1) (LIMF)", "mh": 274, "dist": 5, "ete": 3, "fuel": 1.5, "alt": null, "gs": null },
+    { "wpt": "LIMF", "full": "LIMF", "mh": 268, "dist": 5, "ete": 3, "fuel": 1.7, "alt": null, "gs": null },
+    { "wpt": "VOLPIANO", "full": "VOLPIANO (MFE1) (LIMF)", "mh": 88, "dist": 5, "ete": 3, "fuel": 1.7, "alt": null, "gs": null },
+    { "wpt": "CHIVASSO", "full": "CHIVASSO (MFE2) (LIMF)", "mh": 94, "dist": 5, "ete": 3, "fuel": 1.5, "alt": null, "gs": null },
+    { "wpt": "RONDISSONE", "full": "RONDISSONE (MFE3) (LIMF)", "mh": 45, "dist": 5, "ete": 2, "fuel": 1.4, "alt": null, "gs": null },
+    { "wpt": "SANTHIA", "full": "SANTHIA", "mh": 45, "dist": 11, "ete": 6, "fuel": 3.6, "alt": null, "gs": null },
+    { "wpt": "ROMAGNANO", "full": "ROMAGNANO (MCW2) (LIMC)", "mh": 25, "dist": 18, "ete": 10, "fuel": 5.8, "alt": null, "gs": null },
+    { "wpt": "ARONA", "full": "ARONA", "mh": 41, "dist": 11, "ete": 6, "fuel": 3.3, "alt": null, "gs": null },
+    { "wpt": "MALNATE", "full": "MALNATE (LNN1) (LILN)", "mh": 78, "dist": 14, "ete": 7, "fuel": 4.4, "alt": null, "gs": null },
+    { "wpt": "LILN", "full": "LILN", "mh": 173, "dist": 3, "ete": 2, "fuel": 1.2, "alt": null, "gs": null } ], "totals": { "dist": 144, "ete": 79, "fuel": 54.9, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE ARONA ROMAGNANO SANTHIA RONDISSONE CHIVASSO VOLPIANO LIMF VOLPIANO CHIVASSO RONDISSONE SANTHIA ROMAGNANO ARONA MALNATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 54.9, "roundTrip": true } }
 ];
