@@ -234,7 +234,7 @@ A(steps([['INPUT', 'the e-mail and password provided by the administrator to sig
   ['DOWNLOAD', 'the **weather and NOTAM briefing** PDF covering departure, destination, alternate and route, from SkyBrief (link in the Weather Briefing card).'],
   ['SELECT', '**New Flight** on the Dashboard: the Import page opens. **&larr; Dashboard** at the top of the Import page goes back without importing.']]));
 A(h2('2.2', 'Procedure'));
-A(box('note', 'STANDARD ROUTES ACV', 'The first card lists the Aeroclub Varese standard routes, read from the club&rsquo;s ForeFlight NavLogs. SELECT a route instead of loading a NavLog: the same summary appears and the Status reads &ldquo;Standard route ACV&rdquo;. SELECT it again to clear it; loading a ForeFlight NavLog replaces it. A route with a Touch &amp; Go arrives in the wizard with the T&amp;G aerodrome already ticked (Step 1).'));
+A(box('note', 'STANDARD ROUTES ACV', 'The NavLog card opens with the **ACV standard route** list: the Aeroclub Varese routes, read from the club&rsquo;s ForeFlight NavLogs. SELECT a route instead of loading a NavLog: the same summary appears, with the waypoint table folded. SELECT **None** to clear it; loading a ForeFlight NavLog replaces it. A route with a Touch &amp; Go arrives in the wizard with the T&amp;G aerodrome already ticked (Step 1).'));
 A(split(steps([
   ['LOAD', 'the ForeFlight NavLog in the NavLog drop zone [A]. Load it first: its ICAO codes are used to sort the briefing.'],
   ['VERIFY', 'the NavLog summary [B]: number of waypoints, total distance and the waypoint table. For a return flight the application states that DEP and ARR are the same aerodrome.'],
