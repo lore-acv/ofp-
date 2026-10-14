@@ -3,5 +3,6 @@
   { "pdf": "lipo-tng.pdf", "id": "lipo-tng", "nome": "LIPO Touch and Go", "tng": "LIPO", "fonte": "ForeFlight NavLog, Oct 2026" },
   { "pdf": "lile-tng.pdf", "id": "lile-tng", "nome": "LILE Touch and Go", "tng": "LILE", "fonte": "ForeFlight NavLog, Oct 2026" },
   { "pdf": "limc-ctr.pdf", "id": "limc-ctr", "nome": "LIMC CTR Circumnavigation", "tng": "", "fonte": "ForeFlight NavLog, Oct 2026" },
-  { "pdf": "limf-tng.pdf", "id": "limf-tng", "nome": "LIMF Touch and Go", "tng": "LIMF", "fonte": "ForeFlight NavLog, Oct 2026" }
+  { "pdf": "limf-tng.pdf", "id": "limf-tng", "nome": "LIMF Touch and Go", "tng": "LIMF", "fonte": "ForeFlight NavLog, Oct 2026" },
+  { "pdf": "lilo-tng.pdf", "id": "lilo-tng", "nome": "LILO Touch and Go", "tng": "LILO", "fonte": "ForeFlight NavLog, Oct 2026" }
 ]

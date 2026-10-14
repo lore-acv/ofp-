@@ -85,5 +85,19 @@ window.ROTTE_ACV = [
     { "wpt": "ROMAGNANO", "full": "ROMAGNANO (MCW2) (LIMC)", "mh": 25, "dist": 18, "ete": 10, "fuel": 5.8, "alt": null, "gs": null },
     { "wpt": "ARONA", "full": "ARONA", "mh": 41, "dist": 11, "ete": 6, "fuel": 3.3, "alt": null, "gs": null },
     { "wpt": "MALNATE", "full": "MALNATE (LNN1) (LILN)", "mh": 78, "dist": 14, "ete": 7, "fuel": 4.4, "alt": null, "gs": null },
-    { "wpt": "LILN", "full": "LILN", "mh": 173, "dist": 3, "ete": 2, "fuel": 1.2, "alt": null, "gs": null } ], "totals": { "dist": 144, "ete": 79, "fuel": 54.9, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE ARONA ROMAGNANO SANTHIA RONDISSONE CHIVASSO VOLPIANO LIMF VOLPIANO CHIVASSO RONDISSONE SANTHIA ROMAGNANO ARONA MALNATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 54.9, "roundTrip": true } }
+    { "wpt": "LILN", "full": "LILN", "mh": 173, "dist": 3, "ete": 2, "fuel": 1.2, "alt": null, "gs": null } ], "totals": { "dist": 144, "ete": 79, "fuel": 54.9, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE ARONA ROMAGNANO SANTHIA RONDISSONE CHIVASSO VOLPIANO LIMF VOLPIANO CHIVASSO RONDISSONE SANTHIA ROMAGNANO ARONA MALNATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 54.9, "roundTrip": true } },
+ { "id": "lilo-tng", "nome": "LILO Touch and Go", "tng": "LILO", "fonte": "ForeFlight NavLog, Oct 2026", "nav": { "legs": [
+    { "wpt": "LILN", "full": "LILN", "mh": null, "dist": null, "ete": null, "fuel": null, "alt": null, "gs": null },
+    { "wpt": "MALNATE", "full": "MALNATE (LNN1) (LILN)", "mh": 351, "dist": 3, "ete": 3, "fuel": 2.1, "alt": null, "gs": null },
+    { "wpt": "COMO", "full": "COMO (MMN3)", "mh": 83, "dist": 8, "ete": 5, "fuel": 3.4, "alt": null, "gs": null },
+    { "wpt": "MENAGGIO", "full": "MENAGGIO (MMN7)", "mh": 23, "dist": 14, "ete": 8, "fuel": 4.5, "alt": null, "gs": null },
+    { "wpt": "COLICO", "full": "COLICO (MMN8)", "mh": 35, "dist": 9, "ete": 5, "fuel": 2.7, "alt": null, "gs": null },
+    { "wpt": "W", "full": "W (ARDENNO) (LILO)", "mh": 80, "dist": 11, "ete": 6, "fuel": 3.6, "alt": null, "gs": null },
+    { "wpt": "LILO", "full": "LILO", "mh": 88, "dist": 6, "ete": 3, "fuel": 2, "alt": null, "gs": null },
+    { "wpt": "W", "full": "W (ARDENNO) (LILO)", "mh": 269, "dist": 6, "ete": 3, "fuel": 2, "alt": null, "gs": null },
+    { "wpt": "COLICO", "full": "COLICO (MMN8)", "mh": 260, "dist": 11, "ete": 6, "fuel": 3.6, "alt": null, "gs": null },
+    { "wpt": "MENAGGIO", "full": "MENAGGIO (MMN7)", "mh": 215, "dist": 9, "ete": 5, "fuel": 2.8, "alt": null, "gs": null },
+    { "wpt": "COMO", "full": "COMO (MMN3)", "mh": 204, "dist": 14, "ete": 8, "fuel": 4.6, "alt": null, "gs": null },
+    { "wpt": "MALNATE", "full": "MALNATE (LNN1) (LILN)", "mh": 261, "dist": 8, "ete": 4, "fuel": 2.9, "alt": null, "gs": null },
+    { "wpt": "LILN", "full": "LILN", "mh": 173, "dist": 3, "ete": 2, "fuel": 1.2, "alt": null, "gs": null } ], "totals": { "dist": 105, "ete": 59, "fuel": 42.8, "fromTotals": true }, "dep": "LILN", "arr": "LILN", "route": "MALNATE COMO MENAGGIO COLICO W LILO W COLICO MENAGGIO COMO MALNATE", "avgGs": null, "cruiseAlt": null, "fuelUnit": "l", "fuelLitres": 42.8, "roundTrip": true } }
 ];
