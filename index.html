@@ -377,8 +377,9 @@ document.documentElement.classList.add('vista-dash');
               <div class="row">
                 <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDep" type="number" value="1013"></div>
                 <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDep" type="number" value="15"></div>
-                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDep" type="number" min="0" max="360" value=""></div>
+                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDep" type="number" min="0" max="360" value="" placeholder="VRB"></div>
                 <div class="fld"><label>Wind (kt)</label><input id="toldWindKtDep" type="number" min="0" value="0"></div>
+                <div class="fld"><label>Gust (kt)</label><input id="toldWindGustDep" type="number" min="0" value="" placeholder="none"></div>
               </div>
               <input type="hidden" id="toldDepRwyName" value="">
               <div class="mb-status" id="wxNoteDep"></div>
@@ -404,8 +405,9 @@ document.documentElement.classList.add('vista-dash');
               <div class="row">
                 <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDest" type="number" value="1013"></div>
                 <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDest" type="number" value="15"></div>
-                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDest" type="number" min="0" max="360" value=""></div>
+                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDest" type="number" min="0" max="360" value="" placeholder="VRB"></div>
                 <div class="fld"><label>Wind (kt)</label><input id="toldWindKtDest" type="number" min="0" value="0"></div>
+                <div class="fld"><label>Gust (kt)</label><input id="toldWindGustDest" type="number" min="0" value="" placeholder="none"></div>
               </div>
               <input type="hidden" id="toldDestRwyName" value="">
               <div class="mb-status" id="wxNoteDest"></div>
@@ -435,8 +437,9 @@ document.documentElement.classList.add('vista-dash');
               <div class="row">
                 <div class="fld"><label>QNH (hPa)</label><input id="toldQnhTng" type="number" value="1013"></div>
                 <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatTng" type="number" value="15"></div>
-                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirTng" type="number" min="0" max="360" value=""></div>
+                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirTng" type="number" min="0" max="360" value="" placeholder="VRB"></div>
                 <div class="fld"><label>Wind (kt)</label><input id="toldWindKtTng" type="number" min="0" value="0"></div>
+                <div class="fld"><label>Gust (kt)</label><input id="toldWindGustTng" type="number" min="0" value="" placeholder="none"></div>
               </div>
               <input type="hidden" id="toldTngRwyName" value="">
               <div class="mb-status" id="wxNoteTng"></div>
@@ -466,8 +469,9 @@ document.documentElement.classList.add('vista-dash');
               <div class="row">
                 <div class="fld"><label>QNH (hPa)</label><input id="toldQnhAltn" type="number" value="1013"></div>
                 <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatAltn" type="number" value="15"></div>
-                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirAltn" type="number" min="0" max="360" value=""></div>
+                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirAltn" type="number" min="0" max="360" value="" placeholder="VRB"></div>
                 <div class="fld"><label>Wind (kt)</label><input id="toldWindKtAltn" type="number" min="0" value="0"></div>
+                <div class="fld"><label>Gust (kt)</label><input id="toldWindGustAltn" type="number" min="0" value="" placeholder="none"></div>
               </div>
               <input type="hidden" id="toldAltnRwyName" value="">
               <div class="mb-status" id="wxNoteAltn"></div>
@@ -1841,18 +1845,37 @@ function computeTold(){
     const elev=num('toldElev'+key), rwyHdg=num('toldHdg'+key);
     const qnh=num('toldQnh'+key), oat=num('toldOat'+key);
     const windDir=num('toldWindDir'+key), windKt=num('toldWindKt'+key);
+    const gustKt=Math.max(num('toldWindGust'+key), 0);
     if(!(qnh>0) || !isFinite(oat)) return null;
     const pa=pressAlt(elev, qnh), da=densAlt(pa,oat);
-    let head=0, cross=0, haveWind=false, crossRight=true;
-    if(isFinite(rwyHdg) && isFinite(windDir) && windKt>0){
+    /* Il vento conta solo con una pista e una direzione vere. Un campo vuoto
+       non e' zero gradi: senza pista non si scompone niente, e un vento senza
+       direzione (VRB) puo' arrivare da qualunque parte. */
+    const pistaScelta = txt('toldHdg'+key).trim()!=='' && isFinite(rwyHdg);
+    const dirNota     = txt('toldWindDir'+key).trim()!=='';
+    const ventoMax    = Math.max(windKt, gustKt);
+    let head=0, cross=0, haveWind=false, crossRight=true, crossGust=null, vrb=false;
+    if(ventoMax>0 && !pistaScelta){
+      warn('amber','Runway',label+': no runway selected, so the wind is not applied. Distances are for zero wind.');
+    }else if(ventoMax>0 && !dirNota){
+      /* Variabile: nessun credito di vento frontale, e al traverso si mette
+         tutta l'intensita' (raffica compresa), perche' puo' venire anche da li'. */
+      vrb=true; cross=ventoMax;
+      warn('amber','Wind',label+': variable wind '+windKt+(gustKt>windKt?'G'+gustKt:'')+' kt. No headwind credit; it can also be a crosswind or tailwind of '+ventoMax+' kt, which the AFM tables do not cover.');
+    }else if(pistaScelta && windKt>0){
       const c=windComponents(rwyHdg, windDir, windKt);
       head=c.head; cross=Math.abs(c.cross); crossRight=c.cross>=0; haveWind=true;
+      if(gustKt>windKt) crossGust=Math.abs(windComponents(rwyHdg, windDir, gustKt).cross);
     }
     const ctx={mass:massKg, head, pa, oat, surface};
     const tagged=(lvl,lab,t)=>warn(lvl,lab,label+' \u2014 '+t);
     const d=isTakeoff?toldTakeoff(ctx,tagged):toldLanding(ctx,tagged);
     const xwLimit = isTakeoff?PERF_TBL.xwind.to:PERF_TBL.xwind.ld;
-    if(haveWind && cross>xwLimit) warn('red','Crosswind',label+': '+cross.toFixed(1)+' kt above the '+xwLimit+' kt limit.');
+    /* Il limite si confronta con la raffica: e' il vento che si trova in
+       richiamata. Il credito di vento frontale resta sul vento medio. */
+    const xwPeggiore = crossGust!=null ? crossGust : cross;
+    if((haveWind||vrb) && xwPeggiore>xwLimit)
+      warn('red','Crosswind',label+': '+xwPeggiore.toFixed(1)+' kt'+(crossGust!=null?' in the gusts':'')+(vrb?' if the variable wind blows across':'')+', above the '+xwLimit+' kt limit.');
     if(da>5000) warn('amber','Density',label+': density altitude '+Math.round(da)+' ft, check the climb gradient against obstacles.');
     const amax=PERF_TBL.takeoff.alts[PERF_TBL.takeoff.alts.length-1];
     if(pa>amax) warn('red','Altitude',label+': pressure altitude above the '+amax+' ft of the table, distances clamped and underestimated.');
@@ -1861,7 +1884,9 @@ function computeTold(){
     return {label, isTakeoff, pa:Math.round(pa), da:Math.round(da),
             isaDev:Math.round((oat-isaTemp(pa))*10)/10,
             head:Math.round(head*10)/10, cross:Math.round(cross*10)/10, haveWind, crossRight,
-            qnh, oat, windDir, windKt, rwyHdg: isFinite(rwyHdg)?rwyHdg:null,
+            qnh, oat, windDir, windKt, gustKt, vrb, pistaScelta, dirNota,
+            crossGust: crossGust==null?null:Math.round(crossGust*10)/10,
+            rwyHdg: pistaScelta?rwyHdg:null,
             xwLimit,
             ground:Math.round(d[0]), total:Math.round(d[1]), mass:Math.round(massKg),
             icao:txt({Dep:'dep',Dest:'arr',Altn:'altn',Tng:'tngIcao'}[key]),
@@ -2740,7 +2765,7 @@ function pagePerf(f,w){
       <td class="filled">${g.pa}</td>
       <td class="filled">${g.da}</td>
       <td class="filled">${componenteTold(g.head,true)}</td>
-      <td class="filled">${componenteTold(g.cross,false)}</td></tr>`).join('')}
+      <td class="filled">${traversoTold(g)}</td></tr>`).join('')}
   </table>
   <table class="refTable" style="max-width:100%;margin-top:6px">
     <tr><th>Phase</th><th>Distance</th><th>Available</th><th>Required</th><th>Used</th><th>Margin</th></tr>
@@ -3664,6 +3689,13 @@ function perfWxPut(id, val){
   return true;
 }
 
+/* Svuota un campo meteo scritto dal programma; quello scritto a mano resta. */
+function perfWxSvuota(id){
+  const el=$(id); if(!el) return;
+  const cur=String(el.value).trim(), mine=(window.__perfWxAuto||{})[id];
+  if(cur==='' || (mine!==undefined && cur===String(mine)) || cur==='0'){ el.value=''; window.__perfWxAuto[id]=''; }
+}
+
 function fillToldFromMetar(opts){
   const quiet=!!(opts&&opts.quiet);
   const el=$('toldMetarStatus');
@@ -3692,8 +3724,13 @@ function fillToldFromMetar(opts){
     if(putWx('toldQnh'+L.key, m.qnh)) bits.push('QNH '+m.qnh);
     if(isFinite(m.oat) && putWx('toldOat'+L.key, m.oat)) bits.push(m.oat+'\u00b0C');
     if(m.windKt!=null && putWx('toldWindKt'+L.key, m.windKt)){
+      /* VRB: la direzione non c'e', e il campo si svuota. Lasciarci quella del
+         METAR di prima (o lo zero di un vento calmo, letto come 360) faceva
+         calcolare un vento che il bollettino non dice. */
       if(m.windDir!=null && putWx('toldWindDir'+L.key, m.windDir)) bits.push(m.windDir+'\u00b0/'+m.windKt+'kt');
-      else bits.push('VRB '+m.windKt+'kt');
+      else if(m.windDir==null){ perfWxSvuota('toldWindDir'+L.key); bits.push('VRB '+m.windKt+'kt'); }
+      // la raffica si scrive anche quando manca, per togliere quella di un METAR precedente
+      if(m.gustKt) putWx('toldWindGust'+L.key, m.gustKt); else perfWxSvuota('toldWindGust'+L.key);
     }
     if(m.gustKt) bits.push('gusts '+m.gustKt+'kt');
     if(bits.length) done.push(L.label+' '+bits.join(' '));
@@ -3771,7 +3808,16 @@ function perfResHTML(name, code, metres, m, codeLbl, info){
    in un METAR (060/02), componenti con un decimale fisso e il verso davanti
    (H testa, T coda) cosi' le cifre restano incolonnate. */
 function ventoTold(g){
-  return g.haveWind ? String(Math.round(g.windDir)).padStart(3,'0')+'/'+String(Math.round(g.windKt)).padStart(2,'0') : 'n/d';
+  const kt=String(Math.round(g.windKt)).padStart(2,'0'), gu=g.gustKt>g.windKt ? 'G'+Math.round(g.gustKt) : '';
+  if(!(g.windKt>0) && !gu) return 'calm';
+  return g.dirNota ? String(Math.round(g.windDir)).padStart(3,'0')+'/'+kt+gu : 'VRB'+kt+gu;
+}
+/* Il traverso in tabella: con le raffiche si aggiunge il valore in raffica,
+   con il vento variabile l'intensita' intera, che e' il caso peggiore. */
+function traversoTold(g){
+  if(g.vrb) return 'VRB '+g.cross.toFixed(1);
+  if(!g.haveWind) return '-';
+  return g.cross.toFixed(1)+(g.crossGust!=null?' G'+g.crossGust.toFixed(1):'');
 }
 function componenteTold(v, testa){
   if(v==null || !isFinite(v)) return '-';
@@ -3796,13 +3842,15 @@ function perfCardHTML(g, margins){
   const cond = g.isTakeoff
     ? `Flap 10&deg; &middot; VR <b>${spdVal(g.v.vrMph)} ${u}</b> &middot; VX <b>${spdVal(g.v.vxMph)} ${u}</b> &middot; VY <b>${spdVal(g.v.vyMph)} ${u}</b>`
     : `Flap 40&deg;, engine idle &middot; Vref <b>${spdVal(g.v.vrefMph)} ${u}</b>`;
-  const xw = g.haveWind ? g.cross : null;
+  const xw = (g.haveWind||g.vrb) ? (g.crossGust!=null ? g.crossGust : g.cross) : null;
   const chipCls = (lim)=> xw==null ? '' : (xw>lim ? ' fail' : (xw>lim*0.8 ? ' caution' : ' ok'));
   const hw = g.haveWind
     ? `<dd class="${g.head>=0?'head-c':'tail-c'}">${Math.abs(g.head).toFixed(1)} kt</dd>`
-    : `<dd class="none-c">&mdash;</dd>`;
+    : g.vrb ? `<dd class="none-c">0 kt<small>variable wind, no credit</small></dd>`
+    : `<dd class="none-c">&mdash;${g.pistaScelta?'':'<small>select the runway</small>'}</dd>`;
   const cw = g.haveWind
-    ? `<dd>${g.cross.toFixed(1)} kt<small>from the ${g.crossRight?'right':'left'}</small></dd>`
+    ? `<dd>${g.cross.toFixed(1)} kt<small>${g.crossGust!=null?`${g.crossGust.toFixed(1)} kt in the gusts, `:''}from the ${g.crossRight?'right':'left'}</small></dd>`
+    : g.vrb ? `<dd>up to ${g.cross.toFixed(1)} kt<small>variable wind</small></dd>`
     : `<dd class="none-c">&mdash;</dd>`;
   const res = g.isTakeoff
     ? perfResHTML('Takeoff run','TORR &middot; to lift-off', g.ground, margins[0][1], 'TORA')
@@ -4286,7 +4334,8 @@ function usaMetarVicino(key){
   if(isFinite(m.oat)) put('toldOat'+key, m.oat);
   if(m.windKt!=null){
     put('toldWindKt'+key, m.windKt);
-    if(m.windDir!=null) put('toldWindDir'+key, m.windDir);
+    if(m.windDir!=null) put('toldWindDir'+key, m.windDir); else if($('toldWindDir'+key)) $('toldWindDir'+key).value='';
+    if($('toldWindGust'+key)) $('toldWindGust'+key).value = m.gustKt||'';
   }
   window.__perfWxDa = window.__perfWxDa || {};
   window.__perfWxDa[key] = {icao:v.icao, dist:Math.round(v.dist)};
@@ -4971,7 +5020,7 @@ function buildPDF(){
       if(ri%2===1){ doc.setFillColor(243,243,243); doc.rect(L-1,y-2.8,R-L+2,3.9,'F'); }
       doc.setFont('courier','bold'); doc.text(fase(g),L,y); doc.setFont('courier','normal');
       [`${g.icao||'----'} ${g.rwy||'--'}`, g.mass, g.qnh, g.oat, ventoTold(g),
-       g.pa, g.da, componenteTold(g.head,true), componenteTold(g.cross,false)
+       g.pa, g.da, g.haveWind?componenteTold(g.head,true):'-', traversoTold(g)
       ].forEach((v,i)=>put(v,i,false));
       y+=3.9;
     });
@@ -5946,8 +5995,10 @@ async function buildClubNavlogPDF(){
   const surfTxt=($('toldSurface') && $('toldSurface').selectedOptions[0]) ? $('toldSurface').selectedOptions[0].textContent.toUpperCase() : surf.toUpperCase();
   const flap=(cond)=>{ const m=/(\d+)\s*°/.exec(cond||''); return m ? m[1]+'°' : ''; };
   const zitto=()=>{};
-  const vento=(L)=> L && L.windKt>0 && isFinite(L.windDir) ? String(Math.round(L.windDir)).padStart(3,'0')+'/'+String(Math.round(L.windKt)).padStart(2,'0')+' KT' : (L && L.windKt===0 ? 'CALM' : '');
-  const comp=(L)=> L && L.haveWind ? `H ${Math.round(L.head)}  X ${Math.round(L.cross)}${Math.round(L.cross)>0?(L.crossRight?' R':' L'):''}` : '';
+  const vento=(L)=> !L ? '' : (L.windKt>0 ? (L.dirNota ? String(Math.round(L.windDir)).padStart(3,'0')+'/' : 'VRB')
+      +String(Math.round(L.windKt)).padStart(2,'0')+(L.gustKt>L.windKt?'G'+Math.round(L.gustKt):'')+' KT' : 'CALM');
+  const comp=(L)=> !L ? '' : L.vrb ? `X VRB ${Math.round(L.cross)}`
+    : L.haveWind ? `H ${Math.round(L.head)}  X ${Math.round(L.cross)}${L.crossGust!=null?'G'+Math.round(L.crossGust):''}${Math.round(L.cross)>0?(L.crossRight?' R':' L'):''}` : '';
   const vfeMph=AC_LIMITS.vfe/KT_PER_MPH;
   const stessaPista = dep===arr && txt('depRunway').trim()!=='' && txt('depRunway').trim()===txt('destRunway').trim();
   const dich=(id)=> num(id)>0 ? Math.round(num(id))+' m' : '';
@@ -6084,10 +6135,10 @@ const FLIGHT_FIELDS = ['mission','dep','arr','altn','reg','route',
   'acSelect','bew','bewMoment','paxFront','paxRear','baggage','pob','mzfw','mtow','mldw','mbRemarks',
   'depAirport','depRunway','toGround','toDist50','destAirport','destRunway','ldgGround','ldgDist50',
   'spdUnit','toldSurface','tora','toda','lda','ldaAltn','altnRunway',
-  'toldQnhDep','toldOatDep','toldWindDirDep','toldWindKtDep','toldElevDep','toldHdgDep',
-  'toldQnhDest','toldOatDest','toldWindDirDest','toldWindKtDest','toldElevDest','toldHdgDest',
-  'toldQnhAltn','toldOatAltn','toldWindDirAltn','toldWindKtAltn','toldElevAltn','toldHdgAltn',
-  'toldQnhTng','toldOatTng','toldWindDirTng','toldWindKtTng','toldElevTng','toldHdgTng',
+  'toldQnhDep','toldOatDep','toldWindDirDep','toldWindKtDep','toldWindGustDep','toldElevDep','toldHdgDep',
+  'toldQnhDest','toldOatDest','toldWindDirDest','toldWindKtDest','toldWindGustDest','toldElevDest','toldHdgDest',
+  'toldQnhAltn','toldOatAltn','toldWindDirAltn','toldWindKtAltn','toldWindGustAltn','toldElevAltn','toldHdgAltn',
+  'toldQnhTng','toldOatTng','toldWindDirTng','toldWindKtTng','toldWindGustTng','toldElevTng','toldHdgTng',
   'toraTng','todaTng','ldaTng','tngRunway',
   'noteTrack','noteRunway','noteAlt','noteClear','noteTiming','noteGround','noteRadios','noteSpecials',
   'depProc','depThreats','depMit','enrProc','enrThreats','enrMit','tngProc','tngThreats','tngMit','destProc','destThreats','destMit',

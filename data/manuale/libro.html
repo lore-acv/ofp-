@@ -199,7 +199,7 @@
   <table class="legend"><tr><td class="lk"><span class="mk">A</span></td><td class="le">Display Unit</td><td class="la">SELECT</td></tr><tr><td class="lk"><span class="mk">B</span></td><td class="le">Runway Surface</td><td class="la">SELECT</td></tr></table>
 </figure></div></div>
 <p>Each phase has its own tab <span class="mk">A</span>: <b>DEP</b> (take-off), <b>ARR</b> (landing), <b>ALT</b> (alternate landing) and <b>ENR</b> (touch and go, shown only when selected in Step 1). A dot on a tab indicates a warning for that phase.</p>
-<ol class="steps"><li data-n="3."><span class="verb">SELECT</span> each tab <span class="mk">A</span> in turn and carry out items 4 to 8.</li><li data-n="4."><span class="verb">SELECT</span> the runway <span class="mk">B</span>. No runway is pre-selected: select it from the wind of the day.</li><li data-n="5."><span class="verb">VERIFY</span> the elevation <span class="mk">C</span> and the runway heading.</li><li data-n="6."><span class="verb">CROSS-CHECK</span> TORA and TODA (LDA for landing) <span class="mk">D</span> with the AIP. They are pre-filled with the physical runway length.</li><li data-n="7."><span class="verb">VERIFY</span> QNH, temperature and wind <span class="mk">E</span>, and their source <span class="mk">F</span>.</li><li data-n="8."><span class="verb">VERIFY</span> the result card <span class="mk">G</span>: pressure and density altitude, head/crosswind against the limit, distances required and margin.</li></ol>
+<ol class="steps"><li data-n="3."><span class="verb">SELECT</span> each tab <span class="mk">A</span> in turn and carry out items 4 to 8.</li><li data-n="4."><span class="verb">SELECT</span> the runway <span class="mk">B</span>. No runway is pre-selected: select it from the wind of the day.</li><li data-n="5."><span class="verb">VERIFY</span> the elevation <span class="mk">C</span> and the runway heading.</li><li data-n="6."><span class="verb">CROSS-CHECK</span> TORA and TODA (LDA for landing) <span class="mk">D</span> with the AIP. They are pre-filled with the physical runway length.</li><li data-n="7."><span class="verb">VERIFY</span> QNH, temperature, wind and gust <span class="mk">E</span>, and their source <span class="mk">F</span>. An empty <b>Wind From</b> means variable wind (VRB).</li><li data-n="8."><span class="verb">VERIFY</span> the result card <span class="mk">G</span>: pressure and density altitude, head/crosswind against the limit, distances required and margin.</li></ol>
 <figure class="fig wide">
   <div class="fig-id">Figure 3.13 &ndash; Take-off and Landing Data – DEP Tab</div>
   <div class="fig-frame"><img src="data/manuale/fig/f3-13.jpg" width="1579" height="1290" alt="Take-off and Landing Data – DEP Tab"></div>
@@ -353,8 +353,11 @@
 <tr><td>Grass runway</td><td>AFM grass increment</td><td>Applied when &ldquo;Grass, dry&rdquo; is selected</td></tr>
 <tr><td>Landing mass</td><td>Landing table published at 1157 kg only</td><td>Conservative at lower masses</td></tr>
 <tr><td>Touch and go</td><td>Computed with the take-off mass</td><td>Conservative</td></tr>
-<tr><td>Headwind credit</td><td>Limited to the range of the AFM table / note</td><td>Grey advisory when limited</td></tr>
-<tr><td>V-speeds</td><td>AFM table, no interpolation, conservative rounding</td><td>&mdash;</td></tr>
+<tr><td>Headwind credit</td><td>Limited to the range of the AFM table / note; mean wind, not the gust</td><td>Grey advisory when limited</td></tr>
+<tr><td>Gusts</td><td>Crosswind limit checked against the gust component</td><td>Red warning above 20 kt (T/O) / 15 kt (LDG)</td></tr>
+<tr><td>Variable wind (VRB)</td><td>No headwind credit; crosswind taken as the full wind or gust speed</td><td>Amber advisory: it can also be a tailwind</td></tr>
+<tr><td>No runway selected</td><td>Wind not applied, distances for zero wind</td><td>Amber advisory</td></tr>
+<tr><td>V-speeds</td><td>AFM tables, linear interpolation by mass (and altitude for VY), no extrapolation</td><td>&mdash;</td></tr>
 <tr><td>Weather for performance</td><td>Own METAR; nearest station within 30 NM on request; otherwise ISA standard values</td><td>Standard values flagged in red</td></tr>
 </tbody></table>
 <h2 id="s5-3"><span class="n">5.3</span>Fuel planning as implemented</h2>

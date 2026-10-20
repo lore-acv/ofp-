@@ -420,7 +420,7 @@ A(steps([
   ['SELECT', 'the runway [B]. No runway is pre-selected: select it from the wind of the day.'],
   ['VERIFY', 'the elevation [C] and the runway heading.'],
   ['CROSS-CHECK', 'TORA and TODA (LDA for landing) [D] with the AIP. They are pre-filled with the physical runway length.'],
-  ['VERIFY', 'QNH, temperature and wind [E], and their source [F].'],
+  ['VERIFY', 'QNH, temperature, wind and gust [E], and their source [F]. An empty **Wind From** means variable wind (VRB).'],
   ['VERIFY', 'the result card [G]: pressure and density altitude, head/crosswind against the limit, distances required and margin.'],
 ], 3));
 A(figure(3, 'f3-13.jpg', 'Take-off and Landing Data – DEP Tab',
@@ -611,8 +611,11 @@ A(`<table class="std lim"><thead><tr><th>Item</th><th>Limitation</th><th>Effect<
 <tr><td>Grass runway</td><td>AFM grass increment</td><td>Applied when &ldquo;Grass, dry&rdquo; is selected</td></tr>
 <tr><td>Landing mass</td><td>Landing table published at 1157 kg only</td><td>Conservative at lower masses</td></tr>
 <tr><td>Touch and go</td><td>Computed with the take-off mass</td><td>Conservative</td></tr>
-<tr><td>Headwind credit</td><td>Limited to the range of the AFM table / note</td><td>Grey advisory when limited</td></tr>
-<tr><td>V-speeds</td><td>AFM table, no interpolation, conservative rounding</td><td>&mdash;</td></tr>
+<tr><td>Headwind credit</td><td>Limited to the range of the AFM table / note; mean wind, not the gust</td><td>Grey advisory when limited</td></tr>
+<tr><td>Gusts</td><td>Crosswind limit checked against the gust component</td><td>Red warning above 20 kt (T/O) / 15 kt (LDG)</td></tr>
+<tr><td>Variable wind (VRB)</td><td>No headwind credit; crosswind taken as the full wind or gust speed</td><td>Amber advisory: it can also be a tailwind</td></tr>
+<tr><td>No runway selected</td><td>Wind not applied, distances for zero wind</td><td>Amber advisory</td></tr>
+<tr><td>V-speeds</td><td>AFM tables, linear interpolation by mass (and altitude for VY), no extrapolation</td><td>&mdash;</td></tr>
 <tr><td>Weather for performance</td><td>Own METAR; nearest station within 30 NM on request; otherwise ISA standard values</td><td>Standard values flagged in red</td></tr>
 </tbody></table>`);
 A(h2('5.3', 'Fuel planning as implemented'));
