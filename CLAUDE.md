@@ -41,6 +41,14 @@ landing page: non si pescano nuove direzioni visive e non si cambia l'identita'
 del sito senza una richiesta esplicita di redesign. Si usa su richiesta, per
 revisioni o nuove schermate.
 
+### PRODUCT.md e DESIGN.md
+
+Nella radice del repository: `PRODUCT.md` dice per chi e' il sito, in che
+situazione si usa e i principi di prodotto (primo fra tutti: nessun dato
+dubbio passa in silenzio); `DESIGN.md` descrive il sistema grafico attuale con i
+token reali di `ofp.css`. Si leggono prima di ogni lavoro sull'interfaccia e si
+aggiornano quando il sistema cambia.
+
 ### Ordine di precedenza
 
 Prima le parole dell'utente, poi le regole di questo file (animazioni e tocco
