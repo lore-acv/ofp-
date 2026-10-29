@@ -21,6 +21,18 @@ almeno:
 Si usano i token di `ofp.css` (colori, raggi, ombre, durate), e il risultato
 si controlla in tema scuro, tema chiaro e su telefono prima di pubblicarlo.
 
+### Impeccable
+
+In `.claude/skills/impeccable` c'e' anche la skill Impeccable (Paul Bakaus),
+per revisioni e rifiniture di interfaccia: `/impeccable critique`, `audit`,
+`polish`, `harden`, `clarify` e gli altri comandi elencati in
+`.claude/skills/README.md`. Si usa insieme alle skill di Kowalski. Dove le due
+danno indicazioni diverse su animazioni, curve, durate e comportamento al
+tocco, valgono le regole di Kowalski scritte sopra; per il resto (gerarchia,
+tipografia, colore, testi, accessibilita') Impeccable e' il riferimento. Il
+sito resta un'interfaccia di lavoro (modalita' "Operate"): precisione e
+sobrieta', niente effetti da landing page.
+
 ## Pubblicazione
 
 `main` va in produzione su Cloudflare Pages: ci si pubblica solo su richiesta

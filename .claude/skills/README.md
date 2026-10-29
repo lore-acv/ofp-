@@ -29,3 +29,30 @@ Lasciate fuori perche' non riguardano questo sito: `write-swift` (Swift),
 
 Per aggiornarle: ricopiare le cartelle dal repository originale e aggiornare
 qui il commit.
+
+## Da pbakaus/impeccable
+
+Copiata da <https://github.com/pbakaus/impeccable>, commit `5e745ac` (skill 4.8.0),
+licenza Apache 2.0 (`LICENSE-impeccable`, note di terze parti in
+`NOTICE-impeccable.md`). E' una skill sola, `impeccable`, con sottocomandi:
+
+| Gruppo | Comandi |
+|---|---|
+| Costruire | `shape` (progetta prima di scrivere codice), `init` (PRODUCT.md), `document` (DESIGN.md dal codice), `extract` (token e componenti) |
+| Valutare | `critique` (revisione UX con punteggi euristici), `audit` (accessibilita', prestazioni, responsive) |
+| Rifinire | `polish`, `bolder`, `quieter`, `distill`, `harden` (errori, casi limite), `onboard` (primo avvio, stati vuoti) |
+| Arricchire | `animate`, `colorize`, `typeset`, `layout`, `delight`, `overdrive` |
+| Adattare | `adapt`, `clarify` (testi dell'interfaccia), `optimize` |
+
+Si invoca con `/impeccable <comando> [target]`, per esempio
+`/impeccable critique import.html`. Gli agenti di supporto stanno in
+`../agents/impeccable-*.md`.
+
+Il comando `scripts/impeccable` della skill scarica al primo uso un eseguibile
+dalle release GitHub del progetto (verificato con `engine-checksums.txt`).
+L'**hook** che il progetto propone (controllo automatico dopo ogni modifica a
+un file di interfaccia) **non e' installato**: girerebbe da solo a ogni Edit e
+a fine turno. Si aggiunge, se serve, con `npx impeccable install`.
+
+Per aggiornarla: ricopiare `.claude/skills/impeccable` e `.claude/agents/`
+dal repository originale e aggiornare qui il commit.
