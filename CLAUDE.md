@@ -33,6 +33,20 @@ tipografia, colore, testi, accessibilita') Impeccable e' il riferimento. Il
 sito resta un'interfaccia di lavoro (modalita' "Operate"): precisione e
 sobrieta', niente effetti da landing page.
 
+### Taste Skill
+
+C'e' anche `design-taste-frontend` (Taste Skill di Leonxlnx). Per questo sito
+vale il suo percorso per le schermate di lavoro (app screens), non quello delle
+landing page: non si pescano nuove direzioni visive e non si cambia l'identita'
+del sito senza una richiesta esplicita di redesign. Si usa su richiesta, per
+revisioni o nuove schermate.
+
+### Ordine di precedenza
+
+Prima le parole dell'utente, poi le regole di questo file (animazioni e tocco
+secondo Kowalski), poi il sistema esistente in `ofp.css`, poi Impeccable e
+infine la Taste Skill.
+
 ## Pubblicazione
 
 `main` va in produzione su Cloudflare Pages: ci si pubblica solo su richiesta

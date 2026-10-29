@@ -56,3 +56,20 @@ a fine turno. Si aggiunge, se serve, con `npx impeccable install`.
 
 Per aggiornarla: ricopiare `.claude/skills/impeccable` e `.claude/agents/`
 dal repository originale e aggiornare qui il commit.
+
+## Da Leonxlnx/taste-skill
+
+Copiata da <https://github.com/Leonxlnx/taste-skill>, commit `12af471` (versione
+2.1.5), licenza MIT (`LICENSE-taste-skill`), nella cartella
+`design-taste-frontend` come indica il suo README.
+
+| Skill | Cosa fa |
+|---|---|
+| `design-taste-frontend` | Direzione artistica contro l'aspetto "fatto dall'IA": per i siti pesca fra 20 direzioni studiate su 247 siti premiati, per le schermate di lavoro (dashboard, impostazioni) ha un percorso e regole proprie; controlla la pagina in un browser vero a tre larghezze e corregge sugli screenshot |
+
+Gli script (`scripts/*.mjs`) vogliono Node 22 e Chrome o Chromium; i file di
+lavoro finiscono in `.taste-skill/`, escluso da git. Una costruzione completa
+richiede 30-45 minuti: si usa su richiesta, non per i ritocchi.
+
+Per aggiornarla: ricopiare `skills/taste-skill` del repository originale in
+`design-taste-frontend` e aggiornare qui il commit.
