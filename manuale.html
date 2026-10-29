@@ -12,15 +12,21 @@
   logica fissa e si ingrandisce o rimpicciolisce intero: l'impaginazione non
   cambia quando cambia la finestra, cambia solo la scala.
 
-  La girata e' di StPageFlip (vendor/page-flip.browser.js, MIT): la pagina si
-  piega seguendo il dito o il mouse, con le ombre della curvatura.
+  La girata e' del motore di sfoglia.js: il foglio si incurva seguendo il dito,
+  con la luce e le ombre della sua inclinazione (le note sono nel file).
+
+  La cornice e' l'interfaccia del sito (DESIGN.md): ciano per cio' che si
+  comanda, magenta per dove si e' (la sezione in lettura nell'indice e nella
+  barra di scorrimento). La carta resta carta in entrambi i temi; il suo segno
+  e' quello dei manuali tecnici stampati: il numero di sezione in un blocco blu
+  all'apertura del capitolo e nella linguetta sul taglio delle pagine.
 
   La pagina vive da sola (manuale.html#p=12, manuale.html#s3-2) e dentro la
   pagina di import, in un riquadro (?embed=1): li' "Close" chiede alla pagina
   madre di chiudere, e NavLog e briefing gia' caricati restano dove sono.
 -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OFP C172 FR — User Manual</title>
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="ofp.css">
@@ -39,100 +45,187 @@
   @font-face{font-family:'PlexM';font-weight:400;font-display:block;src:url(data/manuale/fonts/IBMPlexMono-400.woff2) format('woff2')}
   @font-face{font-family:'PlexM';font-weight:600;font-display:block;src:url(data/manuale/fonts/IBMPlexMono-600.woff2) format('woff2')}
 
-  :root{--tocw:20rem;--ease:cubic-bezier(.32,.72,0,1)}   /* curva da cassetto: l'indice e la lente entrano come un pannello */
-  body{height:100vh;height:100dvh}
+  :root{--tocw:21rem;--navy:#1f3a5f;--ruggine:#c2410c}
+  ::selection{background:color-mix(in srgb,var(--accent-2) 32%,transparent)}
 
   /* =============================== barra ================================ */
-  .fb-bar{display:flex;align-items:center;gap:.5rem;padding:.55rem .8rem;background:var(--panel-2);
-    border-bottom:1px solid var(--panel-line);flex:0 0 auto;min-width:0;position:relative;z-index:40}
-  .fb-bar .brand{font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
-  .fb-bar .brand span{color:var(--txt-dim);font-weight:500}
-  .fb-ico{width:var(--tap);height:var(--tap);padding:0;display:inline-flex;align-items:center;justify-content:center;
-    border:1px solid var(--panel-line);background:var(--field);color:var(--txt);border-radius:.5rem;cursor:pointer;
-    flex:0 0 auto;text-decoration:none;transition:background .2s,border-color .2s,color .2s}
+  .fb-bar{display:flex;align-items:center;gap:.5rem;padding:.5rem max(.75rem,env(safe-area-inset-right)) .5rem max(.75rem,env(safe-area-inset-left));
+    padding-top:max(.5rem,env(safe-area-inset-top));background:var(--panel-2);border-bottom:1px solid var(--panel-line);
+    flex:0 0 auto;min-width:0;position:relative;z-index:40}
+  .fb-dove{display:flex;flex-direction:column;justify-content:center;min-width:0;flex:1 1 auto;padding-left:.25rem;line-height:1.25}
+  .fb-dove b{font-size:.95rem;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fb-dove span{font-size:.8rem;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+  .fb-ico{width:var(--tap);height:var(--tap);padding:0;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+    border:1px solid var(--panel-line);background:var(--field);color:var(--txt);border-radius:var(--r-md);cursor:pointer;
+    flex:0 0 auto;text-decoration:none;font:inherit;font-size:.88rem;font-weight:600;
+    touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+    transition:transform var(--t-press) var(--ease-out),border-color var(--t-fast) ease,background-color var(--t-fast) ease,color var(--t-fast) ease}
+  .fb-ico.largo{width:auto;padding:0 .9rem 0 .75rem}
+  .fb-ico:active{transform:scale(.96)}
   .fb-ico[hidden]{display:none}
-  .fb-ico:focus-visible,.fb-toc a:focus-visible,.fb-nav:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
-  .fb-ico svg,.fb-nav svg,.fb-zoom-x svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .fb-ico[aria-pressed="true"]{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
-  .fb-pag{display:flex;align-items:center;gap:.35rem;font-size:.9rem;color:var(--txt-dim);white-space:nowrap;flex:0 0 auto}
-  .fb-pag input{width:4.4rem;height:2.3rem;text-align:center;font:inherit;color:var(--txt);background:var(--field);
-    border:1px solid var(--panel-line);border-radius:.4rem}
-  .fb-pag input:focus{outline:2px solid var(--accent-2);outline-offset:1px}
-  .fb-sep{width:1px;align-self:stretch;background:var(--panel-line);margin:0 .15rem}
+  .fb-ico:focus-visible,.fb-toc a:focus-visible,.fb-nav:focus-visible,.fb-scrub:focus-visible,.fb-pag input:focus-visible,.fb-toc-x:focus-visible{outline:none;box-shadow:var(--ring)}
+  .fb-ico svg,.fb-nav svg,.fb-zoom-x svg,.fb-toc-x svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+  .fb-ico[aria-pressed="true"]{background:color-mix(in srgb,var(--accent-2) 16%,var(--field));border-color:var(--accent-2);color:var(--txt)}
+  .fb-pag{display:flex;align-items:center;gap:.4rem;font-size:.88rem;color:var(--txt-dim);white-space:nowrap;flex:0 0 auto;font-variant-numeric:tabular-nums}
+  .fb-pag input{width:4.6rem;height:var(--tap);box-sizing:border-box;text-align:center;font:inherit;font-size:1rem;font-weight:600;color:var(--txt);
+    background:var(--field);border:1px solid var(--panel-line);border-radius:var(--r-sm);font-variant-numeric:tabular-nums}
+  .fb-sep{width:1px;align-self:stretch;margin:.35rem .15rem;background:var(--panel-line)}
 
   /* ============================ indice laterale ========================== */
-  .fb-main{flex:1 1 auto;position:relative;min-height:0;overflow:hidden}
-  .fb-toc{position:absolute;left:0;top:0;bottom:0;width:var(--tocw);max-width:88vw;z-index:30;
-    background:var(--panel-bg);border-right:1px solid var(--panel-line);overflow:auto;-webkit-overflow-scrolling:touch;
-    padding:.7rem 0 1.6rem;transform:translateX(-102%);visibility:hidden;
-    transition:transform .38s var(--ease),visibility 0s linear .38s,box-shadow .38s var(--ease)}
-  .fb-main.toc-open .fb-toc{transform:none;visibility:visible;transition:transform .38s var(--ease),visibility 0s,box-shadow .38s var(--ease)}
-  .fb-toc h2{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);margin:.4rem 1.1rem .7rem;font-weight:700}
+  .fb-main{flex:1 1 auto;position:relative;min-height:0;overflow:hidden;background:var(--stage-bg)}
+  .fb-main::before{content:"";position:absolute;inset:0;pointer-events:none;background:var(--atmosfera)}
+  .fb-toc{position:absolute;left:0;top:0;bottom:0;width:var(--tocw);max-width:88vw;z-index:30;box-sizing:border-box;
+    background:var(--panel-bg);border-right:1px solid var(--panel-line);display:flex;flex-direction:column;
+    transform:translateX(-102%);visibility:hidden;
+    transition:transform .34s var(--ease-drawer),visibility 0s linear .34s}
+  .fb-main.toc-open .fb-toc{transform:none;visibility:visible;transition:transform .34s var(--ease-drawer),visibility 0s}
+  .fb-toc-h{display:flex;align-items:center;gap:.5rem;padding:.9rem .9rem .6rem 1.15rem;flex:0 0 auto}
+  .fb-toc-h h2{flex:1 1 auto;margin:0;font-size:1.05rem;font-weight:650}
+  .fb-toc-h span{color:var(--txt-dim);font-size:.82rem;font-variant-numeric:tabular-nums}
+  .fb-toc-x{width:var(--tap);height:var(--tap);display:none;align-items:center;justify-content:center;border:0;background:transparent;color:var(--txt-dim);border-radius:var(--r-md);cursor:pointer}
+  .fb-toc-corpo{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 .55rem 1.4rem;
+    scrollbar-width:thin;scrollbar-color:var(--panel-line) transparent}
   .fb-toc ol{list-style:none;margin:0;padding:0}
-  .fb-toc a{display:flex;align-items:baseline;gap:.55rem;padding:.45rem 1.1rem;color:var(--txt);text-decoration:none;
-    font-size:.9rem;line-height:1.35;border-left:3px solid transparent;transition:background .2s,border-color .2s}
-  .fb-toc a.l1{font-weight:700;margin-top:.4rem}
-  .fb-toc a.l2{padding-left:2.2rem;color:var(--txt-dim)}
-  .fb-toc a .n{flex:0 0 auto;min-width:2.1rem;color:var(--accent);font-weight:700;font-size:.8rem}
-  .fb-toc a.l1 .n{min-width:auto;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
-  .fb-toc a .t{flex:1 1 auto}
-  .fb-toc a .p{flex:0 0 auto;font-variant-numeric:tabular-nums;color:var(--txt-dim);font-weight:600;font-size:.82rem}
-  .fb-toc a[aria-current="true"]{border-left-color:var(--accent-2);background:var(--panel-2);color:var(--txt)}
-  .fb-scrim{position:absolute;inset:0;z-index:25;background:rgba(0,0,0,.38);opacity:0;pointer-events:none;transition:opacity .38s var(--ease)}
-  /* schermo largo: l'indice spinge il libro, che si ridimensiona insieme a lui */
+  .fb-toc a{position:relative;display:grid;grid-template-columns:2.4rem 1fr auto;align-items:baseline;column-gap:.4rem;
+    padding:.5rem .6rem;color:var(--txt);text-decoration:none;font-size:.9rem;line-height:1.35;border-radius:var(--r-sm);
+    -webkit-touch-callout:none;transition:background-color var(--t-fast) ease}
+  .fb-toc a.l1{margin-top:.55rem;font-weight:650}
+  .fb-toc a.l1.fm{margin-top:.15rem}
+  .fb-toc a.l2{color:var(--txt-dim)}
+  .fb-toc a .n{font-variant-numeric:tabular-nums;color:var(--txt-dim);font-weight:600;font-size:.84rem}
+  .fb-toc a.l1 .n{display:inline-flex;align-items:center;justify-content:center;justify-self:start;min-width:1.5rem;height:1.5rem;padding:0 .3rem;
+    box-sizing:border-box;border-radius:.3rem;background:var(--navy);color:#fff;font-size:.78rem;font-weight:700;align-self:center}
+  .fb-toc a.l1.fm .n{background:transparent}
+  .fb-toc a .p{font-variant-numeric:tabular-nums;color:var(--txt-dim);font-size:.82rem;font-weight:500}
+  /* dove si e': magenta, come la tratta attiva sul GPS */
+  .fb-toc a[aria-current="true"]{background:color-mix(in srgb,var(--attivo) 13%,transparent);color:var(--txt)}
+  .fb-toc a[aria-current="true"]::before{content:"";position:absolute;left:-.3rem;top:50%;width:.4rem;height:.4rem;margin-top:-.2rem;border-radius:50%;background:var(--attivo)}
+  .fb-toc a[aria-current="true"] .p{color:var(--txt)}
+  .fb-scrim{position:absolute;inset:0;z-index:25;background:rgba(4,8,14,.42);opacity:0;pointer-events:none;transition:opacity .3s var(--ease-out)}
+  html[data-tema="chiaro"] .fb-scrim{background:rgba(48,36,20,.26)}
   @media (min-width:1100px){
     .fb-main.toc-open .fb-stage{padding-left:var(--tocw)}
-    .fb-main.toc-open .fb-toc{box-shadow:none}
   }
-  /* schermo stretto: l'indice scorre sopra il libro, con un velo dietro */
   @media (max-width:1099.98px){
-    .fb-main.toc-open .fb-toc{box-shadow:0 0 34px rgba(0,0,0,.35)}
+    .fb-main.toc-open .fb-toc{box-shadow:var(--ombra-pop)}
     .fb-main.toc-open .fb-scrim{opacity:1;pointer-events:auto}
+    .fb-toc-x{display:inline-flex}
   }
 
   /* ================================ scena =============================== */
   .fb-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    transition:padding-left .38s var(--ease);user-select:none;-webkit-user-select:none}
+    transition:padding-left .34s var(--ease-drawer);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
   .fb-box{position:relative;flex:0 0 auto}
-  .fb-box.cambio{animation:fbCambio .42s var(--ease)}
-  @keyframes fbCambio{from{opacity:.15;transform:scale(.965)}to{opacity:1;transform:none}}
-  #fbBook{width:100%;height:100%}
-  #fbBook .stf__wrapper{position:relative;width:100%;height:100%}
-  .fb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:8;width:2.7rem;height:4.6rem;display:flex;
-    align-items:center;justify-content:center;border:1px solid var(--panel-line);background:var(--panel-bg);color:var(--txt);
-    border-radius:.55rem;cursor:pointer;opacity:.9;transition:opacity .2s,border-color .2s}
-  .fb-nav[disabled]{opacity:.25;cursor:default}
-  .fb-nav.prev{left:.6rem} .fb-nav.next{right:.6rem}
-  .fb-main.toc-open .fb-nav.prev{left:calc(var(--tocw) + .6rem)}
-  @media (max-width:1099.98px){ .fb-main.toc-open .fb-nav.prev{left:.6rem} }
-  .fb-nav{transition:left .38s var(--ease),opacity .2s}
+  .fb-box.cambio{animation:fbCambio .26s var(--ease-out)}
+  @keyframes fbCambio{from{opacity:.4;transform:scale(.985)}to{opacity:1;transform:none}}
+  .fb-nav{position:absolute;top:50%;z-index:8;width:3rem;height:3rem;margin-top:-1.5rem;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--panel-line);background:var(--panel-bg);color:var(--txt);border-radius:50%;cursor:pointer;
+    box-shadow:var(--ombra-scheda);touch-action:manipulation;
+    transition:transform var(--t-press) var(--ease-out),opacity var(--t-fast) ease,border-color var(--t-fast) ease,left .34s var(--ease-drawer)}
+  .fb-nav:active{transform:scale(.94)}
+  .fb-nav[disabled]{opacity:0;pointer-events:none}
+  .fb-nav.prev{left:1rem} .fb-nav.next{right:1rem}
+  .fb-main.toc-open .fb-nav.prev{left:calc(var(--tocw) + 1rem)}
+  @media (max-width:1099.98px){ .fb-main.toc-open .fb-nav.prev{left:1rem} }
   .fb-telefono .fb-nav{display:none}
   .fb-stato{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
     color:var(--txt-dim);padding:2rem;line-height:1.6}
   .fb-stato a{color:var(--accent-2)}
 
-  .fb-foot{flex:0 0 auto;display:flex;align-items:center;gap:.9rem;padding:.4rem 1rem .6rem;background:var(--panel-2);
-    border-top:1px solid var(--panel-line)}
-  .fb-foot input[type=range]{flex:1 1 auto;accent-color:var(--accent-2);min-width:0}
-  .fb-foot .sez{font-size:.8rem;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48%}
+  /* ====================== barra di scorrimento a sezioni ================== */
+  .fb-foot{position:relative;z-index:45;flex:0 0 auto;display:flex;align-items:center;gap:1rem;padding:.35rem max(1.1rem,env(safe-area-inset-right)) max(.45rem,env(safe-area-inset-bottom)) max(1.1rem,env(safe-area-inset-left));
+    background:var(--panel-2);border-top:1px solid var(--panel-line)}
+  .fb-scrub{position:relative;flex:1 1 auto;height:var(--tap);cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;border-radius:var(--r-sm)}
+  .fb-traccia{position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;display:flex;gap:3px}
+  .fb-seg{position:relative;height:100%;border-radius:3px;background:color-mix(in srgb,var(--txt) 16%,transparent);overflow:hidden}
+  .fb-seg i{position:absolute;inset:0;border-radius:3px;background:color-mix(in srgb,var(--txt) 42%,transparent);transform-origin:0 0;transform:scaleX(0)}
+  .fb-seg.att i{background:var(--attivo)}
+  /* il pomello segue il dito 1:1 (translate, senza transizione); solo la
+     pressione ha la sua piccola risposta (scale) */
+  .fb-pomo{position:absolute;top:50%;left:0;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--accent-2);
+    box-shadow:0 0 0 4px color-mix(in srgb,var(--accent-2) 22%,transparent),0 2px 6px rgba(0,0,0,.35);pointer-events:none;
+    transition:scale var(--t-press) var(--ease-out)}
+  .fb-scrub.tira .fb-pomo{scale:1.15}
+  .fb-bolla{position:absolute;bottom:calc(100% + .35rem);left:0;transform:translateX(-50%);padding:.45rem .7rem;border-radius:var(--r-md);
+    background:var(--panel-bg);border:1px solid var(--panel-line);box-shadow:var(--ombra-pop);font-size:.82rem;white-space:nowrap;
+    pointer-events:none;opacity:0;transition:opacity var(--t-fast) var(--ease-out);font-variant-numeric:tabular-nums;max-width:min(26rem,80vw);overflow:hidden;text-overflow:ellipsis}
+  .fb-bolla b{font-weight:650;margin-right:.45rem}
+  .fb-bolla span{color:var(--txt-dim)}
+  .fb-scrub.tira .fb-bolla,.fb-scrub.sopra .fb-bolla{opacity:1}
   @media (max-width:640px){
-    .fb-bar{gap:.35rem;padding:.45rem .5rem}
-    .fb-bar .brand b,.fb-bar .brand span,.fb-sep,.fb-solo-largo{display:none}
-    .fb-foot .sez{display:none}
+    .fb-bar{gap:.4rem}
+    .fb-solo-largo,.fb-sep{display:none!important}
+    .fb-dove b{display:none}
+    .fb-dove span{font-size:.86rem;color:var(--txt)}
+    .fb-pag input{width:3.9rem}
+    #fbScarica,#fbTot{display:none}
   }
 
   /* ============================== lente ================================= */
-  .fb-zoom{position:fixed;inset:0;z-index:100;background:rgba(8,12,18,.97);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:flex;flex-direction:column;
-    opacity:0;pointer-events:none;transition:opacity .25s var(--ease)}
-  .fb-zoom.aperta{opacity:1;pointer-events:auto}
-  .fb-zoom-bar{display:flex;align-items:center;gap:.8rem;padding:.6rem .9rem;color:#e8edf3;font-size:.92rem;font-weight:600}
+  .fb-zoom{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;visibility:hidden;pointer-events:none}
+  .fb-zoom::before{content:"";position:absolute;inset:0;background:rgba(6,10,16,.94);opacity:0;transition:opacity .22s var(--ease-out)}
+  .fb-zoom.aperta{visibility:visible;pointer-events:auto}
+  .fb-zoom.aperta::before{opacity:1}
+  .fb-zoom-bar{position:relative;display:flex;align-items:center;gap:.8rem;padding:max(.6rem,env(safe-area-inset-top)) .9rem .6rem;color:#e8edf3;font-size:.92rem;font-weight:600;
+    opacity:0;transition:opacity .22s var(--ease-out)}
+  .fb-zoom.aperta .fb-zoom-bar,.fb-zoom.aperta .fb-zoom-hint{opacity:1}
   .fb-zoom-bar span{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .fb-zoom-x{width:var(--tap);height:var(--tap);border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:.5rem;
-    display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
-  .fb-zoom-area{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;touch-action:pan-x pan-y pinch-zoom}
-  .fb-zoom-area img{margin:auto;display:block;max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in;background:#fff;border-radius:4px}
+  .fb-zoom-x{width:var(--tap);height:var(--tap);border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04);color:#fff;border-radius:var(--r-md);
+    display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:transform var(--t-press) var(--ease-out)}
+  .fb-zoom-x:active{transform:scale(.95)}
+  .fb-zoom-x:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(66,210,240,.45)}
+  .fb-zoom-area{position:relative;flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;touch-action:pan-x pan-y pinch-zoom;padding:0 .75rem}
+  .fb-zoom-area img{margin:auto;display:block;max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in;background:#fff;border-radius:6px;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
   .fb-zoom-area.piena img{max-width:none;max-height:none;cursor:zoom-out}
-  .fb-zoom-hint{color:#aeb8c4;font-size:.78rem;text-align:center;padding:.4rem 0 .7rem}
+  .fb-zoom-hint{position:relative;color:#aeb8c4;font-size:.8rem;text-align:center;padding:.45rem 0 max(.75rem,env(safe-area-inset-bottom));opacity:0;transition:opacity .22s var(--ease-out)}
+
+  /* ============================== il libro ============================== */
+  /* Il taglio, le ombre e il foglio in volo: vedi sfoglia.js */
+  .lb{position:relative;touch-action:pan-y pinch-zoom;transition:translate .6s var(--ease-in-out)}
+  .lb.fermo-subito{transition:none}
+  .lb-fermo{position:absolute;top:0;bottom:0;overflow:hidden;z-index:2}
+  .lb.doppia .lb-fermo{width:50%} .lb.doppia .lb-fermo.dx{left:50%} .lb.doppia .lb-fermo.sx{left:0}
+  .lb.singola .lb-fermo{width:100%;left:0} .lb.singola .lb-fermo.sx{display:none}
+  .lb-fermo>.pg{position:absolute;inset:0}
+  .lb img,.lb a{-webkit-user-drag:none}
+  .lb-ombra{position:absolute;top:0;bottom:0;z-index:0;pointer-events:none;border-radius:2px;
+    box-shadow:0 1px 2px rgba(0,0,0,.28),0 10px 22px -8px rgba(0,0,0,.45),0 34px 70px -24px rgba(0,0,0,.6)}
+  html[data-tema="chiaro"] .lb-ombra{box-shadow:0 1px 2px rgba(62,48,26,.18),0 10px 22px -10px rgba(62,48,26,.32),0 34px 70px -28px rgba(62,48,26,.42)}
+  .lb.doppia .lb-ombra{width:50%} .lb.doppia .lb-ombra.dx{left:50%} .lb.doppia .lb-ombra.sx{left:0}
+  .lb.singola .lb-ombra{left:0;width:100%} .lb.singola .lb-ombra.sx{display:none}
+  .lb-ombra[hidden],.lb-taglio[hidden]{display:none}
+  /* lo spessore del libro: i bordi delle pagine, uno sull'altro */
+  .lb-taglio{position:absolute;top:3px;bottom:3px;z-index:1;pointer-events:none;
+    background:repeating-linear-gradient(to right,#f7f5f0 0 1px,#d9d4ca 1px 1.6px);box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .lb-taglio.dx{left:100%;border-radius:0 2px 2px 0}
+  .lb-taglio.sx{right:100%;border-radius:2px 0 0 2px}
+  .lb-segno{position:absolute;width:100%;background:color-mix(in srgb,var(--navy) 78%,#d9d4ca);pointer-events:auto;cursor:pointer}
+  .lb-taglio.dx .lb-segno{left:0;border-radius:0 2px 2px 0}
+  .lb-taglio.sx .lb-segno{right:0;border-radius:2px 0 0 2px}
+  .lb-segno::after{content:"";position:absolute;inset:-4px -10px}
+  .lb-velo{position:absolute;top:0;bottom:0;overflow:hidden;z-index:3;pointer-events:none}
+  .lb.doppia .lb-velo{width:50%} .lb.doppia .lb-velo.dx{left:50%} .lb.doppia .lb-velo.sx{left:0}
+  .lb.singola .lb-velo{left:0;width:100%} .lb.singola .lb-velo.sx{display:none}
+  .lb-cast{position:absolute;top:0;bottom:0;left:0;width:100px;transform-origin:0 0;opacity:0;will-change:transform,opacity;
+    background:linear-gradient(to right,rgba(28,22,15,.5),rgba(28,22,15,.24) 28%,rgba(28,22,15,.07) 64%,rgba(28,22,15,0))}
+  .lb-gola{position:absolute;top:0;bottom:0;left:50%;width:22%;margin-left:-11%;z-index:3;pointer-events:none;opacity:0;
+    background:linear-gradient(to right,rgba(28,22,15,0),rgba(28,22,15,.16) 42%,rgba(28,22,15,.22) 50%,rgba(28,22,15,.16) 58%,rgba(28,22,15,0))}
+  .lb.singola .lb-gola{display:none}
+  /* la scena dei fogli sta sotto le pagine vere finche' niente vola: li' sotto
+     i fogli vicini restano gia' disegnati (vedi Sfoglia.scalda) */
+  .lb-scena{position:absolute;inset:0;z-index:1;pointer-events:none;transform-style:preserve-3d}
+  .lb.vola .lb-scena{z-index:4}
+  .lb-aria{position:absolute;left:0;top:0;transform-origin:0 0;transform-style:preserve-3d;--k:1}
+  .lb-foglio{position:absolute;top:0;width:0;height:100%;transform-style:preserve-3d}
+  .lb-str{position:absolute;top:0;height:100%;transform-style:preserve-3d;will-change:transform}
+  .lb-fac{position:absolute;inset:0;overflow:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden;background:#fff}
+  .lb-fac.re{transform:rotateY(180deg)}
+  .lb-fac>.pg{position:absolute;top:0}
+  /* La luce su un livello suo, alto un pixel e allungato: a ogni fotogramma si
+     ridipinge una riga di sfumatura, non il testo, e il livello non pesa in
+     memoria (la sfumatura cambia solo in orizzontale). */
+  .lb-luce{position:absolute;left:0;top:0;width:100%;height:1px;transform-origin:0 0;will-change:transform}
 
   /* ========================= LA PAGINA DEL LIBRO ========================= */
   /* Misure logiche: la pagina si disegna sempre a questa misura e poi si
@@ -141,58 +234,83 @@
   .fmt-phone{--pw:380px;--ph:676px;--pt:16px;--pb:12px;--pe:20px;--pi:20px;--fs:15px;--hh:28px;--fh:26px}
 
   .pg{background:#fff;overflow:hidden}
+  .pg.carta{background:linear-gradient(to left,rgba(40,32,24,.08),rgba(40,32,24,0) 9%) #fcfbf8}
   .pg-in{position:absolute;left:0;top:0;width:var(--pw);height:var(--ph);transform:scale(var(--k,1));transform-origin:0 0;
     display:flex;flex-direction:column;box-sizing:border-box;padding:var(--pt) var(--pe) var(--pb) var(--pi);
-    font:400 var(--fs)/1.6 Inter,system-ui,sans-serif;color:#1b1f24;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    font:400 var(--fs)/1.6 Inter,system-ui,sans-serif;color:#1b1f24;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    font-feature-settings:"cv11","ss01"}
+  .pg ::selection{background:rgba(31,58,95,.18)}
   /* pagina sinistra: piega a destra; destra: piega a sinistra */
   .pg.sx .pg-in{padding-left:var(--pe);padding-right:var(--pi)}
   .pg.dx .pg-in{padding-left:var(--pi);padding-right:var(--pe)}
   /* la piega verso la costola: un'ombra che sfuma, non uno spigolo grigio */
-  .pg.sx{background:linear-gradient(to left,rgba(40,32,24,.11) 0,rgba(40,32,24,.05) 1.6%,rgba(40,32,24,.015) 4.5%,rgba(40,32,24,0) 9%) #fff}
-  .pg.dx{background:linear-gradient(to right,rgba(40,32,24,.11) 0,rgba(40,32,24,.05) 1.6%,rgba(40,32,24,.015) 4.5%,rgba(40,32,24,0) 9%) #fff}
+  .pg.sx{background:linear-gradient(to left,rgba(40,32,24,.12) 0,rgba(40,32,24,.055) 1.6%,rgba(40,32,24,.016) 4.5%,rgba(40,32,24,0) 9%) #fff}
+  .pg.dx{background:linear-gradient(to right,rgba(40,32,24,.12) 0,rgba(40,32,24,.055) 1.6%,rgba(40,32,24,.016) 4.5%,rgba(40,32,24,0) 9%) #fff}
+  /* una pagina sola (iPad in verticale): la costola e' sempre a sinistra */
+  .lb.singola .pg.sx .pg-in{padding-left:var(--pi);padding-right:var(--pe)}
+  .lb.singola .pg.sx{background:linear-gradient(to right,rgba(40,32,24,.09) 0,rgba(40,32,24,.035) 1.6%,rgba(40,32,24,0) 6%) #fff}
+  .lb.singola .pg.dx{background:linear-gradient(to right,rgba(40,32,24,.09) 0,rgba(40,32,24,.035) 1.6%,rgba(40,32,24,0) 6%) #fff}
   .pg-head{flex:0 0 var(--hh);display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
-    border-bottom:1px solid #d5d9e0;padding-bottom:6px;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:#6b7480;font-weight:600}
+    border-bottom:1px solid #dde1e7;padding-bottom:7px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#6b7480;font-weight:600}
   .pg-head span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .pg-head .r{color:#1f3a5f;text-align:right}
+  .pg-head .r{color:var(--navy);text-align:right}
   .pg-body{flex:1 1 auto;min-height:0;overflow:hidden;padding-top:16px;position:relative}
   .pg-foot{flex:0 0 var(--fh);display:flex;align-items:flex-end;justify-content:space-between;
-    border-top:1px solid #d5d9e0;font-size:10.5px;color:#7a828c;letter-spacing:.03em}
-  .pg-foot b{color:#1f3a5f;font-weight:700;font-size:11.5px;font-variant-numeric:tabular-nums}
+    border-top:1px solid #dde1e7;font-size:10.5px;color:#7a828c;letter-spacing:.02em}
+  .pg-foot b{color:var(--navy);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
   .fmt-phone .pg-head{font-size:9.5px} .fmt-phone .pg-foot{font-size:9.5px}
 
+  /* la linguetta della sezione sul taglio esterno, come nei manuali stampati */
+  .pg-tab{position:absolute;top:calc(var(--pt) + var(--hh) + 26px + var(--j) * (var(--ph) - var(--pt) - var(--hh) - var(--fh) - var(--pb) - 52px) / var(--nt));
+    height:calc((var(--ph) - var(--pt) - var(--hh) - var(--fh) - var(--pb) - 52px) / var(--nt) - 6px);width:20px;
+    background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font:700 11.5px Inter,sans-serif;text-decoration:none!important}
+  .pg.dx .pg-tab,.lb.singola .pg .pg-tab{right:0;left:auto;border-radius:3px 0 0 3px}
+  .pg.sx .pg-tab{left:0;border-radius:0 3px 3px 0}
+  .fmt-phone .pg-tab{width:14px;font-size:10px}
+
   /* --- testo --- */
-  .pg-body p{margin:0 0 11px}
+  .pg-body p{margin:0 0 11px;text-wrap:pretty}
   .pg-body b{font-weight:650}
   .pg-body code{font:400 .86em PlexM,monospace;background:#eef1f5;padding:1px 4px;border-radius:3px;white-space:nowrap}
   .pg-body .small{font-size:.84em;color:#5b6470}
-  .pg-body a{color:#c2410c;text-decoration:none;font-weight:600}
+  .pg-body a{color:var(--ruggine);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;text-decoration-color:rgba(194,65,12,.35);font-weight:600}
   .pg-body a *{pointer-events:none}
-  .pg-body h1.sec{display:flex;flex-direction:column;gap:6px;margin:0 0 18px;padding-bottom:12px;border-bottom:3px solid #1f3a5f;font-weight:normal}
-  .pg-body h1.sec .sn{align-self:flex-start;font:700 11px Inter,sans-serif;letter-spacing:.16em;background:#1f3a5f;color:#fff;padding:5px 10px 4px;border-radius:3px}
-  .pg-body h1.sec .st{font:700 25px/1.2 Inter,sans-serif;color:#1f3a5f;letter-spacing:-.01em}
-  .pg-body h1.plain{font:700 25px/1.2 Inter,sans-serif;color:#1f3a5f;margin:0 0 16px;padding-bottom:10px;border-bottom:3px solid #1f3a5f}
-  .pg-body h2{font:700 19px/1.3 Inter,sans-serif;color:#1f3a5f;margin:22px 0 10px;display:flex;gap:10px;align-items:baseline}
-  .pg-body h2 .n{color:#c2410c;min-width:30px}
+  /* apertura di sezione: il numero nel blocco blu, il titolo accanto */
+  .pg-body h1.sec{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:16px;margin:0 0 20px;padding-bottom:16px;
+    border-bottom:2px solid var(--navy);font-weight:normal}
+  .pg-body h1.sec .sn{display:flex;align-items:center;justify-content:center;min-width:52px;height:60px;padding:0 10px;box-sizing:border-box;
+    background:var(--navy);color:#fff;border-radius:5px;font:700 30px/1 Inter,sans-serif;font-variant-numeric:tabular-nums}
+  .pg-body h1.sec .sn-l{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .pg-body h1.sec .st{font:700 25px/1.18 Inter,sans-serif;color:var(--navy);letter-spacing:-.015em;text-wrap:balance}
+  .pg-body h1.plain{font:700 25px/1.2 Inter,sans-serif;color:var(--navy);letter-spacing:-.015em;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid var(--navy)}
+  .pg-body h2{font:700 19px/1.3 Inter,sans-serif;color:var(--navy);letter-spacing:-.008em;margin:26px 0 10px;display:flex;gap:10px;align-items:baseline;text-wrap:balance}
+  .pg-body h2 .n{color:var(--ruggine);min-width:30px;font-variant-numeric:tabular-nums}
   .pg-body > :first-child{margin-top:0}
-  .pg-body h3{font:700 11.5px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#5b6470;margin:18px 0 8px}
+  .pg-body h3{font:700 11.5px Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#5b6470;margin:18px 0 8px}
   .fmt-phone .pg-body h1.sec .st,.fmt-phone .pg-body h1.plain{font-size:21px}
+  .fmt-phone .pg-body h1.sec .sn{min-width:42px;height:48px;font-size:24px}
   .fmt-phone .pg-body h2{font-size:17px}
 
-  .pg-body .verb{font-weight:750;font-size:.8em;letter-spacing:.07em;color:#1f3a5f}
+  .pg-body .verb{font-weight:750;font-size:.8em;letter-spacing:.06em;color:var(--navy)}
   .pg-body ol.steps{list-style:none;margin:0 0 12px;padding:0}
   .pg-body ol.steps li{position:relative;padding:0 0 9px 32px}
-  .pg-body ol.steps li::before{content:attr(data-n);position:absolute;left:0;top:0;width:24px;text-align:right;font-weight:700;color:#c2410c}
+  .pg-body ol.steps li::before{content:attr(data-n);position:absolute;left:0;top:0;width:24px;text-align:right;font-weight:700;color:var(--ruggine);font-variant-numeric:tabular-nums}
   .pg-body ul.bul{margin:0 0 12px;padding-left:20px}
   .pg-body ul.bul li{margin-bottom:6px}
+  .pg-body ul.bul li::marker{color:var(--ruggine)}
   .pg-body .mk{display:inline-flex;align-items:center;justify-content:center;width:1.32em;height:1.32em;border-radius:50%;
-    background:#c2410c;color:#fff;font-weight:700;font-size:.78em;line-height:1;vertical-align:.1em;margin:0 1px;box-shadow:0 0 0 1.5px #fff}
+    background:var(--ruggine);color:#fff;font-weight:700;font-size:.78em;line-height:1;vertical-align:.1em;margin:0 1px;box-shadow:0 0 0 1.5px #fff}
 
-  .pg-body .box{border-left:4px solid;border-radius:0 6px 6px 0;padding:9px 13px 10px;margin:10px 0 14px;font-size:.93em}
-  .pg-body .box-h{font-weight:750;font-size:10.5px;letter-spacing:.16em;margin-bottom:3px}
-  .pg-body .box.warning{border-color:#b42318;background:#fcefed} .pg-body .box.warning .box-h{color:#b42318}
-  .pg-body .box.caution{border-color:#a15c07;background:#fdf5e6} .pg-body .box.caution .box-h{color:#a15c07}
-  .pg-body .box.note{border-color:#3d5470;background:#eef2f6} .pg-body .box.note .box-h{color:#3d5470}
-  .pg-body .final{margin-top:18px;border:2px solid #1f3a5f;border-radius:8px;padding:12px 16px;font-weight:650;color:#1f3a5f;text-align:center}
+  /* avvisi: riquadro intero con filetto sottile e segno disegnato */
+  .pg-body .box{--c:#3d5470;--f:#eef2f6;border:1px solid color-mix(in srgb,var(--c) 34%,transparent);background:var(--f);border-radius:7px;
+    padding:9px 14px 10px;margin:10px 0 14px;font-size:.93em}
+  .pg-body .box-h{display:flex;align-items:center;gap:7px;font-weight:750;font-size:10.5px;letter-spacing:.14em;margin-bottom:3px;color:var(--c)}
+  .pg-body .box-h::before{content:"";width:14px;height:14px;flex:0 0 auto;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .pg-body .box.warning{--c:#b42318;--f:#fcefed;--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5 1.5 21h21L12 2.5Zm-1 6.5h2v6h-2V9Zm0 8h2v2h-2v-2Z'/%3E%3C/svg%3E")}
+  .pg-body .box.caution{--c:#a15c07;--f:#fdf5e6;--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M12 2.5 1.5 21h21L12 2.5Zm0 4.2L19 19H5l7-12.3ZM11 10h2v4.5h-2V10Zm0 6h2v2h-2v-2Z'/%3E%3C/svg%3E")}
+  .pg-body .box.note{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 8h2v7h-2v-7Zm0-4h2v2h-2V6Z'/%3E%3C/svg%3E")}
+  .pg-body .final{margin-top:18px;border:2px solid var(--navy);border-radius:8px;padding:12px 16px;font-weight:650;color:var(--navy);text-align:center}
 
   /* --- tabelle --- */
   /* La pagina e' in modalita' quirks (niente doctype: l'impaginazione e' misurata
@@ -200,39 +318,41 @@
      nel tema scuro il testo delle tabelle diventava quasi bianco sul foglio
      bianco. Il foglio ha i suoi colori, sempre. */
   .pg-in table{color:inherit}
-  .pg-body table{width:100%;border-collapse:collapse;font-size:.86em;line-height:1.42;margin:0 0 14px}
-  .pg-body caption{caption-side:top;text-align:left;font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#5b6470;padding-bottom:6px}
+  .pg-body table{width:100%;border-collapse:collapse;font-size:.86em;line-height:1.42;margin:0 0 14px;font-variant-numeric:tabular-nums}
+  .pg-body caption{caption-side:top;text-align:left;font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#5b6470;padding-bottom:6px}
   .pg-body caption.cont::after{content:"  (cont.)";letter-spacing:0;text-transform:none;font-weight:500}
-  .pg-body th{font-weight:650;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:#fff;background:#1f3a5f;padding:6px 8px}
-  .pg-body td{padding:6px 8px;border-bottom:1px solid #e3e6eb;vertical-align:top}
+  .pg-body th{font-weight:700;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;text-align:left;color:var(--navy);background:#edf1f6;
+    padding:7px 8px 6px;border-bottom:1.5px solid var(--navy)}
+  .pg-body td{padding:6px 8px;border-bottom:1px solid #e5e8ec;vertical-align:top}
   .pg-body table.dt td.fn{font-weight:650;width:34%}
   .pg-body table.dt td:nth-child(2){width:42px;text-align:center}
-  .pg-body table.dt tr.m td{background:#edf1f6}
+  .pg-body table.dt tr.m td{background:#f3f6f9}
   .pg-body .cls{display:inline-block;min-width:22px;text-align:center;font-weight:750;font-size:11px;padding:3px 4px 2px;border-radius:4px;line-height:1}
-  .pg-body .cM{background:#1f3a5f;color:#fff;border:1px solid #1f3a5f}
+  .pg-body .cM{background:var(--navy);color:#fff;border:1px solid var(--navy)}
   .pg-body .cA{color:#1f4f9c;border:1px solid #1f4f9c;background:#fff}
-  .pg-body .cO{color:#7a828c;border:1px solid #b3b9c2;background:#fff}
+  .pg-body .cO{color:#6b7480;border:1px solid #b3b9c2;background:#fff}
   .pg-body table.conv td:first-child{white-space:nowrap;width:1%}
   .pg-body table.conv td.verb{font-size:.82em}
-  .pg-body table.abbr td:first-child{font:600 .92em PlexM,monospace;color:#1f3a5f;width:34%}
+  .pg-body table.abbr td:first-child{font:600 .92em PlexM,monospace;color:var(--navy);width:34%}
   .pg-body table.abbr td{padding:4px 8px}
   .pg-body table.lim td:first-child,.pg-body table.chk td.ci{font-weight:650}
   .pg-body table.chk td.cr{width:58px;font-size:.92em}
   .pg-body table.chk td.cb{width:30px}
-  .pg-body table.chk td.cb::before{content:"";display:inline-block;width:14px;height:14px;border:1.5px solid #1b1f24;border-radius:2px}
+  .pg-body table.chk td.cb::before{content:"";display:inline-block;width:14px;height:14px;border:1.5px solid #1b1f24;border-radius:3px}
 
   /* --- procedura + figura: una sopra l'altra, nella stessa pagina --- */
   .pg-body .split{margin:0 0 6px}
   .pg-body .col-text{margin-bottom:4px}
-  .pg-body figure.fig{margin:6px 0 16px;border:1.5px solid #c9ced6;border-radius:9px;overflow:hidden;background:#fff}
-  .pg-body .fig-id{display:flex;align-items:center;gap:8px;background:#eef2f6;border-bottom:1.5px solid #c9ced6;
-    padding:7px 8px 7px 12px;font-weight:700;font-size:12.5px;color:#1f3a5f;letter-spacing:.01em}
+  .pg-body figure.fig{margin:6px 0 16px;border:1px solid #d5dae1;border-radius:9px;overflow:hidden;background:#fff}
+  .pg-body .fig-id{display:flex;align-items:center;gap:8px;background:#f4f6f9;border-bottom:1px solid #dfe3e9;
+    padding:6px 7px 6px 12px;font-weight:700;font-size:12.5px;color:var(--navy);letter-spacing:.005em}
   .pg-body .fig-id .t{flex:1 1 auto}
-  .pg-body .fig-zoom{flex:0 0 auto;width:30px;height:28px;border:1px solid #b9c2cf;border-radius:6px;background:#fff;color:#1f3a5f;
-    display:inline-flex;align-items:center;justify-content:center;cursor:zoom-in;padding:0}
+  .pg-body .fig-zoom{flex:0 0 auto;width:32px;height:28px;border:1px solid #c3cbd6;border-radius:6px;background:#fff;color:var(--navy);
+    display:inline-flex;align-items:center;justify-content:center;cursor:zoom-in;padding:0;transition:transform .14s cubic-bezier(.23,1,.32,1)}
+  .pg-body .fig-zoom:active{transform:scale(.94)}
   .pg-body .fig-zoom *{pointer-events:none}
   .pg-body .fig-zoom svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .pg-body .fig-frame{background:#f3efe6;display:flex;justify-content:center;padding:8px}
+  .pg-body .fig-frame{background:#f2eee6;display:flex;justify-content:center;padding:8px}
   .pg-body .fig-frame img{display:block;width:auto;height:auto;max-width:100%;max-height:var(--imgmax);border-radius:3px}
   .pg-body figure.doc .fig-frame img{max-height:var(--docmax)}
   .pg-body figcaption{font-size:.8em;font-style:italic;color:#5b6470;padding:7px 12px 2px}
@@ -247,38 +367,43 @@
   /* --- schema del flusso --- */
   .pg-body .flow{display:flex;align-items:center;gap:6px;margin:6px 0 16px;flex-wrap:wrap}
   .pg-body .fl-col{flex:1 1 0;display:flex;flex-direction:column;gap:6px;min-width:96px}
-  .pg-body .fl-h{font-weight:750;font-size:9.5px;letter-spacing:.12em;color:#c2410c;text-align:center}
-  .pg-body .fl-b{border:1.5px solid #1f3a5f;border-radius:6px;padding:7px 6px;text-align:center;font-weight:650;font-size:12px;color:#1f3a5f;line-height:1.3}
+  .pg-body .fl-h{font-weight:750;font-size:9.5px;letter-spacing:.1em;color:var(--ruggine);text-align:center}
+  .pg-body .fl-b{border:1.5px solid var(--navy);border-radius:7px;padding:7px 6px;text-align:center;font-weight:650;font-size:12px;color:var(--navy);line-height:1.3}
   .pg-body .fl-b small{display:block;font-weight:400;font-size:10px;color:#5b6470;margin-top:2px}
   .pg-body .fl-steps{text-align:left;font-weight:500;line-height:1.5}
-  .pg-body .fl-arr{color:#c2410c;font-size:12px}
+  .pg-body .fl-arr{color:var(--ruggine);font-size:12px}
   .fmt-phone .pg-body .flow{display:grid;grid-template-columns:1fr 1fr}
   .fmt-phone .pg-body .fl-arr{display:none}
 
   /* --- copertina, retro, pagina bianca --- */
   .pg.copertina .pg-in{padding:0;display:flex;flex-direction:column;background:#fff}
   .pg .cover{display:flex;flex-direction:column;height:100%}
-  .pg .cv-top{background:#1f3a5f;color:#fff;padding:34% 11% 9%}
-  .pg .cv-kicker{font-weight:700;font-size:11.5px;letter-spacing:.24em;color:#b9c7da}
-  .pg .cv-title{font:800 46px/1.05 Inter,sans-serif;margin-top:14px;letter-spacing:-.01em}
-  .pg .cv-sub{font-weight:500;font-size:19px;line-height:1.3;margin-top:12px;color:#dfe7f1}
+  .pg .cv-top{position:relative;display:flex;flex-direction:column;background:var(--navy);color:#fff;padding:46% 11% 8%;overflow:hidden}
+  .pg .cv-rotta{position:absolute;right:6%;top:8%;width:52%;height:auto}
+  .pg .cv-rotta .r{fill:none;stroke:#e9824e;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+  .pg .cv-rotta .a{fill:#fff}
+  .pg .cv-title{position:relative;font:800 48px/1.02 Inter,sans-serif;letter-spacing:-.025em}
+  .pg .cv-sub{position:relative;font-weight:500;font-size:19px;line-height:1.3;margin-top:12px;color:#dfe7f1}
+  .pg .cv-kicker{position:relative;order:3;margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.22);font-weight:500;font-size:13px;color:#b9c7da}
   .pg .cv-ctl{margin:34px 11% 0;border-collapse:collapse;width:78%;font-size:13px}
-  .pg .cv-ctl th{width:34%;text-align:left;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5b6470;padding:9px 0;border-bottom:1px solid #d5d9e0;vertical-align:top}
-  .pg .cv-ctl td{padding:9px 0;border-bottom:1px solid #d5d9e0}
-  .pg .cv-note{margin:auto 11% 9%;font-size:11.5px;line-height:1.5;color:#5b6470;border-left:3px solid #1f3a5f;padding:2px 0 2px 12px}
-  .fmt-phone .pg .cv-title{font-size:36px} .fmt-phone .pg .cv-ctl{font-size:11.5px;margin-top:22px}
-  .pg.retro .pg-in{background:#1f3a5f;color:#b9c7da;padding:0;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-  .pg.retro .pg-in b{display:block;color:#fff;font-size:20px;letter-spacing:.04em;text-transform:none;margin-bottom:8px}
-  .pg-body .bianca{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a3abb6;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .pg .cv-ctl th{width:34%;text-align:left;font-weight:700;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#5b6470;padding:9px 0;border-bottom:1px solid #dde1e7;vertical-align:top}
+  .pg .cv-ctl td{padding:9px 0;border-bottom:1px solid #dde1e7}
+  .pg .cv-note{margin:auto 11% 9%;font-size:11.5px;line-height:1.55;color:#5b6470;padding:10px 12px;background:#f4f6f9;border-radius:6px}
+  .fmt-phone .pg .cv-title{font-size:38px} .fmt-phone .pg .cv-ctl{font-size:11.5px;margin-top:22px}
+  .fmt-phone .pg .cv-top{padding-top:48%}
+  .pg.retro .pg-in{background:var(--navy);color:#b9c7da;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:12px;letter-spacing:.04em}
+  .pg.retro .pg-in b{display:block;color:#fff;font-size:20px;letter-spacing:-.005em;margin-bottom:8px}
+  .pg.retro .cv-rotta{position:static;width:38%;margin-bottom:28px;opacity:.9}
+  .pg-body .bianca{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a3abb6;font-size:12px;letter-spacing:.04em}
 
   /* --- indice nel libro --- */
-  .pg-body .toc-e{display:flex;align-items:baseline;gap:8px;color:#1b1f24;text-decoration:none;font-weight:500;padding:3px 0;border-radius:4px}
-  .pg-body .toc-e.t1{margin-top:11px;font-weight:700;color:#1f3a5f}
-  .pg-body .toc-e .tn{flex:0 0 auto;width:96px;font-weight:750;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#c2410c}
-  .pg-body .toc-e.t2 .tn{width:38px;margin-left:96px;font-size:.88em;letter-spacing:0}
+  .pg-body .toc-e{display:flex;align-items:baseline;gap:8px;color:#1b1f24;text-decoration:none;font-weight:500;padding:3px 4px;margin:0 -4px;border-radius:4px}
+  .pg-body .toc-e.t1{margin-top:11px;font-weight:700;color:var(--navy)}
+  .pg-body .toc-e .tn{flex:0 0 auto;width:96px;font-weight:700;font-size:11px;letter-spacing:.04em;color:var(--ruggine)}
+  .pg-body .toc-e.t2 .tn{width:38px;margin-left:96px;font-size:.88em;letter-spacing:0;font-variant-numeric:tabular-nums}
   .pg-body .toc-e .tt{flex:0 1 auto}
-  .pg-body .toc-e .tl{flex:1 1 auto;border-bottom:1.5px dotted #a3abb6;transform:translateY(-4px);min-width:14px}
-  .pg-body .toc-e .tp{flex:0 0 auto;min-width:24px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:#1f3a5f}
+  .pg-body .toc-e .tl{flex:1 1 auto;border-bottom:1.5px dotted #b3b9c2;transform:translateY(-4px);min-width:14px}
+  .pg-body .toc-e .tp{flex:0 0 auto;min-width:24px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:var(--navy)}
   .fmt-phone .pg-body .toc-e .tn{width:70px} .fmt-phone .pg-body .toc-e.t2 .tn{margin-left:20px}
 
   /* il banco di misura: fuori dallo schermo, alla misura logica */
@@ -286,34 +411,37 @@
   #fbMisura .pg{position:relative;width:var(--pw);height:var(--ph)}
   /* hover solo con un mouse vero: su iPad il primo tocco lo lascerebbe acceso */
   @media (hover:hover) and (pointer:fine){
-    .fb-ico:hover{border-color:var(--hover-line)}
-    .fb-toc a:hover{background:var(--panel-2)}
-    .fb-nav:hover{opacity:1;border-color:var(--hover-line)}
+    .fb-ico:hover,.fb-nav:hover{border-color:var(--hover-line)}
+    .fb-toc a:hover{background:color-mix(in srgb,var(--txt) 6%,transparent)}
+    .fb-toc a[aria-current="true"]:hover{background:color-mix(in srgb,var(--attivo) 17%,transparent)}
+    .fb-toc-x:hover{color:var(--txt)}
     .pg-body .toc-e:hover{background:#eef2f6}
+    .pg-body a:hover{text-decoration-color:currentColor}
+    .pg-body .fig-zoom:hover{border-color:var(--navy)}
+    .lb-segno:hover{filter:brightness(1.35)}
+    .fb-zoom-x:hover{background:rgba(255,255,255,.1)}
   }
   @media (prefers-reduced-motion:reduce){
-    .fb-toc,.fb-stage,.fb-scrim,.fb-nav,.fb-zoom{transition:none!important}
+    .fb-toc,.fb-stage,.fb-scrim,.fb-nav,.fb-pomo{transition:none!important}
     .fb-box.cambio{animation:none}
   }
 </style>
 
-<div class="fb-bar">
-  <button type="button" class="fb-ico" id="fbIndice" aria-controls="fbToc" aria-pressed="false" aria-label="Contents" title="Contents">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></button>
-  <div class="brand"><b>User Manual</b> <span>&mdash; OFP C172 FR</span></div>
-  <button type="button" class="fb-ico fb-solo-largo" id="fbPrima" aria-label="First page" title="First page">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 17l-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+<header class="fb-bar">
+  <button type="button" class="fb-ico largo" id="fbIndice" aria-controls="fbToc" aria-pressed="false" aria-label="Contents" title="Contents">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg><span class="fb-solo-largo">Contents</span></button>
+  <div class="fb-dove"><b>User Manual &middot; OFP C172 FR</b><span id="fbDove" aria-live="polite">&nbsp;</span></div>
   <div class="fb-pag"><label for="fbNum" class="fb-solo-largo">Page</label>
-    <input id="fbNum" type="text" inputmode="numeric" autocomplete="off" aria-label="Go to page"><span id="fbTot">/ –</span></div>
+    <input id="fbNum" type="text" inputmode="numeric" enterkeyhint="go" autocomplete="off" aria-label="Go to page"><span id="fbTot">of –</span></div>
+  <span class="fb-sep"></span>
   <a class="fb-ico" id="fbScarica" href="data/manuale.pdf" download="OFP-C172-FR-SOP-User-Manual.pdf" aria-label="Download printable PDF" title="Download printable PDF">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
-  <span class="fb-sep"></span>
   <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
   <a class="fb-ico" id="fbApp" href="import.html" aria-label="Open the application" title="Open the application">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
   <button type="button" class="fb-ico" id="fbChiudi" aria-label="Close the manual" title="Close" hidden>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-</div>
+</header>
 
 <div class="fb-main" id="fbMain">
   <div class="fb-stage" id="fbStage" role="region" aria-roledescription="book" aria-label="User manual">
@@ -323,12 +451,19 @@
     <div class="fb-stato" id="fbStato">Opening the manual&hellip;</div>
   </div>
   <div class="fb-scrim" id="fbScrim"></div>
-  <nav class="fb-toc" id="fbToc" aria-label="Contents"><h2>Contents</h2><ol id="fbTocList"></ol></nav>
+  <nav class="fb-toc" id="fbToc" aria-label="Contents">
+    <div class="fb-toc-h"><h2>Contents</h2><span id="fbTocTot"></span>
+      <button type="button" class="fb-toc-x" id="fbTocX" aria-label="Close contents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="fb-toc-corpo"><ol id="fbTocList"></ol></div>
+  </nav>
 </div>
-<div class="fb-foot">
-  <input type="range" id="fbScorri" min="1" max="1" value="1" aria-label="Page">
-  <div class="sez" id="fbSez" aria-live="polite"></div>
-</div>
+<footer class="fb-foot">
+  <div class="fb-scrub" id="fbScrub" role="slider" tabindex="0" aria-label="Page" aria-valuemin="1" aria-valuemax="1" aria-valuenow="1">
+    <div class="fb-traccia" id="fbTraccia"></div>
+    <div class="fb-pomo" id="fbPomo"></div>
+    <div class="fb-bolla" id="fbBolla"></div>
+  </div>
+</footer>
 
 <div class="fb-zoom" id="fbZoom" role="dialog" aria-modal="true" aria-label="Enlarged figure">
   <div class="fb-zoom-bar"><span id="fbZoomTit"></span>
@@ -340,7 +475,7 @@
 <div id="fbMisura" aria-hidden="true"></div>
 
 <script src="ofp-core.js"></script>
-<script src="vendor/page-flip.browser.js"></script>
+<script src="sfoglia.js"></script>
 <script>
 "use strict";
 const LIBRO_URL='data/manuale/libro.html';
@@ -348,14 +483,18 @@ const DOC_REF='OFP-SOP · Rev. 2 DRAFT · 09 OCT 2026';
 const EMBED=new URLSearchParams(location.search).has('embed');
 const MOTO=!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 const FORMATI={ book:{w:600,h:848, img:.56, doc:.8}, phone:{w:380,h:676, img:.52, doc:.74} };
+/* la rotta AV del logo dell'aeroclub (la stessa di rotta-av.js), in copertina */
+const ROTTA_AV='M70 270L156.76 183.24Q161 179 155 179L121 179Q115 179 110.76 183.24L99.24 194.76Q95 199 89 199L30 199Q24 199 28.24 194.76L108.76 114.24Q113 110 119 110L191 110Q197 110 201.24 114.24L281.76 194.76Q286 199 292 199L360 199Q366 199 370.24 194.76L450.76 114.24Q455 110 449 110L389 110Q383 110 378.76 114.24L333.24 159.76Q329 164 324.76 159.76L297.24 132.24Q293 128 297.24 123.76L381 40';
+const rottaSvg=()=>`<svg class="cv-rotta" viewBox="0 20 480 270" aria-hidden="true"><path class="r" d="${ROTTA_AV}"/><circle class="a" cx="70" cy="270" r="7"/><circle class="a" cx="381" cy="40" r="7"/></svg>`;
 
 let fonte=null;                 // il libro.html, gia' letto
 let VOCI=[];                    // [{level,num,title,id}] dall'indice del build
 let formato=null, F=null;       // 'book' | 'phone' e le sue misure
 let pagine=[];                  // [{el, ids:[], h1, h2}]
-let pf=null, doppia=null;       // StPageFlip e modo corrente (true = doppia pagina)
+let libro=null, doppia=null;    // il motore e il modo corrente (true = doppia pagina)
 let paginaDi={};                // id -> indice di pagina
 let scelta=null;                // voce dell'indice appena scelta
+let SEZ=[];                     // sezioni con linguetta: [{id, num, title, label, p}]
 
 /* ======================================================= IMPAGINAZIONE */
 function nuovaPagina(classi){
@@ -379,7 +518,7 @@ function impagina(){
      un'immagine non ancora scaricata altrimenti misura zero e la pagina
      sembrerebbe avere posto che non ha. */
   const sonda=nuovaPagina(''); banco.appendChild(sonda);
-  const largo=sonda.querySelector('.pg-body').clientWidth - 2*1.5 - 16;
+  const largo=sonda.querySelector('.pg-body').clientWidth - 2*1 - 16;
   banco.removeChild(sonda);
   const IMG_MAX=Math.round(bodyH*F.img), DOC_MAX=Math.round(bodyH*F.doc);
   const misuraImg=(img, maxH)=>{
@@ -388,7 +527,21 @@ function impagina(){
     img.style.width=Math.floor(w)+'px'; img.style.height=Math.floor(w/a)+'px'; img.style.maxHeight='none';
     return Math.floor(w/a);
   };
-  const preparaImg=(el)=>{ if(el.querySelectorAll) el.querySelectorAll('figure img').forEach(img=>misuraImg(img, img.closest('figure.doc') ? DOC_MAX : IMG_MAX)); return el; };
+  const preparaImg=(el)=>{
+    if(!el.querySelectorAll) return el;
+    // "menu" e' anche il menu a tendina del sito (ofp.css): sulla figura la
+    // rendeva invisibile e la portava fuori pagina
+    [el,...el.querySelectorAll('figure.menu')].forEach(f=>{ if(f.matches && f.matches('figure.menu')) f.classList.replace('menu','fig-menu'); });
+    el.querySelectorAll('figure img').forEach(img=>misuraImg(img, img.closest('figure.doc') ? DOC_MAX : IMG_MAX));
+    return el;
+  };
+  // il numero di sezione nel blocco blu: "SECTION 3" diventa "3", la parola resta per chi legge con lo screen reader
+  const preparaSez=(el)=>{
+    const sn = el.matches && el.matches('h1.sec') ? el.querySelector('.sn') : null;
+    if(sn && !sn.querySelector('.sn-l')){ const m=/^(.*\S)\s+(\S+)$/.exec(sn.textContent.trim());
+      if(m) sn.innerHTML=`<span class="sn-l">${esc(m[1])} </span>${esc(m[2])}`; }
+    return el;
+  };
 
   const out=[];
   let pg=null, body=null, stato={h1:'', h2:''};
@@ -406,7 +559,7 @@ function impagina(){
     const hs = el.matches && el.matches('h1,h2') ? [el] : [...(el.querySelectorAll ? el.querySelectorAll('h1,h2') : [])];
     hs.forEach(h=>{
       if(h.tagName==='H1'){ const sn=h.querySelector('.sn'), st=h.querySelector('.st');
-        stato.h1 = sn ? `${sn.textContent} · ${st.textContent}` : h.textContent; stato.h2='';
+        stato.h1 = sn ? `${sn.textContent.replace(/\s+/g,' ').trim()} · ${st.textContent}` : h.textContent; stato.h2='';
         out[out.length-1].h1=stato.h1; out[out.length-1].h2=''; }
       else { const t=h.textContent.replace(/^(\d+\.\d+)/,'$1 '); stato.h2=t;
         const o=out[out.length-1]; if(!o.h2Primo) o.h2Primo=t; }
@@ -430,6 +583,9 @@ function impagina(){
       // a pagina nuova, portandosi dietro i titoli rimasti in fondo
       const dietro=[];
       while(tieni(body.lastChild)) dietro.unshift(body.removeChild(body.lastChild));
+      // un titolo portato alla pagina dopo non e' piu' l'intestazione di questa
+      const o=out[out.length-1];
+      if(o.h2Primo && dietro.some(h=>h.tagName==='H2' && h.textContent.replace(/^(\d+\.\d+)/,'$1 ')===o.h2Primo)) o.h2Primo=null;
       apri('');
       dietro.forEach(h=>{ body.appendChild(h); segna(h); });
       if(prova(el)){ segna(el); return; }
@@ -509,11 +665,15 @@ function impagina(){
     segna(t); return true;
   }
 
-  /* ---- copertina ---- */
+  /* ---- copertina: titolo, sottotitolo, classe del documento sotto, rotta AV ---- */
   const sezioni=[...fonte.children];
   const cop=sezioni.find(s=>s.classList.contains('cover'));
-  pg=nuovaPagina('copertina'); pg.dataset.density='hard';
-  pg.querySelector('.pg-in').innerHTML=''; pg.querySelector('.pg-in').appendChild(cop.cloneNode(true));
+  pg=nuovaPagina('copertina');
+  const cv=cop.cloneNode(true);
+  const kick=cv.querySelector('.cv-kicker');
+  if(kick) kick.textContent='Standard Operating Procedures';
+  const top=cv.querySelector('.cv-top'); if(top) top.insertAdjacentHTML('afterbegin', rottaSvg());
+  pg.querySelector('.pg-in').innerHTML=''; pg.querySelector('.pg-in').appendChild(cv);
   banco.appendChild(pg); out.push({el:pg, h1:'', h2:'', nuda:true});
 
   /* ---- indice (i numeri si scrivono alla fine) ---- */
@@ -532,13 +692,15 @@ function impagina(){
   /* ---- il testo: ogni sezione comincia su una pagina nuova ---- */
   sezioni.filter(s=>!s.classList.contains('cover') && !s.classList.contains('toc-slot')).forEach(sez=>{
     apri('');
-    [...sez.children].forEach(el=>aggiungi(preparaImg(el.cloneNode(true))));
+    [...sez.children].forEach(el=>aggiungi(preparaSez(preparaImg(el.cloneNode(true)))));
   });
 
-  /* ---- retro: il libro chiude su una pagina sinistra ---- */
-  if(out.length%2===1){ apri(''); body.innerHTML='<div class="bianca">This page intentionally left blank</div>'; }
-  pg=nuovaPagina('retro'); pg.dataset.density='hard';
-  pg.querySelector('.pg-in').innerHTML=`<div><b>OFP C172 FR</b>Standard Operating Procedures<br>${esc(DOC_REF)}</div>`;
+  /* ---- retro: il libro chiude su una pagina sinistra, da solo, come la
+     copertina apre a destra. La copertina e' la pagina 0 (destra): le pagine
+     sinistre hanno indice dispari, quindi il retro deve avere indice dispari ---- */
+  if(out.length%2===0){ apri(''); body.innerHTML='<div class="bianca">This page intentionally left blank</div>'; }
+  pg=nuovaPagina('retro');
+  pg.querySelector('.pg-in').innerHTML=`${rottaSvg()}<div><b>OFP C172 FR</b>Standard Operating Procedures<br>${esc(DOC_REF)}</div>`;
   banco.appendChild(pg); out.push({el:pg, nuda:true});
 
   /* ---- numeri, intestazioni, piedi ---- */
@@ -556,6 +718,18 @@ function impagina(){
   out.forEach(o=>o.el.querySelectorAll('.toc-e').forEach(a=>{
     const p=paginaDi[a.dataset.voce]; a.querySelector('.tp').textContent = p==null ? '' : String(p+1);
   }));
+  /* ---- le linguette: una per sezione numerata, sul taglio esterno ---- */
+  SEZ=VOCI.filter(v=>v.level===1 && /^(section|appendix)\s/i.test(v.num) && paginaDi[v.id]!=null)
+    .map(v=>({id:v.id, num:v.num, title:v.title, label:v.num.split(/\s+/).pop(), p:paginaDi[v.id]}));
+  out.forEach((o,i)=>{
+    if(o.nuda) return;
+    let j=-1; SEZ.forEach((s,k)=>{ if(s.p<=i) j=k; });
+    if(j<0) return;
+    const t=document.createElement('a'); t.className='pg-tab'; t.href='#'+SEZ[j].id; t.textContent=SEZ[j].label;
+    t.setAttribute('aria-label', `${SEZ[j].num} – ${SEZ[j].title}`);
+    t.style.setProperty('--j', j); t.style.setProperty('--nt', SEZ.length);
+    o.el.querySelector('.pg-in').appendChild(t);
+  });
   // la lente su ogni figura
   out.forEach(o=>o.el.querySelectorAll('figure.fig .fig-id').forEach(fid=>{
     if(fid.querySelector('.fig-zoom')) return;
@@ -569,185 +743,45 @@ function impagina(){
   return out;
 }
 
-/* ======================================================= LA GIRATA
-   StPageFlip calcola bene la piega, ma la muove come una macchina: l'angolo
-   della pagina va in linea retta e a velocita' costante, e le ombre sono a
-   fasce (un riflesso lucido) e, sulla copertina rigida, partono a piena
-   intensita' e saltano di lato quando la pagina passa la verticale. Qui si
-   ritoccano quei metodi, senza toccare il file della libreria:
-   - il moto: l'angolo segue un arco (la carta si solleva verso il centro) con
-     una curva che parte morbida e si posa lenta; se la pagina e' gia' in mano
-     al lettore (trascinata e lasciata) parte veloce e frena e basta;
-   - le ombre: opache, senza bande, con un'intensita' che nasce e muore con
-     l'angolo della pagina, cosi' non c'e' un fotogramma in cui compaiono o
-     cambiano lato di colpo. */
-const GIRATA={
-  ms:760,                       // girata intera
-  tastiera:.6,                  // da tastiera piu' rapida: chi usa le frecce va veloce
-  dentroFuori:[.3,.1,.15,1],     // da ferma: risponde subito, si posa lenta
-  fuori:[.23,1,.32,1],          // gia' in movimento (lasciata dal dito): solo frenata
-  arco:.07,                     // quanto si solleva l'angolo, in altezze di pagina
-  ombra:.42                     // opacita' massima delle ombre
-};
-let girataRapida=false;
-function curva([x1,y1,x2,y2]){
-  const B=(t,a,b)=>3*(1-t)*(1-t)*t*a+3*(1-t)*t*t*b+t*t*t;
-  return x=>{ if(x<=0) return 0; if(x>=1) return 1; let lo=0,hi=1;
-    for(let i=0;i<28;i++){ const m=(lo+hi)/2; if(B(m,x1,x2)<x) lo=m; else hi=m; } return B((lo+hi)/2,y1,y2); };
-}
-function ritoccaGirata(pf){
-  const ctl=pf.getFlipController(), ren=pf.getRender();
-  const pc=Object.getPrototypeOf(ctl), pr=Object.getPrototypeOf(ren);
-  if(pc.__ritoccata) return; pc.__ritoccata=true;
-  const easeIO=curva(GIRATA.dentroFuori), easeO=curva(GIRATA.fuori);
-
-  pc.animateFlippingTo=function(da,a,gira,chiudi=true){
-    const rect=this.getBoundsRect(), dx=a.x-da.x, dy=a.y-da.y, dist=Math.hypot(dx,dy);
-    const n=Math.max(2,Math.round(dist));
-    const ease = this.getState()==='flipping' ? easeIO : easeO;
-    // l'arco solo per una girata vera, non per l'orecchia dell'angolo
-    const su = gira && Math.abs(dx)>rect.pageWidth*.6 ? rect.height*GIRATA.arco : 0;
-    const verso = a.y>rect.height/2 ? -1 : 1;
-    const cx=(da.x+a.x)/2, cy=(da.y+a.y)/2+verso*su;
-    const frames=[];
-    for(let k=0;k<=n;k++){
-      const u=ease(k/n), v=1-u;
-      const pt={x:v*v*da.x+2*v*u*cx+u*u*a.x, y:v*v*da.y+2*v*u*cy+u*u*a.y};
-      frames.push(()=>this.do(pt));
-    }
-    const dur=this.getAnimationDuration(n)*(girataRapida?GIRATA.tastiera:1);
-    this.render.startAnimation(frames, dur, ()=>{
-      if(!this.calc) return;
-      if(gira) (this.calc.getDirection()===1 ? this.app.turnToPrevPage() : this.app.turnToNextPage());
-      if(chiudi){ this.render.setBottomPage(null); this.render.setFlippingPage(null); this.render.clearShadow(); this.setState('read'); this.reset(); }
-    });
-  };
-
-  // ombre delle pagine morbide: sfumature continue, nessuna banda chiara
-  const nero=(a)=>`rgba(24,20,16,${Math.max(0,a).toFixed(3)})`;
-  const io=pr.drawInnerShadow, oo=pr.drawOuterShadow, hi=pr.drawHardInnerShadow, ho=pr.drawHardOuterShadow;
-  pr.drawInnerShadow=function(){
-    io.call(this);
-    const o=this.shadow.opacity, dir=this.getDirection()===0?'to left':'to right';
-    this.innerShadow.style.background=`linear-gradient(${dir}, ${nero(o*.55)} 0%, ${nero(o*.3)} 14%, ${nero(o*.12)} 34%, ${nero(0)} 72%)`;
-  };
-  pr.drawOuterShadow=function(){
-    oo.call(this);
-    const o=this.shadow.opacity, dir=this.getDirection()===0?'to right':'to left';
-    this.outerShadow.style.background=`linear-gradient(${dir}, ${nero(o*.8)} 0%, ${nero(o*.38)} 18%, ${nero(o*.12)} 46%, ${nero(0)} 100%)`;
-  };
-  // copertina rigida: l'ombra nasce e muore con l'angolo (seno), larghezza
-  // che segue la pagina: a 0 e a 90 gradi vale zero, quindi il cambio di lato
-  // a meta' girata non si vede
-  const angolo=(sh)=>{ const e=sh.progress>100?200-sh.progress:sh.progress; return Math.max(0,Math.min(100,e))/100; };
-  pr.drawHardOuterShadow=function(){
-    ho.call(this);
-    const t=this.getRect(), e=angolo(this.shadow), k=Math.sin(Math.PI*e);
-    const w=Math.max(1, t.pageWidth*(.18+.42*(1-e)));
-    const o=GIRATA.ombra*.7*k;
-    this.hardShadow.style.width=w+'px';
-    this.hardShadow.style.background=`linear-gradient(to left, ${nero(o)} 0%, ${nero(o*.4)} 30%, ${nero(o*.12)} 62%, ${nero(0)} 100%)`;
-  };
-  pr.drawHardInnerShadow=function(){
-    hi.call(this);
-    const t=this.getRect(), e=angolo(this.shadow);
-    const o=GIRATA.ombra*.55*e*e;           // la pagina si scurisce mentre si mette di taglio
-    this.hardInnerShadow.style.width=t.pageWidth+'px';
-    this.hardInnerShadow.style.background=`linear-gradient(to right, ${nero(o)} 0%, ${nero(o*.55)} 40%, ${nero(o*.25)} 100%)`;
-  };
-}
-
-/* Lo swipe. StPageFlip considera swipe solo un gesto piu' breve di 250 ms: un
-   dito un po' piu' lento (280-400 ms, la norma su iPad) finiva nel ramo del
-   trascinamento, partito dal punto iniziale, e al rilascio la pagina tornava
-   indietro o girava nel verso sbagliato: sembrava che il libro si bloccasse.
-   Qui decide la velocita', non il tempo (emil-design-eng, gesti): un gesto
-   orizzontale abbastanza rapido gira nel suo verso; se la pagina era gia' in
-   mano al dito, la girata si completa o si annulla seguendo lo swipe.
-   C'e' anche un difetto peggiore: allo scadere dei 250 ms la libreria fa
-   partire il trascinamento dalla posizione ATTUALE del dito, e se il dito ha
-   gia' passato la meta' del libro piega la pagina nel verso opposto. Se a quel
-   punto il dito ha gia' fatto molta strada in orizzontale e' uno swipe, non un
-   trascinamento: il trascinamento non parte e decide il rilascio. */
-const SWIPE_VEL=.3;              // px/ms: sotto e' un trascinamento, sopra uno swipe
-function ritoccaTocco(pf){
-  const ui=pf.getUI(); if(!ui || ui.__ritoccato) return; ui.__ritoccato=true;
-  const originale=ui.onTouchEnd;
-  window.removeEventListener('touchend', originale);
-  let dito=null;                                   // ultima posizione del dito
-  ui.getDistElement().addEventListener('touchstart', e=>{ const t=e.changedTouches[0]; if(t) dito={x:t.clientX,y:t.clientY}; }, true);
-  window.addEventListener('touchmove', e=>{ const t=e.changedTouches[0]; if(t) dito={x:t.clientX,y:t.clientY}; }, {passive:true});
-  const avviaDito=pf.startUserTouch.bind(pf);
-  pf.startUserTouch=(pt)=>{
-    const tp=ui.touchPoint;
-    if(tp && dito){ const ora=ui.getMousePos(dito.x,dito.y); if(Math.abs(ora.x-tp.point.x)>3*ui.swipeDistance) return; }
-    avviaDito(pt);
-  };
-  ui.onTouchEnd=(e)=>{
-    const t=e.changedTouches && e.changedTouches[0], tp=ui.touchPoint;
-    if(!t || !tp) return originale(e);
-    const pt=ui.getMousePos(t.clientX,t.clientY);
-    const dx=pt.x-tp.point.x, dy=Math.abs(pt.y-tp.point.y), dt=Math.max(1,Date.now()-tp.time);
-    const swipe = Math.abs(dx)>ui.swipeDistance && dy<Math.abs(dx) && Math.abs(dx)/dt>SWIPE_VEL;
-    if(!swipe || dt<ui.swipeTimeout) return originale(e);     // i casi che la libreria gestisce gia'
-    ui.touchPoint=null;
-    const ctl=pf.getFlipController(), calc=ctl.getCalculation();
-    const avanti=dx<0;
-    const lato = tp.point.y < pf.getRender().getRect().height/2 ? 'top' : 'bottom';
-    if(pf.isUserTouch && calc && (calc.getDirection()===0)!==avanti && ctl.getState()!=='flipping'){
-      // piega partita nel verso sbagliato: si toglie subito e si gira nel verso dello swipe
-      pf.isUserTouch=false;
-      const ren=pf.getRender(); ren.setBottomPage(null); ren.setFlippingPage(null); ren.clearShadow(); ctl.setState('read'); ctl.reset();
-      avanti ? pf.flipNext(lato) : pf.flipPrev(lato);
-      return;
-    }
-    if(pf.isUserTouch && calc){
-      pf.isUserTouch=false;
-      const rect=ctl.getBoundsRect(), pos=calc.getPosition(), y=calc.getCorner()==='bottom'?rect.height:0;
-      if((calc.getDirection()===0)===avanti) ctl.animateFlippingTo(pos,{x:-rect.pageWidth,y},true);
-      else ctl.animateFlippingTo(pos,{x:rect.pageWidth,y},false);
-    }else{
-      pf.isUserTouch=false;
-      avanti ? pf.flipNext(lato) : pf.flipPrev(lato);
-    }
-  };
-  window.addEventListener('touchend', ui.onTouchEnd);
-}
-
 /* ======================================================= IL LIBRO */
 function costruisci(start){
-  if(pf){ try{ pf.destroy(); }catch(e){} pf=null; }
-  const book=$('fbBook'); book.innerHTML=''; book.className='fmt-'+formato;
+  if(libro){ libro.distruggi(); libro=null; }
+  const book=$('fbBook'); book.className='fmt-'+formato;
   const banco=$('fbMisura');
   book.style.setProperty('--imgmax', banco.style.getPropertyValue('--imgmax'));
   book.style.setProperty('--docmax', banco.style.getPropertyValue('--docmax'));
-  pagine.forEach(p=>book.appendChild(p.el));
   doppia=null;
-  dimensiona(true);
-  pf=new St.PageFlip(book,{
-    width:F.w, height:F.h, size:'stretch', minWidth:1, maxWidth:6000, minHeight:1, maxHeight:6000,
-    autoSize:false, showCover:true, usePortrait:true, drawShadow:true, maxShadowOpacity:GIRATA.ombra,
-    flippingTime: MOTO ? GIRATA.ms : 1, startPage:Math.max(0,Math.min(pagine.length-1,start||0)),
-    mobileScrollSupport:false, clickEventForward:true, swipeDistance:24, showPageCorners:true,
-    disableFlipByClick:false, useMouseEvents:true
+  const m=dimensiona(true) || {pw:F.w*.5, ph:F.h*.5, doppia:false};
+  libro=new Sfoglia(book,{
+    pagine:pagine.map(p=>p.el), w:F.w, h:F.h, pw:m.pw, ph:m.ph, doppia:m.doppia,
+    rigide:[0, pagine.length-1], moto:MOTO, inizio:Math.max(0,Math.min(pagine.length-1,start||0)),
+    onCambio:()=>aggiorna(), onTaglio:segniTaglio
   });
-  pf.loadFromHTML(pagine.map(p=>p.el));
-  if(MOTO) ritoccaGirata(pf);
-  ritoccaTocco(pf);
-  // la scelta doppia/singola passa da minWidth, ma solo dopo la creazione:
-  // la libreria la userebbe anche come larghezza minima del contenitore
-  book.style.minWidth='0'; book.style.minHeight='0';
-  pf.getSettings().minWidth = doppia ? 1 : 1e6;
-  pf.update();
-  // passando da doppia a singola la libreria parte dalla pagina sinistra: si riallinea
-  const s0=Math.max(0,Math.min(pagine.length-1,start||0));
-  if(pf.getCurrentPageIndex()!==s0) pf.turnToPage(s0);
-  pf.on('flip', ()=>aggiorna());
-  pf.on('changeOrientation', ()=>{ scala(); aggiorna(); });
-  pf.on('init', ()=>{ scala(); aggiorna(); });
-  scala(); aggiorna();
-  $('fbScorri').max=pagine.length; $('fbTot').textContent='/ '+pagine.length;
-  costruisciIndice();
+  book.style.setProperty('--imgmax', banco.style.getPropertyValue('--imgmax'));
+  book.style.setProperty('--docmax', banco.style.getPropertyValue('--docmax'));
+  $('fbTot').textContent='of '+pagine.length; $('fbTocTot').textContent=pagine.length+' pages';
+  $('fbScrub').setAttribute('aria-valuemax', pagine.length);
+  costruisciIndice(); costruisciTraccia();
+  aggiorna();
+}
+
+/* i segni delle sezioni sul taglio: quelle gia' lette a sinistra, quelle
+   ancora da leggere a destra; un clic apre la sezione */
+function segniTaglio(sx, dx, a, b, H, k){
+  [sx,dx].forEach(t=>t.querySelectorAll('.lb-segno').forEach(x=>x.remove()));
+  if(!SEZ.length) return;
+  // le stesse misure delle linguette sulla pagina (.pg-tab)
+  const M = formato==='book' ? {pt:26,hh:34,fh:30,pb:20,ph:848} : {pt:16,hh:28,fh:26,pb:12,ph:676};
+  const top=(M.pt+M.hh+26)/M.ph, alt=(M.ph-M.pt-M.hh-M.fh-M.pb-52)/M.ph;
+  SEZ.forEach((s,j)=>{
+    const lato = s.p>b ? dx : (s.p<a ? sx : null);
+    if(!lato || lato.hidden) return;
+    const m=document.createElement('a'); m.className='lb-segno'; m.href='#'+s.id;
+    m.setAttribute('aria-label', `${s.num} – ${s.title}, page ${s.p+1}`);
+    m.style.top=((top + j*alt/SEZ.length)*H)+'px'; m.style.height=(alt/SEZ.length*H - 6*k)+'px';
+    m.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); vai(s.p, s.id); });
+    lato.appendChild(m);
+  });
 }
 
 /* Misura del libro: doppia pagina se ci sta quasi a piena altezza, altrimenti
@@ -756,69 +790,64 @@ function costruisci(start){
 function dimensiona(primo){
   const st=$('fbStage'), cs=getComputedStyle(st);
   const tel = innerWidth<700;
-  const W=st.clientWidth - parseFloat(cs.paddingLeft) - (tel ? 12 : 128);
-  const H=st.clientHeight - (tel ? 12 : 30);
-  if(W<50||H<50) return false;
+  const W=st.clientWidth - parseFloat(cs.paddingLeft) - (tel ? 16 : 150);
+  const H=st.clientHeight - (tel ? 16 : 40);
+  if(W<50||H<50) return null;
   const r=F.w/F.h, quoz=W/H/(2*r);
   let dop = doppia===null ? quoz>=0.8 : (doppia ? quoz>=0.76 : quoz>=0.84);
   if(formato==='phone' && innerWidth<innerHeight) dop=false;
-  const ph = dop ? Math.min(H, W/(2*r)) : Math.min(H, W/r), pw=ph*r;
+  const ph = Math.floor(dop ? Math.min(H, W/(2*r)) : Math.min(H, W/r)), pw=ph*r;
   const box=$('fbBox');
-  box.style.width=Math.floor(dop?2*pw:pw)+'px'; box.style.height=Math.floor(ph)+'px';
+  box.style.width=Math.floor(dop?2*pw:pw)+'px'; box.style.height=ph+'px';
   document.body.classList.toggle('fb-telefono', tel);
   const cambiato = doppia!==null && dop!==doppia;
   doppia=dop;
-  if(pf){ pf.getSettings().minWidth = dop ? 1 : 1e6; }
   if(cambiato && MOTO && !primo){ box.classList.remove('cambio'); void box.offsetWidth; box.classList.add('cambio'); }
-  return true;
-}
-function scala(){
-  if(!pf) return;
-  const r=pf.getRender && pf.getRender().getRect ? pf.getRender().getRect() : null;
-  if(r && r.pageWidth) $('fbBook').style.setProperty('--k', r.pageWidth/F.w);
+  return {pw, ph, doppia:dop};
 }
 let rafLay=0;
 function ridisegna(){
   cancelAnimationFrame(rafLay);
   rafLay=requestAnimationFrame(()=>{
-    if(!pf) return;
+    if(!libro) return;
     const voglio = scegliFormato();
     if(voglio!==formato){ return rifai(); }
-    if(dimensiona(false)){ pf.update(); scala(); aggiorna(); }
+    const m=dimensiona(false);
+    if(m){ libro.misura(m.pw, m.ph, m.doppia); aggiorna(); }
   });
 }
 
 /* ======================================================= STATO */
-function visibili(){
-  if(!pf) return [0,0];
-  const i=pf.getCurrentPageIndex(), N=pagine.length;
-  if(!doppia || pf.getOrientation()==='portrait') return [i,i];
-  if(i===0) return [0,0];
-  const l = i%2 ? i : i-1;
-  return [l, Math.min(N-1,l+1)];
+function visibili(){ return libro ? libro.visibili() : [0,0]; }
+function sezioneDi(p){
+  let att=null, s1=null;
+  VOCI.forEach(v=>{ const q=paginaDi[v.id]; if(q!=null && q<=p){ att=v; if(v.level===1) s1=v; } });
+  return {att, s1};
 }
 function aggiorna(){
+  if(!libro) return;
   const [a,b]=visibili(), N=pagine.length;
   $('fbNum').value = a===b ? String(a+1) : `${a+1}–${b+1}`;
-  $('fbScorri').value=a+1;
   $('fbPrev').disabled = a<=0;
   $('fbNext').disabled = b>=N-1;
   try{ history.replaceState(null,'','#p='+(a+1)); }catch(e){}
   let att=null;
   const sc=scelta && VOCI.find(v=>v.id===scelta);
   if(sc && paginaDi[sc.id]>=a && paginaDi[sc.id]<=b) att=sc;
-  else VOCI.forEach(v=>{ if(paginaDi[v.id]!=null && paginaDi[v.id]<=b) att=v; });
+  else att=sezioneDi(b).att;
   document.querySelectorAll('#fbTocList a').forEach(x=>x.setAttribute('aria-current', att && x.dataset.id===att.id ? 'true':'false'));
   const s1=[...VOCI].reverse().find(v=>v.level===1 && paginaDi[v.id]<=b);
-  $('fbSez').textContent = att ? [s1&&s1!==att ? (s1.num?s1.num+' · ':'')+s1.title : '', (att.num?att.num+' ':'')+att.title].filter(Boolean).join('  ›  ') : '';
+  const dove = att ? [s1&&s1!==att ? (s1.num?s1.num+' · ':'')+s1.title : '', (att.num?att.num+' ':'')+att.title].filter(Boolean).join('  ›  ') : 'Cover';
+  $('fbDove').textContent = dove;
+  posizionaScrub(a, false);
 }
-function vai(i, voce){
-  if(!pf) return;
+function vai(i, voce, subito){
+  if(!libro) return;
   i=Math.max(0,Math.min(pagine.length-1,i));
   scelta=voce||null;
   const [a,b]=visibili();
   if(i>=a && i<=b){ aggiorna(); return; }
-  if(MOTO) pf.flip(i); else pf.turnToPage(i);
+  libro.vai(i, !subito);
 }
 
 /* ======================================================= INDICE */
@@ -827,8 +856,10 @@ function costruisciIndice(){
   VOCI.forEach(v=>{
     const p=paginaDi[v.id]; if(p==null) return;
     const li=document.createElement('li'), a=document.createElement('a');
-    a.className='l'+v.level; a.href='#'+v.id; a.dataset.id=v.id;
-    a.innerHTML=`<span class="n">${esc(v.num)}</span><span class="t">${esc(v.title)}</span><span class="p">${p+1}</span>`;
+    const sez=/^(section|appendix)\s/i.test(v.num);
+    a.className='l'+v.level+(v.level===1&&!sez?' fm':''); a.href='#'+v.id; a.dataset.id=v.id;
+    const n = v.level===1 ? (sez ? v.num.split(/\s+/).pop() : '') : v.num;
+    a.innerHTML=`<span class="n">${esc(n)}</span><span class="t">${esc(v.title)}</span><span class="p">${p+1}</span>`;
     a.setAttribute('aria-label',`${v.num?v.num+' ':''}${v.title}, page ${p+1}`);
     a.addEventListener('click',e=>{ e.preventDefault(); vai(p, v.id); if(innerWidth<1100) indice(false); });
     li.appendChild(a); ol.appendChild(li);
@@ -843,26 +874,118 @@ function indice(apri){
   if(apri){ const x=document.querySelector('#fbTocList a[aria-current="true"]'); if(x) x.scrollIntoView({block:'nearest'}); }
 }
 
-/* ======================================================= LENTE */
+/* ======================================================= BARRA A SEZIONI
+   La traccia e' divisa nelle parti del manuale, ognuna lunga quanto le sue
+   pagine: si vede dove comincia ogni sezione. La parte in lettura e' magenta.
+   Trascinando, la bolla dice pagina e titolo; la girata parte al rilascio. */
+let PARTI=[];
+function costruisciTraccia(){
+  const N=pagine.length, tr=$('fbTraccia'); tr.innerHTML='';
+  const inizi=[0, ...SEZ.map(s=>s.p).filter(p=>p>0)].filter((p,i,a)=>a.indexOf(p)===i).sort((x,y)=>x-y);
+  PARTI=inizi.map((p,i)=>({da:p, a:(inizi[i+1]??N)-1}));
+  PARTI.forEach(pt=>{ const s=document.createElement('div'); s.className='fb-seg'; s.style.flex=`${pt.a-pt.da+1} 1 0`; s.appendChild(document.createElement('i')); tr.appendChild(s); pt.el=s; });
+}
+function xDiPagina(i){
+  const N=pagine.length, tr=$('fbTraccia'), w=tr.clientWidth, gap=3, n=PARTI.length;
+  const utile=w-gap*(n-1);
+  for(let k=0;k<n;k++){ const pt=PARTI[k];
+    if(i<=pt.a){ const prima=PARTI.slice(0,k).reduce((s,q)=>s+(q.a-q.da+1),0);
+      return (prima + (i-pt.da) + .5)/N*utile + k*gap; } }
+  return w;
+}
+function paginaDiX(x){
+  const N=pagine.length, w=$('fbTraccia').clientWidth, gap=3, n=PARTI.length, utile=w-gap*(n-1);
+  let best=0, d=1e9;
+  for(let i=0;i<N;i++){ const dd=Math.abs(xDiPagina(i)-x); if(dd<d){ d=dd; best=i; } }
+  void utile; return best;
+}
+function posizionaScrub(i, anteprima){
+  if(!PARTI.length) return;
+  const x=xDiPagina(i);
+  $('fbPomo').style.translate=`${x}px 0`;
+  const [a,b]=visibili(), cur=anteprima?i:a;
+  PARTI.forEach(pt=>{
+    const f = cur>pt.a ? 1 : cur<pt.da ? 0 : (cur-pt.da+1)/(pt.a-pt.da+1);
+    pt.el.firstChild.style.transform=`scaleX(${f})`;
+    pt.el.classList.toggle('att', cur>=pt.da && cur<=pt.a);
+  });
+  $('fbScrub').setAttribute('aria-valuenow', cur+1);
+  const {att}=sezioneDi(cur);
+  const testo=`Page ${cur+1}${att?` · ${(att.num?att.num+' ':'')+att.title}`:''}`;
+  $('fbScrub').setAttribute('aria-valuetext', testo);
+  const bo=$('fbBolla'); bo.innerHTML=`<b>Page ${cur+1}</b><span>${esc(att?(att.num&&att.level===2?att.num+' ':'')+att.title:'Cover')}</span>`;
+  const w=$('fbScrub').clientWidth, bw=bo.offsetWidth||200;
+  bo.style.left=Math.max(bw/2, Math.min(w-bw/2, x))+'px';
+  void b;
+}
+(function(){
+  const sc=$('fbScrub'); let id=null, pag=0;
+  const daEvento=(e)=>{ const r=$('fbTraccia').getBoundingClientRect(); return paginaDiX(e.clientX-r.left); };
+  sc.addEventListener('pointerdown', e=>{ if(id!==null) return; id=e.pointerId; sc.setPointerCapture(id); sc.classList.add('tira'); pag=daEvento(e); posizionaScrub(pag,true); });
+  sc.addEventListener('pointermove', e=>{
+    if(id===e.pointerId){ pag=daEvento(e); posizionaScrub(pag,true); }
+    else if(id===null && e.pointerType==='mouse'){ sc.classList.add('sopra'); posizionaScrub(daEvento(e),true); }
+  });
+  sc.addEventListener('pointerleave', e=>{ if(id===null && e.pointerType==='mouse'){ sc.classList.remove('sopra'); posizionaScrub(visibili()[0],false); } });
+  const fine=(e,ok)=>{ if(id!==e.pointerId) return; id=null; sc.classList.remove('tira','sopra'); if(ok) vai(pag); else posizionaScrub(visibili()[0],false); };
+  sc.addEventListener('pointerup', e=>fine(e,true));
+  sc.addEventListener('pointercancel', e=>fine(e,false));
+  // da tastiera: subito, senza girata
+  sc.addEventListener('keydown', e=>{
+    const [a,b]=visibili(); let t=null;
+    if(e.key==='ArrowRight'||e.key==='ArrowUp') t=b+1; else if(e.key==='ArrowLeft'||e.key==='ArrowDown') t=a-1;
+    else if(e.key==='PageUp'){ const p=PARTI.find(pt=>a>=pt.da&&a<=pt.a); t = p && a>p.da ? p.da : (PARTI[PARTI.indexOf(p)-1]||{da:0}).da; }
+    else if(e.key==='PageDown'){ const k=PARTI.findIndex(pt=>a>=pt.da&&a<=pt.a); t=(PARTI[k+1]||{da:pagine.length-1}).da; }
+    else if(e.key==='Home') t=0; else if(e.key==='End') t=pagine.length-1;
+    if(t==null) return; e.preventDefault(); e.stopPropagation(); vai(t, null, true);
+  });
+})();
+
+/* ======================================================= LENTE
+   Si apre dalla figura: l'immagine parte dal suo posto nella pagina e si
+   allarga (emil-design-eng: le cose escono da dove sono). */
+let lenteDa=null;
 function lente(fig){
   const img=fig.querySelector('img'); if(!img) return;
-  $('fbZoomImg').src=img.currentSrc||img.src;
+  const z=$('fbZoomImg');
+  z.src=img.currentSrc||img.src;
   $('fbZoomTit').textContent=fig.querySelector('.fig-id .t').textContent;
   $('fbZoomArea').classList.remove('piena');
   $('fbZoom').classList.add('aperta');
+  lenteDa=img;
+  const vola=()=>{
+    if(!MOTO || !z.animate) return;
+    const a=img.getBoundingClientRect(), b=z.getBoundingClientRect();
+    if(!a.width || !b.width) return;
+    const sx=a.width/b.width, dx=a.left+a.width/2-(b.left+b.width/2), dy=a.top+a.height/2-(b.top+b.height/2);
+    z.animate([{transform:`translate(${dx}px,${dy}px) scale(${sx})`},{transform:'none'}],{duration:280,easing:'cubic-bezier(0.23,1,0.32,1)'});
+  };
+  if(z.complete && z.naturalWidth) requestAnimationFrame(vola); else z.addEventListener('load', vola, {once:true});
   $('fbZoomX').focus();
 }
-const chiudiLente=()=>$('fbZoom').classList.remove('aperta');
+function chiudiLente(){
+  const z=$('fbZoomImg'), box=$('fbZoom');
+  if(!box.classList.contains('aperta')) return;
+  const img=lenteDa;
+  if(MOTO && z.animate && img && !$('fbZoomArea').classList.contains('piena')){
+    const a=img.getBoundingClientRect(), b=z.getBoundingClientRect();
+    if(a.width && b.width){
+      const sx=a.width/b.width, dx=a.left+a.width/2-(b.left+b.width/2), dy=a.top+a.height/2-(b.top+b.height/2);
+      z.animate([{transform:'none'},{transform:`translate(${dx}px,${dy}px) scale(${sx})`}],{duration:200,easing:'cubic-bezier(0.23,1,0.32,1)'});
+    }
+  }
+  box.classList.remove('aperta');
+}
 $('fbZoomX').addEventListener('click', chiudiLente);
 $('fbZoomImg').addEventListener('click', e=>{ e.stopPropagation(); $('fbZoomArea').classList.toggle('piena'); });
 $('fbZoomArea').addEventListener('click', e=>{ if(e.target===$('fbZoomArea')) chiudiLente(); });
 
-/* clic dentro le pagine: link interni e lente */
+/* clic dentro le pagine: link interni, linguette e lente */
 $('fbBook').addEventListener('click', e=>{
   const z=e.target.closest('.fig-zoom');
   if(z){ e.preventDefault(); e.stopPropagation(); lente(z.closest('figure')); return; }
   const a=e.target.closest('a[href^="#"]');
-  if(a){ e.preventDefault(); e.stopPropagation();
+  if(a && !a.classList.contains('lb-segno')){ e.preventDefault(); e.stopPropagation();
     const id=a.getAttribute('href').slice(1);
     const vid=a.dataset.voce||id;
     if(paginaDi[vid]!=null) vai(paginaDi[vid], VOCI.some(v=>v.id===vid)?vid:null);
@@ -870,35 +993,37 @@ $('fbBook').addEventListener('click', e=>{
 }, true);
 
 /* ======================================================= COMANDI */
-$('fbNext').addEventListener('click', ()=>pf&&pf.flipNext());
-$('fbPrev').addEventListener('click', ()=>pf&&pf.flipPrev());
-$('fbPrima').addEventListener('click', ()=>vai(0));
+$('fbNext').addEventListener('click', ()=>libro&&libro.gira(1));
+$('fbPrev').addEventListener('click', ()=>libro&&libro.gira(-1));
 $('fbIndice').addEventListener('click', ()=>indice());
+$('fbTocX').addEventListener('click', ()=>indice(false));
 $('fbScrim').addEventListener('click', ()=>indice(false));
-$('fbScorri').addEventListener('change', e=>vai(+e.target.value-1));
-$('fbScorri').addEventListener('input', e=>{ $('fbNum').value=e.target.value; });
 $('fbNum').addEventListener('focus', e=>e.target.select());
-$('fbNum').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const n=parseInt(e.target.value,10); if(n) vai(n-1); e.target.blur(); } });
+$('fbNum').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const n=parseInt(e.target.value,10); if(n) vai(n-1); e.target.blur(); } else if(e.key==='Escape') e.target.blur(); });
 $('fbNum').addEventListener('blur', ()=>aggiorna());
 
 function chiudi(){ if(EMBED && window.parent!==window) window.parent.postMessage({tipo:'ofp-manuale-chiudi'}, location.origin); }
 if(EMBED){ $('fbChiudi').hidden=false; $('fbApp').hidden=true; }
 $('fbChiudi').addEventListener('click', chiudi);
 
+/* Da tastiera la pagina cambia subito, senza girata: chi usa le frecce
+   sfoglia in fretta, e un'animazione a ogni tasto la rallenterebbe
+   (emil-design-eng: nessuna animazione sulle azioni da tastiera). */
 document.addEventListener('keydown', e=>{
-  if(e.target.closest && e.target.closest('input')) return;
+  if(e.target.closest && e.target.closest('input,[role="slider"]')) return;
   if($('fbZoom').classList.contains('aperta')){ if(e.key==='Escape') chiudiLente(); return; }
-  if(!pf) return;
-  if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); girataRapida=true; pf.flipNext(); girataRapida=false; }
-  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); girataRapida=true; pf.flipPrev(); girataRapida=false; }
-  else if(e.key==='Home'){ e.preventDefault(); vai(0); }
-  else if(e.key==='End'){ e.preventDefault(); vai(pagine.length-1); }
+  if(!libro) return;
+  const [a,b]=visibili();
+  if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); vai(b+1, null, true); }
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); vai(a-1, null, true); }
+  else if(e.key==='Home'){ e.preventDefault(); vai(0, null, true); }
+  else if(e.key==='End'){ e.preventDefault(); vai(pagine.length-1, null, true); }
   else if(e.key==='Escape'){ if($('fbMain').classList.contains('toc-open') && innerWidth<1100) indice(false); else chiudi(); }
 });
 
 /* L'indice laterale si apre con una transizione: su schermo largo spinge il
    libro, e il libro lo segue fotogramma per fotogramma. */
-new ResizeObserver(()=>ridisegna()).observe($('fbStage'));
+new ResizeObserver(()=>{ ridisegna(); if(libro) posizionaScrub(visibili()[0],false); }).observe($('fbStage'));
 $('fbStage').addEventListener('transitionend', ()=>ridisegna());
 
 /* ======================================================= FORMATO */
@@ -910,10 +1035,9 @@ function rifai(){
   const [a]=visibili();
   const ids=pagine[a] ? [...pagine[a].el.querySelectorAll('[id]')].map(x=>x.id) : [];
   formato=scegliFormato(); F=FORMATI[formato];
-  pagine=impagina().map(o=>o);
+  pagine=impagina();
   let dove=0;
   for(const id of ids){ if(paginaDi[id]!=null){ dove=paginaDi[id]; break; } }
-  if(!ids.length && a) dove=Math.round(a*pagine.length/Math.max(1,pagine.length));
   costruisci(dove);
 }
 
@@ -930,7 +1054,7 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
 (async function(){
   const stato=$('fbStato');
   const ripiego=(msg)=>{ stato.innerHTML=`${msg}<br><a href="data/manuale.pdf">Open the manual as PDF</a>`; };
-  if(!window.St || !St.PageFlip) return ripiego('The page-turning viewer could not load.');
+  if(!window.Sfoglia) return ripiego('The page-turning viewer could not load.');
   try{
     const html=await fetch(LIBRO_URL,{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); });
     const t=document.createElement('template'); t.innerHTML=html; fonte=t.content;

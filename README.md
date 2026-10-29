@@ -470,11 +470,26 @@ porta a pagina nuova insieme alla procedura), spezza liste e tabelle per righe
 ripetendo l'intestazione, non lascia titoli soli in fondo alla pagina. Ogni
 figura ha la sua lente per vederla a schermo pieno.
 
-La girata e' di [StPageFlip](https://github.com/Nodlik/StPageFlip) (MIT,
-copiata in `vendor/`): la pagina si piega seguendo il dito o il mouse, con le
-ombre della curvatura. L'indice laterale si apre con una transizione; su schermo
-largo spinge il libro, che si ridimensiona insieme a lui e passa da doppia a
-pagina singola con una dissolvenza.
+La girata e' del motore di `sfoglia.js`, scritto per questo manuale. Il foglio
+che gira e' una lamina di strisce verticali piegate in 3D lungo una curva
+continua: il bordo segue il dito 1:1, la parte verso la costola lo insegue con
+una molla (il foglio si incurva da solo e si distende quando si ferma), al
+rilascio la velocita' del dito passa alla molla e la proiezione del moto decide
+se la girata si completa. In volo il bordo resta indietro, all'atterraggio il
+foglio rimbalza appena; si puo' riprendere a meta' e invertire, l'ultima pagina
+resiste e torna giu', le copertine sono rigide. Ogni striscia e' illuminata
+secondo la sua inclinazione, il foglio getta un'ombra sulle pagine sotto e la
+piega si scurisce quando e' in piedi. I fogli per la pagina dopo e prima sono
+gia' disegnati sotto le pagine vere, cosi' il primo fotogramma non aspetta.
+Da tastiera la pagina cambia subito; con "riduci movimento" niente girata, solo
+una dissolvenza breve.
+
+Intorno al libro: la barra a sezioni in basso (una parte per sezione, magenta
+quella in lettura, con la bolla di pagina e titolo mentre si trascina), le
+linguette delle sezioni sul taglio delle pagine come nei manuali stampati
+(cliccabili anche sul bordo del libro), il libro chiuso al centro che scivola
+quando si apre. L'indice laterale su schermo largo spinge il libro, che passa
+da doppia a pagina singola con una dissolvenza.
 
 `tools/manuale.mjs` scrive il testo una volta sola e produce:
 

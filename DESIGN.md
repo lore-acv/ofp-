@@ -277,6 +277,13 @@ La rotta dell'aeroclub che l'aereo disegna in magenta all'accesso e in Dashboard
 ### Documenti stampati
 OFP, NAV-FLIGHTPLAN e Navigation Log: nero su bianco, Courier, tabelle a riquadri, righe "...." da compilare a mano. Non seguono il tema dell'interfaccia.
 
+### Manuale sfogliabile (manuale.html)
+Un libro su un tavolo (modalita' Read di Impeccable): la cornice e' l'interfaccia del sito, la carta resta carta in entrambi i temi.
+- **Cornice:** barra con indice, posizione in lettura (sezione e paragrafo), pagina, PDF, tema; sotto, la barra a sezioni: una parte per sezione lunga quanto le sue pagine, magenta la parte in lettura (dove si e'), pomello ciano (cio' che si comanda) che segue il dito 1:1, bolla con pagina e titolo.
+- **Indice laterale:** sezioni numerate nel blocco blu, voci con numero e pagina in cifre tabellari; la voce in lettura ha fondo magenta tenue e un punto magenta, non un filetto colorato.
+- **Carta:** Inter per il testo, blu inchiostro (#1f3a5f) per titoli e struttura, ruggine (#c2410c) per numeri di passo e richiami. Apertura di sezione con il numero nel blocco blu; la stessa forma torna nella linguetta sul taglio esterno di ogni pagina e nei segni sul bordo del libro (signature del manuale). Avvisi WARNING / CAUTION / NOTE in riquadri interi con filetto sottile e segno disegnato, mai con il bordo sinistro spesso.
+- **Movimento:** la girata e' fisica (molle, vedi `sfoglia.js`), non una curva a tempo; il libro chiuso sta al centro e scivola di mezza pagina quando si apre; la lente si allarga dalla figura. Tastiera senza animazione; "riduci movimento" solo dissolvenze.
+
 ## Do's and Don'ts
 
 ### Do:

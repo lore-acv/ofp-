@@ -58,7 +58,7 @@ const PAGINE_CONTO = ['login.html', 'setup.html', 'password.html', 'admin.html']
 const CON_IMPRONTA = [
   ['ofp-core.js', 'src="ofp-core.js"',              (n) => `src="${n}"`, PAGINE_APP],
   ['ofp.css',     'href="ofp.css"',                 (n) => `href="${n}"`, PAGINE_APP],
-  ['vendor/page-flip.browser.js', 'src="vendor/page-flip.browser.js"', (n) => `src="${n}"`, ['manuale.html']],
+  ['sfoglia.js',  'src="sfoglia.js"',               (n) => `src="${n}"`, ['manuale.html']],
   ['conto.css',   'href="conto.css"',               (n) => `href="${n}"`, PAGINE_CONTO],
   ['conto.js',    'src="conto.js"',                 (n) => `src="${n}"`, PAGINE_CONTO],
   ['rotta-av.js', 'src="rotta-av.js"',              (n) => `src="${n}"`, ['login.html', 'index.html']],
