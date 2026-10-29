@@ -234,22 +234,24 @@ A(steps([['INPUT', 'the e-mail and password provided by the administrator to sig
   ['DOWNLOAD', 'the **weather and NOTAM briefing** PDF covering departure, destination, alternate and route, from SkyBrief (link in the Weather Briefing card).'],
   ['SELECT', '**New Flight** on the Dashboard: the Import page opens. **&larr; Dashboard** at the top of the Import page goes back without importing.']]));
 A(h2('2.2', 'Procedure'));
-A(box('note', 'STANDARD ROUTES ACV', 'The NavLog card opens with the **ACV standard route** list: the Aeroclub Varese routes, read from the club&rsquo;s ForeFlight NavLogs. SELECT a route instead of loading a NavLog: the same summary appears, with the waypoint table folded. SELECT **None** to clear it; loading a ForeFlight NavLog replaces it. A route with a Touch &amp; Go arrives in the wizard with the T&amp;G aerodrome already ticked (Step 1).'));
+A(box('note', 'STANDARD ROUTES ACV', 'The NavLog card opens with the **ACV standard route** list [A]: the Aeroclub Varese routes, read from the club&rsquo;s ForeFlight NavLogs. SELECT a route instead of loading a NavLog: the same summary appears, with the waypoint table folded. SELECT **None** to clear it; loading a ForeFlight NavLog replaces it. A route with a Touch &amp; Go arrives in the wizard with the T&amp;G aerodrome already ticked (Step 1).'));
 A(split(steps([
-  ['LOAD', 'the ForeFlight NavLog in the NavLog drop zone [A]. Load it first: its ICAO codes are used to sort the briefing.'],
-  ['VERIFY', 'the NavLog summary [B]: number of waypoints, total distance and the waypoint table. For a return flight the application states that DEP and ARR are the same aerodrome.'],
+  ['SELECT', 'an ACV standard route [A], or leave **None** to use a ForeFlight NavLog.'],
+  ['LOAD', 'the ForeFlight NavLog in the NavLog drop zone [B]. Load it first: its ICAO codes are used to sort the briefing.'],
+  ['VERIFY', 'the NavLog summary [C]: number of waypoints, total distance and the waypoint table. For a return flight the application states that DEP and ARR are the same aerodrome.'],
 ]) + box('note', 'NOTE', 'Only airports, route and distance are taken from the NavLog. ForeFlight speeds and fuel figures are not used: the AFM figures take precedence.'),
 figure(2, 'f2-1.jpg', 'NavLog Ingestion', 'NavLog read: 11 waypoints, 94 NM, return flight to the departure aerodrome.',
-  [['A', 'NavLog drop zone', 'LOAD the ForeFlight NavLog'], ['B', 'NavLog summary and waypoint table', 'VERIFY waypoints and distance']])));
+  [['A', 'ACV standard route', 'SELECT or leave None'], ['B', 'NavLog drop zone', 'LOAD the ForeFlight NavLog'], ['C', 'NavLog summary and waypoint table', 'VERIFY waypoints and distance']])));
 A(split(steps([
-  ['LOAD', 'the briefing PDF in the briefing drop zone [A].'],
-  ['VERIFY', 'the briefing summary [B]: issue date and time (UTC) and, for each aerodrome, the availability of METAR, TAF and the number of NOTAMs. `N/A` means not contained in the briefing.'],
-], 3), figure(2, 'f2-2.jpg', 'Weather Briefing Ingestion', 'Four aerodromes found in the briefing, two of them with TAF.',
-  [['A', 'Briefing drop zone', 'LOAD the briefing PDF'], ['B', 'Briefing summary and aerodrome table', 'VERIFY issue time and coverage']])));
+  ['SELECT', '**Get the briefing on SkyBrief** [A] if the briefing has not been downloaded yet: SkyBrief opens in a new tab. Search DEP, ARR and ALTN by ICAO and download the PDF.'],
+  ['LOAD', 'the briefing PDF in the briefing drop zone [B].'],
+  ['VERIFY', 'the briefing summary [C]: issue date and time (UTC) and, for each aerodrome, the availability of METAR, TAF and the number of NOTAMs. `N/A` means not contained in the briefing.'],
+], 4), figure(2, 'f2-2.jpg', 'Weather Briefing Ingestion', 'Four aerodromes found in the briefing, two of them with TAF.',
+  [['A', 'SkyBrief link', 'SELECT to download the briefing'], ['B', 'Briefing drop zone', 'LOAD the briefing PDF'], ['C', 'Briefing summary and aerodrome table', 'VERIFY issue time and coverage']])));
 A(split(steps([
   ['CONFIRM', 'both STATUS items are green [A].'],
   ['SELECT', '**Continue** [B] to open the wizard.'],
-], 5) + box('caution', 'CAUTION', '**Skip and enter manually** [C] opens the wizard without imported data. Route, distances and all weather and NOTAM fields must then be entered by hand.'),
+], 7) + box('caution', 'CAUTION', '**Skip and enter manually** [C] opens the wizard without imported data. Route, distances and all weather and NOTAM fields must then be entered by hand.'),
 figure(2, 'f2-3.jpg', 'Import Status', 'Both files read: the wizard can be opened.',
   [['A', 'Status', 'CONFIRM both items green'], ['B', 'Continue', 'SELECT to proceed'], ['C', 'Skip and enter manually', 'Manual entry only']])));
 A('</section>');
@@ -455,17 +457,17 @@ A(steps([
   ['SELECT', '**Fill Frequencies** [B] to repeat the frequency look-up. VERIFY frequencies [C].'],
   ['INPUT', 'callsigns [D] (not in any database).'],
   ['VERIFY', 'checkpoints, magnetic tracks and distances [E].'],
-  ['SELECT', '**Round MT to 5°** if required: magnetic tracks are shown and printed to the nearest 5° (347 &rarr; 345, 358 &rarr; 360). The ForeFlight values are kept; untick to restore them.'],
-  ['VERIFY', 'the altitude of each waypoint [F]; CORRECT where different from cruise.'],
-  ['VERIFY', 'EET per leg, ETO (minutes after TO) and fuel [G]. A leg from or to an aerodrome reads e.g. `7/+5`: 7 min en route + 5 aerodrome minutes (Section 5.3), already included in ETO, Trip and fuel.'],
-  ['INPUT', 'remarks [H] (optional).'],
-  ['CROSS-CHECK', 'the totals line [I] with the Trip of Step 2: time and fuel must be the same.'],
+  ['SELECT', '**Round MT to 5°** [F] if required: magnetic tracks are shown and printed to the nearest 5° (347 &rarr; 345, 358 &rarr; 360). The ForeFlight values are kept; untick to restore them.'],
+  ['VERIFY', 'the altitude of each waypoint [G]; CORRECT where different from cruise.'],
+  ['VERIFY', 'EET per leg, ETO (minutes after TO) and fuel [H]. A leg from or to an aerodrome reads e.g. `7/+5`: 7 min en route + 5 aerodrome minutes (Section 5.3), already included in ETO, Trip and fuel.'],
+  ['INPUT', 'remarks [I] (optional).'],
+  ['CROSS-CHECK', 'the totals line [J] with the Trip of Step 2: time and fuel must be the same.'],
 ], 2));
 A(figure(3, 'f3-16.jpg', 'Navlog Legs',
   'Times and fuel are recomputed from the selected power setting, not copied from ForeFlight; the climb is split over the legs by distance.',
   [['A', '+ Row', 'Add checkpoint'], ['B', 'Fill Frequencies', 'Repeat look-up'], ['C', 'Freq.', 'VERIFY'], ['D', 'C/S', 'INPUT'],
-    ['E', 'Checkpoint / MT / Dist.', 'VERIFY'], ['F', 'Alt.', 'VERIFY / CORRECT'], ['G', 'EET / ETO / Fuel', 'VERIFY'],
-    ['H', 'Remarks', 'INPUT (optional)'], ['I', 'Totals line', 'CROSS-CHECK with Trip']], 'wide'));
+    ['E', 'Checkpoint / MT / Dist.', 'VERIFY'], ['F', 'Round MT to 5°', 'SELECT if required'], ['G', 'Alt.', 'VERIFY / CORRECT'],
+    ['H', 'EET / ETO / Fuel', 'VERIFY'], ['I', 'Remarks', 'INPUT (optional)'], ['J', 'Totals line', 'CROSS-CHECK with Trip']], 'wide'));
 A(box('note', 'NOTE', 'A leg longer than 10 minutes shows an advisory message (turning points ideally every 6–8 minutes). It does not block the wizard and does not change the navlog.'));
 
 /* ---- step 6 / 7 */
@@ -558,7 +560,7 @@ A(figure(4, 'f4-2.jpg', 'OFP – Page 1', 'The ACTUAL column and the BLOCK / ACT
 A(figure(4, 'f4-3.jpg', 'OFP – Mass and Balance', 'Followed on the same page by the CG envelope chart, remarks and PIC signature.',
   [['A', 'Weight calculation', 'VERIFY'], ['B', 'Fuel calculation', 'VERIFY'], ['C', 'Result', 'VERIFY'], ['D', 'Limits and CG', 'VERIFY within limits']], 'wide doc'));
 A(figure(4, 'f4-5.jpg', 'OFP – Performance', '',
-  [['A', 'Masses (TOW / LAW / ALTN)', 'VERIFY'], ['B', 'V-speeds by aerodrome', 'VERIFY'], ['C', 'Conditions by phase: mass, QNH, OAT, wind, PA / DA, head and crosswind', 'VERIFY'],
+  [['A', 'Masses (TOW / LAW / ALTN)', 'VERIFY'], ['B', 'V-speeds by aerodrome', 'VERIFY'], ['C', 'Conditions by phase', 'VERIFY'],
     ['D', 'Distances available / required / margin', 'CROSS-CHECK'], ['E', 'Cruise power setting', 'VERIFY'], ['F', 'TOC position', 'VERIFY'], ['G', 'AFM cruise table', 'Reference']], 'wide doc'));
 A(h2('4.3', 'NAV-FLIGHTPLAN (A5)'));
 A(steps([
