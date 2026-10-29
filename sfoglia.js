@@ -99,7 +99,11 @@ P.costruisci=function(){
   this.taglioSx=el('lb-taglio sx'); this.taglioDx=el('lb-taglio dx');
   this.fermoSx=el('lb-fermo sx'); this.fermoDx=el('lb-fermo dx');
   const vSx=el('lb-velo sx'), vDx=el('lb-velo dx');
+  // ombra del cilindro (pagina che si scopre) e ombra del lembo (pagina di la' dalla costola)
   this.cast={sx:el('lb-cast', vSx), dx:el('lb-cast', vDx)};
+  this.castL={sx:el('lb-cast lembo', vSx), dx:el('lb-cast lembo', vDx)};
+  // i segnalibri delle sezioni, fuori dai bordi del libro
+  this.lingSx=el('lb-ling sx'); this.lingDx=el('lb-ling dx');
   this.gola=el('lb-gola');
   this.scena=el('lb-scena'); this.aria=el('lb-aria', this.scena);
   this.aria.style.width=2*this.W+'px'; this.aria.style.height=this.H+'px';
@@ -184,7 +188,10 @@ P.taglio=function(){
   const destra = N-1-b;
   this.taglioSx.style.width=sp(sinistra)+'px'; this.taglioSx.hidden=!sinistra || !this.doppia || this.paginaDi(this.cur).sx==null;
   this.taglioDx.style.width=sp(destra)+'px'; this.taglioDx.hidden=!destra;
-  if(this.o.onTaglio) this.o.onTaglio(this.taglioSx, this.taglioDx, a, b, this.ph, this.k);
+  // i segnalibri escono dal taglio, non dalla pagina
+  this.lingSx.style.right=`calc(100% + ${this.taglioSx.hidden?0:sp(sinistra)}px)`;
+  this.lingDx.style.left=`calc(100% + ${this.taglioDx.hidden?0:sp(destra)}px)`;
+  if(this.o.onTaglio) this.o.onTaglio(this.lingSx, this.lingDx, a, b, this.ph, this.k);
 };
 
 /* Il libro chiuso (solo la copertina, o solo il retro) sta al centro; quando
@@ -463,14 +470,18 @@ P.disegnaRigido=function(f){
 /* ombre sulle pagine vere: la pagina che si scopre riceve l'ombra del
    cilindro; quella dall'altra parte della costola, l'ombra del lembo */
 P.ombre=function(){
-  const k=this.k, W=this.W, H=this.H, usa={sx:false, dx:false};
+  const k=this.k, W=this.W, H=this.H, usa=new Set();
   let gola=0;
-  // P: punto (coordinate dello schermo con origine nella costola); u: verso in cui l'ombra si allunga
-  const metti=(lato, Pt, ux, uy, larga, o)=>{
+  // P: punto (coordinate dello schermo con origine nella costola), centro dell'ombra
+  // lungo la sua linea; u: verso in cui l'ombra si allunga; lungo: quanto e' lunga
+  // la linea (l'ombra del lembo e' lunga quanto il suo bordo, non un filo in piu')
+  const metti=(el, lato, Pt, ux, uy, larga, o, lungo)=>{
     if(o<.004) return;
-    const el=this.cast[lato]; usa[lato]=true;
+    usa.add(el);
     const base = lato==='dx' ? 0 : this.pw;
-    const X=base+Pt[0]*k, Y=Pt[1]*k, h=2*this.D*k, w=larga*k/100;
+    const X=base+Pt[0]*k, Y=Pt[1]*k, w=larga*k/100;
+    const h=(lungo||2*this.D)*k;
+    if(lungo) el.style.height=h+'px';
     const tx=-uy, ty=ux;
     el.style.transform=m2(ux*w,uy*w,tx,ty,X-tx*h/2,Y-ty*h/2);
     el.style.opacity=o.toFixed(3);
@@ -479,29 +490,28 @@ P.ombre=function(){
     const g=f.geo; if(!g) continue;
     if(g.rigido){
       const x=f.dir*W*Math.cos(g.a), lato=x>=0?'dx':'sx';
-      if(this.doppia || lato==='dx') metti(lato, [x,0], x>=0?1:-1, 0, W*.06+W*Math.sin(g.a)*.5, Math.sin(g.a)*.32);
+      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [x,0], x>=0?1:-1, 0, W*.06+W*Math.sin(g.a)*.5, Math.sin(g.a)*.32);
       gola=Math.max(gola, Math.sin(g.a)*.8);
       continue;
     }
     if(g.L<.05) continue;
-    // l'ombra del cilindro sulla pagina che si scopre, oltre il suo colmo
-    let dmax=-1e9;
-    for(const [x,y] of [[0,0],[W,0],[0,H],[W,H]]) dmax=Math.max(dmax, g.nx*f.dir*x+g.ny*y-g.c);
-    if(dmax>0 && g.R>=.3){
-      const colmo=g.c+(dmax>=PI*g.R/2 ? g.R : g.R*Math.sin(dmax/g.R));
+    // L'ombra del cilindro sulla pagina che si scopre. Comincia trasparente
+    // sulla piega, sotto il foglio, e si scurisce verso il colmo: dove il foglio
+    // non arriva fino al colmo (verso l'angolo) non resta un bordo netto.
+    if(g.R>=.3){
       const lato = f.dir>0 ? 'dx' : 'sx';
-      if(this.doppia || lato==='dx') metti(lato, [g.nx*colmo, g.ny*colmo], g.nx, g.ny, W*.05+g.R*1.1, clamp(g.R/(W*.06),0,1)*.42);
+      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [g.nx*g.c, g.ny*g.c], g.nx, g.ny, g.R*1.25+W*.09, clamp(g.R/(W*.06),0,1)*.5);
     }
     // l'ombra del lembo sulla pagina dall'altra parte della costola
     if(this.doppia && f.lembo){
       const lato = f.dir>0 ? 'sx' : 'dx';
       const di_la=f.lembo.lati.filter(l=>{ const mx=(l.a[0]+l.b[0])/2; return lato==='sx' ? mx<0 : mx>0; });
       const l=di_la.sort((x,y)=>y.len-x.len)[0];
-      if(l) metti(lato, [(l.a[0]+l.b[0])/2,(l.a[1]+l.b[1])/2], l.px, l.py, f.lembo.larga*1.4, f.lembo.o*.9);
+      if(l) metti(this.castL[lato], lato, [(l.a[0]+l.b[0])/2,(l.a[1]+l.b[1])/2], l.px, l.py, f.lembo.larga*1.4, f.lembo.o*.9, l.len);
     }
     gola=Math.max(gola, Math.sin(PI*g.p)*.5);
   }
-  for(const lato of ['sx','dx']) if(!usa[lato]) this.cast[lato].style.opacity=0;
+  for(const el of [this.cast.sx,this.cast.dx,this.castL.sx,this.castL.dx]) if(!usa.has(el)) el.style.opacity=0;
   this.gola.style.opacity = this.doppia ? gola.toFixed(3) : 0;
 };
 

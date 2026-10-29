@@ -136,16 +136,18 @@
   .fb-foot{position:relative;z-index:45;flex:0 0 auto;display:flex;align-items:center;gap:1rem;padding:.35rem max(1.1rem,env(safe-area-inset-right)) max(.45rem,env(safe-area-inset-bottom)) max(1.1rem,env(safe-area-inset-left));
     background:var(--panel-2);border-top:1px solid var(--panel-line)}
   .fb-scrub{position:relative;flex:1 1 auto;height:var(--tap);cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;border-radius:var(--r-sm)}
-  .fb-traccia{position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;display:flex;gap:3px}
-  .fb-seg{position:relative;height:100%;border-radius:3px;background:color-mix(in srgb,var(--txt) 16%,transparent);overflow:hidden}
-  .fb-seg i{position:absolute;inset:0;border-radius:3px;background:color-mix(in srgb,var(--txt) 42%,transparent);transform-origin:0 0;transform:scaleX(0)}
-  .fb-seg.att i{background:var(--attivo)}
+  /* Niente barra che si riempie: la traccia e' l'indice delle sezioni, una
+     tacca per sezione lunga quanto le sue pagine; quella in lettura e' appena
+     piu' chiara. La posizione e' un segno sottile, come un segnalibro. */
+  .fb-traccia{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;display:flex;gap:4px}
+  .fb-seg{position:relative;height:100%;border-radius:2px;background:color-mix(in srgb,var(--txt) 13%,transparent);transition:background-color var(--t-med) ease}
+  .fb-seg.att{background:color-mix(in srgb,var(--txt) 36%,transparent)}
   /* il pomello segue il dito 1:1 (translate, senza transizione); solo la
      pressione ha la sua piccola risposta (scale) */
-  .fb-pomo{position:absolute;top:50%;left:0;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--accent-2);
-    box-shadow:0 0 0 4px color-mix(in srgb,var(--accent-2) 22%,transparent),0 2px 6px rgba(0,0,0,.35);pointer-events:none;
+  .fb-pomo{position:absolute;top:50%;left:0;width:6px;height:22px;margin:-11px 0 0 -3px;border-radius:3px;background:var(--txt);
+    box-shadow:0 0 0 3px var(--panel-2),0 1px 4px rgba(0,0,0,.35);pointer-events:none;
     transition:scale var(--t-press) var(--ease-out)}
-  .fb-scrub.tira .fb-pomo{scale:1.15}
+  .fb-scrub.tira .fb-pomo{scale:1.12 1.2}
   .fb-bolla{position:absolute;bottom:calc(100% + .35rem);left:0;transform:translateX(-50%);padding:.45rem .7rem;border-radius:var(--r-md);
     background:var(--panel-bg);border:1px solid var(--panel-line);box-shadow:var(--ombra-pop);font-size:.82rem;white-space:nowrap;
     pointer-events:none;opacity:0;transition:opacity var(--t-fast) var(--ease-out);font-variant-numeric:tabular-nums;max-width:min(26rem,80vw);overflow:hidden;text-overflow:ellipsis}
@@ -201,15 +203,36 @@
     background:repeating-linear-gradient(to right,#f7f5f0 0 1px,#d9d4ca 1px 1.6px);box-shadow:0 1px 3px rgba(0,0,0,.25)}
   .lb-taglio.dx{left:100%;border-radius:0 2px 2px 0}
   .lb-taglio.sx{right:100%;border-radius:2px 0 0 2px}
-  .lb-segno{position:absolute;width:100%;background:color-mix(in srgb,var(--navy) 78%,#d9d4ca);pointer-events:auto;cursor:pointer}
-  .lb-taglio.dx .lb-segno{left:0;border-radius:0 2px 2px 0}
-  .lb-taglio.sx .lb-segno{right:0;border-radius:2px 0 0 2px}
-  .lb-segno::after{content:"";position:absolute;inset:-4px -10px}
+  /* I segnalibri delle sezioni: escono dal taglio del libro come le linguette
+     di un manuale stampato, uno per sezione, alla stessa altezza in tutto il
+     libro. Numero e nome breve; quello della sezione in lettura e' ruggine.
+     A destra le sezioni che vengono, a sinistra quelle gia' passate. */
+  .lb-ling{position:absolute;top:0;bottom:0;width:0;z-index:5;pointer-events:none}
+  .lb-ling.dx{left:100%} .lb-ling.sx{right:100%}
+  .lb-tab{position:absolute;left:0;width:32px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:7px;
+    padding:9px 0 8px;background:#2d4b74;color:#fff;text-decoration:none;pointer-events:auto;cursor:pointer;
+    border-radius:0 9px 9px 0;box-shadow:2px 3px 8px -2px rgba(0,0,0,.35);font:600 11.5px/1 Inter,system-ui,sans-serif;overflow:hidden;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;
+    transition:transform var(--t-press) var(--ease-out),background-color var(--t-fast) ease}
+  .lb-ling.sx .lb-tab{left:auto;right:0;border-radius:9px 0 0 9px;box-shadow:-2px 3px 8px -2px rgba(0,0,0,.35)}
+  .lb-tab b{font-size:13.5px;font-weight:700;font-variant-numeric:tabular-nums}
+  .lb-tab span{writing-mode:vertical-rl;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:0;flex:1 1 auto;letter-spacing:.01em}
+  .lb-ling.sx .lb-tab span{transform:rotate(180deg)}
+  .lb-tab.att{background:var(--ruggine)}
+  .lb-ling.dx .lb-tab:active{transform:translateX(-2px)} .lb-ling.sx .lb-tab:active{transform:translateX(2px)}
+  .lb-tab:focus-visible{outline:none;box-shadow:var(--ring)}
+  .fmt-phone .lb-tab{width:17px;padding:7px 0;border-radius:0 6px 6px 0} .fmt-phone .lb-ling.sx .lb-tab{border-radius:6px 0 0 6px}
+  .fmt-phone .lb-tab b{font-size:10.5px} .fmt-phone .lb-tab span{display:none}
   .lb-velo{position:absolute;top:0;bottom:0;overflow:hidden;z-index:3;pointer-events:none}
   .lb.doppia .lb-velo{width:50%} .lb.doppia .lb-velo.dx{left:50%} .lb.doppia .lb-velo.sx{left:0}
   .lb.singola .lb-velo{left:0;width:100%} .lb.singola .lb-velo.sx{display:none}
+  /* ombra del cilindro: nasce trasparente sulla piega (sotto il foglio) e ha il
+     massimo verso il colmo, quindi non ha mai un bordo netto */
   .lb-cast{position:absolute;top:0;left:0;width:100px;transform-origin:0 0;opacity:0;will-change:transform,opacity;
-    background:linear-gradient(to right,rgba(28,22,15,.5),rgba(28,22,15,.24) 28%,rgba(28,22,15,.07) 64%,rgba(28,22,15,0))}
+    background:linear-gradient(to right,rgba(28,22,15,0),rgba(28,22,15,.16) 30%,rgba(28,22,15,.42) 56%,rgba(28,22,15,.15) 74%,rgba(28,22,15,.04) 90%,rgba(28,22,15,0))}
+  /* ombra del lembo sull'altra pagina: lunga quanto il bordo del lembo, con le estremita' sfumate */
+  .lb-cast.lembo{background:linear-gradient(to right,rgba(28,22,15,.46),rgba(28,22,15,.2) 34%,rgba(28,22,15,.06) 68%,rgba(28,22,15,0));
+    -webkit-mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
   .lb-gola{position:absolute;top:0;bottom:0;left:50%;width:22%;margin-left:-11%;z-index:3;pointer-events:none;opacity:0;will-change:opacity;
     background:linear-gradient(to right,rgba(28,22,15,0),rgba(28,22,15,.16) 42%,rgba(28,22,15,.22) 50%,rgba(28,22,15,.16) 58%,rgba(28,22,15,0))}
   .lb.singola .lb-gola{display:none}
@@ -269,13 +292,7 @@
   .pg-foot b{color:var(--navy);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
   .fmt-phone .pg-head{font-size:9.5px} .fmt-phone .pg-foot{font-size:9.5px}
 
-  /* la linguetta della sezione sul taglio esterno, come nei manuali stampati */
-  .pg-tab{position:absolute;top:calc(var(--pt) + var(--hh) + 26px + var(--j) * (var(--ph) - var(--pt) - var(--hh) - var(--fh) - var(--pb) - 52px) / var(--nt));
-    height:calc((var(--ph) - var(--pt) - var(--hh) - var(--fh) - var(--pb) - 52px) / var(--nt) - 6px);width:20px;
-    background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font:700 11.5px Inter,sans-serif;text-decoration:none!important}
-  .pg.dx .pg-tab,.lb.singola .pg .pg-tab{right:0;left:auto;border-radius:3px 0 0 3px}
-  .pg.sx .pg-tab{left:0;border-radius:0 3px 3px 0}
-  .fmt-phone .pg-tab{width:14px;font-size:10px}
+
 
   /* --- testo --- */
   .pg-body p{margin:0 0 11px;text-wrap:pretty}
@@ -427,7 +444,7 @@
     .pg-body .toc-e:hover{background:#eef2f6}
     .pg-body a:hover{text-decoration-color:currentColor}
     .pg-body .fig-zoom:hover{border-color:var(--navy)}
-    .lb-segno:hover{filter:brightness(1.35)}
+    .lb-tab:hover{filter:brightness(1.15)}
     .fb-zoom-x:hover{background:rgba(255,255,255,.1)}
   }
   @media (prefers-reduced-motion:reduce){
@@ -727,18 +744,10 @@ function impagina(){
   out.forEach(o=>o.el.querySelectorAll('.toc-e').forEach(a=>{
     const p=paginaDi[a.dataset.voce]; a.querySelector('.tp').textContent = p==null ? '' : String(p+1);
   }));
-  /* ---- le linguette: una per sezione numerata, sul taglio esterno ---- */
+  /* ---- le sezioni numerate: i segnalibri sul taglio del libro ---- */
   SEZ=VOCI.filter(v=>v.level===1 && /^(section|appendix)\s/i.test(v.num) && paginaDi[v.id]!=null)
     .map(v=>({id:v.id, num:v.num, title:v.title, label:v.num.split(/\s+/).pop(), p:paginaDi[v.id]}));
-  out.forEach((o,i)=>{
-    if(o.nuda) return;
-    let j=-1; SEZ.forEach((s,k)=>{ if(s.p<=i) j=k; });
-    if(j<0) return;
-    const t=document.createElement('a'); t.className='pg-tab'; t.href='#'+SEZ[j].id; t.textContent=SEZ[j].label;
-    t.setAttribute('aria-label', `${SEZ[j].num} – ${SEZ[j].title}`);
-    t.style.setProperty('--j', j); t.style.setProperty('--nt', SEZ.length);
-    o.el.querySelector('.pg-in').appendChild(t);
-  });
+
   // la lente su ogni figura
   out.forEach(o=>o.el.querySelectorAll('figure.fig .fig-id').forEach(fid=>{
     if(fid.querySelector('.fig-zoom')) return;
@@ -764,7 +773,7 @@ function costruisci(start){
   libro=new Sfoglia(book,{
     pagine:pagine.map(p=>p.el), w:F.w, h:F.h, pw:m.pw, ph:m.ph, doppia:m.doppia,
     rigide:[0, pagine.length-1], moto:MOTO, inizio:Math.max(0,Math.min(pagine.length-1,start||0)),
-    onCambio:()=>aggiorna(), onTaglio:segniTaglio
+    onCambio:()=>aggiorna(), onTaglio:segnalibri
   });
   book.style.setProperty('--imgmax', banco.style.getPropertyValue('--imgmax'));
   book.style.setProperty('--docmax', banco.style.getPropertyValue('--docmax'));
@@ -774,22 +783,30 @@ function costruisci(start){
   aggiorna();
 }
 
-/* i segni delle sezioni sul taglio: quelle gia' lette a sinistra, quelle
-   ancora da leggere a destra; un clic apre la sezione */
-function segniTaglio(sx, dx, a, b, H, k){
-  [sx,dx].forEach(t=>t.querySelectorAll('.lb-segno').forEach(x=>x.remove()));
+/* I segnalibri: uno per sezione numerata, alla stessa altezza in tutto il
+   libro (come le linguette stampate). Quello della sezione in lettura sta sul
+   bordo della pagina che si legge, a destra se c'e'; le sezioni che vengono a
+   destra, quelle gia' passate a sinistra. Un tocco apre la sezione. */
+const TITOLI_TAB={s1:'General', s2:'Import', s3:'Wizard', s4:'Outputs', s5:'Limits', appA:'Checklist'};
+function segnalibri(sx, dx, a, b, H, k){
+  sx.replaceChildren(); dx.replaceChildren();
   if(!SEZ.length) return;
-  // le stesse misure delle linguette sulla pagina (.pg-tab)
-  const M = formato==='book' ? {pt:26,hh:34,fh:30,pb:20,ph:848} : {pt:16,hh:28,fh:26,pb:12,ph:676};
-  const top=(M.pt+M.hh+26)/M.ph, alt=(M.ph-M.pt-M.hh-M.fh-M.pb-52)/M.ph;
+  let cur=-1; SEZ.forEach((s,j)=>{ if(s.p<=b) cur=j; });
+  // a doppia pagina, con una sola pagina in vista: destra se e' pari (la copertina), sinistra se dispari
+  const destraInVista = !doppia || a<b || a%2===0;
+  const gap=6*k, top=.085*H, alt=.83*H/SEZ.length;
   SEZ.forEach((s,j)=>{
-    const lato = s.p>b ? dx : (s.p<a ? sx : null);
-    if(!lato || lato.hidden) return;
-    const m=document.createElement('a'); m.className='lb-segno'; m.href='#'+s.id;
-    m.setAttribute('aria-label', `${s.num} – ${s.title}, page ${s.p+1}`);
-    m.style.top=((top + j*alt/SEZ.length)*H)+'px'; m.style.height=(alt/SEZ.length*H - 6*k)+'px';
-    m.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); vai(s.p, s.id); });
-    lato.appendChild(m);
+    const att = j===cur;
+    const lato = att ? (destraInVista ? dx : sx) : (s.p>b ? dx : sx);
+    const t=document.createElement('a'); t.className='lb-tab'+(att?' att':''); t.href='#'+s.id;
+    const nome=TITOLI_TAB[s.id] || s.title.split(/\s+[–&-]\s+|\s+/).slice(0,2).join(' ');
+    t.innerHTML=`<b>${esc(s.label)}</b><span>${esc(nome)}</span>`;
+    t.title=`${s.num} – ${s.title}`;
+    t.setAttribute('aria-label', `${s.num} – ${s.title}, page ${s.p+1}`+(att?' (current section)':''));
+    if(att) t.setAttribute('aria-current','true');
+    t.style.top=(top+j*alt)+'px'; t.style.height=Math.max(28, alt-gap)+'px';
+    t.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); vai(s.p, s.id); });
+    lato.appendChild(t);
   });
 }
 
@@ -799,7 +816,8 @@ function segniTaglio(sx, dx, a, b, H, k){
 function dimensiona(primo){
   const st=$('fbStage'), cs=getComputedStyle(st);
   const tel = innerWidth<700;
-  const W=st.clientWidth - parseFloat(cs.paddingLeft) - (tel ? 16 : 150);
+  // ai lati resta posto per i segnalibri (e, oltre, per le frecce)
+  const W=st.clientWidth - parseFloat(cs.paddingLeft) - (tel ? 44 : 250);
   const H=st.clientHeight - (tel ? 16 : 40);
   if(W<50||H<50) return null;
   const r=F.w/F.h, quoz=W/H/(2*r);
@@ -892,7 +910,7 @@ function costruisciTraccia(){
   const N=pagine.length, tr=$('fbTraccia'); tr.innerHTML='';
   const inizi=[0, ...SEZ.map(s=>s.p).filter(p=>p>0)].filter((p,i,a)=>a.indexOf(p)===i).sort((x,y)=>x-y);
   PARTI=inizi.map((p,i)=>({da:p, a:(inizi[i+1]??N)-1}));
-  PARTI.forEach(pt=>{ const s=document.createElement('div'); s.className='fb-seg'; s.style.flex=`${pt.a-pt.da+1} 1 0`; s.appendChild(document.createElement('i')); tr.appendChild(s); pt.el=s; });
+  PARTI.forEach(pt=>{ const s=document.createElement('div'); s.className='fb-seg'; s.style.flex=`${pt.a-pt.da+1} 1 0`; tr.appendChild(s); pt.el=s; });
 }
 function xDiPagina(i){
   const N=pagine.length, tr=$('fbTraccia'), w=tr.clientWidth, gap=3, n=PARTI.length;
@@ -913,11 +931,7 @@ function posizionaScrub(i, anteprima){
   const x=xDiPagina(i);
   $('fbPomo').style.translate=`${x}px 0`;
   const [a,b]=visibili(), cur=anteprima?i:a;
-  PARTI.forEach(pt=>{
-    const f = cur>pt.a ? 1 : cur<pt.da ? 0 : (cur-pt.da+1)/(pt.a-pt.da+1);
-    pt.el.firstChild.style.transform=`scaleX(${f})`;
-    pt.el.classList.toggle('att', cur>=pt.da && cur<=pt.a);
-  });
+  PARTI.forEach(pt=>pt.el.classList.toggle('att', cur>=pt.da && cur<=pt.a));
   $('fbScrub').setAttribute('aria-valuenow', cur+1);
   const {att}=sezioneDi(cur);
   const testo=`Page ${cur+1}${att?` · ${(att.num?att.num+' ':'')+att.title}`:''}`;
@@ -994,7 +1008,7 @@ $('fbBook').addEventListener('click', e=>{
   const z=e.target.closest('.fig-zoom');
   if(z){ e.preventDefault(); e.stopPropagation(); lente(z.closest('figure')); return; }
   const a=e.target.closest('a[href^="#"]');
-  if(a && !a.classList.contains('lb-segno')){ e.preventDefault(); e.stopPropagation();
+  if(a && !a.classList.contains('lb-tab')){ e.preventDefault(); e.stopPropagation();
     const id=a.getAttribute('href').slice(1);
     const vid=a.dataset.voce||id;
     if(paginaDi[vid]!=null) vai(paginaDi[vid], VOCI.some(v=>v.id===vid)?vid:null);
