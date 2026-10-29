@@ -209,20 +209,20 @@
      A destra le sezioni che vengono, a sinistra quelle gia' passate. */
   .lb-ling{position:absolute;top:0;bottom:0;width:0;z-index:5;pointer-events:none}
   .lb-ling.dx{left:100%} .lb-ling.sx{right:100%}
-  .lb-tab{position:absolute;left:0;width:32px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:7px;
-    padding:9px 0 8px;background:#2d4b74;color:#fff;text-decoration:none;pointer-events:auto;cursor:pointer;
+  .lb-tab{position:absolute;left:0;width:28px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:8px 0;background:#2d4b74;color:#fff;text-decoration:none;pointer-events:auto;cursor:pointer;
     border-radius:0 9px 9px 0;box-shadow:2px 3px 8px -2px rgba(0,0,0,.35);font:600 11.5px/1 Inter,system-ui,sans-serif;overflow:hidden;
     -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;
     transition:transform var(--t-press) var(--ease-out),background-color var(--t-fast) ease}
   .lb-ling.sx .lb-tab{left:auto;right:0;border-radius:9px 0 0 9px;box-shadow:-2px 3px 8px -2px rgba(0,0,0,.35)}
-  .lb-tab b{font-size:13.5px;font-weight:700;font-variant-numeric:tabular-nums}
-  .lb-tab span{writing-mode:vertical-rl;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:0;flex:1 1 auto;letter-spacing:.01em}
+  .lb-tab span{writing-mode:vertical-rl;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-height:100%;
+    font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
   .lb-ling.sx .lb-tab span{transform:rotate(180deg)}
   .lb-tab.att{background:var(--ruggine)}
   .lb-ling.dx .lb-tab:active{transform:translateX(-2px)} .lb-ling.sx .lb-tab:active{transform:translateX(2px)}
   .lb-tab:focus-visible{outline:none;box-shadow:var(--ring)}
   .fmt-phone .lb-tab{width:17px;padding:7px 0;border-radius:0 6px 6px 0} .fmt-phone .lb-ling.sx .lb-tab{border-radius:6px 0 0 6px}
-  .fmt-phone .lb-tab b{font-size:10.5px} .fmt-phone .lb-tab span{display:none}
+  .fmt-phone .lb-tab span{font-size:7.5px;letter-spacing:.06em}
   .lb-velo{position:absolute;top:0;bottom:0;overflow:hidden;z-index:3;pointer-events:none}
   .lb.doppia .lb-velo{width:50%} .lb.doppia .lb-velo.dx{left:50%} .lb.doppia .lb-velo.sx{left:0}
   .lb.singola .lb-velo{left:0;width:100%} .lb.singola .lb-velo.sx{display:none}
@@ -800,7 +800,7 @@ function segnalibri(sx, dx, a, b, H, k){
     const lato = att ? (destraInVista ? dx : sx) : (s.p>b ? dx : sx);
     const t=document.createElement('a'); t.className='lb-tab'+(att?' att':''); t.href='#'+s.id;
     const nome=TITOLI_TAB[s.id] || s.title.split(/\s+[–&-]\s+|\s+/).slice(0,2).join(' ');
-    t.innerHTML=`<b>${esc(s.label)}</b><span>${esc(nome)}</span>`;
+    t.innerHTML=`<span>${esc(nome)}</span>`;
     t.title=`${s.num} – ${s.title}`;
     t.setAttribute('aria-label', `${s.num} – ${s.title}, page ${s.p+1}`+(att?' (current section)':''));
     if(att) t.setAttribute('aria-current','true');
