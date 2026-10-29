@@ -470,19 +470,24 @@ porta a pagina nuova insieme alla procedura), spezza liste e tabelle per righe
 ripetendo l'intestazione, non lascia titoli soli in fondo alla pagina. Ogni
 figura ha la sua lente per vederla a schermo pieno.
 
-La girata e' del motore di `sfoglia.js`, scritto per questo manuale. Il foglio
-che gira e' una lamina di strisce verticali piegate in 3D lungo una curva
-continua: il bordo segue il dito 1:1, la parte verso la costola lo insegue con
-una molla (il foglio si incurva da solo e si distende quando si ferma), al
-rilascio la velocita' del dito passa alla molla e la proiezione del moto decide
-se la girata si completa. In volo il bordo resta indietro, all'atterraggio il
-foglio rimbalza appena; si puo' riprendere a meta' e invertire, l'ultima pagina
-resiste e torna giu', le copertine sono rigide. Ogni striscia e' illuminata
-secondo la sua inclinazione, il foglio getta un'ombra sulle pagine sotto e la
-piega si scurisce quando e' in piedi. I fogli per la pagina dopo e prima sono
-gia' disegnati sotto le pagine vere, cosi' il primo fotogramma non aspetta.
-Da tastiera la pagina cambia subito; con "riduci movimento" niente girata, solo
-una dissolvenza breve.
+La girata e' del motore di `sfoglia.js`, scritto per questo manuale. Il
+foglio si prende in qualsiasi punto e si trascina in qualsiasi direzione: il
+punto preso resta sotto il dito. Il foglio si arrotola attorno a un cilindro
+con l'asse perpendicolare al movimento del dito, quindi tirando un angolo in
+diagonale si arrotola in diagonale; oltre il cilindro il lembo rovesciato
+mostra la pagina dopo. Il foglio e' rilegato: gli estremi della costola non si
+muovono e il punto preso non si allontana da loro (la carta non si allunga).
+Lasciato, il punto e' portato da due molle (x e y) verso il rovescio esatto o
+verso dove era, con la velocita' del dito; decide un colpo deciso o, se no,
+dove andrebbe il dito lanciato. Si puo' riprendere a meta', l'ultima pagina
+resiste e torna giu', le copertine sono rigide. Le fasce del cilindro sono
+illuminate secondo la loro inclinazione, il cilindro fa ombra sulla pagina che
+si scopre e il lembo lungo i suoi bordi. Le pagine vere sotto il foglio
+cambiano solo quando il foglio e' gia' disegnato, e all'atterraggio il foglio
+resta due fotogrammi sopra le pagine gia' giuste: nessun fotogramma mostra la
+pagina sbagliata. Da tastiera la pagina cambia subito; con "riduci movimento"
+niente girata, solo una dissolvenza breve. I parametri della fisica sono in
+cima al file (e in `Sfoglia.FIS`, per provarli dalla console).
 
 Intorno al libro: la barra a sezioni in basso (una parte per sezione, magenta
 quella in lettura, con la bolla di pagina e titolo mentre si trascina), le
