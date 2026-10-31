@@ -30,6 +30,7 @@ const DA_PUBBLICARE = [
   ['data/aeroporti.json', 'data/aeroporti.json'],
   ['data/manuale.pdf',    'data/manuale.pdf'],
   ['data/manuale',        'data/manuale'],          // e-book: testo, figure, font
+  ['fonts',               'fonts'],                 // Public Sans e JetBrains Mono dell'interfaccia
   ['tools/_headers',      '_headers']
 ];
 
@@ -61,8 +62,8 @@ const CON_IMPRONTA = [
   ['sfoglia.js',  'src="sfoglia.js"',               (n) => `src="${n}"`, ['manuale.html']],
   ['conto.css',   'href="conto.css"',               (n) => `href="${n}"`, PAGINE_CONTO],
   ['conto.js',    'src="conto.js"',                 (n) => `src="${n}"`, PAGINE_CONTO],
-  ['rotta-av.js', 'src="rotta-av.js"',              (n) => `src="${n}"`, ['login.html', 'index.html']],
-  ['rotte-acv.js', 'src="rotte-acv.js"',            (n) => `src="${n}"`, ['import.html']]
+  ['rotta-av.js', 'src="rotta-av.js"',              (n) => `src="${n}"`, ['login.html']],
+  ['rotte-acv.js', 'src="rotte-acv.js"',            (n) => `src="${n}"`, ['import.html', 'index.html']]
 ];
 
 const impronta = (buf) => createHash('sha256').update(buf).digest('hex').slice(0, 8);

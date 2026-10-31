@@ -1,0 +1,10 @@
+Public Sans (PublicSans.woff2, variable, weight 100-900)
+  Copyright 2015 The Public Sans Project Authors (https://github.com/uswds/public-sans)
+JetBrains Mono (JetBrainsMono.woff2, variable, weight 100-800)
+  Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+
+Both are licensed under the SIL Open Font License, Version 1.1:
+https://openfontlicense.org
+Latin subsets as distributed by Google Fonts. The file names carry no
+version and are cached for a year (tools/_headers): a new release of either
+face goes in under a new name.

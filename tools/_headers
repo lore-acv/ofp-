@@ -42,3 +42,8 @@
 
 /rotta-av.*.js
   Cache-Control: public, max-age=31536000, immutable
+
+# I caratteri dell'interfaccia (Public Sans, JetBrains Mono): una versione
+# nuova entra con un nome nuovo, vedi fonts/FONTS.txt.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

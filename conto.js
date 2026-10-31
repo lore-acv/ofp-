@@ -11,7 +11,7 @@
 /* colore della barra di stato del telefono, per tema */
 function coloreBarra(){
   const m=document.querySelector('meta[name="theme-color"]');
-  if(m) m.setAttribute('content', document.documentElement.getAttribute('data-tema')==='chiaro' ? '#eee7d9' : '#151d28');
+  if(m) m.setAttribute('content', document.documentElement.getAttribute('data-tema')==='chiaro' ? '#e5e5e2' : '#171719');
 }
 document.addEventListener('DOMContentLoaded', coloreBarra);
 

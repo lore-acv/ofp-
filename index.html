@@ -18,7 +18,7 @@
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#151d28">
+<meta name="theme-color" content="#171719">
 <title>OFP C172 FR</title>
 <link rel="stylesheet" href="ofp.css">
 <script>
@@ -39,37 +39,69 @@ document.documentElement.classList.add('vista-dash');
 </script>
 
 
-<div class="topbar">
-  <div class="topbar-main">
-    <div class="brand">C172 FR OFP <span id="brandVista">Dashboard</span></div>
-    <div class="topbar-azioni">
-      <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
-      <div class="menu-wrap">
-        <button class="hamburger" id="btnMenu" aria-expanded="false" aria-haspopup="true" aria-controls="mainMenu" aria-label="Menu">
-          <span></span><span></span><span></span>
-        </button>
-        <div class="menu" id="mainMenu" role="menu">
-          <button type="button" role="menuitem" class="solo-volo" id="btnDashboard">Dashboard</button>
-          <button type="button" role="menuitem" id="btnNew">New Flight Plan</button>
-          <button type="button" role="menuitem" class="solo-volo" id="btnStandby">Save to Standby</button>
-          <div class="sep solo-volo"></div>
-          <button type="button" role="menuitem" class="solo-volo" id="btnPreview">Document Preview</button>
-          <div class="sep solo-volo"></div>
-          <button type="button" role="menuitem" class="solo-volo" id="btnDrive" style="display:none">Save to Drive</button>
-          <button type="button" role="menuitem" class="primary solo-volo" id="btnPdf">Download OFP PDF</button>
-          <button type="button" role="menuitem" class="primary solo-volo" id="btnNavPdf">Download Navlog PDF</button>
-          <button type="button" role="menuitem" class="primary solo-volo" id="btnClubNavPdf">Navlog Aeroclub Varese</button>
-          <div class="sep"></div>
-          <button type="button" role="menuitem" id="btnManuale" title="Opens in a new tab: the flight plan stays as it is">User Manual</button>
-          <div class="sep conto-voce" style="display:none"></div>
-          <div class="menu-chi conto-voce" id="menuChi" style="display:none"></div>
-          <button type="button" role="menuitem" class="conto-voce" id="btnUtenti" style="display:none" title="Opens in a new tab">Users</button>
-          <button type="button" role="menuitem" class="conto-voce" id="btnPassword" style="display:none" title="Opens in a new tab">Change password</button>
-          <button type="button" role="menuitem" class="conto-voce" id="btnEsci" style="display:none">Sign out</button>
-        </div>
-      </div>
+<nav class="rail" aria-label="Main">
+  <span class="marchio" role="img" aria-label="OFP C172 FR"></span>
+  <a href="#" id="railVoli" data-nome="Flights" aria-label="Flights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></a>
+  <a href="import.html" id="railNuovo" data-nome="New flight" aria-label="New flight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
+  <a href="#" id="railManuale" data-nome="User manual" aria-label="User manual"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
+  <div class="fondo">
+    <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
+    <div class="menu-wrap">
+      <button class="hamburger" id="btnMenu" aria-expanded="false" aria-haspopup="true" aria-controls="mainMenu" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="2.6"/></svg></button>
+      <div class="menu" id="mainMenu" role="menu">
+      <button type="button" role="menuitem" class="solo-volo" id="btnDashboard">Dashboard</button>
+      <button type="button" role="menuitem" id="btnNew">New Flight Plan</button>
+      <button type="button" role="menuitem" class="solo-volo" id="btnStandby">Save to Standby</button>
+      <div class="sep solo-volo"></div>
+      <button type="button" role="menuitem" class="solo-volo" id="btnPreview">Document Preview</button>
+      <div class="sep solo-volo"></div>
+      <button type="button" role="menuitem" class="solo-volo" id="btnDrive" style="display:none">Save to Drive</button>
+      <button type="button" role="menuitem" class="primary solo-volo" id="btnPdf">Download OFP PDF</button>
+      <button type="button" role="menuitem" class="primary solo-volo" id="btnNavPdf">Download Navlog PDF</button>
+      <button type="button" role="menuitem" class="primary solo-volo" id="btnClubNavPdf">Navlog Aeroclub Varese</button>
+      <div class="sep"></div>
+      <button type="button" role="menuitem" id="btnManuale" title="Opens in a new tab: the flight plan stays as it is">User Manual</button>
+      <div class="sep conto-voce" style="display:none"></div>
+      <div class="menu-chi conto-voce" id="menuChi" style="display:none"></div>
+      <button type="button" role="menuitem" class="conto-voce" id="btnUtenti" style="display:none" title="Opens in a new tab">Users</button>
+      <button type="button" role="menuitem" class="conto-voce" id="btnPassword" style="display:none" title="Opens in a new tab">Change password</button>
+      <button type="button" role="menuitem" class="conto-voce" id="btnEsci" style="display:none">Sign out</button>
+    </div>
     </div>
   </div>
+</nav>
+
+<!-- ===== Dashboard / Flight Manager =====
+     E' la prima pagina dopo l'accesso: da qui si comincia un volo nuovo, che
+     passa dall'import, o se ne riapre uno salvato. Il foglio di volo si vede
+     solo arrivando dall'import o da un volo salvato.
+     "New Flight" e' un link e non una navigazione da script: sotto Apps Script
+     le pagine stanno in un iframe e il sandbox la bloccherebbe, mentre un
+     <a target="_top"> funziona sempre. -->
+<div id="dashboard">
+  <div class="dash-body">
+    <div class="dash-head">
+      <div><h1>Flights</h1><p id="dashSaluto"></p><div class="dash-conto" id="dashConto"></div></div>
+      <div class="dash-azioni">
+        <button type="button" class="btn" id="btnCloseDash" hidden>Back to the open flight plan &rarr;</button>
+        <a class="btn primary" id="goImport" href="import.html">New flight</a>
+      </div>
+    </div>
+    <div class="dash-section-title">Waiting for the weather briefing <small id="nDraft"></small></div>
+    <div class="cards" id="draftCards"></div>
+    <div id="draftEmpty" class="dash-empty">No flights waiting. Fill in the route and press "Save to Standby".</div>
+    <div class="dash-section-title">Ready to fly <small id="nDone"></small></div>
+    <div class="cards" id="completedCards"></div>
+    <div id="completedEmpty" class="dash-empty">No completed flights.</div>
+    <section class="rotte-std" id="rotteStd" hidden>
+      <h2>ACV standard routes <small id="nRotte"></small></h2>
+      <div class="rotte-lista" id="rotteLista"></div>
+    </section>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-main"><div class="brand"><b id="brandVolo"></b> <span id="brandVista">Wizard</span></div></div>
   <div class="steps" id="steps"></div>
 </div>
 
@@ -79,7 +111,7 @@ document.documentElement.classList.add('vista-dash');
 
       <!-- STEP 1 -->
       <div class="panel active" data-step="1">
-        <p class="step-title">Flight &amp; Aircraft</p>
+        <h1 class="step-title">Flight &amp; aircraft</h1>
         <p class="step-sub">General mission data. Airports and route arrive already filled in
           from the NavLog: correct them here if required.</p>
         <div class="group">
@@ -113,7 +145,7 @@ document.documentElement.classList.add('vista-dash');
               </select>
               <input id="reg" value="I-CCAF" placeholder="Registration" autocapitalize="characters" spellcheck="false" style="display:none;margin-top:.35rem">
             </div>
-            <div class="fld"><label>Flight Mission</label><input id="mission" value=""></div>
+            <div class="fld"><label>Flight mission</label><input id="mission" value=""></div>
           </div>
           <div class="mb-status" id="oaStatus"></div>
           <div class="hint">As soon as an ICAO code is complete (four letters), coordinates, elevation and runways
@@ -128,7 +160,7 @@ document.documentElement.classList.add('vista-dash');
             power setting that depends on it, and from there it reaches the document.</div>
         </div>
         <div class="group">
-          <h3>Estimated Times (UTC)</h3>
+          <h3>Estimated times (UTC)</h3>
           <div class="row">
             <div class="fld"><label>OFF</label>
               <div class="hm"><select id="tOFFh"></select><span>:</span><select id="tOFFm"></select></div>
@@ -163,14 +195,16 @@ document.documentElement.classList.add('vista-dash');
 
       <!-- STEP 2 -->
       <div class="panel" data-step="2">
-        <p class="step-title">Route &amp; Fuel</p>
+        <h1 class="step-title">Route &amp; fuel</h1>
         <p class="step-sub">All fuel is in <b>litres</b>, fuel flows in <b>litres/hour</b> and speeds in
           <b>MPH</b>, as in the C172 FR POH. Fuel mass: <b>1 L = 0.72 kg</b>.
           Tanks: <b>174 L usable</b> (46 USG).</p>
+        <div class="totale" id="fuelTot" aria-label="Fuel plan"></div>
+        <div class="profilo" id="profilo"><h3>Profile <small id="profiloSub"></small></h3><svg id="profiloSvg" role="img" aria-label="Vertical profile of the flight"></svg><p class="vuoto" id="profiloVuoto" hidden>The profile appears with the cruise altitude and the NavLog distances.</p></div>
         <div class="group">
-          <h3>Cruise Power Setting (POH)</h3>
+          <h3>Cruise power setting (POH)</h3>
           <div class="row">
-            <div class="fld"><label>Cruise Altitude (ft)</label><input id="pwrAlt" type="number" step="500" value="" placeholder="alt"></div>
+            <div class="fld"><label>Cruise altitude (ft)</label><input id="pwrAlt" type="number" step="500" value="" placeholder="alt"></div>
             <div class="fld"><label>RPM</label><select id="pwrRpm"></select></div>
             <div class="fld"><label>MAP (inHg)</label><select id="pwrMap"></select></div>
           </div>
@@ -210,15 +244,15 @@ document.documentElement.classList.add('vista-dash');
           </div>
           <div class="row">
             <div class="fld"><label>Altitude (ft)</label><input id="altAlt" type="number" step="500" value="" placeholder="alt"></div>
-            <div class="fld"><label>Flight Time (min, calculated)</label><input id="altTblTime" type="number" value="" readonly style="opacity:.7"></div>
+            <div class="fld"><label>Flight time (min, calculated)</label><input id="altTblTime" type="number" value="" readonly style="opacity:.7"></div>
           </div>
           <div class="calc" id="altCalc"></div>
         </div>
         <div class="group">
-          <h3>Reserves &amp; Margins</h3>
+          <h3>Reserves &amp; margins</h3>
           <div class="hint">Contingency = MAX(5% of Trip, 15' at the cruise Fuel Flow). Final Reserve = 30' (VFR) or 45' (IFR), at the same Fuel Flow.</div>
           <div class="row" style="margin-top:8px">
-            <div class="fld"><label>Flight Rules</label>
+            <div class="fld"><label>Flight rules</label>
               <select id="flightRule">
                 <option value="VFR">VFR</option>
                 <option value="IFR">IFR</option>
@@ -238,9 +272,9 @@ document.documentElement.classList.add('vista-dash');
             210 HP Continental IO-360, <b>7.5 L/h</b> at 1000&ndash;1200 RPM.</div>
         </div>
         <div class="group">
-          <h3>Fuel On Board &amp; Extra</h3>
+          <h3>Fuel on board &amp; extra</h3>
           <div class="row">
-            <div class="fld"><label>Fuel On Board &mdash; uplifted (L)</label><input id="fob" type="number" step="1" value=""></div>
+            <div class="fld"><label>Fuel on board &mdash; uplifted (L)</label><input id="fob" type="number" step="1" value=""></div>
           </div>
           <div class="hint">How much fuel is actually in the tanks. It is used <b>only</b> to compute the extra
             over the required minimum: <b>it does not appear in the final document</b>. Left empty, the extra
@@ -255,7 +289,7 @@ document.documentElement.classList.add('vista-dash');
 
       <!-- STEP 3 -->
       <div class="panel" data-step="3">
-        <p class="step-title">Mass &amp; Balance</p>
+        <h1 class="step-title">Mass &amp; balance</h1>
         <p class="step-sub">Loading and balance sheet, with the same layout and the same arms as the flying
           club's <b>W. &amp; B. Loading Form</b> (Weight and Balance Rev. 17). Fuel comes from
           Step 2: enter only occupants and baggage here.</p>
@@ -267,7 +301,7 @@ document.documentElement.classList.add('vista-dash');
             </div>
           </div>
           <div class="row">
-            <div class="fld"><label>Basic Empty Weight (kg)</label><input id="bew" type="number" step="0.1" value="734"></div>
+            <div class="fld"><label>Basic empty weight (kg)</label><input id="bew" type="number" step="0.1" value="734"></div>
             <div class="fld"><label>Moment BEW (kg&middot;m)</label><input id="bewMoment" type="number" step="0.0001" value="679"></div>
           </div>
           <div class="calc" id="bewCalc"></div>
@@ -307,7 +341,7 @@ document.documentElement.classList.add('vista-dash');
             (1157 kg), aft +1.20 m. Utility: forward from +0.89 m to +0.95 m (998 kg), aft +1.03 m.</div>
         </div>
         <div class="group">
-          <h3>CG Envelope Chart</h3>
+          <h3>CG envelope chart</h3>
           <div id="cgChartBox" style="background:#fff;border-radius:8px;padding:6px"></div>
           <div class="hint">AFM moment/mass envelope (Normal and Utility category) with the takeoff point plotted
             on it and the CG travel as fuel is burnt off. It goes as it is into the Mass &amp; Balance page of
@@ -318,7 +352,7 @@ document.documentElement.classList.add('vista-dash');
 
       <!-- STEP 4 -->
       <div class="panel" data-step="4">
-        <p class="step-title">Performance</p>
+        <h1 class="step-title">Performance</h1>
         <p class="step-sub">V-speeds read from the AFM table (no interpolation, conservative rounding)
           and <b>Takeoff &amp; Landing Data</b>: distances are computed from AFM fig. 5-4 and 5-5 using
           altitude, QNH, temperature, wind and the mass carried over from Mass &amp; Balance, then compared
@@ -327,10 +361,10 @@ document.documentElement.classList.add('vista-dash');
         <div class="group">
           <h3>Speeds</h3>
           <div class="row">
-            <div class="fld"><label>Display Unit</label>
+            <div class="fld"><label>Display unit</label>
               <select id="spdUnit"><option value="mph" selected>MPH</option><option value="kt">Knots (KIAS)</option></select>
             </div>
-            <div class="fld"><label>Runway Surface</label>
+            <div class="fld"><label>Runway surface</label>
               <select id="toldSurface">
                 <option value="hard" selected>Asphalt, dry</option>
                 <option value="grass">Grass, dry</option>
@@ -342,7 +376,7 @@ document.documentElement.classList.add('vista-dash');
             unit. The selector changes the display only, the calculations remain the same.</div>
         </div>
         <div class="group">
-          <h3>Weather By Airport</h3>
+          <h3>Weather by airport</h3>
           <div class="mb-status" id="toldMetarStatus"></div>
           <div class="hint">Nothing to press: wind, QNH and temperature are filled in automatically from the
             briefing import, and each airport uses <b>its own</b> METAR &mdash; departure for the takeoff,
@@ -358,7 +392,7 @@ document.documentElement.classList.add('vista-dash');
           <button type="button" class="perf-tab"    role="tab" data-perf="Tng"  id="perfTabTng"  aria-controls="tngPerfGroup"  aria-selected="false" tabindex="-1" style="display:none">ENR<span class="avviso"></span></button>
         </div>
         <div class="group perf-panel" id="perfPanelDep" role="tabpanel" aria-labelledby="perfTabDep">
-          <h3>Departure &mdash; Takeoff</h3>
+          <h3>Departure &mdash; takeoff</h3>
           <div class="perf-split">
             <div class="perf-in">
               <div class="row">
@@ -368,7 +402,7 @@ document.documentElement.classList.add('vista-dash');
               </div>
               <div class="row">
                 <div class="fld"><label>Elevation (ft)</label><input id="toldElevDep" type="number" value="0"></div>
-                <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgDep" type="number" value=""></div>
+                <div class="fld"><label>RWY heading (&deg;M)</label><input id="toldHdgDep" type="number" value=""></div>
                 <div class="fld"><label>TORA (m)</label><input id="tora" type="number" value=""></div>
               </div>
               <div class="row">
@@ -377,7 +411,7 @@ document.documentElement.classList.add('vista-dash');
               <div class="row">
                 <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDep" type="number" value="1013"></div>
                 <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDep" type="number" value="15"></div>
-                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDep" type="number" min="0" max="360" value="" placeholder="VRB"></div>
+                <div class="fld"><label>Wind from (&deg;M)</label><input id="toldWindDirDep" type="number" min="0" max="360" value="" placeholder="VRB"></div>
                 <div class="fld"><label>Wind (kt)</label><input id="toldWindKtDep" type="number" min="0" value="0"></div>
                 <div class="fld"><label>Gust (kt)</label><input id="toldWindGustDep" type="number" min="0" value="" placeholder="none"></div>
               </div>
@@ -389,7 +423,7 @@ document.documentElement.classList.add('vista-dash');
           </div>
         </div>
         <div class="group perf-panel" id="perfPanelDest" role="tabpanel" aria-labelledby="perfTabDest" style="display:none">
-          <h3>Destination &mdash; Landing</h3>
+          <h3>Destination &mdash; landing</h3>
           <div class="perf-split">
             <div class="perf-in">
               <div class="row">
@@ -399,13 +433,13 @@ document.documentElement.classList.add('vista-dash');
               </div>
               <div class="row">
                 <div class="fld"><label>Elevation (ft)</label><input id="toldElevDest" type="number" value="0"></div>
-                <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgDest" type="number" value=""></div>
+                <div class="fld"><label>RWY heading (&deg;M)</label><input id="toldHdgDest" type="number" value=""></div>
                 <div class="fld"><label>LDA (m)</label><input id="lda" type="number" value=""></div>
               </div>
               <div class="row">
                 <div class="fld"><label>QNH (hPa)</label><input id="toldQnhDest" type="number" value="1013"></div>
                 <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatDest" type="number" value="15"></div>
-                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirDest" type="number" min="0" max="360" value="" placeholder="VRB"></div>
+                <div class="fld"><label>Wind from (&deg;M)</label><input id="toldWindDirDest" type="number" min="0" max="360" value="" placeholder="VRB"></div>
                 <div class="fld"><label>Wind (kt)</label><input id="toldWindKtDest" type="number" min="0" value="0"></div>
                 <div class="fld"><label>Gust (kt)</label><input id="toldWindGustDest" type="number" min="0" value="" placeholder="none"></div>
               </div>
@@ -417,7 +451,7 @@ document.documentElement.classList.add('vista-dash');
           </div>
         </div>
         <div class="group perf-panel" id="tngPerfGroup" role="tabpanel" aria-labelledby="perfTabTng" style="display:none">
-          <h3>Touch &amp; Go &mdash; Intermediate Airport</h3>
+          <h3>Touch &amp; go &mdash; intermediate airport</h3>
           <div class="perf-split">
             <div class="perf-in">
               <div class="row">
@@ -427,7 +461,7 @@ document.documentElement.classList.add('vista-dash');
               </div>
               <div class="row">
                 <div class="fld"><label>Elevation (ft)</label><input id="toldElevTng" type="number" value="0"></div>
-                <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgTng" type="number" value=""></div>
+                <div class="fld"><label>RWY heading (&deg;M)</label><input id="toldHdgTng" type="number" value=""></div>
               </div>
               <div class="row">
                 <div class="fld"><label>TORA (m)</label><input id="toraTng" type="number" value=""></div>
@@ -437,7 +471,7 @@ document.documentElement.classList.add('vista-dash');
               <div class="row">
                 <div class="fld"><label>QNH (hPa)</label><input id="toldQnhTng" type="number" value="1013"></div>
                 <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatTng" type="number" value="15"></div>
-                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirTng" type="number" min="0" max="360" value="" placeholder="VRB"></div>
+                <div class="fld"><label>Wind from (&deg;M)</label><input id="toldWindDirTng" type="number" min="0" max="360" value="" placeholder="VRB"></div>
                 <div class="fld"><label>Wind (kt)</label><input id="toldWindKtTng" type="number" min="0" value="0"></div>
                 <div class="fld"><label>Gust (kt)</label><input id="toldWindGustTng" type="number" min="0" value="" placeholder="none"></div>
               </div>
@@ -453,7 +487,7 @@ document.documentElement.classList.add('vista-dash');
           </div>
         </div>
         <div class="group perf-panel" id="perfPanelAltn" role="tabpanel" aria-labelledby="perfTabAltn" style="display:none">
-          <h3>Alternate &mdash; Landing</h3>
+          <h3>Alternate &mdash; landing</h3>
           <div class="perf-split">
             <div class="perf-in">
               <div class="row">
@@ -463,13 +497,13 @@ document.documentElement.classList.add('vista-dash');
               </div>
               <div class="row">
                 <div class="fld"><label>Elevation (ft)</label><input id="toldElevAltn" type="number" value="0"></div>
-                <div class="fld"><label>RWY Heading (&deg;M)</label><input id="toldHdgAltn" type="number" value=""></div>
+                <div class="fld"><label>RWY heading (&deg;M)</label><input id="toldHdgAltn" type="number" value=""></div>
                 <div class="fld"><label>LDA (m)</label><input id="ldaAltn" type="number" value=""></div>
               </div>
               <div class="row">
                 <div class="fld"><label>QNH (hPa)</label><input id="toldQnhAltn" type="number" value="1013"></div>
                 <div class="fld"><label>Temp (&deg;C)</label><input id="toldOatAltn" type="number" value="15"></div>
-                <div class="fld"><label>Wind From (&deg;M)</label><input id="toldWindDirAltn" type="number" min="0" max="360" value="" placeholder="VRB"></div>
+                <div class="fld"><label>Wind from (&deg;M)</label><input id="toldWindDirAltn" type="number" min="0" max="360" value="" placeholder="VRB"></div>
                 <div class="fld"><label>Wind (kt)</label><input id="toldWindKtAltn" type="number" min="0" value="0"></div>
                 <div class="fld"><label>Gust (kt)</label><input id="toldWindGustAltn" type="number" min="0" value="" placeholder="none"></div>
               </div>
@@ -481,7 +515,7 @@ document.documentElement.classList.add('vista-dash');
           </div>
         </div>
         <div class="group">
-          <h3>Checks &amp; Warnings</h3>
+          <h3>Checks &amp; warnings</h3>
           <!-- Le schede dei risultati sono salite accanto ai campi, una per
                linguetta. Qui restano gli avvisi, che valgono per tutti gli
                aeroporti insieme e devono restare in vista qualunque scheda sia
@@ -505,11 +539,11 @@ document.documentElement.classList.add('vista-dash');
 
       <!-- STEP 5 -->
       <div class="panel" data-step="5">
-        <p class="step-title">Navlog</p>
+        <h1 class="step-title">Navlog</h1>
         <p class="step-sub">The NAV-FLIGHTPLAN you take into the cockpit: a document in its own right,
           downloaded with its own button and <b>never part of the printed OFP</b>.</p>
         <div class="group">
-          <h3>Speed &amp; Fuel Flow</h3>
+          <h3>Speed &amp; fuel flow</h3>
           <div class="row">
             <div class="fld"><label>GS navplan (MPH)</label><input id="navGs" type="number" placeholder="from power setting"></div>
             <div class="fld"><label>Fuel flow navplan (L/h)</label><input id="navFF" type="number" step="0.1" placeholder="from power setting"></div>
@@ -521,8 +555,8 @@ document.documentElement.classList.add('vista-dash');
         <div class="group">
           <h3>Legs</h3>
           <div class="navtools">
-            <button type="button" class="btn" id="btnNavAdd">+ Row</button>
-            <button type="button" class="btn ghost" id="btnNavFreq">Fill Frequencies</button>
+            <button type="button" class="btn" id="btnNavAdd">Add row</button>
+            <button type="button" class="btn ghost" id="btnNavFreq">Fill frequencies</button>
             <label class="tng-check nav-round"><input type="checkbox" id="navMtRoundChk"> <span>Round MT to 5&deg;</span></label>
             <input type="hidden" id="navMtRound" value="">
             <span class="mb-status" id="navFreqStatus"></span>
@@ -543,7 +577,7 @@ document.documentElement.classList.add('vista-dash');
 
       <!-- STEP 6 -->
       <div class="panel" data-step="6">
-        <p class="step-title">Dest Charts</p>
+        <h1 class="step-title">Destination charts</h1>
         <p class="step-sub">Load up to 2 images (charts) and fill in the operational notes.</p>
         <div class="group">
           <div class="drop" id="chartDrop">Click or drag up to 2 images or PDFs</div>
@@ -551,7 +585,7 @@ document.documentElement.classList.add('vista-dash');
           <div class="thumb-row" id="chartThumbs"></div>
         </div>
         <div class="group">
-          <h3>Operational Notes</h3>
+          <h3>Operational notes</h3>
           <div class="row"><div class="fld"><label>Track</label><input id="noteTrack" value=""></div></div>
           <div class="row"><div class="fld"><label>Runway</label><input id="noteRunway" value=""></div></div>
           <div class="row"><div class="fld"><label>Altitudes</label><input id="noteAlt" value=""></div></div>
@@ -565,7 +599,7 @@ document.documentElement.classList.add('vista-dash');
 
       <!-- STEP 7 -->
       <div class="panel" data-step="7">
-        <p class="step-title">Briefing</p>
+        <h1 class="step-title">Briefing</h1>
         <p class="step-sub">Threat &amp; error management by phase of flight, aircraft status, remarks. Free text,
           nothing is mandatory: it gives a structure to what you will do in flight, and it is printed on the
           BRIEFING page of the OFP.</p>
@@ -600,7 +634,7 @@ document.documentElement.classList.add('vista-dash');
           <div class="fld" style="margin-top:6px"><label>Mitigation</label><textarea id="altnMit"></textarea></div>
         </div>
         <div class="group">
-          <h3>Aircraft Status</h3>
+          <h3>Aircraft status</h3>
           <div class="fld"><textarea id="acStatus"></textarea></div>
           <div class="hint">Instruments or equipment temporarily inoperative, and therefore aids that will not be
             available in flight (e.g. ADF INOP: NDB not usable).</div>
@@ -615,7 +649,7 @@ document.documentElement.classList.add('vista-dash');
 
       <!-- STEP 8 -->
       <div class="panel" data-step="8">
-        <p class="step-title">NOTAM &amp; Weather</p>
+        <h1 class="step-title">NOTAM &amp; weather</h1>
         <p class="step-sub">One box per airport (METAR + TAF + NOTAM), plus the enroute NOTAMs.</p>
         <div class="group">
           <div class="drop" id="wxDrop">Click or drag the WX &amp; NOTAM briefing PDF</div>
@@ -634,14 +668,14 @@ document.documentElement.classList.add('vista-dash');
             (<code>Printed at (UTC) 2026SEP08 1311</code>), AELO/MeteoSwiss and generic dd/mm/yyyy.</div>
         </div>
         <div class="group">
-          <h3>Departure Airport <span class="filled" id="wxDepIcao"></span></h3>
+          <h3>Departure airport <span class="filled" id="wxDepIcao"></span></h3>
           <div class="fld"><label>METAR</label><textarea id="depMetar"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>SPECI</label><textarea id="depSpeci"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>TAF</label><textarea id="depTaf"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>NOTAM</label><textarea id="depNotam" style="min-height:80px"></textarea></div>
         </div>
         <div class="group">
-          <h3>Destination Airport <span class="filled" id="wxDestIcao"></span></h3>
+          <h3>Destination airport <span class="filled" id="wxDestIcao"></span></h3>
           <div class="fld"><label>METAR</label><textarea id="destMetar"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>SPECI</label><textarea id="destSpeci"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>TAF</label><textarea id="destTaf"></textarea></div>
@@ -655,7 +689,7 @@ document.documentElement.classList.add('vista-dash');
           <div class="fld" style="margin-top:6px"><label>NOTAM</label><textarea id="tngNotam" style="min-height:80px"></textarea></div>
         </div>
         <div class="group">
-          <h3>Alternate Airport <span class="filled" id="wxAltnIcao"></span></h3>
+          <h3>Alternate airport <span class="filled" id="wxAltnIcao"></span></h3>
           <div class="fld"><label>METAR</label><textarea id="altnMetar"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>SPECI</label><textarea id="altnSpeci"></textarea></div>
           <div class="fld" style="margin-top:6px"><label>TAF</label><textarea id="altnTaf"></textarea></div>
@@ -688,43 +722,30 @@ document.documentElement.classList.add('vista-dash');
   <div class="stage" id="stage" style="display:none"></div>
 </div>
 
-<!-- ===== Dashboard / Flight Manager =====
-     E' la prima pagina dopo l'accesso: da qui si comincia un volo nuovo, che
-     passa dall'import, o se ne riapre uno salvato. Il foglio di volo si vede
-     solo arrivando dall'import o da un volo salvato.
-     "New Flight" e' un link e non una navigazione da script: sotto Apps Script
-     le pagine stanno in un iframe e il sandbox la bloccherebbe, mentre un
-     <a target="_top"> funziona sempre. -->
-<div id="dashboard">
-  <div class="dash-body">
-    <div class="dash-head">
-      <div><div class="dash-orario" id="dashOrario"></div><h2 id="dashSaluto">Dashboard</h2><div class="dash-conto" id="dashConto"></div></div>
-      <button type="button" class="btn" id="btnCloseDash" hidden>Back to the open flight plan &rarr;</button>
-    </div>
-    <div class="dash-nuovo">
-      <div class="dash-rotta" id="dashRotta"></div>
-      <div>
-        <div class="dash-nuovo-t">New flight</div>
-        <div class="dash-nuovo-s">Start from the ForeFlight NavLog and the weather briefing.</div>
-      </div>
-      <a class="btn primary" id="goImport" href="import.html">New Flight &rarr;</a>
-    </div>
-    <div class="dash-section-title">Standby flights &mdash; awaiting WX</div>
-    <div class="cards" id="draftCards"></div>
-    <div id="draftEmpty" class="dash-empty">No standby flights. Fill in the route and press "Save to Standby".</div>
-    <div class="dash-section-title" style="margin-top:26px">Completed flights &mdash; ready to fly</div>
-    <div class="cards" id="completedCards"></div>
-    <div id="completedEmpty" class="dash-empty">No completed flights.</div>
-  </div>
-</div>
-
 <script src="ofp-core.js"></script>
-<script src="rotta-av.js"></script>
+<script src="rotte-acv.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }</script>
 <script>
 /* ============================ helpers ============================ */
+/* I riquadri di calcolo (.calc) ricevono il loro testo da render() con
+   textContent, come sempre: qui quel testo diventa una fila di voci (spezzata
+   sui " · ") con le cifre in JetBrains Mono, invece di una frase intera in
+   monospazio (DESIGN.md, The Figure Rule). La freccia iniziale non serve piu':
+   e' il riquadro a dire che e' un risultato. */
+(function(){
+  const nativo=Object.getOwnPropertyDescriptor(Node.prototype,'textContent');
+  const CIFRA=/(?<![A-Za-z\d.-])\d+(?:[.,:]\d+)*(?![A-Za-z\d-])(?:\s?(?:NM|nm|ft|min|L\/h|kg·m|kg|MPH|mph|kt|RPM|USG|L|m|%|°|"|')(?![A-Za-z]))?/g;
+  const h=(t)=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  function scrivi(el,v){
+    const t=String(v==null?'':v).replace(/^\s*→\s*/,'').trim();
+    if(!t){ nativo.set.call(el,''); return; }
+    el.innerHTML=t.split(/\s+·\s+/).map(p=>'<span class="voce">'+h(p).replace(CIFRA,'<span class="fig">$&</span>')+'</span>').join('');
+  }
+  document.querySelectorAll('.calc').forEach(el=>Object.defineProperty(el,'textContent',{configurable:true,
+    get(){ return nativo.get.call(this); }, set(v){ scrivi(this,v); }}));
+})();
 /* ===================== AEROMOBILE: CESSNA C172 FR =====================
    Reims Cessna FR172J / FR172H "Reims Rocket" — Continental IO-360-D, 210 HP a
    2800 RPM, elica a giri costanti (da cui la Manifold Pressure nelle tabelle di
@@ -1025,7 +1046,7 @@ function daylightBoxHTML(dc){
 }
 
 /* ============================ wizard nav ============================ */
-const STEP_LABELS=['Flight','Route&Fuel','M&B','Perf.','Navlog','Charts','Briefing','NOTAM&Wx'];
+const STEP_LABELS=['Flight','Route & fuel','Mass & balance','Performance','Navlog','Charts','Briefing','NOTAM & WX'];
 const NAVLOG_STEP = STEP_LABELS.indexOf('Navlog')+1;
 let currentStep=1; const totalSteps=STEP_LABELS.length;
 
@@ -1045,9 +1066,15 @@ function renderSteps(){
     const n=parseInt(p.dataset.goto);
     p.classList.toggle('active', n===currentStep);
     p.classList.toggle('done', n<currentStep);
-    p.querySelector('.n').textContent = n<currentStep ? '\u2713' : n;
+    p.querySelector('.n').textContent = n;
+    if(n===currentStep) p.setAttribute('aria-current','step'); else p.removeAttribute('aria-current');
   });
-  indicatoreFasi(STEP_DA_TASTIERA);
+  /* sul telefono la riga scorre: lo step in corso resta in vista */
+  const att=box.querySelector('.step-pill.active');
+  if(att && box.scrollWidth>box.clientWidth){
+    const l=att.offsetLeft-16, r=att.offsetLeft+att.offsetWidth+16;
+    if(l<box.scrollLeft) box.scrollLeft=l; else if(r>box.scrollLeft+box.clientWidth) box.scrollLeft=r-box.clientWidth;
+  }
 }
 /* Indicatore della fase attiva: uno strato grande quanto la riga delle fasi,
    ritagliato con clip-path sulla pastiglia attiva. Cambiando fase il ritaglio
@@ -1074,7 +1101,7 @@ function goToStep(n, tastiera){
   if($('scrollArea')) $('scrollArea').dataset.verso = tastiera ? 'tastiera' : (currentStep<prima ? 'indietro' : 'avanti');
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', parseInt(p.dataset.step)===currentStep));
   $('btnBack').disabled = currentStep===1;
-  $('btnNext').style.display = currentStep===totalSteps ? 'none' : 'inline-block';
+  $('btnNext').style.display = currentStep===totalSteps ? 'none' : '';
   renderSteps(); STEP_DA_TASTIERA=false; $('scrollArea').scrollTop=0; render();
   /* Le frequenze si cercano quando si apre il Navlog, non prima: sono due CSV
      da qualche mega, e chi compila solo l'OFP non deve scaricarli mai. Quello
@@ -2979,6 +3006,66 @@ function notamsSection(){
   return {label:'NOTAMS', blocks};
 }
 
+/* ===== Step 2: il totalizzatore del carburante =====
+   Il piano come lo stampa l'OFP, in una fila di caselle: le cinque voci, il
+   minimo richiesto (la loro somma), l'extra e il blocco. Le somme si leggono
+   dalle voci mostrate. Con il FOB sotto il minimo l'extra diventa "Short". */
+function renderFuelTot(f){
+  const el=$('fuelTot'); if(!el) return;
+  const c=(k,v,sotto,cls)=>`<div${cls?` class="${cls}"`:''}><div class="k">${k}</div><div class="v">${v}</div><div class="s">${sotto}</div></div>`;
+  const L=(x)=>(+x||0).toFixed(2), mn=(x)=>`${Math.round(x)} min`;
+  const ex = f.fobUsed && f.fobShort>0
+    ? c('Short', '−'+L(f.fobShort), `FOB ${L(f.fob)} L`, 'corto')
+    : c('Extra', '+'+L(f.exFuel), mn(f.exMin));
+  el.innerHTML = c('Taxi',L(f.taxiFuel),mn(f.taxiMin)) + c('Trip',L(f.tripFuel),mn(f.tripTime))
+    + c('Contingency',L(f.contFuel),mn(f.contMin)) + c('Alternate',L(f.altFuel),mn(f.altTime))
+    + c('Final reserve',L(f.finFuel),mn(f.finMin)) + c('Minimum required',L(f.minRequired),'litres','somma')
+    + ex + c('Block',L(f.blockFuel)+' L',`${fmt(f.blockFuel*KG_PER_LITRE)} kg`+(f.blockFuel>USABLE_FUEL_L?` · over ${USABLE_FUEL_L} L`:''),'blocco'+(f.blockFuel>USABLE_FUEL_L?' corto':''));
+}
+/* ===== Step 2: il profilo verticale =====
+   In scala sulla distanza del NavLog: salita dal campo al TOC (AFM fig. 5-6),
+   crociera alla quota scelta, una tacca per waypoint con i nomi che non si
+   sovrappongono, il touch & go evidenziato. La linea e' la serie principale,
+   nel colore d'accento. */
+function renderProfilo(f){
+  const svg=$('profiloSvg'), vuoto=$('profiloVuoto'); if(!svg) return;
+  const tot=num('tripDist'), alt=f.cAlt||num('pwrAlt'), da=Math.max(0,num('toldElevDep')||0);
+  const righe=navRowsRaw().map(r=>({w:String(r.wpt||'').trim().toUpperCase(), d:parseFloat(String(r.dist).replace(',','.'))||0}));
+  const box=$('profilo'), W=box ? box.clientWidth-40 : 0;
+  if(!(tot>0) || !(alt>0) || !W){ svg.innerHTML=''; svg.style.display='none'; if(vuoto) vuoto.hidden=false; if($('profiloSub')) $('profiloSub').textContent=''; return; }
+  svg.style.display=''; if(vuoto) vuoto.hidden=true;
+  const H=150, base=H-22, top=26, cima=Math.max(alt,1000)*1.04;
+  const y=(a)=>base-(a/cima)*(base-top), X=(d)=>8+Math.min(d,tot)/tot*(W-16);
+  const tng=($('tngOn')&&$('tngOn').checked) ? txt('tngIcao').trim().toUpperCase() : '';
+  const dep=txt('dep').trim().toUpperCase();
+  const punti=[{w:dep||'DEP',c:0}]; let cum=0;
+  righe.forEach(r=>{ cum+=r.d; if(r.d>0||r.w) punti.push({w:r.w,c:cum}); });
+  let tacche='', ultimo=-1e9;
+  const fine=X(tot);
+  punti.forEach((p,i)=>{
+    const x=X(p.c), evid=tng && p.w===tng, last=i===punti.length-1;
+    tacche+=`<line x1="${x}" x2="${x}" y1="${y(alt)-6}" y2="${base}" stroke="${evid?'var(--txt-dim)':'var(--panel-line)'}" stroke-width="1"/>`;
+    const serve=p.w.length*7+18;
+    if(p.w && (i===0 || last || evid || (x-ultimo>serve && fine-x>serve))){
+      ultimo=x;
+      tacche+=`<text x="${x}" y="${H-6}" fill="${evid?'var(--txt)':'var(--txt-faint)'}" font-size="11" font-family="JetBrains Mono, monospace" text-anchor="${i===0?'start':last?'end':'middle'}">${escHtml(p.w)}</text>`;
+    }
+  });
+  const tocNm=Math.min(f.climbNmX||0,tot);
+  const altFine = f.climbOverruns && f.climbNmX>0 ? da+(alt-da)*tot/f.climbNmX : alt;
+  const linea = f.climbOverruns ? `${X(0)},${y(da)} ${fine},${y(altFine)}` : `${X(0)},${y(da)} ${X(tocNm)},${y(alt)} ${fine},${y(alt)}`;
+  const toc=tocPosition(f);
+  const etTOC = f.climbOverruns ? `climb only · ${Math.round(altFine)} ft at ${Math.round(tot)} NM` : `TOC ${(f.climbNmX||0).toFixed(1)} NM · ${alt} ft`;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.innerHTML = tacche
+    + `<line x1="8" x2="${W-8}" y1="${base}" y2="${base}" stroke="var(--control)" stroke-width="1"/>`
+    + `<polyline points="${linea}" fill="none" stroke="${f.climbOverruns?'var(--warn)':'var(--accent-2)'}" stroke-width="2" stroke-linejoin="round"/>`
+    + `<text x="${Math.min(X(tocNm)+8,W-180)}" y="${y(f.climbOverruns?altFine:alt)-10}" fill="var(--txt-dim)" font-size="11" font-family="JetBrains Mono, monospace">${etTOC}</text>`
+    + (W>560 && !f.climbOverruns ? `<text x="${fine-2}" y="${y(alt)-10}" fill="var(--txt-dim)" font-size="11" text-anchor="end" font-family="JetBrains Mono, monospace">cruise ${+num('tripGS').toFixed(1)} mph \u00b7 ${+num('tripFF').toFixed(1)} L/h</text>` : '');
+  if($('profiloSub')) $('profiloSub').textContent = `${Math.round(tot)} NM${toc&&toc.text?' · '+toc.text:''}`;
+}
+window.addEventListener('resize',()=>{ if(typeof computeFuel==='function' && $('profiloSvg') && $('profiloSvg').clientWidth) try{ renderProfilo(computeFuel()); }catch(e){} });
+
 /* Controllo capacita' serbatoi: il C172 FR imbarca 46 USG / 174 L utilizzabili
    (AFM fig. 1-4). Se il Plan Block supera quel valore il volo non e' fattibile
    in una tratta sola, e va detto subito — non dopo, davanti all'aereo. */
@@ -3125,6 +3212,12 @@ function render(){
   renderTng();
   [['briefDepIcao','dep'],['briefDestIcao','arr'],['briefAltnIcao','altn']].forEach(([el,id])=>{ if($(el)) $(el).textContent=txt(id).trim().toUpperCase(); });
   renderWxNotes();
+  renderFuelTot(f);
+  renderProfilo(f);
+  if($('brandVolo')){
+    const dep=txt('dep').trim().toUpperCase(), arr=txt('arr').trim().toUpperCase(), reg=txt('reg').trim().toUpperCase();
+    $('brandVolo').textContent = (dep||arr) ? `${dep||'----'} \u2192 ${arr||'----'}${reg?' \u00b7 '+reg:''}` : '';
+  }
   if($('tripCalc')){
     const el=$('tripCalc');
     /* I minuti di crociera si scrivono come differenza, cosi' le due parti
@@ -6519,32 +6612,36 @@ function finalizeFlightWithPDF(flightId, pdfFile, statusEl){
   reader.readAsArrayBuffer(pdfFile);
 }
 
-function fmtDate(iso){ try{ const d=new Date(iso); return d.toLocaleString(); }catch(e){ return iso; } }
+function fmtDate(iso){
+  try{ const d=new Date(iso); if(isNaN(d)) return iso||'';
+    const p2=(x)=>String(x).padStart(2,'0');
+    return `${p2(d.getDate())} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]}, ${p2(d.getHours())}:${p2(d.getMinutes())}`;
+  }catch(e){ return iso; } }
 
 function makeCard(f){
+  /* Una striscia per volo, come le strisce di progresso volo: marca,
+     rotta, quando, stato e l'azione del momento. */
   const fd=f.flight_data||{};
-  const route=`${(fd.dep||'----').toUpperCase()} \u2794 ${(fd.arr||'----').toUpperCase()}` + (fd.altn?`  (ALTN ${fd.altn.toUpperCase()})`:'');
+  const up=(x)=>escHtml(String(x||'').toUpperCase());
+  const ac=AIRCRAFT[String(fd.reg||'').toUpperCase()];
+  const via=String(fd.route||'').trim();
   const card=document.createElement('div'); card.className='flight-card';
+  const testa=`<div class="c-reg"><span class="reg">${up(fd.reg)||'—'}</span><span class="k">${ac?escHtml(ac.model):escHtml(fd.mission||'')}</span></div>
+      <div class="c-rt"><p class="route">${up(fd.dep)||'----'} &rarr; ${up(fd.arr)||'----'}${fd.altn?` <span>altn ${up(fd.altn)}</span>`:''}</p>
+        <span class="via">${via?escHtml(via):escHtml(fd.mission||'')}</span></div>`;
   if(f.status==='DRAFT'){
-    card.innerHTML=`<span class="badge standby">STANDBY / AWAITING WX</span>
-      <div class="route">${route}</div>
-      <div class="meta">Created: ${fmtDate(f.created_at)}<br>Aircraft: ${fd.reg||'—'}${fd.mission?' · '+fd.mission:''}<br>Route: ${(fd.route||'—').slice(0,60)}</div>
-      <div class="card-drop">Load the Weather Briefing PDF to finalise</div>
-      <div class="dash-status"></div>
-      <div class="card-actions">
-        <button class="btn" data-act="edit">Edit data</button>
-        <button class="btn" data-act="del">Delete</button>
-      </div>`;
+    card.innerHTML=testa+`
+      <div class="c-quando"><span class="k">Created</span><span class="quando">${fmtDate(f.created_at)}</span></div>
+      <div class="c-st"><span class="badge standby">Waiting for the briefing</span><div class="dash-status"></div></div>
+      <div class="c-go"><span class="card-drop" role="button" tabindex="0" title="Load the weather briefing PDF to finalise">Load briefing</span>
+        <button class="btn testo" data-act="edit">Edit</button><button class="btn testo" data-act="del">Delete</button></div>`;
   }else{
-    card.innerHTML=`<span class="badge completed">READY TO FLY</span>
-      <div class="route">${route}</div>
-      <div class="meta">Last WX update: ${fmtDate(f.updated_at)}</div>
-      <div class="card-drop" data-role="refresh">Update WX (load a new PDF)</div>
-      <div class="dash-status"></div>
-      <div class="card-actions">
-        <button class="btn primary" data-act="view">View OFP</button>
-        <button class="btn" data-act="del">Delete</button>
-      </div>`;
+    card.innerHTML=testa+`
+      <div class="c-quando"><span class="k">Briefing loaded</span><span class="quando">${fmtDate(f.updated_at)}</span></div>
+      <div class="c-st"><span class="badge completed">Ready to fly</span><div class="dash-status"></div></div>
+      <div class="c-go"><button class="btn" data-act="view">View OFP</button>
+        <span class="card-drop" data-role="refresh" role="button" tabindex="0" title="Load a newer weather briefing PDF">Update WX</span>
+        <button class="btn testo" data-act="del">Delete</button></div>`;
   }
   const statusEl=card.querySelector('.dash-status');
   const drop=card.querySelector('.card-drop');
@@ -6552,6 +6649,7 @@ function makeCard(f){
     const inp=document.createElement('input'); inp.type='file'; inp.accept='application/pdf'; inp.style.display='none';
     card.appendChild(inp);
     drop.addEventListener('click',()=>inp.click());
+    drop.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); inp.click(); } });
     drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.borderColor='var(--accent-2)';});
     drop.addEventListener('dragleave',()=>drop.style.borderColor='');
     drop.addEventListener('drop',e=>{e.preventDefault();drop.style.borderColor='';if(e.dataTransfer.files[0])finalizeFlightWithPDF(f.id,e.dataTransfer.files[0],statusEl);});
@@ -6578,6 +6676,10 @@ function renderDashboard(){
   done.forEach(f=>cc.appendChild(makeCard(f)));
   $('draftEmpty').style.display=drafts.length?'none':'block';
   $('completedEmpty').style.display=done.length?'none':'block';
+  if($('nDraft')) $('nDraft').textContent=drafts.length;
+  if($('nDone')) $('nDone').textContent=done.length;
+  aggiornaSaluto();
+  disegnaRotteStd();
   aggiornaStatoConto();
 }
 /* La Dashboard e' la prima pagina: occupa il posto del foglio sotto la barra in
@@ -6587,14 +6689,28 @@ let VOLO_APERTO=false;      // c'e' un volo nel foglio (dall'import o dalla Dash
 const dashboardAperta=()=>document.documentElement.classList.contains('vista-dash');
 /* Saluto e ora UTC in testa alla Dashboard: l'ora e' quella che va
    sull'OFP, in UTC come in volo. */
+/* La riga sotto il titolo dice cosa c'e' da fare, con l'ora UTC che va
+   sull'OFP. */
 function aggiornaSaluto(){
-  const d=new Date(), h=d.getHours();
-  const nome=((Account.info && Account.info.nome)||'').trim().split(/\s+/)[0];
-  const saluto=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+(nome?', '+nome:'');
-  if($('dashSaluto')) $('dashSaluto').textContent=saluto;
-  const g=['SUN','MON','TUE','WED','THU','FRI','SAT'][d.getUTCDay()], m=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][d.getUTCMonth()];
-  const p2=(x)=>String(x).padStart(2,'0');
-  if($('dashOrario')) $('dashOrario').textContent=`${g} ${p2(d.getUTCDate())} ${m} ${d.getUTCFullYear()} \u00b7 ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}Z`;
+  const d=new Date(), p2=(x)=>String(x).padStart(2,'0');
+  const list=loadSavedFlights();
+  const w=list.filter(f=>f.status==='DRAFT').length, r=list.filter(f=>f.status==='COMPLETED').length;
+  const g=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getUTCDay()], m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()];
+  const ora=`${g} ${p2(d.getUTCDate())} ${m} ${d.getUTCFullYear()}, ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())} UTC`;
+  const stato = (w||r) ? `${w} waiting for the weather briefing · ${r} ready to fly` : 'No saved flights yet';
+  if($('dashSaluto')) $('dashSaluto').innerHTML=`${escHtml(stato)} · <span class="m">${ora}</span>`;
+}
+/* Le rotte standard dell'aeroclub (rotte-acv.js): ognuna apre l'import con
+   quella rotta gia' scelta. */
+function disegnaRotteStd(){
+  const R=Array.isArray(window.ROTTE_ACV)?window.ROTTE_ACV:[], box=$('rotteLista');
+  if(!box || !R.length || box.firstChild) return;
+  const base=($('goImport') && $('goImport').getAttribute('href')) || 'import.html';
+  const dist=(r)=>r.nav&&r.nav.totals&&r.nav.totals.dist ? r.nav.totals.dist : (r.nav.legs||[]).reduce((s,l)=>s+(l.dist||0),0);
+  box.innerHTML=R.map(r=>`<a href="${escHtml(base)}#rotta=${encodeURIComponent(r.id)}"><b>${escHtml(r.nome)}</b><span>${dist(r)} NM</span></a>`).join('');
+  box.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{ if(!lasciaVoloAperto()) e.preventDefault(); }));
+  if($('nRotte')) $('nRotte').textContent=R.length;
+  $('rotteStd').hidden=false;
 }
 let DASH_VISTA=false, DASH_OROLOGIO=null;
 function openDashboard(){
@@ -6607,7 +6723,6 @@ function openDashboard(){
     DASH_VISTA=true; dash.classList.add('dash-prima');
     setTimeout(()=>dash.classList.remove('dash-prima'), 2200);
   }
-  if(window.RottaAV && $('dashRotta') && !$('dashRotta').firstChild) RottaAV.monta($('dashRotta'),'xMaxYMid meet');
   aggiornaSaluto();
   if(!DASH_OROLOGIO) DASH_OROLOGIO=setInterval(()=>{ if(dashboardAperta()) aggiornaSaluto(); }, 20000);
   renderDashboard();
@@ -6615,9 +6730,6 @@ function openDashboard(){
   if($('brandVista')) $('brandVista').textContent='Dashboard';
   if($('btnCloseDash')) $('btnCloseDash').hidden=!VOLO_APERTO;
   if($('dashboard')) $('dashboard').scrollTop=0;
-  /* la stessa rotta AV della pagina di accesso: si vola alla prima apertura,
-     quando la scheda e' visibile (la linea va misurata) */
-  if(prima && window.RottaAV) RottaAV.vola($('dashRotta'));
 }
 function closeDashboard(){
   document.documentElement.classList.remove('vista-dash');
@@ -6641,6 +6753,10 @@ function closeDashboard(){
 })();
 
 $('btnDashboard').addEventListener('click',openDashboard);
+/* La rail: Flights apre la Dashboard, New flight e' un link vero all'import,
+   il manuale si apre in una scheda nuova come dal menu. */
+$('railVoli').addEventListener('click',e=>{ e.preventDefault(); openDashboard(); });
+$('railNuovo').addEventListener('click',e=>{ if(!lasciaVoloAperto()) e.preventDefault(); });
 $('btnCloseDash').addEventListener('click',closeDashboard);
 $('btnStandby').addEventListener('click',saveFlightDraft);
 /* Account: utenti e cambio password in una scheda nuova, come il manuale, per
@@ -6656,6 +6772,10 @@ if($('btnEsci')) $('btnEsci').addEventListener('click',()=>{
 if($('btnManuale')){
   if(IS_APPS_SCRIPT) $('btnManuale').style.display='none';
   $('btnManuale').addEventListener('click',()=>window.open('manuale.html','_blank','noopener'));
+}
+if($('railManuale')){
+  if(IS_APPS_SCRIPT) $('railManuale').style.display='none';
+  $('railManuale').addEventListener('click',e=>{ e.preventDefault(); window.open('manuale.html','_blank','noopener'); });
 }
 $('btnNew').addEventListener('click',newFlight);
 /* "New Flight" della Dashboard e' un link vero (vedi il markup): qui si
@@ -6725,7 +6845,7 @@ function applyHandoff(){
 /* Sotto Apps Script le due pagine sono lo stesso web app con un parametro. */
 if(typeof google!=='undefined' && google.script && google.script.run){
   google.script.run.withSuccessHandler(function(url){
-    const a=$('goImport'); if(a){ a.setAttribute('href',url+'?page=import'); a.setAttribute('target','_top'); }
+    ['goImport','railNuovo'].forEach(id=>{ const a=$(id); if(a){ a.setAttribute('href',url+'?page=import'); a.setAttribute('target','_top'); } });
   }).getWebAppUrl();
 }
 

@@ -489,8 +489,8 @@ pagina sbagliata. Da tastiera la pagina cambia subito; con "riduci movimento"
 niente girata, solo una dissolvenza breve. I parametri della fisica sono in
 cima al file (e in `Sfoglia.FIS`, per provarli dalla console).
 
-Intorno al libro: la barra a sezioni in basso (una parte per sezione, magenta
-quella in lettura, con la bolla di pagina e titolo mentre si trascina), le
+Intorno al libro: la barra a sezioni in basso (una parte per sezione, piu'
+chiara quella in lettura, con la bolla di pagina e titolo mentre si trascina), le
 linguette delle sezioni sul taglio delle pagine come nei manuali stampati
 (cliccabili anche sul bordo del libro), il libro chiuso al centro che scivola
 quando si apre. L'indice laterale su schermo largo spinge il libro, che passa
@@ -537,14 +537,18 @@ il browser il risultato lo decideva lui, e Safari su iPad ci metteva del suo
 (margini propri, indirizzo e data in testa, pagine spezzate dove capitava e cinque
 fogli bianchi in piu').
 
-Il layout è in `rem` con base 16 px su desktop e **18 px da tablet in su**, e i
-target di tocco hanno un'altezza minima di 2,75 rem (3 rem sui dispositivi
-touch): su iPad campi e tabelle sono leggibili e centrabili col dito senza
-ingrandire la pagina.
+Il sistema grafico è descritto in `DESIGN.md` ("L'EFB di notte"): a sinistra una
+colonna di icone (Flights, New flight, manuale; tema e menu in fondo), che sul
+telefono diventa una barra in alto; testo in Public Sans e ogni cifra in
+JetBrains Mono, serviti dal sito (`fonts/`, licenza OFL); una sola riga d'accento
+di 1 px per segnare cosa è selezionato. Il testo è a 14 px (15 px sui
+dispositivi touch), i controlli sono alti almeno 44 px al tocco e i campi
+restano a 16 px su iPad e telefono, così iOS non ingrandisce la pagina.
 
 ### Tema chiaro e scuro
 
-Il pulsante con sole/luna in barra, su entrambe le pagine, commuta la tavolozza.
+Il pulsante con sole/luna, in fondo alla colonna di icone, commuta fra i temi
+Notte e Giorno.
 L'attributo `data-tema` su `<html>` vale `scuro` o `chiaro`; la scelta si ricorda
 in `localStorage` sotto `ofp_tema` e finché non la si tocca si segue quella del
 sistema operativo (`prefers-color-scheme`). Uno script inline nell'`<head>`
@@ -557,12 +561,11 @@ I colori sono tutti variabili CSS su `:root`, ridefinite in
 `--sem-fail` — hanno valori più scuri nel tema chiaro, perché il verde e l'ambra
 che si leggono bene sul nero non si leggono su una tinta chiara.
 
-**Il tema chiaro è beige, non bianco.** Un foglio bianco a schermo pieno acceca,
-e in cabina di giorno lo si guarda per ore: le tinte sono quelle della carta,
-calde e smorzate (`--panel-bg:#f2ece0`, `--bg:#ddd3bf`), con il nero ammorbidito
-verso il bruno (`--txt:#1b1813`) perché il nero puro sul beige "vibra".
-Ogni coppia testo/sfondo è stata verificata contro le soglie WCAG AA: la più
-tirata è il testo attenuato sulla barra, a 4,83:1 contro un minimo di 4,5.
+**Il tema Giorno è grigio pietra, non bianco.** Un foglio bianco a schermo pieno
+acceca, e in cabina di giorno lo si guarda per ore: fondo `#e5e5e2`, schede
+`#f2f2ef`, appena caldi ma non crema. Il tema Notte è un grigio neutro
+(`#171719`, schede `#111013`), mai blu notte. Ogni testo sta sopra 4,5:1 sulla
+sua superficie.
 
 **Cambia solo l'interfaccia.** L'anteprima del documento (`.page`, tabelle,
 riquadri meteo) resta nera su bianco in entrambi i temi, e il PDF non cambia di

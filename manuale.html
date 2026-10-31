@@ -16,7 +16,7 @@
   con la luce e le ombre della sua inclinazione (le note sono nel file).
 
   La cornice e' l'interfaccia del sito (DESIGN.md): ciano per cio' che si
-  comanda, magenta per dove si e' (la sezione in lettura nell'indice e nella
+  comanda, la riga d'accento per dove si e' (la sezione in lettura nell'indice e nella
   barra di scorrimento). La carta resta carta in entrambi i temi; il suo segno
   e' quello dei manuali tecnici stampati: il numero di sezione in un blocco blu
   all'apertura del capitolo e nella linguetta sul taglio delle pagine.
@@ -46,60 +46,61 @@
   @font-face{font-family:'PlexM';font-weight:600;font-display:block;src:url(data/manuale/fonts/IBMPlexMono-600.woff2) format('woff2')}
 
   :root{--tocw:21rem;--navy:#1f3a5f;--ruggine:#c2410c}
+  /* il libro non ha la rail del sito: la pagina e' una colonna sola */
+  body{display:flex;flex-direction:column}
   ::selection{background:color-mix(in srgb,var(--accent-2) 32%,transparent)}
 
   /* =============================== barra ================================ */
   .fb-bar{display:flex;align-items:center;gap:.5rem;padding:.5rem max(.75rem,env(safe-area-inset-right)) .5rem max(.75rem,env(safe-area-inset-left));
-    padding-top:max(.5rem,env(safe-area-inset-top));background:var(--panel-2);border-bottom:1px solid var(--panel-line);
+    padding-top:max(.5rem,env(safe-area-inset-top));background:var(--bg);border-bottom:1px solid var(--panel-line);
     flex:0 0 auto;min-width:0;position:relative;z-index:40}
   .fb-dove{display:flex;flex-direction:column;justify-content:center;min-width:0;flex:1 1 auto;padding-left:.25rem;line-height:1.25}
-  .fb-dove b{font-size:.95rem;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .fb-dove span{font-size:.8rem;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+  .fb-dove b{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fb-dove span{font-size:12px;color:var(--txt-dim);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
   .fb-ico{width:var(--tap);height:var(--tap);padding:0;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
-    border:1px solid var(--panel-line);background:var(--field);color:var(--txt);border-radius:var(--r-md);cursor:pointer;
-    flex:0 0 auto;text-decoration:none;font:inherit;font-size:.88rem;font-weight:600;
+    border:0;background:transparent;color:var(--txt-dim);border-radius:var(--r-sm);cursor:pointer;
+    flex:0 0 auto;text-decoration:none;font:inherit;font-size:13px;font-weight:500;
     touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
     transition:transform var(--t-press) var(--ease-out),border-color var(--t-fast) ease,background-color var(--t-fast) ease,color var(--t-fast) ease}
-  .fb-ico.largo{width:auto;padding:0 .9rem 0 .75rem}
+  .fb-ico.largo{width:auto;padding:0 14px 0 12px;border:1px solid var(--control);border-radius:999px;color:var(--txt);height:var(--ctl)}
   .fb-ico:active{transform:scale(.96)}
   .fb-ico[hidden]{display:none}
   .fb-ico:focus-visible,.fb-toc a:focus-visible,.fb-nav:focus-visible,.fb-scrub:focus-visible,.fb-pag input:focus-visible,.fb-toc-x:focus-visible{outline:none;box-shadow:var(--ring)}
-  .fb-ico svg,.fb-nav svg,.fb-zoom-x svg,.fb-toc-x svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
-  .fb-ico[aria-pressed="true"]{background:color-mix(in srgb,var(--accent-2) 16%,var(--field));border-color:var(--accent-2);color:var(--txt)}
-  .fb-pag{display:flex;align-items:center;gap:.4rem;font-size:.88rem;color:var(--txt-dim);white-space:nowrap;flex:0 0 auto;font-variant-numeric:tabular-nums}
+  .fb-ico svg,.fb-nav svg,.fb-zoom-x svg,.fb-toc-x svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+  .fb-ico[aria-pressed="true"]{color:var(--txt);box-shadow:inset 0 -1px 0 var(--accent-2)}
+  .fb-pag{display:flex;align-items:center;gap:.4rem;font-size:13px;color:var(--txt-dim);font-family:var(--mono);white-space:nowrap;flex:0 0 auto;font-variant-numeric:tabular-nums}
   .fb-pag input{width:4.6rem;height:var(--tap);box-sizing:border-box;text-align:center;font:inherit;font-size:1rem;font-weight:600;color:var(--txt);
     background:var(--field);border:1px solid var(--panel-line);border-radius:var(--r-sm);font-variant-numeric:tabular-nums}
   .fb-sep{width:1px;align-self:stretch;margin:.35rem .15rem;background:var(--panel-line)}
 
   /* ============================ indice laterale ========================== */
   .fb-main{flex:1 1 auto;position:relative;min-height:0;overflow:hidden;background:var(--stage-bg)}
-  .fb-main::before{content:"";position:absolute;inset:0;pointer-events:none;background:var(--atmosfera)}
   .fb-toc{position:absolute;left:0;top:0;bottom:0;width:var(--tocw);max-width:88vw;z-index:30;box-sizing:border-box;
     background:var(--panel-bg);border-right:1px solid var(--panel-line);display:flex;flex-direction:column;
     transform:translateX(-102%);visibility:hidden;
     transition:transform .34s var(--ease-drawer),visibility 0s linear .34s}
   .fb-main.toc-open .fb-toc{transform:none;visibility:visible;transition:transform .34s var(--ease-drawer),visibility 0s}
   .fb-toc-h{display:flex;align-items:center;gap:.5rem;padding:.9rem .9rem .6rem 1.15rem;flex:0 0 auto}
-  .fb-toc-h h2{flex:1 1 auto;margin:0;font-size:1.05rem;font-weight:650}
-  .fb-toc-h span{color:var(--txt-dim);font-size:.82rem;font-variant-numeric:tabular-nums}
+  .fb-toc-h h2{flex:1 1 auto;margin:0;font-size:16px;font-weight:600}
+  .fb-toc-h span{color:var(--txt-faint);font-size:12px;font-family:var(--mono);font-variant-numeric:tabular-nums}
   .fb-toc-x{width:var(--tap);height:var(--tap);display:none;align-items:center;justify-content:center;border:0;background:transparent;color:var(--txt-dim);border-radius:var(--r-md);cursor:pointer}
   .fb-toc-corpo{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 .55rem 1.4rem;
     scrollbar-width:thin;scrollbar-color:var(--panel-line) transparent}
   .fb-toc ol{list-style:none;margin:0;padding:0}
   .fb-toc a{position:relative;display:grid;grid-template-columns:2.4rem 1fr auto;align-items:baseline;column-gap:.4rem;
-    padding:.5rem .6rem;color:var(--txt);text-decoration:none;font-size:.9rem;line-height:1.35;border-radius:var(--r-sm);
+    padding:.5rem .6rem;color:var(--txt);text-decoration:none;font-size:14px;line-height:1.35;border-radius:var(--r-sm);
     -webkit-touch-callout:none;transition:background-color var(--t-fast) ease}
-  .fb-toc a.l1{margin-top:.55rem;font-weight:650}
+  .fb-toc a.l1{margin-top:.55rem;font-weight:600}
   .fb-toc a.l1.fm{margin-top:.15rem}
   .fb-toc a.l2{color:var(--txt-dim)}
-  .fb-toc a .n{font-variant-numeric:tabular-nums;color:var(--txt-dim);font-weight:600;font-size:.84rem}
+  .fb-toc a .n{font-family:var(--mono);color:var(--txt-faint);font-weight:400;font-size:12px}
   .fb-toc a.l1 .n{display:inline-flex;align-items:center;justify-content:center;justify-self:start;min-width:1.5rem;height:1.5rem;padding:0 .3rem;
     box-sizing:border-box;border-radius:.3rem;background:var(--navy);color:#fff;font-size:.78rem;font-weight:700;align-self:center}
   .fb-toc a.l1.fm .n{background:transparent}
-  .fb-toc a .p{font-variant-numeric:tabular-nums;color:var(--txt-dim);font-size:.82rem;font-weight:500}
-  /* dove si e': magenta, come la tratta attiva sul GPS */
-  .fb-toc a[aria-current="true"]{background:color-mix(in srgb,var(--attivo) 13%,transparent);color:var(--txt)}
-  .fb-toc a[aria-current="true"]::before{content:"";position:absolute;left:-.3rem;top:50%;width:.4rem;height:.4rem;margin-top:-.2rem;border-radius:50%;background:var(--attivo)}
+  .fb-toc a .p{font-family:var(--mono);color:var(--txt-faint);font-size:12px;font-weight:400}
+  /* dove si e': la riga d'accento sul bordo, come ogni selezione del sito */
+  .fb-toc a[aria-current="true"]{background:var(--panel-2);color:var(--txt)}
+  .fb-toc a[aria-current="true"]::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--accent-2)}
   .fb-toc a[aria-current="true"] .p{color:var(--txt)}
   .fb-scrim{position:absolute;inset:0;z-index:25;background:rgba(4,8,14,.42);opacity:0;pointer-events:none;transition:opacity .3s var(--ease-out)}
   html[data-tema="chiaro"] .fb-scrim{background:rgba(48,36,20,.26)}
@@ -119,8 +120,8 @@
   .fb-box.cambio{animation:fbCambio .26s var(--ease-out)}
   @keyframes fbCambio{from{opacity:.4;transform:scale(.985)}to{opacity:1;transform:none}}
   .fb-nav{position:absolute;top:50%;z-index:8;width:3rem;height:3rem;margin-top:-1.5rem;display:flex;align-items:center;justify-content:center;
-    border:1px solid var(--panel-line);background:var(--panel-bg);color:var(--txt);border-radius:50%;cursor:pointer;
-    box-shadow:var(--ombra-scheda);touch-action:manipulation;
+    border:1px solid var(--control);background:var(--bg);color:var(--txt);border-radius:50%;cursor:pointer;
+    touch-action:manipulation;
     transition:transform var(--t-press) var(--ease-out),opacity var(--t-fast) ease,border-color var(--t-fast) ease,left .34s var(--ease-drawer)}
   .fb-nav:active{transform:scale(.94)}
   .fb-nav[disabled]{opacity:0;pointer-events:none}
@@ -134,7 +135,7 @@
 
   /* ====================== barra di scorrimento a sezioni ================== */
   .fb-foot{position:relative;z-index:45;flex:0 0 auto;display:flex;align-items:center;gap:1rem;padding:.35rem max(1.1rem,env(safe-area-inset-right)) max(.45rem,env(safe-area-inset-bottom)) max(1.1rem,env(safe-area-inset-left));
-    background:var(--panel-2);border-top:1px solid var(--panel-line)}
+    background:var(--bg);border-top:1px solid var(--panel-line)}
   .fb-scrub{position:relative;flex:1 1 auto;height:var(--tap);cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;border-radius:var(--r-sm)}
   /* Niente barra che si riempie: la traccia e' l'indice delle sezioni, una
      tacca per sezione lunga quanto le sue pagine; quella in lettura e' appena
@@ -145,7 +146,7 @@
   /* il pomello segue il dito 1:1 (translate, senza transizione); solo la
      pressione ha la sua piccola risposta (scale) */
   .fb-pomo{position:absolute;top:50%;left:0;width:6px;height:22px;margin:-11px 0 0 -3px;border-radius:3px;background:var(--txt);
-    box-shadow:0 0 0 3px var(--panel-2),0 1px 4px rgba(0,0,0,.35);pointer-events:none;
+    box-shadow:0 0 0 3px var(--bg);pointer-events:none;
     transition:scale var(--t-press) var(--ease-out)}
   .fb-scrub.tira .fb-pomo{scale:1.12 1.2}
   .fb-bolla{position:absolute;bottom:calc(100% + .35rem);left:0;transform:translateX(-50%);padding:.45rem .7rem;border-radius:var(--r-md);
@@ -437,9 +438,8 @@
   #fbMisura .pg{position:relative;width:var(--pw);height:var(--ph)}
   /* hover solo con un mouse vero: su iPad il primo tocco lo lascerebbe acceso */
   @media (hover:hover) and (pointer:fine){
-    .fb-ico:hover,.fb-nav:hover{border-color:var(--hover-line)}
+    .fb-ico:hover{color:var(--txt)} .fb-ico.largo:hover,.fb-nav:hover{border-color:var(--hover-line)}
     .fb-toc a:hover{background:color-mix(in srgb,var(--txt) 6%,transparent)}
-    .fb-toc a[aria-current="true"]:hover{background:color-mix(in srgb,var(--attivo) 17%,transparent)}
     .fb-toc-x:hover{color:var(--txt)}
     .pg-body .toc-e:hover{background:#eef2f6}
     .pg-body a:hover{text-decoration-color:currentColor}
@@ -903,7 +903,7 @@ function indice(apri){
 
 /* ======================================================= BARRA A SEZIONI
    La traccia e' divisa nelle parti del manuale, ognuna lunga quanto le sue
-   pagine: si vede dove comincia ogni sezione. La parte in lettura e' magenta.
+   pagine: si vede dove comincia ogni sezione. La parte in lettura e' piu' chiara.
    Trascinando, la bolla dice pagina e titolo; la girata parte al rilascio. */
 let PARTI=[];
 function costruisciTraccia(){

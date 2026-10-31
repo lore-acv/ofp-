@@ -1038,7 +1038,7 @@ function temaCorrente(){
 
 /* Colore della barra di stato del telefono: quello della barra in alto della
    pagina, per tema (mobile-native, regola 10). */
-const TEMA_BARRA={scuro:'#151d28', chiaro:'#eee7d9'};
+const TEMA_BARRA={scuro:'#171719', chiaro:'#e5e5e2'};
 function coloreBarra(t){
   const m=document.querySelector('meta[name="theme-color"]');
   if(m) m.setAttribute('content', TEMA_BARRA[t]||TEMA_BARRA.scuro);

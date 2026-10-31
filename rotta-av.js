@@ -1,12 +1,11 @@
-/* ROTTA AV — la mappa che si vola da sola, sulla pagina di accesso e sulla
-   scheda "New flight" della Dashboard.
+/* ROTTA AV — la mappa che si vola da sola, sulla pagina di accesso.
 
    La rotta disegna l'AV del logo dell'Aeroclub di Varese: decollo da DEP,
    passaggio sul reporting point LNN1, atterraggio a DEST. Due soli livelli
    orizzontali (y 110 e 199, gradino a 179) e diagonali tutte a 45 gradi,
    quindi le gambe parallele sono parallele davvero; raccordi di 6 nelle virate.
 
-   Come sul GPS: magenta la rotta gia' volata, puntini chiari quella da fare.
+   Come sul GPS: nel colore d'accento la rotta gia' volata, puntini chiari quella da fare.
    L'aereo traccia la linea dietro di se': il muso segue la direzione del moto,
    nelle virate le ali si stringono come se inclinasse, l'ombra si stacca al
    decollo e si riavvicina all'atterraggio, ogni punto compare quando l'aereo
@@ -22,18 +21,17 @@
   const AEREO='M0 -7 L1.6 -2 L7.5 1 L7.5 2.6 L1.6 1.2 L1.2 5 L3.2 6.4 L3.2 7.4 L0 6.6 L-3.2 7.4 L-3.2 6.4 L-1.2 5 L-1.6 1.2 L-7.5 2.6 L-7.5 1 L-1.6 -2 Z';
   const STILE=`
 .rotta-av svg{display:block;width:100%;height:100%;overflow:visible}
-.rotta-av .anello{fill:none;stroke:color-mix(in srgb,var(--accent-2) 18%,transparent);stroke-width:1}
-.rotta-av .tacche{fill:none;stroke:color-mix(in srgb,var(--accent-2) 38%,transparent);stroke-width:7;stroke-dasharray:.6 4.4}
-.rotta-av .tacche-30{fill:none;stroke:color-mix(in srgb,var(--accent-2) 72%,transparent);stroke-width:12;stroke-dasharray:1 29;stroke-dashoffset:.5}
-.rotta-av .nord{font:700 13px ui-monospace,"SF Mono",Menlo,monospace;fill:var(--accent-2)}
+.rotta-av .anello{fill:none;stroke:var(--panel-line);stroke-width:1}
+.rotta-av .tacche{fill:none;stroke:var(--panel-line);stroke-width:7;stroke-dasharray:.6 4.4}
+.rotta-av .tacche-30{fill:none;stroke:var(--txt-faint);stroke-width:12;stroke-dasharray:1 29;stroke-dashoffset:.5}
+.rotta-av .nord{font:500 13px "JetBrains Mono",ui-monospace,monospace;fill:var(--txt-dim)}
 .rotta-av .bussola{transform-box:view-box;transform-origin:240px 155px}
 .rotta-av .previsto{fill:none;stroke:color-mix(in srgb,var(--txt) 28%,transparent);stroke-width:1.6;stroke-dasharray:2 6;stroke-linecap:round}
-.rotta-av .tratta{fill:none;stroke:var(--attivo);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
-  filter:drop-shadow(0 0 7px color-mix(in srgb,var(--attivo) 55%,transparent))}
+.rotta-av .tratta{fill:none;stroke:var(--attivo);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .rotta-av .apt{fill:var(--attivo)}
 .rotta-av .apt-pista{stroke:var(--panel-bg);stroke-width:2;stroke-linecap:round}
 .rotta-av .rp{fill:none;stroke:var(--txt);stroke-width:2.2;stroke-linejoin:round}
-.rotta-av .etichetta{font:600 11px ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.12em;fill:var(--txt-dim)}
+.rotta-av .etichetta{font:500 11px "JetBrains Mono",ui-monospace,monospace;fill:var(--txt-dim)}
 .rotta-av .etichetta.forte{fill:var(--txt)}
 .rotta-av .aereo{fill:var(--txt)}
 .rotta-av .ombra{fill:rgba(0,0,0,.55);filter:blur(1.2px)}
