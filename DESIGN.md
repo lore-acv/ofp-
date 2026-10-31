@@ -20,18 +20,18 @@ colors:
   notte-warning-bg: "#2a2416"
   notte-negative: "#e5566f"
   notte-negative-bg: "#2c1a20"
-  giorno-ground: "#f4f4f5"
-  giorno-surface: "#ffffff"
-  giorno-raised: "#f0f0f2"
-  giorno-border: "#e3e3e6"
-  giorno-rule: "#efeff1"
-  giorno-control: "#c8c9cd"
-  giorno-text: "#111113"
-  giorno-muted: "#5d5f66"
-  giorno-faint: "#6a6c73"
+  giorno-ground: "#e5e5e2"
+  giorno-surface: "#f2f2ef"
+  giorno-raised: "#eaeae6"
+  giorno-border: "#d7d7d2"
+  giorno-rule: "#e3e3de"
+  giorno-control: "#bdbdb7"
+  giorno-text: "#1a1a18"
+  giorno-muted: "#575752"
+  giorno-faint: "#62625c"
   giorno-accent: "#2a6cbf"
-  giorno-primary: "#121214"
-  giorno-on-primary: "#ffffff"
+  giorno-primary: "#1a1a18"
+  giorno-on-primary: "#f2f2ef"
   giorno-positive: "#0b5b33"
   giorno-positive-bg: "#dcf5e6"
   giorno-warning: "#8a4a06"
@@ -152,7 +152,7 @@ fonte della sensazione di "sito generato".
 
 Due mondi restano distinti. L'**interfaccia** ha due temi con la stessa
 struttura: *Notte* (scuro neutro, di serie quando il sistema e' scuro) e
-*Giorno* (chiaro neutro). I **documenti** (OFP, NAV-FLIGHTPLAN, Navigation
+*Giorno* (grigio pietra chiaro, mai bianco pieno). I **documenti** (OFP, NAV-FLIGHTPLAN, Navigation
 Log) sono carta: nero su bianco in Courier in entrambi i temi.
 
 **Key Characteristics:**
@@ -161,7 +161,7 @@ Log) sono carta: nero su bianco in Courier in entrambi i temi.
 - Ogni numero, codice ICAO, orario e frequenza in JetBrains Mono a cifre tabellari
 - Il segno nel testo (+17.88, -3) prima del colore
 - Superfici piatte: nel tema Notte le schede sono piu' scure del fondo, nel
-  tema Giorno bianche con un filetto
+  tema Giorno un gradino piu' chiare del fondo, con un filetto
 - Documenti stampati in stile carta, separati dall'interfaccia
 
 ## Colors
@@ -177,8 +177,8 @@ pixel colorati di una schermata resta sotto il 3%.
   carburante richiesta. Mai come fondo di un pulsante o di una scheda.
 
 ### Primario
-- **Inchiostro invertito** (notte-primary bianco su nero, giorno-primary quasi
-  nero su bianco): il solo pulsante principale della schermata. Non e' un
+- **Inchiostro invertito** (notte-primary bianco con testo nero,
+  giorno-primary quasi nero con testo pietra): il solo pulsante principale della schermata. Non e' un
   colore di marca.
 
 ### Marchio
@@ -188,7 +188,8 @@ pixel colorati di una schermata resta sotto il 3%.
 ### Neutri
 - **Ground, surface, raised**: fondo pagina, schede, riquadri annidati e
   campi in sola lettura. Nel tema Notte le schede sono un gradino piu' scure
-  del fondo; nel tema Giorno sono bianche su grigio chiaro.
+  del fondo; nel tema Giorno sono grigio pietra chiaro (#f2f2ef) su un
+  fondo pietra (#e5e5e2): appena caldi, senza diventare crema.
 - **Border, rule, control**: filetto delle schede, righe di tabella e
   separatori interni, bordo dei controlli (un gradino piu' forte).
 - **Text, muted, faint**: testo, didascalie ed etichette, meta e unita'.
@@ -210,9 +211,11 @@ niente segmenti colorati, niente barre laterali spesse.
 ogni stato ha una parola ("Waiting for the briefing", "Within limits") e ogni
 differenza ha il suo segno nel testo.
 
-**The Neutral Ground Rule.** Fondi e schede sono grigi neutri. Niente navy,
-niente ardesia, niente crema o carta calda nell'interfaccia; bianco e nero
-puri solo per il pulsante primario e per i documenti stampati.
+**The Neutral Ground Rule.** Fondi e schede sono grigi neutri, al massimo
+appena caldi (pietra). Niente navy, niente ardesia, niente crema o carta
+gialla nell'interfaccia; il bianco pieno non si usa nel tema Giorno, e bianco
+e nero puri restano al pulsante primario del tema Notte e ai documenti
+stampati.
 
 ## Typography
 
@@ -276,7 +279,7 @@ restano maiuscole perche' sono sigle.
 Superfici piatte. La profondita' e' un gradino di luminosita'.
 - **Notte:** schede piu' scure del fondo (#111013 su #171719) con un'ombra
   larga e tenue `0 12px 28px rgba(0,0,0,.2)`, senza filetto.
-- **Giorno:** schede bianche con filetto di 1px (#e3e3e6), senza ombra.
+- **Giorno:** schede pietra chiaro con filetto di 1px (#d7d7d2), senza ombra.
 - **Galleggiano** solo menu, pop-over, tooltip e finestre di dialogo.
 - **Focus:** la riga d'accento sul bordo del campo; da tastiera un anello di
   2px nel colore d'accento.
