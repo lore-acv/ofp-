@@ -154,7 +154,13 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
 .step-pill.done{color:var(--txt-dim)}
 .step-pill.done .n{color:var(--ok)}
 .step-pill.active{color:var(--txt)}
-.step-pill.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--accent-2)}
+/* La riga d'accento sotto lo step in corso e' una sola (.fase-ind, messa da
+   renderSteps in index.html) e scivola da uno step all'altro: si vede da
+   dove si viene (spatial consistency). Solo transform: 260 ms, ease-in-out
+   perche' si muove sullo schermo. Da tastiera si sposta senza animazione. */
+.fase-ind{position:absolute;left:0;bottom:0;width:1px;height:1px;background:var(--accent-2);transform-origin:0 0;pointer-events:none;
+  transition:transform var(--t-move) var(--ease-in-out)}
+.steps:not(:has(.fase-ind)) .step-pill.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--accent-2)}
 .step-pill:focus-visible{outline:none;box-shadow:var(--ring);border-radius:var(--r-xs)}
 /* i valori compilati nei titoli del modulo (es. Departure LILN) */
 .panel .filled{color:var(--txt);font-family:var(--mono)}
@@ -303,7 +309,7 @@ html[data-tema="chiaro"] .group{border-color:var(--panel-line)}
 .panel{display:none}
 .panel.active{display:block;animation:fase-avanti 180ms var(--ease-out)}
 [data-verso="indietro"] .panel.active{animation-name:fase-indietro}
-[data-verso="tastiera"] .panel.active{animation:none}
+[data-verso="tastiera"] .panel.active,[data-verso="vt"] .panel.active{animation:none}
 @keyframes fase-avanti{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
 @keyframes fase-indietro{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
 
@@ -739,7 +745,7 @@ html[data-tema="chiaro"] .totale{border-color:var(--panel-line)}
 /* Il punto compare quando quell'aeroporto ha una nota meteo da leggere. */
 .perf-tab .avviso{position:absolute;top:6px;right:-9px;width:6px;height:6px;border-radius:50%;background:var(--err);display:none}
 .perf-tab.ha-avviso .avviso{display:block}
-.perf-copia,.fase-ind{display:none!important}
+.perf-copia{display:none!important}
 
 /* ===== hover: solo con un mouse =====
    Su iPad il primo tocco applica :hover e lo lascia li': tutti gli hover del
@@ -765,8 +771,71 @@ html[data-tema="chiaro"] .totale{border-color:var(--panel-line)}
   animation:gira 600ms linear infinite;flex:none}
 @keyframes gira{to{transform:rotate(360deg)}}
 
-/* --- Cambio tema: View Transitions senza animazione propria --- */
-::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+/* ============================================================================
+   PASSAGGI FRA SCHERMATE (View Transitions)
+   ============================================================================
+   - Fra pagine (Dashboard, import, foglio): @view-transition. La rail e' la
+     stessa e resta ferma; il contenuto sfuma e sale di 6 px, 220 ms.
+   - Fra step del foglio (html.vt-passo, solo per i comandi a mano): il foglio
+     esce verso il lato da cui si arriva e il nuovo entra dall'altro, 240 ms
+     ease-out; il resto della pagina non si muove.
+   - Fra Dashboard e foglio (html.vt-vista): dissolvenza con il nuovo che sale.
+   - Cambio tema (html.vt-tema): niente dissolvenza, il cerchio lo anima
+     cambiaTemaAnimato() in ofp-core.js.
+   Solo transform e opacity sulle istantanee: girano sul compositore.
+   Con "riduci movimento" restano le dissolvenze, spariscono gli spostamenti. */
+@view-transition{navigation:auto}
+.rail{view-transition-name:rail}
+html.vt-tema .rail{view-transition-name:none}
+::view-transition-group(rail){animation:none}
+::view-transition-old(root){animation:120ms ease-out both vt-via}
+::view-transition-new(root){animation:220ms var(--ease-out) both vt-entra}
+@keyframes vt-via{to{opacity:0}}
+@keyframes vt-entra{from{opacity:0;transform:translateY(6px)}}
+html.vt-tema::view-transition-old(root),html.vt-tema::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.vt-passo .formcol .scroll{view-transition-name:foglio}
+html.vt-passo::view-transition-old(root),html.vt-passo::view-transition-new(root){animation:none}
+html.vt-passo::view-transition-group(foglio){animation:none}
+/* prima esce il vecchio (100 ms), poi entra il nuovo: niente testi
+   sovrapposti a meta' strada */
+html.vt-passo::view-transition-old(foglio){animation:100ms ease-out both vt-esce-sx}
+html.vt-passo::view-transition-new(foglio){animation:230ms var(--ease-out) 70ms both vt-entra-dx}
+html.vt-passo.vt-indietro::view-transition-old(foglio){animation-name:vt-esce-dx}
+html.vt-passo.vt-indietro::view-transition-new(foglio){animation-name:vt-entra-sx}
+@keyframes vt-esce-sx{to{opacity:0;transform:translateX(-28px)}}
+@keyframes vt-esce-dx{to{opacity:0;transform:translateX(28px)}}
+@keyframes vt-entra-dx{from{opacity:0;transform:translateX(36px)}}
+@keyframes vt-entra-sx{from{opacity:0;transform:translateX(-36px)}}
+html.vt-vista::view-transition-old(root){animation:100ms ease-out both vt-via}
+html.vt-vista::view-transition-new(root){animation:240ms var(--ease-out) 60ms both vt-entra}
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-new(root),html.vt-vista::view-transition-new(root){animation:180ms ease both vt-appare}
+  html.vt-passo::view-transition-old(foglio),html.vt-passo.vt-indietro::view-transition-old(foglio){animation:120ms ease both vt-via}
+  html.vt-passo::view-transition-new(foglio),html.vt-passo.vt-indietro::view-transition-new(foglio){animation:160ms ease both vt-appare}
+  .fase-ind{transition:none}
+}
+@keyframes vt-appare{from{opacity:0}}
+
+/* ===== Scelta del tema: il menu che nasce dal pulsante (ofp-core.js) ===== */
+.tema-pop{position:fixed;z-index:300;min-width:12.5rem;padding:4px;background:var(--panel-2);border:1px solid var(--panel-line);
+  border-radius:var(--r-sm);box-shadow:var(--ombra-pop);visibility:hidden;opacity:0;transform:scale(.97);pointer-events:none;
+  transition:opacity 120ms ease,transform 120ms var(--ease-out),visibility 0s linear 120ms}
+.tema-pop.open{visibility:visible;opacity:1;transform:none;pointer-events:auto;
+  transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out),visibility 0s}
+.tema-pop-t{margin:0;padding:6px 10px 4px;font-size:12px;color:var(--txt-faint)}
+.tema-pop button{display:flex;align-items:center;gap:10px;width:100%;min-height:36px;padding:0 10px;border:0;border-radius:var(--r-xs);
+  background:transparent;color:var(--txt);font:inherit;font-size:13px;text-align:left;cursor:pointer;
+  touch-action:manipulation;-webkit-user-select:none;user-select:none;
+  transition:background-color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
+.tema-pop button:active{transform:scale(.98)}
+.tema-pop button:focus-visible{outline:none;background:var(--bg)}
+.tema-pop button span{flex:1}
+.tema-pop svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none;color:var(--txt-dim)}
+.tema-pop .spunta{color:var(--accent-2);visibility:hidden}
+.tema-pop [aria-checked="true"] .spunta{visibility:visible}
+@media (pointer:coarse){ .tema-pop button{min-height:var(--tap);font-size:15px} }
+@media (hover:hover) and (pointer:fine){ .tema-pop button:hover{background:var(--bg)} }
+@media (prefers-reduced-motion:reduce){ .tema-pop,.tema-pop.open{transform:none} .tema-pop button:active{transform:none} }
 
 /* --- Accessibilita' ---
    Meno movimento: restano le dissolvenze, spariscono spostamenti e scale.

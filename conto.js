@@ -51,26 +51,68 @@ const Conto = {
     });
   },
 
+  /* La scelta del tema, come nel sito (ofp-core.js, "TEMA CHIARO / SCURO"):
+     un piccolo menu sotto il pulsante con Notte, Giorno e Come il sistema; il
+     nuovo tema si allarga come un cerchio dal pulsante (View Transitions), o
+     con un velo dello stesso colore dove non ci sono. */
   tema(){
     const b=Conto.$('btnTema'); if(!b) return;
-    b.addEventListener('click',(e)=>{
-      const t=document.documentElement.getAttribute('data-tema')==='chiaro'?'scuro':'chiaro';
-      const applica=()=>{
-        document.documentElement.setAttribute('data-tema',t);
-        coloreBarra();
-        try{ localStorage.setItem('ofp_tema',t); }catch(e){}
-      };
-      /* come nel sito: il nuovo tema si allarga come un cerchio dal pulsante */
-      const ridotto=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(e.detail===0 || !document.startViewTransition){ applica(); return; }
-      if(ridotto){ document.startViewTransition(applica); return; }
+    const html=document.documentElement, K='ofp_tema', FONDO={scuro:'#171719',chiaro:'#e5e5e2'};
+    const sis=window.matchMedia?window.matchMedia('(prefers-color-scheme: light)'):null;
+    const scelto=()=>{ try{ const v=localStorage.getItem(K); return v==='chiaro'||v==='scuro'?v:'auto'; }catch(e){ return 'auto'; } };
+    const diSistema=()=>sis&&sis.matches?'chiaro':'scuro';
+    const applica=(v)=>{ const t=v==='auto'?diSistema():v; html.setAttribute('data-tema',t); coloreBarra();
+      try{ if(v==='auto') localStorage.removeItem(K); else localStorage.setItem(K,t); }catch(e){} };
+    const anima=(fn,dopo,tastiera)=>{
+      const rid=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(tastiera){ fn(); return; }
       const r=b.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+r.height/2;
-      const R=Math.hypot(Math.max(x,innerWidth-x), Math.max(y,innerHeight-y));
-      document.startViewTransition(applica).ready.then(()=>{
-        document.documentElement.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${R}px at ${x}px ${y}px)`]},
-          {duration:400, easing:'cubic-bezier(0.77,0,0.175,1)', pseudoElement:'::view-transition-new(root)'});
-      }).catch(()=>{});
+      const R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
+      const c=[`circle(0px at ${x}px ${y}px)`,`circle(${R}px at ${x}px ${y}px)`];
+      if(document.startViewTransition){
+        html.classList.add('vt-tema');
+        const vt=document.startViewTransition(fn);
+        vt.ready.then(()=>html.animate(rid?{opacity:[0,1]}:{clipPath:c},{duration:rid?200:450,easing:rid?'ease':'cubic-bezier(0.77,0,0.175,1)',pseudoElement:'::view-transition-new(root)'})).catch(()=>{});
+        vt.finished.finally(()=>html.classList.remove('vt-tema'));
+        return;
+      }
+      if(rid||!html.animate){ fn(); return; }
+      const v=document.createElement('div');
+      v.style.cssText=`position:fixed;inset:0;z-index:2147483646;pointer-events:none;background:${FONDO[dopo]};clip-path:${c[0]}`;
+      document.body.appendChild(v);
+      v.animate({clipPath:c},{duration:420,easing:'cubic-bezier(0.77,0,0.175,1)',fill:'forwards'}).finished
+        .then(()=>{ fn(); return v.animate({opacity:[1,0]},{duration:200,easing:'ease',fill:'forwards'}).finished; })
+        .catch(()=>fn()).finally(()=>v.remove());
+    };
+    const ICO={auto:'<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/>',
+      scuro:'<path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/>',
+      chiaro:'<circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>'};
+    const pop=document.createElement('div'); pop.className='tema-pop'; pop.setAttribute('role','menu'); pop.setAttribute('aria-label','Theme');
+    pop.innerHTML='<p class="tema-pop-t">Theme</p>'+[['scuro','Night'],['chiaro','Day'],['auto','Match system']].map(([v,l])=>
+      `<button type="button" role="menuitemradio" data-scelta="${v}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[v]}</svg><span>${l}</span><svg class="spunta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>`).join('');
+    document.body.appendChild(pop);
+    const chiudi=(f)=>{ if(!pop.classList.contains('open')) return; pop.classList.remove('open'); b.setAttribute('aria-expanded','false'); if(f) b.focus(); };
+    b.setAttribute('aria-haspopup','menu'); b.setAttribute('aria-expanded','false'); b.removeAttribute('title');
+    b.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      if(pop.classList.contains('open')){ chiudi(e.detail===0); return; }
+      pop.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x.dataset.scelta===scelto()?'true':'false'));
+      const r=b.getBoundingClientRect(), W=pop.offsetWidth||200;
+      pop.style.left=Math.max(8,Math.min(r.right-W,innerWidth-W-8))+'px'; pop.style.top=(r.bottom+8)+'px'; pop.style.transformOrigin='right top';
+      pop.classList.add('open'); b.setAttribute('aria-expanded','true');
+      if(e.detail===0) (pop.querySelector('[aria-checked="true"]')||pop.querySelector('button')).focus();
     });
+    pop.addEventListener('click',(e)=>{
+      const x=e.target.closest('button'); if(!x) return;
+      const v=x.dataset.scelta, dopo=v==='auto'?diSistema():v;
+      pop.style.transition='none'; chiudi(e.detail===0); void pop.offsetWidth; pop.style.transition='';
+      if(dopo===html.getAttribute('data-tema')){ applica(v); return; }
+      anima(()=>applica(v), dopo, e.detail===0);
+    });
+    document.addEventListener('pointerdown',(e)=>{ if(!pop.contains(e.target)&&!b.contains(e.target)) chiudi(false); },true);
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') chiudi(true); });
+    window.addEventListener('resize',()=>chiudi(false));
+    if(sis&&sis.addEventListener) sis.addEventListener('change',()=>{ if(scelto()==='auto'){ const d=diSistema(); if(d!==html.getAttribute('data-tema')) anima(()=>applica('auto'), d, false); } });
   },
 
   /* Uscendo si cancella da questo browser la copia locale dei voli, cosi' su un

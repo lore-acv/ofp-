@@ -1060,7 +1060,7 @@ function renderSteps(){
   const box=$('steps');
   if(!box.querySelector('.step-pill')){
     box.innerHTML = STEP_LABELS.map((lbl,i)=>`<div class="step-pill" data-goto="${i+1}"><span class="n"></span>${lbl}</div>`).join('');
-    box.querySelectorAll('.step-pill').forEach(p=>p.addEventListener('click',e=>goToStep(parseInt(p.dataset.goto),e.detail===0)));
+    box.querySelectorAll('.step-pill').forEach(p=>p.addEventListener('click',e=>vaiAStep(parseInt(p.dataset.goto),e)));
   }
   box.querySelectorAll('.step-pill').forEach(p=>{
     const n=parseInt(p.dataset.goto);
@@ -1073,32 +1073,42 @@ function renderSteps(){
   const att=box.querySelector('.step-pill.active');
   if(att && box.scrollWidth>box.clientWidth){
     const l=att.offsetLeft-16, r=att.offsetLeft+att.offsetWidth+16;
-    if(l<box.scrollLeft) box.scrollLeft=l; else if(r>box.scrollLeft+box.clientWidth) box.scrollLeft=r-box.clientWidth;
+    const dove = l<box.scrollLeft ? l : r>box.scrollLeft+box.clientWidth ? r-box.clientWidth : null;
+    if(dove!==null) box.scrollTo({left:dove, behavior:STEP_DA_TASTIERA?'auto':'smooth'});
   }
+  indicatoreFasi(STEP_DA_TASTIERA);
 }
-/* Indicatore della fase attiva: uno strato grande quanto la riga delle fasi,
-   ritagliato con clip-path sulla pastiglia attiva. Cambiando fase il ritaglio
-   scivola (transizione CSS: si puo' interrompere e ripartire a meta'). */
+/* Indicatore della fase attiva: una riga di 1 px larga come la scheda attiva
+   (translateX + scaleX). Cambiando fase scivola (transizione CSS: si puo'
+   interrompere e ripartire a meta'). */
 function indicatoreFasi(istantaneo){
   const box=$('steps'); if(!box) return;
   let ind=box.querySelector('.fase-ind');
-  if(!ind){ ind=document.createElement('div'); ind.className='fase-ind'; ind.setAttribute('aria-hidden','true'); box.prepend(ind); istantaneo=true; }
+  if(!ind){ ind=document.createElement('div'); ind.className='fase-ind'; ind.setAttribute('aria-hidden','true'); box.appendChild(ind); istantaneo=true; }
   const pill=box.querySelector('.step-pill.active');
   if(!pill || !box.offsetWidth){ ind.style.visibility='hidden'; return; }
   ind.style.visibility='';
-  const W=box.scrollWidth, H=box.scrollHeight;
-  ind.style.width=W+'px'; ind.style.height=H+'px';
-  const l=pill.offsetLeft, t=pill.offsetTop, r=W-l-pill.offsetWidth, b=H-t-pill.offsetHeight;
-  const clip=`inset(${t}px ${r}px ${b}px ${l}px round 999px)`;
-  if(istantaneo){ ind.style.transition='none'; ind.style.clipPath=clip; void ind.offsetWidth; ind.style.transition=''; }
-  else ind.style.clipPath=clip;
+  const t=`translateX(${pill.offsetLeft}px) scaleX(${pill.offsetWidth})`;
+  if(istantaneo){ ind.style.transition='none'; ind.style.transform=t; void ind.offsetWidth; ind.style.transition=''; }
+  else ind.style.transform=t;
 }
 window.addEventListener('resize',()=>{ indicatoreFasi(true); indicatorePerf(true); });
-function goToStep(n, tastiera){
+/* Cambio di step chiesto a mano (Next, Back, una scheda): il foglio scorre
+   di lato con una View Transition (vedi "PASSAGGI FRA SCHERMATE" in ofp.css),
+   verso sinistra andando avanti e verso destra tornando indietro. Da tastiera
+   nessun movimento: chi usa Invio va veloce. */
+function vaiAStep(n, e){
+  const tastiera = !!(e && e.detail===0);
+  const dest=Math.min(Math.max(n,1),totalSteps);
+  if(dest===currentStep) return;
+  if(tastiera || !document.startViewTransition){ goToStep(dest, tastiera); return; }
+  transizione(dest<currentStep ? ['vt-passo','vt-indietro'] : ['vt-passo'], ()=>goToStep(dest, false, true));
+}
+function goToStep(n, tastiera, conVT){
   const prima=currentStep;
   currentStep=Math.min(Math.max(n,1),totalSteps);
   STEP_DA_TASTIERA=!!tastiera;
-  if($('scrollArea')) $('scrollArea').dataset.verso = tastiera ? 'tastiera' : (currentStep<prima ? 'indietro' : 'avanti');
+  if($('scrollArea')) $('scrollArea').dataset.verso = conVT ? 'vt' : tastiera ? 'tastiera' : (currentStep<prima ? 'indietro' : 'avanti');
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', parseInt(p.dataset.step)===currentStep));
   $('btnBack').disabled = currentStep===1;
   $('btnNext').style.display = currentStep===totalSteps ? 'none' : '';
@@ -1110,12 +1120,8 @@ function goToStep(n, tastiera){
   if(currentStep===NAVLOG_STEP && navRowsRaw().length) navFillFreqs({quiet:true});
   if(currentStep===7) briefAltezze();
   if(currentStep===4) indicatorePerf(true);
-  /* Su telefono le fasi stanno su una riga che scorre: quella attiva si porta
-     in vista, senza animazione (si cambia fase decine di volte). */
-  const pill=document.querySelector('.step-pill.active');
-  if(pill && pill.scrollIntoView) pill.scrollIntoView({block:'nearest', inline:'nearest'});
 }
-$('btnNext').addEventListener('click',e=>goToStep(currentStep+1,e.detail===0));
+$('btnNext').addEventListener('click',e=>vaiAStep(currentStep+1,e));
 /* Briefing: i riquadri crescono con il testo, cosi' una procedura lunga si
    legge tutta senza scorrere dentro la casella. Si misurano solo quando lo
    step e' visibile (nascosto un riquadro misura zero). */
@@ -1128,7 +1134,7 @@ function briefAltezze(){ document.querySelectorAll('.panel[data-step="7"] textar
 document.querySelectorAll('.panel[data-step="7"] textarea').forEach(el=>el.addEventListener('input',()=>briefAltezza(el)));
 // cambiando larghezza (iPad ruotato) il testo va a capo in un altro punto
 window.addEventListener('resize',()=>{ if(currentStep===7) briefAltezze(); });
-$('btnBack').addEventListener('click',e=>goToStep(currentStep-1,e.detail===0));
+$('btnBack').addEventListener('click',e=>vaiAStep(currentStep-1,e));
 
 /* ============================ fuel calc ============================ */
 function round2(n){ return Math.round(n*100)/100; }
@@ -6659,8 +6665,11 @@ function makeCard(f){
     const act=b.dataset.act;
     b.addEventListener('click',()=>{
       if(act==='del') deleteFlight(f.id);
-      else if(act==='edit') editFlight(f.id);
-      else if(act==='view') viewFlightOFP(f.id);
+      else{
+        /* con un altro volo aperto si chiede prima, senza animazione */
+        const chiede = VOLO_APERTO && window.__editingFlightId!==f.id;
+        if(chiede) apriVoloSalvato(f.id); else transizione(['vt-vista'], ()=>apriVoloSalvato(f.id));
+      }
     });
   });
   return card;
@@ -6752,12 +6761,14 @@ function closeDashboard(){
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
 })();
 
-$('btnDashboard').addEventListener('click',openDashboard);
+/* Dashboard e foglio: una dissolvenza con il nuovo che sale (html.vt-vista). */
+const versoVista=(f)=>()=>transizione(['vt-vista'], f);
+$('btnDashboard').addEventListener('click',versoVista(openDashboard));
 /* La rail: Flights apre la Dashboard, New flight e' un link vero all'import,
    il manuale si apre in una scheda nuova come dal menu. */
-$('railVoli').addEventListener('click',e=>{ e.preventDefault(); openDashboard(); });
+$('railVoli').addEventListener('click',e=>{ e.preventDefault(); if(!dashboardAperta()) transizione(['vt-vista'], openDashboard); });
 $('railNuovo').addEventListener('click',e=>{ if(!lasciaVoloAperto()) e.preventDefault(); });
-$('btnCloseDash').addEventListener('click',closeDashboard);
+$('btnCloseDash').addEventListener('click',versoVista(closeDashboard));
 $('btnStandby').addEventListener('click',saveFlightDraft);
 /* Account: utenti e cambio password in una scheda nuova, come il manuale, per
    non perdere il foglio aperto. Uscendo si avvisa se il foglio non e' salvato. */

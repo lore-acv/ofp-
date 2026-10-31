@@ -374,6 +374,19 @@ La rotta dell'aeroclub resta solo nella pagina di accesso, disegnata una
 volta con un tratto di 1.5px nel colore d'accento, senza alone; assente con
 "riduci movimento".
 
+### Passaggi fra schermate e tema
+- **Fra pagine** (accesso, Dashboard, import, foglio): View Transitions fra
+  documenti; la rail resta ferma, il contenuto sfuma e sale di 6 px (220 ms).
+- **Fra step**, a mano: il foglio esce verso il lato da cui si arriva (100 ms)
+  e il nuovo entra dall'altro (230 ms, ease-out); la riga d'accento sotto gli
+  step scivola fino al nuovo (260 ms, ease-in-out). Da tastiera nessun
+  movimento.
+- **Fra Dashboard e foglio**: dissolvenza con il nuovo che sale.
+- **Tema**: il pulsante apre la scelta (Night, Day, Match system); il nuovo
+  tema si allarga come un cerchio dal pulsante (450 ms). Senza View
+  Transitions lo stesso cerchio lo disegna un velo del colore nuovo.
+- Con "riduci movimento" restano solo le dissolvenze.
+
 ## Do's and Don'ts
 
 ### Do:

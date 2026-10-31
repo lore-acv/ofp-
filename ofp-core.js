@@ -1031,61 +1031,150 @@ function parseBriefingText(weatherText, notamText, codes){
    PDF — resta nero su bianco in entrambi i temi: e' carta.
    ========================================================================== */
 var TEMA_CHIAVE='ofp_tema';
-
+/* Tre scelte: Notte, Giorno o "come il sistema" (auto, nessuna chiave in
+   localStorage: lo script nell'<head> segue prefers-color-scheme). */
+const TEMA_SISTEMA = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+function temaScelto(){
+  try{ const v=localStorage.getItem(TEMA_CHIAVE); return v==='chiaro'||v==='scuro' ? v : 'auto'; }catch(e){ return 'auto'; }
+}
+function temaDiSistema(){ return TEMA_SISTEMA && TEMA_SISTEMA.matches ? 'chiaro' : 'scuro'; }
 function temaCorrente(){
   return document.documentElement.getAttribute('data-tema')==='chiaro' ? 'chiaro' : 'scuro';
 }
 
-/* Colore della barra di stato del telefono: quello della barra in alto della
-   pagina, per tema (mobile-native, regola 10). */
+/* Colore della barra di stato del telefono: quello del fondo della pagina,
+   per tema (mobile-native, regola 10). */
 const TEMA_BARRA={scuro:'#171719', chiaro:'#e5e5e2'};
 function coloreBarra(t){
   const m=document.querySelector('meta[name="theme-color"]');
   if(m) m.setAttribute('content', TEMA_BARRA[t]||TEMA_BARRA.scuro);
 }
-function applicaTema(t){
-  t = (t==='chiaro') ? 'chiaro' : 'scuro';
+function applicaTema(scelta){
+  const t = scelta==='auto' ? temaDiSistema() : (scelta==='chiaro' ? 'chiaro' : 'scuro');
   document.documentElement.setAttribute('data-tema', t);
   coloreBarra(t);
-  try{ localStorage.setItem(TEMA_CHIAVE, t); }catch(e){}
+  try{ if(scelta==='auto') localStorage.removeItem(TEMA_CHIAVE); else localStorage.setItem(TEMA_CHIAVE, t); }catch(e){}
   const b=$('btnTema');
-  if(b) b.setAttribute('aria-label', t==='chiaro' ? 'Switch to dark theme' : 'Switch to light theme');
+  if(b) b.setAttribute('aria-label', 'Theme: '+({auto:'match system',scuro:'night',chiaro:'day'})[scelta==='auto'?'auto':t]);
   return t;
 }
 
-/* Cambio di tema: il nuovo tema si allarga come un cerchio dal pulsante che
-   lo ha chiesto (View Transitions). E' un'azione occasionale, quindi ha
-   diritto a un movimento vero: 400 ms, ease-in-out perche' e' un movimento
-   sullo schermo. Con "riduci movimento" diventa una dissolvenza breve; da
-   tastiera, o dove le View Transitions non ci sono, il tema cambia e basta. */
-function cambiaTemaAnimato(btn, applica, tastiera){
+/* Cambio di tema: il nuovo tema si allarga come un cerchio dal pulsante del
+   tema (View Transitions). E' un'azione occasionale, quindi ha diritto a un
+   movimento vero: 450 ms, ease-in-out perche' e' un movimento sullo schermo.
+   Dove le View Transitions non ci sono (Safari prima della 18) lo stesso
+   cerchio lo disegna un velo del colore del nuovo tema, poi il tema cambia
+   sotto il velo e il velo si dissolve. Con "riduci movimento" e' una
+   dissolvenza; da tastiera il tema cambia e basta. */
+function cambiaTemaAnimato(btn, applica, tastiera, dopo){
+  const html=document.documentElement;
   const ridotto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(tastiera || !document.startViewTransition){ applica(); return; }
-  if(ridotto){ document.startViewTransition(applica); return; }
-  const r=btn.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+r.height/2;
+  if(tastiera){ applica(); return; }
+  let x=innerWidth/2, y=innerHeight/2;
+  if(btn){ const r=btn.getBoundingClientRect(); if(r.width){ x=r.left+r.width/2; y=r.top+r.height/2; } }
   const R=Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y));
-  const vt=document.startViewTransition(applica);
-  vt.ready.then(()=>{
-    document.documentElement.animate(
-      {clipPath:[`circle(0px at ${x}px ${y}px)`, `circle(${R}px at ${x}px ${y}px)`]},
-      {duration:400, easing:'cubic-bezier(0.77,0,0.175,1)', pseudoElement:'::view-transition-new(root)'});
-  }).catch(()=>{});
+  const cerchio=[`circle(0px at ${x}px ${y}px)`, `circle(${R}px at ${x}px ${y}px)`];
+  if(document.startViewTransition){
+    html.classList.add('vt-tema');
+    let vt;
+    try{ vt=document.startViewTransition(applica); }catch(e){ html.classList.remove('vt-tema'); applica(); return; }
+    vt.ready.then(()=>{
+      html.animate(ridotto ? {opacity:[0,1]} : {clipPath:cerchio},
+        {duration:ridotto?200:450, easing:ridotto?'ease':'cubic-bezier(0.77,0,0.175,1)', pseudoElement:'::view-transition-new(root)'});
+    }).catch(()=>{});
+    vt.finished.finally(()=>html.classList.remove('vt-tema'));
+    return;
+  }
+  if(ridotto || !html.animate){ applica(); return; }
+  const velo=document.createElement('div');
+  velo.setAttribute('aria-hidden','true');
+  velo.style.cssText=`position:fixed;inset:0;z-index:2147483646;pointer-events:none;background:${TEMA_BARRA[dopo]||TEMA_BARRA.scuro};clip-path:${cerchio[0]};-webkit-clip-path:${cerchio[0]}`;
+  document.body.appendChild(velo);
+  const a=velo.animate({clipPath:cerchio, webkitClipPath:cerchio},{duration:420, easing:'cubic-bezier(0.77,0,0.175,1)', fill:'forwards'});
+  a.finished.then(()=>{ applica(); return velo.animate({opacity:[1,0]},{duration:200, easing:'ease', fill:'forwards'}).finished; })
+    .catch(()=>applica()).finally(()=>velo.remove());
+}
+
+/* La scelta del tema: un piccolo menu che nasce dal pulsante (Notte, Giorno,
+   Come il sistema), con la voce attiva spuntata. Si chiude toccando fuori o
+   con Escape. Sta sopra la pagina, posizionato sul pulsante: a destra se il
+   pulsante e' nella colonna di icone, sotto altrimenti. */
+const TEMA_ICONE={
+  auto:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/></svg>',
+  scuro:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/></svg>',
+  chiaro:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></svg>'};
+function sceltaTema(btn, tastiera){
+  let pop=document.getElementById('temaPop');
+  const chiudi=(focus)=>{ if(!pop.classList.contains('open')) return; pop.classList.remove('open'); btn.setAttribute('aria-expanded','false'); if(focus) btn.focus(); };
+  if(!pop){
+    pop=document.createElement('div'); pop.id='temaPop'; pop.className='tema-pop'; pop.setAttribute('role','menu'); pop.setAttribute('aria-label','Theme');
+    pop.innerHTML='<p class="tema-pop-t">Theme</p>'+[['scuro','Night'],['chiaro','Day'],['auto','Match system']].map(([v,l])=>
+      `<button type="button" role="menuitemradio" data-scelta="${v}">${TEMA_ICONE[v]}<span>${l}</span><svg class="spunta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>`).join('');
+    document.body.appendChild(pop);
+    pop.addEventListener('click', e=>{
+      const b=e.target.closest('button'); if(!b) return;
+      const v=b.dataset.scelta, dopo = v==='auto' ? temaDiSistema() : v;
+      pop.style.transition='none'; chiudi(e.detail===0); void pop.offsetWidth; pop.style.transition='';
+      if(dopo===temaCorrente()){ applicaTema(v); return; }
+      cambiaTemaAnimato(btn, ()=>applicaTema(v), e.detail===0, dopo);
+    });
+    document.addEventListener('pointerdown', e=>{ if(!pop.contains(e.target) && !btn.contains(e.target)) chiudi(false); }, true);
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') chiudi(true); });
+    window.addEventListener('resize', ()=>chiudi(false));
+    pop.addEventListener('keydown', e=>{
+      if(e.key!=='ArrowDown' && e.key!=='ArrowUp') return;
+      e.preventDefault();
+      const v=[...pop.querySelectorAll('button')], k=v.indexOf(document.activeElement);
+      v[(k+(e.key==='ArrowDown'?1:v.length-1))%v.length].focus();
+    });
+  }
+  if(pop.classList.contains('open')){ chiudi(tastiera); return; }
+  const scelto=temaScelto();
+  pop.querySelectorAll('button').forEach(b=>b.setAttribute('aria-checked', b.dataset.scelta===scelto ? 'true':'false'));
+  const r=btn.getBoundingClientRect(), W=pop.offsetWidth||200, H=pop.offsetHeight||170;
+  const inColonna = r.left < 80 && r.height && innerWidth > 640;
+  let left, top, origine;
+  if(inColonna){ left=r.right+12; top=Math.max(8, Math.min(r.bottom-H, innerHeight-H-8)); origine='left bottom'; }
+  else{ left=Math.max(8, Math.min(r.right-W, innerWidth-W-8)); top=r.bottom+8; origine='right top'; }
+  pop.style.left=left+'px'; pop.style.top=top+'px'; pop.style.transformOrigin=origine;
+  pop.classList.add('open'); btn.setAttribute('aria-expanded','true');
+  if(tastiera){ const att=pop.querySelector('[aria-checked="true"]')||pop.querySelector('button'); att.focus(); }
 }
 function initTema(){
   const b=$('btnTema');
+  applicaTema(temaScelto());
+  if(TEMA_SISTEMA && TEMA_SISTEMA.addEventListener) TEMA_SISTEMA.addEventListener('change', ()=>{
+    if(temaScelto()!=='auto') return;
+    const dopo=temaDiSistema(); if(dopo!==temaCorrente()) cambiaTemaAnimato(null, ()=>applicaTema('auto'), false, dopo);
+  });
   if(!b || b.dataset.temaPronto) return;
   b.dataset.temaPronto='1';
-  applicaTema(temaCorrente());
-  b.addEventListener('click', e=>cambiaTemaAnimato(b, ()=>applicaTema(temaCorrente()==='chiaro' ? 'scuro' : 'chiaro'), e.detail===0));
+  b.setAttribute('aria-haspopup','menu'); b.setAttribute('aria-expanded','false'); b.removeAttribute('title');
+  b.addEventListener('click', e=>{ e.stopPropagation(); sceltaTema(b, e.detail===0); });
 }
 
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initTema);
 else initTema();
 
+/* Passaggi fra schermate: il contenuto che esce e quello che entra si
+   scambiano con una View Transition (le classi sull'<html> dicono quale, e il
+   CSS decide il movimento). Dove non ci sono, il cambio e' immediato. */
+function transizione(classi, aggiorna){
+  const html=document.documentElement;
+  if(!document.startViewTransition){ aggiorna(); return; }
+  html.classList.add(...classi);
+  let vt;
+  try{ vt=document.startViewTransition(aggiorna); }catch(e){ html.classList.remove(...classi); aggiorna(); return; }
+  vt.finished.finally(()=>html.classList.remove(...classi));
+}
+
 /* Il manuale si apre in un riquadro sopra la pagina di import: se il tema
    cambia in una delle due, l'altra si allinea invece di restare indietro. */
 window.addEventListener('storage', e=>{
-  if(e.key===TEMA_CHIAVE && e.newValue && e.newValue!==temaCorrente()) applicaTema(e.newValue);
+  if(e.key!==TEMA_CHIAVE) return;
+  const v = e.newValue==='chiaro'||e.newValue==='scuro' ? e.newValue : 'auto';
+  const dopo = v==='auto' ? temaDiSistema() : v;
+  if(dopo!==temaCorrente()) applicaTema(v);
 });
 
 /* ============================================================================
