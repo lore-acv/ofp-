@@ -1066,6 +1066,12 @@ function applicaTema(scelta){
    cerchio lo disegna un velo del colore del nuovo tema, poi il tema cambia
    sotto il velo e il velo si dissolve. Con "riduci movimento" e' una
    dissolvenza; da tastiera il tema cambia e basta. */
+/* Da tastiera o col dito? Un click con detail 0 di solito e' Invio o Spazio,
+   ma Safari su iPad a volte lo da' anche a un tocco: conta l'ultimo gesto. */
+let ULTIMO_GESTO='puntatore';
+document.addEventListener('pointerdown', ()=>{ ULTIMO_GESTO='puntatore'; }, true);
+document.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' ') ULTIMO_GESTO='tastiera'; }, true);
+function daTastiera(e){ return !!e && e.detail===0 && ULTIMO_GESTO==='tastiera'; }
 function cambiaTemaAnimato(btn, applica, tastiera, dopo){
   const html=document.documentElement;
   const ridotto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1075,14 +1081,15 @@ function cambiaTemaAnimato(btn, applica, tastiera, dopo){
   const R=Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y));
   const cerchio=[`circle(0px at ${x}px ${y}px)`, `circle(${R}px at ${x}px ${y}px)`];
   if(document.startViewTransition){
+    /* Il cerchio e' un'animazione CSS (ofp.css, vt-cerchio) che legge centro e
+       raggio da tre variabili su <html>: Safari la esegue sempre, mentre
+       animare lo pseudo-elemento da JavaScript non gli riesce ovunque. */
+    html.style.setProperty('--vt-x', x+'px'); html.style.setProperty('--vt-y', y+'px'); html.style.setProperty('--vt-r', Math.ceil(R)+'px');
     html.classList.add('vt-tema');
+    const fine=()=>{ html.classList.remove('vt-tema'); ['--vt-x','--vt-y','--vt-r'].forEach(k=>html.style.removeProperty(k)); };
     let vt;
-    try{ vt=document.startViewTransition(applica); }catch(e){ html.classList.remove('vt-tema'); applica(); return; }
-    vt.ready.then(()=>{
-      html.animate(ridotto ? {opacity:[0,1]} : {clipPath:cerchio},
-        {duration:ridotto?200:450, easing:ridotto?'ease':'cubic-bezier(0.77,0,0.175,1)', pseudoElement:'::view-transition-new(root)'});
-    }).catch(()=>{});
-    vt.finished.finally(()=>html.classList.remove('vt-tema'));
+    try{ vt=document.startViewTransition(applica); }catch(e){ fine(); applica(); return; }
+    vt.finished.then(fine, fine);
     return;
   }
   if(ridotto || !html.animate){ applica(); return; }
@@ -1114,9 +1121,9 @@ function sceltaTema(btn, tastiera){
     pop.addEventListener('click', e=>{
       const b=e.target.closest('button'); if(!b) return;
       const v=b.dataset.scelta, dopo = v==='auto' ? temaDiSistema() : v;
-      pop.style.transition='none'; chiudi(e.detail===0); void pop.offsetWidth; pop.style.transition='';
+      pop.style.transition='none'; chiudi(daTastiera(e)); void pop.offsetWidth; pop.style.transition='';
       if(dopo===temaCorrente()){ applicaTema(v); return; }
-      cambiaTemaAnimato(btn, ()=>applicaTema(v), e.detail===0, dopo);
+      cambiaTemaAnimato(btn, ()=>applicaTema(v), daTastiera(e), dopo);
     });
     document.addEventListener('pointerdown', e=>{ if(!pop.contains(e.target) && !btn.contains(e.target)) chiudi(false); }, true);
     document.addEventListener('keydown', e=>{ if(e.key==='Escape') chiudi(true); });
@@ -1150,7 +1157,7 @@ function initTema(){
   if(!b || b.dataset.temaPronto) return;
   b.dataset.temaPronto='1';
   b.setAttribute('aria-haspopup','menu'); b.setAttribute('aria-expanded','false'); b.removeAttribute('title');
-  b.addEventListener('click', e=>{ e.stopPropagation(); sceltaTema(b, e.detail===0); });
+  b.addEventListener('click', e=>{ e.stopPropagation(); sceltaTema(b, daTastiera(e)); });
 }
 
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initTema);

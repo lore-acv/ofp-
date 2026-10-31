@@ -63,6 +63,11 @@ const Conto = {
     const diSistema=()=>sis&&sis.matches?'chiaro':'scuro';
     const applica=(v)=>{ const t=v==='auto'?diSistema():v; html.setAttribute('data-tema',t); coloreBarra();
       try{ if(v==='auto') localStorage.removeItem(K); else localStorage.setItem(K,t); }catch(e){} };
+    /* da tastiera o col dito: conta l'ultimo gesto, non solo event.detail (Safari su iPad) */
+    let gesto='puntatore';
+    document.addEventListener('pointerdown',()=>{ gesto='puntatore'; },true);
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' ') gesto='tastiera'; },true);
+    const tast=(e)=>e.detail===0&&gesto==='tastiera';
     const anima=(fn,dopo,tastiera)=>{
       const rid=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if(tastiera){ fn(); return; }
@@ -70,10 +75,12 @@ const Conto = {
       const R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
       const c=[`circle(0px at ${x}px ${y}px)`,`circle(${R}px at ${x}px ${y}px)`];
       if(document.startViewTransition){
+        /* il cerchio e' l'animazione CSS vt-cerchio (conto.css): qui solo centro e raggio */
+        html.style.setProperty('--vt-x',x+'px'); html.style.setProperty('--vt-y',y+'px'); html.style.setProperty('--vt-r',Math.ceil(R)+'px');
         html.classList.add('vt-tema');
-        const vt=document.startViewTransition(fn);
-        vt.ready.then(()=>html.animate(rid?{opacity:[0,1]}:{clipPath:c},{duration:rid?200:450,easing:rid?'ease':'cubic-bezier(0.77,0,0.175,1)',pseudoElement:'::view-transition-new(root)'})).catch(()=>{});
-        vt.finished.finally(()=>html.classList.remove('vt-tema'));
+        const fine=()=>{ html.classList.remove('vt-tema'); ['--vt-x','--vt-y','--vt-r'].forEach(k=>html.style.removeProperty(k)); };
+        let vt; try{ vt=document.startViewTransition(fn); }catch(err){ fine(); fn(); return; }
+        vt.finished.then(fine,fine);
         return;
       }
       if(rid||!html.animate){ fn(); return; }
@@ -95,19 +102,19 @@ const Conto = {
     b.setAttribute('aria-haspopup','menu'); b.setAttribute('aria-expanded','false'); b.removeAttribute('title');
     b.addEventListener('click',(e)=>{
       e.stopPropagation();
-      if(pop.classList.contains('open')){ chiudi(e.detail===0); return; }
+      if(pop.classList.contains('open')){ chiudi(tast(e)); return; }
       pop.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x.dataset.scelta===scelto()?'true':'false'));
       const r=b.getBoundingClientRect(), W=pop.offsetWidth||200;
       pop.style.left=Math.max(8,Math.min(r.right-W,innerWidth-W-8))+'px'; pop.style.top=(r.bottom+8)+'px'; pop.style.transformOrigin='right top';
       pop.classList.add('open'); b.setAttribute('aria-expanded','true');
-      if(e.detail===0) (pop.querySelector('[aria-checked="true"]')||pop.querySelector('button')).focus();
+      if(tast(e)) (pop.querySelector('[aria-checked="true"]')||pop.querySelector('button')).focus();
     });
     pop.addEventListener('click',(e)=>{
       const x=e.target.closest('button'); if(!x) return;
       const v=x.dataset.scelta, dopo=v==='auto'?diSistema():v;
-      pop.style.transition='none'; chiudi(e.detail===0); void pop.offsetWidth; pop.style.transition='';
+      pop.style.transition='none'; chiudi(tast(e)); void pop.offsetWidth; pop.style.transition='';
       if(dopo===html.getAttribute('data-tema')){ applica(v); return; }
-      anima(()=>applica(v), dopo, e.detail===0);
+      anima(()=>applica(v), dopo, tast(e));
     });
     document.addEventListener('pointerdown',(e)=>{ if(!pop.contains(e.target)&&!b.contains(e.target)) chiudi(false); },true);
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') chiudi(true); });

@@ -582,7 +582,17 @@ html[data-tema="chiaro"] .rotte-std{border-color:var(--panel-line)}
 html[data-tema="chiaro"] .profilo{border-color:var(--panel-line)}
 .profilo h3{margin:0;padding:14px 20px 0;font-size:20px;font-weight:400;line-height:26px;color:var(--txt-dim);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
 .profilo h3 small{font:400 13px var(--mono);color:var(--txt-faint)}
-.profilo svg{display:block;width:100%;height:150px;padding:0 20px 14px;box-sizing:content-box;margin-left:-20px}
+.profilo svg{display:block;width:100%;height:170px;padding:0 20px 12px;box-sizing:content-box;margin-left:-20px;-webkit-tap-highlight-color:transparent}
+/* Navlog: il profilo resta in vista sopra la tabella mentre si scorrono le tratte */
+.profilo-fisso{position:sticky;top:0;z-index:3;background:var(--bg);margin:4px 0 8px;padding:0 0 16px}
+/* fermo, copre anche la fascia di padding sopra di se' (28 px) */
+.profilo-fisso::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:28px;background:var(--bg)}
+.profilo-fisso .profilo{margin-bottom:0}
+@media screen and (max-width:640px){.profilo-fisso{position:static;margin:0 0 8px}.profilo-fisso::before{content:none}}
+.profilo .banda{fill:transparent;transition:fill var(--t-fast) ease}
+.profilo .banda.sel{fill:var(--panel-2)}
+.profilo .tocco{fill:transparent;cursor:pointer}
+@media (hover:hover){.profilo .tocco:hover{fill:var(--txt);fill-opacity:.04}}
 .profilo .vuoto{padding:10px 20px 16px;color:var(--txt-faint);font-size:13px;margin:0}
 .totale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.2fr);
   background:var(--panel-bg);border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--ombra-scheda);margin-bottom:24px;overflow:hidden}
@@ -792,7 +802,14 @@ html.vt-tema .rail{view-transition-name:none}
 ::view-transition-new(root){animation:220ms var(--ease-out) both vt-entra}
 @keyframes vt-via{to{opacity:0}}
 @keyframes vt-entra{from{opacity:0;transform:translateY(6px)}}
-html.vt-tema::view-transition-old(root),html.vt-tema::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.vt-tema::view-transition-old(root){animation:none;mix-blend-mode:normal}
+/* Cambio tema: il nuovo tema si allarga come un cerchio dal pulsante. Centro e
+   raggio li mette su <html> chi cambia tema (--vt-x, --vt-y, --vt-r). */
+html.vt-tema::view-transition-new(root){mix-blend-mode:normal;animation:450ms cubic-bezier(.77,0,.175,1) both vt-cerchio}
+@keyframes vt-cerchio{
+  from{clip-path:circle(0px at var(--vt-x,50%) var(--vt-y,50%))}
+  to{clip-path:circle(var(--vt-r,150vmax) at var(--vt-x,50%) var(--vt-y,50%))}}
+@media (prefers-reduced-motion:reduce){html.vt-tema::view-transition-new(root){animation:200ms ease both vt-appare}}
 html.vt-passo .formcol .scroll{view-transition-name:foglio}
 html.vt-passo::view-transition-old(root),html.vt-passo::view-transition-new(root){animation:none}
 html.vt-passo::view-transition-group(foglio){animation:none}

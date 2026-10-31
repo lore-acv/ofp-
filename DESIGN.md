@@ -330,11 +330,18 @@ waypoint in Mono), distanza, waypoint, stato con data, e l'azione del momento
 ("Load briefing", "Download OFP"). Sul telefono: stato e data in alto, rotta,
 due caselle di dati, azione a tutta larghezza.
 
-### Vertical profile (signature, Route & fuel)
-Il profilo del volo in scala sulla distanza: salita dal campo al TOC
-(AFM fig. 5-6), crociera alla quota scelta, tacche ai waypoint con i nomi
-che non si sovrappongono, il touch & go evidenziato. La linea e' la serie
-principale, nel colore d'accento.
+### Vertical profile (signature, Navlog)
+Il profilo del volo in scala sulla rotta del navplan, tratta per tratta, con
+le quote della colonna Alt.: si ridisegna mentre si scrive. Salita col
+gradiente della salita del piano (AFM fig. 5-6, stesso TOC del carburante),
+discese a 500 ft/min, discesa finale sul campo (TOD); tacche ai waypoint con i
+nomi che non si sovrappongono, il touch & go evidenziato, scala delle quote a
+sinistra in Mono. La linea e' la serie principale, nel colore d'accento; una
+quota che la tratta non permette di raggiungere diventa ambra (--warn) con la
+quota voluta tratteggiata. Collegato alla tabella: la riga in cui si scrive
+evidenzia la sua tratta (fondo raised), toccare una tratta porta alla sua
+casella Alt. Su tablet e desktop resta fermo in alto mentre si scorrono le
+tratte; sul telefono scorre con la pagina.
 
 ### Fuel totalizer
 Il piano carburante come lo stampa l'OFP, in una fila di caselle: Taxi, Trip,
@@ -383,8 +390,11 @@ volta con un tratto di 1.5px nel colore d'accento, senza alone; assente con
   movimento.
 - **Fra Dashboard e foglio**: dissolvenza con il nuovo che sale.
 - **Tema**: il pulsante apre la scelta (Night, Day, Match system); il nuovo
-  tema si allarga come un cerchio dal pulsante (450 ms). Senza View
-  Transitions lo stesso cerchio lo disegna un velo del colore nuovo.
+  tema si allarga come un cerchio dal pulsante (450 ms). Il cerchio e'
+  un'animazione CSS (vt-cerchio) sullo pseudo-elemento della View
+  Transition, con centro e raggio in tre variabili su <html>: non si anima da
+  JavaScript, che Safari non esegue ovunque. Senza View Transitions lo stesso
+  cerchio lo disegna un velo del colore nuovo.
 - Con "riduci movimento" restano solo le dissolvenze.
 
 ## Do's and Don'ts

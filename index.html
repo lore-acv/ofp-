@@ -200,7 +200,6 @@ document.documentElement.classList.add('vista-dash');
           <b>MPH</b>, as in the C172 FR POH. Fuel mass: <b>1 L = 0.72 kg</b>.
           Tanks: <b>174 L usable</b> (46 USG).</p>
         <div class="totale" id="fuelTot" aria-label="Fuel plan"></div>
-        <div class="profilo" id="profilo"><h3>Profile <small id="profiloSub"></small></h3><svg id="profiloSvg" role="img" aria-label="Vertical profile of the flight"></svg><p class="vuoto" id="profiloVuoto" hidden>The profile appears with the cruise altitude and the NavLog distances.</p></div>
         <div class="group">
           <h3>Cruise power setting (POH)</h3>
           <div class="row">
@@ -542,6 +541,12 @@ document.documentElement.classList.add('vista-dash');
         <h1 class="step-title">Navlog</h1>
         <p class="step-sub">The NAV-FLIGHTPLAN you take into the cockpit: a document in its own right,
           downloaded with its own button and <b>never part of the printed OFP</b>.</p>
+        <!-- Il profilo segue le quote della tabella: resta in vista mentre si scorrono le tratte. -->
+        <div class="profilo-fisso"><div class="profilo" id="profilo">
+          <h3>Profile <small id="profiloSub"></small></h3>
+          <svg id="profiloSvg" role="img" aria-label="Vertical profile of the flight, leg by leg"></svg>
+          <p class="vuoto" id="profiloVuoto" hidden>The profile appears with the NavLog legs and the cruise altitude.</p>
+        </div></div>
         <div class="group">
           <h3>Speed &amp; fuel flow</h3>
           <div class="row">
@@ -566,7 +571,9 @@ document.documentElement.classList.add('vista-dash');
           <div class="calc" id="navLegWarn" style="color:var(--warn)"></div>
           <div class="hint">Checkpoints, magnetic track and distances come from the ForeFlight NavLog.
             <b>Altitude</b> is pre-filled with the Step 2 cruise altitude and remains editable waypoint by
-            waypoint. <b>Frequencies</b> for airports and navaids are looked up automatically on OurAirports
+            waypoint (feet, or FL065); the profile above redraws as you type, and tapping a leg on it
+            takes you to that altitude. Climbs follow the AFM climb of the fuel plan, descents are
+            drawn at 500 ft/min, and an altitude the aircraft cannot reach in its leg turns amber. <b>Frequencies</b> for airports and navaids are looked up automatically on OurAirports
             when the checkpoint is recognised &mdash; the number only, no units.
             <b>Callsigns and remarks</b> are in no database: type them here and they stay.
             <b>Round MT to 5&deg;</b> shows and prints each magnetic track to the nearest 5&deg; (347 &rarr; 345,
@@ -3028,49 +3035,195 @@ function renderFuelTot(f){
     + c('Final reserve',L(f.finFuel),mn(f.finMin)) + c('Minimum required',L(f.minRequired),'litres','somma')
     + ex + c('Block',L(f.blockFuel)+' L',`${fmt(f.blockFuel*KG_PER_LITRE)} kg`+(f.blockFuel>USABLE_FUEL_L?` · over ${USABLE_FUEL_L} L`:''),'blocco'+(f.blockFuel>USABLE_FUEL_L?' corto':''));
 }
-/* ===== Step 2: il profilo verticale =====
-   In scala sulla distanza del NavLog: salita dal campo al TOC (AFM fig. 5-6),
-   crociera alla quota scelta, una tacca per waypoint con i nomi che non si
-   sovrappongono, il touch & go evidenziato. La linea e' la serie principale,
-   nel colore d'accento. */
+/* ===== Navlog: il profilo verticale =====
+   In scala sulla rotta del NAV-FLIGHTPLAN, tratta per tratta, con la quota
+   scritta nella colonna Alt.: cambiando una quota il profilo si ridisegna.
+   Le regole sono quelle che si usano preparando il navplan:
+   - la quota di una riga e' quella della tratta che arriva a quel punto, e il
+     cambio di quota comincia al punto precedente;
+   - si sale col gradiente della salita del piano (AFM fig. 5-6: dal campo
+     alla quota di crociera in climbNm miglia), cosi' il TOC disegnato e'
+     lo stesso del piano carburante;
+   - si scende a 500 ft/min alla GS del navplan, e l'ultima discesa finisce
+     sul campo di arrivo (TOD).
+   Una quota che non si raggiunge entro la tratta si vede: il tratto diventa
+   ambra. Toccando una tratta si va alla sua casella Alt.; scrivendo in una
+   riga la sua tratta si evidenzia. */
+let PROFILO_SEL = -1;
+function quotaFt(v){
+  const t=String(v==null?'':v).trim().toUpperCase().replace(/\s+/g,'');
+  let m=t.match(/^FL(\d{2,3})$/); if(m) return +m[1]*100;
+  m=t.match(/^A(\d{2,3})$/);      if(m) return +m[1]*100;
+  m=t.match(/^(\d{3,5})(FT)?$/);  if(m && +m[1]>=100) return +m[1];
+  return null;
+}
+function profiloPunti(f){
+  const righe=navRowsRaw().map(r=>({w:String(r.wpt||'').trim().toUpperCase(),
+    d:parseFloat(String(r.dist).replace(',','.'))||0, a:quotaFt(r.alt)}));
+  const tot=righe.reduce((s,r)=>s+r.d,0);
+  const cruise=f.cAlt||num('pwrAlt')||0;
+  const da=Math.max(0,num('toldElevDep')||0), ae=Math.max(0,num('toldElevDest')||0);
+  const gsKt=mphToKt(num('navGs')>0 ? num('navGs') : num('tripGS'))||100;
+  const gSali = f.climbNmX>0 && cruise>da ? (cruise-da)/f.climbNmX : 375;   // ft per NM
+  const gScendi = 500/(gsKt/60);                                           // 500 ft/min alla GS
+  /* Avanti, tratta per tratta: punti (x in NM, h in ft) e la quota voluta. */
+  const pts=[{x:0,h:da}], tratte=[];
+  let x=0, h=da, voluta=cruise||da;
+  righe.forEach((r,i)=>{
+    if(r.a!=null) voluta=r.a;
+    const x0=x, g = voluta>h ? gSali : gScendi;
+    if(voluta!==h && r.d>0){
+      const serve=Math.abs(voluta-h)/g;
+      if(serve<=r.d){ pts.push({x:x+serve,h:voluta}); h=voluta; }
+      else h+= Math.sign(voluta-h)*g*r.d;
+    }
+    x+=r.d; pts.push({x,h});
+    tratte.push({i, w:r.w, x0, x1:x, voluta, scritta:r.a!=null});
+  });
+  /* L'ultima discesa: la retta che arriva sul campo, e il profilo e' il piu'
+     basso dei due. */
+  let tod=null;
+  if(tot>0){
+    const D=(xx)=>ae+gScendi*(tot-xx);
+    const out=[];
+    for(let k=0;k<pts.length;k++){
+      const p=pts[k], dp=D(p.x);
+      if(k>0){
+        const q=pts[k-1], dq=D(q.x), a=q.h-dq, b=p.h-dp;
+        if((a<0&&b>0)||(a>0&&b<0)){
+          const t=a/(a-b), xi=q.x+(p.x-q.x)*t;
+          out.push({x:xi,h:D(xi)}); if(a<0) tod=xi;
+        }
+      }
+      out.push({x:p.x,h:Math.min(p.h,dp)});
+    }
+    pts.length=0; pts.push(...out);
+    if(tod==null && pts.length>1 && pts[0].h>=D(0)) tod=0;
+  }
+  /* Quote non raggiunte, sul profilo finale. Una quota e' raggiunta se il
+     profilo la tocca nella sua tratta, o in quelle dopo che chiedono la stessa
+     (una salita che continua oltre il primo punto e' normale). Dentro la
+     discesa finale le quote non contano piu'. */
+  let dopo=false;
+  for(let k=tratte.length-1;k>=0;k--){
+    const t=tratte[k], n=tratte[k+1];
+    t.pts=profiloTratto(pts, t.x0, t.x1);
+    const qui=t.pts.some(p=>Math.abs(p.h-t.voluta)<1);
+    const avanti = qui || (n && n.voluta===t.voluta && dopo);
+    t.corta = !avanti && !(tod!=null && t.x0>=tod-1e-6) && t.x1>t.x0;
+    dopo=avanti;
+  }
+  return {righe, tot, pts, tratte, tod, ae, da, cruise, gSali, gScendi};
+}
+/* Il pezzo di profilo fra due distanze, con i due estremi interpolati. */
+function profiloTratto(pts, x0, x1){
+  const a=(x)=>{ for(let k=1;k<pts.length;k++){ const p=pts[k-1], q=pts[k];
+    if(x>=p.x-1e-9 && x<=q.x+1e-9){ const t=q.x>p.x ? (x-p.x)/(q.x-p.x) : 0; return {x, h:p.h+(q.h-p.h)*t}; } }
+    return pts[pts.length-1]; };
+  return [a(x0), ...pts.filter(p=>p.x>x0+1e-9 && p.x<x1-1e-9), a(x1)];
+}
 function renderProfilo(f){
   const svg=$('profiloSvg'), vuoto=$('profiloVuoto'); if(!svg) return;
-  const tot=num('tripDist'), alt=f.cAlt||num('pwrAlt'), da=Math.max(0,num('toldElevDep')||0);
-  const righe=navRowsRaw().map(r=>({w:String(r.wpt||'').trim().toUpperCase(), d:parseFloat(String(r.dist).replace(',','.'))||0}));
-  const box=$('profilo'), W=box ? box.clientWidth-40 : 0;
-  if(!(tot>0) || !(alt>0) || !W){ svg.innerHTML=''; svg.style.display='none'; if(vuoto) vuoto.hidden=false; if($('profiloSub')) $('profiloSub').textContent=''; return; }
+  const P=profiloPunti(f), box=$('profilo'), W=box ? box.clientWidth-40 : 0;
+  const sub=$('profiloSub');
+  if(!(P.tot>0) || !(W>100)){ svg.innerHTML=''; svg.style.display='none'; if(vuoto) vuoto.hidden=false; if(sub) sub.textContent=''; return; }
   svg.style.display=''; if(vuoto) vuoto.hidden=true;
-  const H=150, base=H-22, top=26, cima=Math.max(alt,1000)*1.04;
-  const y=(a)=>base-(a/cima)*(base-top), X=(d)=>8+Math.min(d,tot)/tot*(W-16);
+  const mono='font-family="JetBrains Mono, monospace"';
+  const H=170, base=H-24, top=22, sx=40, dx=W-10;
+  const hMax=Math.max(1000, ...P.pts.map(p=>p.h), ...P.tratte.map(t=>t.voluta||0));
+  const passo = hMax>8000 ? 2000 : 1000, cima=Math.ceil(hMax*1.08/passo)*passo;
+  const Y=(a)=>base-(a/cima)*(base-top), X=(d)=>sx+d/P.tot*(dx-sx);
+  let g='';
+  /* Scala delle quote: filetti leggeri, una cifra a sinistra. */
+  const ogni = cima/passo>5 ? passo*2 : passo;
+  for(let q=ogni; q<cima; q+=ogni){
+    g+=`<line x1="${sx}" x2="${dx}" y1="${Y(q)}" y2="${Y(q)}" stroke="var(--rule)" stroke-width="1"/>`
+     + `<text x="${sx-6}" y="${Y(q)+4}" fill="var(--txt-faint)" font-size="10" ${mono} text-anchor="end">${q}</text>`;
+  }
+  /* Bande delle tratte: invisibili finche' non si sceglie una tratta. */
+  P.tratte.forEach(t=>{
+    if(!(t.x1>t.x0)) return;
+    g+=`<rect class="banda" data-leg="${t.i}" x="${X(t.x0)}" y="${top-8}" width="${Math.max(1,X(t.x1)-X(t.x0))}" height="${base-top+8}"/>`;
+  });
+  /* Tacche e nomi dei waypoint, senza sovrapporsi. */
   const tng=($('tngOn')&&$('tngOn').checked) ? txt('tngIcao').trim().toUpperCase() : '';
-  const dep=txt('dep').trim().toUpperCase();
-  const punti=[{w:dep||'DEP',c:0}]; let cum=0;
-  righe.forEach(r=>{ cum+=r.d; if(r.d>0||r.w) punti.push({w:r.w,c:cum}); });
-  let tacche='', ultimo=-1e9;
-  const fine=X(tot);
+  const punti=[{w:txt('dep').trim().toUpperCase()||'DEP', c:0}];
+  P.tratte.forEach(t=>{ if(t.x1>t.x0||t.w) punti.push({w:t.w,c:t.x1}); });
+  let ultimo=-1e9; const fine=X(P.tot);
   punti.forEach((p,i)=>{
     const x=X(p.c), evid=tng && p.w===tng, last=i===punti.length-1;
-    tacche+=`<line x1="${x}" x2="${x}" y1="${y(alt)-6}" y2="${base}" stroke="${evid?'var(--txt-dim)':'var(--panel-line)'}" stroke-width="1"/>`;
-    const serve=p.w.length*7+18;
+    g+=`<line x1="${x}" x2="${x}" y1="${top}" y2="${base}" stroke="${evid?'var(--txt-dim)':'var(--panel-line)'}" stroke-width="1"${evid?'':' stroke-dasharray="2 3"'}/>`;
+    const serve=p.w.length*7+14;
     if(p.w && (i===0 || last || evid || (x-ultimo>serve && fine-x>serve))){
       ultimo=x;
-      tacche+=`<text x="${x}" y="${H-6}" fill="${evid?'var(--txt)':'var(--txt-faint)'}" font-size="11" font-family="JetBrains Mono, monospace" text-anchor="${i===0?'start':last?'end':'middle'}">${escHtml(p.w)}</text>`;
+      g+=`<text x="${x}" y="${H-7}" fill="${evid?'var(--txt)':'var(--txt-faint)'}" font-size="11" ${mono} text-anchor="${i===0?'start':last?'end':'middle'}">${escHtml(p.w)}</text>`;
     }
   });
-  const tocNm=Math.min(f.climbNmX||0,tot);
-  const altFine = f.climbOverruns && f.climbNmX>0 ? da+(alt-da)*tot/f.climbNmX : alt;
-  const linea = f.climbOverruns ? `${X(0)},${y(da)} ${fine},${y(altFine)}` : `${X(0)},${y(da)} ${X(tocNm)},${y(alt)} ${fine},${y(alt)}`;
-  const toc=tocPosition(f);
-  const etTOC = f.climbOverruns ? `climb only · ${Math.round(altFine)} ft at ${Math.round(tot)} NM` : `TOC ${(f.climbNmX||0).toFixed(1)} NM · ${alt} ft`;
+  g+=`<line x1="${sx}" x2="${dx}" y1="${base}" y2="${base}" stroke="var(--control)" stroke-width="1"/>`;
+  /* La linea: accento, ambra dove una quota non si raggiunge. */
+  const linea=P.pts.map(p=>`${X(p.x).toFixed(1)},${Y(p.h).toFixed(1)}`).join(' ');
+  g+=`<polyline points="${linea}" fill="none" stroke="var(--accent-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+  P.tratte.filter(t=>t.corta).forEach(t=>{
+    g+=`<polyline points="${t.pts.map(p=>`${X(p.x).toFixed(1)},${Y(p.h).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--warn)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`
+     + `<line x1="${X(t.x0)}" x2="${X(t.x1)}" y1="${Y(t.voluta)}" y2="${Y(t.voluta)}" stroke="var(--warn)" stroke-width="1" stroke-dasharray="3 3"/>`;
+  });
+  /* Le quote dei tratti livellati, dove c'e' spazio. */
+  let ultimaQ=-1e9;
+  for(let k=1;k<P.pts.length;k++){
+    const a=P.pts[k-1], b=P.pts[k], w=X(b.x)-X(a.x);
+    if(Math.abs(a.h-b.h)<1 && w>58 && X(a.x)>ultimaQ){
+      const xm=X(a.x)+Math.min(w/2, 34);
+      g+=`<text x="${xm}" y="${Y(a.h)-7}" fill="var(--txt-dim)" font-size="11" ${mono} text-anchor="middle">${Math.round(a.h)}</text>`;
+      ultimaQ=X(b.x);
+    }
+  }
+  /* TOC e TOD: un punto e una sigla. */
+  /* TOC: dove la prima salita si ferma. */
+  let toc=null;
+  for(let k=1;k<P.pts.length;k++){ if(P.pts[k].h>P.pts[k-1].h+1){ toc=P.pts[k]; } else if(toc) break; }
+  const segno=(p,et,dopo)=>{
+    const x=X(p.x), y=Y(p.h);
+    return `<circle cx="${x}" cy="${y}" r="3" fill="var(--panel-bg)" stroke="var(--txt-dim)" stroke-width="1.5"/>`
+      + `<text x="${dopo ? Math.min(x+7,dx-60) : Math.max(x-7,sx+60)}" y="${dopo ? y+15 : y-8}" fill="var(--txt-faint)" font-size="10" ${mono} text-anchor="${dopo?'start':'end'}">${et}</text>`;
+  };
+  if(toc && toc.x>0 && toc.x<P.tot) g+=segno(toc, 'TOC', true);
+  if(P.tod!=null && P.tod>0 && P.tod<P.tot){
+    const p=P.pts.find(q=>Math.abs(q.x-P.tod)<1e-6) || {x:P.tod, h:P.ae+P.gScendi*(P.tot-P.tod)};
+    g+=segno(p, 'TOD', false);
+  }
+  /* Le zone da toccare stanno sopra a tutto. */
+  P.tratte.forEach(t=>{
+    if(!(t.x1>t.x0)) return;
+    g+=`<rect class="tocco" data-leg="${t.i}" x="${X(t.x0)}" y="0" width="${Math.max(1,X(t.x1)-X(t.x0))}" height="${H}"><title>${escHtml((t.w||'Leg '+(t.i+1))+' · '+(t.scritta?t.voluta+' ft':'no altitude, '+t.voluta+' ft carried'))}</title></rect>`;
+  });
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  svg.innerHTML = tacche
-    + `<line x1="8" x2="${W-8}" y1="${base}" y2="${base}" stroke="var(--control)" stroke-width="1"/>`
-    + `<polyline points="${linea}" fill="none" stroke="${f.climbOverruns?'var(--warn)':'var(--accent-2)'}" stroke-width="2" stroke-linejoin="round"/>`
-    + `<text x="${Math.min(X(tocNm)+8,W-180)}" y="${y(f.climbOverruns?altFine:alt)-10}" fill="var(--txt-dim)" font-size="11" font-family="JetBrains Mono, monospace">${etTOC}</text>`
-    + (W>560 && !f.climbOverruns ? `<text x="${fine-2}" y="${y(alt)-10}" fill="var(--txt-dim)" font-size="11" text-anchor="end" font-family="JetBrains Mono, monospace">cruise ${+num('tripGS').toFixed(1)} mph \u00b7 ${+num('tripFF').toFixed(1)} L/h</text>` : '');
-  if($('profiloSub')) $('profiloSub').textContent = `${Math.round(tot)} NM${toc&&toc.text?' · '+toc.text:''}`;
+  svg.innerHTML=g;
+  profiloEvidenzia(PROFILO_SEL);
+  const tp=tocPosition(f);
+  const corte=P.tratte.filter(t=>t.corta).length;
+  if(sub) sub.textContent = `${Math.round(P.tot)} NM`
+    + (tp&&tp.text&&!tp.overruns?' · '+tp.text:'')
+    + (P.tod!=null&&P.tod>0&&P.tod<P.tot?` · TOD ${Math.round(P.tot-P.tod)} NM before ${txt('arr').trim().toUpperCase()||'ARR'}`:'')
+    + (corte?` · ${corte} ${corte===1?'altitude':'altitudes'} not reached`:'');
 }
-window.addEventListener('resize',()=>{ if(typeof computeFuel==='function' && $('profiloSvg') && $('profiloSvg').clientWidth) try{ renderProfilo(computeFuel()); }catch(e){} });
+function profiloEvidenzia(i){
+  PROFILO_SEL=i;
+  const svg=$('profiloSvg'); if(!svg) return;
+  svg.querySelectorAll('.banda').forEach(b=>b.classList.toggle('sel', +b.dataset.leg===i));
+}
+/* Dalla tabella al profilo e ritorno. */
+(function(){
+  const svg=$('profiloSvg'), tab=$('navTableBox'); if(!svg||!tab) return;
+  tab.addEventListener('focusin', e=>{ const el=e.target.closest('input[data-nav]'); if(el) profiloEvidenzia(+el.dataset.nav); });
+  tab.addEventListener('focusout', ()=>setTimeout(()=>{ if(!tab.contains(document.activeElement)) profiloEvidenzia(-1); },0));
+  svg.addEventListener('click', e=>{
+    const r=e.target.closest('.tocco'); if(!r) return;
+    const el=tab.querySelector(`input[data-nav="${r.dataset.leg}"][data-k="alt"]`); if(!el) return;
+    el.focus({preventScroll:true}); el.select();
+    const tr=el.closest('tr'); if(tr) tr.scrollIntoView({block:'nearest', behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  });
+})();
+window.addEventListener('resize',()=>{ if(typeof computeFuel==='function' && $('profiloSvg') && $('profilo').clientWidth) try{ renderProfilo(computeFuel()); }catch(e){} });
 
 /* Controllo capacita' serbatoi: il C172 FR imbarca 46 USG / 174 L utilizzabili
    (AFM fig. 1-4). Se il Plan Block supera quel valore il volo non e' fattibile

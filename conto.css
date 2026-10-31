@@ -145,7 +145,14 @@ table.utenti td.az .btn{margin-left:4px}
 @keyframes vt-via{to{opacity:0}}
 @keyframes vt-entra{from{opacity:0;transform:translateY(6px)}}
 @keyframes vt-appare{from{opacity:0}}
-html.vt-tema::view-transition-old(root),html.vt-tema::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.vt-tema::view-transition-old(root){animation:none;mix-blend-mode:normal}
+/* Cambio tema: il nuovo tema si allarga come un cerchio dal pulsante. Centro e
+   raggio li mette su <html> chi cambia tema (--vt-x, --vt-y, --vt-r). */
+html.vt-tema::view-transition-new(root){mix-blend-mode:normal;animation:450ms cubic-bezier(.77,0,.175,1) both vt-cerchio}
+@keyframes vt-cerchio{
+  from{clip-path:circle(0px at var(--vt-x,50%) var(--vt-y,50%))}
+  to{clip-path:circle(var(--vt-r,150vmax) at var(--vt-x,50%) var(--vt-y,50%))}}
+@media (prefers-reduced-motion:reduce){html.vt-tema::view-transition-new(root){animation:200ms ease both vt-appare}}
 @media (prefers-reduced-motion:reduce){ ::view-transition-new(root){animation:180ms ease both vt-appare} }
 
 /* Scelta del tema: il menu che nasce dal pulsante (conto.js) */
