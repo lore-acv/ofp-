@@ -2,301 +2,393 @@
 name: OFP C172 FR
 description: Operational Flight Plan dell'Aeroclub di Varese per i Reims Rocket FR172J e FR172H
 colors:
-  glass-bg: "#070c15"
-  glass-stage: "#0b1119"
-  glass-panel: "#0f1620"
-  glass-panel-2: "#151d28"
-  glass-line: "#27303c"
-  glass-line-hover: "#3c4f62"
-  glass-field: "#0a1019"
-  glass-text: "#ecf1f5"
-  glass-text-dim: "#9fabb7"
-  glass-action: "#42d2f0"
-  glass-action-hi: "#71e3fe"
-  glass-on-action: "#05121a"
-  glass-active: "#ea58e2"
-  glass-ok: "#5dd786"
-  glass-warn: "#fcba43"
-  glass-err: "#f85452"
-  carta-bg: "#e8decd"
-  carta-stage: "#dfd5c2"
-  carta-panel: "#f6f1e6"
-  carta-panel-2: "#eee7d9"
-  carta-line: "#cec2af"
-  carta-line-hover: "#a18f77"
-  carta-field: "#fdfaf4"
-  carta-text: "#221811"
-  carta-text-dim: "#5c5045"
-  carta-action: "#015ba6"
-  carta-action-hi: "#136dbf"
-  carta-on-action: "#ffffff"
-  carta-active: "#a90e88"
-  carta-ok: "#146d34"
-  carta-warn: "#7f4d00"
-  carta-err: "#b3241f"
-  club-red: "#f1383e"
-  club-red-carta: "#b3241f"
+  notte-ground: "#171719"
+  notte-surface: "#111013"
+  notte-raised: "#212023"
+  notte-border: "#252427"
+  notte-rule: "#1d1c20"
+  notte-control: "#3a3a3e"
+  notte-text: "#ffffff"
+  notte-muted: "#a3a5ab"
+  notte-faint: "#8a8c92"
+  notte-accent: "#4a8ad6"
+  notte-primary: "#ffffff"
+  notte-on-primary: "#000000"
+  notte-positive: "#5fc39c"
+  notte-positive-bg: "#1b2828"
+  notte-warning: "#d9a441"
+  notte-warning-bg: "#2a2416"
+  notte-negative: "#e5566f"
+  notte-negative-bg: "#2c1a20"
+  giorno-ground: "#f4f4f5"
+  giorno-surface: "#ffffff"
+  giorno-raised: "#f0f0f2"
+  giorno-border: "#e3e3e6"
+  giorno-rule: "#efeff1"
+  giorno-control: "#c8c9cd"
+  giorno-text: "#111113"
+  giorno-muted: "#5d5f66"
+  giorno-faint: "#6a6c73"
+  giorno-accent: "#2a6cbf"
+  giorno-primary: "#121214"
+  giorno-on-primary: "#ffffff"
+  giorno-positive: "#0b5b33"
+  giorno-positive-bg: "#dcf5e6"
+  giorno-warning: "#8a4a06"
+  giorno-warning-bg: "#fdf1d8"
+  giorno-negative: "#a3202a"
+  giorno-negative-bg: "#ffedea"
+  club-red-notte: "#e2453f"
+  club-red-giorno: "#b3241f"
   paper-white: "#ffffff"
   paper-ink: "#000000"
 typography:
-  display:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-    fontSize: "1.75rem"
-    fontWeight: 700
-    lineHeight: 1.15
-    letterSpacing: "-0.022em"
-  body:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-    fontSize: "1rem"
-    fontWeight: 400
-    lineHeight: 1.45
-  subtitle:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-    fontSize: "0.95rem"
-    fontWeight: 400
-    lineHeight: 1.55
-  label:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-    fontSize: "0.72rem"
-    fontWeight: 700
-    letterSpacing: "0.09em"
-  field-label:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-    fontSize: "0.8rem"
+  title:
+    fontFamily: "'Public Sans', system-ui, sans-serif"
+    fontSize: "26px"
     fontWeight: 600
-  data:
-    fontFamily: "ui-monospace, 'SF Mono', Menlo, 'Courier New', monospace"
-    fontSize: "0.84rem"
+    lineHeight: "32px"
+    letterSpacing: "-0.01em"
+  section:
+    fontFamily: "'Public Sans', system-ui, sans-serif"
+    fontSize: "20px"
     fontWeight: 400
-    lineHeight: 1.55
+    lineHeight: "26px"
+  card-title:
+    fontFamily: "'Public Sans', system-ui, sans-serif"
+    fontSize: "16px"
+    fontWeight: 600
+    lineHeight: "22px"
+  body:
+    fontFamily: "'Public Sans', system-ui, sans-serif"
+    fontSize: "14px"
+    fontWeight: 400
+    lineHeight: "20px"
+  small:
+    fontFamily: "'Public Sans', system-ui, sans-serif"
+    fontSize: "12px"
+    fontWeight: 400
+    lineHeight: "16px"
+  figure:
+    fontFamily: "'JetBrains Mono', ui-monospace, monospace"
+    fontSize: "14px"
+    fontWeight: 400
     fontFeature: "tnum"
+  figure-lead:
+    fontFamily: "'JetBrains Mono', ui-monospace, monospace"
+    fontSize: "18px"
+    fontWeight: 500
+    lineHeight: "24px"
   document:
     fontFamily: "Courier, 'Courier New', monospace"
     fontSize: "9pt"
     fontWeight: 400
 rounded:
-  sm: "0.5rem"
-  md: "0.7rem"
-  lg: "1rem"
-  pill: "999px"
+  pill: "4px"
+  card: "6px"
+  input: "6px"
+  control: "999px"
 spacing:
-  tap: "2.75rem"
-  row-gap: "0.7rem"
-  card-x: "1.15rem"
-  card-y: "1rem"
-  column: "52rem"
+  gap: "24px"
+  pad: "32px"
+  card-x: "20px"
+  row: "32px"
+  control: "34px"
+  tap: "44px"
+  rail: "56px"
 components:
   button:
-    backgroundColor: "{colors.glass-panel-2}"
-    textColor: "{colors.glass-text}"
-    rounded: "{rounded.md}"
-    padding: "0.6rem 1.1rem"
-    height: "{spacing.tap}"
+    backgroundColor: "transparent"
+    textColor: "{colors.notte-text}"
+    rounded: "{rounded.control}"
+    padding: "0 16px"
+    height: "{spacing.control}"
   button-primary:
-    backgroundColor: "{colors.glass-action}"
-    textColor: "{colors.glass-on-action}"
-    rounded: "{rounded.md}"
-    padding: "0.6rem 1.1rem"
-    height: "{spacing.tap}"
+    backgroundColor: "{colors.notte-primary}"
+    textColor: "{colors.notte-on-primary}"
+    rounded: "{rounded.control}"
+    padding: "0 16px"
+    height: "{spacing.control}"
   input:
-    backgroundColor: "{colors.glass-field}"
-    textColor: "{colors.glass-text}"
-    rounded: "{rounded.sm}"
-    padding: "0.6rem 0.7rem"
-    height: "{spacing.tap}"
+    backgroundColor: "transparent"
+    textColor: "{colors.notte-text}"
+    typography: "{typography.figure}"
+    rounded: "{rounded.input}"
+    padding: "0 10px"
+    height: "36px"
   card:
-    backgroundColor: "{colors.glass-panel}"
-    rounded: "{rounded.lg}"
-    padding: "1rem 1.15rem 1.1rem"
-  step-pill:
-    textColor: "{colors.glass-text-dim}"
+    backgroundColor: "{colors.notte-surface}"
+    rounded: "{rounded.card}"
+    padding: "14px 20px"
+  status-pill:
     rounded: "{rounded.pill}"
-    padding: "0.32rem 0.8rem 0.32rem 0.35rem"
-    height: "2.1rem"
-  step-pill-active:
-    textColor: "{colors.glass-text}"
-    rounded: "{rounded.pill}"
-  chip:
-    backgroundColor: "{colors.glass-field}"
-    textColor: "{colors.glass-text-dim}"
-    rounded: "{rounded.pill}"
-    padding: "0.16rem 0.58rem"
-  segmented-tab:
-    textColor: "{colors.glass-text-dim}"
-    typography: "{typography.data}"
-    rounded: "{rounded.md}"
-    padding: "0.45rem 1.15rem"
+    padding: "0 8px"
+    height: "22px"
+  step-tab:
+    textColor: "{colors.notte-faint}"
+    padding: "10px 0"
+  step-tab-active:
+    textColor: "{colors.notte-text}"
 ---
 
 # Design System: OFP C172 FR
 
 ## Overview
 
-**Creative North Star: "L'ufficio operazioni volo"**
+**Creative North Star: "L'EFB di notte"**
 
 Il sito e' lo strumento con cui l'Aeroclub di Varese prepara i voli dei suoi
-due Reims Rocket, e deve comportarsi come il dispatch di una compagnia aerea:
-preciso, sobrio, leggibile, con la terminologia e le unita' dell'aviazione.
-L'interfaccia prende i ruoli di colore dei glass cockpit (AC 25-11B):
-magenta per dove sei, ciano per cio' che comandi, verde, ambra e rosso per lo
-stato. L'espressione sta nei dettagli esatti, non negli effetti.
+due Reims Rocket. Deve leggersi come una electronic flight bag: superfici
+neutre, numeri che si impilano in colonna, nessun colore che non dica
+qualcosa. Il carattere viene dal lavoro del pilota (strisce di volo, profilo
+verticale, totalizzatore del carburante), non da effetti.
 
-Ci sono due mondi distinti. L'**interfaccia** ha due temi: *Glass Cockpit*
-(scuro, blu notte, mai nero puro) e *Carta VFR* (chiaro, carta calda e
-inchiostro bruno, mai bianco pieno). I **documenti** (OFP, NAV-FLIGHTPLAN,
-Navigation Log) sono carta: nero su bianco in Courier in entrambi i temi,
-perche' la carta non ha un tema.
+La direzione e' lo stile *Data terminal* della Taste Skill (percorso app
+screens, seed 82212707), scelto dall'utente tra tre bozzetti il 29 ottobre
+2026 e completato con un tema chiaro. Sostituisce il vecchio sistema "Glass
+Cockpit / Carta VFR" (griglia di sfondo, aloni ciano e magenta, ombre
+pesanti, etichette maiuscole spaziate), che l'analisi aveva indicato come la
+fonte della sensazione di "sito generato".
 
-La densita' e' quella di uno strumento di lavoro: una colonna di lettura
-centrata, gruppi di campi come schede, numeri allineati in colonna. Il
-movimento e' raro e funzionale; l'unico momento espressivo e' la rotta del
-logo AV che si disegna all'accesso e in Dashboard.
+Due mondi restano distinti. L'**interfaccia** ha due temi con la stessa
+struttura: *Notte* (scuro neutro, di serie quando il sistema e' scuro) e
+*Giorno* (chiaro neutro). I **documenti** (OFP, NAV-FLIGHTPLAN, Navigation
+Log) sono carta: nero su bianco in Courier in entrambi i temi.
 
 **Key Characteristics:**
-- Ruoli di colore da glass cockpit, mai decorativi
-- Numeri sempre in cifre tabellari, dati operativi in monospazio
-- Ogni stato detto a parole oltre che con il colore
-- Schede con bordo sottile e ombra morbida su sfondo a griglia leggera
+- Grigi neutri, mai blu notte, mai crema: il colore sta sui dati e sugli stati
+- Ogni selezione e' la stessa riga d'accento di 1px, larga quanto la sua etichetta
+- Ogni numero, codice ICAO, orario e frequenza in JetBrains Mono a cifre tabellari
+- Il segno nel testo (+17.88, -3) prima del colore
+- Superfici piatte: nel tema Notte le schede sono piu' scure del fondo, nel
+  tema Giorno bianche con un filetto
 - Documenti stampati in stile carta, separati dall'interfaccia
 
 ## Colors
 
-Due tavolozze con gli stessi ruoli; in ogni tema una sola tinta per ruolo.
+Due tavolozze con gli stessi ruoli (`notte-*` e `giorno-*`). La quota di
+pixel colorati di una schermata resta sotto il 3%.
 
-### Primary
-- **Ciano strumento** (glass-action / carta-action): tutto cio' che si preme o si seleziona, il focus dei campi, i valori compilati nei titoli. Nel chiaro diventa il blu delle carte aeronautiche.
+### Accento
+- **Blu selezione** (notte-accent / giorno-accent): solo due usi. (1) La riga
+  di 1px sotto o accanto a cio' che e' selezionato: lo step in corso, la voce
+  della barra laterale, il segmento scelto, il focus dei campi. (2) La serie
+  principale di un grafico: la linea del profilo verticale, la quota di
+  carburante richiesta. Mai come fondo di un pulsante o di una scheda.
 
-### Secondary
-- **Magenta rotta attiva** (glass-active / carta-active): solo la fase in corso (la pastiglia dello step attivo) e la rotta disegnata, come la tratta attiva sul GPS.
+### Primario
+- **Inchiostro invertito** (notte-primary bianco su nero, giorno-primary quasi
+  nero su bianco): il solo pulsante principale della schermata. Non e' un
+  colore di marca.
 
-### Tertiary
-- **Rosso aeroclub** (club-red / club-red-carta): solo il marchio nella barra in alto. Non e' un colore di allarme dell'interfaccia.
+### Marchio
+- **Rosso aeroclub** (club-red-notte / club-red-giorno): solo il segno nella
+  barra. Non e' un colore di allarme.
 
-### Neutral
-- **Notte strumento** (glass-bg, glass-panel, glass-panel-2): sfondo, schede, barre. Sempre un blu molto scuro.
-- **Carta di volo** (carta-bg, carta-panel, carta-panel-2): sfondo e schede del tema chiaro.
-- **Testo e testo secondario** (glass-text, glass-text-dim, carta-text, carta-text-dim): testo principale e didascalie, etichette, note.
-- **Filetti** (glass-line, carta-line; -hover per il passaggio del mouse): bordi di schede, campi e separatori.
+### Neutri
+- **Ground, surface, raised**: fondo pagina, schede, riquadri annidati e
+  campi in sola lettura. Nel tema Notte le schede sono un gradino piu' scure
+  del fondo; nel tema Giorno sono bianche su grigio chiaro.
+- **Border, rule, control**: filetto delle schede, righe di tabella e
+  separatori interni, bordo dei controlli (un gradino piu' forte).
+- **Text, muted, faint**: testo, didascalie ed etichette, meta e unita'.
+  Tutti a 4.5:1 almeno sulla superficie dove stanno.
 
 ### Stato
-- **Verde normale** (glass-ok / carta-ok): completato, entro i limiti.
-- **Ambra cautela** (glass-warn / carta-warn): da verificare, dato stimato o al limite.
-- **Rosso allarme** (glass-err / carta-err): fuori limite, dato mancante che falsa un calcolo.
+Coppie tenui: testo del colore su un fondo dello stesso colore.
+- **Positive** (verde): OFP pronto, entro i limiti, step completato.
+- **Warning** (ambra): in attesa (briefing da caricare), dato stimato,
+  vicino al limite.
+- **Negative** (rosso): fuori limite, dato mancante che falsa un calcolo.
 
 ### Named Rules
-**The Glass Cockpit Rule.** Magenta solo per la fase attiva, ciano solo per cio' che si comanda, verde, ambra e rosso solo per lo stato. Un colore usato fuori dal suo ruolo e' un errore.
+**The One Line Rule.** Una selezione si segna con una sola riga d'accento di
+1px sul bordo piu' vicino, larga quanto l'etichetta. Niente pastiglie piene,
+niente segmenti colorati, niente barre laterali spesse.
 
-**The Never Alone Rule.** Il colore non porta mai il significato da solo: ogni stato ha anche una parola, un'icona o una forma (spunta, punto, etichetta "Within limits").
+**The Never Alone Rule.** Il colore non porta mai il significato da solo:
+ogni stato ha una parola ("Waiting for the briefing", "Within limits") e ogni
+differenza ha il suo segno nel testo.
 
-**The No Pure Extremes Rule.** Nell'interfaccia niente nero puro e niente bianco pieno; nero e bianco puri appartengono solo ai documenti stampati.
+**The Neutral Ground Rule.** Fondi e schede sono grigi neutri. Niente navy,
+niente ardesia, niente crema o carta calda nell'interfaccia; bianco e nero
+puri solo per il pulsante primario e per i documenti stampati.
 
 ## Typography
 
-**Display Font:** font di sistema (-apple-system, Segoe UI, Roboto)
-**Body Font:** font di sistema
-**Label/Mono Font:** ui-monospace (SF Mono, Menlo); Courier nei PDF
+**Testo:** Public Sans (400, 500, 600), fallback system-ui.
+**Cifre e codici:** JetBrains Mono (400, 500, 600) con cifre tabellari.
+**Documenti:** Courier.
 
-**Character:** il carattere di sistema rende il sito nativo su iPad e computer; il monospazio porta i dati operativi (ICAO, orari, frequenze, prue, valori calcolati) come su un display di bordo o un OFP di linea.
+I due caratteri sono serviti dal sito (woff2 in `fonts/`, licenza OFL), non
+da Google Fonts: il sito deve funzionare anche in hangar con rete scarsa.
+
+**Character:** Public Sans e' il carattere dei moduli e dei servizi pubblici,
+chiaro e senza vezzi; JetBrains Mono rende i numeri come su un display di
+bordo, con lo zero distinto dalla O.
 
 ### Hierarchy
-- **Display** (700, 1.75rem, 1.15): titolo dello step.
-- **Subtitle** (400, 0.95rem, 1.55): frase sotto il titolo, al massimo 68 caratteri per riga.
-- **Body** (400, 1rem, 1.45): testo corrente e valori nei campi. Base 16 px su telefono e desktop, 18 px da 768 px in su.
-- **Label** (700, 0.72rem, 0.09em, maiuscolo): titoli delle schede.
-- **Field label** (600, 0.8rem): etichette dei campi.
-- **Data** (monospazio, 0.8–0.84rem, cifre tabellari): riepiloghi di calcolo, informazioni aeroporto, celle del navlog.
+- **Title** (600, 26px/32px, -0.01em): il titolo della schermata, un solo h1.
+- **Section** (400, 20px/26px, colore muted): titoli delle aree grandi
+  (Profile, ACV standard routes).
+- **Card title** (600, 16px/22px): titolo di una scheda.
+- **Body** (400, 14px/20px): testo, etichette di riga, note. Sui dispositivi
+  touch 15px.
+- **Small** (400, 12px/16px): etichette sopra i campi, meta, unita'. Niente
+  sotto gli 11px.
+- **Figure** (JetBrains Mono, 14px, tnum): valori nelle righe chiave-valore,
+  nei campi e nelle tabelle.
+- **Figure lead** (JetBrains Mono, 500, 18px): i valori del totalizzatore
+  carburante e delle strisce.
+- I campi di testo restano a 16px su iPad e telefono, per evitare lo zoom.
 
 ### Named Rules
-**The Tabular Rule.** Ogni numero che si confronta con altri numeri usa cifre tabellari, cosi' le colonne restano allineate.
+**The Figure Rule.** Ogni numero, codice ICAO, marca, orario, frequenza e
+prua va in JetBrains Mono a cifre tabellari. Le frasi no: un risultato di
+calcolo si scrive come righe etichetta (Public Sans) e valore (Mono), mai come
+una frase intera in monospazio.
+
+**The Sentence Case Rule.** Etichette, titoli, pulsanti e intestazioni di
+tabella in maiuscolo solo all'inizio della frase. Nessuna etichetta maiuscola
+spaziata. Le sigle aeronautiche (ICAO, METAR, TAF, NOTAM, TOC, MAP, RPM)
+restano maiuscole perche' sono sigle.
 
 ## Layout
 
-Una colonna di lettura centrata larga 52rem (80rem nello step Navlog, che ha
-una tabella di dieci colonne), con l'anteprima del documento a destra sugli
-schermi oltre 1100 px. Sfondo con una griglia leggera di 2rem e un'atmosfera
-radiale appena accennata. I campi stanno in righe flessibili con spazio di
-0.7rem che vanno a capo da sole; ogni controllo e' alto almeno 2.75rem. In
-basso una barra di navigazione fissa con sfocatura, che rispetta le aree
-sicure di iPad e telefono.
+- **Guscio:** una rail di icone di 56px a sinistra (Flights, New flight,
+  Manual; tema e account in basso) sullo stesso fondo della pagina, con un
+  filetto. Ogni icona ha il suo nome come tooltip e nome accessibile. Sul
+  telefono la rail diventa una barra in alto con le stesse icone.
+- **Area di lavoro:** padding 32px (16px sul telefono), tutta la larghezza
+  disponibile; i blocchi in una riga condividono bordi sinistro e destro.
+- **Wizard:** gli 8 step come schede di testo in una riga sopra il titolo,
+  con la riga d'accento sotto quello in corso; sul telefono la riga scorre di
+  lato dentro se stessa, mai la pagina. Indietro e Avanti in fondo.
+- **Griglie:** spazio unico di 24px in orizzontale e in verticale. Le schede
+  sorelle (Cruise power, Trip, Alternate) stanno in tre colonne uguali; due
+  colonne sotto i 1100px; una sul telefono.
+- **Telefono:** il blocco che risponde alla domanda della schermata sale in
+  cima (il totalizzatore carburante nello step 2); le strisce dei voli
+  diventano schede a due righe con l'azione a tutta larghezza.
 
 ## Elevation & Depth
 
-Profondita' leggera e funzionale. Le schede hanno un filetto di luce in alto,
-un'ombra di contatto e un'ombra diffusa ampia; i pop-over un'ombra piu'
-marcata; il pulsante principale un alone ciano che lo identifica come azione.
-Nel tema chiaro le ombre sono brune e piu' deboli.
-
-### Shadow Vocabulary
-- **Scheda** (`inset 0 1px 0 rgba(255,255,255,.045), 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.7)`): gruppi di campi.
-- **Pop-over** (`inset 0 1px 0 rgba(255,255,255,.06), 0 18px 48px -12px rgba(0,0,0,.7), 0 2px 8px rgba(0,0,0,.4)`): menu e pannelli sovrapposti.
-- **Alone azione** (`0 0 0 1px rgba(66,210,240,.5), 0 8px 24px -10px rgba(66,210,240,.55)`): solo il pulsante primario.
-- **Anello di focus** (`0 0 0 3px rgba(66,210,240,.35)`): focus da tastiera su ogni controllo.
+Superfici piatte. La profondita' e' un gradino di luminosita'.
+- **Notte:** schede piu' scure del fondo (#111013 su #171719) con un'ombra
+  larga e tenue `0 12px 28px rgba(0,0,0,.2)`, senza filetto.
+- **Giorno:** schede bianche con filetto di 1px (#e3e3e6), senza ombra.
+- **Galleggiano** solo menu, pop-over, tooltip e finestre di dialogo.
+- **Focus:** la riga d'accento sul bordo del campo; da tastiera un anello di
+  2px nel colore d'accento.
 
 ## Shapes
 
-Angoli morbidi su tre misure: 0.5rem per i campi, 0.7rem per pulsanti e
-riquadri interni, 1rem per le schede. Pastiglie e chip completamente
-arrotondati. Bordi di 1px; tratteggiati solo per i campi calcolati in sola
-lettura e per le zone di caricamento file.
+Angoli stretti: 6px per schede e campi, 4px per le pastiglie di stato, pillola
+intera solo per i pulsanti. Bordi di 1px. Tratteggio solo nelle griglie dei
+grafici e nelle zone di caricamento file.
 
 ## Components
 
 ### Buttons
-- **Shape:** angoli medi (0.7rem), altezza minima 2.75rem.
-- **Default:** fondo panel-2, filetto, testo principale, peso 600.
-- **Primary:** fondo ciano, testo scuro, alone ciano. Uno solo per schermata.
-- **Ghost:** fondo trasparente con filetto.
-- **Press / Focus:** scala 0.97 alla pressione (140 ms, curva ease-out forte); anello di focus ciano da tastiera; hover solo con mouse.
+- **Shape:** pillola, 34px con il mouse, almeno 44px al tocco.
+- **Default:** trasparente con bordo control, testo 500.
+- **Primary:** inchiostro invertito (bianco in Notte, quasi nero in Giorno).
+  Uno solo per schermata.
+- **Press / Focus:** scala 0.97 alla pressione (140 ms, curva ease-out
+  forte); hover solo con mouse.
 
-### Chips
-- **Style:** pastiglia piccola (0.68rem, 600) con filetto.
-- **State:** ok, caution, fail colorano testo e bordo con il colore di stato; fail aggiunge un fondo rosso tenue.
+### Status pills
+Altezza 22px, angoli 4px, testo 12px 500 nel colore dello stato su fondo
+tenue dello stesso colore. Solo dentro le righe o accanto a un valore, mai
+sopra un titolo.
 
-### Cards / Containers
-- **Corner Style:** 1rem.
-- **Background:** panel, con filetto line.
-- **Shadow Strategy:** ombra Scheda.
-- **Internal Padding:** 1rem sopra, 1.15rem ai lati.
-- **Title:** etichetta maiuscola piccola in testo secondario.
+### Cards
+Superficie, angoli 6px, titolo card-title con padding 14px 20px. Le righe
+interne sono righe chiave-valore alte 32px separate da un filetto rule:
+etichetta a sinistra in muted, valore a destra in Figure. La nota sulle fonti
+(POH fig. 5-1, AFM fig. 5-6) chiude la scheda in Small faint.
 
 ### Inputs / Fields
-- **Style:** fondo field, filetto, angoli 0.5rem, testo 1rem (niente zoom su iPad).
-- **Focus:** bordo ciano piu' anello di focus.
-- **Read-only / calcolati:** fondo trasparente e bordo tratteggiato.
+Etichetta Small sopra il campo; campo 36px (44px al tocco), bordo control,
+valore in Figure, unita' in Small faint allineata a destra dentro il campo.
+Calcolati e in sola lettura: fondo raised, bordo border, testo muted.
 
 ### Navigation
-- **Step pills:** pastiglie con numero tondo; la fase attiva ha bordo e numero magenta, le fasi completate il numero su fondo verde.
-- **Segmented tabs (Performance):** etichette in monospazio maiuscolo (DEP, ARR, ALT, ENR) in un contenitore unico; un punto rosso segnala un avviso per quella fase.
+- **Rail:** icone outline 18px in faint; quella attiva in text con la riga
+  d'accento di 1px sul bordo della rail.
+- **Step tabs:** numero in Mono e nome; completati in muted, futuri in faint,
+  quello in corso in text con la riga d'accento sotto, larga quanto
+  l'etichetta.
 
-### Status lines
-Righe di riepilogo in monospazio sotto i calcoli (BLOCK, FLT, carburante): verde quando il dato e' normale, ambra o rosso quando va controllato.
+### Flight strips (signature, Dashboard)
+Una striscia per volo, come le strisce di progresso volo dei controllori:
+caselle separate da filetti per marca e modello, rotta (DEP → ARR, alternato,
+waypoint in Mono), distanza, waypoint, stato con data, e l'azione del momento
+("Load briefing", "Download OFP"). Sul telefono: stato e data in alto, rotta,
+due caselle di dati, azione a tutta larghezza.
 
-### Rotta AV (signature)
-La rotta dell'aeroclub che l'aereo disegna in magenta all'accesso e in Dashboard: l'unico momento animato lungo del sito, una volta per visita, assente con "riduci movimento".
+### Vertical profile (signature, Route & fuel)
+Il profilo del volo in scala sulla distanza: salita dal campo al TOC
+(AFM fig. 5-6), crociera alla quota scelta, tacche ai waypoint con i nomi
+che non si sovrappongono, il touch & go evidenziato. La linea e' la serie
+principale, nel colore d'accento.
+
+### Fuel totalizer
+Il piano carburante come lo stampa l'OFP, in una fila di caselle: Taxi, Trip,
+Contingency, Alternate, Final reserve, Minimum required (fondo raised), Extra
+(con il segno +), Block. Litri in Figure lead, minuti sotto. I totali si
+calcolano dalle voci mostrate.
 
 ### Documenti stampati
-OFP, NAV-FLIGHTPLAN e Navigation Log: nero su bianco, Courier, tabelle a riquadri, righe "...." da compilare a mano. Non seguono il tema dell'interfaccia.
+OFP, NAV-FLIGHTPLAN e Navigation Log: nero su bianco, Courier, tabelle a
+riquadri, righe "...." da compilare a mano. Non seguono il tema
+dell'interfaccia.
 
 ### Manuale sfogliabile (manuale.html)
-Un libro su un tavolo (modalita' Read di Impeccable): la cornice e' l'interfaccia del sito, la carta resta carta in entrambi i temi.
-- **Cornice:** barra con indice, posizione in lettura (sezione e paragrafo), pagina, PDF, tema; sotto, la barra a sezioni: una tacca per sezione lunga quanto le sue pagine, quella in lettura appena piu' chiara, e la posizione come un segno verticale sottile nel colore del testo che segue il dito 1:1, con la bolla di pagina e titolo. Niente riempimento colorato: e' un indice, non una barra di avanzamento.
-- **Indice laterale:** sezioni numerate nel blocco blu, voci con numero e pagina in cifre tabellari; la voce in lettura ha fondo magenta tenue e un punto magenta, non un filetto colorato.
-- **Carta:** Inter per il testo, blu inchiostro (#1f3a5f) per titoli e struttura, ruggine (#c2410c) per numeri di passo e richiami. Apertura di sezione con il numero nel blocco blu; la stessa forma torna nei segnalibri (signature del manuale): linguette che escono dal taglio del libro, una per sezione alla stessa altezza in tutto il libro, angoli esterni arrotondati, solo il nome breve in maiuscolo piccolo. Quella della sezione in lettura e' ruggine sul bordo della pagina che si legge; a destra le sezioni che vengono, a sinistra quelle passate, blu. Avvisi WARNING / CAUTION / NOTE in riquadri interi con filetto sottile e segno disegnato, mai con il bordo sinistro spesso.
-- **Movimento:** la girata e' fisica (molle, vedi `sfoglia.js`), non una curva a tempo: il foglio si prende in qualsiasi punto e il punto resta sotto il dito, arrotolandosi attorno a una piega che segue la direzione del gesto; il libro chiuso sta al centro e scivola di mezza pagina quando si apre; la lente si allarga dalla figura. Tastiera senza animazione; "riduci movimento" solo dissolvenze.
+Un libro su un tavolo (modalita' Read di Impeccable): la cornice segue i token
+dell'interfaccia, la carta resta carta in entrambi i temi.
+- **Cornice:** barra con indice, posizione in lettura (sezione e paragrafo),
+  pagina, PDF, tema; sotto, la barra a sezioni: una tacca per sezione lunga
+  quanto le sue pagine, quella in lettura appena piu' chiara, e la posizione
+  come un segno verticale sottile nel colore del testo che segue il dito 1:1,
+  con la bolla di pagina e titolo. Niente riempimento colorato.
+- **Indice laterale:** voci con numero e pagina in Figure; la voce in lettura
+  segnata dalla riga d'accento, non da un fondo colorato.
+- **Carta:** Inter per il testo, blu inchiostro (#1f3a5f) per titoli e
+  struttura, ruggine (#c2410c) per numeri di passo e richiami. Apertura di
+  sezione con il numero nel blocco blu; la stessa forma torna nei segnalibri:
+  linguette che escono dal taglio del libro, una per sezione alla stessa
+  altezza in tutto il libro, angoli esterni arrotondati, solo il nome breve in
+  maiuscolo piccolo. Quella della sezione in lettura e' ruggine; a destra le
+  sezioni che vengono, a sinistra quelle passate, blu. Avvisi WARNING /
+  CAUTION / NOTE in riquadri interi con filetto sottile e segno disegnato.
+- **Movimento:** la girata e' fisica (molle, vedi `sfoglia.js`): il foglio si
+  prende in qualsiasi punto e il punto resta sotto il dito. Tastiera senza
+  animazione; "riduci movimento" solo dissolvenze.
+
+### Rotta AV
+La rotta dell'aeroclub resta solo nella pagina di accesso, disegnata una
+volta con un tratto di 1.5px nel colore d'accento, senza alone; assente con
+"riduci movimento".
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** usare magenta solo per la fase attiva e ciano solo per cio' che si comanda (The Glass Cockpit Rule).
-- **Do** accompagnare ogni colore di stato con una parola o un simbolo (The Never Alone Rule).
-- **Do** scrivere in monospazio con cifre tabellari ICAO, orari, frequenze, prue e valori calcolati.
+- **Do** segnare ogni selezione con la sola riga d'accento di 1px (The One Line Rule).
+- **Do** scrivere numeri, codici ICAO, marche, orari e frequenze in JetBrains Mono a cifre tabellari (The Figure Rule).
+- **Do** mettere a ogni stato una parola e a ogni differenza il suo segno (The Never Alone Rule).
 - **Do** mostrare in ambra o rosso, nel sito e nel documento, ogni dato stimato, fuori tabella, mancante o in conflitto.
-- **Do** dare a ogni controllo almeno 2.75rem di altezza e una risposta alla pressione (scala 0.97).
+- **Do** dare a ogni controllo almeno 44px al tocco e una risposta alla pressione (scala 0.97).
 - **Do** animare solo con uno scopo, sotto 300 ms, con le curve --ease-out, --ease-in-out o --ease-drawer.
+- **Do** controllare ogni modifica in Notte, in Giorno e su telefono, e passarla con `inspect.mjs --app` della Taste Skill.
 
 ### Don't:
-- **Don't** usare il rosso dell'aeroclub come colore di allarme o decorazione: e' solo il marchio.
-- **Don't** usare nero puro o bianco pieno nell'interfaccia.
+- **Don't** usare gradienti, aloni, neon, vetro o `backdrop-filter`, griglie di sfondo.
+- **Don't** usare fondi navy, ardesia, crema o carta calda nell'interfaccia (The Neutral Ground Rule).
+- **Don't** usare etichette maiuscole spaziate o testo sotto gli 11px.
+- **Don't** scrivere frasi intere in monospazio.
+- **Don't** mettere ombre sulle schede del tema Giorno, ne' bordo e ombra insieme.
+- **Don't** usare il rosso dell'aeroclub come colore di allarme o decorazione.
+- **Don't** usare saluti, schede di benvenuto illustrate o pastiglie piene per lo step attivo.
 - **Don't** applicare il tema scuro o chiaro ai documenti stampati.
 - **Don't** usare hover sui dispositivi touch, ease-in o `transition: all`.
-- **Don't** introdurre effetti da landing page (gradienti vistosi, grandi hero, animazioni di ingresso) nelle schermate di lavoro.

@@ -18,8 +18,9 @@ almeno:
   `touch-action:manipulation`), aree sicure, campi a 16 px;
 - `animate` quando si aggiunge movimento; `review-animations` solo su richiesta.
 
-Si usano i token di `ofp.css` (colori, raggi, ombre, durate), e il risultato
-si controlla in tema scuro, tema chiaro e su telefono prima di pubblicarlo.
+Si usano i token di `ofp.css` (colori, raggi, ombre, durate), che seguono
+`DESIGN.md`, e il risultato si controlla in tema Notte, tema Giorno e su
+telefono prima di pubblicarlo.
 
 ### Impeccable
 
@@ -36,24 +37,36 @@ sobrieta', niente effetti da landing page.
 ### Taste Skill
 
 C'e' anche `design-taste-frontend` (Taste Skill di Leonxlnx). Per questo sito
-vale il suo percorso per le schermate di lavoro (app screens), non quello delle
-landing page: non si pescano nuove direzioni visive e non si cambia l'identita'
-del sito senza una richiesta esplicita di redesign. Si usa su richiesta, per
-revisioni o nuove schermate.
+vale il suo percorso per le schermate di lavoro (app screens,
+`references/app-screens.md`), non quello delle landing page. Il sistema
+attuale viene da li': lo stile *Data terminal* (seed 82212707), scelto
+dall'utente il 29 ottobre 2026 e completato con un tema chiaro. Le sue regole
+per le schermate di lavoro (righe e allineamenti nelle tabelle, cifre
+tabellari, stati onesti, telefono) valgono per ogni nuova schermata. Ogni
+schermata cambiata si controlla con
+
+    CHROME_PATH=<wrapper con --no-sandbox> node .claude/skills/design-taste-frontend/scripts/inspect.mjs <url> --app
+
+e non si pubblica con errori (FAIL) che non si sappiano giustificare. Non si
+pescano nuove direzioni visive senza una richiesta esplicita di redesign.
 
 ### PRODUCT.md e DESIGN.md
 
 Nella radice del repository: `PRODUCT.md` dice per chi e' il sito, in che
 situazione si usa e i principi di prodotto (primo fra tutti: nessun dato
-dubbio passa in silenzio); `DESIGN.md` descrive il sistema grafico attuale con i
-token reali di `ofp.css`. Si leggono prima di ogni lavoro sull'interfaccia e si
+dubbio passa in silenzio); `DESIGN.md` descrive il sistema grafico (direzione
+"L'EFB di notte": temi Notte e Giorno, Public Sans e JetBrains Mono serviti
+dal sito, una sola riga d'accento per le selezioni) e i suoi token, che
+`ofp.css` deve riportare. Si leggono prima di ogni lavoro sull'interfaccia e si
 aggiornano quando il sistema cambia.
 
 ### Ordine di precedenza
 
 Prima le parole dell'utente, poi le regole di questo file (animazioni e tocco
-secondo Kowalski), poi il sistema esistente in `ofp.css`, poi Impeccable e
-infine la Taste Skill.
+secondo Kowalski), poi `DESIGN.md`, poi Impeccable e infine la Taste Skill.
+Il vecchio sistema "Glass Cockpit / Carta VFR" (griglia, aloni ciano e
+magenta, etichette maiuscole spaziate) e' superato: dove `ofp.css` lo
+contiene ancora, vale `DESIGN.md`.
 
 ## Pubblicazione
 
