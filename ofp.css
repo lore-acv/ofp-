@@ -105,7 +105,7 @@ b,strong{font-weight:600}
 button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-check,.fonte,.rail a,.rail button,[role="button"]{
   touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 /* Cifre e codici: JetBrains Mono a cifre tabellari (The Figure Rule). */
-.m,.fig,input[type="number"],.apt-row .apt-code input,.tng-row .apt-code input,.navtable input,.navtable .ro,
+.m,input[type="number"],.apt-row .apt-code input,.tng-row .apt-code input,.navtable input,.navtable .ro,
 .fld textarea,.calc .fig,.kv-v{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:0}
 
 /* ===== rail: la colonna di icone a sinistra =====
@@ -144,9 +144,9 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
 .topbar-azioni{display:flex;align-items:center;gap:8px;flex:0 0 auto}
 
 /* ===== step: schede di testo con la riga d'accento sotto quello in corso ===== */
-.steps{display:flex;gap:28px;align-items:stretch;position:relative;border-bottom:1px solid var(--panel-line);
+.topbar .steps{display:flex;gap:28px;align-items:stretch;position:relative;border-bottom:1px solid var(--panel-line);
   overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin-top:4px}
-.steps::-webkit-scrollbar{display:none}
+.topbar .steps::-webkit-scrollbar{display:none}
 .step-pill{display:flex;align-items:center;gap:6px;padding:10px 0;flex:0 0 auto;background:transparent;border:0;cursor:pointer;
   font-size:13px;line-height:20px;color:var(--txt-faint);position:relative;font-weight:400;
   transition:color var(--t-fast) ease}
@@ -160,7 +160,7 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
    perche' si muove sullo schermo. Da tastiera si sposta senza animazione. */
 .fase-ind{position:absolute;left:0;bottom:0;width:1px;height:1px;background:var(--accent-2);transform-origin:0 0;pointer-events:none;
   transition:transform var(--t-move) var(--ease-in-out)}
-.steps:not(:has(.fase-ind)) .step-pill.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--accent-2)}
+.topbar .steps:not(:has(.fase-ind)) .step-pill.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--accent-2)}
 .step-pill:focus-visible{outline:none;box-shadow:var(--ring);border-radius:var(--r-xs)}
 /* i valori compilati nei titoli del modulo (es. Departure LILN) */
 .panel .filled{color:var(--txt);font-family:var(--mono)}
@@ -477,7 +477,7 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
   .menu{left:auto;right:0;bottom:auto;top:calc(100% + 8px);transform-origin:top right}
   .topbar{grid-column:1;grid-row:2;padding:8px 16px 0}
   .main,#dashboard{grid-column:1;grid-row:3}
-  .steps{gap:22px;margin:4px -16px 0;padding:0 16px;scroll-padding:0 16px}
+  .topbar .steps{gap:22px;margin:4px -16px 0;padding:0 16px;scroll-padding:0 16px}
   .formcol .scroll{padding:20px 16px 28px}
   .formcol .navrow{padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
   .formcol .navrow .btn{flex:1;min-height:var(--tap)}
