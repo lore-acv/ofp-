@@ -1257,21 +1257,34 @@ const Account = {
 /* ===== Miniatura della traccia di un volo =====
    La forma della rotta dai punti caricati nel volo, nell'ordine: ogni tratta
    e' la sua rotta magnetica e la sua distanza (dal NavLog), una dopo l'altra
-   dalla partenza. E' la traccia senza vento, come nel NavLog. Quando partenza
-   e arrivo coincidono lo scarto di chiusura (prue arrotondate, declinazione)
-   si distribuisce lungo la strada, cosi' il giro si chiude sul campo.
+   dalla partenza. E' la traccia senza vento, come nel NavLog. Un punto per
+   cui si ripassa torna nella sua posizione (andata e ritorno sullo stesso
+   asse); un giro che non ripassa dagli stessi punti si chiude sul campo
+   distribuendo lo scarto lungo la strada.
    Cerchio vuoto = partenza, punto pieno = arrivo. */
 const tracciaEsc=(t)=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function tracciaPunti(legs, chiusa){
-  let x=0, y=0; const pts=[{x,y}];
+  /* Un punto gia' toccato ha la sua posizione: ripassandoci (il ritorno di
+     un andata e ritorno, l'arrivo sul campo di partenza) la traccia torna
+     esattamente li', sullo stesso asse, invece di scostarsi di quel poco che
+     danno prue arrotondate e declinazione. */
+  let x=0, y=0; const pts=[{x,y}], visti=new Map();
+  const nome=(l)=>String(l.wpt||'').trim().toUpperCase();
   (legs||[]).forEach(l=>{
     const d=parseFloat(String(l.dist==null?'':l.dist).replace(',','.'));
     const t=parseFloat(String(l.mt!=null&&l.mt!=='' ? l.mt : (l.mh!=null ? l.mh : '')).replace(',','.'));
-    if(!(d>0) || isNaN(t)) return;
-    const r=t*Math.PI/180; x+=d*Math.sin(r); y-=d*Math.cos(r); pts.push({x,y});
+    const n=nome(l);
+    if(!(d>0) || isNaN(t)){ if(pts.length===1 && n && !visti.has(n)) visti.set(n,{x:0,y:0}); return; }
+    const r=t*Math.PI/180; x+=d*Math.sin(r); y-=d*Math.cos(r);
+    if(n && visti.has(n)){ const q=visti.get(n); x=q.x; y=q.y }
+    else if(n) visti.set(n,{x,y});
+    pts.push({x,y});
   });
-  if(chiusa && pts.length>2){
-    const fine=pts[pts.length-1], cum=[0]; let tot=0;
+  const fine=pts[pts.length-1];
+  /* Un giro che non ripassa dagli stessi punti si chiude sul campo
+     distribuendo lo scarto lungo la strada. */
+  if(chiusa && pts.length>2 && Math.hypot(fine.x,fine.y)>1e-6){
+    const cum=[0]; let tot=0;
     for(let i=1;i<pts.length;i++){ tot+=Math.hypot(pts[i].x-pts[i-1].x, pts[i].y-pts[i-1].y); cum.push(tot); }
     const ex=fine.x, ey=fine.y;
     pts.forEach((p,i)=>{ const k=tot ? cum[i]/tot : 0; p.x-=ex*k; p.y-=ey*k; });
