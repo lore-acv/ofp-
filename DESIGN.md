@@ -333,12 +333,13 @@ Calcolati e in sola lettura: fondo raised, bordo border, testo muted.
 
 ### Navigation
 - **Rail:** icone outline 18px in faint; quella attiva in text con la riga
-  d'accento di 1px sul bordo della rail. Si allarga a 216px mostrando il nome
-  di ogni voce: col mouse passandoci sopra (dopo 90 ms), al tocco con il
-  marchio, che fa da maniglia; si richiude toccando fuori o con Escape. Si
-  allarga uno strato dietro le icone, sopra la pagina (clip-path, 200 ms): il
-  contenuto non si sposta. Sul telefono la rail e' una barra in alto e non si
-  allarga.
+  d'accento di 1px sul bordo della rail. Resta stretta (56px) e si allarga a
+  216px solo al passaggio del cursore (anche il trackpad dell'iPad; al tocco no):
+  compaiono i nomi delle voci, le icone crescono del 25% e il logo del 75%
+  verso destra. Si allarga uno strato dietro le icone, sopra la pagina
+  (clip-path e transform, 220 ms): il contenuto non si sposta. Il logo, da
+  stretta, sta al centro della rail con 8px per parte. Sul telefono la rail e'
+  una barra in alto e non si allarga.
 - **Step tabs:** numero in Mono e nome; completati in muted, futuri in faint,
   quello in corso in text con la riga d'accento sotto, larga quanto
   l'etichetta.

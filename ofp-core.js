@@ -1312,10 +1312,8 @@ function tracciaArrotondata(P, r){
 }
 
 /* ===== La rail che si allarga =====
-   Ogni voce prende il suo nome (data-nome) accanto all'icona. Col mouse la
-   rail si allarga passandoci sopra (ofp.css); al tocco la apre il marchio e la
-   richiude un tocco fuori, Escape o una voce scelta. Sul telefono la rail e'
-   una barra in alto e non si allarga. */
+   Ogni voce prende il suo nome (data-nome) accanto all'icona; si vede quando
+   la rail si allarga al passaggio del cursore (ofp.css). */
 function initRail(){
   const rail=document.querySelector('.rail'); if(!rail || rail.dataset.pronta) return;
   rail.dataset.pronta='1';
@@ -1323,11 +1321,5 @@ function initRail(){
     if(el.querySelector('.nome')) return;
     const n=document.createElement('span'); n.className='nome'; n.setAttribute('aria-hidden','true'); n.textContent=el.dataset.nome; el.appendChild(n);
   });
-  const maniglia=document.getElementById('railApri');
-  const apri=(si)=>{ rail.classList.toggle('aperta', si); if(maniglia) maniglia.setAttribute('aria-expanded', si?'true':'false'); };
-  if(maniglia) maniglia.addEventListener('click', e=>{ e.stopPropagation(); if(matchMedia('(max-width:640px)').matches) return; apri(!rail.classList.contains('aperta')); });
-  document.addEventListener('pointerdown', e=>{ if(rail.classList.contains('aperta') && !rail.contains(e.target)) apri(false); }, true);
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && rail.classList.contains('aperta')) apri(false); });
-  rail.addEventListener('click', e=>{ if(e.target.closest('a')) apri(false); });
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initRail); else initRail();
