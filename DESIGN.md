@@ -182,12 +182,14 @@ pixel colorati di una schermata resta sotto il 3%.
   lo cambia (rotta-av.js). Contrasto 3.5:1 sul fondo Giorno, 4:1 sul Notte.
 
 ### Marchio
-- **Logo dell'Aeroclub Varese** senza la scritta: la A, la V, la scia e il
-  triangolo grigio, ridisegnati come poligoni (favicon.svg e i fondi di
-  `.rail .marchio` e `.brand::before`). Nei colori del sito: la A nel blu
-  d'accento del tema, la V nel rosso dell'aeroclub, scia e triangolo nei grigi
-  dei filetti; una variante per Notte e una per Giorno, la favicon segue il
-  tema del sistema. Sempre in proporzione (262 x 118), mai deformato.
+- **Logo dell'Aeroclub Varese** senza la scritta, in toni di grigio: la A, la
+  V, la deriva (un parallelogramma dietro le lettere, che spunta sopra e sotto)
+  e la scia in due tratti paralleli, ridisegnati come poligoni sulle misure del
+  logo; fra A e V una fessura vuota (maschera), che lascia vedere il fondo.
+  Giorno: A quasi nera, V grigio medio, deriva e scia grigi chiari; Notte al
+  contrario. favicon.svg segue il tema del sistema; i fondi di `.rail .marchio`
+  e `.brand::before` hanno una variante per tema. Sempre in proporzione (236 x
+  108), mai deformato.
 
 ### Primario
 - **Inchiostro invertito** (notte-primary bianco con testo nero,
