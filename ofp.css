@@ -67,7 +67,7 @@
   --t-press:140ms; --t-fast:160ms; --t-med:220ms; --t-move:260ms;
   /* forme: angoli stretti, pillola solo per i pulsanti */
   --r-xs:4px; --r-sm:6px; --r-md:6px; --r-lg:6px; --r-pill:999px;
-  --tap:44px; --ctl:34px; --campo:36px; --rail:48px;
+  --tap:44px; --ctl:34px; --campo:36px; --rail:44px;
   --colonna:1180px;
   color-scheme:dark;
 }
@@ -112,14 +112,15 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
    Flights, New flight, Manual; in basso tema e menu. Sullo stesso fondo della
    pagina, con un filetto. La voce attiva si accende e prende la riga
    d'accento sul bordo della rail (The One Line Rule). */
-.rail{grid-column:1;grid-row:1 / -1;display:flex;flex-direction:column;align-items:center;gap:4px;
-  padding:calc(12px + env(safe-area-inset-top,0px)) 0 calc(12px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);
-  border-right:1px solid var(--panel-line);background:var(--bg);position:relative;z-index:50;min-height:0}
-.rail .marchio{width:36px;height:17px;margin:10px auto 22px;flex:none;display:block;border:0;padding:0;position:relative;
+.rail{position:fixed;top:0;bottom:0;left:0;width:var(--rail);box-sizing:border-box;z-index:50;
+  display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+  padding:calc(12px + env(safe-area-inset-top,0px)) 0 calc(12px + env(safe-area-inset-bottom,0px)) calc(4px + env(safe-area-inset-left,0px));
+  border-right:1px solid var(--panel-line);background:var(--bg)}
+.rail .marchio{width:36px;height:17px;margin:10px 0 22px;flex:none;display:block;border:0;padding:0;position:relative;
   border-radius:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='12 4 236 108'%3E%3Cdefs%3E%3Cmask id='n'%3E%3Crect x='0' y='0' width='260' height='120' fill='white'/%3E%3Cpath d='M103.6 49.3L110.4 49.5L160.6 83L152.8 82.8Z' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Cpath d='M142 32.5L161.1 60.2L119.5 89.5L100.6 61.7Z' fill='%2345454b' mask='url(%23n)'/%3E%3Cpath d='M234.7 7.5L156.7 62M106 60L34.6 109' stroke='%236b6c71' stroke-width='3.6' fill='none'/%3E%3Cpath d='M16 82.8L66 49.3H103.6L152.8 82.8H119.3L107.3 75H59.7L47.7 82.8ZM83.8 57L103 70.5H64.6Z' fill='%23e6e6e8' fill-rule='evenodd'/%3E%3Cpath d='M110.4 49.5H149.2L180.7 72.4L212.6 49.5H244.8L199 83H160.6Z' fill='%239c9da2'/%3E%3C/svg%3E") center/contain no-repeat}
 /* il logo dell'Aeroclub Varese (A, V, la scia), nei colori del tema: favicon.svg e' lo stesso disegno */
 html[data-tema="chiaro"] .rail .marchio{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='12 4 236 108'%3E%3Cdefs%3E%3Cmask id='g'%3E%3Crect x='0' y='0' width='260' height='120' fill='white'/%3E%3Cpath d='M103.6 49.3L110.4 49.5L160.6 83L152.8 82.8Z' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Cpath d='M142 32.5L161.1 60.2L119.5 89.5L100.6 61.7Z' fill='%23c6c6c0' mask='url(%23g)'/%3E%3Cpath d='M234.7 7.5L156.7 62M106 60L34.6 109' stroke='%23a8a8a2' stroke-width='3.6' fill='none'/%3E%3Cpath d='M16 82.8L66 49.3H103.6L152.8 82.8H119.3L107.3 75H59.7L47.7 82.8ZM83.8 57L103 70.5H64.6Z' fill='%232b2b2e' fill-rule='evenodd'/%3E%3Cpath d='M110.4 49.5H149.2L180.7 72.4L212.6 49.5H244.8L199 83H160.6Z' fill='%2378787d'/%3E%3C/svg%3E")}
-.rail a,.rail .rail-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--r-sm);color:var(--txt-faint);
+.rail a,.rail .rail-btn{width:36px;height:40px;display:grid;place-items:center;border-radius:var(--r-sm);color:var(--txt-faint);
   background:transparent;border:0;padding:0;cursor:pointer;position:relative;text-decoration:none;
   transition:color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
 .rail a:active,.rail .rail-btn:active{transform:scale(.94)}
@@ -127,37 +128,30 @@ html[data-tema="chiaro"] .rail .marchio{background-image:url("data:image/svg+xml
 .rail [aria-current="page"],html.vista-dash #railVoli,html.vista-doc #railVoli,html:not(.vista-dash):not(.vista-doc) #railNuovo{color:var(--txt)}
 .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{content:"";position:absolute;left:-4px;top:10px;bottom:10px;width:1px;background:var(--accent-2)}
 .rail a:focus-visible,.rail .rail-btn:focus-visible{outline:none;box-shadow:var(--ring)}
-.rail .fondo{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:4px}
-/* La rail resta stretta e si allarga solo al passaggio del cursore (anche il
-   trackpad dell'iPad): accanto alle icone compaiono i nomi, le icone e il
-   logo si ingrandiscono. Si allarga uno strato dietro le icone, sopra la
-   pagina: il contenuto non si sposta e non si ricalcola. Si animano solo il
-   ritaglio dello strato (clip-path), le scale (transform) e l'opacita' dei
-   nomi. Senza cursore (solo tocco) la rail non si allarga. */
-.rail{--rail-largo:248px}
-/* lo strato che si allarga: un elemento vero (initRail), largo quanto la rail
-   aperta e schiacciato a quella chiusa con scaleX. Safari anima bene una
-   trasformazione, non il ritaglio di uno pseudo-elemento. */
-.rail .rail-fondo{position:absolute;top:0;bottom:0;left:0;width:var(--rail-largo);z-index:-1;pointer-events:none;
-  background:var(--bg);border-right:1px solid var(--panel-line);box-shadow:none;
-  transform:scaleX(.1936);transform-origin:0 0;   /* 48 / 248 */
-  transition:transform 240ms var(--ease-out),box-shadow 240ms ease}
-.rail .nome{position:absolute;left:58px;top:50%;transform:translate(-6px,-50%);font:500 14px/18px var(--font);color:var(--txt);
+.rail .fondo{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+/* La rail resta stretta (44px, icone al centro con lo stesso vuoto ai due
+   lati) e si allarga solo al passaggio del cursore (anche il trackpad
+   dell'iPad): e' un pannello fisso sopra la pagina che cresce lui stesso in
+   larghezza, quindi il contenuto non si sposta e non si ricalcola. Le icone
+   restano dove sono e crescono, accanto compaiono i nomi, il logo cresce verso
+   destra. Senza cursore (solo tocco) la rail non si allarga. */
+.rail{--rail-largo:248px;transition:width 240ms var(--ease-out),box-shadow 240ms ease}
+.rail .nome{position:absolute;left:48px;top:50%;transform:translate(-6px,-50%);font:500 14px/18px var(--font);color:var(--txt);
   white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity 140ms ease,transform 220ms var(--ease-out),visibility 0s linear 220ms}
-.rail .tema-btn,.rail .hamburger{position:relative}
+.rail .tema-btn,.rail .hamburger{position:relative;width:36px}
 .rail .tema-btn .nome,.rail .hamburger .nome{color:var(--txt)}
 .rail a svg,.rail .rail-btn svg,.rail .tema-btn svg,.rail .hamburger svg{transition:transform 220ms var(--ease-out)}
 .rail .marchio{transition:transform 220ms var(--ease-out);transform-origin:0 50%}
 @media (any-hover:hover){
-  .rail:hover .rail-fondo{transform:none;box-shadow:var(--ombra-pop);transition-delay:60ms}
+  .rail:hover{width:var(--rail-largo);box-shadow:var(--ombra-pop);transition-delay:60ms}
   .rail:hover .nome{opacity:1;visibility:visible;pointer-events:auto;transform:translate(0,-50%);transition-delay:110ms,60ms,0s}
   .rail:hover a svg,.rail:hover .rail-btn svg,.rail:hover .tema-btn svg,.rail:hover .hamburger svg{transform:scale(1.25);transition-delay:60ms}
   /* il logo cresce verso destra, nello spazio che si apre */
-  .rail:hover .marchio{transform:translateX(8px) scale(1.9);transition-delay:60ms}
+  .rail:hover .marchio{transform:translateX(6px) scale(1.9);transition-delay:60ms}
 }
 @media (prefers-reduced-motion:reduce){
-  .rail .rail-fondo,.rail .marchio,.rail svg{transition:none}
+  .rail,.rail .marchio,.rail svg{transition:none}
   .rail .nome{transform:translate(0,-50%);transition:opacity 120ms ease,visibility 0s linear 120ms}
 }
 
@@ -497,10 +491,12 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
    si apre sotto, a destra. */
 @media screen and (max-width:640px){
   body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr)}
-  .rail{grid-column:1;grid-row:1;flex-direction:row;justify-content:flex-start;gap:2px;border-right:0;border-bottom:1px solid var(--panel-line);
+  .rail{position:relative;top:auto;bottom:auto;width:auto;align-items:center;transition:none;
+    grid-column:1;grid-row:1;flex-direction:row;justify-content:flex-start;gap:2px;border-right:0;border-bottom:1px solid var(--panel-line);
     padding:calc(6px + env(safe-area-inset-top,0px)) calc(10px + env(safe-area-inset-right,0px)) 6px calc(12px + env(safe-area-inset-left,0px))}
   .rail .marchio{margin:0 auto 0 0;cursor:default;width:62px;height:28px}
-  .rail .rail-fondo,.rail .nome{display:none}
+  .rail .nome{display:none}
+  .rail:hover{width:auto;box-shadow:none}
   .rail:hover .marchio{transform:none}
   .rail:hover a svg,.rail:hover .rail-btn svg,.rail:hover .tema-btn svg,.rail:hover .hamburger svg{transform:none}
   .rail .fondo{margin-top:0;flex-direction:row;gap:2px}
