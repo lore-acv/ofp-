@@ -1317,6 +1317,7 @@ function tracciaArrotondata(P, r){
 function initRail(){
   const rail=document.querySelector('.rail'); if(!rail || rail.dataset.pronta) return;
   rail.dataset.pronta='1';
+  if(!rail.querySelector('.rail-fondo')){ const f=document.createElement('span'); f.className='rail-fondo'; f.setAttribute('aria-hidden','true'); rail.prepend(f); }
   rail.querySelectorAll('[data-nome]').forEach(el=>{
     if(el.querySelector('.nome')) return;
     const n=document.createElement('span'); n.className='nome'; n.setAttribute('aria-hidden','true'); n.textContent=el.dataset.nome; el.appendChild(n);

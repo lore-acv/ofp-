@@ -333,12 +333,13 @@ Calcolati e in sola lettura: fondo raised, bordo border, testo muted.
 
 ### Navigation
 - **Rail:** icone outline 18px in faint; quella attiva in text con la riga
-  d'accento di 1px sul bordo della rail. Resta stretta (56px) e si allarga a
-  216px solo al passaggio del cursore (anche il trackpad dell'iPad; al tocco no):
-  compaiono i nomi delle voci, le icone crescono del 25% e il logo del 75%
-  verso destra. Si allarga uno strato dietro le icone, sopra la pagina
-  (clip-path e transform, 220 ms): il contenuto non si sposta. Il logo, da
-  stretta, sta al centro della rail con 8px per parte. Sul telefono la rail e'
+  d'accento di 1px sul bordo della rail. Resta stretta (48px) e si allarga a
+  248px solo al passaggio del cursore (anche il trackpad dell'iPad; al tocco no):
+  compaiono i nomi delle voci, le icone crescono del 25% e il logo quasi del
+  doppio verso destra. Si allarga uno strato dietro le icone, sopra la pagina,
+  con una sola trasformazione (scaleX, 240 ms; Safari non anima il ritaglio di
+  uno pseudo-elemento): il contenuto non si sposta. Il logo, da stretta, sta
+  al centro della rail. Sul telefono la rail e'
   una barra in alto e non si allarga.
 - **Step tabs:** numero in Mono e nome; completati in muted, futuri in faint,
   quello in corso in text con la riga d'accento sotto, larga quanto
