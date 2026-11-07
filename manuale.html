@@ -136,25 +136,33 @@
   /* ====================== barra di scorrimento a sezioni ================== */
   .fb-foot{position:relative;z-index:45;flex:0 0 auto;display:flex;align-items:center;gap:1rem;padding:.35rem max(1.1rem,env(safe-area-inset-right)) max(.45rem,env(safe-area-inset-bottom)) max(1.1rem,env(safe-area-inset-left));
     background:var(--bg);border-top:1px solid var(--panel-line)}
+  /* Lo stepper delle sezioni: un trattino sottile per sezione, tutti uguali.
+     Quelle lette sono piene, quella in lettura si riempie con le sue pagine,
+     le altre sono appena accennate. A destra un anello minimo con il numero di
+     pagina. Solo transform (scaleX) e opacita': niente si sposta. */
+  .fb-sez{flex:0 1 14rem;min-width:0;font-size:.8rem;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .fb-scrub{position:relative;flex:1 1 auto;height:var(--tap);cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;border-radius:var(--r-sm)}
-  /* Niente barra che si riempie: la traccia e' l'indice delle sezioni, una
-     tacca per sezione lunga quanto le sue pagine; quella in lettura e' appena
-     piu' chiara. La posizione e' un segno sottile, come un segnalibro. */
-  .fb-traccia{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;display:flex;gap:4px}
-  .fb-seg{position:relative;height:100%;border-radius:2px;background:color-mix(in srgb,var(--txt) 13%,transparent);transition:background-color var(--t-med) ease}
-  .fb-seg.att{background:color-mix(in srgb,var(--txt) 36%,transparent)}
-  /* il pomello segue il dito 1:1 (translate, senza transizione); solo la
-     pressione ha la sua piccola risposta (scale) */
-  .fb-pomo{position:absolute;top:50%;left:0;width:6px;height:22px;margin:-11px 0 0 -3px;border-radius:3px;background:var(--txt);
-    box-shadow:0 0 0 3px var(--bg);pointer-events:none;
-    transition:scale var(--t-press) var(--ease-out)}
-  .fb-scrub.tira .fb-pomo{scale:1.12 1.2}
+  .fb-traccia{position:absolute;left:0;right:0;top:50%;height:12px;margin-top:-6px;display:flex;align-items:center;justify-content:center;gap:5px}
+  .fb-seg{position:relative;flex:1 1 0;max-width:30px;min-width:4px;height:2px;border-radius:1px;overflow:hidden;
+    background:color-mix(in srgb,var(--txt) 14%,transparent)}
+  .fb-seg::after{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--txt) 42%,transparent);
+    transform:scaleX(var(--p,0));transform-origin:0 50%;transition:transform 260ms var(--ease-out)}
+  .fb-seg.att::after{background:var(--accent-2)}
+  .fb-scrub.tira .fb-seg.sotto,.fb-scrub.sopra .fb-seg.sotto{background:color-mix(in srgb,var(--txt) 34%,transparent)}
+  .fb-anello{flex:0 0 auto;display:inline-flex;align-items:center;gap:.45rem;font:500 .8rem var(--mono);color:var(--txt-dim);font-variant-numeric:tabular-nums}
+  .fb-anello svg{width:18px;height:18px;transform:rotate(-90deg)}
+  .fb-anello circle{fill:none;stroke-width:2}
+  .fb-anello .fondo{stroke:color-mix(in srgb,var(--txt) 14%,transparent)}
+  .fb-anello .fatto{stroke:var(--accent-2);stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 260ms var(--ease-out)}
+  .fb-anello b{font-weight:500;color:var(--txt)}
+  @media (prefers-reduced-motion:reduce){ .fb-seg::after,.fb-anello .fatto{transition:none} }
   .fb-bolla{position:absolute;bottom:calc(100% + .35rem);left:0;transform:translateX(-50%);padding:.45rem .7rem;border-radius:var(--r-md);
     background:var(--panel-bg);border:1px solid var(--panel-line);box-shadow:var(--ombra-pop);font-size:.82rem;white-space:nowrap;
     pointer-events:none;opacity:0;transition:opacity var(--t-fast) var(--ease-out);font-variant-numeric:tabular-nums;max-width:min(26rem,80vw);overflow:hidden;text-overflow:ellipsis}
   .fb-bolla b{font-weight:650;margin-right:.45rem}
   .fb-bolla span{color:var(--txt-dim)}
   .fb-scrub.tira .fb-bolla,.fb-scrub.sopra .fb-bolla{opacity:1}
+  @media (max-width:640px){ .fb-sez{display:none} }
   @media (max-width:640px){
     .fb-bar{gap:.4rem}
     .fb-solo-largo,.fb-sep{display:none!important}
@@ -484,11 +492,12 @@
   </nav>
 </div>
 <footer class="fb-foot">
-  <div class="fb-scrub" id="fbScrub" role="slider" tabindex="0" aria-label="Page" aria-valuemin="1" aria-valuemax="1" aria-valuenow="1">
+  <span class="fb-sez" id="fbSez"></span>
+  <div class="fb-scrub" id="fbScrub" role="slider" tabindex="0" aria-label="Section" aria-valuemin="1" aria-valuemax="1" aria-valuenow="1">
     <div class="fb-traccia" id="fbTraccia"></div>
-    <div class="fb-pomo" id="fbPomo"></div>
     <div class="fb-bolla" id="fbBolla"></div>
   </div>
+  <span class="fb-anello" aria-hidden="true"><svg viewBox="0 0 20 20"><circle class="fondo" cx="10" cy="10" r="8"/><circle class="fatto" id="fbAnello" cx="10" cy="10" r="8" pathLength="100"/></svg><b id="fbNumPag"></b></span>
 </footer>
 
 <div class="fb-zoom" id="fbZoom" role="dialog" aria-modal="true" aria-label="Enlarged figure">
@@ -910,36 +919,37 @@ function costruisciTraccia(){
   const N=pagine.length, tr=$('fbTraccia'); tr.innerHTML='';
   const inizi=[0, ...SEZ.map(s=>s.p).filter(p=>p>0)].filter((p,i,a)=>a.indexOf(p)===i).sort((x,y)=>x-y);
   PARTI=inizi.map((p,i)=>({da:p, a:(inizi[i+1]??N)-1}));
-  PARTI.forEach(pt=>{ const s=document.createElement('div'); s.className='fb-seg'; s.style.flex=`${pt.a-pt.da+1} 1 0`; tr.appendChild(s); pt.el=s; });
+  PARTI.forEach(pt=>{ const s=document.createElement('div'); s.className='fb-seg'; tr.appendChild(s); pt.el=s; });
+  $('fbScrub').setAttribute('aria-valuemax', PARTI.length);
 }
-function xDiPagina(i){
-  const N=pagine.length, tr=$('fbTraccia'), w=tr.clientWidth, gap=3, n=PARTI.length;
-  const utile=w-gap*(n-1);
-  for(let k=0;k<n;k++){ const pt=PARTI[k];
-    if(i<=pt.a){ const prima=PARTI.slice(0,k).reduce((s,q)=>s+(q.a-q.da+1),0);
-      return (prima + (i-pt.da) + .5)/N*utile + k*gap; } }
-  return w;
-}
-function paginaDiX(x){
-  const N=pagine.length, w=$('fbTraccia').clientWidth, gap=3, n=PARTI.length, utile=w-gap*(n-1);
+/* lo stepper: dalla x alla sezione piu' vicina, e dalla sezione alla sua prima pagina */
+function sezioneDiX(x){
   let best=0, d=1e9;
-  for(let i=0;i<N;i++){ const dd=Math.abs(xDiPagina(i)-x); if(dd<d){ d=dd; best=i; } }
-  void utile; return best;
+  PARTI.forEach((pt,k)=>{ const c=pt.el.offsetLeft+pt.el.offsetWidth/2, dd=Math.abs(c-x); if(dd<d){ d=dd; best=k; } });
+  return best;
 }
+function paginaDiX(x){ return PARTI.length ? PARTI[sezioneDiX(x)].da : 0; }
 function posizionaScrub(i, anteprima){
   if(!PARTI.length) return;
-  const x=xDiPagina(i);
-  $('fbPomo').style.translate=`${x}px 0`;
-  const [a,b]=visibili(), cur=anteprima?i:a;
-  PARTI.forEach(pt=>pt.el.classList.toggle('att', cur>=pt.da && cur<=pt.a));
-  $('fbScrub').setAttribute('aria-valuenow', cur+1);
+  const N=pagine.length, [a]=visibili(), cur=anteprima?i:a, letta=a;
+  PARTI.forEach(pt=>{
+    const p = letta>pt.a ? 1 : letta<pt.da ? 0 : (letta-pt.da+1)/(pt.a-pt.da+1);
+    pt.el.style.setProperty('--p', p.toFixed(3));
+    pt.el.classList.toggle('att', letta>=pt.da && letta<=pt.a);
+    pt.el.classList.toggle('sotto', !!anteprima && cur>=pt.da && cur<=pt.a);
+  });
+  const k=PARTI.findIndex(pt=>cur>=pt.da && cur<=pt.a);
+  $('fbScrub').setAttribute('aria-valuenow', k+1);
   const {att}=sezioneDi(cur);
-  const testo=`Page ${cur+1}${att?` · ${(att.num?att.num+' ':'')+att.title}`:''}`;
-  $('fbScrub').setAttribute('aria-valuetext', testo);
-  const bo=$('fbBolla'); bo.innerHTML=`<b>Page ${cur+1}</b><span>${esc(att?(att.num&&att.level===2?att.num+' ':'')+att.title:'Cover')}</span>`;
+  const titolo = att ? (att.num&&att.level===2?att.num+' ':'')+att.title : 'Cover';
+  $('fbScrub').setAttribute('aria-valuetext', `Page ${cur+1} · ${titolo}`);
+  $('fbAnello').style.strokeDashoffset=(100-(letta+1)/N*100).toFixed(2);
+  $('fbNumPag').textContent=`${letta+1} / ${N}`;
+  const sl=sezioneDi(letta).att; $('fbSez').textContent = sl ? (sl.num?sl.num+' ':'')+sl.title : 'Cover';
+  const bo=$('fbBolla'); bo.innerHTML=`<b>Page ${cur+1}</b><span>${esc(titolo)}</span>`;
+  const pt=PARTI[Math.max(0,k)], x=pt.el.offsetLeft+pt.el.offsetWidth/2;
   const w=$('fbScrub').clientWidth, bw=bo.offsetWidth||200;
   bo.style.left=Math.max(bw/2, Math.min(w-bw/2, x))+'px';
-  void b;
 }
 (function(){
   const sc=$('fbScrub'); let id=null, pag=0;

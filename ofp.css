@@ -115,7 +115,7 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
 .rail{grid-column:1;grid-row:1 / -1;display:flex;flex-direction:column;align-items:center;gap:4px;
   padding:calc(12px + env(safe-area-inset-top,0px)) 0 calc(12px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);
   border-right:1px solid var(--panel-line);background:var(--bg);position:relative;z-index:50;min-height:0}
-.rail .marchio{width:28px;height:28px;border-radius:6px;margin:2px 0 16px;flex:none;display:block;
+.rail .marchio{width:28px;height:28px;border-radius:6px;margin:2px 0 16px;flex:none;display:block;border:0;padding:0;cursor:pointer;position:relative;
   background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v18M4 11l8-3 8 3M9 19l3-1 3 1'/%3E%3C/svg%3E") center/70% no-repeat}
 .rail a,.rail .rail-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--r-sm);color:var(--txt-faint);
   background:transparent;border:0;padding:0;cursor:pointer;position:relative;text-decoration:none;
@@ -126,11 +126,31 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
 .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{content:"";position:absolute;left:-8px;top:10px;bottom:10px;width:1px;background:var(--accent-2)}
 .rail a:focus-visible,.rail .rail-btn:focus-visible{outline:none;box-shadow:var(--ring)}
 .rail .fondo{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:4px}
-/* tooltip dei nomi, solo con il mouse */
-.rail [data-nome]::after{content:attr(data-nome);position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);
-  background:var(--panel-2);color:var(--txt);border:1px solid var(--panel-line);border-radius:var(--r-xs);padding:3px 8px;
-  font:500 12px/16px var(--font);white-space:nowrap;pointer-events:none;opacity:0;visibility:hidden;
-  transition:opacity var(--t-fast) ease,visibility 0s linear var(--t-fast)}
+/* La rail si allarga e mostra i nomi: col mouse passandoci sopra, al tocco con
+   il marchio, che fa da maniglia (si richiude toccando fuori). Si allarga uno
+   strato dietro le icone, sopra la pagina: il contenuto non si sposta e non si
+   ricalcola. Si anima solo il ritaglio dello strato (clip-path) e l'opacita'
+   dei nomi. */
+.rail{--rail-largo:216px}
+.rail::before{content:"";position:absolute;top:0;bottom:0;left:0;width:var(--rail-largo);z-index:-1;background:var(--bg);
+  border-right:1px solid var(--panel-line);box-shadow:var(--ombra-pop);
+  clip-path:inset(0 calc(100% - var(--rail)) 0 0);transition:clip-path 200ms var(--ease-out)}
+.rail .nome{position:absolute;left:50px;top:50%;transform:translate(-6px,-50%);font:500 13px/18px var(--font);color:var(--txt);
+  white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity 120ms ease,transform 200ms var(--ease-out),visibility 0s linear 200ms}
+.rail .marchio .nome{left:40px;font-weight:600}
+.rail .tema-btn,.rail .hamburger{position:relative}
+.rail .tema-btn .nome,.rail .hamburger .nome{color:var(--txt)}
+.rail.aperta::before{clip-path:inset(0 -40px 0 0)}
+.rail.aperta .nome{opacity:1;visibility:visible;pointer-events:auto;transform:translate(0,-50%);transition-delay:40ms,0s,0s}
+@media (hover:hover) and (pointer:fine){
+  .rail:hover::before{clip-path:inset(0 -40px 0 0);transition-delay:90ms}
+  .rail:hover .nome{opacity:1;visibility:visible;pointer-events:auto;transform:translate(0,-50%);transition-delay:130ms,90ms,0s}
+}
+@media (prefers-reduced-motion:reduce){
+  .rail::before{transition:none}
+  .rail .nome{transform:translate(0,-50%);transition:opacity 120ms ease,visibility 0s linear 120ms}
+}
 
 /* ===== barra sopra il foglio: gli step =====
    Sulla Dashboard non c'e'. Dentro: il contesto del volo e la riga degli otto
@@ -191,7 +211,7 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
 .stage .page{flex:0 0 auto}
 
 /* ===== tipografia del foglio ===== */
-.step-title{font-size:26px;font-weight:600;letter-spacing:-.01em;line-height:32px;margin:0 0 4px}
+.step-title{font-size:26px;font-weight:600;letter-spacing:-.01em;line-height:32px;margin:0 0 20px}
 .step-sub{font-size:14px;color:var(--txt-dim);margin:0 0 24px;line-height:20px;max-width:76ch}
 .step-sub b{color:var(--txt);font-weight:500}
 /* Ogni gruppo e' una scheda: piatta, nel Notte piu' scura del fondo. */
@@ -470,7 +490,8 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
   body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr)}
   .rail{grid-column:1;grid-row:1;flex-direction:row;justify-content:flex-start;gap:2px;border-right:0;border-bottom:1px solid var(--panel-line);
     padding:calc(6px + env(safe-area-inset-top,0px)) calc(10px + env(safe-area-inset-right,0px)) 6px calc(12px + env(safe-area-inset-left,0px))}
-  .rail .marchio{margin:0 auto 0 0}
+  .rail .marchio{margin:0 auto 0 0;cursor:default}
+  .rail::before,.rail .nome{display:none}
   .rail .fondo{margin-top:0;flex-direction:row;gap:2px}
   .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{left:10px;right:10px;top:auto;bottom:-7px;width:auto;height:1px}
   .rail a,.rail .rail-btn,.hamburger,.tema-btn{width:var(--tap);height:var(--tap)}
@@ -502,10 +523,88 @@ html.vista-dash .topbar,html.vista-dash .main,html.vista-dash .solo-volo,html.vi
 .dash-head h1{margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em;line-height:32px;color:var(--txt)}
 .dash-head p{margin:4px 0 0;color:var(--txt-dim);font-size:14px}
 .dash-azioni{display:flex;gap:10px;flex-wrap:wrap}
-.dash-head .btn[hidden]{display:none}
 .dash-conto{font-size:12px;color:var(--txt-faint);margin-top:2px}
 .dash-sync{display:block;color:var(--warn)}
 .dash-sync.err{color:var(--err)}
+/* ===== Header della Dashboard =====
+   La scheda alta: a sinistra ora UTC, saluto, account e azioni; dietro, a
+   destra, la rete delle rotte dal campo di casa (disegnaReteHero). Sotto, il
+   riepilogo in quattro caselle. La rete e' nei toni del sito: cerchi e assi
+   in filetto, le standard in faint, i voli salvati nel colore d'accento. */
+.hero{position:relative;overflow:hidden;background:var(--panel-bg);border:1px solid transparent;border-radius:var(--r-lg);
+  box-shadow:var(--ombra-scheda);margin:0 0 32px}
+.hero-alto{position:relative;isolation:isolate;overflow:hidden;min-height:252px}
+html[data-tema="chiaro"] .hero{border-color:var(--panel-line)}
+.hero-rete{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero-strato{position:absolute;left:0;right:0;top:-24px;bottom:-24px;will-change:transform}
+.hero-strato svg{display:block;width:100%;height:100%}
+.hero-rete .anello{fill:none;stroke:var(--panel-line);stroke-width:1}
+.hero-rete .asse{fill:none;stroke:var(--rule);stroke-width:1;stroke-dasharray:2 5}
+.hero-rete .dist{font:400 11px var(--mono);fill:var(--txt-faint)}
+.hero-rete .std{fill:none;stroke:var(--txt-faint);stroke-opacity:.55;stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+/* senza voli salvati le rotte standard sono i dati della schermata: prendono l'accento */
+.hero-rete.solo-std .std{stroke:var(--accent-2);stroke-opacity:.75;stroke-width:1.5}
+.hero-rete .volo{fill:none;stroke:var(--accent-2);stroke-opacity:.7;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.hero-rete .volo.ultimo{stroke-opacity:1;stroke-width:2.2}
+.hero-rete .arrivo{fill:var(--accent-2)}
+.hero-rete .campo circle{fill:var(--txt-faint)}
+.hero-rete .campo text{font:400 11px var(--mono);fill:var(--txt-faint)}
+.dash-prima .hero-rete .campo{animation:hero-sale 400ms var(--ease-out) calc(var(--i,0) * 70ms + 700ms) both}
+.hero-rete .casa{fill:var(--txt)}
+.hero-rete .faro{fill:none;stroke:var(--txt);stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:center}
+.hero-rete .casa-t{font:500 11px var(--mono);fill:var(--txt)}
+/* il testo sta sopra la rete: un velo del colore della scheda ne tiene lontane le linee */
+.hero-testo{position:relative;padding:24px 28px 18px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:34rem;
+}
+.hero-ora{margin:0;font-size:12px;line-height:16px;color:var(--txt-dim)}
+.hero h1{margin:2px 0 0;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-.015em;color:var(--txt);text-wrap:balance}
+.hero .dash-azioni{margin-top:12px}
+.hero-dati{position:relative;margin:0;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;border-top:1px solid var(--panel-line);
+  background:var(--panel-bg)}
+.hero-dati .hd{padding:12px 20px 14px;border-left:1px solid var(--panel-line);min-width:0}
+.hero-dati .hd:first-child{border-left:0;padding-left:28px}
+.hero-dati dt{font-size:12px;line-height:16px;color:var(--txt-faint)}
+.hero-dati dd{margin:0}
+.hero-dati .v{font-size:20px;line-height:28px;font-weight:500;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-dati .v small{font-size:12px;color:var(--txt-dim);font-weight:400}
+.hero-dati .s{font-size:12px;line-height:16px;color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Ingresso (la prima apertura della visita, .dash-prima): le rotte si
+   disegnano a ventaglio, il testo e le caselle salgono di 6px. Solo opacita',
+   transform e il tratto delle linee. Il faro del campo pulsa piano. */
+@keyframes hero-sale{from{opacity:0;transform:translateY(6px)}}
+@keyframes hero-traccia{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes hero-faro{0%{opacity:.55;transform:scale(.5)}70%,100%{opacity:0;transform:scale(2.2)}}
+.dash-prima .hero-testo>*{animation:hero-sale 420ms var(--ease-out) both}
+.dash-prima .hero-testo>*:nth-child(2){animation-delay:60ms}
+.dash-prima .hero-testo>*:nth-child(3){animation-delay:120ms}
+.dash-prima .hero-testo>*:nth-child(4){animation-delay:160ms}
+.dash-prima .hero-dati .hd{animation:hero-sale 420ms var(--ease-out) both}
+.dash-prima .hero-dati .hd:nth-child(2){animation-delay:200ms}
+.dash-prima .hero-dati .hd:nth-child(3){animation-delay:250ms}
+.dash-prima .hero-dati .hd:nth-child(4){animation-delay:300ms}
+.dash-prima .hero-rete .std,.dash-prima .hero-rete .volo{stroke-dasharray:1;animation:hero-traccia 1.3s cubic-bezier(.4,0,.2,1) calc(var(--i,0) * 70ms + 150ms) both}
+.dash-prima .hero-rete .std,.dash-prima .hero-rete .volo{vector-effect:none}
+.hero-rete .faro{animation:hero-faro 3.2s ease-out 1.6s infinite}
+@media (prefers-reduced-motion:reduce){
+  .dash-prima .hero-testo>*,.dash-prima .hero-dati .hd,.dash-prima .hero-rete .std,.dash-prima .hero-rete .volo,.dash-prima .hero-rete .campo{animation:none}
+  .hero-rete .faro{animation:none}
+  .hero-strato{will-change:auto}
+}
+@media screen and (max-width:900px){
+  .hero-dati{grid-template-columns:1fr 1fr}
+  .hero-dati .hd:nth-child(3){border-left:0;padding-left:28px}
+  .hero-dati .hd:nth-child(n+3){border-top:1px solid var(--panel-line)}
+}
+@media screen and (max-width:640px){
+  .hero-alto{min-height:0}
+  .hero-strato{opacity:.45}
+  .hero-testo{padding:20px 16px 16px;background:none;max-width:none}
+  .hero h1{font-size:24px;line-height:30px}
+  .hero .dash-azioni{width:100%}
+  .hero-dati .hd,.hero-dati .hd:first-child,.hero-dati .hd:nth-child(3){padding:10px 16px 12px}
+  .hero-dati .v{font-size:17px;line-height:24px}
+}
+
 .dash-section-title{font-size:16px;font-weight:600;line-height:22px;color:var(--txt);margin:28px 0 12px;display:flex;gap:8px;align-items:baseline}
 .dash-section-title:first-of-type{margin-top:0}
 .dash-section-title small{font:400 12px var(--mono);color:var(--txt-faint)}
@@ -549,27 +648,12 @@ html[data-tema="chiaro"] .flight-card{border-color:var(--panel-line)}
 /* Miniatura della traccia (tracciaSvg): la linea nel colore d'accento,
    cerchio vuoto alla partenza, punto pieno all'arrivo */
 .traccia{display:block;width:100%;height:100%}
-.traccia polyline{fill:none;stroke:var(--accent-2);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.traccia path{fill:none;stroke:var(--accent-2);stroke-width:1.6px;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .traccia .dep{fill:none;stroke:var(--txt);stroke-width:1.3;vector-effect:non-scaling-stroke}
 .traccia .arr{fill:var(--txt)}
 .traccia.vuota line{stroke:var(--panel-line);stroke-width:1.5;stroke-dasharray:3 4}
 .flight-card>.c-map{padding:6px;background:var(--panel-2);align-items:stretch}
 .flight-card .c-map .traccia{height:64px}
-/* Rotte standard ACV: tutte, una riga ciascuna, con la traccia */
-.rotte-std{background:var(--panel-bg);border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--ombra-scheda);margin-top:24px}
-html[data-tema="chiaro"] .rotte-std{border-color:var(--panel-line)}
-.rotte-std h2{margin:0;padding:14px 20px 6px;font-size:20px;font-weight:400;line-height:26px;color:var(--txt-dim);display:flex;gap:10px;align-items:baseline}
-.rotte-std h2 small{font:400 13px var(--mono);color:var(--txt-faint)}
-.rotte-testa,.rotte-lista a{display:grid;grid-template-columns:56px minmax(150px,16rem) minmax(0,1fr) 72px;gap:0 20px;align-items:center}
-.rotte-testa{padding:4px 20px 6px;font-size:12px;line-height:16px;color:var(--txt-faint)}
-.rotte-testa span:last-child{text-align:right}
-.rotte-lista{padding:0 0 6px}
-.rotte-lista a{min-height:48px;padding:5px 20px;border-top:1px solid var(--rule);color:var(--txt);text-decoration:none;font-size:13px}
-.rotte-lista a b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rotte-lista .r-map{height:36px}
-.rotte-lista .r-via{font:400 12px/16px var(--mono);color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rotte-lista .r-nm{font-family:var(--mono);color:var(--txt-dim);text-align:right;white-space:nowrap}
-.rotte-lista a:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--accent-2)}
 /* iPad e schermi medi: la miniatura alta due righe, le azioni sotto */
 @media screen and (max-width:1280px){
   .flight-card{grid-template-columns:96px 120px minmax(0,1fr) 150px 190px;grid-template-areas:"map reg rt qd st" "map go go go go"}
@@ -581,12 +665,11 @@ html[data-tema="chiaro"] .rotte-std{border-color:var(--panel-line)}
 @media screen and (max-width:1100px){
   .flight-card{grid-template-columns:96px 120px minmax(0,1fr) 190px;grid-template-areas:"map reg rt st" "map go go go"}
   .flight-card .c-quando{display:none}
-  .rotte-testa,.rotte-lista a{grid-template-columns:56px minmax(140px,13rem) minmax(0,1fr) 64px;gap:0 16px}
 }
 @media screen and (max-width:640px){
   .dash-body{padding:20px 16px calc(28px + env(safe-area-inset-bottom,0px))}
   #dashboard,#documenti{grid-column:1;grid-row:2 / -1}
-  .dash-head h1{font-size:22px;line-height:28px}
+    .dash-head h1{font-size:22px;line-height:28px}
   .dash-azioni{width:100%}.dash-azioni .btn{flex:1;min-height:var(--tap)}
   .flight-card{grid-template-columns:76px 1fr 1fr;grid-template-areas:"st st st" "map rt rt" "reg reg qd" "go go go"}
   .flight-card>.c-map{padding:4px;margin-left:12px;border-radius:var(--r-sm)}
@@ -599,9 +682,6 @@ html[data-tema="chiaro"] .rotte-std{border-color:var(--panel-line)}
   .flight-card .c-go{grid-area:go;border-top:1px solid var(--panel-line);border-left:0;justify-content:stretch;padding:10px 16px}
   .flight-card .c-go>*{flex:1;min-height:var(--tap)}
   .flight-card .via{white-space:normal}
-  .rotte-testa{display:none}
-  .rotte-lista a{grid-template-columns:56px minmax(0,1fr) auto;grid-template-areas:"map nome nm" "map via via";gap:0 12px;padding:8px 16px}
-  .rotte-lista .r-map{grid-area:map}.rotte-lista a b{grid-area:nome}.rotte-lista .r-via{grid-area:via}.rotte-lista .r-nm{grid-area:nm}
 }
 
 /* ===== Documents: i tre documenti di un volo ===== */
@@ -643,7 +723,7 @@ html[data-tema="chiaro"] .profilo{border-color:var(--panel-line)}
 .profilo h3 small{font:400 13px var(--mono);color:var(--txt-faint)}
 .profilo svg{display:block;width:100%;height:170px;padding:0 20px 12px;box-sizing:content-box;margin-left:-20px;-webkit-tap-highlight-color:transparent}
 /* Navlog: il profilo resta in vista sopra la tabella mentre si scorrono le tratte */
-.profilo-fisso{position:sticky;top:0;z-index:3;background:var(--bg);margin:4px 0 8px;padding:0 0 16px}
+.profilo-fisso{position:sticky;top:0;z-index:3;background:var(--bg);margin:8px 0 8px;padding:0 0 16px}
 /* fermo, copre anche la fascia di padding sopra di se' (28 px) */
 .profilo-fisso::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:28px;background:var(--bg)}
 .profilo-fisso .profilo{margin-bottom:0}
@@ -830,7 +910,6 @@ html[data-tema="chiaro"] .totale{border-color:var(--panel-line)}
   .menu button:hover{background:var(--bg)}
   .conto-barra a:hover,.conto-barra button:hover{border-color:var(--hover-line)}
   .card-drop:hover{border-color:var(--hover-line)}
-  .rotte-lista a:hover{color:var(--accent-2)}
   .perf-tab:hover:not(.on){color:var(--txt)}
 }
 

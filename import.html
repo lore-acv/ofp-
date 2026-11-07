@@ -38,8 +38,6 @@
      sola, centrata, che scorre. */
   .wrap{grid-column:2;grid-row:1 / -1;overflow:auto;overscroll-behavior:contain;min-height:0;
         padding:calc(28px + env(safe-area-inset-top,0px)) max(32px,calc((100% - 52rem)/2)) calc(48px + env(safe-area-inset-bottom,0px))}
-  .lead{font-size:14px;color:var(--txt-dim);line-height:20px;margin:4px 0 24px;max-width:76ch}
-  .lead b{color:var(--txt);font-weight:500}
   .card{background:var(--panel-bg);border:1px solid transparent;border-radius:var(--r-lg);
         padding:14px 20px 16px;margin-bottom:24px;box-shadow:var(--ombra-scheda)}
   html[data-tema="chiaro"] .card{border-color:var(--panel-line)}
@@ -54,8 +52,6 @@
         cursor:pointer;font:inherit;font-size:13px;padding:6px;border-radius:var(--r-sm);min-height:var(--ctl)}
   .skip:focus-visible{outline:none;box-shadow:var(--ring)}
   @media (hover:hover) and (pointer:fine){ .skip:hover{color:var(--txt)} }
-  .apri-guida{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .apri-guida .dx{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   /* Anteprime di NavLog e briefing: tabelle a righe, cifre in colonna */
   .anteprima{width:100%;border-collapse:collapse;font-size:13px;color:var(--txt)}
   .anteprima th{font-weight:400;font-size:12px;color:var(--txt-faint);text-align:right;padding:4px 8px;border-bottom:1px solid var(--panel-line)}
@@ -98,7 +94,37 @@
      una rotta standard E' un NavLog. Nessuna animazione: e' un campo come gli
      altri del foglio. La tabella dei waypoint resta chiusa: la rotta l'ha gia'
      verificata il club, si apre solo se serve. */
-  .rotta-fld{margin:0 0 12px}
+  /* Rotte standard: schede con la traccia (tracciaSvg, ofp-core.js). La
+     scelta e' la riga d'accento di 1px sotto la scheda (The One Line Rule). */
+
+  .rs-testa{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 12px}
+  .rs-testa h2{margin:0}
+  .rs-testa h2 small{font:400 12px var(--mono);color:var(--txt-faint);margin-left:6px}
+  .rotte-cerca{flex:0 1 16rem;min-width:10rem;height:var(--ctl);border:1px solid var(--control);border-radius:var(--r-pill);
+    background:transparent;color:var(--txt);font:inherit;font-size:13px;padding:0 14px}
+  .rotte-cerca:focus{outline:none;border-color:var(--accent-2)}
+  .rotte-griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:8px}
+  .rotta-chip{position:relative;display:grid;grid-template-columns:64px minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;align-items:center;
+    text-align:left;padding:8px 12px 8px 8px;border:1px solid var(--panel-line);border-radius:var(--r-sm);background:transparent;color:var(--txt);
+    cursor:pointer;font:inherit;min-height:64px;transition:border-color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
+  .rotta-chip[hidden]{display:none}
+  .rotta-chip:active{transform:scale(.98)}
+  .rotta-chip:focus-visible{outline:none;box-shadow:var(--ring)}
+  .rotta-chip .rc-map{grid-row:1 / 3;height:46px;background:var(--panel-2);border-radius:4px;padding:2px}
+  .rotta-chip .rc-nome{font-size:13px;font-weight:600;line-height:17px;align-self:end;min-width:0;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+  .rotta-chip .rc-dati{display:flex;gap:10px;font:400 12px/16px var(--mono);color:var(--txt-dim);align-self:start;white-space:nowrap;margin-top:2px}
+  .rotta-chip[aria-checked="true"]{border-color:var(--control)}
+  .rotta-chip[aria-checked="true"]::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:1px;background:var(--accent-2)}
+  @media (hover:hover) and (pointer:fine){ .rotta-chip:hover{border-color:var(--control)} }
+  .rotte-nessuna{margin:8px 0 0;font-size:13px;color:var(--txt-dim)}
+  .rotta-scelta{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
+  .rotta-scelta[hidden]{display:none}
+  .rotta-mappa{height:160px;background:var(--panel-2);border-radius:var(--r-sm);padding:6px}
+  .rotta-mappa .traccia path{stroke-width:2px}
+  .rotta-dati .mb-status{margin-top:0}
+  .rotta-via{font-size:12px;line-height:18px;color:var(--txt-dim);margin:6px 0 0}
+  @media (max-width:640px){ .rotta-scelta{grid-template-columns:1fr} .rotte-cerca{flex:1 1 100%} }
   .rotta-wpt{margin-top:.5rem}
   .rotta-wpt summary{cursor:pointer;font-size:13px;color:var(--txt-dim);padding:.35rem 0;width:max-content;
                      border-radius:var(--r-sm);-webkit-user-select:none;user-select:none;touch-action:manipulation}
@@ -108,61 +134,53 @@
 </style>
 
 <nav class="rail" aria-label="Main">
-  <span class="marchio" role="img" aria-label="OFP C172 FR"></span>
+  <button type="button" class="marchio" id="railApri" aria-label="Show the menu names" aria-expanded="false" data-nome="OFP C172 FR"></button>
   <a href="index.html" id="lnkDashboard" data-nome="Flights" aria-label="Flights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></a>
   <a href="import.html" aria-current="page" data-nome="New flight" aria-label="New flight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
   <a href="#" id="railManuale" data-nome="User manual" aria-label="User manual"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
   <div class="fondo">
-    <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
+    <button type="button" class="tema-btn" id="btnTema" aria-label="Theme" data-nome="Theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
   </div>
 </nav>
 
 <div class="wrap">
-  <div class="apri-guida">
-    <h1 class="step-title">Flight data import</h1>
-    <div class="dx">
-    <div class="conto-barra" id="contoBarra" hidden>
-    <span id="contoChi"></span>
-    <a href="/admin" id="contoUtenti" target="_blank" rel="noopener" hidden>Users</a>
-    <button type="button" id="contoEsci">Sign out</button>
-  </div>
-    <button type="button" class="btn" id="btnGuida">How to use</button>
+  <h1 class="step-title">Flight data import</h1>
+
+  <section class="card rotte-card" id="rottaFld" hidden aria-labelledby="rotteTit">
+    <div class="rs-testa">
+      <h2 id="rotteTit">ACV standard routes <small id="nRotte"></small></h2>
+      <input type="search" id="rottaCerca" class="rotte-cerca" placeholder="Search route or waypoint" aria-label="Search the standard routes" autocomplete="off" spellcheck="false">
     </div>
-  </div>
-  <p class="lead">New flight. Choose an <b>ACV standard route</b> or load the <b>ForeFlight NavLog</b>,
-    then the <b>weather briefing</b>: they provide route, waypoints, distances and times, then wind, QNH,
-    temperature, METAR, TAF and NOTAM. Once both have been read, proceed to the flight plan.</p>
+    <div class="rotte-griglia" id="rotteGriglia" role="radiogroup" aria-labelledby="rotteTit"></div>
+    <p class="rotte-nessuna" id="rotteNessuna" hidden>No route matches.</p>
+    <div class="rotta-scelta" id="rottaScelta" hidden>
+      <div class="rotta-mappa" id="rottaMappa"></div>
+      <div class="rotta-dati">
+        <div class="mb-status" id="rottaStatus"></div>
+        <div id="rottaPreview"></div>
+      </div>
+    </div>
+  </section>
 
-
-<div class="card">
+  <div class="card">
     <h2>ForeFlight NavLog</h2>
-    <div class="fld rotta-fld" id="rottaFld" hidden>
-      <label for="rottaSel">ACV standard route</label>
-      <select id="rottaSel"><option value="">None &mdash; load a ForeFlight NavLog below</option></select>
-    </div>
     <div class="drop" id="navDrop">Click or drag the NavLog exported from ForeFlight (PDF or text)</div>
     <input type="file" id="navFile" accept="application/pdf,text/plain,.txt,.csv" hidden>
     <div class="mb-status" id="navStatus"></div>
     <div id="navPreview" style="margin-top:.6rem"></div>
-    <div class="hint">Airports, route and distance are taken from here. Speeds and fuel flows are <b>not</b>:
-      those remain the POH figures, which take precedence.</div>
   </div>
 
   <div class="card">
     <h2>Weather briefing</h2>
     <a class="fonte" href="https://skybrief.it/#aerodrome" target="_blank" rel="noopener">
       <span class="fonte-ico" aria-hidden="true"></span>
-      <span class="fonte-txt"><b>Get the briefing on SkyBrief</b>
-        <span>Search DEP, ARR and ALTN by ICAO, download the PDF, drop it below.</span></span>
+      <span class="fonte-txt"><b>Get the briefing on SkyBrief</b></span>
       <span class="fonte-vai"><span class="dominio">skybrief.it</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span>
     </a>
     <div class="drop" id="wxDrop">Click or drag the WX &amp; NOTAM briefing PDF</div>
     <input type="file" id="wxFile" accept="application/pdf" hidden>
     <div class="mb-status" id="wxStatus"></div>
     <div id="wxPreview" style="margin-top:.6rem"></div>
-    <div class="hint">METAR, SPECI, TAF and NOTAM are sorted onto DEP, ARR and ALTN, and from there
-      feed wind, QNH and temperature into the performance calculation.
-      Sorting uses the ICAO codes read from the NavLog: load it first if you can.</div>
   </div>
 
   <div class="card">
@@ -172,8 +190,6 @@
       <a class="btn primary" id="btnContinue" href="index.html" aria-disabled="true">Continue</a>
       <button type="button" class="skip" id="btnSkip">Skip and enter manually</button>
     </div>
-    <div class="hint" style="margin-top:.8rem">Missing a file, or it cannot be read? You can still
-      proceed: route and weather data will have to be entered manually in the flight plan.</div>
   </div>
 </div>
 
@@ -374,28 +390,15 @@ function chiudiGuida(){
   const velo=$('guidaVelo'); if(!velo || !velo.classList.contains('aperta')) return;
   velo.classList.remove('aperta');
   document.body.style.overflow='';
-  if($('btnGuida')) $('btnGuida').focus();
+  if($('railManuale')) $('railManuale').focus();
 }
 window.addEventListener('message', e=>{
   if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudiGuida();
 });
-if($('btnGuida')) $('btnGuida').addEventListener('click', apriGuida);
 if($('railManuale')) $('railManuale').addEventListener('click', e=>{ e.preventDefault(); apriGuida(); });
 // sotto Apps Script il manuale non c'e': HtmlService non serve file statici
-if(typeof google!=='undefined' && google.script && google.script.run && $('btnGuida')) $('btnGuida').style.display='none';
 if(typeof google!=='undefined' && google.script && google.script.run && $('railManuale')) $('railManuale').style.display='none';
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') chiudiGuida(); });
-
-/* ---------------- account ----------------
-   Solo sul sito con accesso: chi e' collegato e il pulsante per uscire. */
-Account.carica().then(info=>{
-  if(!info || info.offline) return;
-  $('contoChi').textContent=info.nome;
-  $('contoChi').title=info.email;
-  $('contoUtenti').hidden = info.ruolo!=='admin';
-  $('contoBarra').hidden=false;
-});
-$('contoEsci').addEventListener('click',()=>Account.esci());
 
 /* ---------------- stato e consegna ---------------- */
 function refresh(){
@@ -442,29 +445,61 @@ function save(manual){
    Le rotte vengono da rotte-acv.js (generato da tools/rotte-acv.mjs). Senza
    quel file — o senza rotte — la scheda resta nascosta. */
 const ROTTE = Array.isArray(window.ROTTE_ACV) ? window.ROTTE_ACV : [];
+/* Le rotte standard come schede: la traccia, il nome, la distanza e i punti.
+   Tutte quelle di rotte-acv.js; la ricerca filtra per nome e per waypoint.
+   Una scheda scelta si spegne toccandola di nuovo. Sotto, la traccia in
+   grande e il riepilogo della rotta scelta. */
+const rottaPunti=(r)=>(r.nav.legs||[]).map(l=>String(l.wpt||'').trim()).filter(Boolean);
+const rottaChiusa=(r)=>!!(r.nav.roundTrip || r.nav.dep===r.nav.arr);
 function disegnaRotte(){
   if(!ROTTE.length) return;
   $('rottaFld').hidden=false;
-  $('rottaSel').insertAdjacentHTML('beforeend', ROTTE.map(r=>
-    `<option value="${esc(r.id)}">${esc(r.nome)} \u2014 ${r.nav.totals.dist} nm</option>`).join(''));
-  $('rottaSel').addEventListener('change',e=>rottaScelta(ROTTE.find(x=>x.id===e.target.value)||null));
+  $('nRotte').textContent=ROTTE.length;
+  $('rotteGriglia').innerHTML=ROTTE.map(r=>{
+    const w=rottaPunti(r);
+    return `<button type="button" class="rotta-chip" role="radio" aria-checked="false" data-id="${esc(r.id)}"
+        data-cerca="${esc((r.nome+' '+w.join(' ')+' '+(r.tng||'')).toLowerCase())}">
+      <span class="rc-map">${tracciaSvg(r.nav.legs, rottaChiusa(r), 72, 48, 'Track of '+r.nome)}</span>
+      <span class="rc-nome">${esc(r.nome)}</span>
+      <span class="rc-dati"><span>${r.nav.totals.dist} NM</span><span>${w.length} wpt</span></span>
+    </button>`;
+  }).join('');
+  $('rotteGriglia').addEventListener('click', e=>{
+    const c=e.target.closest('.rotta-chip'); if(!c) return;
+    const r=ROTTE.find(x=>x.id===c.dataset.id);
+    rottaScelta(State.std && State.std.id===r.id ? null : r);
+  });
+  $('rotteGriglia').addEventListener('keydown', e=>{
+    if(!['ArrowRight','ArrowLeft','ArrowDown','ArrowUp'].includes(e.key)) return;
+    const v=[...document.querySelectorAll('.rotta-chip:not([hidden])')], k=v.indexOf(document.activeElement); if(k<0) return;
+    e.preventDefault(); v[(k+(e.key==='ArrowRight'||e.key==='ArrowDown'?1:v.length-1))%v.length].focus();
+  });
+  $('rottaCerca').addEventListener('input', e=>{
+    const q=e.target.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    let n=0;
+    document.querySelectorAll('.rotta-chip').forEach(c=>{ const ok=q.every(t=>c.dataset.cerca.includes(t)); c.hidden=!ok; if(ok) n++; });
+    $('rotteNessuna').hidden = n>0;
+  });
 }
-/* Sceglie (o toglie, con null) una rotta standard. Il riepilogo e' quello di
-   un NavLog caricato, nello stesso posto; un NavLog caricato dopo la sostituisce. */
+/* Sceglie (o toglie, con null) una rotta standard. Un NavLog caricato dopo la
+   sostituisce. */
 function rottaScelta(r, opt){
   const tieniNav = opt && opt.tieniNav;
   const prima = State.std;
   State.std = r ? {id:r.id, nome:r.nome, tng:r.tng||''} : null;
-  if($('rottaSel')) $('rottaSel').value = r ? r.id : '';
+  document.querySelectorAll('.rotta-chip').forEach(c=>c.setAttribute('aria-checked', r && c.dataset.id===r.id ? 'true' : 'false'));
+  $('rottaScelta').hidden = !r;
   if(r){
     State.nav = JSON.parse(JSON.stringify(r.nav));
-    $('navFile').value='';
-    say('navStatus','ok',`${r.nome}: ${State.nav.legs.length} waypoints, ${State.nav.totals.dist} nm`
-      + (r.tng?` \u00b7 Touch & Go at ${r.tng}, ticked in the flight plan`:''));
-    $('navPreview').innerHTML = `<details class="rotta-wpt"><summary>Show the ${State.nav.legs.length} waypoints</summary>${navPreviewTable(State.nav)}</details>`;
+    $('navFile').value=''; say('navStatus','',''); $('navPreview').innerHTML='';
+    $('rottaMappa').innerHTML = tracciaSvg(r.nav.legs, rottaChiusa(r), 240, 160, 'Track of '+r.nome);
+    say('rottaStatus','ok',`${r.nome}: ${State.nav.legs.length} waypoints, ${State.nav.totals.dist} nm`
+      + (r.tng?` · Touch & Go at ${r.tng}`:''));
+    $('rottaPreview').innerHTML = `<p class="rotta-via m">${esc(rottaPunti(r).join(' · '))}</p><details class="rotta-wpt"><summary>Show the ${State.nav.legs.length} waypoints</summary>${navPreviewTable(State.nav)}</details>`;
     reparseWeather();
-  }else if(prima && !tieniNav){
-    State.nav=null; say('navStatus','',''); $('navPreview').innerHTML='';
+  }else{
+    say('rottaStatus','',''); $('rottaPreview').innerHTML=''; $('rottaMappa').innerHTML='';
+    if(prima && !tieniNav) State.nav=null;
   }
   refresh();
 }

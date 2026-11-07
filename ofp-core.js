@@ -1253,3 +1253,81 @@ const Account = {
     location.href='/login';
   }
 };
+
+/* ===== Miniatura della traccia di un volo =====
+   La forma della rotta dai punti caricati nel volo, nell'ordine: ogni tratta
+   e' la sua rotta magnetica e la sua distanza (dal NavLog), una dopo l'altra
+   dalla partenza. E' la traccia senza vento, come nel NavLog. Quando partenza
+   e arrivo coincidono lo scarto di chiusura (prue arrotondate, declinazione)
+   si distribuisce lungo la strada, cosi' il giro si chiude sul campo.
+   Cerchio vuoto = partenza, punto pieno = arrivo. */
+const tracciaEsc=(t)=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function tracciaPunti(legs, chiusa){
+  let x=0, y=0; const pts=[{x,y}];
+  (legs||[]).forEach(l=>{
+    const d=parseFloat(String(l.dist==null?'':l.dist).replace(',','.'));
+    const t=parseFloat(String(l.mt!=null&&l.mt!=='' ? l.mt : (l.mh!=null ? l.mh : '')).replace(',','.'));
+    if(!(d>0) || isNaN(t)) return;
+    const r=t*Math.PI/180; x+=d*Math.sin(r); y-=d*Math.cos(r); pts.push({x,y});
+  });
+  if(chiusa && pts.length>2){
+    const fine=pts[pts.length-1], cum=[0]; let tot=0;
+    for(let i=1;i<pts.length;i++){ tot+=Math.hypot(pts[i].x-pts[i-1].x, pts[i].y-pts[i-1].y); cum.push(tot); }
+    const ex=fine.x, ey=fine.y;
+    pts.forEach((p,i)=>{ const k=tot ? cum[i]/tot : 0; p.x-=ex*k; p.y-=ey*k; });
+  }
+  return pts;
+}
+function tracciaSvg(legs, chiusa, W, H, etichetta){
+  const pts=tracciaPunti(legs, chiusa), pad=7;
+  const aria=`role="img" aria-label="${tracciaEsc(etichetta||'Route track')}"`;
+  if(pts.length<2) return `<svg class="traccia vuota" viewBox="0 0 ${W} ${H}" ${aria}><line x1="${W*.3}" x2="${W*.7}" y1="${H/2}" y2="${H/2}"/></svg>`;
+  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  const x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
+  const k=Math.min((W-2*pad)/Math.max(x1-x0,1e-6), (H-2*pad)/Math.max(y1-y0,1e-6));
+  const ox=(W-(x1-x0)*k)/2, oy=(H-(y1-y0)*k)/2;
+  const P=pts.map(p=>[(ox+(p.x-x0)*k).toFixed(1), (oy+(p.y-y0)*k).toFixed(1)]);
+  const a=P[0], z=P[P.length-1];
+  return `<svg class="traccia" viewBox="0 0 ${W} ${H}" ${aria}>`
+    + `<path d="${tracciaArrotondata(P.map(q=>[+q[0],+q[1]]), Math.min(W,H)*.07)}"/>`
+    + `<circle class="arr" cx="${z[0]}" cy="${z[1]}" r="2.6"/>`
+    + `<circle class="dep" cx="${a[0]}" cy="${a[1]}" r="3.4"/></svg>`;
+}
+/* Gli spigoli della traccia, raccordati: a ogni vertice la linea si ferma a
+   r dal punto e gira con una curva (al massimo meta' del lato piu' corto, cosi'
+   due curve non si accavallano). Con due punti resta una linea dritta. */
+function tracciaArrotondata(P, r){
+  if(P.length<3) return 'M'+P.map(q=>q.map(v=>v.toFixed(1)).join(' ')).join(' L');
+  const f=(q)=>q[0].toFixed(1)+' '+q[1].toFixed(1);
+  let d='M'+f(P[0]);
+  for(let i=1;i<P.length-1;i++){
+    const A=P[i-1], B=P[i], C=P[i+1];
+    const lab=Math.hypot(B[0]-A[0],B[1]-A[1]), lbc=Math.hypot(C[0]-B[0],C[1]-B[1]);
+    const k=Math.min(r, lab/2, lbc/2);
+    if(k<.3){ d+=' L'+f(B); continue; }
+    const p1=[B[0]+(A[0]-B[0])*k/lab, B[1]+(A[1]-B[1])*k/lab], p2=[B[0]+(C[0]-B[0])*k/lbc, B[1]+(C[1]-B[1])*k/lbc];
+    d+=' L'+f(p1)+' Q'+f(B)+' '+f(p2);
+  }
+  return d+' L'+f(P[P.length-1]);
+}
+
+/* ===== La rail che si allarga =====
+   Ogni voce prende il suo nome (data-nome) accanto all'icona. Col mouse la
+   rail si allarga passandoci sopra (ofp.css); al tocco la apre il marchio e la
+   richiude un tocco fuori, Escape o una voce scelta. Sul telefono la rail e'
+   una barra in alto e non si allarga. */
+function initRail(){
+  const rail=document.querySelector('.rail'); if(!rail || rail.dataset.pronta) return;
+  rail.dataset.pronta='1';
+  rail.querySelectorAll('[data-nome]').forEach(el=>{
+    if(el.querySelector('.nome')) return;
+    const n=document.createElement('span'); n.className='nome'; n.setAttribute('aria-hidden','true'); n.textContent=el.dataset.nome; el.appendChild(n);
+  });
+  const maniglia=document.getElementById('railApri');
+  const apri=(si)=>{ rail.classList.toggle('aperta', si); if(maniglia) maniglia.setAttribute('aria-expanded', si?'true':'false'); };
+  if(maniglia) maniglia.addEventListener('click', e=>{ e.stopPropagation(); if(matchMedia('(max-width:640px)').matches) return; apri(!rail.classList.contains('aperta')); });
+  document.addEventListener('pointerdown', e=>{ if(rail.classList.contains('aperta') && !rail.contains(e.target)) apri(false); }, true);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && rail.classList.contains('aperta')) apri(false); });
+  rail.addEventListener('click', e=>{ if(e.target.closest('a')) apri(false); });
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initRail); else initRail();

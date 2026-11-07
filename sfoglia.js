@@ -33,6 +33,13 @@
    inclinazione; il cilindro getta un'ombra sulla pagina che si scopre; il
    lembo rovesciato getta un'ombra lungo il suo bordo sulla carta sotto.
 
+   LA LAMINA (predefinita). Con opz.curva non impostato ogni foglio gira come
+   una lamina rigida sulla costola, come le copertine: un rotateY sul foglio e
+   l'opacita' della sua ombra, e basta. Il compositore fa tutto da solo e la
+   girata resta fluida anche su un iPad con pagine piene di figure; la piega a
+   cilindro (sotto) resta per chi la chiede con curva:true. La molla della
+   lamina e' smorzata al critico: arriva morbida, senza rimbalzo.
+
    NIENTE SFARFALLII. Le pagine vere sotto il foglio cambiano solo quando il
    foglio e' sullo schermo da due fotogrammi; all'atterraggio le pagine vere
    si sistemano sotto il foglio, che resta visibile ancora due fotogrammi.
@@ -44,7 +51,7 @@
 const FIS={
   giro:     {risposta:.58, smorz:.86},  // girata che si completa: un filo di slancio, poi si posa
   ritorno:  {risposta:.34, smorz:1},    // girata annullata: torna giu' senza oscillare
-  rigida:   {risposta:.62, smorz:.92},  // copertina: piu' pesante
+  rigida:   {risposta:.46, smorz:1},    // lamina: morbida, senza rimbalzo
   raggio:.13,     // raggio massimo della piega, in larghezze di pagina
   fasce:10,       // fasce del cilindro
   proietta:.18,   // s: dove andrebbe il dito lasciato, per decidere il verso
@@ -227,7 +234,7 @@ P.spec=function(s, t){
     dir=1; retro='carta';
     if(t>s){ fronte=s; gira=1; } else { fronte=t; gira=-1; }
   }
-  const rigido=this.rigide.has(fronte) || this.rigide.has(retro);
+  const rigido=!this.o.curva || this.rigide.has(fronte) || this.rigide.has(retro);
   return {da:s, a:t, fronte, retro, dir, gira, rigido};
 };
 
@@ -263,6 +270,11 @@ P.foglioDom=function(sp){
     const fr=div('lb-fac fr', s), re=div('lb-fac re', s);
     fr.appendChild(this.copia(sp.fronte)); re.appendChild(this.copia(sp.retro));
     f.lucFr=div('lb-luce piena', fr); f.lucRe=div('lb-luce piena', re);
+    // l'ombra e' piu' fonda verso la costola; sul retro la costola e' dall'altra parte
+    const verso=(davanti)=>((dir>0)===davanti ? 'to right' : 'to left');
+    f.lucFr.style.background=`linear-gradient(${verso(true)},rgba(26,20,14,.62),rgba(26,20,14,.34) 45%,rgba(26,20,14,.22))`;
+    f.lucRe.style.background=`linear-gradient(${verso(false)},rgba(26,20,14,.62),rgba(26,20,14,.34) 45%,rgba(26,20,14,.22))`;
+    f.lucFr.style.opacity=f.lucRe.style.opacity=0;
     f.rig=s;
   }else{
     // la parte distesa, con l'ombra del lembo che le sta sopra
@@ -460,10 +472,10 @@ P.disegnaRigido=function(f){
   const dom=f.dom, dir=f.dir;
   const a=Math.acos(clamp(f.F.x/f.G.x,-1,1));
   dom.rig.style.transform=`translateZ(${(f.ordine||0)*.25}px) rotateY(${(-dir*a).toFixed(4)}rad)`;
-  const sn=Math.sin(a), cs=Math.cos(a);
-  const dl=(s)=>(-dir*sn*LUCE[0]+cs*LUCE[2])*s;
-  dom.lucFr.style.background=colore(ombreggia(dl(1)));
-  dom.lucRe.style.background=colore(ombreggia(dl(-1)));
+  // la faccia che si allontana dalla luce si scurisce: solo opacita', niente colori ricalcolati
+  const q=a/PI;
+  dom.lucFr.style.opacity=(Math.min(1,q*1.6)*.55).toFixed(3);
+  dom.lucRe.style.opacity=(Math.min(1,(1-q)*1.6)*.45).toFixed(3);
   f.geo={rigido:true, a, p:this.progresso(f)};
 };
 
@@ -629,13 +641,13 @@ P.gira=function(v, veloce){
 P.lancia=function(f){
   f.versoMeta=1;
   const W=this.W, H=this.H, s=f.gira>0?-1:1, rig=f.dom.rigido;
-  f.V={x:f.V.x+s*W*(rig?1.3:1.5), y:f.V.y};
+  f.V={x:f.V.x+s*W*(rig?.9:1.5), y:f.V.y};
   if(!rig) f.arco=H*FIS.arco;
   this.sposta(); this.avvia();
 };
 P.rimbalzaFine=function(){
   if(this.doppia) return;
-  const sp={da:this.cur, a:this.cur, fronte:this.cur, retro:'carta', dir:1, gira:1, rigido:false};
+  const sp={da:this.cur, a:this.cur, fronte:this.cur, retro:'carta', dir:1, gira:1, rigido:!this.o.curva};
   const f=this.nuovoFoglio(sp, this.presaComando(sp)); f.elastico=true;
   f.versoMeta=-1; f.V={x:-this.W*1.1, y:-this.H*.3}; this.avvia();
 };

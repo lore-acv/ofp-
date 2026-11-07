@@ -40,14 +40,14 @@ document.documentElement.classList.add('vista-dash');
 
 
 <nav class="rail" aria-label="Main">
-  <span class="marchio" role="img" aria-label="OFP C172 FR"></span>
+  <button type="button" class="marchio" id="railApri" aria-label="Show the menu names" aria-expanded="false" data-nome="OFP C172 FR"></button>
   <a href="#" id="railVoli" data-nome="Flights" aria-label="Flights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></a>
   <a href="import.html" id="railNuovo" data-nome="New flight" aria-label="New flight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
   <a href="#" id="railManuale" data-nome="User manual" aria-label="User manual"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
   <div class="fondo">
-    <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
+    <button type="button" class="tema-btn" id="btnTema" aria-label="Theme" data-nome="Theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
     <div class="menu-wrap">
-      <button class="hamburger" id="btnMenu" aria-expanded="false" aria-haspopup="true" aria-controls="mainMenu" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="2.6"/></svg></button>
+      <button class="hamburger" id="btnMenu" aria-expanded="false" aria-haspopup="true" aria-controls="mainMenu" aria-label="Menu" data-nome="More"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="2.6"/></svg></button>
       <div class="menu" id="mainMenu" role="menu">
       <button type="button" role="menuitem" class="solo-volo" id="btnDashboard">Dashboard</button>
       <button type="button" role="menuitem" id="btnNew">New Flight Plan</button>
@@ -77,24 +77,31 @@ document.documentElement.classList.add('vista-dash');
      <a target="_top"> funziona sempre. -->
 <div id="dashboard">
   <div class="dash-body">
-    <div class="dash-head">
-      <div><h1 id="dashTitolo" aria-live="off">Flights</h1><p id="dashSaluto"></p><div class="dash-conto" id="dashConto"></div></div>
-      <div class="dash-azioni">
-        <button type="button" class="btn" id="btnCloseDash" hidden>Back to the open flight plan &rarr;</button>
-        <a class="btn primary" id="goImport" href="import.html">New flight</a>
+    <!-- L'header: il saluto sopra la rete delle rotte che partono dal campo di
+         casa (le standard dell'aeroclub e i voli salvati, disegnati dai loro
+         NavLog), con il riepilogo dei voli. La rete scorre un poco piu' piano
+         della pagina (parallasse) e segue appena il puntatore. -->
+    <section class="hero" id="dashHero">
+      <div class="hero-alto">
+      <div class="hero-rete" aria-hidden="true"><div class="hero-strato" id="heroStrato"><svg id="heroRete"></svg></div></div>
+      <div class="hero-testo">
+        <p class="hero-ora m" id="dashSaluto"></p>
+        <h1 id="dashTitolo">Flights</h1>
+        <div class="dash-conto" id="dashConto"></div>
+        <div class="dash-azioni">
+          <a class="btn primary" id="goImport" href="import.html">New flight</a>
+          <button type="button" class="btn" id="btnCloseDash" hidden>Back to the open flight plan &rarr;</button>
+        </div>
       </div>
-    </div>
+      </div>
+      <dl class="hero-dati" id="heroDati"></dl>
+    </section>
     <div class="dash-section-title">Waiting for the weather briefing <small id="nDraft"></small></div>
     <div class="cards" id="draftCards"></div>
     <div id="draftEmpty" class="dash-empty">No flights waiting. Fill in the route and press "Save to Standby".</div>
     <div class="dash-section-title">Ready to fly <small id="nDone"></small></div>
     <div class="cards" id="completedCards"></div>
     <div id="completedEmpty" class="dash-empty">No completed flights.</div>
-    <section class="rotte-std" id="rotteStd" hidden>
-      <h2>ACV standard routes <small id="nRotte"></small></h2>
-      <div class="rotte-testa" aria-hidden="true"><span></span><span>Route</span><span>Via</span><span>Distance</span></div>
-      <div class="rotte-lista" id="rotteLista"></div>
-    </section>
   </div>
 </div>
 
@@ -130,8 +137,6 @@ document.documentElement.classList.add('vista-dash');
       <!-- STEP 1 -->
       <div class="panel active" data-step="1">
         <h1 class="step-title">Flight &amp; aircraft</h1>
-        <p class="step-sub">General mission data. Airports and route arrive already filled in
-          from the NavLog: correct them here if required.</p>
         <div class="group">
           <div class="apt-row">
             <div class="fld apt-code"><label>DEP</label><input id="dep" value="" placeholder="ICAO" maxlength="4" autocapitalize="characters" spellcheck="false"></div>
@@ -166,16 +171,10 @@ document.documentElement.classList.add('vista-dash');
             <div class="fld"><label>Flight mission</label><input id="mission" value=""></div>
           </div>
           <div class="mb-status" id="oaStatus"></div>
-          <div class="hint">As soon as an ICAO code is complete (four letters), coordinates, elevation and runways
-            are looked up automatically on OurAirports and appear alongside; from there Trip distance
-            (DEP&rarr;ARR), alternate distance and time (ARR&rarr;ALTN), elevations and runways for the
-            performance calculation are filled in. Every field remains editable by hand.</div>
         </div>
         <div class="group">
           <h3>Route</h3>
           <div class="fld"><label>Route</label><textarea id="route" placeholder="waypoints separated by spaces — filled in from the ForeFlight NavLog"></textarea></div>
-          <div class="hint">Cruise altitude is set in <b>Step 2 &mdash; Route &amp; Fuel</b>, together with the
-            power setting that depends on it, and from there it reaches the document.</div>
         </div>
         <div class="group">
           <h3>Estimated times (UTC)</h3>
@@ -199,24 +198,12 @@ document.documentElement.classList.add('vista-dash');
           </div>
           <div class="calc" id="timesCalc"></div>
           <div class="daylight" id="daylightCalc"></div>
-          <div class="hint">Only the <b>off-blocks</b> and <b>takeoff</b> times are entered, in 5-minute steps.
-            The other two are proposed automatically: <b>LDG</b> is takeoff plus the Flight Time calculated in
-            Step 2 (climb + cruise), <b>ON</b> is landing plus the same taxi time used at departure.
-            ON stays editable: as soon as it is set by hand it stops updating, and setting it back to
-            <b>--:--</b> restores automatic mode.
-            BLOCK = ON &minus; OFF, FLT = LDG &minus; TO, as before.
-            With the flight date (Step 8) the takeoff and the two landings, at destination and at the
-            alternate, are checked against sunrise (SR), sunset (SS) and the end of civil twilight (ECT)
-            of their own aerodrome.</div>
         </div>
       </div>
 
       <!-- STEP 2 -->
       <div class="panel" data-step="2">
         <h1 class="step-title">Route &amp; fuel</h1>
-        <p class="step-sub">All fuel is in <b>litres</b>, fuel flows in <b>litres/hour</b> and speeds in
-          <b>MPH</b>, as in the C172 FR POH. Fuel mass: <b>1 L = 0.72 kg</b>.
-          Tanks: <b>174 L usable</b> (46 USG).</p>
         <div class="totale" id="fuelTot" aria-label="Fuel plan"></div>
         <div class="group">
           <h3>Cruise power setting (POH)</h3>
@@ -227,12 +214,6 @@ document.documentElement.classList.add('vista-dash');
           </div>
           <div class="calc" id="pwrCalc"></div>
           <div class="calc" id="climbFuelCalc"></div>
-          <div class="hint">Only the MAP/RPM combinations actually published by the POH (fig. 5-1) at the stated
-            altitude are offered: as you climb, the maximum available MAP drops by roughly one inch every
-            1000 ft and the higher-power combinations disappear. Selecting the setting <b>fills in the Trip
-            Ground Speed and Fuel Flow below automatically</b> with the TAS and fuel flow of that row.
-            Climb and cruise are computed separately: <b>time, distance and litres of the climb come from
-            AFM fig. 5-6</b>, and the cruise GS and fuel flow apply from the top of climb onward.</div>
         </div>
         <div class="group">
           <h3>Trip</h3>
@@ -242,18 +223,9 @@ document.documentElement.classList.add('vista-dash');
             <div class="fld"><label>Fuel flow (L/h)</label><input id="tripFF" type="number" step="0.1" value="32.2"></div>
           </div>
           <div class="calc" id="tripCalc"></div>
-          <div class="hint">Distance comes from the <b>ForeFlight NavLog</b>, which knows the actual route: it is
-            no longer computed as the great-circle distance between DEP and ARR, which a route with turns and
-            reporting points never flies. It remains editable by hand.
-            The proposed GS is the TAS of the selected setting, i.e. still air: correct it for the forecast wind.
-            The GS applies <b>from the top of climb</b>: the climb has its own time, distance and fuel from
-            fig. 5-6 (start-up and takeoff included), and the Trip is the climb plus the cruise over the
-            distance that remains.</div>
         </div>
         <div class="group">
           <h3>Alternate</h3>
-          <div class="hint">The alternate always uses the standard setting <b>22 inHg / 2400 RPM</b>:
-            the GS and Fuel Flow below are those of that setting at the stated altitude and cannot be edited by hand.</div>
           <div class="row" style="margin-top:8px">
             <div class="fld"><label>Distance (nm)</label><input id="altDist" type="number" value="" placeholder="from OurAirports"></div>
             <div class="fld"><label>GS (MPH)</label><input id="altGS" type="number" value="133" readonly style="opacity:.7"></div>
@@ -267,7 +239,6 @@ document.documentElement.classList.add('vista-dash');
         </div>
         <div class="group">
           <h3>Reserves &amp; margins</h3>
-          <div class="hint">Contingency = MAX(5% of Trip, 15' at the cruise Fuel Flow). Final Reserve = 30' (VFR) or 45' (IFR), at the same Fuel Flow.</div>
           <div class="row" style="margin-top:8px">
             <div class="fld"><label>Flight rules</label>
               <select id="flightRule">
@@ -283,19 +254,12 @@ document.documentElement.classList.add('vista-dash');
             <div class="fld"><label>Taxi (L, calculated)</label><input id="taxiFuel" type="number" step="0.1" value="0" readonly style="opacity:.7"></div>
           </div>
           <div class="calc" id="taxiCalc"></div>
-          <div class="hint">Neither the minutes nor the litres are entered by hand. The time is the engine-running
-            ground time derived from the Step 1 times &mdash; <b>OFF to TO</b> at departure and
-            <b>LDG to ON</b> on arrival &mdash; and the litres are that time at the taxi fuel flow of the
-            210 HP Continental IO-360, <b>7.5 L/h</b> at 1000&ndash;1200 RPM.</div>
         </div>
         <div class="group">
           <h3>Fuel on board &amp; extra</h3>
           <div class="row">
             <div class="fld"><label>Fuel on board &mdash; uplifted (L)</label><input id="fob" type="number" step="1" value=""></div>
           </div>
-          <div class="hint">How much fuel is actually in the tanks. It is used <b>only</b> to compute the extra
-            over the required minimum: <b>it does not appear in the final document</b>. Left empty, the extra
-            remains the figure entered by hand below.</div>
           <div class="row" style="margin-top:9px">
             <div class="fld"><label>Extra (L)</label><input id="extraFuel" type="number" step="0.1" value="0"></div>
             <div class="fld"><label>FT Extra (min)</label><input id="extraMin" type="number" value="0" readonly style="opacity:.7"></div>
@@ -307,9 +271,6 @@ document.documentElement.classList.add('vista-dash');
       <!-- STEP 3 -->
       <div class="panel" data-step="3">
         <h1 class="step-title">Mass &amp; balance</h1>
-        <p class="step-sub">Loading and balance sheet, with the same layout and the same arms as the flying
-          club's <b>W. &amp; B. Loading Form</b> (Weight and Balance Rev. 17). Fuel comes from
-          Step 2: enter only occupants and baggage here.</p>
         <div class="group">
           <h3>Aircraft</h3>
           <div class="row">
@@ -322,10 +283,6 @@ document.documentElement.classList.add('vista-dash');
             <div class="fld"><label>Moment BEW (kg&middot;m)</label><input id="bewMoment" type="number" step="0.0001" value="679"></div>
           </div>
           <div class="calc" id="bewCalc"></div>
-          <div class="hint">The aircraft is chosen in Step 1. Empty weight and moment come from the flying club's
-            form and are read-only; with <b>Other</b> (Step 1) they are entered by hand, for example after a
-            re-weighing. The <b>moment</b> is the figure that counts: the arm is derived from
-            moment&divide;weight.</div>
         </div>
         <div class="group">
           <h3>Loading</h3>
@@ -350,19 +307,10 @@ document.documentElement.classList.add('vista-dash');
             <div class="fld"><label>MTOW</label><input id="mtow" type="number" value="1157"></div>
             <div class="fld"><label>MLAW</label><input id="mldw" type="number" value="1157"></div>
           </div>
-          <div class="hint">Reims Rocket AFM limits, identical for FR172J and FR172H (sect. II, pp. 2-2/2-3):
-            <b>MTOW = MLW = 1157 kg</b> (2550 lb) <b>NORMAL</b> category, <b>998 kg</b> (2200 lb)
-            <b>UTILITY</b> category (baggage compartment and rear seats empty). The AFM <b>publishes no MZFW</b>:
-            the field stays at MTOW because the real constraint is maximum mass + CG envelope.
-            Max baggage <b>91 kg</b>. CG envelope &mdash; Normal: forward from +0.89 m (&le;885 kg) to +1.04 m
-            (1157 kg), aft +1.20 m. Utility: forward from +0.89 m to +0.95 m (998 kg), aft +1.03 m.</div>
         </div>
         <div class="group">
           <h3>CG envelope chart</h3>
           <div id="cgChartBox" style="background:#fff;border-radius:8px;padding:6px"></div>
-          <div class="hint">AFM moment/mass envelope (Normal and Utility category) with the takeoff point plotted
-            on it and the CG travel as fuel is burnt off. It goes as it is into the Mass &amp; Balance page of
-            the final document.</div>
           <div class="fld" style="margin-top:8px"><label>Remarks (M&amp;B)</label><textarea id="mbRemarks"></textarea></div>
         </div>
       </div>
@@ -370,11 +318,6 @@ document.documentElement.classList.add('vista-dash');
       <!-- STEP 4 -->
       <div class="panel" data-step="4">
         <h1 class="step-title">Performance</h1>
-        <p class="step-sub">V-speeds read from the AFM table (no interpolation, conservative rounding)
-          and <b>Takeoff &amp; Landing Data</b>: distances are computed from AFM fig. 5-4 and 5-5 using
-          altitude, QNH, temperature, wind and the mass carried over from Mass &amp; Balance, then compared
-          with TORA, TODA and LDA. Wind, QNH and temperature for each airport come from <b>its own</b> METAR,
-          already at briefing import.</p>
         <div class="group">
           <h3>Speeds</h3>
           <div class="row">
@@ -389,16 +332,10 @@ document.documentElement.classList.add('vista-dash');
               </select>
             </div>
           </div>
-          <div class="hint">The AFM of this aeroplane states the operating speeds in MPH: that is the default
-            unit. The selector changes the display only, the calculations remain the same.</div>
         </div>
         <div class="group">
           <h3>Weather by airport</h3>
           <div class="mb-status" id="toldMetarStatus"></div>
-          <div class="hint">Nothing to press: wind, QNH and temperature are filled in automatically from the
-            briefing import, and each airport uses <b>its own</b> METAR &mdash; departure for the takeoff,
-            destination and alternate for their respective landings.
-            They remain editable by hand below.</div>
         </div>
         <!-- Le quattro fasi non stanno piu' in colonna: se ne apre una alla volta.
              ENR e' il Touch & Go, e la sua scheda compare solo quando c'e'. -->
@@ -495,10 +432,6 @@ document.documentElement.classList.add('vista-dash');
               <input type="hidden" id="toldTngRwyName" value="">
               <div class="mb-status" id="wxNoteTng"></div>
               <button type="button" class="btn ghost" id="btnWxVicinoTng" style="display:none;margin-top:6px"></button>
-              <div class="hint">A Touch &amp; Go is a landing and a takeoff on the same runway, so <b>both</b> are
-                computed. The takeoff mass is used: at the intermediate airport the aeroplane has already burnt
-                fuel and weighs less, so the distances shown are <b>longer</b> than the actual ones &mdash; the
-                error is on the safe side.</div>
             </div>
             <div class="perf-out" id="perfOutTng"></div>
           </div>
@@ -538,27 +471,15 @@ document.documentElement.classList.add('vista-dash');
                aeroporti insieme e devono restare in vista qualunque scheda sia
                aperta. -->
           <div id="toldWarns"></div>
-          <div class="hint"><b>TORA / TODA / LDA:</b> OurAirports publishes the <i>physical length</i> of the
-            runway, not the declared distances, which are only in the AIP. The fields are pre-filled with the
-            physical length as a starting point and must be corrected from the AIP on runways with stopway,
-            clearway or displaced threshold.
-            Masses come from Mass &amp; Balance: takeoff for DEP, landing for DEST and ALTN.</div>
         </div>
         <input type="hidden" id="toGround" value="226"><input type="hidden" id="toDist50" value="375">
         <input type="hidden" id="ldgGround" value="189"><input type="hidden" id="ldgDist50" value="387">
         <input type="hidden" id="depAirport" value=""><input type="hidden" id="destAirport" value="">
-        <div class="hint">AFM weight/V-speed table: static reference, reproduced unchanged in the PDF.
-          The cruise table (MAP / RPM / % / TAS / fuel flow) is the one in the Reims Rocket Flight Manual
-          fig. 5-1, interpolated to the cruise altitude, and appears in full in the final document.
-          Tabulated altitudes: 2500 / 5000 / 7500 / 10000 / 15000 ft.
-          The power setting is chosen in <b>Step 2 &mdash; Route &amp; Fuel</b>.</div>
       </div>
 
       <!-- STEP 5 -->
       <div class="panel" data-step="5">
         <h1 class="step-title">Navlog</h1>
-        <p class="step-sub">The NAV-FLIGHTPLAN you take into the cockpit: a document in its own right,
-          downloaded with its own button and <b>never part of the printed OFP</b>.</p>
         <!-- Il profilo segue le quote della tabella: resta in vista mentre si scorrono le tratte. -->
         <div class="profilo-fisso"><div class="profilo" id="profilo">
           <h3>Profile <small id="profiloSub"></small></h3>
@@ -571,9 +492,6 @@ document.documentElement.classList.add('vista-dash');
             <div class="fld"><label>GS navplan (MPH)</label><input id="navGs" type="number" placeholder="from power setting"></div>
             <div class="fld"><label>Fuel flow navplan (L/h)</label><input id="navFF" type="number" step="0.1" placeholder="from power setting"></div>
           </div>
-          <div class="hint">Left empty, the Trip GS and fuel flow chosen in <b>Step 2 &mdash; Route &amp; Fuel</b>
-            are used. Times and fuel figures are not copied from ForeFlight: they are <b>recomputed</b> here,
-            so that summing the legs gives back exactly the Trip Fuel of the fuel plan.</div>
         </div>
         <div class="group">
           <h3>Legs</h3>
@@ -587,15 +505,6 @@ document.documentElement.classList.add('vista-dash');
           <div class="navtable-box" id="navTableBox"></div>
           <div class="calc" id="navCalc"></div>
           <div class="calc" id="navLegWarn" style="color:var(--warn)"></div>
-          <div class="hint">Checkpoints, magnetic track and distances come from the ForeFlight NavLog.
-            <b>Altitude</b> is pre-filled with the Step 2 cruise altitude and remains editable waypoint by
-            waypoint (feet, or FL065); the profile above redraws as you type, and tapping a leg on it
-            takes you to that altitude. Climbs follow the AFM climb of the fuel plan, descents are
-            drawn at 500 ft/min, and an altitude the aircraft cannot reach in its leg turns amber. <b>Frequencies</b> for airports and navaids are looked up automatically on OurAirports
-            when the checkpoint is recognised &mdash; the number only, no units.
-            <b>Callsigns and remarks</b> are in no database: type them here and they stay.
-            <b>Round MT to 5&deg;</b> shows and prints each magnetic track to the nearest 5&deg; (347 &rarr; 345,
-            358 &rarr; 360); the ForeFlight values are kept, and unticking brings them back.</div>
           <input type="hidden" id="navRows" value="[]">
         </div>
       </div>
@@ -603,7 +512,6 @@ document.documentElement.classList.add('vista-dash');
       <!-- STEP 6 -->
       <div class="panel" data-step="6">
         <h1 class="step-title">Destination charts</h1>
-        <p class="step-sub">Load up to 2 images (charts) and fill in the operational notes.</p>
         <div class="group">
           <div class="drop" id="chartDrop">Click or drag up to 2 images or PDFs</div>
           <input type="file" id="chartFile" accept="image/*,application/pdf" multiple hidden>
@@ -625,9 +533,6 @@ document.documentElement.classList.add('vista-dash');
       <!-- STEP 7 -->
       <div class="panel" data-step="7">
         <h1 class="step-title">Briefing</h1>
-        <p class="step-sub">Threat &amp; error management by phase of flight, aircraft status, remarks. Free text,
-          nothing is mandatory: it gives a structure to what you will do in flight, and it is printed on the
-          BRIEFING page of the OFP.</p>
         <div class="group">
           <h3>Departure <span class="filled" id="briefDepIcao"></span></h3>
           <div class="fld"><label>Dep procedure</label><textarea id="depProc"></textarea></div>
@@ -661,21 +566,16 @@ document.documentElement.classList.add('vista-dash');
         <div class="group">
           <h3>Aircraft status</h3>
           <div class="fld"><textarea id="acStatus"></textarea></div>
-          <div class="hint">Instruments or equipment temporarily inoperative, and therefore aids that will not be
-            available in flight (e.g. ADF INOP: NDB not usable).</div>
         </div>
         <div class="group">
           <h3>Remarks</h3>
           <div class="fld"><textarea id="briefRemarks"></textarea></div>
-          <div class="hint">Important information on the conduct of the flight that has nothing to do with the
-            routing: exam flight, solo flight, dual command, SPIC flight.</div>
         </div>
       </div>
 
       <!-- STEP 8 -->
       <div class="panel" data-step="8">
         <h1 class="step-title">NOTAM &amp; weather</h1>
-        <p class="step-sub">One box per airport (METAR + TAF + NOTAM), plus the enroute NOTAMs.</p>
         <div class="group">
           <div class="drop" id="wxDrop">Click or drag the WX &amp; NOTAM briefing PDF</div>
           <input type="file" id="wxFile" accept="application/pdf" hidden>
@@ -688,9 +588,6 @@ document.documentElement.classList.add('vista-dash');
           <div class="row">
             <div class="fld"><label>Validity / period</label><input id="wxValid" placeholder="extracted from the PDF, if present"></div>
           </div>
-          <div class="hint">Filled in automatically from the briefing PDF (issue and validity). Editable by hand.
-            Recognised formats: Skybrief (<code>SKYBRIEF dd/mm/yyyy hh:mm UTC</code>), Skybriefing/PIB
-            (<code>Printed at (UTC) 2026SEP08 1311</code>), AELO/MeteoSwiss and generic dd/mm/yyyy.</div>
         </div>
         <div class="group">
           <h3>Departure airport <span class="filled" id="wxDepIcao"></span></h3>
@@ -727,16 +624,11 @@ document.documentElement.classList.add('vista-dash');
         <div class="group">
           <h3>SIGMET / AIRMET</h3>
           <div class="fld"><textarea id="sigmetAirmet" style="min-height:70px"></textarea></div>
-          <div class="hint">Filled in from the briefing. Absence must be reported too: &ldquo;no active SIGMET&rdquo;
-            is information, an empty box is not.</div>
         </div>
         <div class="group">
           <h3>PIC</h3>
           <div class="fld"><label>PIC name (signature)</label><input id="picName" value="" placeholder="PIC first and last name"></div>
         </div>
-        <div class="hint">Final step. <b>Proceed</b> saves the flight and opens its <b>Documents</b>: the OFP,
-            the NAV-FLIGHTPLAN and the Aeroclub Varese navlog, each with its own download. Print them from
-            the PDF viewer.</div>
       </div>
 
     </div>
@@ -6902,44 +6794,6 @@ function fmtDate(iso){
     return `${p2(d.getDate())} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]}, ${p2(d.getHours())}:${p2(d.getMinutes())}`;
   }catch(e){ return iso; } }
 
-/* ===== Miniatura della traccia di un volo =====
-   La forma della rotta dai punti caricati nel volo, nell'ordine: ogni tratta
-   e' la sua rotta magnetica e la sua distanza (dal NavLog), una dopo l'altra
-   dalla partenza. E' la traccia senza vento, come nel NavLog. Quando partenza
-   e arrivo coincidono lo scarto di chiusura (prue arrotondate, declinazione)
-   si distribuisce lungo la strada, cosi' il giro si chiude sul campo.
-   Cerchio vuoto = partenza, punto pieno = arrivo. */
-function tracciaPunti(legs, chiusa){
-  let x=0, y=0; const pts=[{x,y}];
-  (legs||[]).forEach(l=>{
-    const d=parseFloat(String(l.dist==null?'':l.dist).replace(',','.'));
-    const t=parseFloat(String(l.mt!=null&&l.mt!=='' ? l.mt : (l.mh!=null ? l.mh : '')).replace(',','.'));
-    if(!(d>0) || isNaN(t)) return;
-    const r=t*Math.PI/180; x+=d*Math.sin(r); y-=d*Math.cos(r); pts.push({x,y});
-  });
-  if(chiusa && pts.length>2){
-    const fine=pts[pts.length-1], cum=[0]; let tot=0;
-    for(let i=1;i<pts.length;i++){ tot+=Math.hypot(pts[i].x-pts[i-1].x, pts[i].y-pts[i-1].y); cum.push(tot); }
-    const ex=fine.x, ey=fine.y;
-    pts.forEach((p,i)=>{ const k=tot ? cum[i]/tot : 0; p.x-=ex*k; p.y-=ey*k; });
-  }
-  return pts;
-}
-function tracciaSvg(legs, chiusa, W, H, etichetta){
-  const pts=tracciaPunti(legs, chiusa), pad=7;
-  const aria=`role="img" aria-label="${escHtml(etichetta||'Route track')}"`;
-  if(pts.length<2) return `<svg class="traccia vuota" viewBox="0 0 ${W} ${H}" ${aria}><line x1="${W*.3}" x2="${W*.7}" y1="${H/2}" y2="${H/2}"/></svg>`;
-  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
-  const x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
-  const k=Math.min((W-2*pad)/Math.max(x1-x0,1e-6), (H-2*pad)/Math.max(y1-y0,1e-6));
-  const ox=(W-(x1-x0)*k)/2, oy=(H-(y1-y0)*k)/2;
-  const P=pts.map(p=>[(ox+(p.x-x0)*k).toFixed(1), (oy+(p.y-y0)*k).toFixed(1)]);
-  const a=P[0], z=P[P.length-1];
-  return `<svg class="traccia" viewBox="0 0 ${W} ${H}" ${aria}>`
-    + `<polyline points="${P.map(q=>q.join(',')).join(' ')}"/>`
-    + `<circle class="arr" cx="${z[0]}" cy="${z[1]}" r="2.6"/>`
-    + `<circle class="dep" cx="${a[0]}" cy="${a[1]}" r="3.4"/></svg>`;
-}
 function tracciaVolo(fd){
   let righe=[]; try{ righe=JSON.parse(fd.navRows||'[]'); }catch(e){}
   const dep=String(fd.dep||'').trim().toUpperCase(), arr=String(fd.arr||'').trim().toUpperCase();
@@ -7015,7 +6869,8 @@ function renderDashboard(){
   if($('nDraft')) $('nDraft').textContent=drafts.length;
   if($('nDone')) $('nDone').textContent=done.length;
   aggiornaSaluto();
-  disegnaRotteStd();
+  disegnaDatiHero(list);
+  disegnaReteHero(list);
   aggiornaStatoConto();
 }
 /* La Dashboard e' la prima pagina: occupa il posto del foglio sotto la barra in
@@ -7058,30 +6913,108 @@ function salutoDashboard(){
 function aggiornaSaluto(){
   if($('dashTitolo')) $('dashTitolo').textContent=salutoDashboard();
   const d=new Date(), p2=(x)=>String(x).padStart(2,'0');
-  const list=loadSavedFlights();
-  const w=list.filter(f=>f.status==='DRAFT').length, r=list.filter(f=>f.status==='COMPLETED').length;
   const g=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getUTCDay()], m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()];
-  const ora=`${g} ${p2(d.getUTCDate())} ${m} ${d.getUTCFullYear()}, ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())} UTC`;
-  const stato = (w||r) ? `${w} waiting for the weather briefing · ${r} ready to fly` : 'No saved flights yet';
-  if($('dashSaluto')) $('dashSaluto').innerHTML=`${escHtml(stato)} · <span class="m">${ora}</span>`;
+  if($('dashSaluto')) $('dashSaluto').textContent=`${g} ${p2(d.getUTCDate())} ${m} ${d.getUTCFullYear()} · ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())} UTC`;
 }
-/* Le rotte standard dell'aeroclub: tutte quelle di rotte-acv.js (window.ROTTE_ACV,
-   la stessa fonte del menu dell'import), una riga ciascuna con la traccia, i
-   punti e la distanza. Ognuna apre l'import con quella rotta gia' scelta. */
-function disegnaRotteStd(){
-  const R=Array.isArray(window.ROTTE_ACV)?window.ROTTE_ACV:[], box=$('rotteLista');
-  if(!box || !R.length || box.firstChild) return;
-  const base=($('goImport') && $('goImport').getAttribute('href')) || 'import.html';
-  const dist=(r)=>r.nav&&r.nav.totals&&r.nav.totals.dist ? r.nav.totals.dist : (r.nav.legs||[]).reduce((s,l)=>s+(l.dist||0),0);
-  const via=(r)=>{ const w=(r.nav.legs||[]).map(l=>String(l.wpt||'').trim()).filter(Boolean);
-    return w.slice(1,-1).filter((x,i,a)=>a.indexOf(x)===i).join(' \u00b7 '); };
-  box.innerHTML=R.map(r=>`<a href="${escHtml(base)}#rotta=${encodeURIComponent(r.id)}">`
-    + `<span class="r-map">${tracciaSvg(r.nav.legs, r.nav.roundTrip || r.nav.dep===r.nav.arr, 56, 36, 'Track of '+r.nome)}</span>`
-    + `<b>${escHtml(r.nome)}</b><span class="r-via">${escHtml(via(r))}</span><span class="r-nm">${dist(r)} NM</span></a>`).join('');
-  box.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{ if(!lasciaVoloAperto()) e.preventDefault(); }));
-  if($('nRotte')) $('nRotte').textContent=R.length;
-  $('rotteStd').hidden=false;
+/* ===== Header della Dashboard =====
+   Il riepilogo: il prossimo volo (data del briefing e orario di decollo; se
+   nessuno e' nel futuro, l'ultimo toccato), i voli pronti e quelli in attesa,
+   le miglia pianificate sui voli salvati. */
+function quandoVolo(f){
+  const w=f.weather_data||{}, fd=f.flight_data||{};
+  const m=/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/.exec(String(w.date||'').trim());
+  if(!m) return null;
+  const t=/^(\d{1,2}):?(\d{2})$/.exec(String(fd.tTO||fd.tOFF||'').trim());
+  return Date.UTC(+m[3], +m[2]-1, +m[1], t?+t[1]:12, t?+t[2]:0);
 }
+function nmVolo(f){
+  let r=[]; try{ r=JSON.parse((f.flight_data||{}).navRows||'[]'); }catch(e){}
+  return r.reduce((s,x)=>s+(parseFloat(String(x.dist||'').replace(',','.'))||0),0);
+}
+function disegnaDatiHero(list){
+  const box=$('heroDati'); if(!box) return;
+  const pronti=list.filter(f=>f.status==='COMPLETED').length, attesa=list.filter(f=>f.status==='DRAFT').length;
+  const ora=Date.now()-2*3600e3;
+  const futuri=list.map(f=>({f,t:quandoVolo(f)})).filter(x=>x.t!=null && x.t>=ora).sort((a,b)=>a.t-b.t);
+  const pross = futuri[0] ? futuri[0] : (list[0] ? {f:list.slice().sort((a,b)=>String(b.updated_at).localeCompare(String(a.updated_at)))[0], t:null} : null);
+  const up=(x)=>escHtml(String(x||'').toUpperCase());
+  const p2=(x)=>String(x).padStart(2,'0'), mesi=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  let prossimo='<dd class="v">—</dd><dd class="s">No flights yet</dd>';
+  if(pross){
+    const fd=pross.f.flight_data||{}, d=pross.t!=null ? new Date(pross.t) : null;
+    prossimo=`<dd class="v m">${up(fd.dep)||'----'} → ${up(fd.arr)||'----'}</dd>`
+      + `<dd class="s m">${d ? `${p2(d.getUTCDate())} ${mesi[d.getUTCMonth()]} · ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}Z` : (pross.f.status==='COMPLETED'?'Ready to fly':'Waiting for the briefing')}</dd>`;
+  }
+  const nm=Math.round(list.reduce((s,f)=>s+nmVolo(f),0));
+  box.innerHTML=
+      `<div class="hd prossimo"><dt>${futuri[0]?'Next flight':'Latest flight'}</dt>${prossimo}</div>`
+    + `<div class="hd"><dt>Ready to fly</dt><dd class="v m">${pronti}</dd><dd class="s">with briefing</dd></div>`
+    + `<div class="hd"><dt>Waiting</dt><dd class="v m">${attesa}</dd><dd class="s">for the briefing</dd></div>`
+    + `<div class="hd"><dt>Planned</dt><dd class="v m">${nm}<small> NM</small></dd><dd class="s">${list.length} ${list.length===1?'flight':'flights'} saved</dd></div>`;
+}
+/* La rete: ogni rotta parte dal campo di casa ed e' la sua traccia dal NavLog
+   (tracciaPunti, ofp-core.js). Le standard dell'aeroclub sottili, i voli
+   salvati nel colore d'accento, l'ultimo un filo piu' marcato. Cerchi di
+   distanza a 25, 50 e 100 NM, come un radar. */
+let HERO_FIRMA='';
+function disegnaReteHero(list){
+  const svg=$('heroRete'); if(!svg) return;
+  const R=Array.isArray(window.ROTTE_ACV)?window.ROTTE_ACV:[];
+  const voli=list.map(f=>{ let r=[]; try{ r=JSON.parse((f.flight_data||{}).navRows||'[]'); }catch(e){}
+    const fd=f.flight_data||{}; return {pts:tracciaPunti(r, fd.dep && fd.dep===fd.arr), dep:String(fd.dep||'').toUpperCase()}; }).filter(v=>v.pts.length>1);
+  const std=R.map(r=>{
+    const legs=(r.nav.legs||[]).filter(l=>parseFloat(l.dist)>0 && l.mh!=null);
+    const pts=tracciaPunti(r.nav.legs, !!(r.nav.roundTrip||r.nav.dep===r.nav.arr));
+    /* il campo del touch & go (o il punto piu' lontano) prende il suo nome */
+    let k=legs.findIndex(l=>String(l.wpt||'').trim().toUpperCase()===String(r.tng||'').toUpperCase())+1;
+    if(k<=0){ let d=-1; pts.forEach((p,i)=>{ const h=Math.hypot(p.x,p.y); if(h>d){ d=h; k=i; } }); }
+    return {pts, dep:r.nav.dep, meta:pts[k], nome:String(r.tng||'').toUpperCase()};
+  }).filter(v=>v.pts.length>1);
+  const W=Math.round(svg.clientWidth), H=Math.round(svg.clientHeight);
+  const firma=JSON.stringify([voli.map(v=>v.pts.length+v.dep), std.length, W, H]);
+  if(firma===HERO_FIRMA) return; HERO_FIRMA=firma;
+  const tutti=std.concat(voli); if(!tutti.length || W<50 || H<50){ svg.innerHTML=''; return; }
+  /* le rotte, con il campo, riempiono la parte destra dello strato */
+  const xs=[0,...tutti.flatMap(v=>v.pts.map(p=>p.x))], ys=[0,...tutti.flatMap(v=>v.pts.map(p=>p.y))];
+  const x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
+  const pad=H*.12, aw=W*.62, k=Math.min((aw-pad)/Math.max(x1-x0,1), (H-2*pad)/Math.max(y1-y0,1));
+  const ox=W-pad-(x1-x0)*k - x0*k, oy=pad+((H-2*pad)-(y1-y0)*k)/2 - y0*k;
+  const cx=ox, cy=oy;
+  const P=(v)=>v.pts.map(p=>[ox+p.x*k, oy+p.y*k]);
+  const casa=(voli.map(v=>v.dep).concat(std.map(v=>v.dep)).find(Boolean))||'HOME';
+  let g='';
+  [25,50,100,150].filter(n=>n*k<W).forEach(n=>{
+    g+=`<circle class="anello" cx="${cx}" cy="${cy}" r="${(n*k).toFixed(1)}"/>`
+     + `<text class="dist" x="${(cx+n*k*.707+4).toFixed(1)}" y="${(cy-n*k*.707-4).toFixed(1)}">${n}</text>`;
+  });
+  g+=`<path class="asse" d="M${cx} 0V${H}M0 ${cy}H${W}"/>`;
+  let i=0;
+  std.forEach(v=>{ g+=`<path class="std" style="--i:${i++}" pathLength="1" d="${tracciaArrotondata(P(v),5)}"/>`; });
+  std.forEach(v=>{ if(!v.meta || !v.nome) return; const x=ox+v.meta.x*k, y=oy+v.meta.y*k;
+    g+=`<g class="campo" style="--i:${i++}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.2"/><text x="${(x+6).toFixed(1)}" y="${(y+3.5).toFixed(1)}">${escHtml(v.nome)}</text></g>`; });
+  voli.forEach((v,j)=>{ g+=`<path class="volo${j===0?' ultimo':''}" style="--i:${i++}" pathLength="1" d="${tracciaArrotondata(P(v),5)}"/>`;
+    const z=P(v).slice(-1)[0]; if(Math.hypot(z[0]-cx,z[1]-cy)>6) g+=`<circle class="arrivo" cx="${z[0].toFixed(1)}" cy="${z[1].toFixed(1)}" r="2.4"/>`; });
+  g+=`<circle class="faro" cx="${cx}" cy="${cy}" r="9"/><circle class="casa" cx="${cx}" cy="${cy}" r="3.6"/>`
+   + `<text class="casa-t" x="${cx+9}" y="${cy+16}">${escHtml(casa)}</text>`;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.closest('.hero-rete').classList.toggle('solo-std', !voli.length);
+  svg.innerHTML=g;
+}
+window.addEventListener('resize',()=>{ if(dashboardAperta()) disegnaReteHero(loadSavedFlights()); });
+/* Parallasse: la rete scorre al 70% della pagina e si sposta di qualche
+   pixel col puntatore. Solo transform, un fotogramma alla volta; niente con
+   "riduci movimento". */
+(function(){
+  const dash=$('dashboard'), strato=$('heroStrato'), hero=$('dashHero'); if(!dash||!strato||!hero) return;
+  const ferma=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let sy=0, px=0, py=0, raf=0;
+  const metti=()=>{ raf=0; strato.style.transform=`translate3d(${px.toFixed(1)}px,${(sy*.3+py).toFixed(1)}px,0)`; };
+  const chiedi=()=>{ if(!raf) raf=requestAnimationFrame(metti); };
+  dash.addEventListener('scroll',()=>{ if(ferma()) return; sy=Math.min(dash.scrollTop, 400); chiedi(); }, {passive:true});
+  hero.addEventListener('pointermove',e=>{ if(ferma() || e.pointerType!=='mouse') return; const r=hero.getBoundingClientRect();
+    px=((e.clientX-r.left)/r.width-.5)*-14; py=((e.clientY-r.top)/r.height-.5)*-10; chiedi(); });
+  hero.addEventListener('pointerleave',()=>{ px=0; py=0; chiedi(); });
+})();
 let DASH_VISTA=false, DASH_OROLOGIO=null;
 function openDashboard(){
   /* La prima volta che si apre (una per visita) la Dashboard entra con la

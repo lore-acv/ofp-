@@ -323,17 +323,35 @@ Calcolati e in sola lettura: fondo raised, bordo border, testo muted.
 
 ### Navigation
 - **Rail:** icone outline 18px in faint; quella attiva in text con la riga
-  d'accento di 1px sul bordo della rail.
+  d'accento di 1px sul bordo della rail. Si allarga a 216px mostrando il nome
+  di ogni voce: col mouse passandoci sopra (dopo 90 ms), al tocco con il
+  marchio, che fa da maniglia; si richiude toccando fuori o con Escape. Si
+  allarga uno strato dietro le icone, sopra la pagina (clip-path, 200 ms): il
+  contenuto non si sposta. Sul telefono la rail e' una barra in alto e non si
+  allarga.
 - **Step tabs:** numero in Mono e nome; completati in muted, futuri in faint,
   quello in corso in text con la riga d'accento sotto, larga quanto
   l'etichetta.
 
-### Dashboard greeting
-Il titolo della Dashboard saluta col nome di battesimo dell'account (mai
-scritto nel codice): una frase per caricamento della pagina, scelta a caso fra
-il saluto dell'ora del dispositivo (Good morning fino alle 12, Good afternoon
-fino alle 18, Good evening dopo) e le frasi di SALUTI_DASHBOARD in index.html.
-Tono da cockpit: sobrio, niente battute. Sotto, la riga di stato con l'ora UTC.
+### Dashboard header (signature)
+Una scheda alta, "la carta delle rotte dal campo di casa": a sinistra l'ora
+UTC in Mono, il saluto (titolo), l'account e "New flight"; dietro, a destra,
+la rete delle rotte che partono dal campo, disegnate dai loro NavLog con
+cerchi di distanza a 25/50/100/150 NM e gli assi tratteggiati, come un radar.
+Le rotte standard dell'aeroclub in faint con il nome del loro campo, i voli
+salvati nel colore d'accento (l'ultimo piu' marcato); senza voli salvati le
+standard prendono l'accento. Sotto, il riepilogo in quattro caselle: prossimo
+volo (data del briefing e decollo), pronti, in attesa, miglia pianificate.
+Movimento: la rete scorre al 30% della pagina e segue il puntatore di qualche
+pixel (solo transform); alla prima apertura della visita le rotte si
+disegnano a ventaglio e testo e caselle salgono di 6px; il campo ha un faro
+che pulsa piano. Con "riduci movimento" tutto fermo.
+
+Il saluto usa il nome di battesimo dell'account (mai scritto nel codice): una
+frase per caricamento della pagina, scelta a caso fra il saluto dell'ora del
+dispositivo (Good morning fino alle 12, Good afternoon fino alle 18, Good
+evening dopo) e le frasi di SALUTI_DASHBOARD in index.html. Tono da cockpit:
+sobrio, niente battute.
 
 ### Flight strips (signature, Dashboard)
 Una striscia per volo, come le strisce di progresso volo dei controllori:
@@ -351,10 +369,18 @@ rotta magnetica e la sua distanza dal NavLog (senza vento). Linea d'accento
 al campo si chiude distribuendo lo scarto lungo la strada. Fondo raised nelle
 strisce, nessun fondo nelle righe delle rotte standard.
 
-### ACV standard routes
-Tutte le rotte di rotte-acv.js (la stessa fonte del menu dell'import), una
-riga ciascuna: miniatura, nome, punti in Mono, distanza. Niente colonne
-affiancate: ogni rotta ha la sua riga a ogni larghezza.
+### ACV standard routes (Import)
+Nella pagina Import, in una scheda tutta loro: tutte le rotte di
+rotte-acv.js, una scheda ciascuna con la traccia, il nome, la distanza e i
+punti, e una ricerca per nome o waypoint. La scelta e' la riga d'accento sotto
+la scheda; toccandola di nuovo si toglie. Sotto, la traccia in grande, i
+punti in Mono e la tabella dei waypoint chiusa. Il NavLog di ForeFlight sta
+in un riquadro separato e lo sostituisce se caricato dopo.
+
+### Testi
+Import e wizard non spiegano da dove arrivano i dati ne' cosa si calcola:
+restano etichette, placeholder essenziali e messaggi di stato, avviso ed
+errore. Le spiegazioni stanno nel manuale.
 
 ### Documents
 La pagina dei tre documenti di un volo (OFP, NAV-FLIGHTPLAN, navlog
@@ -392,10 +418,12 @@ dell'interfaccia.
 Un libro su un tavolo (modalita' Read di Impeccable): la cornice segue i token
 dell'interfaccia, la carta resta carta in entrambi i temi.
 - **Cornice:** barra con indice, posizione in lettura (sezione e paragrafo),
-  pagina, PDF, tema; sotto, la barra a sezioni: una tacca per sezione lunga
-  quanto le sue pagine, quella in lettura appena piu' chiara, e la posizione
-  come un segno verticale sottile nel colore del testo che segue il dito 1:1,
-  con la bolla di pagina e titolo. Niente riempimento colorato.
+  pagina, PDF, tema; sotto, il nome della sezione in lettura, lo stepper delle
+  sezioni (un trattino di 2px per sezione, tutti uguali: le lette piene, quella
+  in lettura che si riempie d'accento con le sue pagine, le altre accennate;
+  toccandolo o trascinandolo si va a una sezione, con la bolla di pagina e
+  titolo) e un anello di 18px con il numero di pagina. Solo scaleX e
+  opacita'.
 - **Indice laterale:** voci con numero e pagina in Figure; la voce in lettura
   segnata dalla riga d'accento, non da un fondo colorato.
 - **Carta:** Inter per il testo, blu inchiostro (#1f3a5f) per titoli e
@@ -406,9 +434,12 @@ dell'interfaccia, la carta resta carta in entrambi i temi.
   maiuscolo piccolo. Quella della sezione in lettura e' ruggine; a destra le
   sezioni che vengono, a sinistra quelle passate, blu. Avvisi WARNING /
   CAUTION / NOTE in riquadri interi con filetto sottile e segno disegnato.
-- **Movimento:** la girata e' fisica (molle, vedi `sfoglia.js`): il foglio si
-  prende in qualsiasi punto e il punto resta sotto il dito. Tastiera senza
-  animazione; "riduci movimento" solo dissolvenze.
+- **Movimento:** il foglio gira come una lamina sulla costola (rotateY e
+  l'opacita' della sua ombra, nient'altro per fotogramma), portato da una molla
+  smorzata al critico: arriva morbido, senza rimbalzo, in circa mezzo secondo.
+  Si prende in qualsiasi punto e segue il dito. Tastiera senza animazione;
+  "riduci movimento" solo dissolvenze. La piega a cilindro resta nel motore
+  (`curva:true`) ma non si usa: su iPad non teneva i 60 fotogrammi.
 
 ### Rotta AV
 La rotta dell'aeroclub resta solo nella pagina di accesso, disegnata una
