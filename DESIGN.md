@@ -334,11 +334,11 @@ Calcolati e in sola lettura: fondo raised, bordo border, testo muted.
 ### Navigation
 - **Rail:** icone outline 18px in faint; quella attiva in text con la riga
   d'accento di 1px sul bordo della rail. Resta stretta (44px, icone al centro
-  con lo stesso vuoto ai due lati, 12,5px) e si allarga a 248px solo al
+  con lo stesso vuoto ai due lati, 11px; icone di 22px) e si allarga a 248px solo al
   passaggio del cursore (anche il trackpad dell'iPad; al tocco no). E' un
   pannello fisso sopra la pagina che cresce lui stesso in larghezza (240 ms):
   la colonna della pagina resta di 44px e il contenuto non si sposta. Le icone
-  non si spostano e crescono del 25%, accanto compaiono i nomi, il logo cresce
+  non si spostano e crescono del 15%, accanto compaiono i nomi, il logo cresce
   verso destra. Sul telefono la rail e' una barra in alto e non si allarga.
 - **Step tabs:** numero in Mono e nome; completati in muted, futuri in faint,
   quello in corso in text con la riga d'accento sotto, larga quanto

@@ -124,7 +124,7 @@ html[data-tema="chiaro"] .rail .marchio{background-image:url("data:image/svg+xml
   background:transparent;border:0;padding:0;cursor:pointer;position:relative;text-decoration:none;
   transition:color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
 .rail a:active,.rail .rail-btn:active{transform:scale(.94)}
-.rail svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.rail svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .rail [aria-current="page"],html.vista-dash #railVoli,html.vista-doc #railVoli,html:not(.vista-dash):not(.vista-doc) #railNuovo{color:var(--txt)}
 .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{content:"";position:absolute;left:-4px;top:10px;bottom:10px;width:1px;background:var(--accent-2)}
 .rail a:focus-visible,.rail .rail-btn:focus-visible{outline:none;box-shadow:var(--ring)}
@@ -146,7 +146,7 @@ html[data-tema="chiaro"] .rail .marchio{background-image:url("data:image/svg+xml
 @media (any-hover:hover){
   .rail:hover{width:var(--rail-largo);box-shadow:var(--ombra-pop);transition-delay:60ms}
   .rail:hover .nome{opacity:1;visibility:visible;pointer-events:auto;transform:translate(0,-50%);transition-delay:110ms,60ms,0s}
-  .rail:hover a svg,.rail:hover .rail-btn svg,.rail:hover .tema-btn svg,.rail:hover .hamburger svg{transform:scale(1.25);transition-delay:60ms}
+  .rail:hover a svg,.rail:hover .rail-btn svg,.rail:hover .tema-btn svg,.rail:hover .hamburger svg{transform:scale(1.15);transition-delay:60ms}
   /* il logo cresce verso destra, nello spazio che si apre */
   .rail:hover .marchio{transform:translateX(6px) scale(1.9);transition-delay:60ms}
 }
