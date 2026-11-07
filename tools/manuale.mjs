@@ -273,11 +273,11 @@ A(split(steps([
   ['SELECT', 'in the side bar [A]: **Flights** (the Dashboard, Section 4.5), **New flight** (the Import page) or **User manual** (this manual, over the page: **Close** or Esc goes back).'],
   ['SELECT', 'the theme button [C] to choose the display (below). It does not affect the documents.'],
   ['SELECT', 'the menu [D] for the document preview and the documents (Section 4.2).'],
-  ['SELECT', '**Save**, at the right end of the step tabs, to store the flight in your account at any step. The wizard stays where it is and the button reads **Saved** for a moment; a dot before **Save** means that there are changes not yet saved.'],
+  ['SELECT', '**Save** [F], at the right end of the step tabs, to store the flight in your account at any step. The wizard stays where it is and the button reads **Saved** for a moment; a dot before **Save** means that there are changes not yet saved.'],
 ]) + box('caution', 'CAUTION', 'The underline marks the step in progress; steps already passed are shown dimmed. This does **not** mean that a step is complete or correct.'),
 figure(3, 'f3-1.jpg', 'Wizard Navigation', 'Side bar on the left, step tabs above the page.',
   [['A', 'Side bar', 'Flights / New flight / User manual'], ['B', 'Step tabs 1–8', 'Navigate between steps'], ['C', 'Theme', 'Night / Day / Match system'],
-    ['D', 'Menu', 'Preview and documents'], ['E', 'Back / Next', 'Previous / next step; Proceed on Step 8']])));
+    ['D', 'Menu', 'Preview and documents'], ['E', 'Back / Next', 'Previous / next step; Proceed on Step 8'], ['F', 'Save', 'Save the flight']])));
 A(box('note', 'NOTE', 'Leaving a flight with changes not saved (**Flights**, **New flight**, another flight or its documents, **Sign out**) asks first: **Save** saves and goes on, **Don&rsquo;t save** goes on without saving, **Cancel** stays. Closing or reloading the browser tab asks with the browser&rsquo;s own message.'));
 A(split(p('With a mouse or a trackpad the side bar widens while the pointer is over it: the name of each item appears and the icons grow. The page underneath does not move. With touch only, the side bar stays narrow and its icons work directly.')
   + p('The theme button opens a choice of **Night** (dark), **Day** (light) and **Match system**, which follows the setting of the device. The new theme spreads from the button.')
@@ -577,11 +577,11 @@ figure(4, 'f4-9.jpg', 'Documents', 'Three documents of a READY TO FLY flight.',
   [['A', 'Flights', 'Back to the Dashboard'], ['B', 'Edit flight', 'Back to the wizard'], ['C', 'Download all', 'SELECT'],
     ['D', 'Download', 'SELECT per document'], ['E', 'File name', 'Information']])));
 A(h2('4.2', 'Menu'));
-A(`<table class="std"><thead><tr><th>Item</th><th>Function</th></tr></thead><tbody>
+A(split(`<table class="std"><thead><tr><th>Item</th><th>Function</th></tr></thead><tbody>
 <tr><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
 <tr><td>Documents</td><td>Saves the flight and opens its Documents page (Section 4.1)</td></tr>
-</tbody></table>`);
-A(p('The menu opens from **&hellip;** (More) at the bottom of the side bar. Below these items it shows the signed-in user, **Users** (administrator only), **Change password** and **Sign out**. Users and Change password open in a new tab. On the Dashboard the menu shows only the account items. The Dashboard, a new flight and this manual are in the side bar (Section 3.0); **Save** is at the right end of the step tabs.'));
+</tbody></table>` + p('The menu opens from **&hellip;** (More) at the bottom of the side bar. Below these items it shows the signed-in user, **Users** (administrator only), **Change password** and **Sign out**. Users and Change password open in a new tab. On the Dashboard the menu shows only the account items. The Dashboard, a new flight and this manual are in the side bar (Section 3.0); **Save** is at the right end of the step tabs.'),
+  figure(4, 'f4-1.jpg', 'Main Menu', 'Menu of the wizard, signed in.', [], 'menu'), '48'));
 A(h2('4.3', 'Operational Flight Plan (A4)'));
 A(p('Downloaded from the Documents page (Section 4.1). **Document Preview** in the menu shows it on screen without downloading it.'));
 A(`<table class="std keep"><caption>OFP page structure (number of pages varies with NOTAMs and charts)</caption><thead><tr><th>Page</th><th>Content</th></tr></thead><tbody>
