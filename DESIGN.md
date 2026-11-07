@@ -377,6 +377,14 @@ sottile (rossa al passaggio del mouse, con conferma). Su iPad e schermi medi la 
 stanno sotto; sul telefono: stato in alto, miniatura e rotta, due caselle di
 dati, azioni a tutta larghezza.
 
+### Save e uscita dal volo
+Save sta in fondo alla riga degli step, allineato a destra: un pulsante a
+contorno che salva e lascia dove si e' (per 1,6 s dice Saved, in verde). Un
+puntino d'accento davanti a Save segna le modifiche non salvate. Chi lascia il
+volo con modifiche vede una finestra (riquadro raised, entra con scala .97 e
+opacita' in 150 ms): Save, Don't save, Cancel. Il menu "…" tiene solo quello
+che non c'e' altrove: Document Preview, Documents e le voci del conto.
+
 ### Track thumbnail
 La forma della rotta dai punti del volo, in ordine: ogni tratta con la sua
 rotta magnetica e la sua distanza dal NavLog (senza vento). Linea d'accento

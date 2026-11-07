@@ -51,16 +51,9 @@ document.documentElement.classList.add('vista-dash');
     <div class="menu-wrap">
       <button class="hamburger" id="btnMenu" aria-expanded="false" aria-haspopup="true" aria-controls="mainMenu" aria-label="Menu" data-nome="More"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="2.6"/></svg></button>
       <div class="menu" id="mainMenu" role="menu">
-      <button type="button" role="menuitem" class="solo-volo" id="btnDashboard">Dashboard</button>
-      <button type="button" role="menuitem" id="btnNew">New Flight Plan</button>
-      <button type="button" role="menuitem" class="solo-volo" id="btnStandby">Save to Standby</button>
-      <div class="sep solo-volo"></div>
       <button type="button" role="menuitem" class="solo-volo" id="btnPreview">Document Preview</button>
-      <div class="sep solo-volo"></div>
       <button type="button" role="menuitem" class="primary solo-volo" id="btnDocumenti" title="Saves the flight and opens its documents">Documents</button>
-      <div class="sep"></div>
-      <button type="button" role="menuitem" id="btnManuale" title="Opens over the page: the flight plan stays as it is">User Manual</button>
-      <div class="sep conto-voce" style="display:none"></div>
+      <div class="sep conto-voce solo-volo" style="display:none"></div>
       <div class="menu-chi conto-voce" id="menuChi" style="display:none"></div>
       <button type="button" role="menuitem" class="conto-voce" id="btnUtenti" style="display:none" title="Opens in a new tab">Users</button>
       <button type="button" role="menuitem" class="conto-voce" id="btnPassword" style="display:none" title="Opens in a new tab">Change password</button>
@@ -100,7 +93,7 @@ document.documentElement.classList.add('vista-dash');
     </section>
     <div class="dash-section-title">Waiting for the weather briefing <small id="nDraft"></small></div>
     <div class="cards" id="draftCards"></div>
-    <div id="draftEmpty" class="dash-empty">No flights waiting. Fill in the route and press "Save to Standby".</div>
+    <div id="draftEmpty" class="dash-empty">No flights waiting. Fill in the route and press Save.</div>
     <div class="dash-section-title">Ready to fly <small id="nDone"></small></div>
     <div class="cards" id="completedCards"></div>
     <div id="completedEmpty" class="dash-empty">No completed flights.</div>
@@ -129,8 +122,22 @@ document.documentElement.classList.add('vista-dash');
 
 <div class="topbar">
   <div class="topbar-main"><div class="brand"><b id="brandVolo"></b> <span id="brandVista">Wizard</span></div></div>
-  <div class="steps" id="steps"></div>
+  <div class="topbar-riga">
+    <div class="steps" id="steps"></div>
+    <button type="button" class="btn salva" id="btnSalva" title="Save the flight to your account"><span class="punto" aria-hidden="true"></span><span class="etichetta">Save</span></button>
+  </div>
 </div>
+
+<!-- Uscendo da un volo con modifiche non salvate: salvare o no -->
+<dialog class="dialogo" id="dlgSalva" aria-labelledby="dlgSalvaT" aria-describedby="dlgSalvaP">
+  <h2 id="dlgSalvaT">Save changes?</h2>
+  <p id="dlgSalvaP">This flight has changes that are not saved. Without saving they are lost.</p>
+  <div class="dialogo-azioni">
+    <button type="button" class="btn testo" data-esito="annulla">Cancel</button>
+    <button type="button" class="btn" data-esito="no">Don&rsquo;t save</button>
+    <button type="button" class="btn primary" data-esito="si">Save</button>
+  </div>
+</dialog>
 
 <div class="main">
   <div class="formcol">
@@ -6319,11 +6326,13 @@ function disegnaDocumenti(f){
 /* Mostra Documents per un volo salvato. Se nel foglio c'e' un altro volo lo
    si chiede prima, come aprendolo nel wizard: i documenti si generano dal
    foglio. Restituisce false se non si e' potuto aprire. */
-function apriDocumenti(flightId){
+function apriDocumenti(flightId, chiesto){
   const f=loadSavedFlights().find(x=>x.id===flightId);
   if(!f){ docNonTrovato(); return false; }
   if(!(VOLO_APERTO && window.__editingFlightId===flightId)){
-    if(VOLO_APERTO && !confirm('Open the documents of this flight? The flight plan open in the wizard will be closed: data not saved with "Save to Standby" will be lost.')) return false;
+    if(!chiesto && VOLO_SPORCO){
+      primaDiLasciare(()=>transizione(['vt-vista'], ()=>apriDocumenti(flightId, true))); return true;
+    }
     caricaVoloNelFoglio(f); goToStep(1);
   }
   DOC_VOLO=flightId;
@@ -6651,14 +6660,18 @@ const NEW_FLIGHT_DEFAULTS = {
 /* Un foglio nuovo riparte dall'import: e' li' che si caricano NavLog e
    briefing. Se nel foglio c'e' un volo aperto lo si dice prima, perche' quello
    che non e' stato salvato va perso. */
-function lasciaVoloAperto(){
-  if(VOLO_APERTO && !confirm('Start a new flight? The flight plan open in the wizard will be closed: data not saved with "Save to Standby" will be lost.')) return false;
-  try{ sessionStorage.removeItem(HANDOFF_KEY); }catch(e){}
+/* Un link che porta all'import chiude il volo aperto: con modifiche non
+   salvate si ferma il link e si chiede prima (salvare o no), poi si va. */
+function lasciaVoloAperto(e){
+  const a=e && e.currentTarget;
+  if(VOLO_SPORCO && a){
+    e.preventDefault();
+    primaDiLasciare(()=>{ try{ sessionStorage.removeItem(HANDOFF_KEY); }catch(_){}
+      if(a.target==='_top') window.top.location.href=a.href; else location.href=a.href; });
+    return false;
+  }
+  try{ sessionStorage.removeItem(HANDOFF_KEY); }catch(_){}
   return true;
-}
-function newFlight(){
-  if(!lasciaVoloAperto()) return;
-  window.location.href = ($('goImport') && $('goImport').getAttribute('href')) || 'import.html';
 }
 
 /* Svuota il foglio prima di aprirci un volo salvato: dalla Dashboard se ne
@@ -6688,7 +6701,7 @@ function svuotaFoglio(){
 
 /* Salva il volo del foglio: aggiorna quello aperto dalla Dashboard, oppure ne
    crea uno nuovo. `pronto` (da Proceed) lo segna Ready to fly se il briefing
-   meteo c'e'; Save to Standby non tocca lo stato. Restituisce l'id. */
+   meteo c'e'; Save non tocca lo stato. Restituisce l'id. */
 function salvaVoloAperto(pronto){
   const list=loadSavedFlights();
   const now=new Date().toISOString();
@@ -6707,12 +6720,73 @@ function salvaVoloAperto(pronto){
   if(pronto && briefing) f.status='COMPLETED';
   persistFlights(list);
   window.__editingFlightId=f.id; VOLO_APERTO=true;
+  segnaSporco(false);
   return f.id;
+}
+/* ============================================================================
+   SALVARE
+   ============================================================================
+   Save, nella riga degli step, salva il volo nel conto e lascia dove si e':
+   per un attimo dice Saved. Un puntino d'accento davanti a Save vuol dire
+   che ci sono modifiche non salvate (VOLO_SPORCO). Il volo si sporca con
+   quello che scrive il pilota (input e change veri, Add row, Fill
+   frequencies, una riga tolta), non con quello che l'app compila da sola; si
+   pulisce salvando (Save, Proceed, Documents) e aprendo un volo salvato. Un
+   volo appena arrivato dall'import non e' mai stato salvato: e' sporco.
+
+   Chi lascia il volo con modifiche (Flights, New flight, un altro volo o i
+   suoi documenti, Sign out) si sente chiedere se salvarle: Save salva e va,
+   Don't save va senza salvare, Cancel resta. Chiudendo o ricaricando la
+   scheda il browser fa la sua domanda (non si puo' offrire Save li'). */
+let VOLO_SPORCO=false;
+function segnaSporco(v){
+  VOLO_SPORCO=!!v;
+  const b=$('btnSalva');
+  if(b && VOLO_SPORCO && b.classList.contains('fatto')){
+    clearTimeout(b._t); b.classList.remove('fatto'); b.querySelector('.etichetta').textContent='Save'; }
+  if(b){ b.classList.toggle('sporco',VOLO_SPORCO);
+    b.title = VOLO_SPORCO ? 'Save the changes to this flight' : 'Save the flight to your account'; }
 }
 function saveFlightDraft(){
   salvaVoloAperto(false);
-  window.__editingFlightId=null;
-  renderDashboard(); openDashboard();
+  const b=$('btnSalva'); if(!b) return;
+  b.classList.add('fatto'); b.querySelector('.etichetta').textContent='Saved';
+  clearTimeout(b._t);
+  b._t=setTimeout(()=>{ b.classList.remove('fatto'); b.querySelector('.etichetta').textContent='Save'; },1600);
+}
+const DENTRO_FOGLIO=(t)=>t && t.closest && t.closest('#scrollArea');
+['input','change'].forEach(tipo=>document.addEventListener(tipo,e=>{
+  if(e.isTrusted && DENTRO_FOGLIO(e.target)) segnaSporco(true);
+},true));
+document.addEventListener('click',e=>{
+  if(!e.isTrusted || !DENTRO_FOGLIO(e.target)) return;
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.id==='btnNavAdd' || b.id==='btnNavFreq' || b.closest('.navtable')) segnaSporco(true);
+},true);
+window.addEventListener('beforeunload',e=>{ if(VOLO_SPORCO){ e.preventDefault(); e.returnValue=''; } });
+
+/* La domanda, in una finestra; risponde 'si', 'no' o 'annulla'. */
+function chiediSalvataggio(){
+  const d=$('dlgSalva');
+  if(!d || typeof d.showModal!=='function')
+    return Promise.resolve(confirm('Save the changes to this flight before leaving?') ? 'si' : 'no');
+  return new Promise(res=>{
+    const fine=(v)=>{ d.removeEventListener('cancel',annulla); d.querySelectorAll('[data-esito]').forEach(b=>b.onclick=null); if(d.open) d.close(); res(v); };
+    const annulla=(e)=>{ e.preventDefault(); fine('annulla'); };
+    d.addEventListener('cancel',annulla);
+    d.querySelectorAll('[data-esito]').forEach(b=>b.onclick=()=>fine(b.dataset.esito));
+    d.showModal();
+    d.querySelector('[data-esito="si"]').focus();
+  });
+}
+/* Fa "fai" dopo aver chiesto, se serve. Save salva prima. */
+function primaDiLasciare(fai){
+  if(!VOLO_SPORCO){ fai(); return; }
+  chiediSalvataggio().then(r=>{
+    if(r==='annulla') return;
+    if(r==='si') salvaVoloAperto(false);
+    fai(r);
+  });
 }
 
 function deleteFlight(flightId){
@@ -6725,10 +6799,11 @@ function deleteFlight(flightId){
    all'import sarebbe solo un ostacolo. Le carte meteo non si salvano col volo:
    restano solo quelle lette per questo stesso volo (aggiornamento WX dalla
    sua scheda), mai quelle di un altro. */
-function apriVoloSalvato(flightId){
+function apriVoloSalvato(flightId, chiesto){
   const f=loadSavedFlights().find(x=>x.id===flightId); if(!f) return;
-  if(VOLO_APERTO && window.__editingFlightId!==flightId &&
-     !confirm('Open this flight? The flight plan open in the wizard will be closed: data not saved with "Save to Standby" will be lost.')) return;
+  if(!chiesto && VOLO_SPORCO && window.__editingFlightId!==flightId){
+    primaDiLasciare(()=>transizione(['vt-vista'], ()=>apriVoloSalvato(flightId, true))); return;
+  }
   caricaVoloNelFoglio(f);
   closeDashboard(); goToStep(1); render();
 }
@@ -6744,6 +6819,7 @@ function caricaVoloNelFoglio(f){
   scheduleAirportLookup();      // elevazioni e piste dei suoi aeroporti, come dopo l'import
   window.__editingFlightId=flightId;
   VOLO_APERTO=true;
+  segnaSporco(false);
   render();
 }
 const editFlight=apriVoloSalvato, viewFlightOFP=apriVoloSalvato;
@@ -6853,12 +6929,12 @@ function makeCard(f){
       if(act==='del') deleteFlight(f.id);
       else if(act==='docs'){
         e.preventDefault();
-        const chiede = VOLO_APERTO && window.__editingFlightId!==f.id;
+        const chiede = VOLO_SPORCO && window.__editingFlightId!==f.id;
         if(chiede) apriDocumenti(f.id); else transizione(['vt-vista'], ()=>apriDocumenti(f.id));
       }
       else{
         /* con un altro volo aperto si chiede prima, senza animazione */
-        const chiede = VOLO_APERTO && window.__editingFlightId!==f.id;
+        const chiede = VOLO_SPORCO && window.__editingFlightId!==f.id;
         if(chiede) apriVoloSalvato(f.id); else transizione(['vt-vista'], ()=>apriVoloSalvato(f.id));
       }
     });
@@ -7079,8 +7155,10 @@ function closeDashboard(){
   const btn=$('btnMenu'), menu=$('mainMenu');
   if(!btn||!menu) return;
   const close=()=>{ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+  // senza voci da mostrare (Dashboard senza conto) il menu non si apre vuoto
+  const vuoto=()=>![...menu.querySelectorAll('button')].some(b=>getComputedStyle(b).display!=='none');
   const toggle=()=>{
-    const open=!menu.classList.contains('open');
+    const open=!menu.classList.contains('open') && !vuoto();
     menu.classList.toggle('open',open);
     btn.setAttribute('aria-expanded',open?'true':'false');
   };
@@ -7092,19 +7170,23 @@ function closeDashboard(){
 
 /* Dashboard e foglio: una dissolvenza con il nuovo che sale (html.vt-vista). */
 const versoVista=(f)=>()=>transizione(['vt-vista'], f);
-$('btnDashboard').addEventListener('click',versoVista(openDashboard));
-/* La rail: Flights apre la Dashboard, New flight e' un link vero all'import,
-   il manuale si apre in una scheda nuova come dal menu. */
-$('railVoli').addEventListener('click',e=>{ e.preventDefault(); if(!dashboardAperta()) transizione(['vt-vista'], openDashboard); });
-$('railNuovo').addEventListener('click',e=>{ if(!lasciaVoloAperto()) e.preventDefault(); });
+/* La rail: Flights apre la Dashboard (con modifiche non salvate chiede
+   prima), New flight e' un link vero all'import, il manuale si apre sopra. */
+$('railVoli').addEventListener('click',e=>{ e.preventDefault();
+  if(dashboardAperta()) return;
+  const vai=()=>transizione(['vt-vista'], openDashboard);
+  if(document.documentElement.classList.contains('vista-doc')) vai(); else primaDiLasciare(vai);
+});
+$('railNuovo').addEventListener('click',lasciaVoloAperto);
 $('btnCloseDash').addEventListener('click',versoVista(closeDashboard));
-$('btnStandby').addEventListener('click',saveFlightDraft);
+$('btnSalva').addEventListener('click',saveFlightDraft);
 /* Account: utenti e cambio password in una scheda nuova, come il manuale, per
    non perdere il foglio aperto. Uscendo si avvisa se il foglio non e' salvato. */
 if($('btnUtenti')) $('btnUtenti').addEventListener('click',()=>window.open('/admin','_blank','noopener'));
 if($('btnPassword')) $('btnPassword').addEventListener('click',()=>window.open('/password','_blank','noopener'));
 if($('btnEsci')) $('btnEsci').addEventListener('click',()=>{
-  if(!confirm('Sign out? A flight plan that has not been saved with "Save to Standby" will be lost.')) return;
+  if(VOLO_SPORCO){ primaDiLasciare(()=>{ segnaSporco(false); Account.esci(); }); return; }
+  if(!confirm('Sign out?')) return;
   Account.esci();
 });
 /* Il manuale si apre sopra la pagina, in un riquadro (come in import.html):
@@ -7136,18 +7218,13 @@ window.addEventListener('message', e=>{
   if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudiGuida();
 });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape' && $('guidaVelo') && $('guidaVelo').classList.contains('aperta')) chiudiGuida(); });
-if($('btnManuale')){
-  if(IS_APPS_SCRIPT) $('btnManuale').style.display='none';
-  $('btnManuale').addEventListener('click',()=>apriGuida($('btnMenu')));
-}
 if($('railManuale')){
   if(IS_APPS_SCRIPT) $('railManuale').style.display='none';
   $('railManuale').addEventListener('click',e=>{ e.preventDefault(); apriGuida($('railManuale')); });
 }
-$('btnNew').addEventListener('click',newFlight);
 /* "New Flight" della Dashboard e' un link vero (vedi il markup): qui si
    chiede conferma solo se nel foglio c'e' un volo aperto. */
-$('goImport').addEventListener('click',e=>{ if(!lasciaVoloAperto()) e.preventDefault(); });
+$('goImport').addEventListener('click',lasciaVoloAperto);
 
 /* ===================== DATI RICEVUTI DALLA PAGINA DI IMPORT =====================
    La pagina di apertura lascia in sessionStorage quello che ha estratto; qui lo si
@@ -7276,6 +7353,8 @@ document.body.addEventListener('input',render);
    Dashboard; un volo importato resta comunque aperto dietro, e "Back to the
    open flight plan" lo riporta davanti. */
 VOLO_APERTO = applyHandoff();
+// un volo appena importato non e' ancora salvato da nessuna parte
+if(VOLO_APERTO && !window.__editingFlightId) segnaSporco(true);
 let DALL_IMPORT=false;
 try{ DALL_IMPORT = sessionStorage.getItem(APRI_VOLO_KEY)==='1'; sessionStorage.removeItem(APRI_VOLO_KEY); }catch(e){}
 const DOC_ALL_AVVIO = DOC_ROTTA.exec(location.hash);

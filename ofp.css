@@ -167,8 +167,16 @@ html[data-tema="chiaro"] .rail .marchio{background-image:url("data:image/svg+xml
 .topbar-azioni{display:flex;align-items:center;gap:8px;flex:0 0 auto}
 
 /* ===== step: schede di testo con la riga d'accento sotto quello in corso ===== */
-.topbar .steps{display:flex;gap:28px;align-items:stretch;position:relative;border-bottom:1px solid var(--panel-line);
-  overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin-top:4px}
+/* la riga degli step porta in fondo, allineato a destra, Save: e' l'azione
+   del foglio, a portata in ogni step */
+.topbar-riga{display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--panel-line);margin-top:4px}
+.topbar .steps{display:flex;gap:28px;align-items:stretch;position:relative;flex:1 1 auto;min-width:0;
+  overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
+.btn.salva{flex:none;min-width:76px;margin:4px 0}
+.btn.salva .punto{width:6px;height:6px;border-radius:50%;background:var(--accent-2);flex:none;
+  margin-left:-2px;transform:scale(0);opacity:0;transition:transform var(--t-fast) var(--ease-out),opacity var(--t-fast) ease}
+.btn.salva.sporco .punto{transform:none;opacity:1}
+.btn.salva.fatto{color:var(--ok);border-color:var(--ok)}
 .topbar .steps::-webkit-scrollbar{display:none}
 .step-pill{display:flex;align-items:center;gap:6px;padding:10px 0;flex:0 0 auto;background:transparent;border:0;cursor:pointer;
   font-size:13px;line-height:20px;color:var(--txt-faint);position:relative;font-weight:400;
@@ -505,7 +513,8 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
   .menu{left:auto;right:0;bottom:auto;top:calc(100% + 8px);transform-origin:top right}
   .topbar{grid-column:1;grid-row:2;padding:8px 16px 0}
   .main,#dashboard,#documenti{grid-column:1;grid-row:3}
-  .topbar .steps{gap:22px;margin:4px -16px 0;padding:0 16px;scroll-padding:0 16px}
+  .topbar-riga{margin:4px -16px 0;padding:0 16px 0 0;gap:10px}
+  .topbar .steps{gap:22px;padding:0 16px;scroll-padding:0 16px}
   .formcol .scroll{padding:20px 16px 28px}
   .formcol .navrow{padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
   .formcol .navrow .btn{flex:1;min-height:var(--tap)}
@@ -519,6 +528,25 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
   :root{--ctl:44px;--campo:44px}
   .step-pill{padding:12px 0}
   input,select,textarea,.navtable input{font-size:max(16px,1rem)!important}
+}
+
+/* ===== Finestra di dialogo (salvare prima di lasciare il volo) =====
+   Un riquadro raised al centro, sopra un velo; entra con una scala da .97 e
+   l'opacita' (150 ms, ease-out); niente con "riduci movimento". */
+.dialogo{border:1px solid var(--panel-line);border-radius:var(--r-lg,14px);background:var(--panel-bg);color:var(--txt);
+  padding:22px 22px 18px;width:min(400px,calc(100vw - 32px));box-shadow:var(--ombra-pop)}
+.dialogo::backdrop{background:rgba(0,0,0,.42)}
+.dialogo[open]{animation:dlg-entra 150ms var(--ease-out)}
+@keyframes dlg-entra{from{opacity:0;transform:scale(.97)}}
+.dialogo h2{margin:0 0 6px;font-size:17px;line-height:24px;font-weight:600}
+.dialogo p{margin:0 0 20px;font-size:14px;line-height:20px;color:var(--txt-dim)}
+.dialogo-azioni{display:flex;justify-content:flex-end;gap:8px}
+.dialogo-azioni .btn.testo{margin-right:auto;padding:0 10px 0 4px}
+@media (prefers-reduced-motion:reduce){ .dialogo[open]{animation:none} }
+@media screen and (max-width:640px){
+  .dialogo-azioni{flex-wrap:wrap}
+  .dialogo-azioni .btn{flex:1;min-height:var(--tap)}
+  .dialogo-azioni .btn.testo{order:3;flex-basis:100%;margin:0}
 }
 
 /* ===== Dashboard ===== */

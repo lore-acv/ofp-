@@ -223,7 +223,7 @@ A(`<table class="std"><thead><tr><th>Data</th><th>Source</th></tr></thead><tbody
 A(h2('1.5', 'Responsibilities'));
 A(p('The PIC is responsible for the correctness of every input, for every cross-check required by this manual, and for the decision to fly. The application does not navigate, does not decide and does not replace the AFM or the AIP.'));
 A(h2('1.6', 'Data storage'));
-A(p('Access is restricted: accounts are created by the administrator (Section 2.1). Flights are stored only when the pilot uses **Save to Standby** or **Proceed** (Sections 4.5 and 3.8). They are saved to the pilot\'s account, are available on any device after signing in and are not visible to other users. A copy is kept on the device in use, so work can continue without a connection: changes are sent when the connection is restored.'));
+A(p('Access is restricted: accounts are created by the administrator (Section 2.1). Flights are stored only when the pilot uses **Save** or **Proceed** (Sections 3.0 and 3.8). They are saved to the pilot\'s account, are available on any device after signing in and are not visible to other users. A copy is kept on the device in use, so work can continue without a connection: changes are sent when the connection is restored.'));
 A('</section>');
 
 /* ---------------------------------------------------------------- sezione 2 */
@@ -270,13 +270,15 @@ A(h1(3, 'Pre-flight Data Entry – Wizard'));
 A(h2('3.0', 'Wizard navigation'));
 A(split(steps([
   ['SELECT', 'a step tab [B] to go to any step, or **Back** / **Next** [E] at the bottom of the page. On Step 8 **Next** becomes **Proceed** (Section 3.8).'],
-  ['SELECT', 'in the side bar [A]: **Flights** (the Dashboard, Section 4.5), **New flight** (the Import page) or **User manual** (this manual).'],
+  ['SELECT', 'in the side bar [A]: **Flights** (the Dashboard, Section 4.5), **New flight** (the Import page) or **User manual** (this manual, over the page: **Close** or Esc goes back).'],
   ['SELECT', 'the theme button [C] to choose the display (below). It does not affect the documents.'],
-  ['SELECT', 'the menu [D] for saving the flight and for the documents (Section 4.2).'],
+  ['SELECT', 'the menu [D] for the document preview and the documents (Section 4.2).'],
+  ['SELECT', '**Save**, at the right end of the step tabs, to store the flight in your account at any step. The wizard stays where it is and the button reads **Saved** for a moment; a dot before **Save** means that there are changes not yet saved.'],
 ]) + box('caution', 'CAUTION', 'The underline marks the step in progress; steps already passed are shown dimmed. This does **not** mean that a step is complete or correct.'),
 figure(3, 'f3-1.jpg', 'Wizard Navigation', 'Side bar on the left, step tabs above the page.',
   [['A', 'Side bar', 'Flights / New flight / User manual'], ['B', 'Step tabs 1–8', 'Navigate between steps'], ['C', 'Theme', 'Night / Day / Match system'],
-    ['D', 'Menu', 'Flight and documents'], ['E', 'Back / Next', 'Previous / next step; Proceed on Step 8']])));
+    ['D', 'Menu', 'Preview and documents'], ['E', 'Back / Next', 'Previous / next step; Proceed on Step 8']])));
+A(box('note', 'NOTE', 'Leaving a flight with changes not saved (**Flights**, **New flight**, another flight or its documents, **Sign out**) asks first: **Save** saves and goes on, **Don&rsquo;t save** goes on without saving, **Cancel** stays. Closing or reloading the browser tab asks with the browser&rsquo;s own message.'));
 A(split(p('With a mouse or a trackpad the side bar widens while the pointer is over it: the name of each item appears and the icons grow. The page underneath does not move. With touch only, the side bar stays narrow and its icons work directly.')
   + p('The theme button opens a choice of **Night** (dark), **Day** (light) and **Match system**, which follows the setting of the device. The new theme spreads from the button.')
   + figure(3, 'f3-1t.jpg', 'Theme', 'The tick marks the current choice.', [], 'menu'),
@@ -575,14 +577,11 @@ figure(4, 'f4-9.jpg', 'Documents', 'Three documents of a READY TO FLY flight.',
   [['A', 'Flights', 'Back to the Dashboard'], ['B', 'Edit flight', 'Back to the wizard'], ['C', 'Download all', 'SELECT'],
     ['D', 'Download', 'SELECT per document'], ['E', 'File name', 'Information']])));
 A(h2('4.2', 'Menu'));
-A(split(`<table class="std"><thead><tr><th></th><th>Item</th><th>Function</th></tr></thead><tbody>
-<tr><td><span class="mk">A</span></td><td>Dashboard</td><td>Back to the Dashboard (Section 4.5). The flight plan stays open.</td></tr>
-<tr><td><span class="mk">B</span></td><td>New Flight Plan</td><td>Closes the flight plan and opens the import page. Unsaved data is lost.</td></tr>
-<tr><td><span class="mk">C</span></td><td>Save to Standby</td><td>Saves the flight to your account</td></tr>
-<tr><td><span class="mk">D</span></td><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
-<tr><td><span class="mk">E</span></td><td>Documents</td><td>Saves the flight and opens its Documents page (Section 4.1)</td></tr>
-<tr><td><span class="mk">F</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
-</tbody></table><p>The menu opens from <b>&hellip;</b> (More) at the bottom of the side bar. Below these items it shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab. On the Dashboard the menu shows only New Flight Plan, User Manual and the account items.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu of the wizard.', [], 'menu'), '48'));
+A(`<table class="std"><thead><tr><th>Item</th><th>Function</th></tr></thead><tbody>
+<tr><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
+<tr><td>Documents</td><td>Saves the flight and opens its Documents page (Section 4.1)</td></tr>
+</tbody></table>`);
+A(p('The menu opens from **&hellip;** (More) at the bottom of the side bar. Below these items it shows the signed-in user, **Users** (administrator only), **Change password** and **Sign out**. Users and Change password open in a new tab. On the Dashboard the menu shows only the account items. The Dashboard, a new flight and this manual are in the side bar (Section 3.0); **Save** is at the right end of the step tabs.'));
 A(h2('4.3', 'Operational Flight Plan (A4)'));
 A(p('Downloaded from the Documents page (Section 4.1). **Document Preview** in the menu shows it on screen without downloading it.'));
 A(`<table class="std keep"><caption>OFP page structure (number of pages varies with NOTAMs and charts)</caption><thead><tr><th>Page</th><th>Content</th></tr></thead><tbody>
@@ -633,12 +632,12 @@ A(h2('4.5', 'Dashboard – Saved flights'));
 A(p('The Dashboard is the first page after signing in. The header [A] greets the pilot by name, with the UTC time, and draws the route network of the home field: the ACV standard routes and the saved flights, with range rings at 25, 50, 100 and 150 NM. The summary tiles [B] give the next or latest flight, the flights ready to fly, those waiting for weather and the planned distance. **New flight** opens the Import page (Section 2). While a flight plan is open in the wizard, **Back to the open flight plan** returns to it. Reloading the page also shows the Dashboard first.'));
 A(p('Each saved flight is a strip with the thumbnail of its track [C], drawn from the legs of the Navlog, its badge (STANDBY or READY TO FLY), route, date and times.'));
 A(split(steps([
-  ['SELECT', '**Save to Standby** in the menu to store the flight, for example while waiting for the weather. The Dashboard opens.'],
+  ['SELECT', '**Save** in the wizard to store the flight, for example while waiting for the weather. It appears on the Dashboard as a standby flight.'],
   ['LOAD', 'the briefing PDF with **Load briefing** [D] on a standby flight to finalise it: it moves to READY TO FLY.'],
   ['SELECT', '**Edit** [E] to reopen a flight in the wizard.'],
   ['SELECT', '**Documents** [F] on a READY TO FLY flight to open its Documents page (Section 4.1).'],
   ['LOAD', 'a newer briefing with **Update WX** [G] to update the weather of a READY TO FLY flight.'],
-]) + box('note', 'NOTE', 'Opening a saved flight or starting a new one closes the flight plan open in the wizard: save it first with **Save to Standby**.') + box('caution', 'CAUTION', 'Saved flights are stored in your account. On a shared device, select **Sign out** at the end of the session: it removes the local copy from the device. Graphic weather charts are not stored with the flight.'),
+]) + box('note', 'NOTE', 'Opening a saved flight or starting a new one closes the flight plan open in the wizard: with changes not saved, the application asks first whether to save them (Section 3.0).') + box('caution', 'CAUTION', 'Saved flights are stored in your account. On a shared device, select **Sign out** at the end of the session: it removes the local copy from the device. Graphic weather charts are not stored with the flight.'),
 figure(4, 'f4-4.jpg', 'Dashboard', '',
   [['A', 'Greeting and route network', 'Information'], ['B', 'Summary tiles', 'Information'], ['C', 'Track thumbnail', 'VERIFY the route'],
     ['D', 'Load briefing', 'Finalise'], ['E', 'Edit', 'Reopen in the wizard'], ['F', 'Documents', 'Open the documents'], ['G', 'Update WX', 'LOAD newer briefing']])));
