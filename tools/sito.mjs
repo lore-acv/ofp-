@@ -31,6 +31,8 @@ const DA_PUBBLICARE = [
   ['data/manuale.pdf',    'data/manuale.pdf'],
   ['data/manuale',        'data/manuale'],          // e-book: testo, figure, font
   ['fonts',               'fonts'],                 // Public Sans e JetBrains Mono dell'interfaccia
+  ['favicon.svg',         'favicon.svg'],           // il logo dell'aeroclub, icona del sito
+  ['apple-touch-icon.png','apple-touch-icon.png'],
   ['tools/_headers',      '_headers']
 ];
 

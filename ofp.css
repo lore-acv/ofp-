@@ -115,8 +115,10 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
 .rail{grid-column:1;grid-row:1 / -1;display:flex;flex-direction:column;align-items:center;gap:4px;
   padding:calc(12px + env(safe-area-inset-top,0px)) 0 calc(12px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);
   border-right:1px solid var(--panel-line);background:var(--bg);position:relative;z-index:50;min-height:0}
-.rail .marchio{width:28px;height:28px;border-radius:6px;margin:2px 0 16px;flex:none;display:block;border:0;padding:0;cursor:pointer;position:relative;
-  background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v18M4 11l8-3 8 3M9 19l3-1 3 1'/%3E%3C/svg%3E") center/70% no-repeat}
+.rail .marchio{width:46px;height:21px;margin:6px 0 18px;flex:none;display:block;border:0;padding:0;cursor:pointer;position:relative;
+  border-radius:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 0 262 118'%3E%3Cpath d='M186.5 28.5L224 84H165L159 48Z' fill='%234a4a50'/%3E%3Cpath d='M61 116L288.5 1' stroke='%236e6f75' stroke-width='5.5' fill='none'/%3E%3Cpath d='M45.5 84L100.8 44.8H146.5L201 84H163L153.5 76.5H98.5L89 84ZM123.5 56.5L141 69H106Z' fill='%234a8ad6' fill-rule='evenodd'/%3E%3Cpath d='M152 46H193.7L228.5 70.7L263 46H304.5L251.3 84.3H207.3Z' fill='%23e2453f'/%3E%3C/svg%3E") center/contain no-repeat}
+/* il logo dell'Aeroclub Varese (A, V, la scia), nei colori del tema: favicon.svg e' lo stesso disegno */
+html[data-tema="chiaro"] .rail .marchio{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 0 262 118'%3E%3Cpath d='M186.5 28.5L224 84H165L159 48Z' fill='%23cfcfc9'/%3E%3Cpath d='M61 116L288.5 1' stroke='%23a9a9a3' stroke-width='5.5' fill='none'/%3E%3Cpath d='M45.5 84L100.8 44.8H146.5L201 84H163L153.5 76.5H98.5L89 84ZM123.5 56.5L141 69H106Z' fill='%232a6cbf' fill-rule='evenodd'/%3E%3Cpath d='M152 46H193.7L228.5 70.7L263 46H304.5L251.3 84.3H207.3Z' fill='%23c62e28'/%3E%3C/svg%3E")}
 .rail a,.rail .rail-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--r-sm);color:var(--txt-faint);
   background:transparent;border:0;padding:0;cursor:pointer;position:relative;text-decoration:none;
   transition:color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
@@ -138,7 +140,7 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
 .rail .nome{position:absolute;left:50px;top:50%;transform:translate(-6px,-50%);font:500 13px/18px var(--font);color:var(--txt);
   white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity 120ms ease,transform 200ms var(--ease-out),visibility 0s linear 200ms}
-.rail .marchio .nome{left:40px;font-weight:600}
+.rail .marchio .nome{left:56px;font-weight:600}
 .rail .tema-btn,.rail .hamburger{position:relative}
 .rail .tema-btn .nome,.rail .hamburger .nome{color:var(--txt)}
 .rail.aperta::before{clip-path:inset(0 -40px 0 0)}
@@ -490,7 +492,7 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
   body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr)}
   .rail{grid-column:1;grid-row:1;flex-direction:row;justify-content:flex-start;gap:2px;border-right:0;border-bottom:1px solid var(--panel-line);
     padding:calc(6px + env(safe-area-inset-top,0px)) calc(10px + env(safe-area-inset-right,0px)) 6px calc(12px + env(safe-area-inset-left,0px))}
-  .rail .marchio{margin:0 auto 0 0;cursor:default}
+  .rail .marchio{margin:0 auto 0 0;cursor:default;width:62px;height:28px}
   .rail::before,.rail .nome{display:none}
   .rail .fondo{margin-top:0;flex-direction:row;gap:2px}
   .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{left:10px;right:10px;top:auto;bottom:-7px;width:auto;height:1px}
