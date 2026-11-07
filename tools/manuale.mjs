@@ -45,7 +45,7 @@ function misuraJpeg(file) {
   throw new Error('JPEG senza dimensioni: ' + file);
 }
 
-const DOC = { title: 'OFP C172 FR – SOP User Manual', revision: 'Rev. 2 DRAFT', date: '09 OCT 2026' };
+const DOC = { title: 'OFP C172 FR – SOP User Manual', revision: 'Rev. 3 DRAFT', date: '07 NOV 2026' };
 
 /* ------------------------------------------------------------------ helpers */
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -57,7 +57,7 @@ function md(s) {
     .replace(/&amp;(#?\w+);/g, '&$1;')
     .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
     .replace(/`(.+?)`/g, '<code>$1</code>')
-    .replace(/\[([A-I])\]/g, '<span class="mk">$1</span>');
+    .replace(/\[([A-L])\]/g, '<span class="mk">$1</span>');
 }
 
 const steps = (items, start = 1) =>
@@ -131,11 +131,11 @@ A(`<section class="cover">
   </div>
   <table class="cv-ctl">
     <tr><th>Document</th><td>OFP-SOP &ndash; Application User Manual</td></tr>
-    <tr><th>Revision</th><td>Rev. 2 &ndash; DRAFT for review (figures updated to the 2026 interface)</td></tr>
+    <tr><th>Revision</th><td>Rev. 3 &ndash; DRAFT for review (new interface, Documents page, Navlog profile)</td></tr>
     <tr><th>Date</th><td>${DOC.date}</td></tr>
     <tr><th>Aircraft</th><td>Reims Cessna &ldquo;Reims Rocket&rdquo; &ndash; I-CCAF (FR172J), I-CCAB (FR172H)</td></tr>
     <tr><th>Operations</th><td>VFR flight planning</td></tr>
-    <tr><th>Outputs</th><td>Operational Flight Plan (OFP, A4) &middot; NAV-FLIGHTPLAN (A5)</td></tr>
+    <tr><th>Outputs</th><td>Operational Flight Plan (OFP, A4) &middot; NAV-FLIGHTPLAN (A5) &middot; Aeroclub Varese navlog (2 &times; A4)</td></tr>
   </table>
   <div class="cv-note">This manual describes how to operate the application. It does not replace the Aircraft
   Flight Manual, the Operations Manual or the flight school SOPs. The documents produced are an aid to
@@ -176,11 +176,11 @@ TOC.push({ level: 1, num: '', title: 'Abbreviations', id: 'abbr' });
 const ABBR = [['AFM', 'Aircraft Flight Manual'], ['AIP', 'Aeronautical Information Publication'], ['ALTN', 'Alternate aerodrome'],
   ['ARR / DEST', 'Arrival / destination aerodrome'], ['ATO', 'Actual time over'], ['BEW', 'Basic empty weight'], ['CG', 'Centre of gravity'],
   ['C/S', 'Callsign'], ['DA / PA', 'Density / pressure altitude'], ['DEP', 'Departure aerodrome'], ['ECT', 'End of evening civil twilight'],
-  ['EET', 'Estimated elapsed time (leg)'], ['ETO', 'Estimated time over'], ['FF', 'Fuel flow'], ['FOB', 'Fuel on board'], ['GS', 'Ground speed'],
+  ['EET', 'Estimated elapsed time (leg)'], ['ETO', 'Estimated time over'], ['FF', 'Fuel flow'], ['FL', 'Flight level'], ['FOB', 'Fuel on board'], ['GS', 'Ground speed'],
   ['LDA', 'Landing distance available'], ['MAP', 'Manifold pressure'], ['MLAW / MTOW', 'Maximum landing / take-off weight'], ['OFP', 'Operational flight plan'],
   ['PIC', 'Pilot in command'], ['POB', 'Persons on board'], ['POH', "Pilot's Operating Handbook"], ['SR / SS', 'Sunrise / sunset'],
   ['T&G', 'Touch and go'], ['TAS', 'True airspeed'], ['TEM', 'Threat and error management'], ['TOC', 'Top of climb'],
-  ['TODA / TORA', 'Take-off distance / run available'], ['TOW', 'Take-off weight'], ['UTC', 'Coordinated universal time'], ['ZFW', 'Zero fuel weight']];
+  ['TOD', 'Top of descent'], ['TODA / TORA', 'Take-off distance / run available'], ['TOW', 'Take-off weight'], ['UTC', 'Coordinated universal time'], ['ZFW', 'Zero fuel weight']];
 A(`<table class="abbr">${ABBR.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join('')}</table>`);
 A('</section>');
 
@@ -196,18 +196,19 @@ A(ul(['Aircraft: Reims Cessna &ldquo;Reims Rocket&rdquo;, Continental IO-360-D: 
 A(h2('1.3', 'System overview'));
 A(`<div class="flow">
   <div class="fl-col"><div class="fl-h">DASHBOARD</div>
-    <div class="fl-b">New Flight<small>to the import page</small></div>
-    <div class="fl-b">Saved flights<small>reopened in the wizard &ndash; Section 4.4</small></div></div>
+    <div class="fl-b">New flight<small>to the import page</small></div>
+    <div class="fl-b">Saved flights<small>reopened in the wizard or in Documents &ndash; Section 4.5</small></div></div>
   <div class="fl-arr">&#9654;</div>
   <div class="fl-col"><div class="fl-h">IMPORT PAGE</div>
-    <div class="fl-b">ForeFlight NavLog<small>PDF or text &ndash; Section 2</small></div>
+    <div class="fl-b">ACV standard route or ForeFlight NavLog<small>PDF or text &ndash; Section 2</small></div>
     <div class="fl-b">Weather &amp; NOTAM briefing<small>PDF &ndash; Skybrief, Skybriefing/PIB, AELO/MeteoSwiss</small></div></div>
   <div class="fl-arr">&#9654;</div>
   <div class="fl-col"><div class="fl-h">WIZARD</div><div class="fl-b fl-steps">1 Flight<br>2 Route &amp; Fuel<br>3 M&amp;B<br>4 Performance<br>5 Navlog<br>6 Charts<br>7 Briefing<br>8 NOTAM &amp; Wx<small>Section 3</small></div></div>
   <div class="fl-arr">&#9654;</div>
-  <div class="fl-col"><div class="fl-h">OUTPUTS</div>
-    <div class="fl-b">OFP &ndash; A4<small>Section 4.2</small></div>
-    <div class="fl-b">NAV-FLIGHTPLAN &ndash; A5<small>Section 4.3</small></div></div>
+  <div class="fl-col"><div class="fl-h">DOCUMENTS</div>
+    <div class="fl-b">OFP &ndash; A4<small>Section 4.3</small></div>
+    <div class="fl-b">NAV-FLIGHTPLAN &ndash; A5<small>Section 4.4</small></div>
+    <div class="fl-b">Club navlog &ndash; 2 &times; A4<small>Section 4.4</small></div></div>
 </div>`);
 A(h2('1.4', 'Data sources'));
 A(`<table class="std"><thead><tr><th>Data</th><th>Source</th></tr></thead><tbody>
@@ -222,37 +223,44 @@ A(`<table class="std"><thead><tr><th>Data</th><th>Source</th></tr></thead><tbody
 A(h2('1.5', 'Responsibilities'));
 A(p('The PIC is responsible for the correctness of every input, for every cross-check required by this manual, and for the decision to fly. The application does not navigate, does not decide and does not replace the AFM or the AIP.'));
 A(h2('1.6', 'Data storage'));
-A(p('Access is restricted: accounts are created by the administrator (Section 2.1). Flights are stored only when the pilot uses **Save to Standby** (Section 4.4). They are saved to the pilot\'s account, are available on any device after signing in and are not visible to other users. A copy is kept on the device in use, so work can continue without a connection: changes are sent when the connection is restored.'));
+A(p('Access is restricted: accounts are created by the administrator (Section 2.1). Flights are stored only when the pilot uses **Save to Standby** or **Proceed** (Sections 4.5 and 3.8). They are saved to the pilot\'s account, are available on any device after signing in and are not visible to other users. A copy is kept on the device in use, so work can continue without a connection: changes are sent when the connection is restored.'));
 A('</section>');
 
 /* ---------------------------------------------------------------- sezione 2 */
 A('<section>');
 A(h1(2, 'Data Ingestion – Import Page'));
 A(h2('2.1', 'Pre-requisites'));
-A(steps([['INPUT', 'the e-mail and password provided by the administrator to sign in. At the first sign-in, replace the temporary password with your own (at least 10 characters). The **Dashboard** opens (Section 4.4).'],
+A(steps([['INPUT', 'the e-mail and password provided by the administrator to sign in. At the first sign-in, replace the temporary password with your own (at least 10 characters). The **Dashboard** opens (Section 4.5).'],
   ['PREPARE', 'the route in ForeFlight and export the **NavLog** (PDF or text), unless an **ACV standard route** is flown.'],
   ['DOWNLOAD', 'the **weather and NOTAM briefing** PDF covering departure, destination, alternate and route, from SkyBrief (link in the Weather Briefing card).'],
-  ['SELECT', '**New Flight** on the Dashboard: the Import page opens. **&larr; Dashboard** at the top of the Import page goes back without importing.']]));
+  ['SELECT', '**New flight** on the Dashboard, or **+** in the side bar: the Import page opens. **Flights** in the side bar goes back without importing.']]));
 A(h2('2.2', 'Procedure'));
-A(box('note', 'STANDARD ROUTES ACV', 'The NavLog card opens with the **ACV standard route** list [A]: the Aeroclub Varese routes, read from the club&rsquo;s ForeFlight NavLogs. SELECT a route instead of loading a NavLog: the same summary appears, with the waypoint table folded. SELECT **None** to clear it; loading a ForeFlight NavLog replaces it. A route with a Touch &amp; Go arrives in the wizard with the T&amp;G aerodrome already ticked (Step 1).'));
+A(p('The Import page has four boxes: the **ACV standard routes**, the **ForeFlight NavLog**, the **Weather briefing** and the **Status**. The route comes either from a standard route or from a NavLog; the weather always from the briefing PDF.'));
 A(split(steps([
-  ['SELECT', 'an ACV standard route [A], or leave **None** to use a ForeFlight NavLog.'],
-  ['LOAD', 'the ForeFlight NavLog in the NavLog drop zone [B]. Load it first: its ICAO codes are used to sort the briefing.'],
-  ['VERIFY', 'the NavLog summary [C]: number of waypoints, total distance and the waypoint table. For a return flight the application states that DEP and ARR are the same aerodrome.'],
-]) + box('note', 'NOTE', 'Only airports, route and distance are taken from the NavLog. ForeFlight speeds and fuel figures are not used: the AFM figures take precedence.'),
-figure(2, 'f2-1.jpg', 'NavLog Ingestion', 'NavLog read: 11 waypoints, 94 NM, return flight to the departure aerodrome.',
-  [['A', 'ACV standard route', 'SELECT or leave None'], ['B', 'NavLog drop zone', 'LOAD the ForeFlight NavLog'], ['C', 'NavLog summary and waypoint table', 'VERIFY waypoints and distance']])));
+  ['INPUT', 'part of a route name or of a waypoint in the search box [A] to narrow the list (optional).'],
+  ['SELECT', 'the route card [B]. The selected card is underlined; SELECT it again to clear it.'],
+  ['VERIFY', 'the track [C] and the summary [D]: number of waypoints, distance, Touch &amp; Go aerodrome and the waypoints in order. **Show the waypoints** opens the waypoint table.'],
+]) + box('note', 'STANDARD ROUTES ACV', 'The Aeroclub Varese routes, read from the club&rsquo;s ForeFlight NavLogs: one card per route, with its track, distance and number of waypoints. The track is drawn from the magnetic tracks and distances of the NavLog, without wind; an out-and-back route is a single line. A route with a Touch &amp; Go arrives in the wizard with the T&amp;G aerodrome already ticked (Step 1). Loading a ForeFlight NavLog replaces the selected route.'),
+figure(2, 'f2-1.jpg', 'ACV Standard Routes', 'LILE Touch and Go selected.',
+  [['A', 'Search', 'INPUT (optional)'], ['B', 'Route card', 'SELECT'], ['C', 'Track', 'VERIFY'], ['D', 'Route summary', 'VERIFY']])));
+A(split(steps([
+  ['LOAD', 'the ForeFlight NavLog in the NavLog drop zone [A], when no standard route is flown. Load it before the briefing: its ICAO codes are used to sort the briefing.'],
+  ['VERIFY', 'the NavLog summary [B]: number of waypoints, total distance and the waypoint table. For a return flight the application states that DEP and ARR are the same aerodrome.'],
+], 4) + box('note', 'NOTE', 'Only airports, route, magnetic tracks and distances are taken from the NavLog. ForeFlight speeds and fuel figures are not used: the AFM figures take precedence.'),
+figure(2, 'f2-2.jpg', 'NavLog Ingestion', 'NavLog read: 11 waypoints, 94 NM, return flight to the departure aerodrome.',
+  [['A', 'NavLog drop zone', 'LOAD the ForeFlight NavLog'], ['B', 'NavLog summary and waypoint table', 'VERIFY waypoints and distance']])));
 A(split(steps([
   ['SELECT', '**Get the briefing on SkyBrief** [A] if the briefing has not been downloaded yet: SkyBrief opens in a new tab. Search DEP, ARR and ALTN by ICAO and download the PDF.'],
   ['LOAD', 'the briefing PDF in the briefing drop zone [B].'],
   ['VERIFY', 'the briefing summary [C]: issue date and time (UTC) and, for each aerodrome, the availability of METAR, TAF and the number of NOTAMs. `N/A` means not contained in the briefing.'],
-], 4), figure(2, 'f2-2.jpg', 'Weather Briefing Ingestion', 'Four aerodromes found in the briefing, two of them with TAF.',
+], 6) + box('note', 'NOTE', 'METAR, SPECI, TAF and NOTAM are sorted onto DEP, ARR, ALTN and the T&amp;G aerodrome; from there wind, QNH and temperature feed the performance calculation (Step 4).'),
+figure(2, 'f2-3.jpg', 'Weather Briefing Ingestion', 'Four aerodromes found in the briefing, two of them with TAF.',
   [['A', 'SkyBrief link', 'SELECT to download the briefing'], ['B', 'Briefing drop zone', 'LOAD the briefing PDF'], ['C', 'Briefing summary and aerodrome table', 'VERIFY issue time and coverage']])));
 A(split(steps([
   ['CONFIRM', 'both STATUS items are green [A].'],
   ['SELECT', '**Continue** [B] to open the wizard.'],
-], 7) + box('caution', 'CAUTION', '**Skip and enter manually** [C] opens the wizard without imported data. Route, distances and all weather and NOTAM fields must then be entered by hand.'),
-figure(2, 'f2-3.jpg', 'Import Status', 'Both files read: the wizard can be opened.',
+], 9) + box('caution', 'CAUTION', '**Skip and enter manually** [C] opens the wizard without imported data. Route, distances and all weather and NOTAM fields must then be entered by hand. A missing or unreadable file does not block the wizard: its data are entered by hand.'),
+figure(2, 'f2-4.jpg', 'Import Status', 'Both files read: the wizard can be opened.',
   [['A', 'Status', 'CONFIRM both items green'], ['B', 'Continue', 'SELECT to proceed'], ['C', 'Skip and enter manually', 'Manual entry only']])));
 A('</section>');
 
@@ -261,12 +269,18 @@ A('<section>');
 A(h1(3, 'Pre-flight Data Entry – Wizard'));
 A(h2('3.0', 'Wizard navigation'));
 A(split(steps([
-  ['SELECT', 'a step pill [A] to go to any step, or use **Back** / **Next** at the bottom of the page.'],
-  ['SELECT', 'the theme button [B] to switch between dark and light display. It does not affect the documents.'],
-  ['SELECT', 'the menu [C] for documents and saved flights (Section 4.1).'],
-]) + box('caution', 'CAUTION', 'A tick on a step pill only means that the step is behind the current one. It does **not** mean that the step is complete or correct.'),
-figure(3, 'f3-1.jpg', 'Wizard Header', 'Step pills, theme button and menu.',
-  [['A', 'Step pills 1–8', 'Navigate between steps'], ['B', 'Theme button', 'Dark / light display'], ['C', 'Menu', 'Documents and flights']])));
+  ['SELECT', 'a step tab [B] to go to any step, or **Back** / **Next** [E] at the bottom of the page. On Step 8 **Next** becomes **Proceed** (Section 3.8).'],
+  ['SELECT', 'in the side bar [A]: **Flights** (the Dashboard, Section 4.5), **New flight** (the Import page) or **User manual** (this manual).'],
+  ['SELECT', 'the theme button [C] to choose the display (below). It does not affect the documents.'],
+  ['SELECT', 'the menu [D] for saving the flight and for the documents (Section 4.2).'],
+]) + box('caution', 'CAUTION', 'The underline marks the step in progress; steps already passed are shown dimmed. This does **not** mean that a step is complete or correct.'),
+figure(3, 'f3-1.jpg', 'Wizard Navigation', 'Side bar on the left, step tabs above the page.',
+  [['A', 'Side bar', 'Flights / New flight / User manual'], ['B', 'Step tabs 1–8', 'Navigate between steps'], ['C', 'Theme', 'Night / Day / Match system'],
+    ['D', 'Menu', 'Flight and documents'], ['E', 'Back / Next', 'Previous / next step; Proceed on Step 8']])));
+A(split(p('With a mouse or a trackpad the side bar widens while the pointer is over it: the name of each item appears and the icons grow. The page underneath does not move. With touch only, the side bar stays narrow and its icons work directly.')
+  + p('The theme button opens a choice of **Night** (dark), **Day** (light) and **Match system**, which follows the setting of the device. The new theme spreads from the button.')
+  + figure(3, 'f3-1t.jpg', 'Theme', 'The tick marks the current choice.', [], 'menu'),
+  figure(3, 'f3-1r.jpg', 'Side Bar, Expanded', 'Shown while the pointer is over the side bar.', [], 'menu'), '48'));
 
 /* ---- step 1 */
 A(h2('3.1', 'Step 1 – Flight & Aircraft'));
@@ -289,7 +303,8 @@ A(split(steps([
   ['SELECT', '**Touch & Go** [D] only if a landing en route is planned. The application proposes the aerodromes found along the route [E].'],
   ['SELECT', 'the aircraft [F]. Mass & Balance (Step 3) follows this choice. Select **Other** only for an aircraft not in the list or after a re-weighing: type its registration in the box that appears.'],
   ['INPUT', 'the flight mission [G] (optional).'],
-]), figure(3, 'f3-2.jpg', 'Aerodromes and Mission', 'Aerodrome codes with the data looked up automatically.',
+]) + box('note', 'NOTE', 'As soon as an ICAO code has four letters, its position, elevation and runways are looked up on OurAirports. From there come the alternate distance (ARR&ndash;ALTN), the elevations and the runways for Step 4. Every field remains editable by hand. The cruise altitude is set in Step 2.'),
+figure(3, 'f3-2.jpg', 'Aerodromes and Mission', 'Aerodrome codes with the data looked up automatically.',
   [['A', 'DEP / ARR', 'VERIFY'], ['B', 'Aerodrome data line', 'VERIFY elevation and runways'], ['C', 'ALTN', 'INPUT'],
     ['D', 'Touch & Go', 'SELECT if applicable'], ['E', 'Aerodromes along the route', 'Information'], ['F', 'Aircraft', 'SELECT'],
     ['G', 'Flight Mission', 'INPUT (optional)']])));
@@ -314,6 +329,8 @@ A(`<table class="std keep"><caption>Daylight check &ndash; status</caption><thea
 
 /* ---- step 2 */
 A(h2('3.2', 'Step 2 – Route & Fuel', { nuovaPagina: true }));
+A(p('All fuel is in **litres**, fuel flows in **L/h**, speeds in **MPH**, as in the AFM; 1 L = 0.72 kg; 174 L (46 USG) usable. At the top of the step the **fuel plan** adds up Taxi, Trip, Contingency, Alternate, Final reserve, Minimum required, Extra and Block, as printed on the OFP: litres above, minutes below, Block also in kg. It updates with every value of this step.'));
+A(figure(3, 'f3-4t.jpg', 'Fuel Plan', 'Block above 174 L is flagged on the Block box.', [], 'wide'));
 A(dtable([
   ['Cruise Altitude', 'M', 'Pilot', 'INPUT'],
   ['RPM, MAP', 'M', 'AFM fig. 5-1 combinations only', 'SELECT'],
@@ -330,13 +347,13 @@ A(dtable([
 ]));
 A(split(steps([
   ['INPUT', 'the cruise altitude [A]. RPM and MAP stay greyed out until it is entered.'],
-  ['SELECT', 'RPM and MAP [B]. Only the combinations published by the AFM at that altitude are offered.'],
+  ['SELECT', 'RPM and MAP [B]. Only the combinations published by the AFM (fig. 5-1) at that altitude are offered: as the altitude increases, the maximum MAP drops by about one inch per 1000 ft and the higher-power combinations disappear. Selecting the setting fills in the Trip GS and fuel flow with the TAS and fuel flow of that row.'],
   ['VERIFY', 'the power line [C]: % power, TAS and fuel flow.'],
   ['VERIFY', 'the climb line [D]: from DEP elevation to cruise altitude, time, distance and fuel (start-up and take-off included).'],
 ]), figure(3, 'f3-4.jpg', 'Cruise Power Setting', 'Selecting the setting fills in Trip GS and fuel flow.',
   [['A', 'Cruise Altitude', 'INPUT'], ['B', 'RPM / MAP', 'SELECT'], ['C', 'Power line', 'VERIFY'], ['D', 'Climb line', 'VERIFY']])));
 A(split(steps([
-  ['VERIFY', 'the Trip distance [A] from the NavLog.'],
+  ['VERIFY', 'the Trip distance [A] from the NavLog. It is the distance of the actual route, not the great circle DEP&ndash;ARR, and remains editable.'],
   ['CORRECT', 'the cruise GS [B] for the forecast wind. The proposed value is the TAS of the setting.'],
   ['VERIFY', 'the fuel flow [C].'],
   ['VERIFY', 'the Trip line [D]: climb + cruise = Trip time and fuel, and the TOC position.'],
@@ -444,28 +461,37 @@ A(dtable([
   ['Freq.', 'A', 'OurAirports (number only)', 'VERIFY'],
   ['C/S', 'O', 'Pilot', 'INPUT'],
   ['Checkpoint, MT, Dist.', 'A', 'NavLog', 'VERIFY'],
-  ['Alt.', 'A', 'Cruise altitude', 'VERIFY / CORRECT per waypoint'],
+  ['Alt.', 'A', 'Cruise altitude', 'VERIFY / CORRECT per waypoint (ft or FL)'],
+  ['Vertical profile', 'A', 'Computed from Alt.', 'VERIFY'],
   ['EET, ETO, Fuel', 'A', 'Computed', 'VERIFY'],
   ['Remarks', 'O', 'Pilot', 'INPUT'],
 ]));
 A(split(steps([
-  ['VERIFY', 'GS and fuel flow [A] [B]. Leave empty to use the Step 2 values.'],
+  ['VERIFY', 'GS and fuel flow [A] [B]. Leave empty to use the Step 2 values. Times and fuel are not copied from ForeFlight: they are recomputed, so that the legs add up exactly to the Trip of the fuel plan.'],
 ]), figure(3, 'f3-15.jpg', 'Navlog Speed & Fuel Flow', '',
   [['A', 'GS navplan', 'Leave empty or INPUT'], ['B', 'Fuel flow navplan', 'Leave empty or INPUT']])));
+A(p('At the top of the step the **vertical profile** draws the flight to scale along the navplan route, leg by leg, with the altitudes of the **Alt.** column. It redraws while an altitude is typed. On a tablet or a computer it stays at the top of the page while the legs table is scrolled.'));
+A(split(steps([
+  ['VERIFY', 'the summary line [A]: total distance, TOC position, TOD position and, if any, the number of altitudes not reached.'],
+  ['VERIFY', 'the profile: climb, cruise altitudes, descents and the final descent to the arrival aerodrome. The leg of the row being edited is highlighted [B]; SELECT a leg on the profile to go to its **Alt.** box.'],
+  ['REVIEW', 'every leg drawn in amber [C]: its altitude cannot be reached within the leg, and the wanted altitude is shown dashed. CORRECT the altitude or accept the leg as drawn.'],
+], 2) + box('note', 'NOTE', 'Climbs use the climb gradient of the fuel plan (AFM fig. 5-6, from the DEP elevation to the cruise altitude), so the TOC drawn is the TOC of the fuel plan. Descents are drawn at 500 ft/min at the navplan GS. The altitude of a row is the altitude of the leg that ends at that checkpoint; the change starts at the previous checkpoint. Descents are a drawing aid: times and fuel are not changed (Section 5.3).'),
+figure(3, 'f3-15p.jpg', 'Vertical Profile', 'Example: the leg to LILE planned at 2000 ft cannot be reached from 4500 ft at 500 ft/min.',
+  [['A', 'Summary line', 'VERIFY'], ['B', 'Leg being edited', 'Information'], ['C', 'Altitude not reached', 'REVIEW']])));
 A(steps([
-  ['SELECT', '**+ Row** [A] to add a checkpoint, &times; to delete one.'],
-  ['SELECT', '**Fill Frequencies** [B] to repeat the frequency look-up. VERIFY frequencies [C].'],
+  ['SELECT', '**Add row** [A] to add a checkpoint, &times; to delete one.'],
+  ['SELECT', '**Fill frequencies** [B] to repeat the frequency look-up. VERIFY frequencies [C].'],
   ['INPUT', 'callsigns [D] (not in any database).'],
   ['VERIFY', 'checkpoints, magnetic tracks and distances [E].'],
   ['SELECT', '**Round MT to 5°** [F] if required: magnetic tracks are shown and printed to the nearest 5° (347 &rarr; 345, 358 &rarr; 360). The ForeFlight values are kept; untick to restore them.'],
-  ['VERIFY', 'the altitude of each waypoint [G]; CORRECT where different from cruise.'],
+  ['VERIFY', 'the altitude of each waypoint [G], in feet or as a flight level (FL065); CORRECT where different from cruise. Changing the cruise altitude in Step 2 updates only the rows that still carry the old cruise altitude.'],
   ['VERIFY', 'EET per leg, ETO (minutes after TO) and fuel [H]. A leg from or to an aerodrome reads e.g. `7/+5`: 7 min en route + 5 aerodrome minutes (Section 5.3), already included in ETO, Trip and fuel.'],
   ['INPUT', 'remarks [I] (optional).'],
   ['CROSS-CHECK', 'the totals line [J] with the Trip of Step 2: time and fuel must be the same.'],
-], 2));
+], 5));
 A(figure(3, 'f3-16.jpg', 'Navlog Legs',
   'Times and fuel are recomputed from the selected power setting, not copied from ForeFlight; the climb is split over the legs by distance.',
-  [['A', '+ Row', 'Add checkpoint'], ['B', 'Fill Frequencies', 'Repeat look-up'], ['C', 'Freq.', 'VERIFY'], ['D', 'C/S', 'INPUT'],
+  [['A', 'Add row', 'Add checkpoint'], ['B', 'Fill frequencies', 'Repeat look-up'], ['C', 'Freq.', 'VERIFY'], ['D', 'C/S', 'INPUT'],
     ['E', 'Checkpoint / MT / Dist.', 'VERIFY'], ['F', 'Round MT to 5°', 'SELECT if required'], ['G', 'Alt.', 'VERIFY / CORRECT'],
     ['H', 'EET / ETO / Fuel', 'VERIFY'], ['I', 'Remarks', 'INPUT (optional)'], ['J', 'Totals line', 'CROSS-CHECK with Trip']], 'wide'));
 A(box('note', 'NOTE', 'A leg longer than 10 minutes shows an advisory message (turning points ideally every 6–8 minutes). It does not block the wizard and does not change the navlog.'));
@@ -478,7 +504,7 @@ A(steps([
 ]));
 A(p('Charts and notes are printed on the DEST CHARTS page of the OFP. Graphic pages of the briefing (e.g. significant weather, wind charts) are added to the OFP automatically, one per page.'));
 A(h2('3.7', 'Step 7 – Briefing'));
-A(p('A briefing by phase of flight, written before departure, that gives a structure to everything that has to be done in flight. All fields are optional free text and nothing is checked by the application; they are printed on the BRIEFING page of the OFP (Section 4.2).'));
+A(p('A briefing by phase of flight, written before departure, that gives a structure to everything that has to be done in flight. All fields are optional free text and nothing is checked by the application; they are printed on the BRIEFING page of the OFP (Section 4.3).'));
 A(dtable([
   ['Procedure (DEP, ENR, T&amp;G, DEST, ALTN)', 'O', 'Pilot', 'INPUT'],
   ['Possible threats', 'O', 'Pilot', 'INPUT'],
@@ -522,6 +548,7 @@ A(split(steps([
   ['VERIFY', 'for each aerodrome (DEP, ARR, T&G, ALTN) METAR [A], SPECI [B], TAF [C] and NOTAM [D]: correct aerodrome, current issue.'],
   ['VERIFY', 'the Enroute NOTAM and SIGMET / AIRMET boxes. An absence must be stated (e.g. &ldquo;no active SIGMET&rdquo;): an empty box is not information.'],
   ['INPUT', 'the PIC name. It is printed on every page of the OFP and on the NAV-FLIGHTPLAN.'],
+  ['SELECT', '**Proceed** at the bottom of the page: the flight is saved to your account (READY TO FLY when the briefing is loaded) and the **Documents** page opens (Section 4.1).'],
 ], 5) + box('note', 'NOTE', '`N/A – not available in the briefing` is an explicit statement that the report is not contained in the briefing.'),
 figure(3, 'f3-19.jpg', 'Aerodrome Weather & NOTAM', 'One block per aerodrome. Text edited by hand is not overwritten by a later import.',
   [['A', 'METAR', 'VERIFY'], ['B', 'SPECI', 'VERIFY'], ['C', 'TAF', 'VERIFY'], ['D', 'NOTAM', 'VERIFY']])));
@@ -530,18 +557,34 @@ A('</section>');
 /* ---------------------------------------------------------------- sezione 4 */
 A('<section>');
 A(h1(4, 'System Outputs & Dispatch'));
-A(h2('4.1', 'Menu'));
+A(h2('4.1', 'Documents'));
+A(p('The **Documents** page collects the three documents of a flight. It opens with **Proceed** on Step 8 of the wizard (Section 3.8), with **Documents** in the menu (Section 4.2) and with **Documents** on a READY TO FLY flight of the Dashboard (Section 4.5).'));
+A(split(steps([
+  ['VERIFY', 'the flight shown under the title: route, date and PIC.'],
+  ['SELECT', '**Download** [D] on the row of a document: the PDF is saved with the file name shown on the row [E].'],
+  ['SELECT', '**Download all** [C] to save the three PDFs one after the other.'],
+  ['SELECT', '**Edit flight** [B] to go back to the wizard, or **Flights** [A] to go back to the Dashboard.'],
+]) + `<table class="std"><thead><tr><th>Document</th><th>File</th></tr></thead><tbody>
+<tr><td>Operational flight plan, A4 (Section 4.3)</td><td><code>OFP_DEP-ARR_date.pdf</code></td></tr>
+<tr><td>NAV-FLIGHTPLAN, A5 (Section 4.4)</td><td><code>NAVLOG_DEP-ARR_date.pdf</code></td></tr>
+<tr><td>Aeroclub Varese navlog, 2 &times; A4 (Section 4.4)</td><td><code>CLUB-NAVLOG_DEP-ARR_date.pdf</code></td></tr>
+</tbody></table>`
+  + box('note', 'NOTE', 'The PDFs are generated from the flight data at the moment of the download: after a change in the wizard, download them again. The page has its own address (`#/flights/…/documents`): it can be reloaded or kept as a bookmark. On iPad, Safari may ask to allow multiple downloads the first time **Download all** is used. To print, use the print function of the PDF viewer.')
+  + box('caution', 'CAUTION', 'Graphic weather charts are not stored with the flight: after reopening a saved flight they are in the OFP only if the briefing is loaded again. A flight without a briefing gives an OFP without METAR, TAF and NOTAM. The two navlogs need the legs of Step 5.'),
+figure(4, 'f4-9.jpg', 'Documents', 'Three documents of a READY TO FLY flight.',
+  [['A', 'Flights', 'Back to the Dashboard'], ['B', 'Edit flight', 'Back to the wizard'], ['C', 'Download all', 'SELECT'],
+    ['D', 'Download', 'SELECT per document'], ['E', 'File name', 'Information']])));
+A(h2('4.2', 'Menu'));
 A(split(`<table class="std"><thead><tr><th></th><th>Item</th><th>Function</th></tr></thead><tbody>
-<tr><td><span class="mk">A</span></td><td>Dashboard</td><td>Back to the Dashboard (Section 4.4). The flight plan stays open.</td></tr>
+<tr><td><span class="mk">A</span></td><td>Dashboard</td><td>Back to the Dashboard (Section 4.5). The flight plan stays open.</td></tr>
 <tr><td><span class="mk">B</span></td><td>New Flight Plan</td><td>Closes the flight plan and opens the import page. Unsaved data is lost.</td></tr>
 <tr><td><span class="mk">C</span></td><td>Save to Standby</td><td>Saves the flight to your account</td></tr>
 <tr><td><span class="mk">D</span></td><td>Document Preview</td><td>Shows the OFP on screen</td></tr>
-<tr><td><span class="mk">E</span></td><td>Download OFP PDF</td><td>A4 OFP. To print it, use the print function of the PDF viewer.</td></tr>
-<tr><td><span class="mk">F</span></td><td>Download Navlog PDF</td><td>A5 NAV-FLIGHTPLAN (separate document)</td></tr>
-<tr><td><span class="mk">G</span></td><td>Navlog Aeroclub Varese</td><td>The flying club Navigation Log, two A4 pages (Section 4.3)</td></tr>
-<tr><td><span class="mk">H</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
-</tbody></table><p>Below these items the menu shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab. On the Dashboard the menu shows only New Flight Plan, User Manual and the account items.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu at the top right of the wizard.', [], 'menu'), '48'));
-A(h2('4.2', 'Operational Flight Plan (A4)'));
+<tr><td><span class="mk">E</span></td><td>Documents</td><td>Saves the flight and opens its Documents page (Section 4.1)</td></tr>
+<tr><td><span class="mk">F</span></td><td>User Manual</td><td>This manual, in a new tab</td></tr>
+</tbody></table><p>The menu opens from <b>&hellip;</b> (More) at the bottom of the side bar. Below these items it shows the signed-in user, <b>Users</b> (administrator only), <b>Change password</b> and <b>Sign out</b>. Users and Change password open in a new tab. On the Dashboard the menu shows only New Flight Plan, User Manual and the account items.</p>`, figure(4, 'f4-1.jpg', 'Main Menu', 'Menu of the wizard.', [], 'menu'), '48'));
+A(h2('4.3', 'Operational Flight Plan (A4)'));
+A(p('Downloaded from the Documents page (Section 4.1). **Document Preview** in the menu shows it on screen without downloading it.'));
 A(`<table class="std keep"><caption>OFP page structure (number of pages varies with NOTAMs and charts)</caption><thead><tr><th>Page</th><th>Content</th></tr></thead><tbody>
 <tr><td>OFP</td><td>Flight data, estimated / actual times, route, cruise altitude, fuel plan, alternate summary, daylight check</td></tr>
 <tr><td>MASS AND BALANCE</td><td>Loading sheet, limits, CG envelope chart, remarks, PIC signature</td></tr>
@@ -562,9 +605,9 @@ A(figure(4, 'f4-3.jpg', 'OFP – Mass and Balance', 'Followed on the same page b
 A(figure(4, 'f4-5.jpg', 'OFP – Performance', '',
   [['A', 'Masses (TOW / LAW / ALTN)', 'VERIFY'], ['B', 'V-speeds by aerodrome', 'VERIFY'], ['C', 'Conditions by phase', 'VERIFY'],
     ['D', 'Distances available / required / margin', 'CROSS-CHECK'], ['E', 'Cruise power setting', 'VERIFY'], ['F', 'TOC position', 'VERIFY'], ['G', 'AFM cruise table', 'Reference']], 'wide doc'));
-A(h2('4.3', 'NAV-FLIGHTPLAN (A5)'));
+A(h2('4.4', 'NAV-FLIGHTPLAN (A5) and club navlog'));
 A(steps([
-  ['SELECT', '**Download Navlog PDF** from the menu. It is a separate document and never part of the OFP.'],
+  ['SELECT', '**Download** on the NAV-FLIGHTPLAN row of the Documents page. It is a separate document and never part of the OFP.'],
   ['VERIFY', 'the header [A]: aircraft, pilot, date, GS, QNH and runway.'],
   ['RECORD', 'off-blocks and on-blocks times [B] by hand.'],
   ['VERIFY', 'the legs [C].'],
@@ -574,9 +617,9 @@ A(steps([
 A(figure(4, 'f4-6.jpg', 'NAV-FLIGHTPLAN', 'A5 document for the cockpit.',
   [['A', 'Header', 'VERIFY'], ['B', 'Off Bl. / Bl. on', 'Record by hand'], ['C', 'Legs', 'VERIFY'], ['D', 'ATO', 'Record in flight'],
     ['E', 'Alternate row', 'VERIFY'], ['F', 'Fuel calculation', 'VERIFY']], 'wide doc a5'));
-A(p('**Navlog Aeroclub Varese** produces the same navigation log on the flying club form (Aeroclub di Varese, Navigation Log): one PDF of two A4 landscape pages, front and back, to be printed double-sided. It does not replace the NAV-FLIGHTPLAN, which remains the navigation log of the application.'));
+A(p('The **Aeroclub Varese navlog** produces the same navigation log on the flying club form (Aeroclub di Varese, Navigation Log): one PDF of two A4 landscape pages, front and back, to be printed double-sided. It does not replace the NAV-FLIGHTPLAN, which remains the navigation log of the application.'));
 A(steps([
-  ['SELECT', '**Navlog Aeroclub Varese** from the menu.'],
+  ['SELECT', '**Download** on the Aeroclub Varese navlog row of the Documents page.'],
   ['VERIFY', 'the main table (right side of the front): checkpoints, NAV AIDS (Ident = callsign, Freq), MC, ALT, DIST and FUEL per leg and remaining, ETE and ETO, as in the NAV-FLIGHTPLAN. Up to 13 checkpoints fit; up to 6 more continue in the left table, above the Dest. Airport row.'],
   ['VERIFY', 'the alternate (left side of the front): one leg from destination to alternate. The MC is computed from the great circle and the WMM2025 magnetic variation, and is marked as to be verified.'],
   ['VERIFY', 'the back: weather by aerodrome from the METAR; weight and balance with the take-off fuel; fuel calculation; take-off data (DEP) and landing data (DEST).'],
@@ -586,18 +629,19 @@ A(box('note', 'NOTE', 'Differences from the club form as printed by hand: CLIMB 
 A(box('caution', 'CAUTION', 'The form is an aid to flight preparation and does not replace the AFM, the SOP or the AIP. Every pre-filled value must be verified by the pilot before use.'));
 A(figure(4, 'f4-7.jpg', 'Club Navlog – Front', 'Main table on the right, alternate on the left.', [], 'wide doc'));
 A(figure(4, 'f4-8.jpg', 'Club Navlog – Back', 'Weather, weight and balance, fuel calculation, take-off and landing data.', [], 'wide doc'));
-A(h2('4.4', 'Dashboard – Saved flights'));
-A(p('The Dashboard is the first page after signing in. **New Flight** opens the Import page (Section 2); saved flights are reopened from their cards. While a flight plan is open in the wizard, **Back to the open flight plan** returns to it. Reloading the page also shows the Dashboard first.'));
+A(h2('4.5', 'Dashboard – Saved flights'));
+A(p('The Dashboard is the first page after signing in. The header [A] greets the pilot by name, with the UTC time, and draws the route network of the home field: the ACV standard routes and the saved flights, with range rings at 25, 50, 100 and 150 NM. The summary tiles [B] give the next or latest flight, the flights ready to fly, those waiting for weather and the planned distance. **New flight** opens the Import page (Section 2). While a flight plan is open in the wizard, **Back to the open flight plan** returns to it. Reloading the page also shows the Dashboard first.'));
+A(p('Each saved flight is a strip with the thumbnail of its track [C], drawn from the legs of the Navlog, its badge (STANDBY or READY TO FLY), route, date and times.'));
 A(split(steps([
-  ['SELECT', '**Save to Standby** to store the flight, for example while waiting for the weather. The Dashboard opens.'],
-  ['LOAD', 'the briefing PDF on the standby card [B] to finalise the flight: it moves to READY TO FLY [D].'],
-  ['SELECT', '**Edit data** [C] to reopen a standby flight in the wizard.'],
-  ['LOAD', 'a newer briefing on a completed card [E] to update its weather.'],
-  ['SELECT', '**View OFP** [F] to reopen a completed flight in the wizard.'],
+  ['SELECT', '**Save to Standby** in the menu to store the flight, for example while waiting for the weather. The Dashboard opens.'],
+  ['LOAD', 'the briefing PDF with **Load briefing** [D] on a standby flight to finalise it: it moves to READY TO FLY.'],
+  ['SELECT', '**Edit** [E] to reopen a flight in the wizard.'],
+  ['SELECT', '**Documents** [F] on a READY TO FLY flight to open its Documents page (Section 4.1).'],
+  ['LOAD', 'a newer briefing with **Update WX** [G] to update the weather of a READY TO FLY flight.'],
 ]) + box('note', 'NOTE', 'Opening a saved flight or starting a new one closes the flight plan open in the wizard: save it first with **Save to Standby**.') + box('caution', 'CAUTION', 'Saved flights are stored in your account. On a shared device, select **Sign out** at the end of the session: it removes the local copy from the device. Graphic weather charts are not stored with the flight.'),
 figure(4, 'f4-4.jpg', 'Dashboard', '',
-  [['A', 'Standby badge', 'Awaiting weather'], ['B', 'Load briefing', 'Finalise'], ['C', 'Edit data', 'Reopen'],
-    ['D', 'Ready to fly badge', 'Weather loaded'], ['E', 'Update WX', 'LOAD newer briefing'], ['F', 'View OFP', 'Reopen']])));
+  [['A', 'Greeting and route network', 'Information'], ['B', 'Summary tiles', 'Information'], ['C', 'Track thumbnail', 'VERIFY the route'],
+    ['D', 'Load briefing', 'Finalise'], ['E', 'Edit', 'Reopen in the wizard'], ['F', 'Documents', 'Open the documents'], ['G', 'Update WX', 'LOAD newer briefing']])));
 A('</section>');
 
 /* ---------------------------------------------------------------- sezione 5 */
@@ -639,9 +683,10 @@ A(ul(['Sunrise / sunset: upper limb at &minus;0.833°; civil twilight: centre at
   'Rounded conservatively: sunset and end of twilight to the minute before, sunrise to the minute after.',
   'Uses the flight date of Step 8 and the UTC times of Step 1. No elevation correction (as in published tables).']));
 A(h2('5.6', 'Documents and storage'));
-A(ul(['The OFP is printed from the downloaded PDF, with the PDF viewer.',
+A(ul(['The documents are downloaded from the Documents page and printed from the PDF, with the PDF viewer.',
+  'They are generated from the flight data at the moment of the download: after any change, download them again.',
   'Saved flights are stored in the pilot\'s account and are visible only to that pilot. On a shared device, **Sign out** at the end of the session.',
-  'The A5 NAV-FLIGHTPLAN is a separate document and must be downloaded separately.']));
+  'The A5 NAV-FLIGHTPLAN and the club navlog are separate documents, never part of the OFP.']));
 A('<div class="final">The documents produced are an aid to planning. Responsibility for the flight remains with the Pilot in Command.</div>');
 A('</section>');
 
@@ -662,7 +707,8 @@ const CHK = [
   ['Navlog', 'Totals equal Trip time and fuel; frequencies verified', '3.5'],
   ['Weather & NOTAM', 'Correct aerodrome and current issue in every box; SIGMET / AIRMET box not empty', '3.8'],
   ['Date / PIC', 'Flight date and PIC name entered', '3.8'],
-  ['Documents', 'OFP and NAV-FLIGHTPLAN downloaded / printed; OFP signed', '4.2 / 4.3'],
+  ['Profile', 'Vertical profile without amber legs, or each one accepted', '3.5'],
+  ['Documents', 'OFP and navlogs downloaded from the Documents page after the last change; OFP printed and signed', '4.1'],
 ];
 A(`<table class="chk"><thead><tr><th>Item</th><th>Check</th><th>Ref.</th><th>&#10003;</th></tr></thead><tbody>${
   CHK.map(([a, b, c]) => `<tr><td class="ci">${esc(a)}</td><td>${esc(b)}</td><td class="cr"><a href="#s${c.split(' ')[0].replace('.', '-')}">${esc(c)}</a></td><td class="cb"></td></tr>`).join('')
