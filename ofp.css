@@ -555,7 +555,8 @@ html[data-tema="chiaro"] .hero{border-color:var(--panel-line)}
 .hero-rete .volo.ultimo{stroke-opacity:1;stroke-width:2.2}
 .hero-rete .arrivo{fill:var(--accent-2)}
 .hero-rete .campo circle{fill:var(--txt-faint)}
-.hero-rete .campo text{font:400 11px var(--mono);fill:var(--txt-faint)}
+.hero-rete .campo-t{font:400 11px var(--mono);fill:var(--txt-faint)}
+.hero-rete .sotto-t{fill:var(--panel-bg)}
 .dash-prima .hero-rete .campo{animation:hero-sale 400ms var(--ease-out) calc(var(--i,0) * 70ms + 700ms) both}
 .hero-rete .casa{fill:var(--txt)}
 .hero-rete .faro{fill:none;stroke:var(--txt);stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:center}

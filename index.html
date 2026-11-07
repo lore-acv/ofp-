@@ -6984,28 +6984,54 @@ function disegnaReteHero(list){
   const cx=ox, cy=oy;
   const P=(v)=>v.pts.map(p=>[ox+p.x*k, oy+p.y*k]);
   const casa=(voli.map(v=>v.dep).concat(std.map(v=>v.dep)).find(Boolean))||'HOME';
-  let g='';
-  [25,50,100,150].filter(n=>n*k<W).forEach(n=>{
-    g+=`<circle class="anello" cx="${cx}" cy="${cy}" r="${(n*k).toFixed(1)}"/>`
-     + `<text class="dist" x="${(cx+n*k*.707+4).toFixed(1)}" y="${(cy-n*k*.707-4).toFixed(1)}">${n}</text>`;
-  });
+  /* Le scritte non si sovrappongono mai: ognuna prova qualche posizione
+     attorno al suo punto e prende la prima libera (da altre scritte, dai
+     punti e dal testo del saluto); se non ce n'e', non si scrive. */
+  const occupati=[];
+  const testo=svg.closest('.hero-alto').querySelector('.hero-testo');
+  if(testo){ const rs=svg.getBoundingClientRect(); [...testo.children].forEach(c=>{ const r=c.getBoundingClientRect(); if(r.width) occupati.push({x0:r.left-rs.left-6, y0:r.top-rs.top-4, x1:r.right-rs.left+10, y1:r.bottom-rs.top+4}); }); }
+  const libero=(r)=>r.x0>=2 && r.x1<=W-2 && r.y0>=2 && r.y1<=H-2 && !occupati.some(o=>r.x0<o.x1 && r.x1>o.x0 && r.y0<o.y1 && r.y1>o.y0);
+  const punto=(x,y,rr)=>occupati.push({x0:x-rr,y0:y-rr,x1:x+rr,y1:y+rr});
+  const VICINO=[[7,4,0],[-7,4,1],[0,-8,2],[0,16,2],[7,-6,0],[-7,-6,1],[7,14,0],[-7,14,1]];
+  const scrivi=(x,y,t,cls,cand,cw)=>{
+    const w=t.length*(cw||6.8), h=11;
+    for(const [dx,dy,a] of cand){
+      const tx=x+dx, ty=y+dy, s0 = a===1 ? tx-w : a===2 ? tx-w/2 : tx;
+      const r={x0:s0-3, y0:ty-h-1, x1:s0+w+3, y1:ty+4};
+      if(libero(r)){ occupati.push(r);
+        /* sotto la sigla un riquadro del colore della scheda: le linee le passano sotto */
+        return `<rect class="sotto-t" x="${(s0-2).toFixed(1)}" y="${(ty-h+1).toFixed(1)}" width="${(w+4).toFixed(1)}" height="${h+2}" rx="2"/>`
+          + `<text class="${cls}" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}"${a===1?' text-anchor="end"':a===2?' text-anchor="middle"':''}>${escHtml(t)}</text>`; }
+    }
+    return '';
+  };
+  let g='', scritte='';
+  const anelli=[25,50,100,150].filter(n=>n*k<W);
+  anelli.forEach(n=>{ g+=`<circle class="anello" cx="${cx}" cy="${cy}" r="${(n*k).toFixed(1)}"/>`; });
   g+=`<path class="asse" d="M${cx} 0V${H}M0 ${cy}H${W}"/>`;
   let i=0;
   std.forEach(v=>{ g+=`<path class="std" style="--i:${i++}" pathLength="1" d="${tracciaArrotondata(P(v),5)}"/>`; });
-  std.forEach(v=>{ if(!v.meta || !v.nome) return; const x=ox+v.meta.x*k, y=oy+v.meta.y*k;
-    g+=`<g class="campo" style="--i:${i++}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.2"/><text x="${(x+6).toFixed(1)}" y="${(y+3.5).toFixed(1)}">${escHtml(v.nome)}</text></g>`; });
+  /* prima il campo di casa, poi i campi delle rotte, per ultime le distanze dei cerchi */
+  punto(cx,cy,6);
+  scritte+=scrivi(cx,cy+6,casa,'casa-t',[[9,10,0],[-9,10,1],[9,-8,0],[-9,-8,1]],7.2);
+  const visti=new Set(), campi=[];
+  std.forEach(v=>{ if(!v.meta || !v.nome || visti.has(v.nome)) return; visti.add(v.nome);
+    const x=ox+v.meta.x*k, y=oy+v.meta.y*k; punto(x,y,3); campi.push({x,y,nome:v.nome}); });
+  campi.forEach(c=>{ const t=scrivi(c.x,c.y,c.nome,'campo-t',VICINO);
+    g+=`<g class="campo" style="--i:${i++}"><circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="2.2"/></g>`;
+    if(t) scritte+=`<g class="campo" style="--i:${i-1}">${t}</g>`; });
+  anelli.forEach(n=>{ const a=n*k*.707; scritte+=scrivi(cx+a,cy-a,String(n),'dist',[[4,-4,0],[-4,-4,1],[4,12,0]],6.4); });
   voli.forEach((v,j)=>{ g+=`<path class="volo${j===0?' ultimo':''}" style="--i:${i++}" pathLength="1" d="${tracciaArrotondata(P(v),5)}"/>`;
     const z=P(v).slice(-1)[0]; if(Math.hypot(z[0]-cx,z[1]-cy)>6) g+=`<circle class="arrivo" cx="${z[0].toFixed(1)}" cy="${z[1].toFixed(1)}" r="2.4"/>`; });
-  g+=`<circle class="faro" cx="${cx}" cy="${cy}" r="9"/><circle class="casa" cx="${cx}" cy="${cy}" r="3.6"/>`
-   + `<text class="casa-t" x="${cx+9}" y="${cy+16}">${escHtml(casa)}</text>`;
+  g+=`<circle class="faro" cx="${cx}" cy="${cy}" r="9"/><circle class="casa" cx="${cx}" cy="${cy}" r="3.6"/>`+scritte;
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
   svg.closest('.hero-rete').classList.toggle('solo-std', !voli.length);
   svg.innerHTML=g;
 }
 window.addEventListener('resize',()=>{ if(dashboardAperta()) disegnaReteHero(loadSavedFlights()); });
-/* Parallasse: la rete scorre al 70% della pagina e si sposta di qualche
-   pixel col puntatore. Solo transform, un fotogramma alla volta; niente con
-   "riduci movimento". */
+/* Parallasse: allo scorrimento la rete scorre al 70% della pagina. Solo
+   transform, un fotogramma alla volta; niente con "riduci movimento". Il
+   puntatore non la muove. */
 (function(){
   const dash=$('dashboard'), strato=$('heroStrato'), hero=$('dashHero'); if(!dash||!strato||!hero) return;
   const ferma=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -7013,9 +7039,6 @@ window.addEventListener('resize',()=>{ if(dashboardAperta()) disegnaReteHero(loa
   const metti=()=>{ raf=0; strato.style.transform=`translate3d(${px.toFixed(1)}px,${(sy*.3+py).toFixed(1)}px,0)`; };
   const chiedi=()=>{ if(!raf) raf=requestAnimationFrame(metti); };
   dash.addEventListener('scroll',()=>{ if(ferma()) return; sy=Math.min(dash.scrollTop, 400); chiedi(); }, {passive:true});
-  hero.addEventListener('pointermove',e=>{ if(ferma() || e.pointerType!=='mouse') return; const r=hero.getBoundingClientRect();
-    px=((e.clientX-r.left)/r.width-.5)*-14; py=((e.clientY-r.top)/r.height-.5)*-10; chiedi(); });
-  hero.addEventListener('pointerleave',()=>{ px=0; py=0; chiedi(); });
 })();
 let DASH_VISTA=false, DASH_OROLOGIO=null;
 function openDashboard(){

@@ -353,8 +353,10 @@ Le rotte standard dell'aeroclub in faint con il nome del loro campo, i voli
 salvati nel colore d'accento (l'ultimo piu' marcato); senza voli salvati le
 standard prendono l'accento. Sotto, il riepilogo in quattro caselle: prossimo
 volo (data del briefing e decollo), pronti, in attesa, miglia pianificate.
-Movimento: la rete scorre al 30% della pagina e segue il puntatore di qualche
-pixel (solo transform); alla prima apertura della visita le rotte si
+Le sigle non si sovrappongono: ognuna prende la prima posizione libera attorno
+al suo punto (da altre sigle, dai punti e dal saluto), altrimenti non si
+scrive. Movimento: allo scorrimento la rete scorre al 30% della pagina (solo
+transform); il puntatore non la muove; alla prima apertura della visita le rotte si
 disegnano a ventaglio e testo e caselle salgono di 6px; il campo ha un faro
 che pulsa piano. Con "riduci movimento" tutto fermo.
 
