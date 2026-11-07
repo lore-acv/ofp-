@@ -174,7 +174,12 @@ pixel colorati di una schermata resta sotto il 3%.
   di 1px sotto o accanto a cio' che e' selezionato: lo step in corso, la voce
   della barra laterale, il segmento scelto, il focus dei campi. (2) La serie
   principale di un grafico: la linea del profilo verticale, la quota di
-  carburante richiesta. Mai come fondo di un pulsante o di una scheda.
+  carburante richiesta, la traccia nelle miniature dei voli. Mai come fondo di
+  un pulsante o di una scheda.
+- **Magenta rotta** (#cc33bb, fisso in ogni tema): una sola eccezione, la
+  traccia che l'aereo disegna nella mappa del login. E' il colore della rotta
+  attiva sui navigatori GPS, non un colore del sito; nessuna variabile di tema
+  lo cambia (rotta-av.js). Contrasto 3.5:1 sul fondo Giorno, 4:1 sul Notte.
 
 ### Primario
 - **Inchiostro invertito** (notte-primary bianco con testo nero,
@@ -323,12 +328,41 @@ Calcolati e in sola lettura: fondo raised, bordo border, testo muted.
   quello in corso in text con la riga d'accento sotto, larga quanto
   l'etichetta.
 
+### Dashboard greeting
+Il titolo della Dashboard saluta col nome di battesimo dell'account (mai
+scritto nel codice): una frase per caricamento della pagina, scelta a caso fra
+il saluto dell'ora del dispositivo (Good morning fino alle 12, Good afternoon
+fino alle 18, Good evening dopo) e le frasi di SALUTI_DASHBOARD in index.html.
+Tono da cockpit: sobrio, niente battute. Sotto, la riga di stato con l'ora UTC.
+
 ### Flight strips (signature, Dashboard)
 Una striscia per volo, come le strisce di progresso volo dei controllori:
-caselle separate da filetti per marca e modello, rotta (DEP → ARR, alternato,
-waypoint in Mono), distanza, waypoint, stato con data, e l'azione del momento
-("Load briefing", "Download OFP"). Sul telefono: stato e data in alto, rotta,
-due caselle di dati, azione a tutta larghezza.
+la miniatura della traccia, caselle separate da filetti per marca e modello,
+rotta (DEP → ARR, alternato, waypoint in Mono), stato con data, e l'azione del
+momento ("Load briefing" per chi aspetta il briefing, "Documents" per chi e'
+pronto). Su iPad e schermi medi la miniatura e' alta due righe e le azioni
+stanno sotto; sul telefono: stato in alto, miniatura e rotta, due caselle di
+dati, azioni a tutta larghezza.
+
+### Track thumbnail
+La forma della rotta dai punti del volo, in ordine: ogni tratta con la sua
+rotta magnetica e la sua distanza dal NavLog (senza vento). Linea d'accento
+1.5px, cerchio vuoto alla partenza, punto pieno all'arrivo; un giro che torna
+al campo si chiude distribuendo lo scarto lungo la strada. Fondo raised nelle
+strisce, nessun fondo nelle righe delle rotte standard.
+
+### ACV standard routes
+Tutte le rotte di rotte-acv.js (la stessa fonte del menu dell'import), una
+riga ciascuna: miniatura, nome, punti in Mono, distanza. Niente colonne
+affiancate: ogni rotta ha la sua riga a ogni larghezza.
+
+### Documents
+La pagina dei tre documenti di un volo (OFP, NAV-FLIGHTPLAN, navlog
+dell'Aeroclub Varese): una riga per documento con icona del file, titolo,
+descrizione, nome del file in Mono e il suo pulsante Download; in testa
+"Download all" (primario) e "Edit flight", sopra il ritorno a Flights.
+Indirizzo per volo #/flights/<id>/documents. E' l'unico punto da cui si
+scaricano i documenti.
 
 ### Vertical profile (signature, Navlog)
 Il profilo del volo in scala sulla rotta del navplan, tratta per tratta, con

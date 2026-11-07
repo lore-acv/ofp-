@@ -31,7 +31,11 @@ const Conto = {
   /* Dove andare dopo l'accesso: solo percorsi interni. */
   prossima(){
     const n=new URLSearchParams(location.search).get('next');
-    return (n && n.startsWith('/') && !n.startsWith('//') && !n.startsWith('/\\')) ? n : '/';
+    const dove=(n && n.startsWith('/') && !n.startsWith('//') && !n.startsWith('/\\')) ? n : '/';
+    /* l'indirizzo dei documenti di un volo (#/flights/<id>/documents) non arriva
+       al server: il browser lo tiene attraverso il rinvio al login, e lo si
+       rimette qui */
+    return dove + (/^#\/flights\/[\w-]+\/documents$/.test(location.hash) ? location.hash : '');
   },
 
   messaggio(id, testo, tipo){

@@ -55,10 +55,7 @@ document.documentElement.classList.add('vista-dash');
       <div class="sep solo-volo"></div>
       <button type="button" role="menuitem" class="solo-volo" id="btnPreview">Document Preview</button>
       <div class="sep solo-volo"></div>
-      <button type="button" role="menuitem" class="solo-volo" id="btnDrive" style="display:none">Save to Drive</button>
-      <button type="button" role="menuitem" class="primary solo-volo" id="btnPdf">Download OFP PDF</button>
-      <button type="button" role="menuitem" class="primary solo-volo" id="btnNavPdf">Download Navlog PDF</button>
-      <button type="button" role="menuitem" class="primary solo-volo" id="btnClubNavPdf">Navlog Aeroclub Varese</button>
+      <button type="button" role="menuitem" class="primary solo-volo" id="btnDocumenti" title="Saves the flight and opens its documents">Documents</button>
       <div class="sep"></div>
       <button type="button" role="menuitem" id="btnManuale" title="Opens in a new tab: the flight plan stays as it is">User Manual</button>
       <div class="sep conto-voce" style="display:none"></div>
@@ -81,7 +78,7 @@ document.documentElement.classList.add('vista-dash');
 <div id="dashboard">
   <div class="dash-body">
     <div class="dash-head">
-      <div><h1>Flights</h1><p id="dashSaluto"></p><div class="dash-conto" id="dashConto"></div></div>
+      <div><h1 id="dashTitolo" aria-live="off">Flights</h1><p id="dashSaluto"></p><div class="dash-conto" id="dashConto"></div></div>
       <div class="dash-azioni">
         <button type="button" class="btn" id="btnCloseDash" hidden>Back to the open flight plan &rarr;</button>
         <a class="btn primary" id="goImport" href="import.html">New flight</a>
@@ -95,8 +92,29 @@ document.documentElement.classList.add('vista-dash');
     <div id="completedEmpty" class="dash-empty">No completed flights.</div>
     <section class="rotte-std" id="rotteStd" hidden>
       <h2>ACV standard routes <small id="nRotte"></small></h2>
+      <div class="rotte-testa" aria-hidden="true"><span></span><span>Route</span><span>Via</span><span>Distance</span></div>
       <div class="rotte-lista" id="rotteLista"></div>
     </section>
+  </div>
+</div>
+
+<!-- ===== Documents =====
+     I tre documenti di un volo, ciascuno col suo download. Ci si arriva con
+     "Proceed" alla fine del foglio, da "Documents" nel menu e dalla striscia
+     di un volo pronto in Dashboard. Ha un indirizzo suo per volo,
+     #/flights/<id>/documents, che regge un ricaricamento della pagina. -->
+<div id="documenti">
+  <div class="dash-body">
+    <a class="doc-indietro" href="#" id="docIndietro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg>Flights</a>
+    <div class="dash-head">
+      <div><h1>Documents</h1><p id="docVolo"></p></div>
+      <div class="dash-azioni">
+        <button type="button" class="btn" id="docModifica">Edit flight</button>
+        <button type="button" class="btn primary" id="docTutti">Download all</button>
+      </div>
+    </div>
+    <div class="doc-lista" id="docLista"></div>
+    <p class="doc-nota" id="docNota"></p>
   </div>
 </div>
 
@@ -716,8 +734,9 @@ document.documentElement.classList.add('vista-dash');
           <h3>PIC</h3>
           <div class="fld"><label>PIC name (signature)</label><input id="picName" value="" placeholder="PIC first and last name"></div>
         </div>
-        <div class="hint">Final step. The document is generated from the menu at the top right, with
-            <b>"Download OFP PDF"</b>, which lays the document out on its own; print it from the PDF viewer.</div>
+        <div class="hint">Final step. <b>Proceed</b> saves the flight and opens its <b>Documents</b>: the OFP,
+            the NAV-FLIGHTPLAN and the Aeroclub Varese navlog, each with its own download. Print them from
+            the PDF viewer.</div>
       </div>
 
     </div>
@@ -1118,7 +1137,8 @@ function goToStep(n, tastiera, conVT){
   if($('scrollArea')) $('scrollArea').dataset.verso = conVT ? 'vt' : tastiera ? 'tastiera' : (currentStep<prima ? 'indietro' : 'avanti');
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', parseInt(p.dataset.step)===currentStep));
   $('btnBack').disabled = currentStep===1;
-  $('btnNext').style.display = currentStep===totalSteps ? 'none' : '';
+  /* All'ultimo step Next diventa Proceed: salva e apre i documenti. */
+  $('btnNext').innerHTML = currentStep===totalSteps ? 'Proceed &rarr;' : 'Next &rarr;';
   renderSteps(); STEP_DA_TASTIERA=false; $('scrollArea').scrollTop=0; render();
   /* Le frequenze si cercano quando si apre il Navlog, non prima: sono due CSV
      da qualche mega, e chi compila solo l'OFP non deve scaricarli mai. Quello
@@ -1128,7 +1148,7 @@ function goToStep(n, tastiera, conVT){
   if(currentStep===7) briefAltezze();
   if(currentStep===4) indicatorePerf(true);
 }
-$('btnNext').addEventListener('click',e=>vaiAStep(currentStep+1,e));
+$('btnNext').addEventListener('click',e=>{ if(currentStep===totalSteps) procedi(); else vaiAStep(currentStep+1,e); });
 /* Briefing: i riquadri crescono con il testo, cosi' una procedura lunga si
    legge tutta senza scorrere dentro la casella. Si misurano solo quando lo
    step e' visibile (nascosto un riquadro misura zero). */
@@ -5622,21 +5642,6 @@ function navlogFileName(){
   return `NAVLOG_${(txt('dep')||'DEP').toUpperCase()}-${(txt('arr')||'ARR').toUpperCase()}_${d}.pdf`;
 }
 
-async function exportNavlogPDF(){
-  const btn=$('btnNavPdf'); if(btn){ btn.disabled=true; }
-  const old=btn?btn.textContent:'';
-  if(btn) btn.textContent='Generating\u2026';
-  try{
-    if(!navRowsRaw().length){ alert('The NAV-FLIGHTPLAN is empty: import a NavLog or add the legs by hand in Step 5 \u2014 Navlog.'); return; }
-    const doc=buildNavlogPDF(), name=navlogFileName();
-    if(IS_APPS_SCRIPT){
-      const win=window.open(doc.output('bloburl'),'_blank');
-      if(!win) doc.save(name);
-    }else doc.save(name);
-  }
-  catch(err){ alert('Error generating the NAV-FLIGHTPLAN: '+err.message); console.error(err); }
-  finally{ if(btn){ btn.disabled=false; btn.textContent=old; } }
-}
 
 /* ===================== NAVLOG AEROCLUB (Flight Log VFR) =====================
    Il "Navigation Log" dell'Aeroclub di Varese, fronte e retro, in un solo PDF di
@@ -6319,39 +6324,10 @@ function clubNavlogFileName(){
   return `CLUB-NAVLOG_${(txt('dep')||'DEP').toUpperCase()}-${(txt('arr')||'ARR').toUpperCase()}_${d}.pdf`;
 }
 
-async function exportClubNavlogPDF(){
-  const btn=$('btnClubNavPdf'); const old=btn?btn.textContent:'';
-  if(btn){ btn.disabled=true; btn.textContent='Generating…'; }
-  try{
-    if(!navRowsRaw().length){ alert('The Navlog is empty: import a NavLog or add the legs by hand in Step 5 — Navlog.'); return; }
-    const doc=await buildClubNavlogPDF(), name=clubNavlogFileName();
-    if(IS_APPS_SCRIPT){
-      const win=window.open(doc.output('bloburl'),'_blank');
-      if(!win) doc.save(name);
-    }else doc.save(name);
-  }
-  catch(err){ alert('Error generating the club Navlog: '+err.message); console.error(err); }
-  finally{ if(btn){ btn.disabled=false; btn.textContent=old; } }
-}
-
-async function exportPDF(){
-  const btn=$('btnPdf'); btn.disabled=true; const old=btn.textContent; btn.textContent='Generating\u2026';
-  try{
-    const doc=buildPDF(), name=ofpFileName();
-    if(IS_APPS_SCRIPT){
-      const win = window.open(doc.output('bloburl'), '_blank');
-      if(!win) doc.save(name);   // popup bloccato: si tenta comunque il download
-    }else{
-      doc.save(name);
-    }
-  }
-  catch(err){ alert('Error generating the PDF: '+err.message); console.error(err); }
-  finally{ btn.disabled=false; btn.textContent=old; }
-}
 /* Archiviazione su Drive: disponibile solo quando la pagina è servita da Apps Script. */
-function saveToDrive(){
+function saveToDrive(btn){
   if(!IS_APPS_SCRIPT){ alert('Saving to Drive is available only when the web app is opened from Google Apps Script.'); return; }
-  const btn=$('btnDrive'); btn.disabled=true; const old=btn.textContent; btn.textContent='Saving\u2026';
+  btn.disabled=true; const old=btn.textContent; btn.textContent='Saving\u2026';
   let base64;
   try{ base64 = buildPDF().output('datauristring').split(',')[1]; }
   catch(err){ alert('Error generating the PDF: '+err.message); btn.disabled=false; btn.textContent=old; return; }
@@ -6360,6 +6336,140 @@ function saveToDrive(){
     .withFailureHandler(err=>{ btn.disabled=false; btn.textContent=old; alert('Save to Drive failed: '+(err&&err.message||err)); })
     .saveOfpToDrive(base64, ofpFileName());
 }
+/* ============================================================================
+   DOCUMENTS
+   ============================================================================
+   I tre documenti che l'app genera per un volo, in una pagina sola, ciascuno
+   col suo pulsante. E' l'unico posto da cui si scaricano: ci si arriva con
+   "Proceed" alla fine del foglio, con "Documents" nel menu e dalla striscia di
+   un volo pronto in Dashboard.
+
+   L'indirizzo e' #/flights/<id>/documents: ricaricando la pagina il volo si
+   riapre dai voli salvati e i documenti si rigenerano dai suoi dati. I PDF si
+   costruiscono al momento del download, con i dati del foglio, che e' quello
+   del volo mostrato. */
+const DOCUMENTI = [
+  { id:'ofp',    titolo:'Operational flight plan',
+    desc:'Fuel plan, mass and balance, performance, weather and NOTAM: the document to print and sign before the flight.',
+    nome:()=>ofpFileName(), crea:()=>buildPDF(), manca:()=>'' },
+  { id:'navlog', titolo:'NAV-FLIGHTPLAN',
+    desc:'The leg-by-leg navigation log for the cockpit, with times and fuel recomputed from the fuel plan.',
+    nome:()=>navlogFileName(), crea:()=>buildNavlogPDF(),
+    manca:()=>navRowsRaw().length ? '' : 'No legs in the Navlog: import a NavLog or add them in step 5.' },
+  { id:'club',   titolo:'Aeroclub Varese navlog',
+    desc:'The club’s Navigation Log form, front and back, filled in from this flight.',
+    nome:()=>clubNavlogFileName(), crea:()=>buildClubNavlogPDF(),
+    manca:()=>navRowsRaw().length ? '' : 'No legs in the Navlog: import a NavLog or add them in step 5.' }
+];
+const DOC_ROTTA = /^#\/flights\/([\w-]+)\/documents$/;
+let DOC_VOLO = null;            // id del volo mostrato in Documents
+
+/* Su Apps Script la pagina sta in un iframe che blocca i download: il PDF si
+   apre in una scheda nuova e da li' si salva. Altrove si scarica e basta. */
+function consegnaPdf(doc, nome){
+  if(IS_APPS_SCRIPT){ const w=window.open(doc.output('bloburl'),'_blank'); if(!w) doc.save(nome); }
+  else doc.save(nome);
+}
+async function scaricaDocumento(d, btn){
+  const motivo=d.manca(); if(motivo){ alert(motivo); return false; }
+  const prima = btn ? btn.innerHTML : '';
+  if(btn){ btn.disabled=true; btn.textContent='Generating…'; }
+  try{ render(); consegnaPdf(await d.crea(), d.nome()); return true; }
+  catch(err){ alert('Error generating '+d.titolo+': '+(err&&err.message||err)); console.error(err); return false; }
+  finally{ if(btn){ btn.disabled=false; btn.innerHTML=prima; } }
+}
+/* Tutti e tre, uno dopo l'altro: un attimo di pausa fra un file e l'altro,
+   altrimenti alcuni browser tengono solo il primo. */
+async function scaricaTutti(btn){
+  const pronti=DOCUMENTI.filter(d=>!d.manca());
+  const prima=btn.innerHTML; btn.disabled=true;
+  try{
+    for(let i=0;i<pronti.length;i++){
+      btn.textContent=`Generating ${i+1} of ${pronti.length}…`;
+      render(); consegnaPdf(await pronti[i].crea(), pronti[i].nome());
+      if(i<pronti.length-1) await new Promise(r=>setTimeout(r,700));
+    }
+  }catch(err){ alert('Error generating the documents: '+(err&&err.message||err)); console.error(err); }
+  finally{ btn.disabled=false; btn.innerHTML=prima; }
+}
+
+const ICONA_GIU='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"/></svg>';
+function disegnaDocumenti(f){
+  const fd=(f&&f.flight_data)||{}, up=(x)=>escHtml(String(x||'').toUpperCase());
+  const quando = f ? (f.status==='COMPLETED' ? 'Ready to fly' : 'Waiting for the weather briefing') : '';
+  $('docVolo').innerHTML = `<span class="m">${up(fd.dep)||'----'} → ${up(fd.arr)||'----'}${fd.altn?' · altn '+up(fd.altn):''}${fd.reg?' · '+up(fd.reg):''}</span>`
+    + (quando ? ` · ${escHtml(quando)}` : '');
+  const box=$('docLista');
+  box.innerHTML = DOCUMENTI.map((d,i)=>{
+    const m=d.manca();
+    return `<div class="doc-riga${m?' manca':''}">
+      <div class="doc-ico" aria-hidden="true">PDF</div>
+      <div class="doc-testo"><h2>${escHtml(d.titolo)}</h2><p>${escHtml(m||d.desc)}</p>
+        <span class="doc-file m">${escHtml(d.nome())}</span></div>
+      <div class="doc-azioni">${IS_APPS_SCRIPT && d.id==='ofp' ? '<button type="button" class="btn testo" data-drive>Save to Drive</button>' : ''}
+        <button type="button" class="btn doc-scarica" data-doc="${i}"${m?' disabled':''}>${ICONA_GIU}<span>Download</span></button></div>
+    </div>`;
+  }).join('');
+  box.querySelectorAll('[data-doc]').forEach(b=>b.addEventListener('click',()=>scaricaDocumento(DOCUMENTI[+b.dataset.doc], b)));
+  const dr=box.querySelector('[data-drive]'); if(dr) dr.addEventListener('click',()=>saveToDrive(dr));
+  const n=DOCUMENTI.filter(d=>!d.manca()).length;
+  $('docTutti').hidden = IS_APPS_SCRIPT || n<2;
+  $('docNota').textContent = f && f.status!=='COMPLETED'
+    ? 'The weather briefing has not been loaded yet: the OFP is generated without METAR, TAF and NOTAM. Load it from the flight’s strip in Flights.'
+    : '';
+}
+
+/* Mostra Documents per un volo salvato. Se nel foglio c'e' un altro volo lo
+   si chiede prima, come aprendolo nel wizard: i documenti si generano dal
+   foglio. Restituisce false se non si e' potuto aprire. */
+function apriDocumenti(flightId){
+  const f=loadSavedFlights().find(x=>x.id===flightId);
+  if(!f){ docNonTrovato(); return false; }
+  if(!(VOLO_APERTO && window.__editingFlightId===flightId)){
+    if(VOLO_APERTO && !confirm('Open the documents of this flight? The flight plan open in the wizard will be closed: data not saved with "Save to Standby" will be lost.')) return false;
+    caricaVoloNelFoglio(f); goToStep(1);
+  }
+  DOC_VOLO=flightId;
+  document.documentElement.classList.remove('vista-dash');
+  document.documentElement.classList.add('vista-doc');
+  if($('brandVista')) $('brandVista').textContent='Documents';
+  const h='#/flights/'+flightId+'/documents';
+  if(location.hash!==h){ try{ history.pushState(null,'',h); }catch(e){ location.hash=h; } }
+  disegnaDocumenti(f);
+  if($('documenti')) $('documenti').scrollTop=0;
+  return true;
+}
+function docNonTrovato(){
+  DOC_VOLO=null;
+  document.documentElement.classList.remove('vista-dash');
+  document.documentElement.classList.add('vista-doc');
+  $('docVolo').textContent='This flight is not among the saved flights of this account.';
+  $('docLista').innerHTML='<div class="dash-empty">Nothing to download. Go back to Flights and open a saved flight.</div>';
+  $('docTutti').hidden=true; $('docModifica').hidden=true; $('docNota').textContent='';
+}
+function chiudiDocumenti(){
+  document.documentElement.classList.remove('vista-doc');
+  if($('docModifica')) $('docModifica').hidden=false;
+  if(DOC_ROTTA.test(location.hash)){ try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
+}
+
+/* "Proceed" (ultimo step) e "Documents" nel menu: il volo si salva, con il
+   suo stato (pronto se il briefing c'e'), e si aprono i suoi documenti. */
+function procedi(){
+  const id=salvaVoloAperto(true);
+  transizione(['vt-vista'], ()=>apriDocumenti(id));
+}
+
+$('docIndietro').addEventListener('click',e=>{ e.preventDefault(); transizione(['vt-vista'], openDashboard); });
+$('docModifica').addEventListener('click',()=>transizione(['vt-vista'], closeDashboard));
+$('docTutti').addEventListener('click',e=>scaricaTutti(e.currentTarget));
+$('btnDocumenti').addEventListener('click',procedi);
+/* Avanti e indietro del browser fra Dashboard e Documents. */
+window.addEventListener('popstate',()=>{
+  const m=DOC_ROTTA.exec(location.hash);
+  if(m){ if(!apriDocumenti(m[1])) openDashboard(); }
+  else if(document.documentElement.classList.contains('vista-doc')) openDashboard();
+});
 if($('btnNavFreq')) $('btnNavFreq').addEventListener('click',()=>navFillFreqs());
 /* Su 'input', che arriva prima del ricalcolo generale del foglio: render()
    rimette la spunta secondo il campo nascosto, che deve essere gia' aggiornato. */
@@ -6370,10 +6480,6 @@ if($('btnNavAdd')) $('btnNavAdd').addEventListener('click',()=>{
   rows.push({freq:'',cs:'',wpt:'',mt:'',dist:'',alt:navCruiseAlt(),rmk:''});
   navRowsSave(rows); render();
 });
-$('btnPdf').addEventListener('click',exportPDF);
-if($('btnNavPdf')) $('btnNavPdf').addEventListener('click',exportNavlogPDF);
-if($('btnClubNavPdf')) $('btnClubNavPdf').addEventListener('click',exportClubNavlogPDF);
-if($('btnDrive')) $('btnDrive').addEventListener('click',saveToDrive);
 $('btnPreview').addEventListener('click',togglePreview);
 /* La stampa si fa dal PDF scaricato, con il visore di sistema: un solo
    documento, impaginato da buildPDF(), senza un secondo percorso di stampa
@@ -6517,6 +6623,7 @@ function persistFlights(list){
 /* Riga dell'account nella dashboard e voci del menu. */
 function aggiornaStatoConto(){
   const info=Account.info;
+  if($('dashTitolo')) $('dashTitolo').textContent=salutoDashboard();
   const el=$('dashConto');
   if(el){
     if(!SERVER_VOLI) el.textContent = IS_APPS_SCRIPT ? 'Saved to your Google account' : 'Saved in this browser only';
@@ -6682,21 +6789,33 @@ function svuotaFoglio(){
   if($('wxStatus')) $('wxStatus').textContent='';
 }
 
-function saveFlightDraft(){
+/* Salva il volo del foglio: aggiorna quello aperto dalla Dashboard, oppure ne
+   crea uno nuovo. `pronto` (da Proceed) lo segna Ready to fly se il briefing
+   meteo c'e'; Save to Standby non tocca lo stato. Restituisce l'id. */
+function salvaVoloAperto(pronto){
   const list=loadSavedFlights();
   const now=new Date().toISOString();
   // salva anche i dati WX già inseriti (data/ora, METAR/NOTAM a mano) se presenti
   const wx = collectWeatherData();
   const hasWx = Object.values(wx).some(v => (v||'').trim());
+  const briefing = ['depMetar','destMetar','depTaf'].some(k=>String(wx[k]||'').trim());
   // se stiamo modificando un volo già caricato nel wizard, aggiorna quello
-  const editingId=window.__editingFlightId;
-  if(editingId){
-    const f=list.find(x=>x.id===editingId);
-    if(f){ f.flight_data=collectFlightData(); if(hasWx) f.weather_data=wx; f.updated_at=now; persistFlights(list); window.__editingFlightId=null; renderDashboard(); openDashboard(); return; }
+  let f = window.__editingFlightId ? list.find(x=>x.id===window.__editingFlightId) : null;
+  if(f){ f.flight_data=collectFlightData(); if(hasWx) f.weather_data=wx; f.updated_at=now; }
+  else{
+    f={ id:'flight_'+Date.now(), status:'DRAFT', created_at:now, updated_at:now,
+      flight_data:collectFlightData(), weather_data: hasWx ? wx : null };
+    list.unshift(f);
   }
-  const flight={ id:'flight_'+Date.now(), status:'DRAFT', created_at:now, updated_at:now,
-    flight_data:collectFlightData(), weather_data: hasWx ? wx : null };
-  list.unshift(flight); persistFlights(list); renderDashboard(); openDashboard();
+  if(pronto && briefing) f.status='COMPLETED';
+  persistFlights(list);
+  window.__editingFlightId=f.id; VOLO_APERTO=true;
+  return f.id;
+}
+function saveFlightDraft(){
+  salvaVoloAperto(false);
+  window.__editingFlightId=null;
+  renderDashboard(); openDashboard();
 }
 
 function deleteFlight(flightId){
@@ -6713,6 +6832,12 @@ function apriVoloSalvato(flightId){
   const f=loadSavedFlights().find(x=>x.id===flightId); if(!f) return;
   if(VOLO_APERTO && window.__editingFlightId!==flightId &&
      !confirm('Open this flight? The flight plan open in the wizard will be closed: data not saved with "Save to Standby" will be lost.')) return;
+  caricaVoloNelFoglio(f);
+  closeDashboard(); goToStep(1); render();
+}
+/* Porta un volo salvato nel foglio, senza cambiare vista. */
+function caricaVoloNelFoglio(f){
+  const flightId=f.id;
   const carte = window.__wxChartsDi===flightId ? window.__wxCharts : null;
   const stampa = window.__wxChartsDi===flightId ? window.__wxPrintedAt : null;
   svuotaFoglio();
@@ -6722,7 +6847,7 @@ function apriVoloSalvato(flightId){
   scheduleAirportLookup();      // elevazioni e piste dei suoi aeroporti, come dopo l'import
   window.__editingFlightId=flightId;
   VOLO_APERTO=true;
-  closeDashboard(); goToStep(1); render();
+  render();
 }
 const editFlight=apriVoloSalvato, viewFlightOFP=apriVoloSalvato;
 
@@ -6777,6 +6902,50 @@ function fmtDate(iso){
     return `${p2(d.getDate())} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]}, ${p2(d.getHours())}:${p2(d.getMinutes())}`;
   }catch(e){ return iso; } }
 
+/* ===== Miniatura della traccia di un volo =====
+   La forma della rotta dai punti caricati nel volo, nell'ordine: ogni tratta
+   e' la sua rotta magnetica e la sua distanza (dal NavLog), una dopo l'altra
+   dalla partenza. E' la traccia senza vento, come nel NavLog. Quando partenza
+   e arrivo coincidono lo scarto di chiusura (prue arrotondate, declinazione)
+   si distribuisce lungo la strada, cosi' il giro si chiude sul campo.
+   Cerchio vuoto = partenza, punto pieno = arrivo. */
+function tracciaPunti(legs, chiusa){
+  let x=0, y=0; const pts=[{x,y}];
+  (legs||[]).forEach(l=>{
+    const d=parseFloat(String(l.dist==null?'':l.dist).replace(',','.'));
+    const t=parseFloat(String(l.mt!=null&&l.mt!=='' ? l.mt : (l.mh!=null ? l.mh : '')).replace(',','.'));
+    if(!(d>0) || isNaN(t)) return;
+    const r=t*Math.PI/180; x+=d*Math.sin(r); y-=d*Math.cos(r); pts.push({x,y});
+  });
+  if(chiusa && pts.length>2){
+    const fine=pts[pts.length-1], cum=[0]; let tot=0;
+    for(let i=1;i<pts.length;i++){ tot+=Math.hypot(pts[i].x-pts[i-1].x, pts[i].y-pts[i-1].y); cum.push(tot); }
+    const ex=fine.x, ey=fine.y;
+    pts.forEach((p,i)=>{ const k=tot ? cum[i]/tot : 0; p.x-=ex*k; p.y-=ey*k; });
+  }
+  return pts;
+}
+function tracciaSvg(legs, chiusa, W, H, etichetta){
+  const pts=tracciaPunti(legs, chiusa), pad=7;
+  const aria=`role="img" aria-label="${escHtml(etichetta||'Route track')}"`;
+  if(pts.length<2) return `<svg class="traccia vuota" viewBox="0 0 ${W} ${H}" ${aria}><line x1="${W*.3}" x2="${W*.7}" y1="${H/2}" y2="${H/2}"/></svg>`;
+  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  const x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
+  const k=Math.min((W-2*pad)/Math.max(x1-x0,1e-6), (H-2*pad)/Math.max(y1-y0,1e-6));
+  const ox=(W-(x1-x0)*k)/2, oy=(H-(y1-y0)*k)/2;
+  const P=pts.map(p=>[(ox+(p.x-x0)*k).toFixed(1), (oy+(p.y-y0)*k).toFixed(1)]);
+  const a=P[0], z=P[P.length-1];
+  return `<svg class="traccia" viewBox="0 0 ${W} ${H}" ${aria}>`
+    + `<polyline points="${P.map(q=>q.join(',')).join(' ')}"/>`
+    + `<circle class="arr" cx="${z[0]}" cy="${z[1]}" r="2.6"/>`
+    + `<circle class="dep" cx="${a[0]}" cy="${a[1]}" r="3.4"/></svg>`;
+}
+function tracciaVolo(fd){
+  let righe=[]; try{ righe=JSON.parse(fd.navRows||'[]'); }catch(e){}
+  const dep=String(fd.dep||'').trim().toUpperCase(), arr=String(fd.arr||'').trim().toUpperCase();
+  return tracciaSvg(righe, dep && dep===arr, 96, 72, `Track ${dep||'DEP'} to ${arr||'ARR'}`);
+}
+
 function makeCard(f){
   /* Una striscia per volo, come le strisce di progresso volo: marca,
      rotta, quando, stato e l'azione del momento. */
@@ -6785,7 +6954,7 @@ function makeCard(f){
   const ac=AIRCRAFT[String(fd.reg||'').toUpperCase()];
   const via=String(fd.route||'').trim();
   const card=document.createElement('div'); card.className='flight-card';
-  const testa=`<div class="c-reg"><span class="reg">${up(fd.reg)||'—'}</span><span class="k">${ac?escHtml(ac.model):escHtml(fd.mission||'')}</span></div>
+  const testa=`<div class="c-map">${tracciaVolo(fd)}</div><div class="c-reg"><span class="reg">${up(fd.reg)||'—'}</span><span class="k">${ac?escHtml(ac.model):escHtml(fd.mission||'')}</span></div>
       <div class="c-rt"><p class="route">${up(fd.dep)||'----'} &rarr; ${up(fd.arr)||'----'}${fd.altn?` <span>altn ${up(fd.altn)}</span>`:''}</p>
         <span class="via">${via?escHtml(via):escHtml(fd.mission||'')}</span></div>`;
   if(f.status==='DRAFT'){
@@ -6798,9 +6967,9 @@ function makeCard(f){
     card.innerHTML=testa+`
       <div class="c-quando"><span class="k">Briefing loaded</span><span class="quando">${fmtDate(f.updated_at)}</span></div>
       <div class="c-st"><span class="badge completed">Ready to fly</span><div class="dash-status"></div></div>
-      <div class="c-go"><button class="btn" data-act="view">View OFP</button>
+      <div class="c-go"><a class="btn primary" data-act="docs" href="#/flights/${encodeURIComponent(f.id)}/documents">Documents</a>
         <span class="card-drop" data-role="refresh" role="button" tabindex="0" title="Load a newer weather briefing PDF">Update WX</span>
-        <button class="btn testo" data-act="del">Delete</button></div>`;
+        <button class="btn testo" data-act="edit">Edit</button><button class="btn testo" data-act="del">Delete</button></div>`;
   }
   const statusEl=card.querySelector('.dash-status');
   const drop=card.querySelector('.card-drop');
@@ -6816,8 +6985,13 @@ function makeCard(f){
   }
   card.querySelectorAll('[data-act]').forEach(b=>{
     const act=b.dataset.act;
-    b.addEventListener('click',()=>{
+    b.addEventListener('click',e=>{
       if(act==='del') deleteFlight(f.id);
+      else if(act==='docs'){
+        e.preventDefault();
+        const chiede = VOLO_APERTO && window.__editingFlightId!==f.id;
+        if(chiede) apriDocumenti(f.id); else transizione(['vt-vista'], ()=>apriDocumenti(f.id));
+      }
       else{
         /* con un altro volo aperto si chiede prima, senza animazione */
         const chiede = VOLO_APERTO && window.__editingFlightId!==f.id;
@@ -6853,7 +7027,36 @@ const dashboardAperta=()=>document.documentElement.classList.contains('vista-das
    sull'OFP, in UTC come in volo. */
 /* La riga sotto il titolo dice cosa c'e' da fare, con l'ora UTC che va
    sull'OFP. */
+/* Il saluto in testa alla Dashboard. Si sceglie una volta per caricamento
+   della pagina (non a ogni ridisegno) fra il saluto dell'ora e le frasi qui
+   sotto: per cambiarle basta modificare l'elenco. {name} e' il nome di
+   battesimo dell'account; senza account la frase perde il nome. */
+const SALUTI_DASHBOARD = [
+  "What's the plan today, {name}?",
+  "Ready when you are, {name}.",
+  "Cleared to plan, {name}.",
+  "Welcome back, {name}. Let's get you airborne.",
+  "Clear skies ahead, {name}.",
+  "Flight plan on file, {name}?",
+  "Good to see you, {name}. Where to today?",
+  "Pre-flight starts here, {name}.",
+  "Cleared for the day, {name}."
+];
+/* -1 = il saluto dell'ora (Good morning fino alle 12, Good afternoon fino
+   alle 18, poi Good evening, sull'ora del dispositivo) */
+const SALUTO_SCELTO = Math.floor(Math.random()*(SALUTI_DASHBOARD.length+1)) - 1;
+function salutoDashboard(){
+  /* finche' il server non ha risposto vale l'ultimo utente di questo browser
+     (uscendo lo si cancella), cosi' il nome non arriva a scatti */
+  let info=Account.info;
+  if(info===undefined){ try{ info=JSON.parse(localStorage.getItem(ACCOUNT_ULTIMO)||'null'); }catch(e){ info=null; } }
+  const nome=((info && info.nome)||'').trim().split(/\s+/)[0]||'';
+  const h=new Date().getHours();
+  const frase = SALUTO_SCELTO<0 ? (h<12?'Good morning':h<18?'Good afternoon':'Good evening')+', {name}.' : SALUTI_DASHBOARD[SALUTO_SCELTO];
+  return nome ? frase.replace(/\{name\}/g, nome) : frase.replace(/,\s*\{name\}/g,'').replace(/\s*\{name\}/g,'');
+}
 function aggiornaSaluto(){
+  if($('dashTitolo')) $('dashTitolo').textContent=salutoDashboard();
   const d=new Date(), p2=(x)=>String(x).padStart(2,'0');
   const list=loadSavedFlights();
   const w=list.filter(f=>f.status==='DRAFT').length, r=list.filter(f=>f.status==='COMPLETED').length;
@@ -6862,14 +7065,19 @@ function aggiornaSaluto(){
   const stato = (w||r) ? `${w} waiting for the weather briefing · ${r} ready to fly` : 'No saved flights yet';
   if($('dashSaluto')) $('dashSaluto').innerHTML=`${escHtml(stato)} · <span class="m">${ora}</span>`;
 }
-/* Le rotte standard dell'aeroclub (rotte-acv.js): ognuna apre l'import con
-   quella rotta gia' scelta. */
+/* Le rotte standard dell'aeroclub: tutte quelle di rotte-acv.js (window.ROTTE_ACV,
+   la stessa fonte del menu dell'import), una riga ciascuna con la traccia, i
+   punti e la distanza. Ognuna apre l'import con quella rotta gia' scelta. */
 function disegnaRotteStd(){
   const R=Array.isArray(window.ROTTE_ACV)?window.ROTTE_ACV:[], box=$('rotteLista');
   if(!box || !R.length || box.firstChild) return;
   const base=($('goImport') && $('goImport').getAttribute('href')) || 'import.html';
   const dist=(r)=>r.nav&&r.nav.totals&&r.nav.totals.dist ? r.nav.totals.dist : (r.nav.legs||[]).reduce((s,l)=>s+(l.dist||0),0);
-  box.innerHTML=R.map(r=>`<a href="${escHtml(base)}#rotta=${encodeURIComponent(r.id)}"><b>${escHtml(r.nome)}</b><span>${dist(r)} NM</span></a>`).join('');
+  const via=(r)=>{ const w=(r.nav.legs||[]).map(l=>String(l.wpt||'').trim()).filter(Boolean);
+    return w.slice(1,-1).filter((x,i,a)=>a.indexOf(x)===i).join(' \u00b7 '); };
+  box.innerHTML=R.map(r=>`<a href="${escHtml(base)}#rotta=${encodeURIComponent(r.id)}">`
+    + `<span class="r-map">${tracciaSvg(r.nav.legs, r.nav.roundTrip || r.nav.dep===r.nav.arr, 56, 36, 'Track of '+r.nome)}</span>`
+    + `<b>${escHtml(r.nome)}</b><span class="r-via">${escHtml(via(r))}</span><span class="r-nm">${dist(r)} NM</span></a>`).join('');
   box.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{ if(!lasciaVoloAperto()) e.preventDefault(); }));
   if($('nRotte')) $('nRotte').textContent=R.length;
   $('rotteStd').hidden=false;
@@ -6888,12 +7096,14 @@ function openDashboard(){
   aggiornaSaluto();
   if(!DASH_OROLOGIO) DASH_OROLOGIO=setInterval(()=>{ if(dashboardAperta()) aggiornaSaluto(); }, 20000);
   renderDashboard();
+  chiudiDocumenti();
   document.documentElement.classList.add('vista-dash');
   if($('brandVista')) $('brandVista').textContent='Dashboard';
   if($('btnCloseDash')) $('btnCloseDash').hidden=!VOLO_APERTO;
   if($('dashboard')) $('dashboard').scrollTop=0;
 }
 function closeDashboard(){
+  chiudiDocumenti();
   document.documentElement.classList.remove('vista-dash');
   if($('brandVista')) $('brandVista').textContent='Wizard';
 }
@@ -7075,7 +7285,10 @@ document.body.addEventListener('input',render);
 VOLO_APERTO = applyHandoff();
 let DALL_IMPORT=false;
 try{ DALL_IMPORT = sessionStorage.getItem(APRI_VOLO_KEY)==='1'; sessionStorage.removeItem(APRI_VOLO_KEY); }catch(e){}
-if(VOLO_APERTO && DALL_IMPORT) closeDashboard(); else openDashboard();
+const DOC_ALL_AVVIO = DOC_ROTTA.exec(location.hash);
+if(VOLO_APERTO && DALL_IMPORT) closeDashboard();
+else if(DOC_ALL_AVVIO){ document.documentElement.classList.add('vista-doc'); $('docVolo').textContent='Loading the flight\u2026'; }
+else openDashboard();
 renderSteps(); goToStep(1);
 buildTimeSelects(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();
 /* I codici arrivati dall'import non passano dai campi, quindi nessuno ha fatto
@@ -7087,7 +7300,9 @@ scheduleAirportLookup();
    quota di crociera arrivasse da sola. Qui si riempiono solo quelle vuote. */
 navApplyCruiseAlt();
 if(VOLO_APERTO && tngAttivo()) attivaTng();   // T&G di una rotta standard: meteo, NOTAM e piste
-// su Apps Script si mostra il pulsante Drive e si caricano i voli dell'utente Google
-if(IS_APPS_SCRIPT && $('btnDrive')) $('btnDrive').style.display='inline-block';
-bootstrapFlights(()=>{ if(dashboardAperta()) renderDashboard(); });
+// su Apps Script si caricano i voli dell'utente Google
+bootstrapFlights(()=>{
+  if(DOC_ALL_AVVIO && !(VOLO_APERTO && DALL_IMPORT)){ if(!apriDocumenti(DOC_ALL_AVVIO[1])) openDashboard(); }
+  else if(dashboardAperta()) renderDashboard();
+});
 </script>

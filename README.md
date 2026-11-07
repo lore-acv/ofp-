@@ -99,8 +99,8 @@ rinominato `index.html` in `index.html` (Apps Script lo accetta così com'è).
   `localStorage`, così un volo non si perde se il server non risponde.
   Il JSON viene spezzato in blocchi perché una singola proprietà non può superare
   i 9 kB, e un volo con METAR, TAF e NOTAM li supera facilmente.
-- **Pulsante "Salva su Drive"**: archivia l'OFP nella cartella *OFP C172 FR*.
-- **"Scarica PDF"** apre il PDF in una scheda nuova invece di scaricarlo: la web
+- **"Save to Drive"** (nella pagina Documents, riga dell'OFP): archivia l'OFP nella cartella *OFP C172 FR*.
+- **"Download"** apre il PDF in una scheda nuova invece di scaricarlo: la web
   app gira in un iframe sandboxed, dove il download diretto può essere bloccato
   senza alcun messaggio.
 
@@ -165,8 +165,8 @@ briefing non copre uno dei due l'import lo dice subito.
    distanze dal NavLog di ForeFlight, **quota di crociera** portata da sola su ogni
    punto e modificabile punto per punto, **frequenze** di aeroporti e radioassistenze
    cercate su OurAirports (solo il numero: il nominativo lo scrive il pilota).
-   È un documento **a sé**, con il suo pulsante di download, e non entra mai
-   nell'OFP stampato. Una tratta oltre i **10 minuti** fa comparire un avviso
+   È un documento **a sé**, con il suo download nella pagina Documents, e non entra
+   mai nell'OFP stampato. Una tratta oltre i **10 minuti** fa comparire un avviso
    (l'ideale è un punto di virata ogni 6-8 minuti): non blocca nulla e non cambia
    il navlog.
 6. **Dest Charts** — fino a 2 cartine, più le note operative.
@@ -177,6 +177,14 @@ briefing non copre uno dei due l'import lo dice subito.
 
 "Salva in standby" mette il volo in attesa del meteo; dalla Dashboard lo si
 finalizza caricando il PDF del briefing anche giorni dopo.
+
+**Documents.** All'ultimo step "Proceed" salva il volo (pronto se il briefing
+c'e') e apre la pagina Documents con i tre PDF: OFP (`OFP_DEP-ARR_data.pdf`),
+NAV-FLIGHTPLAN (`NAVLOG_…`) e navlog dell'Aeroclub Varese (`CLUB-NAVLOG_…`),
+ciascuno col suo Download, piu' "Download all". La stessa pagina si apre da
+"Documents" nel menu e dalla striscia di ogni volo pronto in Dashboard; ha un
+indirizzo per volo, `#/flights/<id>/documents`, che regge il ricaricamento e il
+passaggio dal login. E' l'unico punto da cui si scaricano i documenti.
 
 ## Import NavLog ForeFlight
 

@@ -122,8 +122,8 @@ button,.btn,.step-pill,.perf-tab,.drop,.card-drop,.hamburger,.tema-btn,.tng-chec
   transition:color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
 .rail a:active,.rail .rail-btn:active{transform:scale(.94)}
 .rail svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.rail [aria-current="page"],html.vista-dash #railVoli,html:not(.vista-dash) #railNuovo{color:var(--txt)}
-.rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html:not(.vista-dash) #railNuovo::before{content:"";position:absolute;left:-8px;top:10px;bottom:10px;width:1px;background:var(--accent-2)}
+.rail [aria-current="page"],html.vista-dash #railVoli,html.vista-doc #railVoli,html:not(.vista-dash):not(.vista-doc) #railNuovo{color:var(--txt)}
+.rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{content:"";position:absolute;left:-8px;top:10px;bottom:10px;width:1px;background:var(--accent-2)}
 .rail a:focus-visible,.rail .rail-btn:focus-visible{outline:none;box-shadow:var(--ring)}
 .rail .fondo{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:4px}
 /* tooltip dei nomi, solo con il mouse */
@@ -394,7 +394,7 @@ html[data-tema="chiaro"] .group{border-color:var(--panel-line)}
   @media print{
     .filled{color:#000}
     /* in stampa resta solo il documento: niente wizard, niente topbar */
-    .rail,.topbar,.formcol,#dashboard{display:none!important}
+    .rail,.topbar,.formcol,#dashboard,#documenti{display:none!important}
     html,body{height:auto;overflow:visible;background:#fff}
     body{display:block}
     .main{display:block}
@@ -472,11 +472,11 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
     padding:calc(6px + env(safe-area-inset-top,0px)) calc(10px + env(safe-area-inset-right,0px)) 6px calc(12px + env(safe-area-inset-left,0px))}
   .rail .marchio{margin:0 auto 0 0}
   .rail .fondo{margin-top:0;flex-direction:row;gap:2px}
-  .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html:not(.vista-dash) #railNuovo::before{left:10px;right:10px;top:auto;bottom:-7px;width:auto;height:1px}
+  .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{left:10px;right:10px;top:auto;bottom:-7px;width:auto;height:1px}
   .rail a,.rail .rail-btn,.hamburger,.tema-btn{width:var(--tap);height:var(--tap)}
   .menu{left:auto;right:0;bottom:auto;top:calc(100% + 8px);transform-origin:top right}
   .topbar{grid-column:1;grid-row:2;padding:8px 16px 0}
-  .main,#dashboard{grid-column:1;grid-row:3}
+  .main,#dashboard,#documenti{grid-column:1;grid-row:3}
   .topbar .steps{gap:22px;margin:4px -16px 0;padding:0 16px;scroll-padding:0 16px}
   .formcol .scroll{padding:20px 16px 28px}
   .formcol .navrow{padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
@@ -494,9 +494,9 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
 }
 
 /* ===== Dashboard ===== */
-#dashboard{grid-column:2;grid-row:1 / -1;min-height:0;display:none;overflow:auto;overscroll-behavior:contain;background:var(--bg)}
-html.vista-dash #dashboard{display:block}
-html.vista-dash .topbar,html.vista-dash .main,html.vista-dash .solo-volo{display:none!important}
+#dashboard,#documenti{grid-column:2;grid-row:1 / -1;min-height:0;display:none;overflow:auto;overscroll-behavior:contain;background:var(--bg)}
+html.vista-dash #dashboard,html.vista-doc #documenti{display:block}
+html.vista-dash .topbar,html.vista-dash .main,html.vista-dash .solo-volo,html.vista-doc .topbar,html.vista-doc .main{display:none!important}
 .dash-body{padding:calc(28px + env(safe-area-inset-top,0px)) max(32px,calc((100% - var(--colonna))/2)) calc(40px + env(safe-area-inset-bottom,0px))}
 .dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 24px}
 .dash-head h1{margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em;line-height:32px;color:var(--txt)}
@@ -519,7 +519,7 @@ html.vista-dash .topbar,html.vista-dash .main,html.vista-dash .solo-volo{display
 /* Strisce dei voli: una per volo, caselle separate da filetti come le strisce
    di progresso volo dei controllori (signature della Dashboard). */
 .cards{display:flex;flex-direction:column;gap:12px}
-.flight-card{display:grid;grid-template-columns:128px minmax(0,1fr) 140px 180px 300px;background:var(--panel-bg);
+.flight-card{display:grid;grid-template-columns:96px 128px minmax(0,1fr) 140px 180px 300px;background:var(--panel-bg);
   border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--ombra-scheda);color:var(--txt);min-height:84px}
 html[data-tema="chiaro"] .flight-card{border-color:var(--panel-line)}
 .flight-card>div{padding:14px 16px;border-left:1px solid var(--panel-line);display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0}
@@ -546,35 +546,94 @@ html[data-tema="chiaro"] .flight-card{border-color:var(--panel-line)}
 .dash-status.busy{color:var(--warn)}
 .dash-status.ok{color:var(--ok)}
 .dash-status.err{color:var(--err)}
-/* Rotte standard ACV: elenco a tre colonne, nome e distanza */
+/* Miniatura della traccia (tracciaSvg): la linea nel colore d'accento,
+   cerchio vuoto alla partenza, punto pieno all'arrivo */
+.traccia{display:block;width:100%;height:100%}
+.traccia polyline{fill:none;stroke:var(--accent-2);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.traccia .dep{fill:none;stroke:var(--txt);stroke-width:1.3;vector-effect:non-scaling-stroke}
+.traccia .arr{fill:var(--txt)}
+.traccia.vuota line{stroke:var(--panel-line);stroke-width:1.5;stroke-dasharray:3 4}
+.flight-card>.c-map{padding:6px;background:var(--panel-2);align-items:stretch}
+.flight-card .c-map .traccia{height:64px}
+/* Rotte standard ACV: tutte, una riga ciascuna, con la traccia */
 .rotte-std{background:var(--panel-bg);border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--ombra-scheda);margin-top:24px}
 html[data-tema="chiaro"] .rotte-std{border-color:var(--panel-line)}
 .rotte-std h2{margin:0;padding:14px 20px 6px;font-size:20px;font-weight:400;line-height:26px;color:var(--txt-dim);display:flex;gap:10px;align-items:baseline}
 .rotte-std h2 small{font:400 13px var(--mono);color:var(--txt-faint)}
-.rotte-lista{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px;padding:4px 20px 14px}
-.rotte-lista a{display:flex;justify-content:space-between;gap:12px;min-height:36px;align-items:center;border-top:1px solid var(--rule);
-  color:var(--txt);text-decoration:none;font-size:13px}
-.rotte-lista a span{font-family:var(--mono);color:var(--txt-dim)}
+.rotte-testa,.rotte-lista a{display:grid;grid-template-columns:56px minmax(150px,16rem) minmax(0,1fr) 72px;gap:0 20px;align-items:center}
+.rotte-testa{padding:4px 20px 6px;font-size:12px;line-height:16px;color:var(--txt-faint)}
+.rotte-testa span:last-child{text-align:right}
+.rotte-lista{padding:0 0 6px}
+.rotte-lista a{min-height:48px;padding:5px 20px;border-top:1px solid var(--rule);color:var(--txt);text-decoration:none;font-size:13px}
+.rotte-lista a b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rotte-lista .r-map{height:36px}
+.rotte-lista .r-via{font:400 12px/16px var(--mono);color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rotte-lista .r-nm{font-family:var(--mono);color:var(--txt-dim);text-align:right;white-space:nowrap}
+.rotte-lista a:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--accent-2)}
+/* iPad e schermi medi: la miniatura alta due righe, le azioni sotto */
+@media screen and (max-width:1280px){
+  .flight-card{grid-template-columns:96px 120px minmax(0,1fr) 150px 190px;grid-template-areas:"map reg rt qd st" "map go go go go"}
+  .flight-card>.c-map{grid-area:map}.flight-card .c-reg{grid-area:reg}.flight-card .c-rt{grid-area:rt}
+  .flight-card .c-quando{grid-area:qd}.flight-card .c-st{grid-area:st}
+  .flight-card .c-go{grid-area:go;border-top:1px solid var(--panel-line);border-left:1px solid var(--panel-line);justify-content:flex-start;padding-top:8px;padding-bottom:8px}
+  .flight-card .c-map .traccia{height:100%;min-height:96px}
+}
 @media screen and (max-width:1100px){
-  .flight-card{grid-template-columns:120px minmax(0,1fr) 170px 280px}
+  .flight-card{grid-template-columns:96px 120px minmax(0,1fr) 190px;grid-template-areas:"map reg rt st" "map go go go"}
   .flight-card .c-quando{display:none}
-  .rotte-lista{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rotte-testa,.rotte-lista a{grid-template-columns:56px minmax(140px,13rem) minmax(0,1fr) 64px;gap:0 16px}
 }
 @media screen and (max-width:640px){
   .dash-body{padding:20px 16px calc(28px + env(safe-area-inset-bottom,0px))}
-  #dashboard{grid-column:1;grid-row:2 / -1}
+  #dashboard,#documenti{grid-column:1;grid-row:2 / -1}
   .dash-head h1{font-size:22px;line-height:28px}
   .dash-azioni{width:100%}.dash-azioni .btn{flex:1;min-height:var(--tap)}
-  .flight-card{grid-template-columns:1fr 1fr;grid-template-areas:"st st" "rt rt" "reg qd" "go go"}
+  .flight-card{grid-template-columns:76px 1fr 1fr;grid-template-areas:"st st st" "map rt rt" "reg reg qd" "go go go"}
+  .flight-card>.c-map{padding:4px;margin-left:12px;border-radius:var(--r-sm)}
+  .flight-card .c-map .traccia{min-height:56px;height:56px}
   .flight-card>div{border-left:0;padding:10px 16px}
   .flight-card .c-st{grid-area:st;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;padding-bottom:2px}
   .flight-card .c-rt{grid-area:rt;padding-top:0}
   .flight-card .c-reg{grid-area:reg;border-top:1px solid var(--panel-line)}
   .flight-card .c-quando{grid-area:qd;display:flex;border-top:1px solid var(--panel-line);border-left:1px solid var(--panel-line)}
-  .flight-card .c-go{grid-area:go;border-top:1px solid var(--panel-line);justify-content:stretch}
+  .flight-card .c-go{grid-area:go;border-top:1px solid var(--panel-line);border-left:0;justify-content:stretch;padding:10px 16px}
   .flight-card .c-go>*{flex:1;min-height:var(--tap)}
   .flight-card .via{white-space:normal}
-  .rotte-lista{grid-template-columns:1fr}
+  .rotte-testa{display:none}
+  .rotte-lista a{grid-template-columns:56px minmax(0,1fr) auto;grid-template-areas:"map nome nm" "map via via";gap:0 12px;padding:8px 16px}
+  .rotte-lista .r-map{grid-area:map}.rotte-lista a b{grid-area:nome}.rotte-lista .r-via{grid-area:via}.rotte-lista .r-nm{grid-area:nm}
+}
+
+/* ===== Documents: i tre documenti di un volo ===== */
+.doc-indietro{display:inline-flex;align-items:center;gap:4px;min-height:var(--ctl);margin:-6px 0 10px -6px;padding:0 8px 0 2px;
+  color:var(--txt-dim);text-decoration:none;font-size:13px;border-radius:var(--r-sm)}
+.doc-indietro svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.doc-indietro:hover{color:var(--txt)}
+.doc-indietro:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
+.dash-azioni .btn[hidden]{display:none}
+.doc-lista{display:flex;flex-direction:column;background:var(--panel-bg);border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--ombra-scheda);overflow:hidden}
+html[data-tema="chiaro"] .doc-lista{border-color:var(--panel-line)}
+.doc-lista>.dash-empty{margin:16px}
+.doc-riga{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:16px;align-items:center;padding:18px 20px;border-top:1px solid var(--panel-line)}
+.doc-riga:first-child{border-top:0}
+.doc-ico{width:44px;height:54px;border:1px solid var(--control);border-radius:4px;display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:7px;box-sizing:border-box;font:500 10px var(--mono);color:var(--txt-dim)}
+.doc-testo{min-width:0}
+.doc-testo h2{margin:0;font-size:16px;font-weight:600;line-height:22px;color:var(--txt)}
+.doc-testo p{margin:2px 0 6px;font-size:13px;line-height:18px;color:var(--txt-dim);max-width:62ch}
+.doc-file{display:block;font-size:12px;line-height:16px;color:var(--txt-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-azioni{display:flex;align-items:center;gap:6px}
+.doc-scarica{min-height:var(--tap);padding:0 18px 0 14px;gap:8px}
+.doc-scarica svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.doc-riga.manca .doc-testo h2{color:var(--txt-dim)}
+.doc-riga.manca .doc-testo p{color:var(--warn)}
+.doc-nota{margin:12px 2px 0;font-size:13px;line-height:18px;color:var(--txt-dim);max-width:76ch}
+.doc-nota:empty{display:none}
+@media screen and (max-width:640px){
+  .doc-riga{grid-template-columns:36px minmax(0,1fr);padding:16px}
+  .doc-ico{width:36px;height:44px;padding-bottom:5px}
+  .doc-azioni{grid-column:1 / -1}
+  .doc-azioni .doc-scarica{flex:1;justify-content:center}
 }
 
 /* ===== Step 2: profilo verticale e totalizzatore carburante ===== */
