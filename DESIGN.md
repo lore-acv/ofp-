@@ -371,7 +371,9 @@ Una striscia per volo, come le strisce di progresso volo dei controllori:
 la miniatura della traccia, caselle separate da filetti per marca e modello,
 rotta (DEP → ARR, alternato, waypoint in Mono), stato con data, e l'azione del
 momento ("Load briefing" per chi aspetta il briefing, "Documents" per chi e'
-pronto). Su iPad e schermi medi la miniatura e' alta due righe e le azioni
+pronto). Le azioni stanno su una riga: quella del momento piena, "Update WX" a
+contorno, "Edit" come testo, e Delete come icona del cestino oltre un filo
+sottile (rossa al passaggio del mouse, con conferma). Su iPad e schermi medi la miniatura e' alta due righe e le azioni
 stanno sotto; sul telefono: stato in alto, miniatura e rotta, due caselle di
 dati, azioni a tutta larghezza.
 
@@ -447,12 +449,16 @@ dell'interfaccia, la carta resta carta in entrambi i temi.
   maiuscolo piccolo. Quella della sezione in lettura e' ruggine; a destra le
   sezioni che vengono, a sinistra quelle passate, blu. Avvisi WARNING /
   CAUTION / NOTE in riquadri interi con filetto sottile e segno disegnato.
-- **Movimento:** il foglio gira come una lamina sulla costola (rotateY e
-  l'opacita' della sua ombra, nient'altro per fotogramma), portato da una molla
-  smorzata al critico: arriva morbido, senza rimbalzo, in circa mezzo secondo.
-  Si prende in qualsiasi punto e segue il dito. Tastiera senza animazione;
-  "riduci movimento" solo dissolvenze. La piega a cilindro resta nel motore
-  (`curva:true`) ma non si usa: su iPad non teneva i 60 fotogrammi.
+- **Movimento:** il foglio si arrotola come la carta (la piega a cilindro di
+  sfoglia.js, `curva:true`): si prende in qualsiasi punto e segue il dito,
+  lasciato e' portato da una molla che si posa con un filo di slancio. Le
+  copertine girano rigide sulla costola. Le ombre (cilindro, lembo, gola,
+  lamina) crescono e calano con continuita' con la geometria: nessuna si
+  accende o salta di pagina in un fotogramma. Tastiera senza animazione;
+  "riduci movimento" solo dissolvenze.
+- **Apertura:** dall'app il manuale si apre sopra la pagina, in un riquadro
+  (`manuale.html?embed=1`), mai in una scheda nuova: il foglio resta com'e' e
+  Close o Esc riportano dov'eravamo.
 
 ### Rotta AV
 La rotta dell'aeroclub resta solo nella pagina di accesso, disegnata una

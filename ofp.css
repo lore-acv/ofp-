@@ -626,7 +626,7 @@ html[data-tema="chiaro"] .hero{border-color:var(--panel-line)}
 /* Strisce dei voli: una per volo, caselle separate da filetti come le strisce
    di progresso volo dei controllori (signature della Dashboard). */
 .cards{display:flex;flex-direction:column;gap:12px}
-.flight-card{display:grid;grid-template-columns:96px 128px minmax(0,1fr) 140px 180px 300px;background:var(--panel-bg);
+.flight-card{display:grid;grid-template-columns:96px 128px minmax(0,1fr) 140px 180px 320px;background:var(--panel-bg);
   border:1px solid transparent;border-radius:var(--r-lg);box-shadow:var(--ombra-scheda);color:var(--txt);min-height:84px}
 html[data-tema="chiaro"] .flight-card{border-color:var(--panel-line)}
 .flight-card>div{padding:14px 16px;border-left:1px solid var(--panel-line);display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0}
@@ -637,7 +637,15 @@ html[data-tema="chiaro"] .flight-card{border-color:var(--panel-line)}
 .flight-card .route span{color:var(--txt-dim);font-weight:400}
 .flight-card .via{font:400 12px/17px var(--mono);color:var(--txt-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .flight-card .quando{font:400 13px/18px var(--mono)}
-.flight-card .c-go{flex-direction:row;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap}
+.flight-card .c-go{flex-direction:row;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:nowrap}
+/* le azioni di una striscia stanno su una riga: quella del momento piena,
+   l'altra a contorno, Edit come testo, Delete come icona oltre un filo */
+.flight-card .c-go .btn,.flight-card .c-go .card-drop{padding:0 12px}
+.flight-card .c-go .btn.testo{padding:0 8px}
+.flight-card .c-sep{flex:none;width:1px;height:18px;background:var(--panel-line)}
+.btn.icona{flex:none;width:var(--ctl);padding:0;border-color:transparent;color:var(--txt-faint)}
+.flight-card .c-go .btn.icona{padding:0}
+.btn.icona svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .flight-card .dash-status:empty{display:none}
 .badge{display:inline-flex;align-items:center;align-self:flex-start;height:22px;font-size:12px;font-weight:500;
   padding:0 8px;border-radius:var(--r-xs);white-space:nowrap}
@@ -688,7 +696,9 @@ html[data-tema="chiaro"] .flight-card{border-color:var(--panel-line)}
   .flight-card .c-reg{grid-area:reg;border-top:1px solid var(--panel-line)}
   .flight-card .c-quando{grid-area:qd;display:flex;border-top:1px solid var(--panel-line);border-left:1px solid var(--panel-line)}
   .flight-card .c-go{grid-area:go;border-top:1px solid var(--panel-line);border-left:0;justify-content:stretch;padding:10px 16px}
-  .flight-card .c-go>*{flex:1;min-height:var(--tap)}
+  .flight-card .c-go>.btn,.flight-card .c-go>.card-drop{flex:1;min-height:var(--tap)}
+  .flight-card .c-go>.btn.testo{flex:0 0 auto}
+  .flight-card .c-go>.btn.icona{flex:0 0 var(--tap);width:var(--tap)}
   .flight-card .via{white-space:normal}
 }
 
@@ -912,6 +922,8 @@ html[data-tema="chiaro"] .totale{border-color:var(--panel-line)}
   .btn:hover:not(:disabled){border-color:var(--hover-line)}
   .btn.primary:hover:not(:disabled){background:var(--primary-hi);border-color:var(--primary-hi)}
   .btn.testo:hover{border-color:transparent;color:var(--txt)}
+  .btn.icona:hover:not(:disabled){border-color:transparent;color:var(--txt);background:var(--panel-2)}
+  .btn.icona.pericolo:hover:not(:disabled){color:var(--err);background:var(--err-bg)}
   .drop:hover{border-color:var(--hover-line);color:var(--txt)}
   .rail a:hover,.rail .rail-btn:hover,.hamburger:hover,.tema-btn:hover{color:var(--txt)}
   .rail [data-nome]:hover::after{opacity:1;visibility:visible;transition-delay:300ms,0s}

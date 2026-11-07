@@ -782,7 +782,7 @@ function costruisci(start){
   const m=dimensiona(true) || {pw:F.w*.5, ph:F.h*.5, doppia:false};
   libro=new Sfoglia(book,{
     pagine:pagine.map(p=>p.el), w:F.w, h:F.h, pw:m.pw, ph:m.ph, doppia:m.doppia,
-    rigide:[0, pagine.length-1], moto:MOTO, inizio:Math.max(0,Math.min(pagine.length-1,start||0)),
+    rigide:[0, pagine.length-1], curva:true, moto:MOTO, inizio:Math.max(0,Math.min(pagine.length-1,start||0)),
     onCambio:()=>aggiorna(), onTaglio:segnalibri
   });
   book.style.setProperty('--imgmax', banco.style.getPropertyValue('--imgmax'));

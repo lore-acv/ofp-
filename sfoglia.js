@@ -33,12 +33,17 @@
    inclinazione; il cilindro getta un'ombra sulla pagina che si scopre; il
    lembo rovesciato getta un'ombra lungo il suo bordo sulla carta sotto.
 
-   LA LAMINA (predefinita). Con opz.curva non impostato ogni foglio gira come
-   una lamina rigida sulla costola, come le copertine: un rotateY sul foglio e
-   l'opacita' della sua ombra, e basta. Il compositore fa tutto da solo e la
-   girata resta fluida anche su un iPad con pagine piene di figure; la piega a
-   cilindro (sotto) resta per chi la chiede con curva:true. La molla della
-   lamina e' smorzata al critico: arriva morbida, senza rimbalzo.
+   LA LAMINA. Con opz.curva non impostato ogni foglio gira come una lamina
+   rigida sulla costola, come le copertine: un rotateY sul foglio e l'opacita'
+   della sua ombra, e basta. Il manuale chiede curva:true (la piega a
+   cilindro) e tiene rigide solo le copertine. La molla della lamina e'
+   smorzata al critico: arriva morbida, senza rimbalzo.
+
+   OMBRE SENZA SALTI. Ogni ombra cresce e cala con continuita' insieme alla
+   geometria: quella della lamina svanisce verso la verticale e rinasce
+   dall'altra parte; quella del lembo sull'altra pagina vale solo per il
+   tratto di bordo gia' di la' dalla costola e cresce con esso; un bordo
+   appena nato entra piano. Nessuna si accende tutta in un fotogramma.
 
    NIENTE SFARFALLII. Le pagine vere sotto il foglio cambiano solo quando il
    foglio e' sullo schermo da due fotogrammi; all'atterraggio le pagine vere
@@ -108,7 +113,9 @@ P.costruisci=function(){
   const vSx=el('lb-velo sx'), vDx=el('lb-velo dx');
   // ombra del cilindro (pagina che si scopre) e ombra del lembo (pagina di la' dalla costola)
   this.cast={sx:el('lb-cast', vSx), dx:el('lb-cast', vDx)};
-  this.castL={sx:el('lb-cast lembo', vSx), dx:el('lb-cast lembo', vDx)};
+  // due per lato: i due bordi piu' lunghi del lembo, cosi' quando il primo
+  // cambia nessuna ombra salta da un bordo all'altro
+  this.castL={sx:[el('lb-cast lembo', vSx), el('lb-cast lembo', vSx)], dx:[el('lb-cast lembo', vDx), el('lb-cast lembo', vDx)]};
   // i segnalibri delle sezioni, fuori dai bordi del libro
   this.lingSx=el('lb-ling sx'); this.lingDx=el('lb-ling dx');
   this.gola=el('lb-gola');
@@ -449,7 +456,8 @@ P.lembo=function(f){
 };
 P.ombraLembo=function(f){
   const g=f.geo, D=this.D, els=f.dom.ombraLembo;
-  const lati = g.L>.05 && g.R>=.3 ? (this.lembo(f)||[]) : [];
+  // i bordi piu' lunghi sempre sugli stessi elementi: un bordo nuovo va in fondo
+  const lati = g.L>.05 && g.R>=.3 ? (this.lembo(f)||[]).sort((a,b)=>b.len-a.len) : [];
   const larga=this.W*.02+g.R*.38, o=clamp(g.R/(this.W*.07),0,1)*.34;
   // nelle coordinate del contenitore disteso: u = n·q - c + D, v = t·q + D
   const toC=(q)=>[g.nx*q[0]+g.ny*q[1]-g.c+D, g.tx*q[0]+g.ty*q[1]+D];
@@ -462,7 +470,9 @@ P.ombraLembo=function(f){
     el.style.width=l.len+'px'; el.style.height=larga+'px';
     // e' dentro la copia distesa: dagli assi del contenitore a quelli della copia
     el.style.transform=aff2(mul2(inv,[u[0],u[1],pp[0],pp[1],A[0],A[1]]));
-    el.style.opacity=o.toFixed(3);
+    // un bordo appena nato e' cortissimo: entra piano, non tutto scuro
+    const w=clamp(l.len/(this.W*.08),0,1);
+    el.style.opacity=(o*w*w*(3-2*w)).toFixed(3);
   });
   f.lembo = lati.length ? {lati, larga, o} : null;
 };
@@ -502,7 +512,10 @@ P.ombre=function(){
     const g=f.geo; if(!g) continue;
     if(g.rigido){
       const x=f.dir*W*Math.cos(g.a), lato=x>=0?'dx':'sx';
-      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [x,0], x>=0?1:-1, 0, W*.06+W*Math.sin(g.a)*.5, Math.sin(g.a)*.32);
+      // la lamina in piedi non getta ombra ne' di qua ne' di la': l'ombra
+      // svanisce verso la verticale e rinasce dall'altra parte, senza salti
+      const sv=Math.min(1, Math.abs(Math.cos(g.a))*2.5);
+      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [x,0], x>=0?1:-1, 0, W*.06+W*Math.sin(g.a)*.5, Math.sin(g.a)*.32*sv);
       gola=Math.max(gola, Math.sin(g.a)*.8);
       continue;
     }
@@ -515,15 +528,37 @@ P.ombre=function(){
       if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [g.nx*g.c, g.ny*g.c], g.nx, g.ny, g.R*1.25+W*.09, clamp(g.R/(W*.06),0,1)*.5);
     }
     // l'ombra del lembo sulla pagina dall'altra parte della costola
+    // Solo il tratto di ogni bordo che sta di la' dalla costola, e con
+    // un'intensita' che cresce con quel tratto: l'ombra entra sull'altra pagina
+    // insieme al lembo, invece di accendersi tutta quando il lembo passa la costola.
     if(this.doppia && f.lembo){
-      const lato = f.dir>0 ? 'sx' : 'dx';
-      const di_la=f.lembo.lati.filter(l=>{ const mx=(l.a[0]+l.b[0])/2; return lato==='sx' ? mx<0 : mx>0; });
-      const l=di_la.sort((x,y)=>y.len-x.len)[0];
-      if(l) metti(this.castL[lato], lato, [(l.a[0]+l.b[0])/2,(l.a[1]+l.b[1])/2], l.px, l.py, f.lembo.larga*1.4, f.lembo.o*.9, l.len);
+      const lato = f.dir>0 ? 'sx' : 'dx', s=lato==='sx' ? -1 : 1, pieno=W*.3;
+      const tratti=[];
+      for(const l of f.lembo.lati){
+        const xa=s*l.a[0], xb=s*l.b[0];
+        if(xa<=0 && xb<=0) continue;
+        let a=l.a, b=l.b;
+        if(xa<0 || xb<0){
+          const t=xa/(xa-xb), q=[l.a[0]+(l.b[0]-l.a[0])*t, l.a[1]+(l.b[1]-l.a[1])*t];
+          if(xa<0) a=q; else b=q;
+        }
+        const len=Math.hypot(b[0]-a[0], b[1]-a[1]); if(len<1) continue;
+        tratti.push({a, b, len, px:l.px, py:l.py});
+      }
+      tratti.sort((x,y)=>y.len-x.len);
+      this.castL[lato].forEach((el,i)=>{
+        const t=tratti[i]; if(!t) return;
+        // un bordo parallelo alla costola la passa tutto in una volta: conta
+        // anche quanto il suo centro e' gia' di la'
+        const liscio=(v)=>{ v=clamp(v,0,1); return v*v*(3-2*v); };
+        const mx=(t.a[0]+t.b[0])/2, my=(t.a[1]+t.b[1])/2;
+        const o=f.lembo.o*.9*liscio(t.len/pieno)*liscio(s*mx/(W*.12));
+        metti(el, lato, [mx,my], t.px, t.py, f.lembo.larga*1.4, o, t.len);
+      });
     }
     gola=Math.max(gola, Math.sin(PI*g.p)*.5);
   }
-  for(const el of [this.cast.sx,this.cast.dx,this.castL.sx,this.castL.dx]) if(!usa.has(el)) el.style.opacity=0;
+  for(const el of [this.cast.sx,this.cast.dx,...this.castL.sx,...this.castL.dx]) if(!usa.has(el)) el.style.opacity=0;
   this.gola.style.opacity = this.doppia ? gola.toFixed(3) : 0;
 };
 

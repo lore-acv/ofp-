@@ -59,7 +59,7 @@ document.documentElement.classList.add('vista-dash');
       <div class="sep solo-volo"></div>
       <button type="button" role="menuitem" class="primary solo-volo" id="btnDocumenti" title="Saves the flight and opens its documents">Documents</button>
       <div class="sep"></div>
-      <button type="button" role="menuitem" id="btnManuale" title="Opens in a new tab: the flight plan stays as it is">User Manual</button>
+      <button type="button" role="menuitem" id="btnManuale" title="Opens over the page: the flight plan stays as it is">User Manual</button>
       <div class="sep conto-voce" style="display:none"></div>
       <div class="menu-chi conto-voce" id="menuChi" style="display:none"></div>
       <button type="button" role="menuitem" class="conto-voce" id="btnUtenti" style="display:none" title="Opens in a new tab">Users</button>
@@ -641,6 +641,9 @@ document.documentElement.classList.add('vista-dash');
   </div>
   <div class="stage" id="stage" style="display:none"></div>
 </div>
+
+<!-- Il manuale sta qui, sopra tutto il resto, e si apre senza lasciare la pagina. -->
+<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="User manual"></div>
 
 <script src="ofp-core.js"></script>
 <script src="rotte-acv.js"></script>
@@ -6802,6 +6805,11 @@ function tracciaVolo(fd){
   return tracciaSvg(righe, dep && dep===arr, 96, 72, `Track ${dep||'DEP'} to ${arr||'ARR'}`);
 }
 
+/* Le azioni di gestione di una striscia, dopo quelle del momento: Edit come
+   testo, Delete come icona a parte, oltre un filo, perche' non si prema per
+   sbaglio passando da un'azione all'altra. */
+const GESTIONE_VOLO=`<button class="btn testo" data-act="edit">Edit</button><span class="c-sep" aria-hidden="true"></span>`
+  +`<button class="btn icona pericolo" data-act="del" aria-label="Delete flight" title="Delete flight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12M10.5 10.5v5.5M13.5 10.5v5.5"/></svg></button>`;
 function makeCard(f){
   /* Una striscia per volo, come le strisce di progresso volo: marca,
      rotta, quando, stato e l'azione del momento. */
@@ -6818,14 +6826,14 @@ function makeCard(f){
       <div class="c-quando"><span class="k">Created</span><span class="quando">${fmtDate(f.created_at)}</span></div>
       <div class="c-st"><span class="badge standby">Waiting for the briefing</span><div class="dash-status"></div></div>
       <div class="c-go"><span class="card-drop" role="button" tabindex="0" title="Load the weather briefing PDF to finalise">Load briefing</span>
-        <button class="btn testo" data-act="edit">Edit</button><button class="btn testo" data-act="del">Delete</button></div>`;
+        ${GESTIONE_VOLO}</div>`;
   }else{
     card.innerHTML=testa+`
       <div class="c-quando"><span class="k">Briefing loaded</span><span class="quando">${fmtDate(f.updated_at)}</span></div>
       <div class="c-st"><span class="badge completed">Ready to fly</span><div class="dash-status"></div></div>
       <div class="c-go"><a class="btn primary" data-act="docs" href="#/flights/${encodeURIComponent(f.id)}/documents">Documents</a>
         <span class="card-drop" data-role="refresh" role="button" tabindex="0" title="Load a newer weather briefing PDF">Update WX</span>
-        <button class="btn testo" data-act="edit">Edit</button><button class="btn testo" data-act="del">Delete</button></div>`;
+        ${GESTIONE_VOLO}</div>`;
   }
   const statusEl=card.querySelector('.dash-status');
   const drop=card.querySelector('.card-drop');
@@ -7099,15 +7107,42 @@ if($('btnEsci')) $('btnEsci').addEventListener('click',()=>{
   if(!confirm('Sign out? A flight plan that has not been saved with "Save to Standby" will be lost.')) return;
   Account.esci();
 });
-/* Il manuale in una scheda nuova: aprirlo qui farebbe perdere il foglio non
-   salvato. Sotto Apps Script non c'e' (HtmlService non serve file statici). */
+/* Il manuale si apre sopra la pagina, in un riquadro (come in import.html):
+   il foglio resta com'e', anche non salvato, e chiudendo si e' dov'eravamo.
+   Il riquadro nasce al primo clic e poi resta: riaperto, il libro e' alla
+   pagina dove lo si era lasciato. Close sta dentro il libro e manda un
+   messaggio qui; Esc chiude da tutte e due le parti. Sotto Apps Script non
+   c'e' (HtmlService non serve file statici). */
+let GUIDA_DA=null;
+function apriGuida(da){
+  const velo=$('guidaVelo'); if(!velo) return;
+  if(!velo.firstChild){
+    const f=document.createElement('iframe');
+    f.src='manuale.html?embed=1'; f.title='User manual';
+    velo.appendChild(f);
+  }
+  GUIDA_DA=da||null;
+  velo.classList.add('aperta');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{ try{ velo.firstChild.contentWindow.focus(); }catch(e){} }, 50);
+}
+function chiudiGuida(){
+  const velo=$('guidaVelo'); if(!velo || !velo.classList.contains('aperta')) return;
+  velo.classList.remove('aperta');
+  document.body.style.overflow='';
+  if(GUIDA_DA && GUIDA_DA.isConnected) GUIDA_DA.focus();
+}
+window.addEventListener('message', e=>{
+  if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudiGuida();
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && $('guidaVelo') && $('guidaVelo').classList.contains('aperta')) chiudiGuida(); });
 if($('btnManuale')){
   if(IS_APPS_SCRIPT) $('btnManuale').style.display='none';
-  $('btnManuale').addEventListener('click',()=>window.open('manuale.html','_blank','noopener'));
+  $('btnManuale').addEventListener('click',()=>apriGuida($('btnMenu')));
 }
 if($('railManuale')){
   if(IS_APPS_SCRIPT) $('railManuale').style.display='none';
-  $('railManuale').addEventListener('click',e=>{ e.preventDefault(); window.open('manuale.html','_blank','noopener'); });
+  $('railManuale').addEventListener('click',e=>{ e.preventDefault(); apriGuida($('railManuale')); });
 }
 $('btnNew').addEventListener('click',newFlight);
 /* "New Flight" della Dashboard e' un link vero (vedi il markup): qui si
