@@ -5,7 +5,8 @@
    orizzontali (y 110 e 199, gradino a 179) e diagonali tutte a 45 gradi,
    quindi le gambe parallele sono parallele davvero; raccordi di 6 nelle virate.
 
-   Come sul GPS: magenta la rotta gia' volata, puntini chiari quella da fare.
+   Come sul GPS: magenta la rotta gia' volata e i due aeroporti (DEP e DEST),
+   puntini chiari quella da fare.
    Il magenta e' fisso, uguale in ogni tema: e' il colore della rotta attiva
    sui navigatori, non un colore del sito, e nessuna variabile di tema lo tocca.
    L'aereo traccia la linea dietro di se': il muso segue la direzione del moto,
@@ -16,8 +17,8 @@
 
    E' il momento raro del sito (una volta per visita): puo' durare ~4,8 s, e
    non blocca niente. Con "riduci movimento" la mappa compare gia' completa.
-   Gli altri colori vengono dai token del tema della pagina (--attivo,
-   --txt, --txt-dim, --panel-bg), quindi seguono scuro e chiaro. */
+   Gli altri colori vengono dai token del tema della pagina (--txt,
+   --txt-dim, --panel-bg), quindi seguono scuro e chiaro. */
 (function(){
   const ROTTA='M70 270L156.76 183.24Q161 179 155 179L121 179Q115 179 110.76 183.24L99.24 194.76Q95 199 89 199L30 199Q24 199 28.24 194.76L108.76 114.24Q113 110 119 110L191 110Q197 110 201.24 114.24L281.76 194.76Q286 199 292 199L360 199Q366 199 370.24 194.76L450.76 114.24Q455 110 449 110L389 110Q383 110 378.76 114.24L333.24 159.76Q329 164 324.76 159.76L297.24 132.24Q293 128 297.24 123.76L381 40';
   const AEREO='M0 -7 L1.6 -2 L7.5 1 L7.5 2.6 L1.6 1.2 L1.2 5 L3.2 6.4 L3.2 7.4 L0 6.6 L-3.2 7.4 L-3.2 6.4 L-1.2 5 L-1.6 1.2 L-7.5 2.6 L-7.5 1 L-1.6 -2 Z';
@@ -30,7 +31,7 @@
 .rotta-av .bussola{transform-box:view-box;transform-origin:240px 155px}
 .rotta-av .previsto{fill:none;stroke:color-mix(in srgb,var(--txt) 28%,transparent);stroke-width:1.6;stroke-dasharray:2 6;stroke-linecap:round}
 .rotta-av .tratta{fill:none;stroke:#cc33bb!important;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.rotta-av .apt{fill:var(--attivo)}
+.rotta-av .apt{fill:#cc33bb!important}
 .rotta-av .apt-pista{stroke:var(--panel-bg);stroke-width:2;stroke-linecap:round}
 .rotta-av .rp{fill:none;stroke:var(--txt);stroke-width:2.2;stroke-linejoin:round}
 .rotta-av .etichetta{font:500 11px "JetBrains Mono",ui-monospace,monospace;fill:var(--txt-dim)}

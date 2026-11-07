@@ -177,7 +177,7 @@ pixel colorati di una schermata resta sotto il 3%.
   carburante richiesta, la traccia nelle miniature dei voli. Mai come fondo di
   un pulsante o di una scheda.
 - **Magenta rotta** (#cc33bb, fisso in ogni tema): una sola eccezione, la
-  traccia che l'aereo disegna nella mappa del login. E' il colore della rotta
+  mappa del login: la traccia che l'aereo disegna e i due aeroporti, DEP e DEST. E' il colore della rotta
   attiva sui navigatori GPS, non un colore del sito; nessuna variabile di tema
   lo cambia (rotta-av.js). Contrasto 3.5:1 sul fondo Giorno, 4:1 sul Notte.
 
