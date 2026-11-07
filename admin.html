@@ -3,7 +3,8 @@
 <!--
   AMMINISTRAZIONE. Solo per il ruolo admin (lo controlla il server, non la
   pagina). Si creano gli account con una password temporanea, si reimposta
-  una password dimenticata, si sospende o si elimina un utente.
+  una password dimenticata, si cambia il nome di un utente (Rename, nella sua
+  riga), si sospende o si elimina un utente.
   L'amministratore non vede i voli degli altri: ne vede solo il numero.
 -->
 <meta charset="utf-8">
@@ -90,7 +91,9 @@ async function carica(){
         u.bloccato ? '<span class="tag sospeso">Locked 15 min</span>' : '',
         u.deve_cambiare ? '<span class="tag attesa">Temporary password</span>' : ''
       ].join(' ');
-      const az = io ? '<span class="piccolo">you</span>' : [
+      const rinomina=`<button class="btn small" data-az="rinomina" data-id="${u.id}">Rename</button>`;
+      const az = io ? '<span class="piccolo">you</span>'+rinomina : [
+        rinomina,
         `<button class="btn small" data-az="reset" data-id="${u.id}">Reset password</button>`,
         u.stato==='sospeso'
           ? `<button class="btn small" data-az="riattiva" data-id="${u.id}">Reactivate</button>`
@@ -98,7 +101,7 @@ async function carica(){
         `<button class="btn small danger" data-az="elimina" data-id="${u.id}">Delete</button>`
       ].join('');
       return `<tr data-nome="${esc(u.nome)}" data-email="${esc(u.email)}" data-voli="${u.voli}">
-        <td><b>${esc(u.nome)}</b></td><td>${esc(u.email)}</td><td>${tags}</td>
+        <td class="nome-cella"><b>${esc(u.nome)}</b></td><td>${esc(u.email)}</td><td>${tags}</td>
         <td class="piccolo">${quando(u.ultimo_accesso)}</td><td>${u.voli}</td><td class="az">${az}</td></tr>`;
     }).join('') || '<tr><td colspan="6" class="piccolo">No users.</td></tr>';
   }catch(e){ Conto.messaggio('msg', e.message); }
@@ -110,8 +113,32 @@ const DOMANDE={
   riattiva:null,
   elimina:(n,v)=>`Delete ${n} permanently, together with ${v} saved flight(s)? This cannot be undone.`
 };
+/* Rename: il nome diventa un campo nella sua cella, con Save e Cancel.
+   Invio salva, Esc annulla. Cambia il nome mostrato, non l'e-mail con cui
+   si accede. */
+function rinomina(tr, id){
+  const cella=tr.querySelector('.nome-cella'); if(!cella || cella.querySelector('form')) return;
+  const vecchio=tr.dataset.nome;
+  cella.innerHTML=`<form class="rinomina" novalidate><input type="text" maxlength="80" autocomplete="off" aria-label="Name" value="${esc(vecchio)}">
+    <button type="submit" class="btn small primary">Save</button><button type="button" class="btn small" data-annulla>Cancel</button></form>`;
+  const f=cella.querySelector('form'), inp=f.querySelector('input');
+  const chiudi=()=>{ cella.innerHTML=`<b>${esc(vecchio)}</b>`; };
+  inp.focus(); inp.select();
+  f.querySelector('[data-annulla]').addEventListener('click',chiudi);
+  inp.addEventListener('keydown',e=>{ if(e.key==='Escape'){ e.preventDefault(); chiudi(); } });
+  f.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const nome=inp.value.replace(/\s+/g,' ').trim();
+    if(!nome){ Conto.messaggio('msg','Enter the name.'); inp.focus(); return; }
+    if(nome===vecchio){ chiudi(); return; }
+    f.querySelectorAll('button,input').forEach(x=>x.disabled=true); Conto.messaggio('msg','');
+    try{ await Conto.chiama('POST',`/api/admin/utenti/${id}/nome`,{nome}); await carica(); }
+    catch(err){ Conto.messaggio('msg', err.message); f.querySelectorAll('button,input').forEach(x=>x.disabled=false); inp.focus(); }
+  });
+}
 Conto.$('elenco').addEventListener('click', async (e)=>{
   const b=e.target.closest('button[data-az]'); if(!b) return;
+  if(b.dataset.az==='rinomina'){ rinomina(b.closest('tr'), b.dataset.id); return; }
   const tr=b.closest('tr'), az=b.dataset.az, nome=tr.dataset.nome+' ('+tr.dataset.email+')';
   if(DOMANDE[az] && !confirm(DOMANDE[az](nome, tr.dataset.voli))) return;
   b.disabled=true; Conto.messaggio('msg','');

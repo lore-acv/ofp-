@@ -113,6 +113,13 @@ table.utenti th{text-align:left;font-size:12px;font-weight:400;color:var(--txt-f
 table.utenti td{padding:10px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
 table.utenti td.az{white-space:nowrap;text-align:right}
 table.utenti td.az .btn{margin-left:4px}
+table.utenti td.az .piccolo{margin-right:4px}
+/* Rename: il nome diventa un campo nella sua cella */
+form.rinomina{display:flex;align-items:center;gap:6px;margin:-5px 0}
+form.rinomina input{min-width:0;flex:1 1 160px;height:30px;padding:0 10px;font:inherit;background:var(--field);color:var(--txt);
+  border:1px solid var(--control);border-radius:var(--r-sm)}
+form.rinomina input:focus{outline:none;border-color:var(--accent-2);box-shadow:inset 0 -1px 0 var(--accent-2)}
+@media (pointer:coarse){ form.rinomina input{font-size:max(16px,1rem);height:var(--tap)} }
 .tag{display:inline-flex;align-items:center;height:22px;font-size:12px;font-weight:500;padding:0 8px;border-radius:var(--r-xs);
   background:var(--panel-2);color:var(--txt-dim)}
 .tag.admin{color:var(--txt);box-shadow:inset 0 -1px 0 var(--accent-2)}

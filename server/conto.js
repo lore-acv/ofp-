@@ -297,6 +297,15 @@ async function azioneUtente(request, db, io, id, azione) {
   if (!u) return errore(404, 'Account not found.');
   const seStesso = u.id === io.id;
   const ultimoAdmin = u.ruolo === 'admin' && u.stato === 'attivo' && await adminsAttivi(db) <= 1;
+  // il nome mostrato (non l'e-mail, che resta l'identita' per l'accesso);
+  // anche il proprio
+  if (azione === 'nome') {
+    const b = await corpo(request);
+    const nome = String(b.nome || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+    if (!nome) return errore(400, 'Enter the name.');
+    await db.prepare('UPDATE utenti SET nome = ? WHERE id = ?').bind(nome, id).run();
+    return json({ ok: true, nome });
+  }
   if (azione === 'reset') {
     if (seStesso) return errore(400, 'Change your own password from "Change password".');
     const temp = passwordTemporanea();
@@ -422,7 +431,7 @@ export async function api(request, env, utente) {
     if (utente.ruolo !== 'admin') return errore(403, 'Administrators only.');
     if (p === '/api/admin/utenti' && m === 'GET') return elencoUtenti(db);
     if (p === '/api/admin/utenti' && m === 'POST') return creaUtente(request, db);
-    r = /^\/api\/admin\/utenti\/(\d+)\/(reset|sospendi|riattiva|elimina)$/.exec(p);
+    r = /^\/api\/admin\/utenti\/(\d+)\/(nome|reset|sospendi|riattiva|elimina)$/.exec(p);
     if (r && m === 'POST') return azioneUtente(request, db, utente, +r[1], r[2]);
   }
   return errore(404, 'Not found.');

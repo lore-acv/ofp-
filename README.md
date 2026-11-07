@@ -420,6 +420,7 @@ configurazione da li' e ignorerebbe i binding impostati nel pannello.
   mostrata una volta sola, da consegnare all'utente con un canale diverso
   dall'email. Al primo accesso l'utente deve sostituirla: fino ad allora il
   server non apre nient'altro.
+- *Rename*: cambia il nome mostrato di un utente (anche il proprio) direttamente nella sua riga; l'e-mail con cui si accede resta la stessa.
 - *Reset password*: nuova password temporanea, sessioni chiuse.
 - *Suspend / Reactivate*: l'utente sospeso non entra piu', i voli restano.
   *Reactivate* sblocca anche un account fermo per troppi tentativi.
