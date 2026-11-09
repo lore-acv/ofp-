@@ -15,11 +15,16 @@
    rilegato: gli estremi della costola non si muovono, e il punto preso non si
    allontana da loro piu' di quanto ne disti (la carta non si allunga).
 
-   COME SI DISEGNA. Tre parti, ognuna una copia della pagina ritagliata da un
-   contenitore orientato come la piega: la parte distesa, le fasce del
-   cilindro (davanti e retro), la parte rovesciata. Da un fotogramma all'altro
-   cambiano solo trasformazioni, piu' le sfumature di luce delle fasce, alte un
-   pixel.
+   COME SI DISEGNA. Tre parti, ognuna una copia della pagina. La parte
+   distesa sta dritta al posto della pagina e la piega la ritaglia (clip-path,
+   un poligono); la parte rovesciata e' la copia del retro ruotata attorno
+   alla piega e ritagliata allo stesso modo; in mezzo le fasce del cilindro
+   (davanti e retro), ritagliate da contenitori orientati come la piega. Da un
+   fotogramma all'altro cambiano solo trasformazioni e ritagli, piu' le
+   sfumature di luce delle fasce, alte un pixel. Distesa e rovesciata non
+   passano per contenitori ruotati: il testo non viene ricampionato due volte,
+   e a foglio fermo (l'angolo sotto il mouse, la girata appena posata) e'
+   nitido come la pagina vera.
 
    LA FISICA (apple-design, emil-design-eng). Il dito comanda il punto preso;
    lasciato, il punto e' portato da due molle (x e y separate) verso il suo
@@ -30,8 +35,12 @@
    Le copertine sono rigide e ruotano sulla costola senza piegarsi.
 
    LE OMBRE. Le fasce del cilindro sono illuminate secondo la loro
-   inclinazione; il cilindro getta un'ombra sulla pagina che si scopre; il
-   lembo rovesciato getta un'ombra lungo il suo bordo sulla carta sotto.
+   inclinazione; il cilindro getta un'ombra sulla pagina che si scopre, con il
+   massimo proprio sul colmo del ricciolo e larga in proporzione al raggio
+   (resta attaccata al ricciolo anche con l'angolo appena sollevato); il lembo
+   rovesciato getta un'ombra lungo i suoi bordi sulla carta sotto, e il retro
+   del foglio (lembo e ricciolo) e' appena piu' scuro della pagina: carta su
+   carta si legge, il lembo non sembra cancellare il testo che copre.
 
    LA LAMINA. Con opz.curva non impostato ogni foglio gira come una lamina
    rigida sulla costola, come le copertine: un rotateY sul foglio e l'opacita'
@@ -44,6 +53,15 @@
    dall'altra parte; quella del lembo sull'altra pagina vale solo per il
    tratto di bordo gia' di la' dalla costola e cresce con esso; un bordo
    appena nato entra piano. Nessuna si accende tutta in un fotogramma.
+
+   NITIDO. Una copia della pagina e' un livello suo, e il browser lo
+   dipinge alla sua misura in px CSS senza guardare le scale degli antenati:
+   ingrandito poi dalla scala del libro, il testo si sfocava appena un foglio
+   si alzava (anche solo l'angolo sotto il mouse). Percio' ogni copia e'
+   costruita gia' alla misura vera (larga W*q, con --k:q come le pagine vere)
+   e la sua trasformazione la riporta alla misura logica: q e' la scala del
+   libro, cosi' sullo schermo la copia e' in scala 1, pixel su pixel. Quello che sta dentro una copia (luci, ombre) lavora in
+   coordinate logiche e viene riportato con la stessa scala.
 
    NIENTE SFARFALLII. Le pagine vere sotto il foglio cambiano solo quando il
    foglio e' sullo schermo da due fotogrammi; all'atterraggio le pagine vere
@@ -67,12 +85,13 @@ const FIS={
   arco:.16        // quanto si alza l'angolo a meta' di una girata da comando (altezze di pagina)
 };
 const LUCE=(()=>{ const v=[-.24,-.3,.92], n=Math.hypot(...v); return v.map(x=>x/n); })();
+const TINTA=.07;                      // quanto e' piu' scuro il retro del foglio ripiegato (come .lb-tinta)
 const PI=Math.PI, WF=64;              // WF: larghezza logica di una fascia, scalata alla sua misura vera
 const molla=(p)=>({k:(2*PI/p.risposta)**2, c:4*PI*p.smorz/p.risposta});
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
 const ombreggia=(d)=>{ const d0=LUCE[2]; return d<d0 ? -Math.min(.5,(d0-d)/d0*.48) : Math.min(.12,(d-d0)*.8); };
 const colore=(v)=> v<0 ? `rgba(26,20,14,${(-v).toFixed(3)})` : `rgba(255,253,248,${v.toFixed(3)})`;
-const r4=(x)=>Math.round(x*1e4)/1e4;
+const r6=(x)=>Math.round(x*1e6)/1e6, r4=r6;   // sei decimali: su contenitori larghi mille px, quattro lasciavano un decimo di px di scarto (testo meno nitido)
 const m3=(X,Y,Z,T)=>`matrix3d(${r4(X[0])},${r4(X[1])},${r4(X[2])},0,${r4(Y[0])},${r4(Y[1])},${r4(Y[2])},0,${r4(Z[0])},${r4(Z[1])},${r4(Z[2])},0,${r4(T[0])},${r4(T[1])},${r4(T[2])},1)`;
 const m2=(a,b,c,d,e,f)=>`matrix(${r4(a)},${r4(b)},${r4(c)},${r4(d)},${r4(e)},${r4(f)})`;
 /* trasformazioni affini 2D [a b c d e f], come matrix() */
@@ -138,6 +157,12 @@ P.misura=function(pw, ph, doppia, primo){
   // pixel interi: la costola, le sedi delle pagine e il foglio cadono sugli
   // stessi pixel, e la scala e' una sola per tutti
   this.doppia=doppia; this.pw=Math.floor(pw); this.ph=ph; this.k=this.pw/this.W;
+  // la scala a cui si dipingono le copie (vedi NITIDO): cambiando, i fogli si rifanno
+  const q=clamp(this.k, .4, 2.5);
+  if(q!==this.q){
+    if(!primo && !cambiaModo){ this.chiudiVoli(); this.cache.forEach(f=>f.el.remove()); this.cache.clear(); clearTimeout(this.tRifai); this.tRifai=setTimeout(()=>this.preparaVicini(),200); }
+    this.q=q;
+  }
   const r=this.r;
   r.classList.toggle('doppia', doppia); r.classList.toggle('singola', !doppia);
   r.style.setProperty('--k', this.k);
@@ -150,6 +175,23 @@ P.misura=function(pw, ph, doppia, primo){
   this.spost=undefined;
   if(cambiaModo){ this.assegnaFermi(); this.preparaVicini(); }
   else if(!primo){ this.taglio(); this.sposta(); }
+  this.allinea();
+};
+
+/* Il libro sta su pixel interi dello schermo. Centrato nella finestra puo'
+   cadere a mezzo pixel: le pagine vere il browser le dipinge comunque nitide,
+   ma i livelli del foglio verrebbero campionati a cavallo di due pixel, e il
+   testo si ammorbidirebbe appena un foglio si alza. Si misura dov'e' il libro
+   (senza lo scivolamento di sposta(), che e' di px interi) e lo si sposta del
+   resto, meno di un pixel. */
+P.allinea=function(){
+  const r=this.r; if(!r.isConnected) return;
+  const dpr=window.devicePixelRatio||1, ora=this.resto||{x:0,y:0};
+  const rc=r.getBoundingClientRect(), tx=parseFloat(getComputedStyle(r).translate)||0;
+  const bx=rc.left-tx-ora.x, by=rc.top-ora.y;
+  const x=Math.round(bx*dpr)/dpr-bx, y=Math.round(by*dpr)/dpr-by;
+  if(Math.abs(x-ora.x)<.01 && Math.abs(y-ora.y)<.01) return;
+  this.resto={x,y}; r.style.left=x+'px'; r.style.top=y+'px';
 };
 
 /* ------------------------------------------------------------ libro */
@@ -254,9 +296,13 @@ P.copia=function(i){
     c.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
   }
   c.classList.add('lb-copia');
-  c.style.width=this.W+'px'; c.style.height=this.H+'px';
+  c.style.width=this.W*this.q+'px'; c.style.height=this.H*this.q+'px';
+  c.style.setProperty('--k', this.q);
   return c;
 };
+/* la trasformazione (logica) di una copia, e quella di cio' che le sta dentro */
+P.trC=function(el, A){ const u=1/this.q; el.style.transform=m2(A[0]*u,A[1]*u,A[2]*u,A[3]*u,A[4],A[5]); };
+P.trD=function(el, A){ const q=this.q; el.style.transform=m2(A[0]*q,A[1]*q,A[2]*q,A[3]*q,A[4]*q,A[5]*q); };
 
 /* costruisce (o riprende dalla cache) il DOM di un foglio */
 P.foglioDom=function(sp){
@@ -275,7 +321,7 @@ P.foglioDom=function(sp){
     s.style.width=W+'px'; s.style.height=this.H+'px';
     s.style.left=(dir>0?0:-W)+'px'; s.style.transformOrigin=dir>0?'0 50%':'100% 50%';
     const fr=div('lb-fac fr', s), re=div('lb-fac re', s);
-    fr.appendChild(this.copia(sp.fronte)); re.appendChild(this.copia(sp.retro));
+    [this.copia(sp.fronte), this.copia(sp.retro)].forEach((c,i)=>{ this.trC(c,[1,0,0,1,0,0]); (i?re:fr).appendChild(c); });
     f.lucFr=div('lb-luce piena', fr); f.lucRe=div('lb-luce piena', re);
     // l'ombra e' piu' fonda verso la costola; sul retro la costola e' dall'altra parte
     const verso=(davanti)=>((dir>0)===davanti ? 'to right' : 'to left');
@@ -284,9 +330,9 @@ P.foglioDom=function(sp){
     f.lucFr.style.opacity=f.lucRe.style.opacity=0;
     f.rig=s;
   }else{
-    // la parte distesa, con l'ombra del lembo che le sta sopra
-    const vic=div('lb-cont', root); vic.style.width=D+'px'; vic.style.height=2*D+'px';
-    const cv=this.copia(sp.fronte); vic.appendChild(cv);
+    // la parte distesa, con l'ombra del lembo che le sta sopra: la copia sta
+    // dritta al posto della pagina e la piega la ritaglia (clip-path)
+    const cv=this.copia(sp.fronte); root.appendChild(cv);
     // l'ombra del lembo rovesciato, un pezzo per ogni suo bordo; dentro la copia, quindi non esce dal foglio
     const ombraLembo=[0,1,2,3].map(()=>div('lb-ombra-lembo', cv));
     // le fasce del cilindro
@@ -301,10 +347,13 @@ P.foglioDom=function(sp){
       lf.style.width=lr.style.width=WF+'px';
       fasce.push({el:b, cf, cr, lf, lr});
     }
-    // la parte rovesciata
-    const lon=div('lb-cont', root); lon.style.width=D+'px'; lon.style.height=2*D+'px';
-    const cl=this.copia(sp.retro); lon.appendChild(cl);
-    Object.assign(f,{vic, cv, ombraLembo, fasce, lon, cl, fasceVisibili:true});
+    // la parte rovesciata: la copia del retro, girata attorno alla piega e ritagliata
+    const cl=this.copia(sp.retro); root.appendChild(cl);
+    // il retro del foglio e' appena piu' scuro della pagina su cui si posa: un
+    // velo di colore pieno su tutta la copia, di cui cambia solo l'opacita'
+    // (un livello di solo colore non ha niente da dipingere)
+    const tinta=div('lb-tinta', cl);
+    Object.assign(f,{cv, ombraLembo, fasce, cl, tinta, fasceVisibili:true});
   }
   this.aria.appendChild(root);
   this.cache.set(chiave,f);
@@ -336,7 +385,7 @@ P.nuovoFoglio=function(sp, G){
   const f={...sp, dom, G:{x:G.x,y:G.y}, F:riposo, V:{x:0,y:0}, preso:false, versoMeta:-1,
     sbircia:false, ritira:false, elastico:false, svelato:false, quadri:0, storia:[]};
   this.aria.appendChild(dom.el);        // in cima allo stack 3D
-  if(!this.fogli.length) this.verso = Math.sign(sp.a-sp.da) || 1;
+  if(!this.fogli.length){ this.allinea(); this.verso = Math.sign(sp.a-sp.da) || 1; }
   this.fogli.push(f);
   this.disegna(f);
   dom.el.style.visibility='visible';
@@ -387,21 +436,33 @@ P.disegna=function(f){
   const tx=-ny, ty=nx;
   const P0f=dir>0?0:-W, P0b=dir>0?-W:0;               // dove sta la pagina davanti e quella dietro (x)
   const nP0f=nx*P0f, tP0f=tx*P0f;
-  // la parte distesa: d <= 0
-  dom.vic.style.transform=m3([nx,ny,0],[tx,ty,0],[0,0,1],[(c-D)*nx-D*tx,(c-D)*ny-D*ty,zz]);
-  f.Mcv=[nx,tx,ny,ty,nP0f-c+D,tP0f+D];
-  dom.cv.style.transform=aff2(f.Mcv);
-  // la parte rovesciata: d >= pi R, distesa sopra, girata di mezzo giro sulla piega
-  dom.lon.style.transform=m3([-nx,-ny,0],[tx,ty,0],[0,0,-1],[c*nx-D*tx,c*ny-D*ty,2*R+zz]);
-  dom.cl.style.transform=m2(-nx,-tx,ny,ty,-nx*P0b-c-PI*R,-tx*P0b+D);
+  // La parte distesa (d <= 0): la copia sta dritta dov'e' la pagina, in scala
+  // 1 sullo schermo, e la piega la ritaglia: nessuna rotazione, testo nitido.
+  // Mezzo px oltre la piega, sotto la prima fascia: niente fessure.
+  const u=1/this.q, piano=L>=.05;
+  dom.cv.style.transform=m3([u,0,0],[0,u,0],[0,0,1],[P0f,0,zz]);
+  this.ritaglia(dom.cv, piano ? [nx,ny] : null, c-nP0f+.5);
+  // La parte rovesciata (d >= pi R): il retro girato di mezzo giro sulla piega
+  // e' una rotazione piana di due volte l'angolo della piega, sopra il foglio;
+  // a girata finita l'angolo e' zero e la copia e' dritta al posto della
+  // pagina nuova, nitida anche lei.
+  const c2=nx*nx-ny*ny, s2=2*nx*ny, av=2*c+PI*R;
+  dom.cl.style.transform=m3([c2*u,s2*u,0],[-s2*u,c2*u,0],[0,0,1],[c2*P0b+nx*av, s2*P0b+ny*av, 2*R+zz]);
+  if(piano) this.ritaglia(dom.cl, [nx,-ny], -c-PI*R-nx*P0b+.5); else dom.cl.style.visibility='hidden';
+  const velo=clamp(R/(W*.05),0,1);                    // il retro piu' scuro: nasce e sparisce col ricciolo
+  dom.tinta.style.opacity=velo.toFixed(3);
   // le fasce del cilindro (sotto un raggio minimo il cilindro non c'e')
   const conFasce=R>=.3;
   if(conFasce!==dom.fasceVisibili){ dom.fasceVisibili=conFasce; dom.fasce.forEach(b=>b.el.style.visibility=conFasce?'':'hidden'); }
   if(conFasce){
     const M=FIS.fasce, Dd=PI*R/M, s=WF/Dd;
     const pos=(d)=>{ const a=d/R; return [c+R*Math.sin(a), R*(1-Math.cos(a))]; };
+    // il retro delle fasce porta lo stesso velo del lembo, cosi' ricciolo e lembo sono una carta sola
+    const tv=TINTA*velo;
     const luce=(d, segno)=>{ const a=d/R, sn=Math.sin(a)*segno, cs=Math.cos(a)*segno;
-      return colore(ombreggia(-sn*nx*LUCE[0]-sn*ny*LUCE[1]+cs*LUCE[2])); };
+      let v=ombreggia(-sn*nx*LUCE[0]-sn*ny*LUCE[1]+cs*LUCE[2]);
+      if(segno<0) v = v>0 ? v-tv : -(tv-v+v*tv);
+      return colore(v); };
     for(let j=0;j<M;j++){
       const b=dom.fasce[j], d0=j*Dd, d1=(j+1)*Dd;
       const [r0,z0]=pos(d0), [r1,z1]=pos(d1);
@@ -411,16 +472,34 @@ P.disegna=function(f){
       let Z=[X[1]*Y[2]-X[2]*Y[1], X[2]*Y[0]-X[0]*Y[2], X[0]*Y[1]-X[1]*Y[0]]; const zn=Math.hypot(...Z)||1; Z=Z.map(v=>v/zn);
       b.el.style.transform=m3(X,Y,Z,[r0*nx-D*tx, r0*ny-D*ty, z0+zz]);
       const Mf=[s*nx,tx,s*ny,ty,s*(nP0f-c-d0),tP0f+D], Mr=[s*nx,-tx,-s*ny,ty,WF+s*(nx*P0b+c+d0),-tx*P0b+D];
-      b.cf.style.transform=aff2(Mf); b.cr.style.transform=aff2(Mr);
+      this.trC(b.cf, Mf); this.trC(b.cr, Mr);
       // la luce torna negli assi della fascia (inversa della copia), alta un pixel e allungata
-      b.lf.style.transform=aff2(mul2(inv2(Mf),[1,0,0,2*D,0,0]));
-      b.lr.style.transform=aff2(mul2(inv2(Mr),[1,0,0,2*D,0,0]));
+      this.trD(b.lf, mul2(inv2(Mf),[1,0,0,2*D,0,0]));
+      this.trD(b.lr, mul2(inv2(Mr),[1,0,0,2*D,0,0]));
       b.lf.style.background=`linear-gradient(to right,${luce(d0,1)},${luce(d1,1)})`;
       b.lr.style.background=`linear-gradient(to right,${luce(d1,-1)},${luce(d0,-1)})`;
     }
   }
   f.geo={nx,ny,tx,ty,c,R,p,L};
   this.ombraLembo(f);
+};
+
+/* Ritaglia una copia con il semipiano m·(x,y) <= k, nelle coordinate logiche
+   della copia (m nullo: tutta la pagina). Il rettangolo della pagina tagliato
+   dal semipiano e' un poligono di al piu' cinque vertici. */
+P.ritaglia=function(el, m, k){
+  if(!m){ el.style.clipPath=''; el.style.visibility=''; return; }
+  const W=this.W, H=this.H, q=this.q, R=[[0,0],[W,0],[W,H],[0,H]], P=[];
+  const d=(p)=>m[0]*p[0]+m[1]*p[1]-k;
+  for(let i=0;i<4;i++){
+    const A=R[i], B=R[(i+1)%4], dA=d(A), dB=d(B);
+    if(dA<=0) P.push(A);
+    if((dA<=0)!==(dB<=0)){ const t=dA/(dA-dB); P.push([A[0]+(B[0]-A[0])*t, A[1]+(B[1]-A[1])*t]); }
+  }
+  if(P.length<3){ el.style.visibility='hidden'; return; }
+  el.style.visibility='';
+  el.style.clipPath = P.length===4 && P.every((p,i)=>p===R[i]) ? '' :
+    'polygon('+P.map(p=>(Math.round(p[0]*q*100)/100)+'px '+(Math.round(p[1]*q*100)/100)+'px').join(',')+')';
 };
 
 /* Il lembo rovesciato, sul piano del libro: la parte del foglio oltre il
@@ -458,18 +537,14 @@ P.ombraLembo=function(f){
   const g=f.geo, D=this.D, els=f.dom.ombraLembo;
   // i bordi piu' lunghi sempre sugli stessi elementi: un bordo nuovo va in fondo
   const lati = g.L>.05 && g.R>=.3 ? (this.lembo(f)||[]).sort((a,b)=>b.len-a.len) : [];
-  const larga=this.W*.02+g.R*.38, o=clamp(g.R/(this.W*.07),0,1)*.34;
-  // nelle coordinate del contenitore disteso: u = n·q - c + D, v = t·q + D
-  const toC=(q)=>[g.nx*q[0]+g.ny*q[1]-g.c+D, g.tx*q[0]+g.ty*q[1]+D];
-  const toCv=(v)=>[g.nx*v[0]+g.ny*v[1], g.tx*v[0]+g.ty*v[1]];
-  const inv=inv2(f.Mcv);
+  const larga=this.W*.03+g.R*.55, o=clamp(g.R/(this.W*.05),0,1)*.62;
+  // dentro la copia distesa, che sta dritta al posto della pagina: basta togliere dove comincia
+  const x0=f.dir>0?0:-this.W;
   els.forEach((el,i)=>{
     const l=lati[i];
     if(!l){ el.style.opacity=0; return; }
-    const A=toC(l.a), u=toCv([(l.b[0]-l.a[0])/l.len,(l.b[1]-l.a[1])/l.len]), pp=toCv([l.px,l.py]);
     el.style.width=l.len+'px'; el.style.height=larga+'px';
-    // e' dentro la copia distesa: dagli assi del contenitore a quelli della copia
-    el.style.transform=aff2(mul2(inv,[u[0],u[1],pp[0],pp[1],A[0],A[1]]));
+    this.trD(el, [(l.b[0]-l.a[0])/l.len,(l.b[1]-l.a[1])/l.len, l.px,l.py, l.a[0]-x0,l.a[1]]);
     // un bordo appena nato e' cortissimo: entra piano, non tutto scuro
     const w=clamp(l.len/(this.W*.08),0,1);
     el.style.opacity=(o*w*w*(3-2*w)).toFixed(3);
@@ -515,17 +590,20 @@ P.ombre=function(){
       // la lamina in piedi non getta ombra ne' di qua ne' di la': l'ombra
       // svanisce verso la verticale e rinasce dall'altra parte, senza salti
       const sv=Math.min(1, Math.abs(Math.cos(g.a))*2.5);
-      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [x,0], x>=0?1:-1, 0, W*.06+W*Math.sin(g.a)*.5, Math.sin(g.a)*.32*sv);
+      // il massimo dell'ombra (al 40% della sua larghezza) sta sul bordo della lamina
+      const lw=W*.08+W*Math.sin(g.a)*.6, vs=x>=0?1:-1;
+      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [x-vs*lw*.4,0], vs, 0, lw, Math.sin(g.a)*.32*sv);
       gola=Math.max(gola, Math.sin(g.a)*.8);
       continue;
     }
     if(g.L<.05) continue;
     // L'ombra del cilindro sulla pagina che si scopre. Comincia trasparente
-    // sulla piega, sotto il foglio, e si scurisce verso il colmo: dove il foglio
-    // non arriva fino al colmo (verso l'angolo) non resta un bordo netto.
+    // sulla piega, sotto il foglio, ha il massimo proprio sul colmo (al 40%
+    // della sua larghezza, che e' 2,5 raggi) e sfuma oltre: resta attaccata al
+    // ricciolo a ogni raggio, anche quando l'angolo e' appena sollevato.
     if(g.R>=.3){
       const lato = f.dir>0 ? 'dx' : 'sx';
-      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [g.nx*g.c, g.ny*g.c], g.nx, g.ny, g.R*1.25+W*.09, clamp(g.R/(W*.06),0,1)*.5);
+      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [g.nx*g.c, g.ny*g.c], g.nx, g.ny, g.R*2.5, clamp(g.R/(W*.05),0,1)*.5);
     }
     // l'ombra del lembo sulla pagina dall'altra parte della costola
     // Solo il tratto di ogni bordo che sta di la' dalla costola, e con

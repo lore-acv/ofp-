@@ -236,10 +236,10 @@
   .lb-velo{position:absolute;top:0;bottom:0;overflow:hidden;z-index:3;pointer-events:none}
   .lb.doppia .lb-velo{width:50%} .lb.doppia .lb-velo.dx{left:50%} .lb.doppia .lb-velo.sx{left:0}
   .lb.singola .lb-velo{left:0;width:100%} .lb.singola .lb-velo.sx{display:none}
-  /* ombra del cilindro: nasce trasparente sulla piega (sotto il foglio) e ha il
-     massimo verso il colmo, quindi non ha mai un bordo netto */
+  /* ombra del cilindro: nasce trasparente sulla piega (sotto il foglio), ha il
+     massimo al 40%, dove sfoglia.js mette il colmo del ricciolo, e sfuma oltre */
   .lb-cast{position:absolute;top:0;left:0;width:100px;transform-origin:0 0;opacity:0;will-change:transform,opacity;
-    background:linear-gradient(to right,rgba(28,22,15,0),rgba(28,22,15,.16) 30%,rgba(28,22,15,.42) 56%,rgba(28,22,15,.15) 74%,rgba(28,22,15,.04) 90%,rgba(28,22,15,0))}
+    background:linear-gradient(to right,rgba(28,22,15,0),rgba(28,22,15,.14) 24%,rgba(28,22,15,.44) 40%,rgba(28,22,15,.22) 54%,rgba(28,22,15,.08) 74%,rgba(28,22,15,0))}
   /* ombra del lembo sull'altra pagina: lunga quanto il bordo del lembo, con le estremita' sfumate */
   .lb-cast.lembo{background:linear-gradient(to right,rgba(28,22,15,.46),rgba(28,22,15,.2) 34%,rgba(28,22,15,.06) 68%,rgba(28,22,15,0));
     -webkit-mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
@@ -252,16 +252,16 @@
   .lb-scena{position:absolute;inset:0;z-index:4;pointer-events:none;transform-style:preserve-3d}
   .lb-aria{position:absolute;left:0;top:0;transform-origin:0 0;transform-style:preserve-3d;--k:1}
   .lb-foglio{position:absolute;top:0;width:0;height:100%;transform-style:preserve-3d}
-  .lb-cont,.lb-banda{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
-  .lb-cont{overflow:hidden}
+  .lb-banda{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
   .lb-banda{transform-style:preserve-3d}
   .lb-rigida{position:absolute;top:0;transform-style:preserve-3d;will-change:transform}
   .lb-fac{position:absolute;inset:0;overflow:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden}
   .lb-fac.re{transform:rotateY(180deg)}
   .lb-copia{position:absolute!important;left:0;top:0;transform-origin:0 0;will-change:transform}
-  .lb-rigida .lb-copia{will-change:auto}
+  /* il retro del foglio ripiegato: un velo appena piu' scuro (TINTA in sfoglia.js) */
+  .lb-tinta{position:absolute;inset:0;opacity:0;pointer-events:none;background:rgba(28,22,15,.07);will-change:opacity}
   .lb-ombra-lembo{position:absolute;left:0;top:0;transform-origin:0 0;opacity:0;pointer-events:none;will-change:transform,opacity;
-    background:linear-gradient(to bottom,rgba(28,22,15,.5),rgba(28,22,15,.2) 34%,rgba(28,22,15,.06) 68%,rgba(28,22,15,0));
+    background:linear-gradient(to bottom,rgba(28,22,15,.5),rgba(28,22,15,.24) 22%,rgba(28,22,15,.09) 55%,rgba(28,22,15,0));
     -webkit-mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent)}
   /* La luce su un livello suo, alto un pixel e allungato: a ogni fotogramma si
      ridipinge una riga di sfumatura, non il testo, e il livello non pesa in
