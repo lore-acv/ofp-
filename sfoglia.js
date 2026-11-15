@@ -168,7 +168,8 @@ P.misura=function(pw, ph, doppia, primo){
   r.style.setProperty('--k', this.k);
   r.style.width=(doppia?2*this.pw:this.pw)+'px'; r.style.height=ph+'px';
   this.aria.style.transform=`scale(${this.k})`;
-  this.scena.style.perspective=Math.round((doppia?2:1)*this.pw*4.2)+'px';
+  this.prosp=Math.round((doppia?2:1)*this.pw*4.2);   // px dello schermo, come la quota z dentro aria (scale() non tocca z)
+  this.scena.style.perspective=this.prosp+'px';
   this.scena.style.perspectiveOrigin=`${doppia?this.pw:0}px 50%`;
   const lungo=Math.ceil(2*this.D*this.k);
   this.cast.sx.style.height=this.cast.dx.style.height=lungo+'px';
@@ -518,7 +519,12 @@ P.lembo=function(f){
     if((dA>=0)!==(dB>=0)){ const t=dA/(dA-dB); poly.push({q:[A[0]+(B[0]-A[0])*t, A[1]+(B[1]-A[1])*t], bordo:false}); }
   }
   if(poly.length<3) return null;
-  const rif=(q)=>{ const k=2*(c+lim/2-(nx*q[0]+ny*q[1])); return [q[0]+k*nx, q[1]+k*ny]; };
+  // Il lembo sta 2R sopra la pagina e la prospettiva della scena lo ingrandisce
+  // attorno al suo centro (sulla costola, a meta' altezza): i suoi bordi veri,
+  // sullo schermo, stanno di piu' verso fuori. L'ombra va li', non sul piano
+  // della pagina, o tra ombra e foglio resta una striscia bianca.
+  const pz=this.prosp, sz=pz/(pz-2*R), oy=this.ph/(2*this.k);
+  const rif=(q)=>{ const k=2*(c+lim/2-(nx*q[0]+ny*q[1])), x=q[0]+k*nx, y=q[1]+k*ny; return [x*sz, oy+(y-oy)*sz]; };
   const pts=poly.map(v=>({q:rif(v.q), bordo:v.bordo}));
   const cx=pts.reduce((s,v)=>s+v.q[0],0)/pts.length, cy=pts.reduce((s,v)=>s+v.q[1],0)/pts.length;
   const lati=[];
