@@ -464,9 +464,8 @@ dell'interfaccia, la carta resta carta in entrambi i temi.
   lamina) crescono e calano con continuita' con la geometria: nessuna si
   accende o salta di pagina in un fotogramma. L'ombra del ricciolo ha il
   massimo sul suo colmo ed e' larga 2,5 raggi; il retro del foglio ripiegato
-  e' il 7% piu' scuro della pagina e non getta ombra sul suo stesso foglio
-  (sembrava una macchia appiccicata): solo, oltre la costola, sull'altra
-  pagina. Il testo del foglio resta nitido quanto la pagina vera:
+  e' il 7% piu' scuro della pagina e i suoi bordi gettano un'ombra corta
+  sulla carta sotto. Il testo del foglio resta nitido quanto la pagina vera:
   le copie sono dipinte alla scala dello schermo, il libro sta su pixel
   interi, e la parte distesa e' ritagliata dalla piega senza rotazioni. Tastiera senza animazione;
   "riduci movimento" solo dissolvenze.
