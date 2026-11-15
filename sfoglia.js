@@ -38,7 +38,8 @@
    inclinazione; il cilindro getta un'ombra sulla pagina che si scopre, con il
    massimo proprio sul colmo del ricciolo e larga in proporzione al raggio
    (resta attaccata al ricciolo anche con l'angolo appena sollevato); il lembo
-   rovesciato getta un'ombra lungo i suoi bordi sulla carta sotto, e il retro
+   rovesciato non getta ombra sul suo stesso foglio (solo, oltre la costola,
+   sull'altra pagina), e il retro
    del foglio (lembo e ricciolo) e' appena piu' scuro della pagina: carta su
    carta si legge, il lembo non sembra cancellare il testo che copre.
 
@@ -330,11 +331,10 @@ P.foglioDom=function(sp){
     f.lucFr.style.opacity=f.lucRe.style.opacity=0;
     f.rig=s;
   }else{
-    // la parte distesa, con l'ombra del lembo che le sta sopra: la copia sta
-    // dritta al posto della pagina e la piega la ritaglia (clip-path)
+    // la parte distesa: la copia sta dritta al posto della pagina e la piega
+    // la ritaglia (clip-path). Il lembo non getta ombra sul suo stesso foglio:
+    // sembrava una macchia appiccicata, non un'ombra
     const cv=this.copia(sp.fronte); root.appendChild(cv);
-    // l'ombra del lembo rovesciato, un pezzo per ogni suo bordo; dentro la copia, quindi non esce dal foglio
-    const ombraLembo=[0,1,2,3].map(()=>div('lb-ombra-lembo', cv));
     // le fasce del cilindro
     const fasce=[];
     for(let j=0;j<FIS.fasce;j++){
@@ -353,7 +353,7 @@ P.foglioDom=function(sp){
     // velo di colore pieno su tutta la copia, di cui cambia solo l'opacita'
     // (un livello di solo colore non ha niente da dipingere)
     const tinta=div('lb-tinta', cl);
-    Object.assign(f,{cv, ombraLembo, fasce, cl, tinta, fasceVisibili:true});
+    Object.assign(f,{cv, fasce, cl, tinta, fasceVisibili:true});
   }
   this.aria.appendChild(root);
   this.cache.set(chiave,f);
@@ -534,21 +534,10 @@ P.lembo=function(f){
   return lati;
 };
 P.ombraLembo=function(f){
-  const g=f.geo, D=this.D, els=f.dom.ombraLembo;
-  // i bordi piu' lunghi sempre sugli stessi elementi: un bordo nuovo va in fondo
+  // i bordi del lembo servono solo per l'ombra sull'altra pagina (in ombre())
+  const g=f.geo;
   const lati = g.L>.05 && g.R>=.3 ? (this.lembo(f)||[]).sort((a,b)=>b.len-a.len) : [];
   const larga=this.W*.03+g.R*.55, o=clamp(g.R/(this.W*.05),0,1)*.62;
-  // dentro la copia distesa, che sta dritta al posto della pagina: basta togliere dove comincia
-  const x0=f.dir>0?0:-this.W;
-  els.forEach((el,i)=>{
-    const l=lati[i];
-    if(!l){ el.style.opacity=0; return; }
-    el.style.width=l.len+'px'; el.style.height=larga+'px';
-    this.trD(el, [(l.b[0]-l.a[0])/l.len,(l.b[1]-l.a[1])/l.len, l.px,l.py, l.a[0]-x0,l.a[1]]);
-    // un bordo appena nato e' cortissimo: entra piano, non tutto scuro
-    const w=clamp(l.len/(this.W*.08),0,1);
-    el.style.opacity=(o*w*w*(3-2*w)).toFixed(3);
-  });
   f.lembo = lati.length ? {lati, larga, o} : null;
 };
 
