@@ -42,7 +42,10 @@
    rovesciato getta un'ombra sola, un corpo con la sua forma esatta (la pagina
    rovesciata, piena e col bordo sfumato) appena sotto di lui: comincia dal
    suo bordo su tutti i lati e passa da una pagina all'altra senza cuciture.
-   La luce e' una, dall'alto a sinistra, per tutte le ombre. Il retro
+   Cade anche sulla carta che si alza dalla piega (la meta' bassa del
+   ricciolo), cosi' non si interrompe sulla piega. Non sta nella scena 3D (il
+   browser la tagliava coi piani delle fasce): e' dipinta dentro le copie e
+   nei veli delle pagine. La luce e' una, dall'alto a sinistra. Il retro
    del foglio (lembo e ricciolo) e' appena piu' scuro della pagina: carta su
    carta si legge, il lembo non sembra cancellare il testo che copre.
 
@@ -133,6 +136,7 @@ P.costruisci=function(){
   this.taglioSx=el('lb-taglio sx'); this.taglioDx=el('lb-taglio dx');
   this.fermoSx=el('lb-fermo sx'); this.fermoDx=el('lb-fermo dx');
   const vSx=el('lb-velo sx'), vDx=el('lb-velo dx');
+  this.velo={sx:vSx, dx:vDx};
   // ombra della copertina rigida sulla pagina che si scopre
   this.cast={sx:el('lb-cast', vSx), dx:el('lb-cast', vDx)};
   // i segnalibri delle sezioni, fuori dai bordi del libro
@@ -347,9 +351,13 @@ P.foglioDom=function(sp){
       const cf=this.copia(sp.fronte), cr=this.copia(sp.retro);
       fr.appendChild(cf); re.appendChild(cr);
       // la luce dentro la copia: la pagina la ritaglia, fuori dal foglio non c'e'
+      // la meta' bassa del ricciolo (la carta che si alza dalla piega) riceve
+      // l'ombra del lembo come la parte distesa: la stessa, nelle stesse coordinate
+      let sh=null;
+      if(j<FIS.fasce/2){ sh=div('lb-ombra-corpo', cf); sh.style.width=W+'px'; sh.style.height=this.H+'px'; }
       const lf=div('lb-luce', cf), lr=div('lb-luce', cr);
       lf.style.width=lr.style.width=WF+'px';
-      fasce.push({el:b, cf, cr, lf, lr});
+      fasce.push({el:b, cf, cr, lf, lr, sh});
     }
     // la parte rovesciata: la copia del retro, girata attorno alla piega e ritagliata
     const su=root.cloneNode(false);                    // il posto del lembo nella scena di sopra
@@ -359,18 +367,22 @@ P.foglioDom=function(sp){
     // (un livello di solo colore non ha niente da dipingere)
     const tinta=div('lb-tinta', cl);
     // L'ombra del lembo: un corpo solo, la pagina rovesciata come il lembo
-    // (pieno e bordo sfumato, dipinti una volta), tagliata sotto il dorso del
-    // ricciolo. Cade sul foglio stesso e, a libro aperto, sull'altra pagina:
-    // la stessa ombra di qua e di la' dalla costola. A ogni fotogramma
-    // cambiano solo trasformazioni e opacita'.
-    const H=this.H, x0=this.doppia||dir<0 ? -W : 0;
-    const ombra=div('lb-ombra-foglio', root);
-    ombra.style.left=x0+'px'; ombra.style.width=(W-x0)+'px'; ombra.style.height=H+'px';
-    const taglio=div('lb-ombra-taglio', ombra);
-    taglio.style.width=taglio.style.height=4*D+'px';
-    const corpo=div('lb-ombra-corpo', taglio);
-    corpo.style.width=W+'px'; corpo.style.height=H+'px';
-    Object.assign(f,{su, cv, fasce, cl, tinta, ombra, taglio, corpo, x0, fasceVisibili:true});
+    // (pieno e bordo sfumato, dipinti una volta). Non sta nella scena 3D: li'
+    // il browser la tagliava coi piani delle fasce e a volte non la disegnava
+    // affatto. La stessa ombra, con la stessa trasformazione, sta dentro la
+    // parte distesa del foglio (la piega la ritaglia) e sulle pagine sotto,
+    // nei veli di ogni lato (tagliata sotto il dorso del ricciolo): dove la
+    // parte distesa copre i veli le due coincidono, e non c'e' cucitura.
+    const corpoCv=div('lb-ombra-corpo', cv);
+    corpoCv.style.width=W+'px'; corpoCv.style.height=this.H+'px';
+    const veli={};
+    for(const lato of ['sx','dx']){
+      const w=div('lb-ombra-foglio', this.velo[lato]);
+      const t=div('lb-ombra-taglio', w); t.style.width=t.style.height=4*D+'px';
+      const c=div('lb-ombra-corpo', t); c.style.width=W+'px'; c.style.height=this.H+'px';
+      veli[lato]={w, t, c};
+    }
+    Object.assign(f,{su, cv, fasce, cl, tinta, corpoCv, veli, fasceVisibili:true});
   }
   this.aria.appendChild(root); if(f.su) this.ariaSu.appendChild(f.su);
   this.cache.set(chiave,f);
@@ -382,8 +394,8 @@ P.foglioDom=function(sp){
   }
   return f;
 };
-P.togli=function(f){ f.el.remove(); if(f.su) f.su.remove(); };
-P.vedi=function(dom, si){ const v=si?'visible':'hidden'; dom.el.style.visibility=v; if(dom.su) dom.su.style.visibility=v; };
+P.togli=function(f){ f.el.remove(); if(f.su) f.su.remove(); if(f.veli) for(const v of Object.values(f.veli)) v.w.remove(); };
+P.vedi=function(dom, si){ const v=si?'visible':'hidden'; dom.el.style.visibility=v; if(dom.su) dom.su.style.visibility=v; if(dom.veli) for(const x of Object.values(dom.veli)) x.w.style.visibility=v; };
 
 /* i fogli per la pagina dopo e per quella prima, gia' costruiti prima del tocco */
 P.preparaVicini=function(){
@@ -531,27 +543,40 @@ P.ritaglia=function(el, m, k){
    l'ombra del ricciolo (in ombre()). Niente da ridipingere: solo
    trasformazioni e opacita'. */
 P.ombraFoglio=function(f, zz){
-  const g=f.geo, dom=f.dom, W=this.W, D=this.D, R=g.R;
-  if(!(g.L>.05 && R>=.3)){ if(dom.ombraVista!==false){ dom.ombra.style.opacity=0; dom.ombraVista=false; } return; }
+  const g=f.geo, dom=f.dom, W=this.W, D=this.D, R=g.R, veli=Object.values(dom.veli);
+  if(!(g.L>.05 && R>=.3)){
+    if(dom.ombraVista!==false){ dom.corpoCv.style.opacity=0; veli.forEach(v=>v.w.style.opacity=0); dom.fasce.forEach(b=>{ if(b.sh) b.sh.style.opacity=0; }); dom.ombraVista=false; }
+    return;
+  }
   dom.ombraVista=true;
-  const {nx,ny,tx,ty,c}=g, dir=f.dir, P0b=dir>0?-W:0, x0=dom.x0, pz=this.prosp, oy=this.ph/(2*this.k);
-  // la stessa trasformazione del lembo (il retro girato sulla piega), poi
-  // ingrandita dalla prospettiva alla sua quota
+  const {nx,ny,tx,ty,c}=g, dir=f.dir, P0f=dir>0?0:-W, P0b=dir>0?-W:0, pz=this.prosp, oy=this.ph/(2*this.k), k=this.k, q=this.q;
+  // la stessa trasformazione del lembo (il retro girato sulla piega), alla
+  // misura con cui la prospettiva lo mostra a quota 2R: coordinate del foglio
+  // (logiche, origine nella costola)
   const sz=pz/(pz-2*R-zz);
   const c2=nx*nx-ny*ny, s2=2*nx*ny, av=2*c+PI*R;
-  const rif=[c2, s2, -s2, c2, c2*P0b+nx*av, s2*P0b+ny*av];
-  const A=mul2([sz,0,0,sz,-x0,oy*(1-sz)], rif);
-  // il taglio passa per il ricciolo a tre quarti del suo giro (alto 1,7 R), dove
-  // lo si vede dall'alto: li' sotto c'e' sempre carta
+  const A=mul2([sz,0,0,sz,0,oy*(1-sz)], [c2, s2, -s2, c2, c2*P0b+nx*av, s2*P0b+ny*av]);
+  const o=clamp(R/(W*.05),0,1).toFixed(3);
+  // dentro la parte distesa e la meta' bassa del ricciolo: px della copia
+  const tc=aff2(mul2([q,0,0,q,-q*P0f,0], A));
+  for(const el of [dom.corpoCv, ...dom.fasce.map(b=>b.sh).filter(Boolean)]){ el.style.transform=tc; el.style.opacity=o; }
+  // nei veli: il taglio passa per il ricciolo a tre quarti del suo giro (alto
+  // 1,7 R), dove lo si vede dall'alto e sotto c'e' sempre carta; il riquadro
+  // comincia sulla linea e va tutto dalla parte del lembo (asse x = -n)
   const a=.75*PI, s3=pz/(pz-R*(1-Math.cos(a))-zz);
-  const E=(c+R*Math.sin(a))*s3+(1-s3)*ny*oy;
-  // il riquadro del taglio comincia sulla linea e va tutto dalla parte del lembo (asse x = -n)
-  const V0=2*D;
-  const T=[-nx, -ny, tx, ty, E*nx-V0*tx-x0, E*ny-V0*ty];
-  dom.taglio.style.transform=aff2(T);
-  dom.corpo.style.transform=aff2(mul2(inv2(T), A));
-  dom.ombra.style.transform=`translateZ(${(zz+.05).toFixed(2)}px)`;
-  dom.ombra.style.opacity=clamp(R/(W*.05),0,1).toFixed(3);
+  const E=(c+R*Math.sin(a))*s3+(1-s3)*ny*oy, V0=2*D;
+  const T=[-nx, -ny, tx, ty, E*nx-V0*tx, E*ny-V0*ty];
+  const corpo=aff2(mul2(inv2(T), A));
+  const lati=this.doppia ? ['sx','dx'] : ['dx'];
+  for(const lato of ['sx','dx']){
+    const v=dom.veli[lato];
+    if(!lati.includes(lato)){ v.w.style.opacity=0; continue; }
+    // dalle coordinate del foglio ai px del velo
+    const sposta=k*this.cerniera()-(this.doppia && lato==='dx' ? this.pw : 0);
+    v.t.style.transform=aff2(mul2([k,0,0,k,sposta,0], T));
+    v.c.style.transform=corpo;
+    v.w.style.opacity=o;
+  }
 };
 
 /* copertina: ruota sulla costola; l'angolo viene dal punto preso */

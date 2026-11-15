@@ -466,9 +466,10 @@ dell'interfaccia, la carta resta carta in entrambi i temi.
   massimo sul suo colmo ed e' larga 2,5 raggi; il retro del foglio ripiegato
   e' il 7% piu' scuro della pagina. Il lembo getta un'ombra sola, con la sua
   forma esatta e il bordo sfumato, attaccata al suo bordo su tutti i lati e
-  continua da una pagina all'altra; una luce sola per tutte le ombre. Il
-  lembo sta in una scena sua sopra le fasce del cilindro, cosi' il browser
-  non lo taglia. Il testo del foglio resta nitido quanto la pagina vera:
+  continua da una pagina all'altra e oltre la piega, sulla carta che si alza;
+  una luce sola per tutte le ombre. Il lembo sta in una scena sua sopra le
+  fasce del cilindro e la sua ombra fuori dalla scena 3D, cosi' il browser
+  non taglia ne' l'uno ne' l'altra. Il testo del foglio resta nitido quanto la pagina vera:
   le copie sono dipinte alla scala dello schermo, il libro sta su pixel
   interi, e la parte distesa e' ritagliata dalla piega senza rotazioni. Tastiera senza animazione;
   "riduci movimento" solo dissolvenze.
