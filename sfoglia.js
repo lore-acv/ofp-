@@ -18,7 +18,8 @@
    COME SI DISEGNA. Tre parti, ognuna una copia della pagina. La parte
    distesa sta dritta al posto della pagina e la piega la ritaglia (clip-path,
    un poligono); la parte rovesciata e' la copia del retro ruotata attorno
-   alla piega e ritagliata allo stesso modo; in mezzo le fasce del cilindro
+   alla piega e ritagliata allo stesso modo, in una scena sua sopra l'altra
+   (vedi costruisci); in mezzo le fasce del cilindro
    (davanti e retro), ritagliate da contenitori orientati come la piega. Da un
    fotogramma all'altro cambiano solo trasformazioni e ritagli, piu' le
    sfumature di luce delle fasce, alte un pixel. Distesa e rovesciata non
@@ -37,8 +38,11 @@
    LE OMBRE. Le fasce del cilindro sono illuminate secondo la loro
    inclinazione; il cilindro getta un'ombra sulla pagina che si scopre, con il
    massimo proprio sul colmo del ricciolo e larga in proporzione al raggio
-   (resta attaccata al ricciolo anche con l'angolo appena sollevato); il lembo
-   rovesciato getta un'ombra lungo i suoi bordi sulla carta sotto, e il retro
+   (resta attaccata al ricciolo anche con l'angolo appena sollevato). Il lembo
+   rovesciato getta un'ombra sola, un corpo con la sua forma esatta (la pagina
+   rovesciata, piena e col bordo sfumato) appena sotto di lui: comincia dal
+   suo bordo su tutti i lati e passa da una pagina all'altra senza cuciture.
+   La luce e' una, dall'alto a sinistra, per tutte le ombre. Il retro
    del foglio (lembo e ricciolo) e' appena piu' scuro della pagina: carta su
    carta si legge, il lembo non sembra cancellare il testo che copre.
 
@@ -50,9 +54,8 @@
 
    OMBRE SENZA SALTI. Ogni ombra cresce e cala con continuita' insieme alla
    geometria: quella della lamina svanisce verso la verticale e rinasce
-   dall'altra parte; quella del lembo sull'altra pagina vale solo per il
-   tratto di bordo gia' di la' dalla costola e cresce con esso; un bordo
-   appena nato entra piano. Nessuna si accende tutta in un fotogramma.
+   dall'altra parte; quelle del ricciolo e del lembo crescono col raggio.
+   Nessuna si accende tutta in un fotogramma.
 
    NITIDO. Una copia della pagina e' un livello suo, e il browser lo
    dipinge alla sua misura in px CSS senza guardare le scale degli antenati:
@@ -130,16 +133,19 @@ P.costruisci=function(){
   this.taglioSx=el('lb-taglio sx'); this.taglioDx=el('lb-taglio dx');
   this.fermoSx=el('lb-fermo sx'); this.fermoDx=el('lb-fermo dx');
   const vSx=el('lb-velo sx'), vDx=el('lb-velo dx');
-  // ombra del cilindro (pagina che si scopre) e ombra del lembo (pagina di la' dalla costola)
+  // ombra della copertina rigida sulla pagina che si scopre
   this.cast={sx:el('lb-cast', vSx), dx:el('lb-cast', vDx)};
-  // due per lato: i due bordi piu' lunghi del lembo, cosi' quando il primo
-  // cambia nessuna ombra salta da un bordo all'altro
-  this.castL={sx:[el('lb-cast lembo', vSx), el('lb-cast lembo', vSx)], dx:[el('lb-cast lembo', vDx), el('lb-cast lembo', vDx)]};
   // i segnalibri delle sezioni, fuori dai bordi del libro
   this.lingSx=el('lb-ling sx'); this.lingDx=el('lb-ling dx');
   this.gola=el('lb-gola');
   this.scena=el('lb-scena'); this.aria=el('lb-aria', this.scena);
-  this.aria.style.width=2*this.W+'px'; this.aria.style.height=this.H+'px';
+  // Il lembo rovesciato sta in una scena sua, sopra l'altra, con la stessa
+  // prospettiva. Nella stessa scena il browser lo ordinava insieme alle fasce
+  // del cilindro tagliandolo coi loro piani, e col clip-path un pezzo del
+  // lembo spariva: si vedeva la pagina sotto e, piu' in la', la sua ombra. Il
+  // lembo e' la parte piu' alta del foglio: sopra tutto il resto e' giusto.
+  this.scenaSu=el('lb-scena su'); this.ariaSu=el('lb-aria', this.scenaSu);
+  for(const a of [this.aria, this.ariaSu]){ a.style.width=2*this.W+'px'; a.style.height=this.H+'px'; }
 };
 
 /* pw, ph: misura vera di una pagina in px; doppia: due pagine affiancate */
@@ -151,7 +157,7 @@ P.misura=function(pw, ph, doppia, primo){
     const [a,b]=this.visibili();
     const i = !doppia && this.singola!=null && this.singola>=a && this.singola<=b ? this.singola : a;
     if(doppia) this.singola=a;
-    this.doppia=doppia; this.cache.forEach(f=>f.el.remove()); this.cache.clear();
+    this.doppia=doppia; this.cache.forEach(f=>this.togli(f)); this.cache.clear();
     this.cur=this.spreadDi(i);
   }
   // pixel interi: la costola, le sedi delle pagine e il foglio cadono sugli
@@ -160,17 +166,16 @@ P.misura=function(pw, ph, doppia, primo){
   // la scala a cui si dipingono le copie (vedi NITIDO): cambiando, i fogli si rifanno
   const q=clamp(this.k, .4, 2.5);
   if(q!==this.q){
-    if(!primo && !cambiaModo){ this.chiudiVoli(); this.cache.forEach(f=>f.el.remove()); this.cache.clear(); clearTimeout(this.tRifai); this.tRifai=setTimeout(()=>this.preparaVicini(),200); }
+    if(!primo && !cambiaModo){ this.chiudiVoli(); this.cache.forEach(f=>this.togli(f)); this.cache.clear(); clearTimeout(this.tRifai); this.tRifai=setTimeout(()=>this.preparaVicini(),200); }
     this.q=q;
   }
   const r=this.r;
   r.classList.toggle('doppia', doppia); r.classList.toggle('singola', !doppia);
   r.style.setProperty('--k', this.k);
   r.style.width=(doppia?2*this.pw:this.pw)+'px'; r.style.height=ph+'px';
-  this.aria.style.transform=`scale(${this.k})`;
+  this.aria.style.transform=this.ariaSu.style.transform=`scale(${this.k})`;
   this.prosp=Math.round((doppia?2:1)*this.pw*4.2);   // px dello schermo, come la quota z dentro aria (scale() non tocca z)
-  this.scena.style.perspective=this.prosp+'px';
-  this.scena.style.perspectiveOrigin=`${doppia?this.pw:0}px 50%`;
+  for(const s of [this.scena, this.scenaSu]){ s.style.perspective=this.prosp+'px'; s.style.perspectiveOrigin=`${doppia?this.pw:0}px 50%`; }
   const lungo=Math.ceil(2*this.D*this.k);
   this.cast.sx.style.height=this.cast.dx.style.height=lungo+'px';
   this.spost=undefined;
@@ -334,8 +339,6 @@ P.foglioDom=function(sp){
     // la parte distesa, con l'ombra del lembo che le sta sopra: la copia sta
     // dritta al posto della pagina e la piega la ritaglia (clip-path)
     const cv=this.copia(sp.fronte); root.appendChild(cv);
-    // l'ombra del lembo rovesciato, un pezzo per ogni suo bordo; dentro la copia, quindi non esce dal foglio
-    const ombraLembo=[0,1,2,3].map(()=>div('lb-ombra-lembo', cv));
     // le fasce del cilindro
     const fasce=[];
     for(let j=0;j<FIS.fasce;j++){
@@ -349,23 +352,38 @@ P.foglioDom=function(sp){
       fasce.push({el:b, cf, cr, lf, lr});
     }
     // la parte rovesciata: la copia del retro, girata attorno alla piega e ritagliata
-    const cl=this.copia(sp.retro); root.appendChild(cl);
+    const su=root.cloneNode(false);                    // il posto del lembo nella scena di sopra
+    const cl=this.copia(sp.retro); su.appendChild(cl);
     // il retro del foglio e' appena piu' scuro della pagina su cui si posa: un
     // velo di colore pieno su tutta la copia, di cui cambia solo l'opacita'
     // (un livello di solo colore non ha niente da dipingere)
     const tinta=div('lb-tinta', cl);
-    Object.assign(f,{cv, ombraLembo, fasce, cl, tinta, fasceVisibili:true});
+    // L'ombra del lembo: un corpo solo, la pagina rovesciata come il lembo
+    // (pieno e bordo sfumato, dipinti una volta), tagliata sotto il dorso del
+    // ricciolo. Cade sul foglio stesso e, a libro aperto, sull'altra pagina:
+    // la stessa ombra di qua e di la' dalla costola. A ogni fotogramma
+    // cambiano solo trasformazioni e opacita'.
+    const H=this.H, x0=this.doppia||dir<0 ? -W : 0;
+    const ombra=div('lb-ombra-foglio', root);
+    ombra.style.left=x0+'px'; ombra.style.width=(W-x0)+'px'; ombra.style.height=H+'px';
+    const taglio=div('lb-ombra-taglio', ombra);
+    taglio.style.width=taglio.style.height=4*D+'px';
+    const corpo=div('lb-ombra-corpo', taglio);
+    corpo.style.width=W+'px'; corpo.style.height=H+'px';
+    Object.assign(f,{su, cv, fasce, cl, tinta, ombra, taglio, corpo, x0, fasceVisibili:true});
   }
-  this.aria.appendChild(root);
+  this.aria.appendChild(root); if(f.su) this.ariaSu.appendChild(f.su);
   this.cache.set(chiave,f);
   // la cache tiene pochi fogli: i piu' vecchi non in uso si buttano
   while(this.cache.size>6){
     const vecchio=[...this.cache.values()].find(x=>!this.fogli.some(v=>v.dom===x) && !this.posati.some(v=>v.dom===x));
     if(!vecchio) break;
-    vecchio.el.remove(); this.cache.delete(vecchio.chiave);
+    this.togli(vecchio); this.cache.delete(vecchio.chiave);
   }
   return f;
 };
+P.togli=function(f){ f.el.remove(); if(f.su) f.su.remove(); };
+P.vedi=function(dom, si){ const v=si?'visible':'hidden'; dom.el.style.visibility=v; if(dom.su) dom.su.style.visibility=v; };
 
 /* i fogli per la pagina dopo e per quella prima, gia' costruiti prima del tocco */
 P.preparaVicini=function(){
@@ -386,10 +404,11 @@ P.nuovoFoglio=function(sp, G){
   const f={...sp, dom, G:{x:G.x,y:G.y}, F:riposo, V:{x:0,y:0}, preso:false, versoMeta:-1,
     sbircia:false, ritira:false, elastico:false, svelato:false, quadri:0, storia:[]};
   this.aria.appendChild(dom.el);        // in cima allo stack 3D
+  if(dom.su) this.ariaSu.appendChild(dom.su);
   if(!this.fogli.length){ this.allinea(); this.verso = Math.sign(sp.a-sp.da) || 1; }
   this.fogli.push(f);
   this.disegna(f);
-  dom.el.style.visibility='visible';
+  this.vedi(dom, true);
   this.avvia();
   return f;
 };
@@ -482,7 +501,7 @@ P.disegna=function(f){
     }
   }
   f.geo={nx,ny,tx,ty,c,R,p,L};
-  this.ombraLembo(f);
+  this.ombraFoglio(f, zz);
 };
 
 /* Ritaglia una copia con il semipiano m·(x,y) <= k, nelle coordinate logiche
@@ -503,59 +522,36 @@ P.ritaglia=function(el, m, k){
     'polygon('+P.map(p=>(Math.round(p[0]*q*100)/100)+'px '+(Math.round(p[1]*q*100)/100)+'px').join(',')+')';
 };
 
-/* Il lembo rovesciato, sul piano del libro: la parte del foglio oltre il
-   cilindro (d >= pi R), riflessa attorno alla linea n·q = c + pi R/2. Si
-   ritaglia il rettangolo della pagina con quel semipiano e si riflettono i
-   vertici; i lati che vengono dai bordi della pagina (non quello sulla piega)
-   gettano ombra verso l'esterno del lembo. */
-P.lembo=function(f){
-  const {nx,ny,c,R}=f.geo, W=this.W, H=this.H, dir=f.dir, lim=PI*R;
-  const d=(q)=>nx*q[0]+ny*q[1]-c;
-  const rett=[[0,0],[dir*W,0],[dir*W,H],[0,H]];
-  const poly=[];
-  for(let i=0;i<4;i++){
-    const A=rett[i], B=rett[(i+1)%4], dA=d(A)-lim, dB=d(B)-lim;
-    if(dA>=0) poly.push({q:A, bordo:true});
-    if((dA>=0)!==(dB>=0)){ const t=dA/(dA-dB); poly.push({q:[A[0]+(B[0]-A[0])*t, A[1]+(B[1]-A[1])*t], bordo:false}); }
-  }
-  if(poly.length<3) return null;
-  // Il lembo sta 2R sopra la pagina e la prospettiva della scena lo ingrandisce
-  // attorno al suo centro (sulla costola, a meta' altezza): i suoi bordi veri,
-  // sullo schermo, stanno di piu' verso fuori. L'ombra va li', non sul piano
-  // della pagina, o tra ombra e foglio resta una striscia bianca.
-  const pz=this.prosp, sz=pz/(pz-2*R), oy=this.ph/(2*this.k);
-  const rif=(q)=>{ const k=2*(c+lim/2-(nx*q[0]+ny*q[1])), x=q[0]+k*nx, y=q[1]+k*ny; return [x*sz, oy+(y-oy)*sz]; };
-  const pts=poly.map(v=>({q:rif(v.q), bordo:v.bordo}));
-  const cx=pts.reduce((s,v)=>s+v.q[0],0)/pts.length, cy=pts.reduce((s,v)=>s+v.q[1],0)/pts.length;
-  const lati=[];
-  for(let i=0;i<pts.length;i++){
-    const A=pts[i], B=pts[(i+1)%pts.length];
-    if(!A.bordo && !B.bordo) continue;                // il lato sulla piega
-    const len=Math.hypot(B.q[0]-A.q[0], B.q[1]-A.q[1]); if(len<1) continue;
-    let px=-(B.q[1]-A.q[1])/len, py=(B.q[0]-A.q[0])/len;
-    const mx=(A.q[0]+B.q[0])/2, my=(A.q[1]+B.q[1])/2;
-    if(px*(mx-cx)+py*(my-cy)<0){ px=-px; py=-py; }     // verso fuori dal lembo
-    lati.push({a:A.q, b:B.q, len, px, py});
-  }
-  return lati;
-};
-P.ombraLembo=function(f){
-  const g=f.geo, D=this.D, els=f.dom.ombraLembo;
-  // i bordi piu' lunghi sempre sugli stessi elementi: un bordo nuovo va in fondo
-  const lati = g.L>.05 && g.R>=.3 ? (this.lembo(f)||[]).sort((a,b)=>b.len-a.len) : [];
-  const larga=this.W*.03+g.R*.55, o=clamp(g.R/(this.W*.05),0,1)*.62;
-  // dentro la copia distesa, che sta dritta al posto della pagina: basta togliere dove comincia
-  const x0=f.dir>0?0:-this.W;
-  els.forEach((el,i)=>{
-    const l=lati[i];
-    if(!l){ el.style.opacity=0; return; }
-    el.style.width=l.len+'px'; el.style.height=larga+'px';
-    this.trD(el, [(l.b[0]-l.a[0])/l.len,(l.b[1]-l.a[1])/l.len, l.px,l.py, l.a[0]-x0,l.a[1]]);
-    // un bordo appena nato e' cortissimo: entra piano, non tutto scuro
-    const w=clamp(l.len/(this.W*.08),0,1);
-    el.style.opacity=(o*w*w*(3-2*w)).toFixed(3);
-  });
-  f.lembo = lati.length ? {lati, larga, o} : null;
+/* L'ombra del lembo. Visto dall'alto il lembo e' la pagina rovesciata sulla
+   piega, ingrandita dalla prospettiva alla sua quota: il corpo dell'ombra e'
+   quella pagina, piena e con il bordo sfumato, sotto il lembo vero, quindi
+   l'ombra comincia proprio dal suo bordo, su tutti i lati e su tutte e due le
+   pagine. Un taglio orientato come la piega la ferma sotto il dorso del
+   ricciolo (che e' opaco e la copre); oltre, sulla pagina che si scopre, c'e'
+   l'ombra del ricciolo (in ombre()). Niente da ridipingere: solo
+   trasformazioni e opacita'. */
+P.ombraFoglio=function(f, zz){
+  const g=f.geo, dom=f.dom, W=this.W, D=this.D, R=g.R;
+  if(!(g.L>.05 && R>=.3)){ if(dom.ombraVista!==false){ dom.ombra.style.opacity=0; dom.ombraVista=false; } return; }
+  dom.ombraVista=true;
+  const {nx,ny,tx,ty,c}=g, dir=f.dir, P0b=dir>0?-W:0, x0=dom.x0, pz=this.prosp, oy=this.ph/(2*this.k);
+  // la stessa trasformazione del lembo (il retro girato sulla piega), poi
+  // ingrandita dalla prospettiva alla sua quota
+  const sz=pz/(pz-2*R-zz);
+  const c2=nx*nx-ny*ny, s2=2*nx*ny, av=2*c+PI*R;
+  const rif=[c2, s2, -s2, c2, c2*P0b+nx*av, s2*P0b+ny*av];
+  const A=mul2([sz,0,0,sz,-x0,oy*(1-sz)], rif);
+  // il taglio passa per il ricciolo a tre quarti del suo giro (alto 1,7 R), dove
+  // lo si vede dall'alto: li' sotto c'e' sempre carta
+  const a=.75*PI, s3=pz/(pz-R*(1-Math.cos(a))-zz);
+  const E=(c+R*Math.sin(a))*s3+(1-s3)*ny*oy;
+  // il riquadro del taglio comincia sulla linea e va tutto dalla parte del lembo (asse x = -n)
+  const V0=2*D;
+  const T=[-nx, -ny, tx, ty, E*nx-V0*tx-x0, E*ny-V0*ty];
+  dom.taglio.style.transform=aff2(T);
+  dom.corpo.style.transform=aff2(mul2(inv2(T), A));
+  dom.ombra.style.transform=`translateZ(${(zz+.05).toFixed(2)}px)`;
+  dom.ombra.style.opacity=clamp(R/(W*.05),0,1).toFixed(3);
 };
 
 /* copertina: ruota sulla costola; l'angolo viene dal punto preso */
@@ -603,46 +599,19 @@ P.ombre=function(){
       continue;
     }
     if(g.L<.05) continue;
-    // L'ombra del cilindro sulla pagina che si scopre. Comincia trasparente
-    // sulla piega, sotto il foglio, ha il massimo proprio sul colmo (al 40%
-    // della sua larghezza, che e' 2,5 raggi) e sfuma oltre: resta attaccata al
-    // ricciolo a ogni raggio, anche quando l'angolo e' appena sollevato.
+    // L'ombra del ricciolo sulla pagina che si scopre (quella del lembo la
+    // disegna ombraFoglio). Comincia trasparente sotto il foglio e ha il
+    // massimo (al 40% della sua larghezza, 2,5 raggi) proprio sotto il fronte
+    // del ricciolo come lo mostra la prospettiva: resta attaccata al ricciolo.
     if(g.R>=.3){
       const lato = f.dir>0 ? 'dx' : 'sx';
-      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [g.nx*g.c, g.ny*g.c], g.nx, g.ny, g.R*2.5, clamp(g.R/(W*.05),0,1)*.5);
-    }
-    // l'ombra del lembo sulla pagina dall'altra parte della costola
-    // Solo il tratto di ogni bordo che sta di la' dalla costola, e con
-    // un'intensita' che cresce con quel tratto: l'ombra entra sull'altra pagina
-    // insieme al lembo, invece di accendersi tutta quando il lembo passa la costola.
-    if(this.doppia && f.lembo){
-      const lato = f.dir>0 ? 'sx' : 'dx', s=lato==='sx' ? -1 : 1, pieno=W*.3;
-      const tratti=[];
-      for(const l of f.lembo.lati){
-        const xa=s*l.a[0], xb=s*l.b[0];
-        if(xa<=0 && xb<=0) continue;
-        let a=l.a, b=l.b;
-        if(xa<0 || xb<0){
-          const t=xa/(xa-xb), q=[l.a[0]+(l.b[0]-l.a[0])*t, l.a[1]+(l.b[1]-l.a[1])*t];
-          if(xa<0) a=q; else b=q;
-        }
-        const len=Math.hypot(b[0]-a[0], b[1]-a[1]); if(len<1) continue;
-        tratti.push({a, b, len, px:l.px, py:l.py});
-      }
-      tratti.sort((x,y)=>y.len-x.len);
-      this.castL[lato].forEach((el,i)=>{
-        const t=tratti[i]; if(!t) return;
-        // un bordo parallelo alla costola la passa tutto in una volta: conta
-        // anche quanto il suo centro e' gia' di la'
-        const liscio=(v)=>{ v=clamp(v,0,1); return v*v*(3-2*v); };
-        const mx=(t.a[0]+t.b[0])/2, my=(t.a[1]+t.b[1])/2;
-        const o=f.lembo.o*.9*liscio(t.len/pieno)*liscio(s*mx/(W*.12));
-        metti(el, lato, [mx,my], t.px, t.py, f.lembo.larga*1.4, o, t.len);
-      });
+      const zz=(f.ordine||0)*.25, s1=this.prosp/(this.prosp-g.R-zz), oy=this.ph/(2*k);
+      const fronte=(g.c+g.R)*s1+(1-s1)*g.ny*oy;
+      if(this.doppia || lato==='dx') metti(this.cast[lato], lato, [g.nx*(fronte-g.R), g.ny*(fronte-g.R)], g.nx, g.ny, g.R*2.5, clamp(g.R/(W*.05),0,1)*.5);
     }
     gola=Math.max(gola, Math.sin(PI*g.p)*.5);
   }
-  for(const el of [this.cast.sx,this.cast.dx,...this.castL.sx,...this.castL.dx]) if(!usa.has(el)) el.style.opacity=0;
+  for(const el of [this.cast.sx,this.cast.dx]) if(!usa.has(el)) el.style.opacity=0;
   this.gola.style.opacity = this.doppia ? gola.toFixed(3) : 0;
 };
 
@@ -680,7 +649,7 @@ P.passo=function(t){
   for(const p of [...this.posati]){
     if(p.attesa--<=0){
       this.posati.splice(this.posati.indexOf(p),1);
-      if(!this.fogli.some(f=>f.dom===p.dom)) p.dom.el.style.visibility='hidden';
+      if(!this.fogli.some(f=>f.dom===p.dom)) this.vedi(p.dom, false);
     }
   }
   this.ombre();
@@ -710,7 +679,7 @@ P.atterra=function(f){
   if(!this.fogli.length) this.verso=0;
   // le pagine vere si sistemano adesso, sotto il foglio che resta visibile
   this.assegnaFermi();
-  this.posati.push({dom:f.dom, geo:f.geo, dir:f.dir, lembo:f.lembo, attesa:2});
+  this.posati.push({dom:f.dom, geo:f.geo, dir:f.dir, attesa:2});
   if(fatto && this.o.onCambio) this.o.onCambio(this.visibili());
   if(!this.fogli.length){
     if(this.coda){ const v=Math.sign(this.coda); this.coda-=v; this.gira(v); }
@@ -723,7 +692,7 @@ P.atterra=function(f){
 P.chiudiVoli=function(){
   this.coda=0;
   for(const f of [...this.fogli]){ f.preso=false; f.sbircia=false; f.F={...this.meta(f)}; f.V={x:0,y:0}; this.disegna(f); this.atterra(f); }
-  for(const p of this.posati) p.dom.el.style.visibility='hidden';
+  for(const p of this.posati) this.vedi(p.dom, false);
   this.posati=[];
 };
 
