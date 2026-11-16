@@ -311,16 +311,17 @@ figure(3, 'f3-2.jpg', 'Aerodromes and Mission', 'Aerodrome codes with the data l
     ['D', 'Touch & Go', 'SELECT if applicable'], ['E', 'Aerodromes along the route', 'Information'], ['F', 'Aircraft', 'SELECT'],
     ['G', 'Flight Mission', 'INPUT (optional)']])));
 A(split(steps([
-  ['SELECT', 'the off-blocks time OFF [A] and the take-off time TO [B], in UTC, 5-minute steps.'],
-  ['VERIFY', 'LDG [C] = TO + Flight Time computed in Step 2.'],
-  ['VERIFY', 'ON [D] = LDG + the departure taxi time. CORRECT it if required: once set by hand it no longer updates; set it back to `--:--` to restore automatic mode.'],
-  ['VERIFY', 'BLOCK = ON &minus; OFF and FLT = LDG &minus; TO [E].'],
-  ['REVIEW', 'the DAYLIGHT check [F]. It requires the flight date (Step 8).'],
+  ['SELECT', 'the flight date [A] from the calendar. It is the same date as the Date field of Step 8 and the OFP header: changing one changes the other, and loading the briefing PDF fills it in.'],
+  ['SELECT', 'the off-blocks time OFF [B] and the take-off time TO [C], in UTC, 5-minute steps.'],
+  ['VERIFY', 'LDG [D] = TO + Flight Time computed in Step 2.'],
+  ['VERIFY', 'ON [E] = LDG + the departure taxi time. CORRECT it if required: once set by hand it no longer updates; set it back to `--:--` to restore automatic mode.'],
+  ['VERIFY', 'BLOCK = ON &minus; OFF and FLT = LDG &minus; TO [F].'],
+  ['REVIEW', 'the DAYLIGHT check [G]. It requires the flight date [A].'],
 ], 6) + box('warning', 'WARNING', 'Times are **UTC**. Times entered in local time make the daylight check wrong by the UTC offset.'),
 figure(3, 'f3-3.jpg', 'Estimated Times and Daylight Check',
   'Take-off, landing at destination and landing at the alternate, each checked against its own aerodrome: sunrise &ndash; sunset, civil twilight and status.',
-  [['A', 'OFF', 'SELECT (UTC)'], ['B', 'TO', 'SELECT (UTC)'], ['C', 'LDG', 'VERIFY'], ['D', 'ON', 'VERIFY / CORRECT'],
-    ['E', 'BLOCK / FLT', 'VERIFY'], ['F', 'DAYLIGHT check', 'REVIEW']])));
+  [['A', 'Date', 'SELECT'], ['B', 'OFF', 'SELECT (UTC)'], ['C', 'TO', 'SELECT (UTC)'], ['D', 'LDG', 'VERIFY'], ['E', 'ON', 'VERIFY / CORRECT'],
+    ['F', 'BLOCK / FLT', 'VERIFY'], ['G', 'DAYLIGHT check', 'REVIEW']])));
 A(`<table class="std keep"><caption>Daylight check &ndash; status</caption><thead><tr><th>Indication</th><th>Meaning</th><th>Action</th></tr></thead><tbody>
 <tr><td><b>Daylight</b> (green)</td><td>Between sunrise and sunset; the time left to sunset is shown</td><td>VERIFY margin</td></tr>
 <tr><td><b>Civil twilight</b> (amber)</td><td>After sunset or before sunrise, still day VFR; minutes past sunset and time left to night are shown</td><td>REVIEW plan</td></tr>
@@ -541,7 +542,7 @@ A(dtable([
 A(split(steps([
   ['LOAD', 'a newer briefing [A] only to update the weather.'],
   ['VERIFY', 'the status line [B]: aerodromes found and those not on the route.'],
-  ['VERIFY', 'the date [C]. It is printed on the OFP and used by the daylight check. INPUT it if no briefing was loaded.'],
+  ['VERIFY', 'the date [C]. It is printed on the OFP and used by the daylight check; it is the same date as Step 1 (Estimated times). INPUT it, here or in Step 1, if no briefing was loaded.'],
   ['VERIFY', 'issue time [D] and validity [E].'],
 ]) + box('note', 'NOTE', 'If the briefing was issued on the day before the flight, the date shown is the issue date.'),
 figure(3, 'f3-18.jpg', 'Briefing Data', '',
@@ -680,7 +681,7 @@ A(ul(['Cruise GS is TAS (still air) until corrected for wind by the pilot.',
 A(h2('5.5', 'Daylight check'));
 A(ul(['Sunrise / sunset: upper limb at &minus;0.833°; civil twilight: centre at &minus;6° (night as defined in Regulation (EU) 923/2012).',
   'Rounded conservatively: sunset and end of twilight to the minute before, sunrise to the minute after.',
-  'Uses the flight date of Step 8 and the UTC times of Step 1. No elevation correction (as in published tables).']));
+  'Uses the flight date (Step 1, Estimated times, or Step 8) and the UTC times of Step 1. No elevation correction (as in published tables).']));
 A(h2('5.6', 'Documents and storage'));
 A(ul(['The documents are downloaded from the Documents page and printed from the PDF, with the PDF viewer.',
   'They are generated from the flight data at the moment of the download: after any change, download them again.',

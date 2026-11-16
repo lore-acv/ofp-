@@ -267,6 +267,10 @@ html[data-tema="chiaro"] .group{border-color:var(--panel-line)}
 .hm{display:flex;align-items:center;gap:6px}
 .hm select{flex:0 1 5.5rem;min-width:3.5rem;font-family:var(--mono)}
 .hm>span{color:var(--txt-faint);font-weight:500}
+/* la data del volo negli orari stimati: calendario del sistema, larga quanto basta */
+.fld-data{flex:0 1 12rem}
+.fld-data input[type=date]{font-family:var(--mono);padding-right:6px}
+.fld-data input[type=date]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 .time-val{max-width:11.5rem}
 /* I risultati dei calcoli: righe di valori, non frasi in monospazio.
    Il testo arriva come prima (textContent): calcolo() in index.html lo divide

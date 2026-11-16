@@ -187,6 +187,12 @@ document.documentElement.classList.add('vista-dash');
         </div>
         <div class="group">
           <h3>Estimated times (UTC)</h3>
+          <!-- La data del volo: e' la stessa del campo Date dello Step 8 (wxDate),
+               che il briefing compila e che va in testa all'OFP. Qui si sceglie
+               dal calendario; le due caselle si seguono. -->
+          <div class="row">
+            <div class="fld fld-data"><label for="tDate">Date</label><input type="date" id="tDate"></div>
+          </div>
           <div class="row">
             <div class="fld"><label>OFF</label>
               <div class="hm"><select id="tOFFh"></select><span>:</span><select id="tOFFm"></select></div>
@@ -881,6 +887,20 @@ function flightDateMs(){
   const d=+m[1], mo=+m[2], ms=Date.UTC(+m[3],mo-1,d), c=new Date(ms);
   return (c.getUTCDate()===d && c.getUTCMonth()===mo-1) ? ms : null;
 }
+/* La casella Date degli orari stimati e' un calendario sopra wxDate: scrive
+   la data nel formato del foglio e la rilegge quando cambia altrove (dal
+   briefing, da un volo salvato, a mano nello Step 8). */
+const isoDaData=(ms)=> ms==null ? '' : new Date(ms).toISOString().slice(0,10);
+function syncDataVolo(){
+  const el=$('tDate'); if(!el || document.activeElement===el) return;
+  const v=isoDaData(flightDateMs());
+  if(el.value!==v) el.value=v;
+}
+if($('tDate')) $('tDate').addEventListener('blur', syncDataVolo);
+if($('tDate')) $('tDate').addEventListener('input', ()=>{
+  const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec($('tDate').value);
+  if($('wxDate')) $('wxDate').value = m ? `${m[3]}.${m[2]}.${m[1]}` : '';
+});
 function aptCoord(icao){
   const c=String(icao||'').trim().toUpperCase();
   const a=(window.__oa||{})[c] || (OA.pack && OA.pack.aeroporti && OA.pack.aeroporti[c]) || null;
@@ -899,7 +919,7 @@ const hMin=(m)=>`${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
 function daylightCheck(f){
   const date=flightDateMs(), to=timeMin('tTO');
   const missing=[];
-  if(date==null) missing.push('the flight date (Step 8, Date)');
+  if(date==null) missing.push('the flight date');
   if(to==null) missing.push('the TO time');
   if(!(f.tripTime>0)) missing.push('the Trip time (Step 2)');
   const evs=[
@@ -3285,6 +3305,7 @@ function render(){
   if($('tBLOCK')) $('tBLOCK').value=t.block;
   if($('tFLT'))   $('tFLT').value=t.flt;
   if($('timesCalc')) $('timesCalc').textContent = `→ BLOCK = ON-OFF = ${t.block}   ·   FLT = LDG-TO = ${t.flt}`;
+  syncDataVolo();
   if($('daylightCalc')){
     const el=$('daylightCalc'), dc=daylightCheck(f);
     const peggio=dc.missing.length ? 'vuoto' : dc.rows.some(r=>r.stato==='night') ? 'night' : dc.rows.some(r=>r.stato==='twilight'||r.stato==='nd') ? 'twilight' : 'day';
