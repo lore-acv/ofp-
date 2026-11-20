@@ -311,7 +311,7 @@ figure(3, 'f3-2.jpg', 'Aerodromes and Mission', 'Aerodrome codes with the data l
     ['D', 'Touch & Go', 'SELECT if applicable'], ['E', 'Aerodromes along the route', 'Information'], ['F', 'Aircraft', 'SELECT'],
     ['G', 'Flight Mission', 'INPUT (optional)']])));
 A(split(steps([
-  ['SELECT', 'the flight date [A] from the calendar. It is the same date as the Date field of Step 8 and the OFP header: changing one changes the other, and loading the briefing PDF fills it in.'],
+  ['SELECT', 'the flight date [A] from the calendar. It is the same date as the Date field of Step 8 and the OFP header: changing one changes the other. Loading the briefing PDF fills it in only if it is empty: a date already set is kept.'],
   ['SELECT', 'the off-blocks time OFF [B] and the take-off time TO [C], in UTC, 5-minute steps.'],
   ['VERIFY', 'LDG [D] = TO + Flight Time computed in Step 2.'],
   ['VERIFY', 'ON [E] = LDG + the departure taxi time. CORRECT it if required: once set by hand it no longer updates; set it back to `--:--` to restore automatic mode.'],
@@ -542,7 +542,7 @@ A(dtable([
 A(split(steps([
   ['LOAD', 'a newer briefing [A] only to update the weather.'],
   ['VERIFY', 'the status line [B]: aerodromes found and those not on the route.'],
-  ['VERIFY', 'the date [C]. It is printed on the OFP and used by the daylight check; it is the same date as Step 1 (Estimated times). INPUT it, here or in Step 1, if no briefing was loaded.'],
+  ['VERIFY', 'the date [C]. It is printed on the OFP and used by the daylight check; it is the same date as Step 1 (Estimated times). The briefing fills it in only if it is empty: a date already set is kept, and the status line says so when the briefing was issued on another day. INPUT it, here or in Step 1, if no briefing was loaded.'],
   ['VERIFY', 'issue time [D] and validity [E].'],
 ]) + box('note', 'NOTE', 'If the briefing was issued on the day before the flight, the date shown is the issue date.'),
 figure(3, 'f3-18.jpg', 'Briefing Data', '',

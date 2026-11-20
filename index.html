@@ -891,6 +891,17 @@ function flightDateMs(){
    la data nel formato del foglio e la rilegge quando cambia altrove (dal
    briefing, da un volo salvato, a mano nello Step 8). */
 const isoDaData=(ms)=> ms==null ? '' : new Date(ms).toISOString().slice(0,10);
+/* La data del briefing (quando e' stato emesso) non e' per forza quella del
+   volo: riempie la data del volo solo se manca o non e' una data. Resta a
+   parte per la pagina WEATHER dell'OFP, che stampa data e ora di emissione.
+   Ritorna la data del volo tenuta, se diversa da quella del briefing. */
+function dataDelBriefing(d){
+  window.__wxDataBriefing = d || null;
+  if(!d || !$('wxDate')) return null;
+  if(flightDateMs()==null){ $('wxDate').value=d; return null; }
+  const norm=(x)=>String(x||'').replace(/\D/g,'');
+  return norm($('wxDate').value)===norm(d) ? null : $('wxDate').value.trim();
+}
 function syncDataVolo(){
   const el=$('tDate'); if(!el || document.activeElement===el) return;
   const v=isoDaData(flightDateMs());
@@ -4124,14 +4135,17 @@ function handleWxPdf(file){
       const codes={dep:txt('dep').toUpperCase(), dest:txt('arr').toUpperCase(), altn:txt('altn').toUpperCase()};
       const wx=await readBriefingPdf(reader.result.slice(0), codes);
       window.__wxPrintedAt=wx.printedAt;
+      let tenuta=null;
+      if(!wx.printedAt) window.__wxDataBriefing=null;
       if(wx.printedAt){
-        if($('wxDate') && wx.printedAt.date) $('wxDate').value=wx.printedAt.date;
+        tenuta=dataDelBriefing(wx.printedAt.date);
         if($('wxTime') && wx.printedAt.time) $('wxTime').value=wx.printedAt.time;
         if($('wxValid') && wx.printedAt.valid) $('wxValid').value=wx.printedAt.valid;
       }
       window.__wxCharts=wx.charts;
       applyBriefingResult(wx.result);
       window.__wxImported=true;
+      if(tenuta) wxStatus.textContent += ` · flight date kept: ${tenuta} (briefing issued ${wx.printedAt.date})`;
     }catch(err){
       console.error(err);
       wxStatus.className='mb-status'; wxStatus.textContent='Unable to read this PDF — fill in the boxes below by hand.';
@@ -5444,7 +5458,8 @@ function buildPDF(){
   // DATE e TIME (emissione/validità del briefing) su DUE righe centrate, subito sotto
   // il titolo WEATHER e prima del primo METAR. Presi dai campi wxDate/wxTime, che sono
   // compilati automaticamente dal PDF ma restano correggibili a mano.
-  const wxD = txt('wxDate').trim(), wxT = txt('wxTime').trim();
+  // la data e' quella di emissione del briefing; senza, quella del volo
+  const wxD = (window.__wxDataBriefing || txt('wxDate')).trim(), wxT = txt('wxTime').trim();
   if(wxD || wxT || txt('wxValid').trim()){
     y+=1;
     if(wxD){ doc.text(`DATE: ${wxD}`, MM.A4W/2, y, {align:'center'}); y+=LH; }
@@ -6631,6 +6646,7 @@ function collectWeatherData(){
   if($('wxDate'))  w.date=$('wxDate').value;
   if($('wxTime'))  w.time=$('wxTime').value;
   if($('wxValid')) w.valid=$('wxValid').value;
+  if(window.__wxDataBriefing) w.issued=window.__wxDataBriefing;   // data di emissione del briefing
   return w;
 }
 function applyFlightData(d){
@@ -6648,6 +6664,7 @@ function applyWeatherData(w){
   if(w.date  && $('wxDate'))  $('wxDate').value=w.date;
   if(w.time  && $('wxTime'))  $('wxTime').value=w.time;
   if(w.valid && $('wxValid')) $('wxValid').value=w.valid;
+  window.__wxDataBriefing = w.issued || null;
 }
 
 /* ==================== Nuovo foglio / reset ==================== */
@@ -6703,6 +6720,7 @@ function svuotaFoglio(){
   window.__editingFlightId=null;
   window.__wxCharts=null;
   window.__wxPrintedAt=null;
+  window.__wxDataBriefing=null;
   window.__navlog=null;
   window.__wxImported=false;
   window.__wxResult=null;
@@ -7296,7 +7314,7 @@ function applyHandoff(){
   if(d.wx){
     if(d.wx.printedAt){
       window.__wxPrintedAt=d.wx.printedAt;
-      if($('wxDate') && d.wx.printedAt.date) $('wxDate').value=d.wx.printedAt.date;
+      dataDelBriefing(d.wx.printedAt.date);
       if($('wxTime') && d.wx.printedAt.time) $('wxTime').value=d.wx.printedAt.time;
       if($('wxValid') && d.wx.printedAt.valid) $('wxValid').value=d.wx.printedAt.valid;
     }
