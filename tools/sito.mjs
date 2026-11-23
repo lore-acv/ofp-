@@ -30,6 +30,7 @@ const DA_PUBBLICARE = [
   ['data/aeroporti.json', 'data/aeroporti.json'],
   ['data/manuale.pdf',    'data/manuale.pdf'],
   ['data/manuale',        'data/manuale'],          // e-book: testo, figure, font
+  ['data/afm',            'data/afm'],              // Flight Manual degli aeroplani: PDF, pagine, testo (tools/afm.mjs)
   ['fonts',               'fonts'],                 // Public Sans e JetBrains Mono dell'interfaccia
   ['favicon.svg',         'favicon.svg'],           // il logo dell'aeroclub, icona del sito
   ['apple-touch-icon.png','apple-touch-icon.png'],

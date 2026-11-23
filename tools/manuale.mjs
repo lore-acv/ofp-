@@ -270,13 +270,13 @@ A(h1(3, 'Pre-flight Data Entry – Wizard'));
 A(h2('3.0', 'Wizard navigation'));
 A(split(steps([
   ['SELECT', 'a step tab [B] to go to any step, or **Back** / **Next** [E] at the bottom of the page. On Step 8 **Next** becomes **Proceed** (Section 3.8).'],
-  ['SELECT', 'in the side bar [A]: **Flights** (the Dashboard, Section 4.5), **New flight** (the Import page) or **User manual** (this manual, over the page: **Close** or Esc goes back).'],
+  ['SELECT', 'in the side bar [A]: **Flights** (the Dashboard, Section 4.5), **New flight** (the Import page) or **Manuals**: this manual or the Flight Manual of I-CCAF or I-CCAB, each opened over the page (**Close** or Esc goes back).'],
   ['SELECT', 'the theme button [C] to choose the display (below). It does not affect the documents.'],
   ['SELECT', 'the menu [D] for the document preview and the documents (Section 4.2).'],
   ['SELECT', '**Save** [F], at the right end of the step tabs, to store the flight in your account at any step. The wizard stays where it is and the button reads **Saved** for a moment; a dot before **Save** means that there are changes not yet saved.'],
 ]) + box('caution', 'CAUTION', 'The underline marks the step in progress; steps already passed are shown dimmed. This does **not** mean that a step is complete or correct.'),
 figure(3, 'f3-1.jpg', 'Wizard Navigation', 'Side bar on the left, step tabs above the page.',
-  [['A', 'Side bar', 'Flights / New flight / User manual'], ['B', 'Step tabs 1–8', 'Navigate between steps'], ['C', 'Theme', 'Night / Day / Match system'],
+  [['A', 'Side bar', 'Flights / New flight / Manuals'], ['B', 'Step tabs 1–8', 'Navigate between steps'], ['C', 'Theme', 'Night / Day / Match system'],
     ['D', 'Menu', 'Preview and documents'], ['E', 'Back / Next', 'Previous / next step; Proceed on Step 8'], ['F', 'Save', 'Save the flight']])));
 A(box('note', 'NOTE', 'Leaving a flight with changes not saved (**Flights**, **New flight**, another flight or its documents, **Sign out**) asks first: **Save** saves and goes on, **Don&rsquo;t save** goes on without saving, **Cancel** stays. Closing or reloading the browser tab asks with the browser&rsquo;s own message.'));
 A(split(p('With a mouse or a trackpad the side bar widens while the pointer is over it: the name of each item appears and the icons grow. The page underneath does not move. With touch only, the side bar stays narrow and its icons work directly.')

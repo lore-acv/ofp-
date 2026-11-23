@@ -24,10 +24,21 @@
   La pagina vive da sola (manuale.html#p=12, manuale.html#s3-2) e dentro la
   pagina di import, in un riquadro (?embed=1): li' "Close" chiede alla pagina
   madre di chiudere, e NavLog e briefing gia' caricati restano dove sono.
+
+  LO STESSO VISORE PER PIU' LIBRI. ?libro=<id> sceglie il libro dalla tabella
+  LIBRI qui sotto (titolo, file, PDF da scaricare, chiave dell'indice,
+  messaggi); senza ?libro si apre il manuale d'uso SOP, come sempre.
+  I Flight Manual degli aeroplani (?libro=afm-ccaf, ?libro=afm-ccab) non si
+  impaginano: data/afm/<id>/libro.html (tools/afm.mjs) porta gia' le pagine,
+  una per pagina dell'AFM, come immagini della scansione. Qui si mettono nel
+  libro cosi' come sono, con la numerazione originale (5-3) accanto
+  all'indice di pagina (#n=5-3 apre quella pagina), le immagini si caricano
+  solo vicino alle pagine in vista e la lente mostra la pagina intera, diritta
+  anche quando e' stampata di traverso.
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OFP C172 FR — User Manual</title>
+<title>OFP C172 FR — Manual</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="ofp.css">
@@ -442,6 +453,38 @@
   .pg-body .toc-e .tp{flex:0 0 auto;min-width:24px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:var(--navy)}
   .fmt-phone .pg-body .toc-e .tn{width:70px} .fmt-phone .pg-body .toc-e.t2 .tn{margin-left:20px}
 
+  /* ===================== LE PAGINE DEL FLIGHT MANUAL ====================== */
+  /* Una pagina e' l'immagine della pagina dell'AFM, intera e senza margini
+     aggiunti: la riempie tutta (le proporzioni sono quelle della scansione).
+     Sopra, la stessa ombra della piega delle pagine del manuale d'uso. */
+  .pg.afm{background:#fff}
+  .pg.afm img{position:absolute;left:0;top:0;width:100%;height:100%;display:block;-webkit-user-select:none;user-select:none}
+  .pg.afm::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to right,rgba(40,32,24,.12) 0,rgba(40,32,24,.05) 1.6%,rgba(40,32,24,.015) 4.5%,rgba(40,32,24,0) 9%)}
+  .lb.doppia .pg.afm.sx::after{background:linear-gradient(to left,rgba(40,32,24,.12) 0,rgba(40,32,24,.05) 1.6%,rgba(40,32,24,.015) 4.5%,rgba(40,32,24,0) 9%)}
+  .lb.singola .pg.afm::after{background:linear-gradient(to right,rgba(40,32,24,.09) 0,rgba(40,32,24,.035) 1.6%,rgba(40,32,24,0) 6%)}
+  /* il retro aggiunto a un manuale che non ce l'ha: cartoncino, solo il nome */
+  .pg.afm.retro-gen{background:#ebe6dc}
+  .pg.afm .retro-t{position:absolute;inset:auto 12% 16%;text-align:center;font:500 calc(12px * var(--k,1))/1.6 Inter,system-ui,sans-serif;color:#6b6458;letter-spacing:.02em}
+  .pg.afm .retro-t b{display:block;font-size:1.45em;font-weight:650;color:#3d382f;margin-bottom:.35em;letter-spacing:-.005em}
+  .fb-orig{color:var(--txt);font-weight:600}
+  .fb-orig::before{content:"·";color:var(--txt-faint);font-weight:400;margin-right:.4rem}
+  .fb-toc a.l2.g{color:var(--txt-faint);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;margin-top:.35rem}
+  /* la ricerca nel testo (solo i manuali che ne hanno uno) */
+  .fb-cerca{flex:0 0 auto;padding:0 .9rem .55rem 1.15rem}
+  .fb-cerca input{width:100%;box-sizing:border-box;height:var(--tap);padding:0 .75rem;font:inherit;font-size:16px;color:var(--txt);
+    background:var(--field);border:1px solid var(--panel-line);border-radius:var(--r-sm)}
+  .fb-cerca input:focus-visible{outline:none;box-shadow:var(--ring)}
+  .fb-cerca p{margin:.4rem 0 0;font-size:11.5px;line-height:1.4;color:var(--txt-faint)}
+  .fb-ris{list-style:none;margin:0;padding:0}
+  .fb-ris a{display:block;padding:.5rem .6rem;border-radius:var(--r-sm);color:var(--txt);text-decoration:none;font-size:13px;line-height:1.45;-webkit-touch-callout:none}
+  .fb-ris a b{display:block;font:600 12px var(--mono);color:var(--txt-dim);font-variant-numeric:tabular-nums;margin-bottom:.1rem}
+  .fb-ris a span{color:var(--txt-dim)}
+  .fb-ris mark{background:color-mix(in srgb,var(--accent-2) 26%,transparent);color:var(--txt);border-radius:2px;padding:0 1px}
+  .fb-ris a:focus-visible{outline:none;box-shadow:var(--ring)}
+  .fb-ris .vuoto{padding:.6rem;color:var(--txt-dim);font-size:13px}
+  .fb-zoom-area img.ruotata{cursor:zoom-in}
+
   /* il banco di misura: fuori dallo schermo, alla misura logica */
   #fbMisura{position:absolute;left:-10000px;top:0;visibility:hidden;pointer-events:none}
   #fbMisura .pg{position:relative;width:var(--pw);height:var(--ph)}
@@ -449,6 +492,7 @@
   @media (hover:hover) and (pointer:fine){
     .fb-ico:hover{color:var(--txt)} .fb-ico.largo:hover,.fb-nav:hover{border-color:var(--hover-line)}
     .fb-toc a:hover{background:color-mix(in srgb,var(--txt) 6%,transparent)}
+    .fb-ris a:hover{background:color-mix(in srgb,var(--txt) 6%,transparent)}
     .fb-toc-x:hover{color:var(--txt)}
     .pg-body .toc-e:hover{background:#eef2f6}
     .pg-body a:hover{text-decoration-color:currentColor}
@@ -465,10 +509,12 @@
 <header class="fb-bar">
   <button type="button" class="fb-ico largo" id="fbIndice" aria-controls="fbToc" aria-pressed="false" aria-label="Contents" title="Contents">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg><span class="fb-solo-largo">Contents</span></button>
-  <div class="fb-dove"><b>User Manual &middot; OFP C172 FR</b><span id="fbDove" aria-live="polite">&nbsp;</span></div>
+  <div class="fb-dove"><b id="fbTitolo">User Manual &middot; OFP C172 FR</b><span id="fbDove" aria-live="polite">&nbsp;</span></div>
   <div class="fb-pag"><label for="fbNum" class="fb-solo-largo">Page</label>
-    <input id="fbNum" type="text" inputmode="numeric" enterkeyhint="go" autocomplete="off" aria-label="Go to page"><span id="fbTot">of –</span></div>
+    <input id="fbNum" type="text" inputmode="numeric" enterkeyhint="go" autocomplete="off" aria-label="Go to page"><span id="fbTot">of –</span><span class="fb-orig" id="fbOrig" hidden></span></div>
   <span class="fb-sep"></span>
+  <button type="button" class="fb-ico" id="fbLente" aria-label="Enlarge page" title="Enlarge page" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></button>
   <a class="fb-ico" id="fbScarica" href="data/manuale.pdf" download="OFP-C172-FR-SOP-User-Manual.pdf" aria-label="Download printable PDF" title="Download printable PDF">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
   <button type="button" class="tema-btn" id="btnTema" aria-label="Toggle light / dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
@@ -489,7 +535,10 @@
   <nav class="fb-toc" id="fbToc" aria-label="Contents">
     <div class="fb-toc-h"><h2>Contents</h2><span id="fbTocTot"></span>
       <button type="button" class="fb-toc-x" id="fbTocX" aria-label="Close contents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-    <div class="fb-toc-corpo"><ol id="fbTocList"></ol></div>
+    <div class="fb-cerca" id="fbCercaBox" hidden>
+      <input type="search" id="fbCerca" placeholder="Search the text" aria-label="Search the manual text" autocomplete="off" enterkeyhint="search">
+      <p id="fbCercaNota">Searches the text recognised on the scan: a few words may be misread.</p></div>
+    <div class="fb-toc-corpo"><ol id="fbTocList"></ol><ol id="fbRisultati" class="fb-ris" hidden></ol></div>
   </nav>
 </div>
 <footer class="fb-foot">
@@ -503,9 +552,11 @@
 
 <div class="fb-zoom" id="fbZoom" role="dialog" aria-modal="true" aria-label="Enlarged figure">
   <div class="fb-zoom-bar"><span id="fbZoomTit"></span>
+    <button type="button" class="fb-zoom-x" id="fbZoomPrev" aria-label="Previous page" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button type="button" class="fb-zoom-x" id="fbZoomNext" aria-label="Next page" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
     <button type="button" class="fb-zoom-x" id="fbZoomX" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="fb-zoom-area" id="fbZoomArea"><img id="fbZoomImg" alt=""></div>
-  <div class="fb-zoom-hint">Tap the image to view it at full size &middot; pinch to zoom</div>
+  <div class="fb-zoom-hint" id="fbZoomHint">Tap the image to view it at full size &middot; pinch to zoom</div>
 </div>
 
 <div id="fbMisura" aria-hidden="true"></div>
@@ -514,9 +565,23 @@
 <script src="sfoglia.js"></script>
 <script>
 "use strict";
-const LIBRO_URL='data/manuale/libro.html';
+/* I libri che questo visore apre (?libro=<id>). "sop" e' il manuale d'uso,
+   impaginato qui dal suo testo; gli altri sono i Flight Manual degli
+   aeroplani, pagine gia' fatte (tools/afm.mjs). */
+const LIBRI={
+  sop:{ url:'data/manuale/libro.html', titolo:'User Manual &middot; OFP C172 FR', doc:'OFP C172 FR — User Manual', regione:'User manual',
+        pdf:'data/manuale.pdf', scarica:'OFP-C172-FR-SOP-User-Manual.pdf', chiave:'ofp_manuale_indice', nome:'the manual' },
+  'afm-ccaf':{ url:'data/afm/afm-ccaf/libro.html', titolo:'Flight Manual &middot; I-CCAF', doc:'I-CCAF — Flight Manual FR172J', regione:'Flight Manual I-CCAF',
+        pdf:'data/afm/afm-ccaf.pdf', scarica:'I-CCAF-Flight-Manual-FR172J-Edition-3.pdf', chiave:'ofp_afm_ccaf_indice', nome:'the I-CCAF Flight Manual' },
+  'afm-ccab':{ url:'data/afm/afm-ccab/libro.html', titolo:'Flight Manual &middot; I-CCAB', doc:'I-CCAB — Flight Manual FR172H', regione:'Flight Manual I-CCAB',
+        pdf:'data/afm/afm-ccab.pdf', scarica:'I-CCAB-Flight-Manual-FR172H-Edition-2.pdf', chiave:'ofp_afm_ccab_indice', nome:'the I-CCAB Flight Manual' }
+};
+const PARAMETRI=new URLSearchParams(location.search);
+const LIBRO_ID=PARAMETRI.get('libro')||'sop';
+const LIB=LIBRI[LIBRO_ID]||null;
+const LIBRO_URL=LIB?LIB.url:'';
 const DOC_REF='OFP-SOP · Rev. 3 DRAFT · 07 NOV 2026';
-const EMBED=new URLSearchParams(location.search).has('embed');
+const EMBED=PARAMETRI.has('embed');
 const MOTO=!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 const FORMATI={ book:{w:600,h:848, img:.56, doc:.8}, phone:{w:380,h:676, img:.52, doc:.74} };
 /* la rotta AV del logo dell'aeroclub (la stessa di rotta-av.js), in copertina */
@@ -530,7 +595,8 @@ let pagine=[];                  // [{el, ids:[], h1, h2}]
 let libro=null, doppia=null;    // il motore e il modo corrente (true = doppia pagina)
 let paginaDi={};                // id -> indice di pagina
 let scelta=null;                // voce dell'indice appena scelta
-let SEZ=[];                     // sezioni con linguetta: [{id, num, title, label, p}]
+let SEZ=[];                     // sezioni con linguetta: [{id, num, title, label, p, tab}]
+let FISSO=null;                 // i dati del Flight Manual (libro.html di tools/afm.mjs), o null per il manuale d'uso
 
 /* ======================================================= IMPAGINAZIONE */
 function nuovaPagina(classi){
@@ -544,6 +610,7 @@ function nuovaPagina(classi){
 /* Il banco di misura: le pagine si riempiono qui, alla misura logica, e
    si guarda se il corpo trabocca. */
 function impagina(){
+  if(FISSO) return impaginaFisso();
   const banco=$('fbMisura');
   banco.className='fmt-'+formato; banco.innerHTML='';
   const bodyH = F.h - (formato==='book' ? 26+20+34+30+16 : 16+12+28+26+16);
@@ -771,6 +838,62 @@ function impagina(){
   return out;
 }
 
+/* ======================================================= PAGINE FISSE
+   Il Flight Manual: una pagina del libro per ogni pagina dell'AFM, come le ha
+   scritte tools/afm.mjs. Niente da misurare: l'immagine riempie la pagina.
+   Le immagini partono senza src; le carica caricaIntorno(). */
+function impaginaFisso(){
+  const out=[];
+  [...fonte.querySelectorAll('.libro-afm > .pg-afm')].forEach(s=>{
+    const pg=document.createElement('div');
+    pg.className='pg afm'+(s.classList.contains('generato')?' retro-gen':'');
+    pg.innerHTML=s.innerHTML;
+    const img=pg.querySelector('img');
+    if(img){ img.draggable=false; img.decoding='async'; }
+    out.push({el:pg, n:s.dataset.n||'', traverso:s.classList.contains('traverso'), img, bianca:s.classList.contains('bianca')});
+  });
+  const N=out.length; paginaDi={};
+  out.forEach((o,i)=>{
+    o.el.classList.add(i===0 ? 'dx' : (i%2 ? 'sx' : 'dx'));
+    o.el.setAttribute('role','group');
+    o.el.setAttribute('aria-label',`Page ${i+1} of ${N}`+(o.n?`, AFM page ${o.n}`:''));
+    o.el.querySelectorAll('[id]').forEach(x=>{ if(!(x.id in paginaDi)) paginaDi[x.id]=i; });
+  });
+  SEZ=VOCI.filter(v=>v.level===1 && /^(section|appendix)\s/i.test(v.num) && paginaDi[v.id]!=null)
+    .map(v=>({id:v.id, num:v.num, title:v.title, label:v.num.split(/\s+/).pop(), p:paginaDi[v.id], tab:v.tab}));
+  return out;
+}
+/* il numero stampato sulla pagina (5-3), se c'e' */
+const etichetta=(i)=> FISSO && pagine[i] ? pagine[i].n : '';
+/* da "5-3", "5.3", "iv" (o un numero di pagina del libro) all'indice di pagina */
+function paginaDaTesto(t){
+  t=String(t||'').trim().toLowerCase().replace(/[–—.·\s]+/g,'-').replace(/^-+|-+$/g,'');
+  if(!t) return null;
+  if(FISSO){ const i=pagine.findIndex(p=>p.n && p.n.toLowerCase()===t); if(i>=0) return i; }
+  return /^\d+$/.test(t) ? +t-1 : null;
+}
+
+/* Le immagini: quelle delle pagine in vista e delle due prima e dopo, alla
+   risoluzione che serve (retina se la pagina sullo schermo e' piu' larga in
+   pixel veri dell'immagine "schermo"). Non si scende mai: una pagina gia'
+   caricata in retina resta cosi'. */
+function risoluzione(){
+  const px=(libro?libro.pw:F.w/2)*(window.devicePixelRatio||1);
+  return px>FISSO.w*1.1 ? 2 : 1;
+}
+function caricaPagina(i){
+  const p=pagine[i]; if(!p || !p.img) return;
+  const liv=risoluzione(), ora=+(p.img.dataset.liv||0);
+  if(ora>=liv) return;
+  p.img.src=p.img.dataset['s'+liv]; p.img.dataset.liv=liv;
+}
+function caricaIntorno(i){
+  if(!FISSO || !libro) return;
+  let [a,b]=visibili();
+  if(i!=null){ a=b=i; }
+  for(let k=a-2;k<=b+2;k++) caricaPagina(k);
+}
+
 /* ======================================================= IL LIBRO */
 function costruisci(start){
   if(libro){ libro.distruggi(); libro=null; }
@@ -785,6 +908,12 @@ function costruisci(start){
     rigide:[0, pagine.length-1], curva:true, moto:MOTO, inizio:Math.max(0,Math.min(pagine.length-1,start||0)),
     onCambio:()=>aggiorna(), onTaglio:segnalibri
   });
+  if(FISSO){
+    // il motore copia una pagina per disegnare il foglio che gira: prima di
+    // copiarla, la sua immagine deve avere gia' l'indirizzo giusto
+    const copia=libro.copia;
+    libro.copia=function(i){ if(typeof i==='number') caricaPagina(i); return copia.call(this,i); };
+  }
   book.style.setProperty('--imgmax', banco.style.getPropertyValue('--imgmax'));
   book.style.setProperty('--docmax', banco.style.getPropertyValue('--docmax'));
   $('fbTot').textContent='of '+pagine.length; $('fbTocTot').textContent=pagine.length+' pages';
@@ -809,10 +938,10 @@ function segnalibri(sx, dx, a, b, H, k){
     const att = j===cur;
     const lato = att ? (destraInVista ? dx : sx) : (s.p>b ? dx : sx);
     const t=document.createElement('a'); t.className='lb-tab'+(att?' att':''); t.href='#'+s.id;
-    const nome=TITOLI_TAB[s.id] || s.title.split(/\s+[–&-]\s+|\s+/).slice(0,2).join(' ');
+    const nome=s.tab || TITOLI_TAB[s.id] || s.title.split(/\s+[–&-]\s+|\s+/).slice(0,2).join(' ');
     t.innerHTML=`<span>${esc(nome)}</span>`;
     t.title=`${s.num} – ${s.title}`;
-    t.setAttribute('aria-label', `${s.num} – ${s.title}, page ${s.p+1}`+(att?' (current section)':''));
+    t.setAttribute('aria-label', `${s.num} – ${s.title}, page ${etichetta(s.p)||s.p+1}`+(att?' (current section)':''));
     if(att) t.setAttribute('aria-current','true');
     t.style.top=(top+j*alt)+'px'; t.style.height=Math.max(28, alt-gap)+'px';
     t.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); vai(s.p, s.id); });
@@ -850,7 +979,7 @@ function ridisegna(){
     const voglio = scegliFormato();
     if(voglio!==formato){ return rifai(); }
     const m=dimensiona(false);
-    if(m){ libro.misura(m.pw, m.ph, m.doppia); aggiorna(); }
+    if(m){ libro.misura(m.pw, m.ph, m.doppia); aggiorna(); caricaIntorno(); }
   });
 }
 
@@ -865,6 +994,11 @@ function aggiorna(){
   if(!libro) return;
   const [a,b]=visibili(), N=pagine.length;
   $('fbNum').value = a===b ? String(a+1) : `${a+1}–${b+1}`;
+  if(FISSO){
+    const et=[...new Set([etichetta(a),etichetta(b)].filter(Boolean))];
+    $('fbOrig').hidden=!et.length; $('fbOrig').textContent=et.join(' | ');
+    caricaIntorno();
+  }
   $('fbPrev').disabled = a<=0;
   $('fbNext').disabled = b>=N-1;
   try{ history.replaceState(null,'','#p='+(a+1)); }catch(e){}
@@ -884,6 +1018,7 @@ function vai(i, voce, subito){
   scelta=voce||null;
   const [a,b]=visibili();
   if(i>=a && i<=b){ aggiorna(); return; }
+  caricaIntorno(i);
   libro.vai(i, !subito);
 }
 
@@ -894,10 +1029,11 @@ function costruisciIndice(){
     const p=paginaDi[v.id]; if(p==null) return;
     const li=document.createElement('li'), a=document.createElement('a');
     const sez=/^(section|appendix)\s/i.test(v.num);
-    a.className='l'+v.level+(v.level===1&&!sez?' fm':''); a.href='#'+v.id; a.dataset.id=v.id;
+    a.className='l'+v.level+(v.level===1&&!sez?' fm':'')+(v.gruppo?' g':''); a.href='#'+v.id; a.dataset.id=v.id;
     const n = v.level===1 ? (sez ? v.num.split(/\s+/).pop() : '') : v.num;
-    a.innerHTML=`<span class="n">${esc(n)}</span><span class="t">${esc(v.title)}</span><span class="p">${p+1}</span>`;
-    a.setAttribute('aria-label',`${v.num?v.num+' ':''}${v.title}, page ${p+1}`);
+    const pn=etichetta(p)||String(p+1);
+    a.innerHTML=`<span class="n">${esc(n)}</span><span class="t">${esc(v.title)}</span><span class="p">${esc(pn)}</span>`;
+    a.setAttribute('aria-label',`${v.num?v.num+' ':''}${v.title}, page ${pn}`);
     a.addEventListener('click',e=>{ e.preventDefault(); vai(p, v.id); if(innerWidth<1100) indice(false); });
     li.appendChild(a); ol.appendChild(li);
   });
@@ -907,7 +1043,7 @@ function indice(apri){
   apri = apri===undefined ? !m.classList.contains('toc-open') : apri;
   m.classList.toggle('toc-open', apri);
   $('fbIndice').setAttribute('aria-pressed', apri?'true':'false');
-  try{ localStorage.setItem('ofp_manuale_indice', apri?'1':'0'); }catch(e){}
+  try{ localStorage.setItem(LIB.chiave, apri?'1':'0'); }catch(e){}
   if(apri){ const x=document.querySelector('#fbTocList a[aria-current="true"]'); if(x) x.scrollIntoView({block:'nearest'}); }
 }
 
@@ -943,11 +1079,12 @@ function posizionaScrub(i, anteprima){
   $('fbScrub').setAttribute('aria-valuenow', k+1);
   const {att}=sezioneDi(cur);
   const titolo = att ? (att.num&&att.level===2?att.num+' ':'')+att.title : 'Cover';
-  $('fbScrub').setAttribute('aria-valuetext', `Page ${cur+1} · ${titolo}`);
+  const et=etichetta(cur);
+  $('fbScrub').setAttribute('aria-valuetext', `Page ${cur+1}${et?' ('+et+')':''} · ${titolo}`);
   $('fbAnello').style.strokeDashoffset=(100-(letta+1)/N*100).toFixed(2);
   $('fbNumPag').textContent=`${letta+1} / ${N}`;
   const sl=sezioneDi(letta).att; $('fbSez').textContent = sl ? (sl.num?sl.num+' ':'')+sl.title : 'Cover';
-  const bo=$('fbBolla'); bo.innerHTML=`<b>Page ${cur+1}</b><span>${esc(titolo)}</span>`;
+  const bo=$('fbBolla'); bo.innerHTML=`<b>Page ${cur+1}${et?' · '+esc(et):''}</b><span>${esc(titolo)}</span>`;
   const pt=PARTI[Math.max(0,k)], x=pt.el.offsetLeft+pt.el.offsetWidth/2;
   const w=$('fbScrub').clientWidth, bw=bo.offsetWidth||200;
   bo.style.left=Math.max(bw/2, Math.min(w-bw/2, x))+'px';
@@ -979,8 +1116,11 @@ function posizionaScrub(i, anteprima){
    Si apre dalla figura: l'immagine parte dal suo posto nella pagina e si
    allarga (emil-design-eng: le cose escono da dove sono). */
 let lenteDa=null;
+let lentePag=null;              // Flight Manual: la pagina mostrata nella lente
 function lente(fig){
   const img=fig.querySelector('img'); if(!img) return;
+  lentePag=null; $('fbZoomPrev').hidden=$('fbZoomNext').hidden=true;
+  $('fbZoomHint').textContent='Tap the image to view it at full size · pinch to zoom';
   const z=$('fbZoomImg');
   z.src=img.currentSrc||img.src;
   $('fbZoomTit').textContent=fig.querySelector('.fig-id .t').textContent;
@@ -997,9 +1137,53 @@ function lente(fig){
   if(z.complete && z.naturalWidth) requestAnimationFrame(vola); else z.addEventListener('load', vola, {once:true});
   $('fbZoomX').focus();
 }
+/* La lente del Flight Manual: la pagina intera in retina. Le pagine stampate
+   di traverso (le tabelle e i grafici) si girano diritte: una copia ruotata
+   disegnata una volta in una tela. Le frecce passano alle pagine accanto;
+   chiudendo, il libro va alla pagina che si stava guardando. */
+const ruotate=new Map();
+async function ruotata(url){
+  if(ruotate.has(url)) return ruotate.get(url);
+  const im=new Image(); im.src=url; await im.decode();
+  const c=document.createElement('canvas'); c.width=im.naturalHeight; c.height=im.naturalWidth;
+  const x=c.getContext('2d'); x.translate(c.width,0); x.rotate(Math.PI/2); x.drawImage(im,0,0);
+  const u=await new Promise(r=>c.toBlob(b=>r(URL.createObjectURL(b)),'image/webp',.92));
+  ruotate.set(url,u); return u;
+}
+const conImmagine=(i)=> pagine[i] && pagine[i].img;
+function vicinaConImmagine(i, v){ for(let k=i+v;k>=0&&k<pagine.length;k+=v) if(conImmagine(k)) return k; return null; }
+async function lentePagina(i){
+  if(!conImmagine(i)) return;
+  const p=pagine[i], z=$('fbZoomImg'), box=$('fbZoom'), url=p.img.dataset.s2;
+  const giaAperta=box.classList.contains('aperta');
+  lentePag=i; lenteDa=null;
+  const et=etichetta(i), nome = i===0 ? 'Cover' : i===pagine.length-1 ? 'Back cover' : et ? 'Page '+et : 'Page '+(i+1);
+  $('fbZoomTit').textContent=`${LIB.regione} · ${nome}`;
+  $('fbZoomPrev').hidden=$('fbZoomNext').hidden=false;
+  $('fbZoomPrev').disabled=vicinaConImmagine(i,-1)==null; $('fbZoomNext').disabled=vicinaConImmagine(i,1)==null;
+  $('fbZoomHint').textContent=(p.traverso?'Shown upright · ':'')+'Tap the page to view it at full size · pinch to zoom';
+  $('fbZoomArea').classList.remove('piena');
+  z.alt=nome;
+  box.classList.add('aperta');
+  if(!giaAperta) $('fbZoomX').focus();
+  let src=url;
+  if(p.traverso){ try{ src=await ruotata(url); }catch(e){ src=url; } }
+  if(lentePag===i) z.src=src;
+}
+function lenteVicina(v){ if(lentePag==null) return; const k=vicinaConImmagine(lentePag, v); if(k!=null) lentePagina(k); }
+$('fbZoomPrev').addEventListener('click', ()=>lenteVicina(-1));
+$('fbZoomNext').addEventListener('click', ()=>lenteVicina(1));
+$('fbLente').addEventListener('click', ()=>{ const [a,b]=visibili(); lentePagina(conImmagine(a) ? a : b); });
+$('fbBook').addEventListener('dblclick', e=>{
+  if(!FISSO) return;
+  const pg=e.target.closest('.pg'), i=pagine.findIndex(p=>p.el===pg);
+  if(i>=0 && conImmagine(i)){ e.preventDefault(); lentePagina(i); }
+});
+
 function chiudiLente(){
   const z=$('fbZoomImg'), box=$('fbZoom');
   if(!box.classList.contains('aperta')) return;
+  if(lentePag!=null){ const i=lentePag; lentePag=null; box.classList.remove('aperta'); vai(i, null, true); $('fbLente').focus(); return; }
   const img=lenteDa;
   if(MOTO && z.animate && img && !$('fbZoomArea').classList.contains('piena')){
     const a=img.getBoundingClientRect(), b=z.getBoundingClientRect();
@@ -1026,6 +1210,39 @@ $('fbBook').addEventListener('click', e=>{
   }
 }, true);
 
+/* ======================================================= RICERCA
+   Solo i Flight Manual con uno strato di testo (I-CCAF: l'OCR di Acrobat che
+   sta gia' nel PDF). Il testo arriva alla prima ricerca; i risultati prendono
+   il posto dell'indice finche' la casella non e' vuota. */
+let TESTO=null, tCerca=0;
+async function cerca(q){
+  const ris=$('fbRisultati'), lista=$('fbTocList');
+  q=q.trim();
+  if(!q){ ris.hidden=true; lista.hidden=false; return; }
+  if(!TESTO){
+    try{ TESTO=await fetch(FISSO.testo).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }); }
+    catch(e){ ris.innerHTML=`<li class="vuoto">The text could not be loaded (${esc(e.message||e)}).</li>`; ris.hidden=false; lista.hidden=true; return; }
+  }
+  if($('fbCerca').value.trim()!==q) return;
+  const piatto=(x)=>x.toLowerCase();
+  const parole=piatto(q).split(/\s+/).filter(Boolean);
+  const trovate=TESTO.filter(r=>{ const t=piatto(r.t); return parole.every(w=>t.includes(w)); }).slice(0,80);
+  const rx=new RegExp('('+parole.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','gi');
+  ris.innerHTML='';
+  if(!trovate.length) ris.innerHTML=`<li class="vuoto">No page contains &ldquo;${esc(q)}&rdquo;.</li>`;
+  trovate.forEach(r=>{
+    const t=r.t, k=piatto(t).indexOf(parole[0]), da=Math.max(0,k-50), a=Math.min(t.length,k+110);
+    const pezzo=(da>0?'…':'')+t.slice(da,a)+(a<t.length?'…':'');
+    const li=document.createElement('li'), el=document.createElement('a');
+    el.href='#p='+(r.i+1);
+    el.innerHTML=`<b>Page ${esc(r.n||String(r.i+1))}</b><span>${esc(pezzo).replace(rx,'<mark>$1</mark>')}</span>`;
+    el.addEventListener('click', e=>{ e.preventDefault(); vai(r.i); if(innerWidth<1100) indice(false); });
+    li.appendChild(el); ris.appendChild(li);
+  });
+  ris.hidden=false; lista.hidden=true;
+}
+$('fbCerca').addEventListener('input', e=>{ clearTimeout(tCerca); tCerca=setTimeout(()=>cerca(e.target.value), 160); });
+
 /* ======================================================= COMANDI */
 $('fbNext').addEventListener('click', ()=>libro&&libro.gira(1));
 $('fbPrev').addEventListener('click', ()=>libro&&libro.gira(-1));
@@ -1033,7 +1250,7 @@ $('fbIndice').addEventListener('click', ()=>indice());
 $('fbTocX').addEventListener('click', ()=>indice(false));
 $('fbScrim').addEventListener('click', ()=>indice(false));
 $('fbNum').addEventListener('focus', e=>e.target.select());
-$('fbNum').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const n=parseInt(e.target.value,10); if(n) vai(n-1); e.target.blur(); } else if(e.key==='Escape') e.target.blur(); });
+$('fbNum').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const i=paginaDaTesto(e.target.value); if(i!=null) vai(i); e.target.blur(); } else if(e.key==='Escape') e.target.blur(); });
 $('fbNum').addEventListener('blur', ()=>aggiorna());
 
 function chiudi(){ if(EMBED && window.parent!==window) window.parent.postMessage({tipo:'ofp-manuale-chiudi'}, location.origin); }
@@ -1045,7 +1262,11 @@ $('fbChiudi').addEventListener('click', chiudi);
    (emil-design-eng: nessuna animazione sulle azioni da tastiera). */
 document.addEventListener('keydown', e=>{
   if(e.target.closest && e.target.closest('input,[role="slider"]')) return;
-  if($('fbZoom').classList.contains('aperta')){ if(e.key==='Escape') chiudiLente(); return; }
+  if($('fbZoom').classList.contains('aperta')){
+    if(e.key==='Escape') chiudiLente();
+    else if(lentePag!=null && (e.key==='ArrowRight'||e.key==='ArrowLeft')){ e.preventDefault(); lenteVicina(e.key==='ArrowRight'?1:-1); }
+    return;
+  }
   if(!libro) return;
   const [a,b]=visibili();
   if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); vai(b+1, null, true); }
@@ -1079,6 +1300,8 @@ function daHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   const m=/^p=(\d+)$/.exec(h);
   if(m) return {i:+m[1]-1};
+  const n=/^n=(.+)$/.exec(h);
+  if(n){ const i=paginaDaTesto(n[1]); return i==null ? null : {i}; }
   if(paginaDi[h]!=null) return {i:paginaDi[h], id:VOCI.some(v=>v.id===h)?h:null};
   return null;
 }
@@ -1087,11 +1310,31 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
 /* ======================================================= AVVIO */
 (async function(){
   const stato=$('fbStato');
-  const ripiego=(msg)=>{ stato.innerHTML=`${msg}<br><a href="data/manuale.pdf">Open the manual as PDF</a>`; };
+  if(!LIB){
+    stato.innerHTML=`This book does not exist.<br><a href="manuale.html${EMBED?'?embed=1':''}">Open the user manual</a>`;
+    $('fbScarica').hidden=true; return;
+  }
+  // il libro scelto: titolo, PDF da scaricare, nome della regione
+  document.title=LIB.doc;
+  $('fbTitolo').innerHTML=LIB.titolo;
+  $('fbStage').setAttribute('aria-label', LIB.regione);
+  $('fbScarica').href=LIB.pdf; $('fbScarica').setAttribute('download', LIB.scarica);
+  const ripiego=(msg)=>{ stato.innerHTML=`${msg}<br><a href="${esc(LIB.pdf)}">Open ${esc(LIB.nome)} as PDF</a>`; };
   if(!window.Sfoglia) return ripiego('The page-turning viewer could not load.');
   try{
     const html=await fetch(LIBRO_URL,{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); });
     const t=document.createElement('template'); t.innerHTML=html; fonte=t.content;
+    const afm=fonte.querySelector('.libro-afm');
+    if(afm){
+      FISSO=JSON.parse(afm.dataset.meta);
+      // la pagina ha le proporzioni della scansione, sul telefono come sul tablet
+      const fmt={w:600, h:Math.round(600*FISSO.h/FISSO.w), img:0, doc:0};
+      FORMATI.book=fmt; FORMATI.phone={...fmt};
+      $('fbLente').hidden=false;
+      $('fbNum').setAttribute('inputmode','decimal');
+      $('fbNum').setAttribute('aria-label','Go to page (book page or AFM page, e.g. 5-3)');
+      if(FISSO.testo) $('fbCercaBox').hidden=false;
+    }
     const slot=fonte.querySelector('.toc-slot');
     VOCI=JSON.parse(slot.dataset.voci||'[]');
     // i caratteri devono esserci prima di misurare
@@ -1099,7 +1342,7 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
     formato=scegliFormato(); F=FORMATI[formato];
     pagine=impagina();
     let aperto=false;
-    try{ aperto = innerWidth>=1100 && localStorage.getItem('ofp_manuale_indice')==='1'; }catch(e){}
+    try{ aperto = innerWidth>=1100 && localStorage.getItem(LIB.chiave)==='1'; }catch(e){}
     $('fbMain').classList.toggle('toc-open', aperto);
     $('fbIndice').setAttribute('aria-pressed', aperto?'true':'false');
     const h=daHash(); scelta=h&&h.id||null;
@@ -1107,7 +1350,7 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
     costruisci(h ? h.i : 0);
   }catch(e){
     console.error(e);
-    ripiego('Cannot open the manual ('+esc(e.message||e)+').');
+    ripiego(`Cannot open ${esc(LIB.nome)} (${esc(e.message||e)}).`);
   }
 })();
 </script>

@@ -45,7 +45,15 @@ document.documentElement.classList.add('vista-dash');
   <span class="marchio" role="img" aria-label="Aeroclub Varese"></span>
   <a href="#" id="railVoli" data-nome="Flights" aria-label="Flights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></a>
   <a href="import.html" id="railNuovo" data-nome="New flight" aria-label="New flight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
-  <a href="#" id="railManuale" data-nome="User manual" aria-label="User manual"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
+  <div class="menu-wrap manuali">
+    <a href="manuale.html" id="railManuale" data-nome="Manuals" aria-label="Manuals" aria-haspopup="true" aria-expanded="false" aria-controls="menuManuali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
+    <div class="menu" id="menuManuali" role="menu" aria-label="Manuals">
+      <button type="button" role="menuitem" data-libro="sop" data-titolo="User manual"><b>User manual</b><span>How to use OFP C172 FR</span></button>
+      <div class="sep"></div>
+      <button type="button" role="menuitem" data-libro="afm-ccaf" data-titolo="Flight Manual I-CCAF"><b>Flight Manual I-CCAF</b><span>Reims Rocket FR172J &middot; Edition 3</span></button>
+      <button type="button" role="menuitem" data-libro="afm-ccab" data-titolo="Flight Manual I-CCAB"><b>Flight Manual I-CCAB</b><span>Reims Rocket FR172H &middot; Edition 2</span></button>
+    </div>
+  </div>
   <div class="fondo">
     <button type="button" class="tema-btn" id="btnTema" aria-label="Theme" data-nome="Theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
     <div class="menu-wrap">
@@ -656,7 +664,7 @@ document.documentElement.classList.add('vista-dash');
 </div>
 
 <!-- Il manuale sta qui, sopra tutto il resto, e si apre senza lasciare la pagina. -->
-<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="User manual"></div>
+<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="Manual"></div>
 
 <script src="ofp-core.js"></script>
 <script src="rotte-acv.js"></script>
@@ -7228,39 +7236,7 @@ if($('btnEsci')) $('btnEsci').addEventListener('click',()=>{
   if(!confirm('Sign out?')) return;
   Account.esci();
 });
-/* Il manuale si apre sopra la pagina, in un riquadro (come in import.html):
-   il foglio resta com'e', anche non salvato, e chiudendo si e' dov'eravamo.
-   Il riquadro nasce al primo clic e poi resta: riaperto, il libro e' alla
-   pagina dove lo si era lasciato. Close sta dentro il libro e manda un
-   messaggio qui; Esc chiude da tutte e due le parti. Sotto Apps Script non
-   c'e' (HtmlService non serve file statici). */
-let GUIDA_DA=null;
-function apriGuida(da){
-  const velo=$('guidaVelo'); if(!velo) return;
-  if(!velo.firstChild){
-    const f=document.createElement('iframe');
-    f.src='manuale.html?embed=1'; f.title='User manual';
-    velo.appendChild(f);
-  }
-  GUIDA_DA=da||null;
-  velo.classList.add('aperta');
-  document.body.style.overflow='hidden';
-  setTimeout(()=>{ try{ velo.firstChild.contentWindow.focus(); }catch(e){} }, 50);
-}
-function chiudiGuida(){
-  const velo=$('guidaVelo'); if(!velo || !velo.classList.contains('aperta')) return;
-  velo.classList.remove('aperta');
-  document.body.style.overflow='';
-  if(GUIDA_DA && GUIDA_DA.isConnected) GUIDA_DA.focus();
-}
-window.addEventListener('message', e=>{
-  if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudiGuida();
-});
-document.addEventListener('keydown', e=>{ if(e.key==='Escape' && $('guidaVelo') && $('guidaVelo').classList.contains('aperta')) chiudiGuida(); });
-if($('railManuale')){
-  if(IS_APPS_SCRIPT) $('railManuale').style.display='none';
-  $('railManuale').addEventListener('click',e=>{ e.preventDefault(); apriGuida($('railManuale')); });
-}
+/* I manuali (rail, voce Manuals) si aprono sopra la pagina: Manuali in ofp-core.js. */
 /* "New Flight" della Dashboard e' un link vero (vedi il markup): qui si
    chiede conferma solo se nel foglio c'e' un volo aperto. */
 $('goImport').addEventListener('click',lasciaVoloAperto);

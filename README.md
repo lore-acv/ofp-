@@ -16,7 +16,12 @@ la provenienza di ogni singolo numero è in **[DATI-AFM.md](DATI-AFM.md)**.
 |---|---|
 | `index.html` | **prima pagina**: la Dashboard (volo nuovo o voli salvati) e il foglio di volo (wizard in 8 passaggi, anteprima, PDF) |
 | `import.html` | carica NavLog e briefing per un volo nuovo, poi passa al foglio di volo |
-| `manuale.html` | il manuale d'uso come e-book sfogliabile (`data/manuale/`, PDF stampabile in `data/manuale.pdf`) |
+| `manuale.html` | il visore e-book: il manuale d'uso (`data/manuale/`, PDF stampabile in `data/manuale.pdf`) e, con `?libro=afm-ccaf` / `?libro=afm-ccab`, i Flight Manual dei due aeroplani |
+| `sfoglia.js` | il motore della girata delle pagine, uno solo per tutti i libri |
+| `data/afm/` | i Flight Manual: i PDF originali (`afm-ccaf.pdf`, `afm-ccab.pdf`, quelli che si scaricano) e per ogni aeroplano `libro.html`, le pagine in WebP (`p/`) e, se il PDF ha testo, `testo.json` |
+| `tools/afm.mjs` | costruisce `data/afm/<id>/` dal PDF e dalla mappa: rasterizza ogni pagina con pdf.js in Chromium |
+| `tools/afm/<id>.json` | la mappa scritta a mano di ogni Flight Manual: sezioni, voci dell'indice, numerazione originale, pagine saltate o di traverso, retro, figure |
+| `tools/manuale.mjs` | scrive il manuale d'uso e produce `data/manuale.pdf` e `data/manuale/libro.html` |
 | `ofp-core.js` | nucleo condiviso: lettura NavLog, briefing, METAR |
 | `ofp.css` | foglio di stile condiviso dalle due pagine |
 | `login.html`, `setup.html`, `password.html`, `admin.html` | accesso, primo avvio, cambio password, gestione utenti (solo sito Cloudflare) |
@@ -461,10 +466,11 @@ npx wrangler pages dev dist --d1 DB=ofp-test --binding SETUP_TOKEN=una-chiave-lu
 ### Il manuale d'uso
 
 Il manuale e' un SOP in inglese che si legge come un e-book da `manuale.html`
-e si scarica stampabile da `data/manuale.pdf`. Si apre da **How To Use** nella
-pagina di import, in un riquadro sopra la pagina (NavLog e briefing gia'
-caricati restano li'), e dalla voce **User Manual** del menu del foglio di
-volo, in una scheda nuova. `manuale.html#p=12` apre una pagina,
+e si scarica stampabile da `data/manuale.pdf`. Si apre dalla voce **Manuals**
+della rail (Dashboard, foglio di volo e import), che offre il manuale d'uso e i
+due Flight Manual: ognuno si apre in un riquadro sopra la pagina (il volo e
+NavLog e briefing gia' caricati restano li'), e riaperto torna dove lo si era
+lasciato (`Manuali` in `ofp-core.js`). `manuale.html#p=12` apre una pagina,
 `manuale.html#s3-2` una sezione.
 
 **L'e-book non e' il PDF rimpicciolito.** Il testo (`data/manuale/libro.html`)
@@ -522,6 +528,59 @@ gia' pronto nel repo:
 npm i --no-save puppeteer-core pdfjs-dist@3.11.174
 CHROME=/percorso/chrome node tools/manuale.mjs
 ```
+
+### I Flight Manual degli aeroplani
+
+`manuale.html?libro=afm-ccaf` (Reims Rocket FR172J, Edition 3) e
+`manuale.html?libro=afm-ccab` (FR172H, Edition 2) aprono i manuali di volo
+nello stesso visore e con lo stesso motore del manuale d'uso: copertina,
+indice, linguette delle sezioni, barra a sezioni, doppia o singola pagina,
+`#p=N`, `#sN`, `?embed=1`, download del PDF. Le differenze per libro (titolo,
+file, PDF, chiave dell'indice, messaggi) sono nella tabella `LIBRI` in testa a
+`manuale.html`.
+
+**Il manuale di volo fa fede.** Niente e' riscritto o ripaginato: ogni pagina
+del libro e' una pagina dell'AFM, l'immagine della scansione, con la
+numerazione originale accanto all'indice di pagina (`58 · 5-2`); la casella
+della pagina accetta anche `5-3` e `manuale.html?libro=afm-ccab#n=5-3` apre
+quella pagina. Le bianche interne restano, cosi' le pagine dispari stanno a
+destra come sulla carta; si saltano solo le bianche in coda. Le tabelle e i
+grafici sono di traverso come nel manuale stampato (in I-CCAF erano ruotati
+nel PDF e si rimettono cosi'); la lente (pulsante nella barra o doppio tocco
+sulla pagina) mostra la pagina intera in alta risoluzione, diritta, e passa
+alle pagine accanto con le frecce. I-CCAB ha come retro quello originale
+Cessna; I-CCAF, che non ce l'ha, un cartoncino con il solo nome del manuale.
+
+Le immagini (WebP, 800 px e "retina": 1250 px per I-CCAF, la risoluzione
+della scansione, 1600 px per I-CCAB) portano width e height nel markup, cosi'
+il libro si costruisce prima che arrivino, e si caricano solo per le pagine in
+vista e le due prima e dopo, alla risoluzione che serve allo schermo. Il nome
+porta l'impronta del contenuto: si tengono in cache per sempre
+(`tools/_headers`). Passano dal cancello come ogni altro dato.
+
+| | pagine | schermo | retina | PDF | testo |
+|---|---|---|---|---|---|
+| I-CCAF | 90 | 3,8 MB | 7,1 MB | 7,4 MB | si' (OCR di Acrobat gia' nel PDF): ricerca nell'indice |
+| I-CCAB | 90 | 4,6 MB | 13,4 MB | 9,5 MB | no: scansione senza testo, niente ricerca (non si fa OCR) |
+
+Chi legge scarica solo le pagine che sfoglia, circa 50–200 kB l'una.
+
+Per ogni aeroplano la mappa `tools/afm/<id>.json` dice sezioni (numero,
+titolo, nome della linguetta, prima pagina e voci dell'indice dell'AFM con la
+loro pagina originale), pagine preliminari, pagine da saltare, da ruotare o
+stampate di traverso, numerazione originale per intervalli, retro, larghezza
+retina e dove sta ogni figura (`"5-6": "5-11"`, per i collegamenti futuri dal
+foglio di volo). I due PDF non hanno segnalibri: la mappa viene dalle
+intestazioni stampate e dall'indice delle pagine ii–v. Per rigenerare:
+
+```
+npm i --no-save puppeteer-core pdfjs-dist@3.11.174
+CHROME=/percorso/chrome node tools/afm.mjs            # tutti e due
+CHROME=/percorso/chrome node tools/afm.mjs afm-ccab   # uno solo
+```
+
+Il build controlla la mappa (pagine dentro il PDF, voci con un numero che
+esiste) e si ferma se qualcosa non torna; il deploy non costruisce nulla.
 
 ### Cosa resta fuori
 

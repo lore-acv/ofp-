@@ -1,0 +1,88 @@
+{
+  "_nota": "Mappa scritta a mano del Flight Manual di I-CCAB (vedi tools/afm.mjs). Le pagine sono quelle del PDF (1 = la prima). I numeri originali e i titoli vengono dalle intestazioni stampate e dall indice del manuale (pp. ii-v), letti sulla scansione: il PDF non ha testo. Le tabelle di traverso sono gia stampate cosi sulla pagina. La pagina 90 e il retro della copertina originale (il PDF ne mostra solo la meta sinistra).",
+  "id": "afm-ccab",
+  "aereo": "I-CCAB",
+  "titolo": "Flight Manual I-CCAB",
+  "modello": "Reims Rocket FR172H",
+  "edizione": "Edition 2 · 1971 · English translation",
+  "pdf": "data/afm/afm-ccab.pdf",
+  "scarica": "I-CCAB-Flight-Manual-FR172H-Edition-2.pdf",
+  "salta": [89],
+  "traverso": [58, 59, 60, 61, 62, 63, 65, 66, 67, 68, 85, 86, 87, 88],
+  "ruota": {},
+  "retro": 90,
+  "retina": 1600,
+  "numeri": [
+    { "da": 3, "a": 8, "num": ["i", "ii", "iii", "iv", "v", "vi"] },
+    { "da": 9, "a": 22, "num": "1-{n}" },
+    { "da": 23, "a": 30, "num": "2-{n}" },
+    { "da": 31, "a": 39, "num": "3-{n}" },
+    { "da": 41, "a": 55, "num": "4-{n}" },
+    { "da": 57, "a": 68, "num": "5-{n}" },
+    { "da": 69, "a": 88, "num": "6-{n}" }
+  ],
+  "preliminari": [
+    { "titolo": "Cover", "pagina": 1 },
+    { "titolo": "Title Page", "pagina": 3 },
+    { "titolo": "Table of Contents", "pagina": 4 },
+    { "titolo": "List of Revised Pages", "pagina": 8 }
+  ],
+  "sezioni": [
+    { "num": "I", "titolo": "General", "tab": "General", "pagina": 9, "voci": [
+      ["Notification", "1-1"], ["Documents Available", "1-1"], ["MAA Plate / Finish and Trim Plate", "1-1"],
+      ["Principal Dimensions", "1-2"], ["Description and Characteristic Dimensions", "1-3"], ["Instrument Panel", "1-5"],
+      ["Fuel System Schematic", "1-6"], ["Fuel System", "1-7"], ["Fuel Quantity Data", "1-7"], ["Electrical System", "1-8"],
+      ["Electrical System Schematic", "1-9"], ["Lighting Equipment", "1-11"],
+      ["Cabin Heating, Ventilating and Defrosting System", "1-12"], ["Shoulder Harnesses", "1-13"], ["Oil Quick-Drain Valve", "1-14"]
+    ]},
+    { "num": "II", "titolo": "Limitations", "tab": "Limits", "pagina": 23, "voci": [
+      ["Certification Basis", "2-1"], ["Airspeed Limitations", "2-1"], ["Stall Speeds – Power Off Data", "2-1"],
+      ["Airspeed Indicator Markings", "2-2"], ["Flight Load Factors at Gross Weight", "2-2"],
+      ["Maximum Gross Weight for Take-off and Landing", "2-2"], ["Center of Gravity Location", "2-2"], ["Loading Limits", "2-3"],
+      ["Maneuvers – Utility Category", "2-3"], ["Engine Operation Limitations", "2-4"], ["Crosswind Limitations", "2-4"],
+      ["Engine Instrument Markings", "2-4"], ["Flight in Icing Conditions", "2-5"],
+      ["Loading Graph and Center of Gravity Moment Envelope", "2-5"], ["Placards", "2-6"]
+    ]},
+    { "num": "III", "titolo": "Emergency Procedures", "tab": "Emergency", "pagina": 31, "voci": [
+      ["Engine Failure", "3-1"], ["Fires", "3-2"], ["Landing", "3-4"], ["Forced Landings", "3-5"],
+      ["Flight in Icing Conditions", "3-6"], ["Recovery from a Spiral Dive", "3-7"],
+      ["Electrical Power Supply System Malfunctions", "3-7"], ["Rough Engine Operation or Loss of Power", "3-8"]
+    ]},
+    { "num": "IV", "titolo": "Normal Procedures", "tab": "Normal", "pagina": 41, "voci": [
+      ["Operating Check List", "4-1"],
+      ["Before Entering the Airplane", "4-1"], ["Before Starting the Engine", "4-1"], ["Starting the Engine", "4-1"],
+      ["Exterior Inspection", "4-2"], ["Before Take-off", "4-4"], ["Take-off", "4-4"], ["Climb", "4-5"],
+      ["Cruising", "4-5"], ["Let-down", "4-5"], ["Before Landing", "4-5"], ["Balked Landing", "4-6"],
+      ["Normal Landing", "4-6"], ["After Landing", "4-6"], ["Securing Aircraft", "4-6"],
+      ["Operating Details", "4-7"],
+      ["Starting Engine", "4-7"], ["Taxiing", "4-7"], ["Taxiing Diagram", "4-8"], ["Before Take-off", "4-9"],
+      ["Take-off", "4-9"], ["Enroute Climb", "4-11"], ["Cruise", "4-11"], ["Maximum Cruise Speed Performance Data", "4-12"],
+      ["Stalls", "4-12"], ["Spins", "4-12"], ["Landing", "4-13"], ["Cold Weather Operation", "4-13"], ["Hot Weather Operation", "4-15"]
+    ]},
+    { "num": "V", "titolo": "Performance", "tab": "Perform.", "pagina": 57, "voci": [
+      ["Notification", "5-1"], ["Cruise Performance", "5-2"], ["Airspeed Correction Table", "5-7"], ["Stall Speeds Data", "5-8"],
+      ["Take-off Distance Data", "5-9"], ["Landing Distance Data", "5-10"], ["Maximum Rate-of-Climb Data", "5-11"],
+      ["Maximum Glide Data", "5-12"]
+    ]},
+    { "num": "VI", "titolo": "Appendix", "tab": "Appendix", "pagina": 69, "voci": [
+      ["Lubrication and Servicing Procedures", "6-1"], ["Servicing Intervals Check List", "6-2"],
+      ["Care of the Airplane", "6-4"],
+      ["Ground Handling", "6-4"], ["Mooring Your Airplane", "6-4"], ["Windshield – Windows", "6-4"], ["Painted Surfaces", "6-5"],
+      ["Propeller Care", "6-6"], ["Interior Care", "6-6"],
+      ["Optional Systems", "6-7"],
+      ["Auxiliary Fuel Tank System", "6-7"], ["Fuel System Schematic", "6-8"], ["Cold Weather Equipment", "6-10"],
+      ["Radio Selector Switches", "6-12"], ["Boom Microphone", "6-13"], ["Wing Leveler", "6-14"],
+      ["Weight and Balance", "6-17"],
+      ["Loading Arrangements", "6-17"], ["Sample Loading Problem", "6-18"], ["Loading Graph", "6-19"],
+      ["Center of Gravity Moment Envelope", "6-20"]
+    ]}
+  ],
+  "gruppi": ["Operating Check List", "Operating Details", "Care of the Airplane", "Optional Systems", "Weight and Balance"],
+  "figure": {
+    "1-1": "1-2", "1-2": "1-5", "1-3": "1-6", "1-4": "1-7", "1-5": "1-9",
+    "2-1": "2-1",
+    "4-1": "4-2", "4-2": "4-8", "4-3": "4-12",
+    "5-1": "5-2", "5-2": "5-7", "5-3": "5-8", "5-4": "5-9", "5-5": "5-10", "5-6": "5-11", "5-7": "5-12",
+    "6-1": "6-8", "6-2": "6-12", "6-3": "6-17", "6-4": "6-18", "6-5": "6-19", "6-6": "6-20"
+  }
+}

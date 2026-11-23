@@ -1336,3 +1336,77 @@ function initRail(){
   });
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initRail); else initRail();
+
+/* ===== I manuali, sopra la pagina =====
+   La voce Manuals della rail apre un piccolo menu: il manuale d'uso e i
+   Flight Manual dei due aeroplani. Ognuno si apre sopra la pagina in un
+   riquadro (manuale.html?embed=1&libro=...): il foglio resta com'e', anche
+   non salvato, e chiudendo si e' dov'eravamo. Ogni libro ha il suo riquadro,
+   che nasce al primo clic — chi non apre un manuale non lo scarica — e poi
+   resta: riaperto, il libro e' alla pagina dove lo si era lasciato.
+   Close sta dentro il libro e manda un messaggio qui; Esc chiude da tutte e
+   due le parti. Sotto Apps Script non c'e' (HtmlService non serve file
+   statici). Il menu si comporta come quello della rail (ofp.css, .menu). */
+const Manuali=(function(){
+  let da=null;
+  const velo=()=>document.getElementById('guidaVelo');
+  function apri(libro, nome, origine){
+    const v=velo(); if(!v) return;
+    let f=[...v.querySelectorAll('iframe')].find(x=>x.dataset.libro===libro);
+    if(!f){
+      f=document.createElement('iframe'); f.dataset.libro=libro; f.title=nome;
+      f.src='manuale.html?embed=1'+(libro && libro!=='sop' ? '&libro='+encodeURIComponent(libro) : '');
+      v.appendChild(f);
+    }
+    v.querySelectorAll('iframe').forEach(x=>{ x.hidden = x!==f; });
+    v.setAttribute('aria-label', nome);
+    da=origine||null;
+    v.classList.add('aperta');
+    document.body.style.overflow='hidden';     // dietro non si scorre
+    setTimeout(()=>{ try{ f.contentWindow.focus(); }catch(e){} }, 50);
+  }
+  function chiudi(){
+    const v=velo(); if(!v || !v.classList.contains('aperta')) return;
+    v.classList.remove('aperta');
+    document.body.style.overflow='';
+    if(da && da.isConnected) da.focus();
+  }
+  function init(){
+    const btn=document.getElementById('railManuale'), menu=document.getElementById('menuManuali');
+    if(!btn || btn.dataset.pronto) return;
+    btn.dataset.pronto='1';
+    if(typeof google!=='undefined' && google.script && google.script.run){ (btn.closest('.menu-wrap')||btn).style.display='none'; return; }
+    const chiudiMenu=()=>{ if(!menu) return; menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+    btn.addEventListener('click', e=>{
+      e.preventDefault(); e.stopPropagation();
+      if(!menu){ apri('sop','User manual',btn); return; }
+      const open=!menu.classList.contains('open');
+      menu.classList.toggle('open', open); btn.setAttribute('aria-expanded', open?'true':'false');
+      if(open){ const b=menu.querySelector('button'); if(b && e.detail===0) b.focus(); }   // da tastiera il fuoco entra nel menu
+    });
+    if(menu){
+      menu.addEventListener('click', e=>{
+        const b=e.target.closest('button[data-libro]'); if(!b) return;
+        chiudiMenu(); apri(b.dataset.libro, b.dataset.titolo || b.textContent.trim(), btn);
+      });
+      menu.addEventListener('keydown', e=>{
+        if(e.key!=='ArrowDown' && e.key!=='ArrowUp') return;
+        const bb=[...menu.querySelectorAll('button')], i=bb.indexOf(document.activeElement);
+        e.preventDefault(); bb[(i+(e.key==='ArrowDown'?1:-1)+bb.length)%bb.length].focus();
+      });
+      document.addEventListener('click', e=>{ if(!menu.contains(e.target) && e.target!==btn) chiudiMenu(); });
+    }
+    window.addEventListener('message', e=>{
+      if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudi();
+    });
+    document.addEventListener('keydown', e=>{
+      if(e.key!=='Escape') return;
+      if(menu && menu.classList.contains('open')){ chiudiMenu(); btn.focus(); }
+      else chiudi();
+    });
+  }
+  if(typeof document!=='undefined'){
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+  }
+  return {apri, chiudi};
+})();

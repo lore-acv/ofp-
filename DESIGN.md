@@ -473,9 +473,19 @@ dell'interfaccia, la carta resta carta in entrambi i temi.
   le copie sono dipinte alla scala dello schermo, il libro sta su pixel
   interi, e la parte distesa e' ritagliata dalla piega senza rotazioni. Tastiera senza animazione;
   "riduci movimento" solo dissolvenze.
-- **Apertura:** dall'app il manuale si apre sopra la pagina, in un riquadro
+- **Apertura:** dall'app i manuali si aprono sopra la pagina, in un riquadro
   (`manuale.html?embed=1`), mai in una scheda nuova: il foglio resta com'e' e
-  Close o Esc riportano dov'eravamo.
+  Close o Esc riportano dov'eravamo. La voce Manuals della rail apre il menu
+  dei libri (lo stesso popover del menu della rail, verso il basso): nome e,
+  sotto, il documento in grigio.
+- **Flight Manual** (`?libro=afm-ccaf`, `afm-ccab`): stessa cornice, stesso
+  libro, ma la pagina e' la scansione dell'AFM intera, senza intestazioni ne'
+  piedi aggiunti, con sopra solo l'ombra della piega. Il numero stampato
+  sull'AFM (5-3) sta nella barra accanto al numero di pagina, dopo un punto
+  medio, e nella colonna delle pagine dell'indice. Lente sulla pagina intera
+  (pulsante nella barra, doppio tocco), le pagine di traverso diritte. Il
+  retro aggiunto dove l'AFM non ce l'ha e' un cartoncino neutro (#ebe6dc) con
+  il solo nome del manuale.
 
 ### Rotta AV
 La rotta dell'aeroclub resta solo nella pagina di accesso, disegnata una

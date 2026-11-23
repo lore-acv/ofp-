@@ -40,6 +40,15 @@
 /data/*
   Cache-Control: private, max-age=3600, stale-while-revalidate=604800
 
+# Le pagine dei Flight Manual (tools/afm.mjs) portano nel nome l'impronta del
+# contenuto: un nome non cambia mai contenuto, si tengono per sempre. Restano
+# "private" come il resto dei dati. Il "!" toglie il Cache-Control di /data/*
+# (deve stare dopo quella regola: le regole si applicano in ordine),
+# che altrimenti si sommerebbe a questo. Un solo asterisco per regola.
+/data/afm/*.webp
+  ! Cache-Control
+  Cache-Control: private, max-age=31536000, immutable
+
 /rotta-av.*.js
   Cache-Control: public, max-age=31536000, immutable
 
