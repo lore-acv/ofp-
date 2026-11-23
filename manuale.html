@@ -492,6 +492,34 @@
   .fb-ris .vuoto{padding:.6rem;color:var(--txt-dim);font-size:13px}
   .fb-zoom-area img.ruotata{cursor:zoom-in}
 
+  /* ===================== ANTEPRIMA RICOSTRUITA (non fa fede) ===================== */
+  /* La pagina ricostruita e' un SVG a misura fissa sopra la pagina bianca; la
+     scansione originale sta sopra, invisibile, e si vede solo nella modalita'
+     confronto (opacita' a cursore, o differenza). La fascia "non fa fede" sta
+     nel margine alto di ogni pagina. */
+  .fb-rec{color:#b42318;font-weight:600}
+  .pg.afm .rec-svg{position:absolute;left:0;top:0;width:100%;height:100%;display:block;overflow:visible}
+  .rec-svg text{fill:#161616;white-space:pre}
+  .rec-svg line{stroke:#161616} .rec-svg rect,.rec-svg polygon,.rec-svg path,.rec-svg circle{fill:#161616}
+  .pg.afm.rec .rec-orig{opacity:0;pointer-events:none}
+  #fbBook.confronto .pg.afm.rec .rec-orig{opacity:var(--orig,.5)}
+  #fbBook.confronto.diff .pg.afm.rec .rec-orig{opacity:1;mix-blend-mode:difference}
+  .pg.afm .rec-fascia{position:absolute;left:7%;right:7%;top:1.4%;z-index:2;pointer-events:none;
+    font:600 max(9.5px, calc(11px * var(--k,1)))/1.35 Inter,system-ui,sans-serif;letter-spacing:.03em;text-align:center;color:#9b1c13;
+    background:rgba(253,236,232,.94);border:1px solid rgba(180,35,24,.35);border-radius:calc(3px * var(--k,1));padding:calc(3px * var(--k,1)) calc(6px * var(--k,1))}
+  .pg.afm .rec-fascia small{display:block;font-weight:500;color:#5b6470;letter-spacing:.02em}
+  .fb-conf-wrap{position:relative}
+  .fb-conf-wrap[hidden]{display:none}
+  .fb-conf-pan{position:absolute;right:0;top:calc(100% + 8px);z-index:60;width:17rem;box-sizing:border-box;padding:.75rem .85rem;
+    background:var(--panel-2);border:1px solid var(--panel-line);border-radius:var(--r-sm);box-shadow:var(--ombra-pop);font-size:13px;color:var(--txt)}
+  .fb-conf-pan[hidden]{display:none}
+  .fb-conf-r{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.5rem;font-size:12px;color:var(--txt-dim)}
+  .fb-conf-r input{width:100%;accent-color:var(--accent-2);min-height:var(--tap)}
+  .fb-conf-c{display:flex;align-items:center;gap:.5rem;margin-top:.35rem;min-height:var(--tap)}
+  .fb-conf-c input{width:18px;height:18px;accent-color:var(--accent-2)}
+  .fb-conf-pan p{margin:.35rem 0 0;font-size:12px;color:var(--txt-faint)}
+  .fb-conf-pan kbd{font:600 11px var(--mono);padding:1px 5px;border:1px solid var(--panel-line);border-radius:4px;color:var(--txt-dim)}
+
   /* il banco di misura: fuori dallo schermo, alla misura logica */
   #fbMisura{position:absolute;left:-10000px;top:0;visibility:hidden;pointer-events:none}
   #fbMisura .pg{position:relative;width:var(--pw);height:var(--ph)}
@@ -520,6 +548,15 @@
   <div class="fb-pag"><label for="fbNum" class="fb-solo-largo">Page</label>
     <input id="fbNum" type="text" inputmode="numeric" enterkeyhint="go" autocomplete="off" aria-label="Go to page"><span id="fbTot">of –</span><span class="fb-orig" id="fbOrig" hidden></span></div>
   <span class="fb-sep"></span>
+  <div class="fb-conf-wrap" id="fbConfWrap" hidden>
+    <button type="button" class="fb-ico" id="fbConfronto" aria-pressed="false" aria-controls="fbConfPan" aria-label="Compare with the original" title="Compare with the original (O)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="11" height="15" rx="1.5"/><path d="M9.5 4.5h9.5a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H9.5"/></svg></button>
+    <div class="fb-conf-pan" id="fbConfPan" role="group" aria-label="Compare with the original" hidden>
+      <label class="fb-conf-r"><span>Reconstructed</span><input type="range" id="fbConfOp" min="0" max="100" step="1" value="50" aria-label="Opacity of the original scan"><span>Original</span></label>
+      <label class="fb-conf-c"><input type="checkbox" id="fbConfDiff"> Difference (identical ink turns black)</label>
+      <p>Press <kbd>O</kbd> to switch between the original and the reconstruction.</p>
+    </div>
+  </div>
   <button type="button" class="fb-ico" id="fbLente" aria-label="Enlarge page" title="Enlarge page" hidden>
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></button>
   <a class="fb-ico" id="fbScarica" href="data/manuale.pdf" download="OFP-C172-FR-SOP-User-Manual.pdf" aria-label="Download printable PDF" title="Download printable PDF">
@@ -580,6 +617,9 @@ const LIBRI={
         pdf:'data/manuale.pdf', scarica:'OFP-C172-FR-SOP-User-Manual.pdf', chiave:'ofp_manuale_indice', nome:'the manual' },
   'afm-ccaf':{ url:'data/afm/afm-ccaf/libro.html', titolo:'Flight Manual &middot; I-CCAF', doc:'I-CCAF — Flight Manual FR172J', regione:'Flight Manual I-CCAF',
         pdf:'data/afm/afm-ccaf.pdf', scarica:'I-CCAF-Flight-Manual-FR172J-Edition-3.pdf', chiave:'ofp_afm_ccaf_indice', nome:'the I-CCAF Flight Manual' },
+  /* ANTEPRIMA RICOSTRUITA (tools/afm-rec): non fa fede, nessun link dall'app */
+  'afm-ccaf-rec':{ url:'data/afm-rec/afm-ccaf/libro.html', titolo:'Flight Manual &middot; I-CCAF &middot; <span class="fb-rec">reconstructed preview</span>', doc:'I-CCAF — Flight Manual FR172J (reconstructed preview, not authoritative)', regione:'Flight Manual I-CCAF, reconstructed preview',
+        pdf:'data/afm/afm-ccaf.pdf', scarica:'I-CCAF-Flight-Manual-FR172J-Edition-3.pdf', chiave:'ofp_afm_ccaf_rec_indice', nome:'the I-CCAF Flight Manual' },
   'afm-ccab':{ url:'data/afm/afm-ccab/libro.html', titolo:'Flight Manual &middot; I-CCAB', doc:'I-CCAB — Flight Manual FR172H', regione:'Flight Manual I-CCAB',
         pdf:'data/afm/afm-ccab.pdf', scarica:'I-CCAB-Flight-Manual-FR172H-Edition-2.pdf', chiave:'ofp_afm_ccab_indice', nome:'the I-CCAB Flight Manual' }
 };
@@ -853,8 +893,13 @@ function impaginaFisso(){
   const out=[];
   [...fonte.querySelectorAll('.libro-afm > .pg-afm')].forEach(s=>{
     const pg=document.createElement('div');
-    pg.className='pg afm'+(s.classList.contains('generato')?' retro-gen':'');
+    pg.className='pg afm'+(s.classList.contains('generato')?' retro-gen':'')+(s.classList.contains('rec')?' rec':'');
     pg.innerHTML=s.innerHTML;
+    // l'anteprima ricostruita: la fascia "non fa fede" su ogni pagina
+    if(FISSO.rec){
+      const nota=pg.querySelector('.rec-nota'); if(nota) nota.remove();
+      pg.insertAdjacentHTML('beforeend', `<div class="rec-fascia" aria-hidden="true">RECONSTRUCTED PREVIEW — NOT AUTHORITATIVE · refer to the original Flight Manual${s.classList.contains('rec-no')?'<small>Not yet reconstructed: this page is the original scan</small>':''}</div>`);
+    }
     const img=pg.querySelector('img');
     if(img){ img.draggable=false; img.decoding='async'; }
     out.push({el:pg, n:s.dataset.n||'', traverso:s.classList.contains('traverso'), img, bianca:s.classList.contains('bianca')});
@@ -890,6 +935,7 @@ function risoluzione(){
 }
 function caricaPagina(i){
   const p=pagine[i]; if(!p || !p.img) return;
+  if(p.el.classList.contains('rec') && !$('fbBook').classList.contains('confronto')) return;   // la scansione serve solo per il confronto
   const liv=risoluzione(), ora=+(p.img.dataset.liv||0);
   if(ora>=liv) return;
   p.img.src=p.img.dataset['s'+liv]; p.img.dataset.liv=liv;
@@ -1254,6 +1300,29 @@ async function cerca(q){
 }
 $('fbCerca').addEventListener('input', e=>{ clearTimeout(tCerca); tCerca=setTimeout(()=>cerca(e.target.value), 160); });
 
+/* ======================================================= CONFRONTO
+   Solo l'anteprima ricostruita: la scansione originale sopra la pagina
+   ricostruita, con l'opacita' a cursore o in differenza (inchiostro uguale
+   = nero). O passa dall'originale alla ricostruita e ritorno. */
+function confronto(si){
+  const b=$('fbBook'); si = si===undefined ? !b.classList.contains('confronto') : si;
+  b.classList.toggle('confronto', si);
+  $('fbConfronto').setAttribute('aria-pressed', si?'true':'false');
+  $('fbConfPan').hidden=!si;
+  b.style.setProperty('--orig', ($('fbConfOp').value/100).toFixed(2));
+  if(si) caricaIntorno();
+}
+$('fbConfronto').addEventListener('click', ()=>confronto());
+$('fbConfOp').addEventListener('input', e=>$('fbBook').style.setProperty('--orig', (e.target.value/100).toFixed(2)));
+$('fbConfDiff').addEventListener('change', e=>$('fbBook').classList.toggle('diff', e.target.checked));
+document.addEventListener('keydown', e=>{
+  if(!FISSO || !FISSO.rec || e.key.toLowerCase()!=='o' || e.metaKey || e.ctrlKey || e.altKey) return;
+  if(e.target.closest && e.target.closest('input[type="text"],input[type="search"]')) return;
+  if(!$('fbBook').classList.contains('confronto')) confronto(true);
+  const r=$('fbConfOp'); r.value = +r.value>=50 ? 0 : 100;
+  $('fbBook').style.setProperty('--orig', (r.value/100).toFixed(2));
+});
+
 /* ======================================================= COMANDI */
 $('fbNext').addEventListener('click', ()=>libro&&libro.gira(1));
 $('fbPrev').addEventListener('click', ()=>libro&&libro.gira(-1));
@@ -1336,6 +1405,8 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
     const html=await fetch(LIBRO_URL,{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); });
     const t=document.createElement('template'); t.innerHTML=html; fonte=t.content;
     const afm=fonte.querySelector('.libro-afm');
+    // i font e le regole del libro (l'anteprima ricostruita ne porta)
+    fonte.querySelectorAll('style[data-libro]').forEach(st=>document.head.appendChild(st));
     if(afm){
       FISSO=JSON.parse(afm.dataset.meta);
       // la pagina ha le proporzioni della scansione, sul telefono come sul tablet
@@ -1345,6 +1416,7 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
       $('fbNum').setAttribute('inputmode','decimal');
       $('fbNum').setAttribute('aria-label','Go to page (book page or AFM page, e.g. 5-3)');
       if(FISSO.testo) $('fbCercaBox').hidden=false;
+      if(FISSO.rec){ $('fbConfWrap').hidden=false; $('fbScarica').setAttribute('aria-label','Download the original Flight Manual (PDF)'); $('fbScarica').title='Download the original Flight Manual (PDF)'; }
     }
     const slot=fonte.querySelector('.toc-slot');
     VOCI=JSON.parse(slot.dataset.voci||'[]');

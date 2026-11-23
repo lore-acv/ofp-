@@ -1,0 +1,105 @@
+{
+  "_nota": "Differenze dell'OCR chiuse guardando la scansione: il valore e' quello letto a vista sull'originale (e scritto nella ricostruita). riga e x come nel rapporto.",
+  "2-1": {
+    "letti": [
+      {
+        "riga": 247,
+        "x": 964,
+        "valore": "2-1",
+        "come": "ritaglio OCR troppo stretto; a vista: 2-1"
+      },
+      {
+        "riga": 716,
+        "x": 688,
+        "valore": "FR172J",
+        "come": "OCR legge FRI72); a vista: FR172J"
+      },
+      {
+        "riga": 748,
+        "x": 651,
+        "valore": "A18EU.",
+        "come": "OCR legge AI8EU.; a vista: A18EU. (e cosi' nel manuale FR172H a 600 dpi)"
+      },
+      {
+        "riga": 1497,
+        "x": 498,
+        "valore": "20",
+        "come": "OCR legge 90 (il 2 tocca il filetto); a vista: FLAPS 20°",
+        "seconda": "DATI-AFM.md: stallo flap UP / 20° / 40°"
+      },
+      {
+        "riga": 1562,
+        "x": 497,
+        "valore": "40",
+        "come": "a vista: FLAPS 40°",
+        "seconda": "DATI-AFM.md: stallo flap UP / 20° / 40°"
+      }
+    ],
+    "dati": [
+      "Vne 298 km/h · 161 kts · 185 MPH, Vno 235 · 127 · 146, Vfe 161 · 87 · 100: nessuna tabella del progetto da confrontare (il progetto usa le velocita' di prestazione, non queste).",
+      "Vp 190 km/h · 104 kts · 118 MPH = DATI-AFM.md, 'VA' FR172J: 190 km/h, 104 kt, 118 MPH ✓",
+      "Stallo a 1157 kg, flap UP / 20° / 40°: 61 / 55 / 53 MPH = DATI-AFM.md (tabella delle differenze FR172J/FR172H) ✓; 98/89/85 km/h e 53/48/46 kts coerenti con le MPH (1 MPH = 1,609 km/h = 0,869 kt) ✓",
+      "GROSS WEIGHT 1157 kg = massa massima del progetto (DATI-AFM.md) ✓"
+    ]
+  },
+  "5-12": {
+    "letti": [
+      {
+        "riga": 328,
+        "x": 297,
+        "valore": "5-12",
+        "come": "ritaglio OCR corto; a vista: Page: 5-12",
+        "seconda": "numerazione della mappa (tools/afm/afm-ccaf.json: pagina 68 del PDF = 5-12)"
+      },
+      {
+        "riga": 378,
+        "x": 205,
+        "valore": "12000",
+        "come": "OCR legge 712000 (prende il filetto); a vista: 12000",
+        "seconda": "sequenza dell'asse: 2000-10000 lette da Tesseract a passo 2000, 12000 sulla linea piu' alta"
+      },
+      {
+        "riga": 840,
+        "x": 276,
+        "valore": "0",
+        "come": "OCR legge O; a vista: 0",
+        "seconda": "sequenza dell'asse: 10-20-30-40 lette da Tesseract a passo 10"
+      },
+      {
+        "riga": 944,
+        "x": 709,
+        "valore": "5-7.",
+        "come": "OCR legge 3-7.; a vista: Figure 5-7.",
+        "seconda": "indice della mappa (figure: 5-7 a pagina 5-12) e DATI-AFM.md (fig. 5-7, V best glide)"
+      },
+      {
+        "riga": 359,
+        "x": 323,
+        "valore": "3",
+        "come": "a vista: Edition: 3"
+      },
+      {
+        "riga": 451,
+        "x": 204,
+        "valore": "10000",
+        "come": "a vista: asse delle quote, 10000"
+      },
+      {
+        "riga": 674,
+        "x": 213,
+        "valore": "4000",
+        "come": "a vista: asse delle quote, 4000"
+      },
+      {
+        "riga": 751,
+        "x": 211,
+        "valore": "2000",
+        "come": "a vista: asse delle quote, 2000"
+      }
+    ],
+    "dati": [
+      "SPEED VI 137 km/h - 74 kts - 85 MPH: V best glide 85 MPH = DATI-AFM.md e index.html (AFM_SPEEDS.glide, fig. 5-7) ✓; 85 MPH = 136,8 km/h = 73,9 kt ✓",
+      "La fascia di planata (distanza per quota) non ha valori nel progetto: non c'e' un dato indipendente con cui controllare la curva; e' ricalcata punto per punto sulla scansione (vedi metodo della figura)."
+    ]
+  }
+}

@@ -31,6 +31,7 @@ const DA_PUBBLICARE = [
   ['data/manuale.pdf',    'data/manuale.pdf'],
   ['data/manuale',        'data/manuale'],          // e-book: testo, figure, font
   ['data/afm',            'data/afm'],              // Flight Manual degli aeroplani: PDF, pagine, testo (tools/afm.mjs)
+  ['data/afm-rec',        'data/afm-rec'],          // ANTEPRIMA ricostruita dei Flight Manual (tools/afm-rec), non fa fede
   ['fonts',               'fonts'],                 // Public Sans e JetBrains Mono dell'interfaccia
   ['favicon.svg',         'favicon.svg'],           // il logo dell'aeroclub, icona del sito
   ['apple-touch-icon.png','apple-touch-icon.png'],

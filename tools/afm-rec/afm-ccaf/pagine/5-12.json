@@ -1,0 +1,30 @@
+{
+  "pdf": 68,
+  "n": "5-12",
+  "w": 1762,
+  "h": 1250,
+  "rot": -90,
+  "stato": "campione",
+  "figure": [{"figura": "Figura 5-7 (Maximum glide)", "metodo": "cornice e griglia: filetti SVG misurati; fascia di planata: 689 punti della retinatura ridisegnati uno per uno nella posizione misurata sulla scansione, piu' 117 punti ricavati dal reticolo locale solo dove si fondono con i filetti della griglia; aeroplano: disegno al tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto i filetti e i punti che lo attraversano (tools/afm-rec/afm-ccaf/figure/fig-5-7.py); scritte: testo vero, misurato parola per parola."}],
+  "el": [
+    ["riga", "testo", 152, [[532, "Flight", 47], [586, "Manual", 58]], {"libro": true}],
+    ["riga", "testo", 184, [[532, "Reims", 48], [589, "Rocket", 57]], {"libro": true}],
+    ["riga", "testo", 328, [[240, "Page:", 40], [297, "5-12", 34], [770, "Reims", 49], [827, "Aviation", 68]], {"libro": true}],
+    ["riga", "testo", 359, [[240, "Edition:", 65], [323, "3", 9], [770, "Reims,", 54], [832, "Marne", 49], [889, "France", 54]], {"libro": true}],
+    ["svgfile", "figure/fig-5-7.svg"],
+    ["riga", "grafico", 281, [[735, "SPEED", 79], [826, "VI:", 33], [909, "137", 38], [961, "km/h", 56], [1030, "-", 5], [1046, "74", 27], [1086, "kts", 30], [1127, "-", 5], [1144, "85", 26], [1183, "MPH", 52]]],
+    ["riga", "grafico", 307, [[263, "MAXIMUM", 124], [400, "GLIDE", 76]]],
+    ["riga", "grafico", 317, [[737, "PROPELLER", 148], [897, "WINDMILLING", 181]]],
+    ["riga", "grafico", 352, [[737, "FLAPS", 77], [826, "UP", 30], [907, "ZERO", 69], [988, "WIND", 67]]],
+    ["riga", "grafico", 378, [[205, "12000", 67]]],
+    ["riga", "grafico", 451, [[204, "10000", 67]]],
+    ["riga", "grafico", 524, [[214, "8000", 55]]],
+    ["riga", "grafico", 600, [[214, "6000", 55]]],
+    ["riga", "grafico", 674, [[213, "4000", 56]]],
+    ["riga", "grafico", 751, [[211, "2000", 55]]],
+    ["riga", "grafico", 840, [[276, "0", 13], [523, "10", 24], [779, "20", 27], [1038, "30", 27], [1291, "40", 26]]],
+    ["riga", "grafico", 874, [[639, "GROUND", 111], [765, "DISTANCE", 126], [905, "(km)", 50]]],
+    ["riga", "grafico", 159, [[741, "HEIGHT", 71], [662, "ABOVE", 63], [589, "TERRAIN", 83], [495, "(FEET)", 58]], {"ang": -90, "c": 17}],
+    ["riga", "testo", 944, [[628, "Figure", 68], [709, "5-7.", 39]], {"c": 13}]
+  ]
+}

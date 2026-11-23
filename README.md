@@ -583,6 +583,54 @@ CHROME=/percorso/chrome node tools/afm.mjs afm-ccab   # uno solo
 Il build controlla la mappa (pagine dentro il PDF, voci con un numero che
 esiste) e si ferma se qualcosa non torna; il deploy non costruisce nulla.
 
+### Flight Manual ricostruiti — ANTEPRIMA, non fanno fede
+
+In parallelo agli e-book ufficiali (che restano le immagini delle pagine
+originali e non si toccano), `manuale.html?libro=afm-ccaf-rec` mostra il
+manuale **ricomposto in digitale**: stesso testo, stessa impaginazione, stessi
+numeri di pagina e di figura, testo vero (selezionabile, ricercabile, nitido a
+ogni ingrandimento) e figure vettoriali. Nessun link dall'app: ci si arriva solo
+con l'indirizzo. Ogni pagina porta la fascia "RECONSTRUCTED PREVIEW — NOT
+AUTHORITATIVE". Le pagine non ancora ricostruite mostrano la scansione.
+
+**Pagina per pagina, non a flusso.** Ogni pagina e' un SVG a misura fissa nelle
+coordinate della scansione retina: ogni parola sta sulla sua linea di base, dove
+sta nell'originale, larga quanto la parola misurata sulla scansione (la
+spaziatura fra le lettere e l'origine si calcolano in Chromium con il font
+vero; nei titoli spaziati a mano ogni lettera e' posizionata da sola). Niente
+va a capo da solo.
+
+**Modalita' confronto** (pulsante nella barra o tasto O): la scansione
+originale sopra la ricostruita, con un cursore di trasparenza o in
+differenza (dove coincidono resta nero); O passa dall'una all'altra.
+
+| File | Cosa contiene |
+|---|---|
+| `tools/afm-rec/<id>/pagine/<n>.json` | una pagina: righe (ruolo, linea di base, parole con x e larghezza misurate), filetti, poligoni, figure |
+| `tools/afm-rec/<id>/stile.json` | i font dei ruoli (testo, titolo, tabella, grafico): famiglia, corpo (altezza delle maiuscole), larghezza del disegno |
+| `tools/afm-rec/<id>/figure/` | lo script di ogni figura e il suo SVG (retinature punto per punto, disegni al tratto con potrace) |
+| `tools/afm-rec/<id>/controlli.json` | i numeri controllati a vista dove l'OCR sbaglia, con la seconda conferma; i confronti con DATI-AFM.md |
+| `tools/afm-rec/font/` | i font liberi scelti (woff2, licenza OFL) |
+| `tools/afm-rec/bozza.py` | prima bozza di una pagina dalla scansione (Tesseract, filetti, puntini guida), da correggere a mano |
+| `tools/afm-rec/misura.py` | misura sulla scansione dove comincia e finisce ogni parola (e ogni lettera dei titoli) |
+| `tools/afm-rec/rec.mjs` | costruisce `data/afm-rec/<id>/libro.html` |
+| `tools/afm-rec/verifica.mjs` | il controllo: righe, macchie, numeri (due letture), e scrive `tools/afm-rec/VERIFICA.md` |
+| `tools/afm-rec/calibra.mjs`, `font-prova.mjs`, `font-confronto.mjs` | taratura dei font e proposta dei font a confronto |
+| `tools/afm-rec/NOTE.md` | cio' che nell'originale non si corregge, e le decisioni su cio' che non e' stampa |
+
+Per rifare una pagina (servono tesseract, potrace, PyMuPDF, Pillow, numpy e i
+due pacchetti npm del manuale):
+
+```
+/usr/bin/python3 tools/afm-rec/bozza.py afm-ccaf 23        # bozza della pagina 23 del PDF, da correggere
+/usr/bin/python3 tools/afm-rec/misura.py afm-ccaf 2-1      # misure delle parole sulla scansione
+CHROME=/percorso/chrome node tools/afm-rec/rec.mjs afm-ccaf
+CHROME=/percorso/chrome node tools/afm-rec/verifica.mjs afm-ccaf
+```
+
+Stato: tre pagine campione di I-CCAF (1-13 testo, 2-1 tabella, 5-12 grafico),
+verificate; il resto dopo la scelta dei font.
+
 ### Cosa resta fuori
 
 jsPDF e pdf.js arrivano ancora da cdnjs. Vanno spostati in casa quando si fara'

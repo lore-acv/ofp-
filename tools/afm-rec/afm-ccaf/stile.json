@@ -1,0 +1,55 @@
+{
+  "_nota": "Font e misure della ricostruzione di I-CCAF (tools/afm-rec/rec.mjs). Misure in px dell'immagine retina (1250 px di larghezza). c = altezza delle maiuscole sulla scansione; capRatio = altezza delle maiuscole del font per 1 em; sx = larghezza del disegno (la scansione di I-CCAF e' compressa in orizzontale); spazio = spaziatura fra le lettere in em. PROVVISORIO: i font si scelgono dopo il confronto (font-confronto.mjs); c e sx tarati sulla pagina 2-1 con font-confronto (combinazione A).",
+  "font": {
+    "serif": {
+      "famiglia": "STIX Two Text",
+      "file": "stix-two-text-latin-400-normal.woff2",
+      "peso": 400
+    },
+    "sans": {
+      "famiglia": "Archivo",
+      "file": "archivo-latin-standard-normal.woff2",
+      "peso": "100 900",
+      "larghezza": "62% 125%"
+    }
+  },
+  "ruoli": {
+    "testo": {
+      "font": "serif",
+      "classe": "rt",
+      "c": 18.5,
+      "capRatio": 0.672,
+      "sx": 0.64,
+      "spazio": 0.0425
+    },
+    "titolo": {
+      "font": "sans",
+      "classe": "rh",
+      "peso": 700,
+      "c": 20.5,
+      "capRatio": 0.6875,
+      "sx": 0.7,
+      "spazio": 0.035,
+      "lettere": true
+    },
+    "tabella": {
+      "font": "sans",
+      "classe": "rb",
+      "peso": 400,
+      "c": 18,
+      "capRatio": 0.6875,
+      "sx": 0.635,
+      "spazio": 0.0425
+    },
+    "grafico": {
+      "font": "sans",
+      "classe": "rg",
+      "peso": 400,
+      "c": 14,
+      "capRatio": 0.6875,
+      "sx": 0.85,
+      "spazio": 0.08,
+      "coda": 0.4
+    }
+  }
+}

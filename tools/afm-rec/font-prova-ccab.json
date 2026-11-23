@@ -1,0 +1,774 @@
+{
+ "sintesi": [
+  {
+   "ruolo": "tabelle",
+   "font": "Archivo",
+   "iou": 0.489,
+   "iou1": 0.85,
+   "sx": 0.87,
+   "ls": 0.025,
+   "corpo": 32.29
+  },
+  {
+   "ruolo": "tabelle",
+   "font": "Arimo",
+   "iou": 0.473,
+   "iou1": 0.859,
+   "sx": 0.855,
+   "ls": 0.036,
+   "corpo": 32.74
+  },
+  {
+   "ruolo": "tabelle",
+   "font": "Public Sans",
+   "iou": 0.45,
+   "iou1": 0.816,
+   "sx": 0.907,
+   "ls": 0.043,
+   "corpo": 31
+  },
+  {
+   "ruolo": "testo",
+   "font": "STIX Two Text",
+   "iou": 0.485,
+   "iou1": 0.921,
+   "sx": 0.902,
+   "ls": 0.043,
+   "corpo": 30.56
+  },
+  {
+   "ruolo": "testo",
+   "font": "Source Serif 4",
+   "iou": 0.455,
+   "iou1": 0.907,
+   "sx": 0.897,
+   "ls": 0.01,
+   "corpo": 29.07
+  },
+  {
+   "ruolo": "testo",
+   "font": "Tinos",
+   "iou": 0.442,
+   "iou1": 0.885,
+   "sx": 0.936,
+   "ls": 0.05,
+   "corpo": 31.06
+  },
+  {
+   "ruolo": "titoli",
+   "font": "Archivo Expanded 600",
+   "iou": 0.477,
+   "iou1": 0.708,
+   "sx": 0.722,
+   "ls": 0.019,
+   "corpo": 43.61
+  },
+  {
+   "ruolo": "titoli",
+   "font": "Archivo Expanded",
+   "iou": 0.472,
+   "iou1": 0.708,
+   "sx": 0.718,
+   "ls": 0.016,
+   "corpo": 43.61
+  },
+  {
+   "ruolo": "titoli",
+   "font": "Montserrat",
+   "iou": 0.471,
+   "iou1": 0.71,
+   "sx": 0.914,
+   "ls": 0.019,
+   "corpo": 42.44
+  },
+  {
+   "ruolo": "titoli",
+   "font": "Encode Sans Expanded",
+   "iou": 0.449,
+   "iou1": 0.686,
+   "sx": 0.888,
+   "ls": 0.016,
+   "corpo": 41.32
+  },
+  {
+   "ruolo": "titoli",
+   "font": "Montserrat 600",
+   "iou": 0.427,
+   "iou1": 0.681,
+   "sx": 0.912,
+   "ls": 0.006,
+   "corpo": 43.61
+  },
+  {
+   "ruolo": "titoli",
+   "font": "Encode Sans Expanded 600",
+   "iou": 0.418,
+   "iou1": 0.671,
+   "sx": 0.902,
+   "ls": 0.027,
+   "corpo": 41.32
+  }
+ ],
+ "parole": [
+  {
+   "ruolo": "testo",
+   "testo": "manifold",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 31.94,
+     "sx": 0.97,
+     "ls": 0.01,
+     "iou": 0.531,
+     "iou1": 0.946
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 31.51,
+     "sx": 0.9,
+     "ls": 0.031,
+     "iou": 0.493,
+     "iou1": 0.948
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 29.87,
+     "sx": 0.84,
+     "ls": 0.036,
+     "iou": 0.516,
+     "iou1": 0.947
+    }
+   ]
+  },
+  {
+   "ruolo": "testo",
+   "testo": "Windshield",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 33.33,
+     "sx": 0.79,
+     "ls": 0.082,
+     "iou": 0.404,
+     "iou1": 0.872
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 32.88,
+     "sx": 0.73,
+     "ls": 0.104,
+     "iou": 0.357,
+     "iou1": 0.821
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 31.58,
+     "sx": 0.74,
+     "ls": 0.06,
+     "iou": 0.434,
+     "iou1": 0.892
+    }
+   ]
+  },
+  {
+   "ruolo": "testo",
+   "testo": "Separate",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 30.34,
+     "sx": 0.92,
+     "ls": 0.073,
+     "iou": 0.394,
+     "iou1": 0.863
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 30.34,
+     "sx": 0.98,
+     "ls": 0.009,
+     "iou": 0.595,
+     "iou1": 0.966
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 29.03,
+     "sx": 0.95,
+     "ls": -0.02,
+     "iou": 0.561,
+     "iou1": 0.97
+    }
+   ]
+  },
+  {
+   "ruolo": "testo",
+   "testo": "ventilators",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 32.39,
+     "sx": 0.83,
+     "ls": 0.082,
+     "iou": 0.426,
+     "iou1": 0.873
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 31.51,
+     "sx": 0.81,
+     "ls": 0.08,
+     "iou": 0.457,
+     "iou1": 0.917
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 30.26,
+     "sx": 0.76,
+     "ls": 0.077,
+     "iou": 0.491,
+     "iou1": 0.948
+    }
+   ]
+  },
+  {
+   "ruolo": "testo",
+   "testo": "harnesses",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 28.17,
+     "sx": 1.16,
+     "ls": -0.023,
+     "iou": 0.283,
+     "iou1": 0.787
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 27.4,
+     "sx": 0.92,
+     "ls": 0.069,
+     "iou": 0.327,
+     "iou1": 0.879
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 26.32,
+     "sx": 0.92,
+     "ls": 0.018,
+     "iou": 0.317,
+     "iou1": 0.868
+    }
+   ]
+  },
+  {
+   "ruolo": "testo",
+   "testo": "equipment",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 28.09,
+     "sx": 1.08,
+     "ls": 0.037,
+     "iou": 0.63,
+     "iou1": 0.982
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 27.78,
+     "sx": 1.02,
+     "ls": 0.026,
+     "iou": 0.7,
+     "iou1": 0.993
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 25.51,
+     "sx": 1,
+     "ls": 0.024,
+     "iou": 0.626,
+     "iou1": 0.985
+    }
+   ]
+  },
+  {
+   "ruolo": "titoli",
+   "testo": "HARNESSES.",
+   "prove": [
+    {
+     "nome": "Archivo Expanded",
+     "corpo": 37.5,
+     "sx": 0.72,
+     "ls": -0.056,
+     "iou": 0.357,
+     "iou1": 0.632
+    },
+    {
+     "nome": "Encode Sans Expanded",
+     "corpo": 35.53,
+     "sx": 0.92,
+     "ls": -0.059,
+     "iou": 0.424,
+     "iou1": 0.684
+    },
+    {
+     "nome": "Montserrat",
+     "corpo": 36.49,
+     "sx": 0.95,
+     "ls": -0.055,
+     "iou": 0.382,
+     "iou1": 0.657
+    },
+    {
+     "nome": "Archivo Expanded 600",
+     "corpo": 37.5,
+     "sx": 0.72,
+     "ls": -0.047,
+     "iou": 0.352,
+     "iou1": 0.632
+    },
+    {
+     "nome": "Encode Sans Expanded 600",
+     "corpo": 35.53,
+     "sx": 0.95,
+     "ls": -0.057,
+     "iou": 0.387,
+     "iou1": 0.661
+    },
+    {
+     "nome": "Montserrat 600",
+     "corpo": 37.5,
+     "sx": 0.94,
+     "ls": -0.058,
+     "iou": 0.349,
+     "iou1": 0.634
+    }
+   ]
+  },
+  {
+   "ruolo": "testo",
+   "testo": "certificated",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 33.33,
+     "sx": 0.84,
+     "ls": 0.057,
+     "iou": 0.413,
+     "iou1": 0.843
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 32.88,
+     "sx": 0.83,
+     "ls": 0.052,
+     "iou": 0.49,
+     "iou1": 0.924
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 31.17,
+     "sx": 0.89,
+     "ls": -0.022,
+     "iou": 0.404,
+     "iou1": 0.853
+    }
+   ]
+  },
+  {
+   "ruolo": "testo",
+   "testo": "Structural",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 30.99,
+     "sx": 0.97,
+     "ls": 0.037,
+     "iou": 0.391,
+     "iou1": 0.848
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 30.14,
+     "sx": 1.04,
+     "ls": -0.017,
+     "iou": 0.362,
+     "iou1": 0.859
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 28.95,
+     "sx": 1.02,
+     "ls": -0.052,
+     "iou": 0.278,
+     "iou1": 0.733
+    }
+   ]
+  },
+  {
+   "ruolo": "testo",
+   "testo": "Manual",
+   "prove": [
+    {
+     "nome": "Tinos",
+     "corpo": 30.99,
+     "sx": 0.86,
+     "ls": 0.091,
+     "iou": 0.504,
+     "iou1": 0.95
+    },
+    {
+     "nome": "STIX Two Text",
+     "corpo": 30.56,
+     "sx": 0.89,
+     "ls": 0.032,
+     "iou": 0.585,
+     "iou1": 0.978
+    },
+    {
+     "nome": "Source Serif 4",
+     "corpo": 28.95,
+     "sx": 0.95,
+     "ls": -0.031,
+     "iou": 0.467,
+     "iou1": 0.965
+    }
+   ]
+  },
+  {
+   "ruolo": "titoli",
+   "testo": "CERTIFICATION",
+   "prove": [
+    {
+     "nome": "Archivo Expanded",
+     "corpo": 37.5,
+     "sx": 0.77,
+     "ls": -0.052,
+     "iou": 0.312,
+     "iou1": 0.566
+    },
+    {
+     "nome": "Encode Sans Expanded",
+     "corpo": 35.53,
+     "sx": 0.96,
+     "ls": -0.05,
+     "iou": 0.367,
+     "iou1": 0.614
+    },
+    {
+     "nome": "Montserrat",
+     "corpo": 36.49,
+     "sx": 1,
+     "ls": -0.057,
+     "iou": 0.335,
+     "iou1": 0.584
+    },
+    {
+     "nome": "Archivo Expanded 600",
+     "corpo": 37.5,
+     "sx": 0.78,
+     "ls": -0.054,
+     "iou": 0.316,
+     "iou1": 0.567
+    },
+    {
+     "nome": "Encode Sans Expanded 600",
+     "corpo": 35.53,
+     "sx": 0.93,
+     "ls": -0.007,
+     "iou": 0.347,
+     "iou1": 0.6
+    },
+    {
+     "nome": "Montserrat 600",
+     "corpo": 37.5,
+     "sx": 0.98,
+     "ls": -0.052,
+     "iou": 0.296,
+     "iou1": 0.553
+    }
+   ]
+  },
+  {
+   "ruolo": "titoli",
+   "testo": "AIRSPEED",
+   "prove": [
+    {
+     "nome": "Archivo Expanded",
+     "corpo": 37.5,
+     "sx": 0.61,
+     "ls": 0.073,
+     "iou": 0.447,
+     "iou1": 0.699
+    },
+    {
+     "nome": "Encode Sans Expanded",
+     "corpo": 35.53,
+     "sx": 0.71,
+     "ls": 0.119,
+     "iou": 0.483,
+     "iou1": 0.77
+    },
+    {
+     "nome": "Montserrat",
+     "corpo": 36.49,
+     "sx": 0.68,
+     "ls": 0.163,
+     "iou": 0.539,
+     "iou1": 0.814
+    },
+    {
+     "nome": "Archivo Expanded 600",
+     "corpo": 37.5,
+     "sx": 0.63,
+     "ls": 0.046,
+     "iou": 0.424,
+     "iou1": 0.657
+    },
+    {
+     "nome": "Encode Sans Expanded 600",
+     "corpo": 35.53,
+     "sx": 0.71,
+     "ls": 0.141,
+     "iou": 0.435,
+     "iou1": 0.744
+    },
+    {
+     "nome": "Montserrat 600",
+     "corpo": 37.5,
+     "sx": 0.71,
+     "ls": 0.105,
+     "iou": 0.446,
+     "iou1": 0.737
+    }
+   ]
+  },
+  {
+   "ruolo": "titoli",
+   "testo": "LIMITATIONS",
+   "prove": [
+    {
+     "nome": "Archivo Expanded",
+     "corpo": 48.61,
+     "sx": 0.68,
+     "ls": 0.109,
+     "iou": 0.481,
+     "iou1": 0.707
+    },
+    {
+     "nome": "Encode Sans Expanded",
+     "corpo": 46.05,
+     "sx": 0.91,
+     "ls": 0.003,
+     "iou": 0.422,
+     "iou1": 0.631
+    },
+    {
+     "nome": "Montserrat",
+     "corpo": 47.3,
+     "sx": 0.96,
+     "ls": -0.009,
+     "iou": 0.463,
+     "iou1": 0.677
+    },
+    {
+     "nome": "Archivo Expanded 600",
+     "corpo": 48.61,
+     "sx": 0.65,
+     "ls": 0.163,
+     "iou": 0.493,
+     "iou1": 0.719
+    },
+    {
+     "nome": "Encode Sans Expanded 600",
+     "corpo": 46.05,
+     "sx": 0.94,
+     "ls": 0.003,
+     "iou": 0.397,
+     "iou1": 0.626
+    },
+    {
+     "nome": "Montserrat 600",
+     "corpo": 48.61,
+     "sx": 0.93,
+     "ls": 0.005,
+     "iou": 0.445,
+     "iou1": 0.678
+    }
+   ]
+  },
+  {
+   "ruolo": "titoli",
+   "testo": "SECTION",
+   "prove": [
+    {
+     "nome": "Archivo Expanded",
+     "corpo": 56.94,
+     "sx": 0.81,
+     "ls": 0.004,
+     "iou": 0.762,
+     "iou1": 0.937
+    },
+    {
+     "nome": "Encode Sans Expanded",
+     "corpo": 53.95,
+     "sx": 0.94,
+     "ls": 0.066,
+     "iou": 0.55,
+     "iou1": 0.729
+    },
+    {
+     "nome": "Montserrat",
+     "corpo": 55.41,
+     "sx": 0.98,
+     "ls": 0.052,
+     "iou": 0.634,
+     "iou1": 0.819
+    },
+    {
+     "nome": "Archivo Expanded 600",
+     "corpo": 56.94,
+     "sx": 0.83,
+     "ls": -0.012,
+     "iou": 0.802,
+     "iou1": 0.964
+    },
+    {
+     "nome": "Encode Sans Expanded 600",
+     "corpo": 53.95,
+     "sx": 0.98,
+     "ls": 0.054,
+     "iou": 0.524,
+     "iou1": 0.726
+    },
+    {
+     "nome": "Montserrat 600",
+     "corpo": 56.94,
+     "sx": 1,
+     "ls": 0.028,
+     "iou": 0.601,
+     "iou1": 0.805
+    }
+   ]
+  },
+  {
+   "ruolo": "tabelle",
+   "testo": "STALL",
+   "prove": [
+    {
+     "nome": "Arimo",
+     "corpo": 32.39,
+     "sx": 1.04,
+     "ls": -0.025,
+     "iou": 0.333,
+     "iou1": 0.712
+    },
+    {
+     "nome": "Public Sans",
+     "corpo": 30.67,
+     "sx": 0.98,
+     "ls": 0.048,
+     "iou": 0.447,
+     "iou1": 0.816
+    },
+    {
+     "nome": "Archivo",
+     "corpo": 31.94,
+     "sx": 0.97,
+     "ls": 0.039,
+     "iou": 0.33,
+     "iou1": 0.71
+    }
+   ]
+  },
+  {
+   "ruolo": "tabelle",
+   "testo": "SPEEDS",
+   "prove": [
+    {
+     "nome": "Arimo",
+     "corpo": 32.39,
+     "sx": 0.78,
+     "ls": 0.062,
+     "iou": 0.576,
+     "iou1": 0.942
+    },
+    {
+     "nome": "Public Sans",
+     "corpo": 30.67,
+     "sx": 0.94,
+     "ls": -0.01,
+     "iou": 0.507,
+     "iou1": 0.839
+    },
+    {
+     "nome": "Archivo",
+     "corpo": 31.94,
+     "sx": 0.88,
+     "ls": -0.029,
+     "iou": 0.617,
+     "iou1": 0.913
+    }
+   ]
+  },
+  {
+   "ruolo": "tabelle",
+   "testo": "GROSS",
+   "prove": [
+    {
+     "nome": "Arimo",
+     "corpo": 33.8,
+     "sx": 0.78,
+     "ls": 0.026,
+     "iou": 0.477,
+     "iou1": 0.884
+    },
+    {
+     "nome": "Public Sans",
+     "corpo": 32,
+     "sx": 0.88,
+     "ls": 0.002,
+     "iou": 0.365,
+     "iou1": 0.761
+    },
+    {
+     "nome": "Archivo",
+     "corpo": 33.33,
+     "sx": 0.79,
+     "ls": 0.019,
+     "iou": 0.485,
+     "iou1": 0.885
+    }
+   ]
+  },
+  {
+   "ruolo": "tabelle",
+   "testo": "WEIGHT",
+   "prove": [
+    {
+     "nome": "Arimo",
+     "corpo": 32.39,
+     "sx": 0.82,
+     "ls": 0.08,
+     "iou": 0.506,
+     "iou1": 0.9
+    },
+    {
+     "nome": "Public Sans",
+     "corpo": 30.67,
+     "sx": 0.83,
+     "ls": 0.13,
+     "iou": 0.481,
+     "iou1": 0.848
+    },
+    {
+     "nome": "Archivo",
+     "corpo": 31.94,
+     "sx": 0.84,
+     "ls": 0.073,
+     "iou": 0.525,
+     "iou1": 0.892
+    }
+   ]
+  }
+ ]
+}
