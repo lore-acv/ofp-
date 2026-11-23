@@ -506,8 +506,9 @@ cima al file (e in `Sfoglia.FIS`, per provarli dalla console).
 
 Intorno al libro: la barra a sezioni in basso (una parte per sezione, piu'
 chiara quella in lettura, con la bolla di pagina e titolo mentre si trascina), le
-linguette delle sezioni sul taglio delle pagine come nei manuali stampati
-(cliccabili anche sul bordo del libro), il libro chiuso al centro che scivola
+linguette delle sezioni sul taglio delle pagine come nei manuali stampati, con
+il numero della sezione e sotto il nome breve (solo il numero quando i nomi non
+entrano interi; cliccabili anche sul bordo del libro), il libro chiuso al centro che scivola
 quando si apre. L'indice laterale su schermo largo spinge il libro, che passa
 da doppia a pagina singola con una dissolvenza.
 
