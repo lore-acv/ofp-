@@ -453,8 +453,11 @@ dell'interfaccia, la carta resta carta in entrambi i temi.
   struttura, ruggine (#c2410c) per numeri di passo e richiami. Apertura di
   sezione con il numero nel blocco blu; la stessa forma torna nei segnalibri:
   linguette che escono dal taglio del libro, una per sezione alla stessa
-  altezza in tutto il libro, angoli esterni arrotondati, solo il nome breve in
-  maiuscolo piccolo. Quella della sezione in lettura e' ruggine; a destra le
+  altezza in tutto il libro, angoli esterni arrotondati, in cima il numero
+  della sezione (diritto, 11.5px grassetto: 1, 2, A; I, II nei Flight Manual)
+  e sotto il nome breve in maiuscolo piccolo. Un nome non si taglia mai coi
+  puntini: se uno non entra intero (telefono, finestra bassa) tutte le
+  linguette portano il solo numero. Quella della sezione in lettura e' ruggine; a destra le
   sezioni che vengono, a sinistra quelle passate, blu. Avvisi WARNING /
   CAUTION / NOTE in riquadri interi con filetto sottile e segno disegnato.
 - **Movimento:** il foglio si arrotola come la carta (la piega a cilindro di
