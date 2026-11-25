@@ -202,7 +202,8 @@ try {
         let dopo = gruppi[k + 1] ? gruppi[k + 1][0][0] - 8 : 1e9;
         for (const px of puntini) if (px > ultima[0] + 4) dopo = Math.min(dopo, px - 4);   // i puntini guida non fanno parte della riga
         const fineUltima = ultima[2] ? ultima[0] + ultima[2] + margine[1] : ultima[0] + largo(ultima[1]);
-        const prima = k ? fineDi(gruppi[k - 1][gruppi[k - 1].length - 1]) + 4 : -1e9;   // la banda non tocca il gruppo prima
+        let prima = k ? fineDi(gruppi[k - 1][gruppi[k - 1].length - 1]) + 4 : -1e9;   // la banda non tocca il gruppo prima
+        for (const px of puntini) if (px < gr[0][0] - 2) prima = Math.max(prima, px + 7);   // ne' i puntini guida prima del gruppo
         return { rif, ang: 0, lungo: [Math.max(prima, gr[0][0] - margine[0]), Math.min(dopo, fineUltima)], attraverso, base: e[2], c, apici: !!(opz.sup && opz.sup.length), testo: gr.map((w) => w[1]).join(' ') };
       });
     }).flat().map((g) => ({ ...g, giro: g.rif === 'pag' ? pjg.rot : 0, Lw: pjg.w }));

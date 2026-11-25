@@ -61,6 +61,40 @@ scansione non e' stampa stanno in fondo.
 - I gradi dei flap sono stampati come una "o" in apice ("FLAPS 20º"): si
   ricostruiscono come una "o" in apice, non come il simbolo °.
 
+### Pagina 2-2
+- "Flaps Up . . . +3,8   -1,52": i fattori di carico con la virgola decimale;
+  nel cartello di pagina 2-6 gli stessi valori sono con il punto (+3.8, -1.52).
+  Restano come sono, ognuno nella sua pagina.
+
+### Pagina 2-4
+- "CYLINDER HEAD TEMPERATURE GAGE (OPT)." e le altre voci: "GAGE" (grafia
+  americana dell'epoca), resta.
+- I gradi sono una "o" in apice ("300° - 460°F"), come a pagina 2-1.
+
+### Pagina 2-5
+- "8000 Feet": sulla scansione si legge "Fcet" (alla "e" manca il tratto
+  orizzontale, come alla "e" di "be" a pagina 1-7). E' un difetto di stampa
+  della lettera, non un refuso: il manuale di I-CCAB, stesso testo, ha
+  "8000 Feet". Si ricostruisce "Feet".
+
+### Pagina 2-6 (cartello 1)
+- Il cartello e' in un carattere senza grazie condensato, diverso dal testo:
+  si ricostruisce con Archivo stretto (ruolo "cartello"), i titoli in neretto.
+- "This airplane must-be operated": il trattino fra "must" e "be" e' stampato
+  (nel cartello e nella scansione di I-CCAF); resta.
+- "CROSSWI ND": nel cartello c'e' uno spazio fra I e N (composizione a mano):
+  la ricostruzione lo rispetta (le parole sono unite: il testo copiato e'
+  "CROSSWIND").
+- "Altitude loss in stall recovery - - 160 ft.": due trattini, restano.
+- Il bordo arrotondato, i filetti, le sottolineature e i puntini guida del
+  cartello sono disegno (potrace).
+
+### Pagina 2-7 e 2-8 (cartelli 3-8)
+- La numerazione dei cartelli di I-CCAF (FR172J, Edition 3) e' diversa da
+  quella di I-CCAB (Edition 2, che ha anche il cartello "Both tanks on for
+  takeoff & landing" e "Do not turn off alternator..."): ognuno ha la sua.
+- "Control lock -- Remove before starting engine.": due trattini, restano.
+
 ### Pagina 5-12
 - La pagina 5-12 porta la "Figure 5-7.": e' la numerazione dell'originale
   (le figure non seguono il numero di pagina).

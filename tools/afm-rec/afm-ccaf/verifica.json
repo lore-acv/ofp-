@@ -17690,6 +17690,7229 @@
   ]
  },
  {
+  "n": "2-2",
+  "pdf": 24,
+  "stato": "ricostruita",
+  "figure": [],
+  "inkA": 57604,
+  "soloA": 2384,
+  "soloB": 1713,
+  "entrambi": 55220,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     529,
+     660
+    ],
+    "attraverso": [
+     106,
+     138
+    ],
+    "base": 131,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     530,
+     662
+    ],
+    "attraverso": [
+     138,
+     170
+    ],
+    "base": 163,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238,
+     337
+    ],
+    "attraverso": [
+     171,
+     203
+    ],
+    "base": 196,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Page: 2-2",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     765,
+     909
+    ],
+    "attraverso": [
+     168,
+     200
+    ],
+    "base": 193,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238,
+     347
+    ],
+    "attraverso": [
+     297,
+     329
+    ],
+    "base": 322,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767,
+     957
+    ],
+    "attraverso": [
+     294,
+     326
+    ],
+    "base": 319,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     241,
+     657
+    ],
+    "attraverso": [
+     390,
+     418
+    ],
+    "base": 415,
+    "c": 20.5,
+    "apici": false,
+    "testo": "AIRSPEED INDICATOR MARKINGS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     282,
+     688
+    ],
+    "attraverso": [
+     452,
+     484
+    ],
+    "base": 477,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Red Line : 298 km/h - 161 kts - 185 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     282,
+     875
+    ],
+    "attraverso": [
+     484,
+     516
+    ],
+    "base": 509,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Yellow Arc: 235 to 298 km/h - 127 to 161 kts - 146 to 185 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     302,
+     454
+    ],
+    "attraverso": [
+     515,
+     547
+    ],
+    "base": 540,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(Caution Range)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     281,
+     855
+    ],
+    "attraverso": [
+     546,
+     578
+    ],
+    "base": 571,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Green Arc : 103 to 235 km/h - 56 to 127 kts - 64 to 146 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     302,
+     538
+    ],
+    "attraverso": [
+     577,
+     609
+    ],
+    "base": 602,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(Normal Operating Range)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     280,
+     833
+    ],
+    "attraverso": [
+     610,
+     642
+    ],
+    "base": 635,
+    "c": 18.5,
+    "apici": false,
+    "testo": "White Arc : 89 to 161 km/h - 48 to 87 kts - 55 to 100 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     301,
+     513
+    ],
+    "attraverso": [
+     641,
+     671
+    ],
+    "base": 664,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(Flap Operating Range)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     281,
+     468
+    ],
+    "attraverso": [
+     670,
+     702
+    ],
+    "base": 695,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Stall Warning Horn :",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     304,
+     811
+    ],
+    "attraverso": [
+     701,
+     733
+    ],
+    "base": 726,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Adjustment : 8 to 16 km/h - 4 to 8,5 kts - 5 to 10 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     236,
+     780
+    ],
+    "attraverso": [
+     793,
+     821
+    ],
+    "base": 818,
+    "c": 20.5,
+    "apici": false,
+    "testo": "FLIGHT LOAD FACTORS AT GROSS WEIGHT.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     280,
+     623
+    ],
+    "attraverso": [
+     858,
+     890
+    ],
+    "base": 883,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Normal Category: 2550 lbs (1157 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     321,
+     413
+    ],
+    "attraverso": [
+     889,
+     921
+    ],
+    "base": 914,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flaps Up",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     780,
+     833
+    ],
+    "attraverso": [
+     887,
+     919
+    ],
+    "base": 912,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+3,8",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     898,
+     956
+    ],
+    "attraverso": [
+     887,
+     919
+    ],
+    "base": 912,
+    "c": 18.5,
+    "apici": false,
+    "testo": "-1,52",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     321,
+     435
+    ],
+    "attraverso": [
+     920,
+     952
+    ],
+    "base": 945,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flaps Down",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     780,
+     833
+    ],
+    "attraverso": [
+     918,
+     950
+    ],
+    "base": 943,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+3,0",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     280,
+     624
+    ],
+    "attraverso": [
+     951,
+     983
+    ],
+    "base": 976,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Utility Category : 2200 lbs ( 998 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     321,
+     412
+    ],
+    "attraverso": [
+     982,
+     1013
+    ],
+    "base": 1006,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flaps Up",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     780,
+     833
+    ],
+    "attraverso": [
+     979,
+     1011
+    ],
+    "base": 1004,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+4,4",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     897,
+     956
+    ],
+    "attraverso": [
+     979,
+     1011
+    ],
+    "base": 1004,
+    "c": 18.5,
+    "apici": false,
+    "testo": "-1,76",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     321,
+     434.5
+    ],
+    "attraverso": [
+     1012,
+     1044
+    ],
+    "base": 1037,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flaps Down",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     780,
+     833
+    ],
+    "attraverso": [
+     1010,
+     1042
+    ],
+    "base": 1035,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+3,0",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     236,
+     971
+    ],
+    "attraverso": [
+     1101,
+     1129
+    ],
+    "base": 1126,
+    "c": 20.5,
+    "apici": false,
+    "testo": "MAXIMUM GROSS WEIGHT FOR TAKE-OFF AND LANDING.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     277,
+     440
+    ],
+    "attraverso": [
+     1158,
+     1190
+    ],
+    "base": 1183,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Normal Category:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     318,
+     516
+    ],
+    "attraverso": [
+     1189,
+     1221
+    ],
+    "base": 1214,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Take-Off and Landing",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     778,
+     953
+    ],
+    "attraverso": [
+     1189,
+     1221
+    ],
+    "base": 1214,
+    "c": 18.5,
+    "apici": false,
+    "testo": "2550 lbs (1157 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     277,
+     432
+    ],
+    "attraverso": [
+     1220,
+     1252
+    ],
+    "base": 1245,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Utility Category:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     318,
+     515
+    ],
+    "attraverso": [
+     1251,
+     1282
+    ],
+    "base": 1275,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Take-Off and Landing",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     777,
+     953
+    ],
+    "attraverso": [
+     1251,
+     1282
+    ],
+    "base": 1275,
+    "c": 18.5,
+    "apici": false,
+    "testo": "2200 lbs ( 998 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     233,
+     640
+    ],
+    "attraverso": [
+     1345,
+     1373
+    ],
+    "base": 1370,
+    "c": 20.5,
+    "apici": false,
+    "testo": "CENTER OF GRAVITY LOCATION.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     276,
+     568
+    ],
+    "attraverso": [
+     1402,
+     1434
+    ],
+    "base": 1427,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Leveling Means: Upper door sill.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     275,
+     801
+    ],
+    "attraverso": [
+     1433,
+     1464
+    ],
+    "base": 1457,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Center of Gravity Reference: Forward face of lower firewall.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     275,
+     560
+    ],
+    "attraverso": [
+     1464,
+     1496
+    ],
+    "base": 1489,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Center of Gravity Range Limits:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     476,
+     689
+    ],
+    "attraverso": [
+     1527,
+     1552
+    ],
+    "base": 1549,
+    "c": 18.5,
+    "apici": false,
+    "testo": "NORMAL CATEGORY",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     275,
+     412
+    ],
+    "attraverso": [
+     1585,
+     1617
+    ],
+    "base": 1610,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Forward Limit",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     683,
+     789
+    ],
+    "attraverso": [
+     1585,
+     1617
+    ],
+    "base": 1610,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Rear Limit",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     273,
+     550
+    ],
+    "attraverso": [
+     1616,
+     1648
+    ],
+    "base": 1641,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+1,04 m at 2550 lbs (1157 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     681,
+     957
+    ],
+    "attraverso": [
+     1616,
+     1648
+    ],
+    "base": 1641,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+1,20 m at 2550 lbs (1157 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     273,
+     609
+    ],
+    "attraverso": [
+     1647,
+     1679
+    ],
+    "base": 1672,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+0,89 m at 1950 lbs ( 885 kg) or less",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     691,
+     761
+    ],
+    "attraverso": [
+     1647,
+     1679
+    ],
+    "base": 1672,
+    "c": 18.5,
+    "apici": false,
+    "testo": "or less",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 47,
+  "righeFuori": [],
+  "fuori": 0.07112353308798,
+  "numeri": [
+   {
+    "riga": 196,
+    "x": 307,
+    "valore": "2-2",
+    "tesseract": "2-2",
+    "pdf": false,
+    "vista": "a vista: Page: 2-2 · seconda conferma: posizione nel PDF: pagina 24, fra 2-1 e 2-3 (mappa tools/afm/afm-ccaf.json)",
+    "conferme": 3
+   },
+   {
+    "riga": 322,
+    "x": 333,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": false,
+    "vista": "a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+    "conferme": 3
+   },
+   {
+    "riga": 477,
+    "x": 419,
+    "valore": "298",
+    "tesseract": "298",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 477,
+    "x": 521,
+    "valore": "161",
+    "tesseract": "16)",
+    "pdf": true,
+    "vista": "OCR legge 16); a vista: Red Line 298 km/h - 161 kts - 185 MPH · seconda conferma: DATI-AFM.md: VNE 161 kt; e la terna torna: 298 km/h = 160,9 kt = 185,2 MPH",
+    "conferme": 3
+   },
+   {
+    "riga": 477,
+    "x": 603,
+    "valore": "185",
+    "tesseract": "185",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 509,
+    "x": 419,
+    "valore": "235",
+    "tesseract": "235",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 509,
+    "x": 481,
+    "valore": "298",
+    "tesseract": "298",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 509,
+    "x": 584,
+    "valore": "127",
+    "tesseract": "127",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 509,
+    "x": 647,
+    "valore": "161",
+    "tesseract": "161",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 509,
+    "x": 729,
+    "valore": "146",
+    "tesseract": "146",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 509,
+    "x": 791,
+    "valore": "185",
+    "tesseract": "185",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 571,
+    "x": 421,
+    "valore": "103",
+    "tesseract": "103",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 571,
+    "x": 481,
+    "valore": "235",
+    "tesseract": "235",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 571,
+    "x": 582,
+    "valore": "56",
+    "tesseract": "56",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 571,
+    "x": 635,
+    "valore": "127",
+    "tesseract": "127",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 571,
+    "x": 715,
+    "valore": "64",
+    "tesseract": "64",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 571,
+    "x": 770,
+    "valore": "146",
+    "tesseract": "146",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 418,
+    "valore": "89",
+    "tesseract": "89",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 472,
+    "valore": "161",
+    "tesseract": "161",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 570,
+    "valore": "48",
+    "tesseract": "48",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 623,
+    "valore": "87",
+    "tesseract": "87",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 695,
+    "valore": "55",
+    "tesseract": "55",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 748,
+    "valore": "100",
+    "tesseract": "100",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 726,
+    "x": 443,
+    "valore": "8",
+    "tesseract": "",
+    "pdf": false,
+    "vista": "OCR non legge; a vista: Adjustment: 8 to 16 km/h · seconda conferma: la terna torna: 8 km/h = 4,3 kt = 5,0 MPH (4 kts, 5 MPH sulla stessa riga)",
+    "conferme": 2
+   },
+   {
+    "riga": 726,
+    "x": 487,
+    "valore": "16",
+    "tesseract": "16",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 726,
+    "x": 574,
+    "valore": "4",
+    "tesseract": "4",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 726,
+    "x": 616,
+    "valore": "8,5",
+    "tesseract": "8,5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 726,
+    "x": 693,
+    "valore": "5",
+    "tesseract": "5",
+    "pdf": false,
+    "vista": "a vista: 5 to 10 MPH · seconda conferma: 8 km/h = 5,0 MPH e 16 km/h = 9,9 MPH: 5 to 10 MPH torna",
+    "conferme": 3
+   },
+   {
+    "riga": 726,
+    "x": 736,
+    "valore": "10",
+    "tesseract": "10",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 883,
+    "x": 459,
+    "valore": "2550",
+    "tesseract": "2550",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 883,
+    "x": 537,
+    "valore": "(1157",
+    "tesseract": "(1157",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 912,
+    "x": 792,
+    "valore": "+3,8",
+    "tesseract": "43,8",
+    "pdf": true,
+    "vista": "OCR legge 43,8 (il + attaccato); a vista: Flaps Up +3,8 · seconda conferma: DATI-AFM.md: fattore di carico 3,8 della categoria normale (formula della VA); e -1,52 = 0,4 x 3,8, la regola dei limiti negativi",
+    "conferme": 3
+   },
+   {
+    "riga": 912,
+    "x": 910,
+    "valore": "-1,52",
+    "tesseract": "1,52",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 943,
+    "x": 792,
+    "valore": "+3,0",
+    "tesseract": "3,0",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 976,
+    "x": 459,
+    "valore": "2200",
+    "tesseract": "2200",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 976,
+    "x": 554,
+    "valore": "998",
+    "tesseract": "998",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1004,
+    "x": 792,
+    "valore": "+4,4",
+    "tesseract": "4,4",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1004,
+    "x": 909,
+    "valore": "-1,76",
+    "tesseract": "-1,76",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1035,
+    "x": 792,
+    "valore": "+3,0",
+    "tesseract": "3,0",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1214,
+    "x": 790,
+    "valore": "2550",
+    "tesseract": "2550",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1214,
+    "x": 867,
+    "valore": "(1157",
+    "tesseract": "(1157",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1275,
+    "x": 789,
+    "valore": "2200",
+    "tesseract": "2200",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1275,
+    "x": 884,
+    "valore": "998",
+    "tesseract": "998",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1641,
+    "x": 285,
+    "valore": "+1,04",
+    "tesseract": "1,04",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1641,
+    "x": 385,
+    "valore": "2550",
+    "tesseract": "2550",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1641,
+    "x": 464,
+    "valore": "(1157",
+    "tesseract": "(1157",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1641,
+    "x": 693,
+    "valore": "+1,20",
+    "tesseract": "1,20",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1641,
+    "x": 793,
+    "valore": "2550",
+    "tesseract": "2550",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1641,
+    "x": 871,
+    "valore": "(1157",
+    "tesseract": "(1157",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1672,
+    "x": 285,
+    "valore": "+0,89",
+    "tesseract": "40,89",
+    "pdf": true,
+    "vista": "OCR legge 40,89; a vista: +0,89 m at 1950 lbs · seconda conferma: DATI-AFM.md, inviluppo di centraggio: +0,89 m fino a 885 kg (1950 lbs)",
+    "conferme": 3
+   },
+   {
+    "riga": 1672,
+    "x": 387,
+    "valore": "1950",
+    "tesseract": "1950",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1672,
+    "x": 481,
+    "valore": "885",
+    "tesseract": "885",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 4,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "2-3",
+  "pdf": 25,
+  "stato": "ricostruita",
+  "figure": [],
+  "inkA": 68792,
+  "soloA": 3386,
+  "soloB": 2045,
+  "entrambi": 65406,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     580,
+     710
+    ],
+    "attraverso": [
+     162,
+     194
+    ],
+    "base": 187,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     576,
+     709
+    ],
+    "attraverso": [
+     194,
+     226
+    ],
+    "base": 219,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     290,
+     434
+    ],
+    "attraverso": [
+     227,
+     259
+    ],
+    "base": 252,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     909,
+     1009
+    ],
+    "attraverso": [
+     222,
+     254
+    ],
+    "base": 247,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Page: 2-3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     290,
+     482
+    ],
+    "attraverso": [
+     258,
+     290
+    ],
+    "base": 283,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     908,
+     1019
+    ],
+    "attraverso": [
+     255,
+     287
+    ],
+    "base": 280,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     529,
+     737
+    ],
+    "attraverso": [
+     354,
+     379
+    ],
+    "base": 376,
+    "c": 18.5,
+    "apici": false,
+    "testo": "UTILITY CATEGORY",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     330,
+     467
+    ],
+    "attraverso": [
+     415,
+     447
+    ],
+    "base": 440,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Forward Limit",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     749,
+     855
+    ],
+    "attraverso": [
+     412,
+     444
+    ],
+    "base": 437,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Rear Limit",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     329,
+     595
+    ],
+    "attraverso": [
+     446,
+     478
+    ],
+    "base": 471,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+0,95 m at 2200 lbs (998 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     748,
+     1014
+    ],
+    "attraverso": [
+     443,
+     475
+    ],
+    "base": 468,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+1,03 m at 2200 lbs (998 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     329,
+     655
+    ],
+    "attraverso": [
+     477,
+     509
+    ],
+    "base": 502,
+    "c": 18.5,
+    "apici": false,
+    "testo": "+0,89 m at 1950 lbs (885 kg) or less",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     769,
+     839
+    ],
+    "attraverso": [
+     475,
+     507
+    ],
+    "base": 500,
+    "c": 18.5,
+    "apici": false,
+    "testo": "or less",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     289,
+     512
+    ],
+    "attraverso": [
+     601,
+     629
+    ],
+    "base": 626,
+    "c": 20.5,
+    "apici": false,
+    "testo": "LOADING LIMITS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     330,
+     691
+    ],
+    "attraverso": [
+     663,
+     695
+    ],
+    "base": 688,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Number of Occupants: Front Seats: 2",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     539,
+     691
+    ],
+    "attraverso": [
+     694,
+     725
+    ],
+    "base": 718,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Rear Seats: 2",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     329,
+     685
+    ],
+    "attraverso": [
+     726,
+     758
+    ],
+    "base": 751,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Optional Child’s Seat : 120 lbs (54 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     330,
+     501
+    ],
+    "attraverso": [
+     758,
+     790
+    ],
+    "base": 783,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Minimum Crew: 1",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     329,
+     642
+    ],
+    "attraverso": [
+     789,
+     821
+    ],
+    "base": 814,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Maximum Baggage: 200 lbs (91 kg)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     290,
+     723
+    ],
+    "attraverso": [
+     914,
+     942
+    ],
+    "base": 939,
+    "c": 20.5,
+    "apici": false,
+    "testo": "MANEUVERS - UTILITY CATEGORY.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     330,
+     1016
+    ],
+    "attraverso": [
+     977,
+     1009
+    ],
+    "base": 1002,
+    "c": 18.5,
+    "apici": false,
+    "testo": "This airplane is not designed for purely aerobatic flight. However, in the acqui-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     288,
+     1010
+    ],
+    "attraverso": [
+     1008,
+     1040
+    ],
+    "base": 1033,
+    "c": 18.5,
+    "apici": false,
+    "testo": "sition of various certificates such as commercial pilot, instrument pilot and flight in-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     288,
+     987
+    ],
+    "attraverso": [
+     1040,
+     1072
+    ],
+    "base": 1065,
+    "c": 18.5,
+    "apici": false,
+    "testo": "structor, certain maneuvers are required. All of these maneuvers are permitted in",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     288,
+     730
+    ],
+    "attraverso": [
+     1071,
+     1103
+    ],
+    "base": 1096,
+    "c": 18.5,
+    "apici": false,
+    "testo": "this airplane when operated in the utility category.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     333,
+     1012
+    ],
+    "attraverso": [
+     1128,
+     1160
+    ],
+    "base": 1153,
+    "c": 18.5,
+    "apici": false,
+    "testo": "In the utility category, the baggage compartment and rear seat must not be oc-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     290,
+     915
+    ],
+    "attraverso": [
+     1159,
+     1191
+    ],
+    "base": 1184,
+    "c": 18.5,
+    "apici": false,
+    "testo": "cupied. No aerobatic maneuvers are approved except those listed below:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     332,
+     458
+    ],
+    "attraverso": [
+     1222,
+     1254
+    ],
+    "base": 1247,
+    "c": 18.5,
+    "apici": false,
+    "testo": "MANEUVER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     698,
+     1013
+    ],
+    "attraverso": [
+     1222,
+     1254
+    ],
+    "base": 1247,
+    "c": 18.5,
+    "apici": false,
+    "testo": "RECOMMENDED ENTRY SPEED*",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     331,
+     436
+    ],
+    "attraverso": [
+     1283,
+     1315
+    ],
+    "base": 1308,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Chandelles",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     736,
+     1015
+    ],
+    "attraverso": [
+     1283,
+     1315
+    ],
+    "base": 1308,
+    "c": 18.5,
+    "apici": false,
+    "testo": "201 km/h - 109 kts - 125 MPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     332,
+     446
+    ],
+    "attraverso": [
+     1314,
+     1346
+    ],
+    "base": 1339,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Lazy Eights",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     736,
+     1014
+    ],
+    "attraverso": [
+     1314,
+     1346
+    ],
+    "base": 1339,
+    "c": 18.5,
+    "apici": false,
+    "testo": "201 km/h - 109 kts - 125 MPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     332,
+     445
+    ],
+    "attraverso": [
+     1345,
+     1376
+    ],
+    "base": 1369,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Steep Turns",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     739,
+     1015
+    ],
+    "attraverso": [
+     1345,
+     1376
+    ],
+    "base": 1369,
+    "c": 18.5,
+    "apici": false,
+    "testo": "190 km/h - 104 kts - 118 MPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     332,
+     392
+    ],
+    "attraverso": [
+     1375,
+     1407
+    ],
+    "base": 1400,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Spins",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     841,
+     1008
+    ],
+    "attraverso": [
+     1375,
+     1407
+    ],
+    "base": 1400,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Slow Deceleration",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     331,
+     569
+    ],
+    "attraverso": [
+     1406,
+     1438
+    ],
+    "base": 1431,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Stalls (Except Whip Stalls)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     841,
+     1007
+    ],
+    "attraverso": [
+     1406,
+     1438
+    ],
+    "base": 1431,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Slow Deceleration",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     375,
+     881
+    ],
+    "attraverso": [
+     1468,
+     1500
+    ],
+    "base": 1493,
+    "c": 18.5,
+    "apici": false,
+    "testo": "*Abrupt use of the controls above 118 MPH is prohibited.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     330,
+     997
+    ],
+    "attraverso": [
+     1536,
+     1568
+    ],
+    "base": 1561,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Aerobatics that may impose high loads should not be attempted. The impor-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     288,
+     994
+    ],
+    "attraverso": [
+     1567,
+     1599
+    ],
+    "base": 1592,
+    "c": 18.5,
+    "apici": false,
+    "testo": "tant thing to bear in mind in flight maneuvers is that the airplane is clean in aero-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     288,
+     1001
+    ],
+    "attraverso": [
+     1598,
+     1630
+    ],
+    "base": 1623,
+    "c": 18.5,
+    "apici": false,
+    "testo": "dynamic design and will build up speed quickly with the nose down. Proper speed",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     288,
+     999
+    ],
+    "attraverso": [
+     1629,
+     1661
+    ],
+    "base": 1654,
+    "c": 18.5,
+    "apici": false,
+    "testo": "control is an essential requirement for execution of any maneuver, and care should",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 43,
+  "righeFuori": [],
+  "fuori": 0.0789481335038958,
+  "numeri": [
+   {
+    "riga": 247,
+    "x": 980,
+    "valore": "2-3",
+    "tesseract": "2-3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 280,
+    "x": 1004,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 471,
+    "x": 341,
+    "valore": "+0,95",
+    "tesseract": "0,95",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 471,
+    "x": 441,
+    "valore": "2200",
+    "tesseract": "2200",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 471,
+    "x": 520,
+    "valore": "(998",
+    "tesseract": "(998",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 468,
+    "x": 760,
+    "valore": "+1,03",
+    "tesseract": "1,03",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 468,
+    "x": 859,
+    "valore": "2200",
+    "tesseract": "2200",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 468,
+    "x": 939,
+    "valore": "(998",
+    "tesseract": "(998",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 502,
+    "x": 341,
+    "valore": "+0,89",
+    "tesseract": "0,89",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 502,
+    "x": 443,
+    "valore": "1950",
+    "tesseract": "1950",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 502,
+    "x": 520,
+    "valore": "(885",
+    "tesseract": "(885",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 688,
+    "x": 677,
+    "valore": "2",
+    "tesseract": "2",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 718,
+    "x": 676,
+    "valore": "2",
+    "tesseract": "2",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 751,
+    "x": 553,
+    "valore": "120",
+    "tesseract": "120",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 751,
+    "x": 619,
+    "valore": "(54",
+    "tesseract": "(54",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 783,
+    "x": 492,
+    "valore": "1",
+    "tesseract": "l",
+    "pdf": true,
+    "vista": "OCR legge l; a vista: Minimum Crew: 1 · seconda conferma: manuale I-CCAB, pagina 2-3 (altra scansione): Minimum Crew: 1",
+    "conferme": 3
+   },
+   {
+    "riga": 814,
+    "x": 509,
+    "valore": "200",
+    "tesseract": "200",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 814,
+    "x": 577,
+    "valore": "(91",
+    "tesseract": "(91",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1308,
+    "x": 748,
+    "valore": "201",
+    "tesseract": "201",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1308,
+    "x": 852,
+    "valore": "109",
+    "tesseract": "109",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1308,
+    "x": 934,
+    "valore": "125",
+    "tesseract": "125",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1339,
+    "x": 748,
+    "valore": "201",
+    "tesseract": "201",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1339,
+    "x": 852,
+    "valore": "109",
+    "tesseract": "109",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1339,
+    "x": 933,
+    "valore": "125",
+    "tesseract": "125",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1369,
+    "x": 751,
+    "valore": "190",
+    "tesseract": "190",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1369,
+    "x": 851,
+    "valore": "104",
+    "tesseract": "104",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1369,
+    "x": 933,
+    "valore": "118",
+    "tesseract": "118",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1493,
+    "x": 684,
+    "valore": "118",
+    "tesseract": "118",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 1,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "2-4",
+  "pdf": 26,
+  "stato": "ricostruita",
+  "figure": [],
+  "inkA": 60250,
+  "soloA": 2637,
+  "soloB": 1753,
+  "entrambi": 57613,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     517,
+     646
+    ],
+    "attraverso": [
+     120,
+     152
+    ],
+    "base": 145,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     517,
+     647
+    ],
+    "attraverso": [
+     151,
+     182
+    ],
+    "base": 175,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     231,
+     329
+    ],
+    "attraverso": [
+     178,
+     210
+    ],
+    "base": 203,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Page: 2-4",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     751,
+     891
+    ],
+    "attraverso": [
+     183,
+     215
+    ],
+    "base": 208,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     230,
+     338
+    ],
+    "attraverso": [
+     299,
+     331
+    ],
+    "base": 324,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     750,
+     938
+    ],
+    "attraverso": [
+     299,
+     331
+    ],
+    "base": 324,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     229,
+     901
+    ],
+    "attraverso": [
+     388,
+     420
+    ],
+    "base": 413,
+    "c": 18.5,
+    "apici": false,
+    "testo": "always be exercised to avoid excessive speed which in turn can impose excessive",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     229,
+     934
+    ],
+    "attraverso": [
+     419,
+     451
+    ],
+    "base": 444,
+    "c": 18.5,
+    "apici": false,
+    "testo": "loads. In the execution of all maneuvers, avoid abrupt use of controls. Intentional",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     228,
+     579
+    ],
+    "attraverso": [
+     450,
+     482
+    ],
+    "base": 475,
+    "c": 18.5,
+    "apici": false,
+    "testo": "spins with flaps extended are prohibited.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     227,
+     640
+    ],
+    "attraverso": [
+     558,
+     586
+    ],
+    "base": 583,
+    "c": 20.5,
+    "apici": false,
+    "testo": "ENGINE OPERATION LIMITATIONS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     267,
+     420
+    ],
+    "attraverso": [
+     620,
+     652
+    ],
+    "base": 645,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Power and Speed",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     658,
+     938
+    ],
+    "attraverso": [
+     620,
+     652
+    ],
+    "base": 645,
+    "c": 18.5,
+    "apici": false,
+    "testo": "210 HP (157 KW) at 2800 RPM",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     224,
+     547
+    ],
+    "attraverso": [
+     734,
+     762
+    ],
+    "base": 759,
+    "c": 20.5,
+    "apici": false,
+    "testo": "CROSSWIND LIMITATIONS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     265,
+     731
+    ],
+    "attraverso": [
+     794,
+     826
+    ],
+    "base": 819,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Take-off direct crosswind limitation: 37 km/h - 20 kts",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     266,
+     731
+    ],
+    "attraverso": [
+     825,
+     856
+    ],
+    "base": 849,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Landing direct crosswind limitation: 28 km/h - 15 kts",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     224,
+     630
+    ],
+    "attraverso": [
+     942,
+     970
+    ],
+    "base": 967,
+    "c": 20.5,
+    "apici": false,
+    "testo": "ENGINE INSTRUMENT MARKINGS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     224,
+     666
+    ],
+    "attraverso": [
+     1004,
+     1031
+    ],
+    "base": 1029,
+    "c": 18.5,
+    "apici": false,
+    "testo": "CYLINDER HEAD TEMPERATURE GAGE (OPT).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     264,
+     480
+    ],
+    "attraverso": [
+     1035,
+     1062
+    ],
+    "base": 1059,
+    "c": 18.5,
+    "apici": true,
+    "testo": "Normal Operating Range",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     676,
+     931
+    ],
+    "attraverso": [
+     1035,
+     1062
+    ],
+    "base": 1059,
+    "c": 18.5,
+    "apici": true,
+    "testo": "300 o - 460 o F (149 o - 238 o C)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     264,
+     361
+    ],
+    "attraverso": [
+     1065,
+     1097
+    ],
+    "base": 1090,
+    "c": 18.5,
+    "apici": true,
+    "testo": "Maximum",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     798.5,
+     938
+    ],
+    "attraverso": [
+     1065,
+     1097
+    ],
+    "base": 1090,
+    "c": 18.5,
+    "apici": true,
+    "testo": "460 o F (238 o C)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     224,
+     484
+    ],
+    "attraverso": [
+     1129,
+     1154
+    ],
+    "base": 1151,
+    "c": 18.5,
+    "apici": false,
+    "testo": "OIL TEMPERATURE GAGE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     264,
+     491
+    ],
+    "attraverso": [
+     1157,
+     1184
+    ],
+    "base": 1181,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Normal Operating Range",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     839.5,
+     935
+    ],
+    "attraverso": [
+     1157,
+     1184
+    ],
+    "base": 1181,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Green Arc",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     264,
+     449
+    ],
+    "attraverso": [
+     1187,
+     1219
+    ],
+    "base": 1212,
+    "c": 18.5,
+    "apici": true,
+    "testo": "Maximum Allowable",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     716,
+     930
+    ],
+    "attraverso": [
+     1187,
+     1219
+    ],
+    "base": 1212,
+    "c": 18.5,
+    "apici": true,
+    "testo": "240 o F (116 o C) (red line)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     222,
+     438
+    ],
+    "attraverso": [
+     1245,
+     1270
+    ],
+    "base": 1267,
+    "c": 18.5,
+    "apici": false,
+    "testo": "OIL PRESSURE GAGE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     263,
+     410
+    ],
+    "attraverso": [
+     1273,
+     1304
+    ],
+    "base": 1297,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Minimum Idling",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     676,
+     928
+    ],
+    "attraverso": [
+     1273,
+     1304
+    ],
+    "base": 1297,
+    "c": 18.5,
+    "apici": false,
+    "testo": "10 psi (0,689 bars) (red line)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     263,
+     489
+    ],
+    "attraverso": [
+     1303,
+     1333
+    ],
+    "base": 1328,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Normal Operating Range",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     585,
+     928
+    ],
+    "attraverso": [
+     1303,
+     1333
+    ],
+    "base": 1328,
+    "c": 18.5,
+    "apici": false,
+    "testo": "30-60 psi (2,067-4,134 bars) (green arc)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     262,
+     358
+    ],
+    "attraverso": [
+     1334,
+     1362
+    ],
+    "base": 1355,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Maximum",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     665,
+     927
+    ],
+    "attraverso": [
+     1334,
+     1364
+    ],
+    "base": 1357,
+    "c": 18.5,
+    "apici": false,
+    "testo": "100 psi (6,890 bars) (red line)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     221,
+     520
+    ],
+    "attraverso": [
+     1395,
+     1420
+    ],
+    "base": 1417,
+    "c": 18.5,
+    "apici": false,
+    "testo": "FUEL QUANTITY INDICATORS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     261,
+     598
+    ],
+    "attraverso": [
+     1423,
+     1455
+    ],
+    "base": 1448,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Empty (11,5 litres unusable each tank)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     816,
+     926
+    ],
+    "attraverso": [
+     1423,
+     1455
+    ],
+    "base": 1448,
+    "c": 18.5,
+    "apici": false,
+    "testo": "E (red line)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219,
+     370
+    ],
+    "attraverso": [
+     1488,
+     1513
+    ],
+    "base": 1510,
+    "c": 18.5,
+    "apici": false,
+    "testo": "TACHOMETER.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     260,
+     486
+    ],
+    "attraverso": [
+     1516,
+     1548
+    ],
+    "base": 1541,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Normal Operating Range",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     672,
+     929
+    ],
+    "attraverso": [
+     1516,
+     1548
+    ],
+    "base": 1541,
+    "c": 18.5,
+    "apici": false,
+    "testo": "2200 - 2600 RPM (green arc)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     259,
+     532
+    ],
+    "attraverso": [
+     1547,
+     1578
+    ],
+    "base": 1571,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Maximum (Engine rated speed)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     742,
+     927
+    ],
+    "attraverso": [
+     1547,
+     1578
+    ],
+    "base": 1571,
+    "c": 18.5,
+    "apici": false,
+    "testo": "2800 RPM (red line)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219,
+     504
+    ],
+    "attraverso": [
+     1609,
+     1634
+    ],
+    "base": 1631,
+    "c": 18.5,
+    "apici": false,
+    "testo": "MANIFOLD PRESSURE GAGE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     260,
+     486
+    ],
+    "attraverso": [
+     1637,
+     1668
+    ],
+    "base": 1661,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Normal Operating Range",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     592,
+     933
+    ],
+    "attraverso": [
+     1637,
+     1668
+    ],
+    "base": 1661,
+    "c": 18.5,
+    "apici": false,
+    "testo": "15-25,0 in Hg (508-847 mb) (green arc)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   }
+  ],
+  "macchie": [],
+  "righe": 44,
+  "righeFuori": [],
+  "fuori": 0.07286307053941908,
+  "numeri": [
+   {
+    "riga": 203,
+    "x": 299,
+    "valore": "2-4",
+    "tesseract": "14",
+    "pdf": true,
+    "vista": "OCR legge 14 (ritaglio); a vista: Page: 2-4 · seconda conferma: posizione nel PDF: pagina 26, fra 2-3 e 2-5 (mappa tools/afm/afm-ccaf.json)",
+    "conferme": 3
+   },
+   {
+    "riga": 324,
+    "x": 324,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 645,
+    "x": 670,
+    "valore": "210",
+    "tesseract": "210",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 645,
+    "x": 738,
+    "valore": "(157",
+    "tesseract": "(157",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 645,
+    "x": 847,
+    "valore": "2800",
+    "tesseract": "2800",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 819,
+    "x": 585,
+    "valore": "37",
+    "tesseract": "37",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 819,
+    "x": 675,
+    "valore": "20",
+    "tesseract": "20",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 849,
+    "x": 585,
+    "valore": "28",
+    "tesseract": "28",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 849,
+    "x": 676,
+    "valore": "15",
+    "tesseract": "1S",
+    "pdf": true,
+    "vista": "OCR legge 1S; a vista: 28 km/h - 15 kts · seconda conferma: la coppia torna: 28 km/h = 15,1 kt",
+    "conferme": 3
+   },
+   {
+    "riga": 1059,
+    "x": 681,
+    "valore": "300",
+    "tesseract": "300",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1059,
+    "x": 740,
+    "valore": "460",
+    "tesseract": "460",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1059,
+    "x": 801,
+    "valore": "(149",
+    "tesseract": "(149",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1059,
+    "x": 867,
+    "valore": "238",
+    "tesseract": "238",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1090,
+    "x": 806,
+    "valore": "460",
+    "tesseract": "460",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1090,
+    "x": 867,
+    "valore": "(238",
+    "tesseract": "(238",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1212,
+    "x": 717,
+    "valore": "240",
+    "tesseract": "240",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1212,
+    "x": 776,
+    "valore": "(116",
+    "tesseract": "(116",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1297,
+    "x": 688,
+    "valore": "10",
+    "tesseract": "10",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1297,
+    "x": 743,
+    "valore": "(0,689",
+    "tesseract": "(0,689",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1328,
+    "x": 597,
+    "valore": "30-60",
+    "tesseract": "30-60",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1328,
+    "x": 679,
+    "valore": "(2,067-4,134",
+    "tesseract": "(2,067-4,134",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1357,
+    "x": 677,
+    "valore": "100",
+    "tesseract": "100",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1357,
+    "x": 742,
+    "valore": "(6,890",
+    "tesseract": "(6,890",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1448,
+    "x": 335,
+    "valore": "(11,5",
+    "tesseract": "(11,5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1541,
+    "x": 684,
+    "valore": "2200",
+    "tesseract": "2200",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1541,
+    "x": 744,
+    "valore": "2600",
+    "tesseract": "2600",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1571,
+    "x": 754,
+    "valore": "2800",
+    "tesseract": "2800",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1661,
+    "x": 604,
+    "valore": "15-25,0",
+    "tesseract": "15-25,0",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1661,
+    "x": 721,
+    "valore": "(508-847",
+    "tesseract": "(508-847",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 2,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "2-5",
+  "pdf": 27,
+  "stato": "ricostruita",
+  "figure": [],
+  "inkA": 43069,
+  "soloA": 1488,
+  "soloB": 1204,
+  "entrambi": 41581,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     585,
+     715
+    ],
+    "attraverso": [
+     167,
+     199
+    ],
+    "base": 192,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     586,
+     715
+    ],
+    "attraverso": [
+     198,
+     230
+    ],
+    "base": 223,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     297,
+     438
+    ],
+    "attraverso": [
+     232,
+     264
+    ],
+    "base": 257,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     908,
+     1006
+    ],
+    "attraverso": [
+     230,
+     262
+    ],
+    "base": 255,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Page: 2-5",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     297,
+     486
+    ],
+    "attraverso": [
+     263,
+     295
+    ],
+    "base": 288,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     908,
+     1017
+    ],
+    "attraverso": [
+     263,
+     295
+    ],
+    "base": 288,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     298,
+     542
+    ],
+    "attraverso": [
+     353,
+     378
+    ],
+    "base": 375,
+    "c": 18.5,
+    "apici": false,
+    "testo": "FUEL FLOW INDICATOR.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     339,
+     559
+    ],
+    "attraverso": [
+     381,
+     412
+    ],
+    "base": 405,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Normal Operating Range",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     609,
+     1011
+    ],
+    "attraverso": [
+     381,
+     412
+    ],
+    "base": 405,
+    "c": 18.5,
+    "apici": false,
+    "testo": "4,5-11,5 gal/hr (17,0-43,5 litres/hr) (green arc)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     339,
+     556
+    ],
+    "attraverso": [
+     411,
+     443
+    ],
+    "base": 436,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Minimum and Maximum",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     641,
+     1008
+    ],
+    "attraverso": [
+     411,
+     443
+    ],
+    "base": 436,
+    "c": 18.5,
+    "apici": false,
+    "testo": "3,0 and 18,5 psi (0,21 bars and 1,28 bars)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     676,
+     1011
+    ],
+    "attraverso": [
+     442,
+     474
+    ],
+    "base": 467,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(18,0 gal/hr - 68,1 litres/hr) (red lines)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     621,
+     689
+    ],
+    "attraverso": [
+     507,
+     532
+    ],
+    "base": 529,
+    "c": 18.5,
+    "apici": false,
+    "testo": "NOTE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     380,
+     915
+    ],
+    "attraverso": [
+     566,
+     598
+    ],
+    "base": 591,
+    "c": 18.5,
+    "apici": false,
+    "testo": "A placard located on the right instrument panel cover provides",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     379,
+     905
+    ],
+    "attraverso": [
+     597,
+     629
+    ],
+    "base": 622,
+    "c": 18.5,
+    "apici": false,
+    "testo": "maximum performance (full throttle and 2800 RPM) take-off",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     379,
+     876
+    ],
+    "attraverso": [
+     628,
+     660
+    ],
+    "base": 653,
+    "c": 18.5,
+    "apici": false,
+    "testo": "and climb fuel flow settings at altitude. These settings, as",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     380,
+     731
+    ],
+    "attraverso": [
+     659,
+     691
+    ],
+    "base": 684,
+    "c": 18.5,
+    "apici": false,
+    "testo": "called out on the placard, are as follows:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     421,
+     512
+    ],
+    "attraverso": [
+     721,
+     753
+    ],
+    "base": 746,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Sea Level",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     650,
+     865
+    ],
+    "attraverso": [
+     721,
+     753
+    ],
+    "base": 746,
+    "c": 18.5,
+    "apici": false,
+    "testo": "17 gal/hr (64,4 litres/hr)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     420,
+     521
+    ],
+    "attraverso": [
+     752,
+     784
+    ],
+    "base": 777,
+    "c": 18.5,
+    "apici": false,
+    "testo": "4000 Feet",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     649,
+     864
+    ],
+    "attraverso": [
+     752,
+     784
+    ],
+    "base": 777,
+    "c": 18.5,
+    "apici": false,
+    "testo": "15 gal/hr (56,8 litres/hr)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     420,
+     520
+    ],
+    "attraverso": [
+     783,
+     815
+    ],
+    "base": 808,
+    "c": 18.5,
+    "apici": false,
+    "testo": "8000 Feet",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     649,
+     864
+    ],
+    "attraverso": [
+     783,
+     815
+    ],
+    "base": 808,
+    "c": 18.5,
+    "apici": false,
+    "testo": "13 gal/hr (49,2 litres/hr)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     422,
+     530
+    ],
+    "attraverso": [
+     814,
+     846
+    ],
+    "base": 839,
+    "c": 18.5,
+    "apici": false,
+    "testo": "12000 Feet",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     648,
+     864
+    ],
+    "attraverso": [
+     814,
+     846
+    ],
+    "base": 839,
+    "c": 18.5,
+    "apici": false,
+    "testo": "11 gal/hr (41,6 litres/hr)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     292,
+     672
+    ],
+    "attraverso": [
+     997,
+     1025
+    ],
+    "base": 1022,
+    "c": 20.5,
+    "apici": false,
+    "testo": "FLIGHT IN ICING CONDITIONS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     332,
+     733
+    ],
+    "attraverso": [
+     1059,
+     1091
+    ],
+    "base": 1084,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flight in icing conditions is strictly prohibited.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     289,
+     1011
+    ],
+    "attraverso": [
+     1245,
+     1273
+    ],
+    "base": 1270,
+    "c": 20.5,
+    "apici": false,
+    "testo": "LOADING GRAPH AND CENTER OF GRAVITY MOMENT ENVELOPE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     330,
+     1011
+    ],
+    "attraverso": [
+     1305,
+     1337
+    ],
+    "base": 1330,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Refer to Section VI for Loading Graph and Center of Gravity Moment Envelope",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 29,
+  "righeFuori": [],
+  "fuori": 0.06250435347930065,
+  "numeri": [
+   {
+    "riga": 255,
+    "x": 977,
+    "valore": "2-5",
+    "tesseract": "2-5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 288,
+    "x": 1003,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 405,
+    "x": 621,
+    "valore": "4,5-11,5",
+    "tesseract": "45-11,5",
+    "pdf": true,
+    "vista": "OCR legge 45-11,5 (la virgola persa); a vista: 4,5-11,5 gal/hr · seconda conferma: la coppia torna: 4,5 gal = 17,0 litri, 11,5 gal = 43,5 litri (1 U.S. gal = 3,785 litri), come fra parentesi",
+    "conferme": 3
+   },
+   {
+    "riga": 405,
+    "x": 748,
+    "valore": "(17,0-43,5",
+    "tesseract": "(17,0-43,5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 436,
+    "x": 653,
+    "valore": "3,0",
+    "tesseract": "3,0",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 436,
+    "x": 725,
+    "valore": "18,5",
+    "tesseract": "18,5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 436,
+    "x": 795,
+    "valore": "(0,21",
+    "tesseract": "(0,21",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 436,
+    "x": 923,
+    "valore": "1,28",
+    "tesseract": "1,28",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 467,
+    "x": 688,
+    "valore": "(18,0",
+    "tesseract": "(18,0",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 467,
+    "x": 804,
+    "valore": "68,1",
+    "tesseract": "68,1",
+    "pdf": false,
+    "vista": "Tesseract legge 68,1; lo strato di testo del PDF non ha la parola · seconda conferma: la coppia torna: 18,0 gal = 68,1 litri (1 U.S. gal = 3,785 litri)",
+    "conferme": 3
+   },
+   {
+    "riga": 622,
+    "x": 734,
+    "valore": "2800",
+    "tesseract": "2800",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 746,
+    "x": 662,
+    "valore": "17",
+    "tesseract": "17",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 746,
+    "x": 740,
+    "valore": "(64,4",
+    "tesseract": "(64,4",
+    "pdf": false,
+    "vista": "Tesseract legge (64,4; lo strato di testo del PDF non ha la parola · seconda conferma: la coppia torna: 17 gal = 64,3 litri (1 U.S. gal = 3,785 litri), arrotondato 64,4 come nell'originale",
+    "conferme": 3
+   },
+   {
+    "riga": 777,
+    "x": 432,
+    "valore": "4000",
+    "tesseract": "4000",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 777,
+    "x": 661,
+    "valore": "15",
+    "tesseract": "i)",
+    "pdf": true,
+    "vista": "OCR legge i); a vista: 15 gal/hr · seconda conferma: la coppia torna: 15 gal = 56,8 litri (1 U.S. gal = 3,785 litri)",
+    "conferme": 3
+   },
+   {
+    "riga": 777,
+    "x": 739,
+    "valore": "(56,8",
+    "tesseract": "(56,8",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 808,
+    "x": 432,
+    "valore": "8000",
+    "tesseract": "8000",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 808,
+    "x": 661,
+    "valore": "13",
+    "tesseract": "13",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 808,
+    "x": 739,
+    "valore": "(49,2",
+    "tesseract": "(49,2",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 839,
+    "x": 434,
+    "valore": "12000",
+    "tesseract": "12000",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 839,
+    "x": 660,
+    "valore": "11",
+    "tesseract": "II",
+    "pdf": true,
+    "vista": "OCR legge II; a vista: 11 gal/hr · seconda conferma: la coppia torna: 11 gal = 41,6 litri (1 U.S. gal = 3,785 litri)",
+    "conferme": 3
+   },
+   {
+    "riga": 839,
+    "x": 739,
+    "valore": "(41,6",
+    "tesseract": "(41,6",
+    "pdf": false,
+    "vista": "Tesseract legge (41,6; lo strato del PDF legge (41 · seconda conferma: la coppia torna: 11 gal = 41,6 litri (1 U.S. gal = 3,785 litri)",
+    "conferme": 3
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 3,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "2-6",
+  "pdf": 28,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Cartelli (1) e (2) di pagina 2-6",
+    "metodo": "bordi, filetti, sottolineature e puntini guida dei cartelli: tratto vettorializzato con potrace (tratto.py); scritte: testo vero, carattere senza grazie condensato per il cartello (1) come nell'originale, lette a vista sull'ingrandimento (costruisci/2-6.py)."
+   }
+  ],
+  "inkA": 140731,
+  "soloA": 4732,
+  "soloB": 8112,
+  "entrambi": 135999,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     517,
+     647
+    ],
+    "attraverso": [
+     84,
+     116
+    ],
+    "base": 109,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     517,
+     650
+    ],
+    "attraverso": [
+     116,
+     148
+    ],
+    "base": 141,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     226,
+     322
+    ],
+    "attraverso": [
+     147,
+     179
+    ],
+    "base": 172,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Page: 2-6",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     752,
+     893
+    ],
+    "attraverso": [
+     147,
+     179
+    ],
+    "base": 172,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     227,
+     336
+    ],
+    "attraverso": [
+     290,
+     322
+    ],
+    "base": 315,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     753,
+     940
+    ],
+    "attraverso": [
+     290,
+     322
+    ],
+    "base": 315,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     225,
+     350
+    ],
+    "attraverso": [
+     384,
+     412
+    ],
+    "base": 409,
+    "c": 20.5,
+    "apici": false,
+    "testo": "PLACARDS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     266,
+     931
+    ],
+    "attraverso": [
+     443,
+     475
+    ],
+    "base": 468,
+    "c": 18.5,
+    "apici": false,
+    "testo": "The following information is displayed in the form of composite or individual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     224,
+     311
+    ],
+    "attraverso": [
+     475,
+     507
+    ],
+    "base": 500,
+    "c": 18.5,
+    "apici": false,
+    "testo": "placards.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     266,
+     527
+    ],
+    "attraverso": [
+     539,
+     571
+    ],
+    "base": 564,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(1) In full view of the pilot:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     265,
+     578
+    ],
+    "attraverso": [
+     1468,
+     1500
+    ],
+    "base": 1493,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(2) On the fuel selector valve plate:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     276,
+     894
+    ],
+    "attraverso": [
+     633,
+     667
+    ],
+    "base": 659,
+    "c": 19,
+    "apici": false,
+    "testo": "This airplane must-be operated in compliance with the operating limitations",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     276,
+     739
+    ],
+    "attraverso": [
+     666,
+     698
+    ],
+    "base": 690,
+    "c": 19,
+    "apici": false,
+    "testo": "as stated in the form of placards, markings, and manuals.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     524,
+     650
+    ],
+    "attraverso": [
+     703,
+     732
+    ],
+    "base": 729,
+    "c": 22,
+    "apici": false,
+    "testo": "MAXIMUMS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     587,
+     729
+    ],
+    "attraverso": [
+     733,
+     767
+    ],
+    "base": 759,
+    "c": 19,
+    "apici": false,
+    "testo": "Normal Category",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     754,
+     888
+    ],
+    "attraverso": [
+     733,
+     767
+    ],
+    "base": 759,
+    "c": 19,
+    "apici": false,
+    "testo": "Utility Category",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     276,
+     540
+    ],
+    "attraverso": [
+     764,
+     797
+    ],
+    "base": 790,
+    "c": 19,
+    "apici": false,
+    "testo": "MANEUVERING SPEED (CAS)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     555,
+     730
+    ],
+    "attraverso": [
+     766,
+     798
+    ],
+    "base": 791,
+    "c": 19,
+    "apici": false,
+    "testo": "118 mph (104 knots)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     739,
+     914
+    ],
+    "attraverso": [
+     766,
+     798
+    ],
+    "base": 790,
+    "c": 19,
+    "apici": false,
+    "testo": "118 mph (104 knots)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     275,
+     421
+    ],
+    "attraverso": [
+     797,
+     823
+    ],
+    "base": 820,
+    "c": 19,
+    "apici": false,
+    "testo": "GROSS WEIGHT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     589,
+     667
+    ],
+    "attraverso": [
+     798,
+     829
+    ],
+    "base": 821,
+    "c": 19,
+    "apici": false,
+    "testo": "2550 lbs.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     758,
+     836
+    ],
+    "attraverso": [
+     797,
+     829
+    ],
+    "base": 821,
+    "c": 19,
+    "apici": false,
+    "testo": "2200 lbs.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     275,
+     490
+    ],
+    "attraverso": [
+     829,
+     855
+    ],
+    "base": 852,
+    "c": 19,
+    "apici": false,
+    "testo": "FLIGHT LOAD FACTOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     504,
+     684
+    ],
+    "attraverso": [
+     828,
+     859
+    ],
+    "base": 852,
+    "c": 19,
+    "apici": false,
+    "testo": "Flaps Up +3.8, -1.52",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -2,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     751,
+     847
+    ],
+    "attraverso": [
+     828,
+     859
+    ],
+    "base": 852,
+    "c": 19,
+    "apici": false,
+    "testo": "+4.4, -1.76",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     478,
+     627
+    ],
+    "attraverso": [
+     859,
+     890
+    ],
+    "base": 882,
+    "c": 19,
+    "apici": false,
+    "testo": "Flaps Down +3.0",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     751,
+     793
+    ],
+    "attraverso": [
+     859,
+     886
+    ],
+    "base": 882,
+    "c": 19,
+    "apici": false,
+    "testo": "+3.0",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     274,
+     393
+    ],
+    "attraverso": [
+     891,
+     917
+    ],
+    "base": 914,
+    "c": 19,
+    "apici": false,
+    "testo": "CROSSWI ND",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     733,
+     865
+    ],
+    "attraverso": [
+     889,
+     922
+    ],
+    "base": 914,
+    "c": 19,
+    "apici": true,
+    "testo": "20 knots at 90 o",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     275,
+     839
+    ],
+    "attraverso": [
+     921,
+     953
+    ],
+    "base": 945,
+    "c": 19,
+    "apici": false,
+    "testo": "Normal Category - No acrobatic maneuvers including spins approved.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     274,
+     906
+    ],
+    "attraverso": [
+     952,
+     984
+    ],
+    "base": 976,
+    "c": 19,
+    "apici": false,
+    "testo": "Utility Category - Baggage compartment and rear seat must not be occupied.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     277,
+     889
+    ],
+    "attraverso": [
+     992,
+     1023
+    ],
+    "base": 1020,
+    "c": 23,
+    "apici": false,
+    "testo": "NO ACROBATIC MANEUVERS APPROVED EXCEPT THOSE LISTED BELOW",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     294,
+     375
+    ],
+    "attraverso": [
+     1030,
+     1063
+    ],
+    "base": 1056,
+    "c": 19,
+    "apici": false,
+    "testo": "Maneuver",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     423,
+     587
+    ],
+    "attraverso": [
+     1028,
+     1062
+    ],
+    "base": 1054,
+    "c": 19,
+    "apici": false,
+    "testo": "Recm. Entry Speed",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     636,
+     718
+    ],
+    "attraverso": [
+     1030,
+     1063
+    ],
+    "base": 1056,
+    "c": 19,
+    "apici": false,
+    "testo": "Maneuver",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     741,
+     905
+    ],
+    "attraverso": [
+     1028,
+     1062
+    ],
+    "base": 1054,
+    "c": 19,
+    "apici": false,
+    "testo": "Recm. Entry Speed",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     272,
+     365
+    ],
+    "attraverso": [
+     1063,
+     1093
+    ],
+    "base": 1086,
+    "c": 19,
+    "apici": false,
+    "testo": "Chandelles",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     413,
+     588
+    ],
+    "attraverso": [
+     1061,
+     1094
+    ],
+    "base": 1087,
+    "c": 19,
+    "apici": false,
+    "testo": "125 mph (109 knots)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     625,
+     675
+    ],
+    "attraverso": [
+     1063,
+     1093
+    ],
+    "base": 1086,
+    "c": 19,
+    "apici": false,
+    "testo": "Spins",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     747,
+     901
+    ],
+    "attraverso": [
+     1061,
+     1093
+    ],
+    "base": 1086,
+    "c": 19,
+    "apici": false,
+    "testo": "Slow Deceleration",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     273,
+     371
+    ],
+    "attraverso": [
+     1093,
+     1124
+    ],
+    "base": 1116,
+    "c": 19,
+    "apici": false,
+    "testo": "Lazy Eights",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     413,
+     587
+    ],
+    "attraverso": [
+     1094,
+     1125
+    ],
+    "base": 1117,
+    "c": 19,
+    "apici": false,
+    "testo": "125 mph (109 knots)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     624,
+     738
+    ],
+    "attraverso": [
+     1093,
+     1124
+    ],
+    "base": 1116,
+    "c": 19,
+    "apici": false,
+    "testo": "Stalls (except",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     749,
+     901
+    ],
+    "attraverso": [
+     1093,
+     1124
+    ],
+    "base": 1116,
+    "c": 19,
+    "apici": false,
+    "testo": "Slow Deceleration",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     272,
+     373
+    ],
+    "attraverso": [
+     1123,
+     1155
+    ],
+    "base": 1147,
+    "c": 19,
+    "apici": false,
+    "testo": "Steep Turns",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 4,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     413,
+     587
+    ],
+    "attraverso": [
+     1124,
+     1155
+    ],
+    "base": 1148,
+    "c": 19,
+    "apici": false,
+    "testo": "118 mph (104 knots)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     645,
+     740
+    ],
+    "attraverso": [
+     1123,
+     1155
+    ],
+    "base": 1147,
+    "c": 19,
+    "apici": false,
+    "testo": "whip stalls)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     272,
+     597
+    ],
+    "attraverso": [
+     1155,
+     1186
+    ],
+    "base": 1178,
+    "c": 19,
+    "apici": false,
+    "testo": "Altitude loss in stall recovery - - 160 ft.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     271,
+     709
+    ],
+    "attraverso": [
+     1185,
+     1217
+    ],
+    "base": 1209,
+    "c": 19,
+    "apici": false,
+    "testo": "Abrupt use of the controls prohibited above 118 mph",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     271,
+     897
+    ],
+    "attraverso": [
+     1216,
+     1246
+    ],
+    "base": 1240,
+    "c": 19,
+    "apici": false,
+    "testo": "Spin Recovery: opposite rudder - forward elevator - neutralize controls. In-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     271,
+     883
+    ],
+    "attraverso": [
+     1247,
+     1277
+    ],
+    "base": 1269,
+    "c": 19,
+    "apici": false,
+    "testo": "tentional spins with flaps extended are prohibited. Flight into known icing",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     271,
+     899
+    ],
+    "attraverso": [
+     1276,
+     1307
+    ],
+    "base": 1300,
+    "c": 19,
+    "apici": false,
+    "testo": "conditions prohibited. This airplane is certified for the following flight oper-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     270,
+     705
+    ],
+    "attraverso": [
+     1307,
+     1338
+    ],
+    "base": 1330,
+    "c": 19,
+    "apici": false,
+    "testo": "ations as of date of original airworthiness certificate:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     486,
+     705
+    ],
+    "attraverso": [
+     1344,
+     1370
+    ],
+    "base": 1367,
+    "c": 19,
+    "apici": false,
+    "testo": "DAY–NIGHT–VFR–IFR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     411,
+     508
+    ],
+    "attraverso": [
+     1582,
+     1614
+    ],
+    "base": 1607,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Left 23 gal.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     409,
+     521
+    ],
+    "attraverso": [
+     1614,
+     1646
+    ],
+    "base": 1639,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Right 23 gal.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     640,
+     742
+    ],
+    "attraverso": [
+     1595,
+     1627
+    ],
+    "base": 1620,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Both 46 gal.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   }
+  ],
+  "macchie": [],
+  "righe": 57,
+  "righeFuori": [],
+  "fuori": 0.09126631658980608,
+  "numeri": [
+   {
+    "riga": 172,
+    "x": 292,
+    "valore": "2-6",
+    "tesseract": "2-6",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 315,
+    "x": 322,
+    "valore": "3",
+    "tesseract": "j",
+    "pdf": false,
+    "vista": "OCR legge j (evidenziatore sopra); a vista: Edition: 3 · seconda conferma: tutte le pagine di I-CCAF sono Edition 3",
+    "conferme": 2
+   },
+   {
+    "riga": 564,
+    "x": 278,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1493,
+    "x": 277,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 791,
+    "x": 558,
+    "valore": "118",
+    "tesseract": "118",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 791,
+    "x": 635,
+    "valore": "(104",
+    "tesseract": "(104",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 790,
+    "x": 742,
+    "valore": "118",
+    "tesseract": "118",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 790,
+    "x": 819,
+    "valore": "(104",
+    "tesseract": "(104",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 821,
+    "x": 592,
+    "valore": "2550",
+    "tesseract": "2950",
+    "pdf": true,
+    "vista": "OCR legge 2950; a vista: GROSS WEIGHT 2550 lbs. · seconda conferma: pagina 2-2: Normal Category 2550 lbs (1157 kg); DATI-AFM.md: MTOW 1157 kg",
+    "conferme": 3
+   },
+   {
+    "riga": 821,
+    "x": 761,
+    "valore": "2200",
+    "tesseract": "2200",
+    "pdf": false,
+    "vista": "Tesseract legge 2200; lo strato del PDF no · seconda conferma: pagina 2-2: Utility Category 2200 lbs (998 kg)",
+    "conferme": 3
+   },
+   {
+    "riga": 852,
+    "x": 589,
+    "valore": "+3.8,",
+    "tesseract": "3.8,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 852,
+    "x": 636,
+    "valore": "-1.52",
+    "tesseract": "-1.52.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 852,
+    "x": 754,
+    "valore": "+4.4,",
+    "tesseract": "4144,",
+    "pdf": true,
+    "vista": "OCR legge 4144,; a vista: +4.4, -1.76 · seconda conferma: pagina 2-2: Utility Category Flaps Up +4,4 -1,76",
+    "conferme": 3
+   },
+   {
+    "riga": 852,
+    "x": 802,
+    "valore": "-1.76",
+    "tesseract": "-1.76",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 882,
+    "x": 588,
+    "valore": "+3.0",
+    "tesseract": "3.0",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 882,
+    "x": 754,
+    "valore": "+3.0",
+    "tesseract": "3.0",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 914,
+    "x": 736,
+    "valore": "20",
+    "tesseract": "20",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 914,
+    "x": 832,
+    "valore": "90",
+    "tesseract": "5",
+    "pdf": false,
+    "vista": "OCR legge 5; a vista: 20 knots at 90° · seconda conferma: pagina 2-4: Take-off direct crosswind limitation 20 kts (componente a 90 gradi)",
+    "conferme": 2
+   },
+   {
+    "riga": 1087,
+    "x": 416,
+    "valore": "125",
+    "tesseract": "125",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1087,
+    "x": 492,
+    "valore": "(109",
+    "tesseract": "(109",
+    "pdf": false,
+    "vista": "Tesseract legge (109; lo strato del PDF no · seconda conferma: pagina 2-3: Chandelles 201 km/h - 109 kts - 125 MPH",
+    "conferme": 3
+   },
+   {
+    "riga": 1117,
+    "x": 416,
+    "valore": "125",
+    "tesseract": "125",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1117,
+    "x": 493,
+    "valore": "(109",
+    "tesseract": "(109",
+    "pdf": false,
+    "vista": "Tesseract legge (109; lo strato del PDF no · seconda conferma: pagina 2-3: Lazy Eights 201 km/h - 109 kts - 125 MPH",
+    "conferme": 3
+   },
+   {
+    "riga": 1148,
+    "x": 416,
+    "valore": "118",
+    "tesseract": "118",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1148,
+    "x": 493,
+    "valore": "(104",
+    "tesseract": "(104",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1178,
+    "x": 541,
+    "valore": "160",
+    "tesseract": "160",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1209,
+    "x": 637,
+    "valore": "118",
+    "tesseract": "118",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1607,
+    "x": 453,
+    "valore": "23",
+    "tesseract": "23",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1639,
+    "x": 464,
+    "valore": "23",
+    "tesseract": "23",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1620,
+    "x": 687,
+    "valore": "46",
+    "tesseract": "46",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 4,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "2-7",
+  "pdf": 29,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Cartelli (3)-(7) di pagina 2-7",
+    "metodo": "riquadri: tratto vettorializzato con potrace (tratto.py); scritte: testo vero."
+   }
+  ],
+  "inkA": 71879,
+  "soloA": 1411,
+  "soloB": 614,
+  "entrambi": 70468,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     576,
+     706
+    ],
+    "attraverso": [
+     175,
+     207
+    ],
+    "base": 200,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     576,
+     707
+    ],
+    "attraverso": [
+     206,
+     238
+    ],
+    "base": 231,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     290,
+     430
+    ],
+    "attraverso": [
+     241,
+     273
+    ],
+    "base": 266,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     898,
+     994
+    ],
+    "attraverso": [
+     238,
+     270
+    ],
+    "base": 263,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Page: 2-7",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     290,
+     476
+    ],
+    "attraverso": [
+     272,
+     304
+    ],
+    "base": 297,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     898,
+     1007
+    ],
+    "attraverso": [
+     270,
+     302
+    ],
+    "base": 295,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     329,
+     551
+    ],
+    "attraverso": [
+     364,
+     396
+    ],
+    "base": 389,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(3) On the control lock:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     451,
+     844
+    ],
+    "attraverso": [
+     448,
+     480
+    ],
+    "base": 473,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Control lock -- Remove before starting engine.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     325,
+     554
+    ],
+    "attraverso": [
+     607,
+     639
+    ],
+    "base": 632,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(4) On the baggage door:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     369,
+     916
+    ],
+    "attraverso": [
+     692,
+     724
+    ],
+    "base": 717,
+    "c": 18.5,
+    "apici": false,
+    "testo": "200 Pounds maximum baggage or 120 lbs auxiliary seat passenger.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     368,
+     879
+    ],
+    "attraverso": [
+     723,
+     754
+    ],
+    "base": 747,
+    "c": 18.5,
+    "apici": false,
+    "testo": "For additional loading instructions see weight & balance data.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     324,
+     996
+    ],
+    "attraverso": [
+     873,
+     905
+    ],
+    "base": 898,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(5) On left hand instrument panel cover (if optional strobe lights are installed):",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     593,
+     701
+    ],
+    "attraverso": [
+     976,
+     1001
+    ],
+    "base": 998,
+    "c": 18.5,
+    "apici": false,
+    "testo": "WARNING",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     408,
+     862
+    ],
+    "attraverso": [
+     1036,
+     1068
+    ],
+    "base": 1061,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Turn off strobe lights when taxiing in vicinity of other",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     407,
+     845
+    ],
+    "attraverso": [
+     1067,
+     1099
+    ],
+    "base": 1092,
+    "c": 18.5,
+    "apici": false,
+    "testo": "aircraft, or during flight through clouds, fog or haze.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     321,
+     687
+    ],
+    "attraverso": [
+     1234,
+     1266
+    ],
+    "base": 1259,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(6) On right hand instrument panel cover:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     406,
+     862
+    ],
+    "attraverso": [
+     1318,
+     1344
+    ],
+    "base": 1343,
+    "c": 18.5,
+    "apici": false,
+    "testo": "When winterization kit is installed, it must be removed",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     407,
+     729
+    ],
+    "attraverso": [
+     1349,
+     1379
+    ],
+    "base": 1372,
+    "c": 18.5,
+    "apici": true,
+    "testo": "when outside air temp. is above 20 o F.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     317,
+     643
+    ],
+    "attraverso": [
+     1496,
+     1528
+    ],
+    "base": 1521,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(7) Near wing flap position indicator:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     505,
+     777
+    ],
+    "attraverso": [
+     1579,
+     1611
+    ],
+    "base": 1604,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Avoid slips with flaps extended.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 20,
+  "righeFuori": [],
+  "fuori": 0.028172345191224142,
+  "numeri": [
+   {
+    "riga": 263,
+    "x": 964,
+    "valore": "2-7",
+    "tesseract": "2-7",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 295,
+    "x": 993,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 389,
+    "x": 341,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 632,
+    "x": 337,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 717,
+    "x": 381,
+    "valore": "200",
+    "tesseract": "200",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 717,
+    "x": 658,
+    "valore": "120",
+    "tesseract": "120",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 898,
+    "x": 336,
+    "valore": "(5)",
+    "tesseract": "(9)",
+    "pdf": true,
+    "vista": "OCR legge (9); a vista: (5) On left hand instrument panel cover · seconda conferma: sequenza dei cartelli: (3) e (4) sopra, (6) e (7) sotto",
+    "conferme": 3
+   },
+   {
+    "riga": 1259,
+    "x": 333,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1372,
+    "x": 677,
+    "valore": "20",
+    "tesseract": "20",
+    "pdf": false,
+    "vista": "Tesseract legge 20 (il grado in apice a parte); a vista: above 20°F · seconda conferma: manuale I-CCAB (Edition 2), pagina 2-8, cartello (8): when outside air temp. is above 20°F",
+    "conferme": 3
+   },
+   {
+    "riga": 1521,
+    "x": 329,
+    "valore": "(7)",
+    "tesseract": "(7)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 1,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "2-8",
+  "pdf": 30,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Cartello (8) di pagina 2-8",
+    "metodo": "riquadro e sottolineatura: tratto vettorializzato con potrace (tratto.py); puntini guida dell'ultima riga, irregolari nell'originale (un puntino in alto e due ravvicinati): disegno; scritte: testo vero."
+   }
+  ],
+  "inkA": 22869,
+  "soloA": 418,
+  "soloB": 144,
+  "entrambi": 22451,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     529,
+     659
+    ],
+    "attraverso": [
+     101,
+     133
+    ],
+    "base": 126,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     530,
+     662
+    ],
+    "attraverso": [
+     133,
+     165
+    ],
+    "base": 158,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     234,
+     335
+    ],
+    "attraverso": [
+     168,
+     200
+    ],
+    "base": 193,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Page: 2-8",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     762,
+     906
+    ],
+    "attraverso": [
+     161,
+     193
+    ],
+    "base": 186,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     236,
+     346
+    ],
+    "attraverso": [
+     302,
+     334
+    ],
+    "base": 327,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     764,
+     955
+    ],
+    "attraverso": [
+     302,
+     334
+    ],
+    "base": 327,
+    "c": 18.5,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     279,
+     646
+    ],
+    "attraverso": [
+     395,
+     427
+    ],
+    "base": 420,
+    "c": 18.5,
+    "apici": false,
+    "testo": "(8) On right hand instrument panel cover:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     530,
+     656
+    ],
+    "attraverso": [
+     544,
+     569
+    ],
+    "base": 566,
+    "c": 18.5,
+    "apici": false,
+    "testo": "FUEL FLOW",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     443,
+     756
+    ],
+    "attraverso": [
+     606,
+     631
+    ],
+    "base": 628,
+    "c": 18.5,
+    "apici": false,
+    "testo": "FULL THROTTLE AND 2800 RPM",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     410,
+     458
+    ],
+    "attraverso": [
+     669,
+     694
+    ],
+    "base": 691,
+    "c": 18.5,
+    "apici": false,
+    "testo": "S.L.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     704,
+     783
+    ],
+    "attraverso": [
+     669,
+     694
+    ],
+    "base": 691,
+    "c": 18.5,
+    "apici": false,
+    "testo": "17 GPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     409,
+     498
+    ],
+    "attraverso": [
+     700,
+     725
+    ],
+    "base": 722,
+    "c": 18.5,
+    "apici": false,
+    "testo": "4000 FT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     704,
+     783
+    ],
+    "attraverso": [
+     700,
+     725
+    ],
+    "base": 722,
+    "c": 18.5,
+    "apici": false,
+    "testo": "15 GPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     410,
+     498
+    ],
+    "attraverso": [
+     731,
+     756
+    ],
+    "base": 753,
+    "c": 18.5,
+    "apici": false,
+    "testo": "8000 FT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     703,
+     782
+    ],
+    "attraverso": [
+     731,
+     756
+    ],
+    "base": 753,
+    "c": 18.5,
+    "apici": false,
+    "testo": "13 GPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     412,
+     508
+    ],
+    "attraverso": [
+     762,
+     787
+    ],
+    "base": 784,
+    "c": 18.5,
+    "apici": false,
+    "testo": "12000 FT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     703,
+     782
+    ],
+    "attraverso": [
+     762,
+     787
+    ],
+    "base": 784,
+    "c": 18.5,
+    "apici": false,
+    "testo": "11 GPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 17,
+  "righeFuori": [],
+  "fuori": 0.02457475184747912,
+  "numeri": [
+   {
+    "riga": 193,
+    "x": 304,
+    "valore": "2-8",
+    "tesseract": "28",
+    "pdf": true,
+    "vista": "OCR legge 28; a vista: Page: 2-8 · seconda conferma: posizione nel PDF: pagina 30, ultima della sezione II (mappa tools/afm/afm-ccaf.json)",
+    "conferme": 3
+   },
+   {
+    "riga": 327,
+    "x": 331,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 420,
+    "x": 291,
+    "valore": "(8)",
+    "tesseract": "(8)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 628,
+    "x": 665,
+    "valore": "2800",
+    "tesseract": "2300",
+    "pdf": true,
+    "vista": "OCR legge 2300; a vista: FULL THROTTLE AND 2800 RPM · seconda conferma: pagina 2-5, nota: full throttle and 2800 RPM; pagina 2-4: 2800 RPM regime massimo",
+    "conferme": 3
+   },
+   {
+    "riga": 691,
+    "x": 716,
+    "valore": "17",
+    "tesseract": "17",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 722,
+    "x": 421,
+    "valore": "4000",
+    "tesseract": "4000",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 722,
+    "x": 716,
+    "valore": "15",
+    "tesseract": "1)",
+    "pdf": false,
+    "vista": "OCR legge 1); a vista: 4000 FT 15 GPH · seconda conferma: pagina 2-5: 4000 Feet 15 gal/hr",
+    "conferme": 2
+   },
+   {
+    "riga": 753,
+    "x": 422,
+    "valore": "8000",
+    "tesseract": "8000",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 753,
+    "x": 715,
+    "valore": "13",
+    "tesseract": "13",
+    "pdf": false,
+    "vista": "Tesseract legge 13; lo strato del PDF no · seconda conferma: pagina 2-5: 8000 Feet 13 gal/hr",
+    "conferme": 3
+   },
+   {
+    "riga": 784,
+    "x": 424,
+    "valore": "12000",
+    "tesseract": "12000",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 784,
+    "x": 715,
+    "valore": "11",
+    "tesseract": "l",
+    "pdf": true,
+    "vista": "OCR legge l; a vista: 12000 FT 11 GPH · seconda conferma: pagina 2-5: 12000 Feet 11 gal/hr",
+    "conferme": 3
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 4,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
   "n": "5-12",
   "pdf": 68,
   "stato": "campione",

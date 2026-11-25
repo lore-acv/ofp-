@@ -638,6 +638,7 @@ differenza (dove coincidono resta nero); O passa dall'una all'altra.
 | `tools/afm-rec/dubbi.py` | le parole su cui la bozza e lo strato di testo del PDF non sono d'accordo, ritagliate da guardare; la punteggiatura in fondo alle parole (punto o virgola) |
 | `tools/afm-rec/correggi.py` | le correzioni a mano di una pagina (testo di una parola, via i filetti e i puntini della bozza, stato) |
 | `tools/afm-rec/ribasa.py` | la linea di base di ogni gruppo di parole dall'inchiostro (divide le righe della bozza che uniscono pezzi a basi diverse) |
+| `tools/afm-rec/riga.py`, `puntini.py` | una riga dal suo testo letto a vista (le parole sui gruppi di inchiostro, in ordine) e i puntini guida di una riga |
 | `tools/afm-rec/segmenti.py`, `estremi.py`, `parole.py`, `etichette.py` | dove sta l'inchiostro di una riga, di una parola in un intervallo, delle parole piccole di una figura; le scritte delle figure lette da Tesseract sull'ingrandimento |
 | `tools/afm-rec/filetti.py`, `filetto.py` | i filetti di tabelle e cornici, e un filetto misurato lungo tutta la sua lunghezza (spessore e pendenza) come poligono |
 | `tools/afm-rec/tratto.py` | un disegno al tratto con potrace, tolte le scritte e le forme gia' ricostruite; con `--retino` le campiture a puntini diventano grigio pieno |
@@ -657,11 +658,14 @@ CHROME=/percorso/chrome node tools/afm-rec/rec.mjs afm-ccaf
 CHROME=/percorso/chrome node tools/afm-rec/verifica.mjs afm-ccaf
 ```
 
-Stato: I-CCAF sezione I completa (pagine 1-1…1-14, testo, tabella 1-4,
-figure 1-1 dimensioni, 1-2 cruscotto, 1-3 impianto carburante, 1-5 impianto
-elettrico) e le pagine campione 2-1 e 5-12: tutte verificate, zero differenze
-aperte, nella via di mezzo e nella normale. Prossime: sezioni II…VI, pagine
-iniziali, poi I-CCAB.
+Stato: I-CCAF sezioni I e II complete (pagine 1-1…1-14 e 2-1…2-8: testo,
+tabelle, cartelli, figure 1-1 dimensioni, 1-2 cruscotto, 1-3 impianto
+carburante, 1-5 impianto elettrico) e la pagina campione 5-12: tutte
+verificate, zero differenze aperte, nella via di mezzo e nella normale. Nella
+sezione II ogni numero ha due conferme indipendenti (Tesseract, strato di
+testo del PDF, lettura a vista con una seconda fonte: un'altra pagina del
+manuale, il manuale di I-CCAB, DATI-AFM.md o una conversione di unita' che
+torna). Prossime: sezioni III…VI, pagine iniziali, poi I-CCAB.
 
 Come si rifa' una pagina di testo: `bozza.py` → `dubbi.py` (e i ritagli) →
 `correggi.py` → `misura.py` → `ribasa.py` → `misura.py` → `rec.mjs --medio` →

@@ -1,0 +1,27 @@
+{
+  "pdf": 30,
+  "n": "2-8",
+  "w": 1250,
+  "h": 1762,
+  "rot": 0,
+  "stato": "ricostruita",
+  "figure": [{"figura": "Cartello (8) di pagina 2-8", "metodo": "riquadro e sottolineatura: tratto vettorializzato con potrace (tratto.py); puntini guida dell'ultima riga, irregolari nell'originale (un puntino in alto e due ravvicinati): disegno; scritte: testo vero."}],
+  "el": [
+    ["riga", "testo", 126, [[541, "Flight", 47], [596, "Manual", 57]]],
+    ["riga", "testo", 158, [[542, "Reims", 48], [598, "Rocket", 58]]],
+    ["riga", "testo", 193, [[246, "Page:", 42], [304, "2-8", 25]]],
+    ["riga", "testo", 186, [[774, "Reims", 50], [832, "Aviation", 68]]],
+    ["riga", "testo", 327, [[248, "Edition:", 65], [331, "3", 9], [776, "Reims,", 53], [838, "Marne", 49], [895, "France", 54]]],
+    ["riga", "testo", 420, [[291, "(8)", 23], [332, "On", 23], [361, "right", 37], [405, "hand", 39], [450, "instrument", 87], [545, "panel", 42], [593, "cover:", 47]]],
+    ["riga", "testo", 566, [[542, "FUEL", 49], [598, "FLOW", 52]]],
+    ["riga", "testo", 628, [[455, "FULL", 49], [510, "THROTTLE", 101], [618, "AND", 40], [665, "2800", 40], [712, "RPM", 38]]],
+    ["riga", "testo", 691, [[422, "S.L.", 30], [716, "17", 16], [739, "GPH", 38]]],
+    ["punti", 691, [464.0, 486.0, 507.0, 527.5, 548.0, 569.0, 589.5, 611.0, 631.0, 652.0, 673.0, 694.0]],
+    ["riga", "testo", 722, [[421, "4000", 41], [468, "FT", 24], [716, "15", 16], [739, "GPH", 38]]],
+    ["punti", 722, [507.0, 527.5, 548.5, 569.0, 590.5, 611.0, 631.5, 652.0, 673.5, 693.5]],
+    ["riga", "testo", 753, [[422, "8000", 40], [468, "FT", 24], [715, "13", 17], [739, "GPH", 37]]],
+    ["punti", 753, [506.5, 527.0, 548.0, 569.0, 590.0, 611.0, 631.0, 652.0, 673.0, 694.0]],
+    ["riga", "testo", 784, [[424, "12000", 48], [479, "FT", 23], [715, "11", 15], [739, "GPH", 37]]],
+    ["svgfile", "figure/cartelli-2-8.svg"]
+  ]
+}

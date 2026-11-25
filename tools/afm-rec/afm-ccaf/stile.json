@@ -71,6 +71,27 @@
       "capRatio": 0.6875,
       "sx": 1.0,
       "spazio": 0.02
+    },
+    "cartello": {
+      "font": "sans",
+      "classe": "rk",
+      "peso": 330,
+      "larghezza": "75%",
+      "c": 19,
+      "capRatio": 0.6875,
+      "sx": 0.9,
+      "spazio": 0.0
+    },
+    "cartellot": {
+      "font": "sans",
+      "classe": "rkt",
+      "peso": 700,
+      "larghezza": "62.5%",
+      "c": 24,
+      "capRatio": 0.6875,
+      "sx": 0.82,
+      "spazio": 0.0,
+      "lettere": true
     }
   },
   "pieno": {

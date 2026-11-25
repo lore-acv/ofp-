@@ -6,8 +6,8 @@ linee di base diverse (le due meta' dell'intestazione, "Page: 1-3" a sinistra e
 "Reims Aviation" a destra, incollate a mano a qualche pixel di distanza). Per
 ogni gruppo di parole di una riga (un salto grande separa i gruppi) si misura
 la linea di base sulla scansione: l'riga di pixel dove l'inchiostro cala di colpo
-(il fondo delle lettere: sotto restano solo discendenti e virgole), come fa
-la verifica. Se e' a 2 px o piu' da quella scritta, il gruppo diventa una
+(il fondo delle lettere: la mediana dei fondi delle lettere, componenti
+dell'inchiostro alte almeno 6 decimi del corpo). Se e' a 2 px o piu' da quella scritta, il gruppo diventa una
 riga sua con la base giusta. Le righe fissa, girate e con apici non si toccano.
 
     /usr/bin/python3 tools/afm-rec/ribasa.py afm-ccaf 1-3 [--prova]
@@ -34,15 +34,27 @@ def base_ink(x0, x1, base, c, e, maiuscole=False):
         if a < x1 and z > x0:
             if q[2] < base - 8: y0 = max(y0, int(q[2] + c * 0.35))
             if q[2] > base + 8: y1 = min(y1, int(q[2] - c * 1.1))
-    P = ink[y0:y1 + 1, int(x0):int(x1)].sum(1).astype(int)
-    if not P.max(): return None
-    # la linea di base e' dove l'inchiostro cala di colpo (il fondo delle lettere), nella meta'
-    # bassa della banda: non la cima della riga sotto, che e' una salita
-    da = int(c * 0.5)                           # non nella cima delle lettere
-    salti = P[da:-1] - P[da + 1:]
-    # il calo piu' basso fra quelli grandi (almeno meta' del piu' grande): in MPH il calo dove
-    # finisce l'occhiello della P e' grande ma non e' il fondo
-    return y0 + da + int(np.flatnonzero(salti >= salti.max() * 0.5)[-1]) + 1
+    # le lettere sono componenti dell'inchiostro: la linea di base e' la mediana dei fondi di
+    # quelle alte almeno 6 decimi del corpo (via il "+", le virgole, i puntini; le discendenti
+    # sono poche e la mediana non le sente). Il calo dell'inchiostro, nel "4", cade sulla barra.
+    z = ink[y0:y1 + 1, int(x0):int(x1)]
+    H, W = z.shape; lab = np.zeros((H, W), int); fondi = []; n = 0
+    for yy in range(H):
+        for xx in range(W):
+            if z[yy, xx] and not lab[yy, xx]:
+                n += 1; st = [(yy, xx)]; lab[yy, xx] = n; lo = hi = yy
+                while st:
+                    a_, b_ = st.pop(); lo = min(lo, a_); hi = max(hi, a_)
+                    for da in (-1, 0, 1):
+                        for db in (-1, 0, 1):
+                            c_, d_ = a_ + da, b_ + db
+                            if 0 <= c_ < H and 0 <= d_ < W and z[c_, d_] and not lab[c_, d_]:
+                                lab[c_, d_] = n; st.append((c_, d_))
+                if hi - lo + 1 >= c * 0.6 and hi - lo + 1 <= c * 1.6:
+                    fondi.append(hi)
+    if not fondi: return None
+    return y0 + int(np.median(fondi)) + 1
+
 
 nuove = []; cambi = 0
 for e in p['el']:
@@ -57,7 +69,14 @@ for e in p['el']:
     basi = []
     for g in gruppi:
         maiu = all(re.fullmatch(r'[A-Z0-9.:\-–&"]+', w[1]) for w in g)
-        b = base_ink(g[0][0], g[-1][0] + (g[-1][2] if len(g[-1]) > 2 else 14), e[2], c, e, maiu)
+        # due giri: la finestra e' centrata sulla base scritta; se era lontana, la seconda misura
+        # (centrata sulla prima) non taglia piu' le lettere
+        b = e[2]
+        for _ in range(3):
+            b2 = base_ink(g[0][0], g[-1][0] + (g[-1][2] if len(g[-1]) > 2 else 14), b, c, e, maiu)
+            if b2 is None or b2 == b: break
+            b = b2
+        b = None if b == e[2] and b2 is None else b
         basi.append(b if b is not None and abs(b - e[2]) >= 2 else e[2])
     if len(set(basi)) == 1:
         if basi[0] != e[2]:

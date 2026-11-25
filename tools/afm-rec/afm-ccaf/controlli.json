@@ -591,5 +591,243 @@
         "come": "OCR legge 'K'; a vista: 3 (ingrandimento: RADIO 1 ... RADIO 4 in ordine sotto i quattro interruttori del bus elettronico)"
       }
     ]
+  },
+  "2-2": {
+    "letti": [
+      {
+        "riga": 196,
+        "x": 307,
+        "valore": "2-2",
+        "come": "a vista: Page: 2-2",
+        "seconda": "posizione nel PDF: pagina 24, fra 2-1 e 2-3 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 322,
+        "x": 333,
+        "valore": "3",
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      },
+      {
+        "riga": 477,
+        "x": 521,
+        "valore": "161",
+        "come": "OCR legge 16); a vista: Red Line 298 km/h - 161 kts - 185 MPH",
+        "seconda": "DATI-AFM.md: VNE 161 kt; e la terna torna: 298 km/h = 160,9 kt = 185,2 MPH"
+      },
+      {
+        "riga": 726,
+        "x": 443,
+        "valore": "8",
+        "come": "OCR non legge; a vista: Adjustment: 8 to 16 km/h",
+        "seconda": "la terna torna: 8 km/h = 4,3 kt = 5,0 MPH (4 kts, 5 MPH sulla stessa riga)"
+      },
+      {
+        "riga": 726,
+        "x": 693,
+        "valore": "5",
+        "come": "a vista: 5 to 10 MPH",
+        "seconda": "8 km/h = 5,0 MPH e 16 km/h = 9,9 MPH: 5 to 10 MPH torna"
+      },
+      {
+        "riga": 912,
+        "x": 792,
+        "valore": "+3,8",
+        "come": "OCR legge 43,8 (il + attaccato); a vista: Flaps Up +3,8",
+        "seconda": "DATI-AFM.md: fattore di carico 3,8 della categoria normale (formula della VA); e -1,52 = 0,4 x 3,8, la regola dei limiti negativi"
+      },
+      {
+        "riga": 1672,
+        "x": 285,
+        "valore": "+0,89",
+        "come": "OCR legge 40,89; a vista: +0,89 m at 1950 lbs",
+        "seconda": "DATI-AFM.md, inviluppo di centraggio: +0,89 m fino a 885 kg (1950 lbs)"
+      }
+    ]
+  },
+  "2-3": {
+    "letti": [
+      {
+        "riga": 783,
+        "x": 492,
+        "valore": "1",
+        "come": "OCR legge l; a vista: Minimum Crew: 1",
+        "seconda": "manuale I-CCAB, pagina 2-3 (altra scansione): Minimum Crew: 1"
+      }
+    ]
+  },
+  "2-4": {
+    "letti": [
+      {
+        "riga": 203,
+        "x": 299,
+        "valore": "2-4",
+        "come": "OCR legge 14 (ritaglio); a vista: Page: 2-4",
+        "seconda": "posizione nel PDF: pagina 26, fra 2-3 e 2-5 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 849,
+        "x": 676,
+        "valore": "15",
+        "come": "OCR legge 1S; a vista: 28 km/h - 15 kts",
+        "seconda": "la coppia torna: 28 km/h = 15,1 kt"
+      }
+    ]
+  },
+  "2-5": {
+    "letti": [
+      {
+        "riga": 405,
+        "x": 621,
+        "valore": "4,5-11,5",
+        "come": "OCR legge 45-11,5 (la virgola persa); a vista: 4,5-11,5 gal/hr",
+        "seconda": "la coppia torna: 4,5 gal = 17,0 litri, 11,5 gal = 43,5 litri (1 U.S. gal = 3,785 litri), come fra parentesi"
+      },
+      {
+        "riga": 777,
+        "x": 661,
+        "valore": "15",
+        "come": "OCR legge i); a vista: 15 gal/hr",
+        "seconda": "la coppia torna: 15 gal = 56,8 litri (1 U.S. gal = 3,785 litri)"
+      },
+      {
+        "riga": 839,
+        "x": 660,
+        "valore": "11",
+        "come": "OCR legge II; a vista: 11 gal/hr",
+        "seconda": "la coppia torna: 11 gal = 41,6 litri (1 U.S. gal = 3,785 litri)"
+      },
+      {
+        "riga": 467,
+        "x": 804,
+        "valore": "68,1",
+        "come": "Tesseract legge 68,1; lo strato di testo del PDF non ha la parola",
+        "seconda": "la coppia torna: 18,0 gal = 68,1 litri (1 U.S. gal = 3,785 litri)"
+      },
+      {
+        "riga": 746,
+        "x": 740,
+        "valore": "(64,4",
+        "come": "Tesseract legge (64,4; lo strato di testo del PDF non ha la parola",
+        "seconda": "la coppia torna: 17 gal = 64,3 litri (1 U.S. gal = 3,785 litri), arrotondato 64,4 come nell'originale"
+      },
+      {
+        "riga": 839,
+        "x": 739,
+        "valore": "(41,6",
+        "come": "Tesseract legge (41,6; lo strato del PDF legge (41",
+        "seconda": "la coppia torna: 11 gal = 41,6 litri (1 U.S. gal = 3,785 litri)"
+      }
+    ]
+  },
+  "2-6": {
+    "letti": [
+      {
+        "riga": 315,
+        "x": 322,
+        "valore": "3",
+        "come": "OCR legge j (evidenziatore sopra); a vista: Edition: 3",
+        "seconda": "tutte le pagine di I-CCAF sono Edition 3"
+      },
+      {
+        "riga": 821,
+        "x": 592,
+        "valore": "2550",
+        "come": "OCR legge 2950; a vista: GROSS WEIGHT 2550 lbs.",
+        "seconda": "pagina 2-2: Normal Category 2550 lbs (1157 kg); DATI-AFM.md: MTOW 1157 kg"
+      },
+      {
+        "riga": 852,
+        "x": 754,
+        "valore": "+4.4,",
+        "come": "OCR legge 4144,; a vista: +4.4, -1.76",
+        "seconda": "pagina 2-2: Utility Category Flaps Up +4,4 -1,76"
+      },
+      {
+        "riga": 914,
+        "x": 832,
+        "valore": "90",
+        "come": "OCR legge 5; a vista: 20 knots at 90°",
+        "seconda": "pagina 2-4: Take-off direct crosswind limitation 20 kts (componente a 90 gradi)"
+      },
+      {
+        "riga": 821,
+        "x": 761,
+        "valore": "2200",
+        "come": "Tesseract legge 2200; lo strato del PDF no",
+        "seconda": "pagina 2-2: Utility Category 2200 lbs (998 kg)"
+      },
+      {
+        "riga": 1087,
+        "x": 492,
+        "valore": "(109",
+        "come": "Tesseract legge (109; lo strato del PDF no",
+        "seconda": "pagina 2-3: Chandelles 201 km/h - 109 kts - 125 MPH"
+      },
+      {
+        "riga": 1117,
+        "x": 493,
+        "valore": "(109",
+        "come": "Tesseract legge (109; lo strato del PDF no",
+        "seconda": "pagina 2-3: Lazy Eights 201 km/h - 109 kts - 125 MPH"
+      }
+    ]
+  },
+  "2-7": {
+    "letti": [
+      {
+        "riga": 898,
+        "x": 336,
+        "valore": "(5)",
+        "come": "OCR legge (9); a vista: (5) On left hand instrument panel cover",
+        "seconda": "sequenza dei cartelli: (3) e (4) sopra, (6) e (7) sotto"
+      },
+      {
+        "riga": 1372,
+        "x": 677,
+        "valore": "20",
+        "come": "Tesseract legge 20 (il grado in apice a parte); a vista: above 20°F",
+        "seconda": "manuale I-CCAB (Edition 2), pagina 2-8, cartello (8): when outside air temp. is above 20°F"
+      }
+    ]
+  },
+  "2-8": {
+    "letti": [
+      {
+        "riga": 193,
+        "x": 304,
+        "valore": "2-8",
+        "come": "OCR legge 28; a vista: Page: 2-8",
+        "seconda": "posizione nel PDF: pagina 30, ultima della sezione II (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 628,
+        "x": 665,
+        "valore": "2800",
+        "come": "OCR legge 2300; a vista: FULL THROTTLE AND 2800 RPM",
+        "seconda": "pagina 2-5, nota: full throttle and 2800 RPM; pagina 2-4: 2800 RPM regime massimo"
+      },
+      {
+        "riga": 722,
+        "x": 716,
+        "valore": "15",
+        "come": "OCR legge 1); a vista: 4000 FT 15 GPH",
+        "seconda": "pagina 2-5: 4000 Feet 15 gal/hr"
+      },
+      {
+        "riga": 753,
+        "x": 715,
+        "valore": "13",
+        "come": "Tesseract legge 13; lo strato del PDF no",
+        "seconda": "pagina 2-5: 8000 Feet 13 gal/hr"
+      },
+      {
+        "riga": 784,
+        "x": 715,
+        "valore": "11",
+        "come": "OCR legge l; a vista: 12000 FT 11 GPH",
+        "seconda": "pagina 2-5: 12000 Feet 11 gal/hr"
+      }
+    ]
   }
 }

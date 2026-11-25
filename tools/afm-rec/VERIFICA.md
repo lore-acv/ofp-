@@ -34,6 +34,13 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 | 1-13 | campione | 36/36 | 0 | 4 (4 con 2+ conferme) | 0 | 6.2% | **verificata** |
 | 1-14 | ricostruita | 34/34 | 0 | 2 (2 con 2+ conferme) | 0 | 4.4% | **verificata** |
 | 2-1 | campione | 49/49 | 0 | 30 (30 con 2+ conferme) | 0 | 4.6% | **verificata** |
+| 2-2 | ricostruita | 47/47 | 0 | 52 (52 con 2+ conferme) | 0 | 7.1% | **verificata** |
+| 2-3 | ricostruita | 43/43 | 0 | 28 (28 con 2+ conferme) | 0 | 7.9% | **verificata** |
+| 2-4 | ricostruita | 44/44 | 0 | 29 (29 con 2+ conferme) | 0 | 7.3% | **verificata** |
+| 2-5 | ricostruita | 29/29 | 0 | 22 (22 con 2+ conferme) | 0 | 6.3% | **verificata** |
+| 2-6 | ricostruita | 57/57 | 0 | 29 (29 con 2+ conferme) | 0 | 9.1% | **verificata** |
+| 2-7 | ricostruita | 20/20 | 0 | 10 (10 con 2+ conferme) | 0 | 2.8% | **verificata** |
+| 2-8 | ricostruita | 17/17 | 0 | 11 (11 con 2+ conferme) | 0 | 2.5% | **verificata** |
 | 5-12 | campione | 26/26 | 0 | 17 (17 con 2+ conferme) | 0 | 6.4% | **verificata** |
 
 ## Figure: metodo
@@ -46,6 +53,9 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 - **Figura 1-5 (Electrical system schematic)** (pagina 1-10): cornice: poligoni misurati; schema: tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, tolte le scritte (tratto.py); scritte: testo vero (righe e posizioni dall'OCR dell'ingrandimento, testo corretto a vista, linea di base dall'inchiostro). Restano disegno vettorializzato, perche' troppo piccoli per leggerli con certezza o non testo tipografico: le lettere dei morsetti di regolatore e alternatore, i numeri negli interruttori (amperaggi), L e R dei magneti, le scritte bianche sulle barre nere dei bus (costruisci/1-10.py).
 - **Grafica della sezione (barre e frecce)** (pagina 2-1): ridisegnata in SVG: rettangoli e triangoli misurati sulla scansione (coordinate dei bordi pixel per pixel).
 - **Figura 2-1 (Stall speeds)** (pagina 2-1): tabella ricostruita: filetti SVG misurati (spessore compreso, doppi dove sono doppi) e testo vero nelle celle.
+- **Cartelli (1) e (2) di pagina 2-6** (pagina 2-6): bordi, filetti, sottolineature e puntini guida dei cartelli: tratto vettorializzato con potrace (tratto.py); scritte: testo vero, carattere senza grazie condensato per il cartello (1) come nell'originale, lette a vista sull'ingrandimento (costruisci/2-6.py).
+- **Cartelli (3)-(7) di pagina 2-7** (pagina 2-7): riquadri: tratto vettorializzato con potrace (tratto.py); scritte: testo vero.
+- **Cartello (8) di pagina 2-8** (pagina 2-8): riquadro e sottolineatura: tratto vettorializzato con potrace (tratto.py); puntini guida dell'ultima riga, irregolari nell'originale (un puntino in alto e due ravvicinati): disegno; scritte: testo vero.
 - **Figura 5-7 (Maximum glide)** (pagina 5-12): cornice e griglia: filetti SVG misurati; fascia di planata: 689 punti della retinatura ridisegnati uno per uno nella posizione misurata sulla scansione, piu' 117 punti ricavati dal reticolo locale solo dove si fondono con i filetti della griglia; aeroplano: disegno al tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto i filetti e i punti che lo attraversano (tools/afm-rec/afm-ccaf/figure/fig-5-7.py); scritte: testo vero, misurato parola per parola.
 
 ## Differenze aperte
@@ -398,6 +408,222 @@ Confronto con i dati del progetto:
 - Vp 190 km/h · 104 kts · 118 MPH = DATI-AFM.md, 'VA' FR172J: 190 km/h, 104 kt, 118 MPH ✓
 - Stallo a 1157 kg, flap UP / 20° / 40°: 61 / 55 / 53 MPH = DATI-AFM.md (tabella delle differenze FR172J/FR172H) ✓; 98/89/85 km/h e 53/48/46 kts coerenti con le MPH (1 MPH = 1,609 km/h = 0,869 kt) ✓
 - GROSS WEIGHT 1157 kg = massa massima del progetto (DATI-AFM.md) ✓
+
+### Pagina 2-2 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 196 | 2-2 | 2-2 ✓ | – | ✓ a vista: Page: 2-2 · seconda conferma: posizione nel PDF: pagina 24, fra 2-1 e 2-3 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 322 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 477 | 298 | 298 ✓ | ✓ |  | 2 |
+| 477 | 161 | 16)  | ✓ | ✓ OCR legge 16); a vista: Red Line 298 km/h - 161 kts - 185 MPH · seconda conferma: DATI-AFM.md: VNE 161 kt; e la terna torna: 298 km/h = 160,9 kt = 185,2 MPH | 3 |
+| 477 | 185 | 185 ✓ | ✓ |  | 2 |
+| 509 | 235 | 235 ✓ | ✓ |  | 2 |
+| 509 | 298 | 298 ✓ | ✓ |  | 2 |
+| 509 | 127 | 127 ✓ | ✓ |  | 2 |
+| 509 | 161 | 161 ✓ | ✓ |  | 2 |
+| 509 | 146 | 146 ✓ | ✓ |  | 2 |
+| 509 | 185 | 185 ✓ | ✓ |  | 2 |
+| 571 | 103 | 103 ✓ | ✓ |  | 2 |
+| 571 | 235 | 235 ✓ | ✓ |  | 2 |
+| 571 | 56 | 56 ✓ | ✓ |  | 2 |
+| 571 | 127 | 127 ✓ | ✓ |  | 2 |
+| 571 | 64 | 64 ✓ | ✓ |  | 2 |
+| 571 | 146 | 146 ✓ | ✓ |  | 2 |
+| 635 | 89 | 89 ✓ | ✓ |  | 2 |
+| 635 | 161 | 161 ✓ | ✓ |  | 2 |
+| 635 | 48 | 48 ✓ | ✓ |  | 2 |
+| 635 | 87 | 87 ✓ | ✓ |  | 2 |
+| 635 | 55 | 55 ✓ | ✓ |  | 2 |
+| 635 | 100 | 100 ✓ | ✓ |  | 2 |
+| 726 | 8 | –  | – | ✓ OCR non legge; a vista: Adjustment: 8 to 16 km/h · seconda conferma: la terna torna: 8 km/h = 4,3 kt = 5,0 MPH (4 kts, 5 MPH sulla stessa riga) | 2 |
+| 726 | 16 | 16 ✓ | ✓ |  | 2 |
+| 726 | 4 | 4 ✓ | ✓ |  | 2 |
+| 726 | 8,5 | 8,5 ✓ | ✓ |  | 2 |
+| 726 | 5 | 5 ✓ | – | ✓ a vista: 5 to 10 MPH · seconda conferma: 8 km/h = 5,0 MPH e 16 km/h = 9,9 MPH: 5 to 10 MPH torna | 3 |
+| 726 | 10 | 10 ✓ | ✓ |  | 2 |
+| 883 | 2550 | 2550 ✓ | ✓ |  | 2 |
+| 883 | (1157 | (1157 ✓ | ✓ |  | 2 |
+| 912 | +3,8 | 43,8  | ✓ | ✓ OCR legge 43,8 (il + attaccato); a vista: Flaps Up +3,8 · seconda conferma: DATI-AFM.md: fattore di carico 3,8 della categoria normale (formula della VA); e -1,52 = 0,4 x 3,8, la regola dei limiti negativi | 3 |
+| 912 | -1,52 | 1,52 ✓ | ✓ |  | 2 |
+| 943 | +3,0 | 3,0 ✓ | ✓ |  | 2 |
+| 976 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 976 | 998 | 998 ✓ | ✓ |  | 2 |
+| 1004 | +4,4 | 4,4 ✓ | ✓ |  | 2 |
+| 1004 | -1,76 | -1,76 ✓ | ✓ |  | 2 |
+| 1035 | +3,0 | 3,0 ✓ | ✓ |  | 2 |
+| 1214 | 2550 | 2550 ✓ | ✓ |  | 2 |
+| 1214 | (1157 | (1157 ✓ | ✓ |  | 2 |
+| 1275 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 1275 | 998 | 998 ✓ | ✓ |  | 2 |
+| 1641 | +1,04 | 1,04 ✓ | ✓ |  | 2 |
+| 1641 | 2550 | 2550 ✓ | ✓ |  | 2 |
+| 1641 | (1157 | (1157 ✓ | ✓ |  | 2 |
+| 1641 | +1,20 | 1,20 ✓ | ✓ |  | 2 |
+| 1641 | 2550 | 2550 ✓ | ✓ |  | 2 |
+| 1641 | (1157 | (1157 ✓ | ✓ |  | 2 |
+| 1672 | +0,89 | 40,89  | ✓ | ✓ OCR legge 40,89; a vista: +0,89 m at 1950 lbs · seconda conferma: DATI-AFM.md, inviluppo di centraggio: +0,89 m fino a 885 kg (1950 lbs) | 3 |
+| 1672 | 1950 | 1950 ✓ | ✓ |  | 2 |
+| 1672 | 885 | 885 ✓ | ✓ |  | 2 |
+
+### Pagina 2-3 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 247 | 2-3 | 2-3 ✓ | ✓ |  | 2 |
+| 280 | 3 | 3 ✓ | ✓ |  | 2 |
+| 471 | +0,95 | 0,95 ✓ | ✓ |  | 2 |
+| 471 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 471 | (998 | (998 ✓ | ✓ |  | 2 |
+| 468 | +1,03 | 1,03 ✓ | ✓ |  | 2 |
+| 468 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 468 | (998 | (998 ✓ | ✓ |  | 2 |
+| 502 | +0,89 | 0,89 ✓ | ✓ |  | 2 |
+| 502 | 1950 | 1950 ✓ | ✓ |  | 2 |
+| 502 | (885 | (885 ✓ | ✓ |  | 2 |
+| 688 | 2 | 2 ✓ | ✓ |  | 2 |
+| 718 | 2 | 2 ✓ | ✓ |  | 2 |
+| 751 | 120 | 120 ✓ | ✓ |  | 2 |
+| 751 | (54 | (54 ✓ | ✓ |  | 2 |
+| 783 | 1 | l  | ✓ | ✓ OCR legge l; a vista: Minimum Crew: 1 · seconda conferma: manuale I-CCAB, pagina 2-3 (altra scansione): Minimum Crew: 1 | 3 |
+| 814 | 200 | 200 ✓ | ✓ |  | 2 |
+| 814 | (91 | (91 ✓ | ✓ |  | 2 |
+| 1308 | 201 | 201 ✓ | ✓ |  | 2 |
+| 1308 | 109 | 109 ✓ | ✓ |  | 2 |
+| 1308 | 125 | 125 ✓ | ✓ |  | 2 |
+| 1339 | 201 | 201 ✓ | ✓ |  | 2 |
+| 1339 | 109 | 109 ✓ | ✓ |  | 2 |
+| 1339 | 125 | 125 ✓ | ✓ |  | 2 |
+| 1369 | 190 | 190 ✓ | ✓ |  | 2 |
+| 1369 | 104 | 104 ✓ | ✓ |  | 2 |
+| 1369 | 118 | 118 ✓ | ✓ |  | 2 |
+| 1493 | 118 | 118 ✓ | ✓ |  | 2 |
+
+### Pagina 2-4 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 203 | 2-4 | 14  | ✓ | ✓ OCR legge 14 (ritaglio); a vista: Page: 2-4 · seconda conferma: posizione nel PDF: pagina 26, fra 2-3 e 2-5 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 324 | 3 | 3 ✓ | ✓ |  | 2 |
+| 645 | 210 | 210 ✓ | ✓ |  | 2 |
+| 645 | (157 | (157 ✓ | ✓ |  | 2 |
+| 645 | 2800 | 2800 ✓ | ✓ |  | 2 |
+| 819 | 37 | 37 ✓ | ✓ |  | 2 |
+| 819 | 20 | 20 ✓ | ✓ |  | 2 |
+| 849 | 28 | 28 ✓ | ✓ |  | 2 |
+| 849 | 15 | 1S  | ✓ | ✓ OCR legge 1S; a vista: 28 km/h - 15 kts · seconda conferma: la coppia torna: 28 km/h = 15,1 kt | 3 |
+| 1059 | 300 | 300 ✓ | ✓ |  | 2 |
+| 1059 | 460 | 460 ✓ | ✓ |  | 2 |
+| 1059 | (149 | (149 ✓ | ✓ |  | 2 |
+| 1059 | 238 | 238 ✓ | ✓ |  | 2 |
+| 1090 | 460 | 460 ✓ | ✓ |  | 2 |
+| 1090 | (238 | (238 ✓ | ✓ |  | 2 |
+| 1212 | 240 | 240 ✓ | ✓ |  | 2 |
+| 1212 | (116 | (116 ✓ | ✓ |  | 2 |
+| 1297 | 10 | 10 ✓ | ✓ |  | 2 |
+| 1297 | (0,689 | (0,689 ✓ | ✓ |  | 2 |
+| 1328 | 30-60 | 30-60 ✓ | ✓ |  | 2 |
+| 1328 | (2,067-4,134 | (2,067-4,134 ✓ | ✓ |  | 2 |
+| 1357 | 100 | 100 ✓ | ✓ |  | 2 |
+| 1357 | (6,890 | (6,890 ✓ | ✓ |  | 2 |
+| 1448 | (11,5 | (11,5 ✓ | ✓ |  | 2 |
+| 1541 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 1541 | 2600 | 2600 ✓ | ✓ |  | 2 |
+| 1571 | 2800 | 2800 ✓ | ✓ |  | 2 |
+| 1661 | 15-25,0 | 15-25,0 ✓ | ✓ |  | 2 |
+| 1661 | (508-847 | (508-847 ✓ | ✓ |  | 2 |
+
+### Pagina 2-5 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 255 | 2-5 | 2-5 ✓ | ✓ |  | 2 |
+| 288 | 3 | 3 ✓ | ✓ |  | 2 |
+| 405 | 4,5-11,5 | 45-11,5  | ✓ | ✓ OCR legge 45-11,5 (la virgola persa); a vista: 4,5-11,5 gal/hr · seconda conferma: la coppia torna: 4,5 gal = 17,0 litri, 11,5 gal = 43,5 litri (1 U.S. gal = 3,785 litri), come fra parentesi | 3 |
+| 405 | (17,0-43,5 | (17,0-43,5 ✓ | ✓ |  | 2 |
+| 436 | 3,0 | 3,0 ✓ | ✓ |  | 2 |
+| 436 | 18,5 | 18,5 ✓ | ✓ |  | 2 |
+| 436 | (0,21 | (0,21 ✓ | ✓ |  | 2 |
+| 436 | 1,28 | 1,28 ✓ | ✓ |  | 2 |
+| 467 | (18,0 | (18,0 ✓ | ✓ |  | 2 |
+| 467 | 68,1 | 68,1 ✓ | – | ✓ Tesseract legge 68,1; lo strato di testo del PDF non ha la parola · seconda conferma: la coppia torna: 18,0 gal = 68,1 litri (1 U.S. gal = 3,785 litri) | 3 |
+| 622 | 2800 | 2800 ✓ | ✓ |  | 2 |
+| 746 | 17 | 17 ✓ | ✓ |  | 2 |
+| 746 | (64,4 | (64,4 ✓ | – | ✓ Tesseract legge (64,4; lo strato di testo del PDF non ha la parola · seconda conferma: la coppia torna: 17 gal = 64,3 litri (1 U.S. gal = 3,785 litri), arrotondato 64,4 come nell'originale | 3 |
+| 777 | 4000 | 4000 ✓ | ✓ |  | 2 |
+| 777 | 15 | i)  | ✓ | ✓ OCR legge i); a vista: 15 gal/hr · seconda conferma: la coppia torna: 15 gal = 56,8 litri (1 U.S. gal = 3,785 litri) | 3 |
+| 777 | (56,8 | (56,8 ✓ | ✓ |  | 2 |
+| 808 | 8000 | 8000 ✓ | ✓ |  | 2 |
+| 808 | 13 | 13 ✓ | ✓ |  | 2 |
+| 808 | (49,2 | (49,2 ✓ | ✓ |  | 2 |
+| 839 | 12000 | 12000 ✓ | ✓ |  | 2 |
+| 839 | 11 | II  | ✓ | ✓ OCR legge II; a vista: 11 gal/hr · seconda conferma: la coppia torna: 11 gal = 41,6 litri (1 U.S. gal = 3,785 litri) | 3 |
+| 839 | (41,6 | (41,6 ✓ | – | ✓ Tesseract legge (41,6; lo strato del PDF legge (41 · seconda conferma: la coppia torna: 11 gal = 41,6 litri (1 U.S. gal = 3,785 litri) | 3 |
+
+### Pagina 2-6 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 172 | 2-6 | 2-6 ✓ | ✓ |  | 2 |
+| 315 | 3 | j  | – | ✓ OCR legge j (evidenziatore sopra); a vista: Edition: 3 · seconda conferma: tutte le pagine di I-CCAF sono Edition 3 | 2 |
+| 564 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1493 | (2) | (2) ✓ | ✓ |  | 2 |
+| 791 | 118 | 118 ✓ | ✓ |  | 2 |
+| 791 | (104 | (104 ✓ | ✓ |  | 2 |
+| 790 | 118 | 118 ✓ | ✓ |  | 2 |
+| 790 | (104 | (104 ✓ | ✓ |  | 2 |
+| 821 | 2550 | 2950  | ✓ | ✓ OCR legge 2950; a vista: GROSS WEIGHT 2550 lbs. · seconda conferma: pagina 2-2: Normal Category 2550 lbs (1157 kg); DATI-AFM.md: MTOW 1157 kg | 3 |
+| 821 | 2200 | 2200 ✓ | – | ✓ Tesseract legge 2200; lo strato del PDF no · seconda conferma: pagina 2-2: Utility Category 2200 lbs (998 kg) | 3 |
+| 852 | +3.8, | 3.8, ✓ | ✓ |  | 2 |
+| 852 | -1.52 | -1.52. ✓ | ✓ |  | 2 |
+| 852 | +4.4, | 4144,  | ✓ | ✓ OCR legge 4144,; a vista: +4.4, -1.76 · seconda conferma: pagina 2-2: Utility Category Flaps Up +4,4 -1,76 | 3 |
+| 852 | -1.76 | -1.76 ✓ | ✓ |  | 2 |
+| 882 | +3.0 | 3.0 ✓ | ✓ |  | 2 |
+| 882 | +3.0 | 3.0 ✓ | ✓ |  | 2 |
+| 914 | 20 | 20 ✓ | ✓ |  | 2 |
+| 914 | 90 | 5  | – | ✓ OCR legge 5; a vista: 20 knots at 90° · seconda conferma: pagina 2-4: Take-off direct crosswind limitation 20 kts (componente a 90 gradi) | 2 |
+| 1087 | 125 | 125 ✓ | ✓ |  | 2 |
+| 1087 | (109 | (109 ✓ | – | ✓ Tesseract legge (109; lo strato del PDF no · seconda conferma: pagina 2-3: Chandelles 201 km/h - 109 kts - 125 MPH | 3 |
+| 1117 | 125 | 125 ✓ | ✓ |  | 2 |
+| 1117 | (109 | (109 ✓ | – | ✓ Tesseract legge (109; lo strato del PDF no · seconda conferma: pagina 2-3: Lazy Eights 201 km/h - 109 kts - 125 MPH | 3 |
+| 1148 | 118 | 118 ✓ | ✓ |  | 2 |
+| 1148 | (104 | (104 ✓ | ✓ |  | 2 |
+| 1178 | 160 | 160 ✓ | ✓ |  | 2 |
+| 1209 | 118 | 118 ✓ | ✓ |  | 2 |
+| 1607 | 23 | 23 ✓ | ✓ |  | 2 |
+| 1639 | 23 | 23 ✓ | ✓ |  | 2 |
+| 1620 | 46 | 46 ✓ | ✓ |  | 2 |
+
+### Pagina 2-7 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 263 | 2-7 | 2-7 ✓ | ✓ |  | 2 |
+| 295 | 3 | 3 ✓ | ✓ |  | 2 |
+| 389 | (3) | (3) ✓ | ✓ |  | 2 |
+| 632 | (4) | (4) ✓ | ✓ |  | 2 |
+| 717 | 200 | 200 ✓ | ✓ |  | 2 |
+| 717 | 120 | 120 ✓ | ✓ |  | 2 |
+| 898 | (5) | (9)  | ✓ | ✓ OCR legge (9); a vista: (5) On left hand instrument panel cover · seconda conferma: sequenza dei cartelli: (3) e (4) sopra, (6) e (7) sotto | 3 |
+| 1259 | (6) | (6) ✓ | ✓ |  | 2 |
+| 1372 | 20 | 20 ✓ | – | ✓ Tesseract legge 20 (il grado in apice a parte); a vista: above 20°F · seconda conferma: manuale I-CCAB (Edition 2), pagina 2-8, cartello (8): when outside air temp. is above 20°F | 3 |
+| 1521 | (7) | (7) ✓ | ✓ |  | 2 |
+
+### Pagina 2-8 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 193 | 2-8 | 28  | ✓ | ✓ OCR legge 28; a vista: Page: 2-8 · seconda conferma: posizione nel PDF: pagina 30, ultima della sezione II (mappa tools/afm/afm-ccaf.json) | 3 |
+| 327 | 3 | 3 ✓ | ✓ |  | 2 |
+| 420 | (8) | (8) ✓ | ✓ |  | 2 |
+| 628 | 2800 | 2300  | ✓ | ✓ OCR legge 2300; a vista: FULL THROTTLE AND 2800 RPM · seconda conferma: pagina 2-5, nota: full throttle and 2800 RPM; pagina 2-4: 2800 RPM regime massimo | 3 |
+| 691 | 17 | 17 ✓ | ✓ |  | 2 |
+| 722 | 4000 | 4000 ✓ | ✓ |  | 2 |
+| 722 | 15 | 1)  | – | ✓ OCR legge 1); a vista: 4000 FT 15 GPH · seconda conferma: pagina 2-5: 4000 Feet 15 gal/hr | 2 |
+| 753 | 8000 | 8000 ✓ | ✓ |  | 2 |
+| 753 | 13 | 13 ✓ | – | ✓ Tesseract legge 13; lo strato del PDF no · seconda conferma: pagina 2-5: 8000 Feet 13 gal/hr | 3 |
+| 784 | 12000 | 12000 ✓ | ✓ |  | 2 |
+| 784 | 11 | l  | ✓ | ✓ OCR legge l; a vista: 12000 FT 11 GPH · seconda conferma: pagina 2-5: 12000 Feet 11 gal/hr | 3 |
 
 ### Pagina 5-12 (due conferme)
 

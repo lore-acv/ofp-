@@ -1,0 +1,32 @@
+{
+  "pdf": 29,
+  "n": "2-7",
+  "w": 1250,
+  "h": 1762,
+  "rot": 0,
+  "stato": "ricostruita",
+  "figure": [{"figura": "Cartelli (3)-(7) di pagina 2-7", "metodo": "riquadri: tratto vettorializzato con potrace (tratto.py); scritte: testo vero."}],
+  "el": [
+    ["riga", "testo", 200, [[588, "Flight", 47], [643, "Manual", 57]]],
+    ["riga", "testo", 231, [[588, "Reims", 48], [645, "Rocket", 56]]],
+    ["riga", "testo", 266, [[302, "Reims", 48], [355, "Aviation", 69]]],
+    ["riga", "testo", 263, [[910, "Page:", 40], [964, "2-7", 24]]],
+    ["riga", "testo", 297, [[302, "Reims,", 52], [361, "Marne", 49], [416, "France", 54]]],
+    ["riga", "testo", 295, [[910, "Edition:", 65], [993, "3", 8]]],
+    ["riga", "testo", 389, [[341, "(3)", 23], [382, "On", 23], [412, "the", 24], [443, "control", 57], [506, "lock:", 39]]],
+    ["riga", "testo", 473, [[463, "Control", 61], [531, "lock", 33], [569, "--", 16], [591, "Remove", 64], [661, "before", 51], [718, "starting", 60], [784, "engine.", 54]]],
+    ["riga", "testo", 632, [[337, "(4)", 22], [379, "On", 22], [408, "the", 25], [439, "baggage", 60], [506, "door:", 42]]],
+    ["riga", "testo", 717, [[381, "200", 29], [416, "Pounds", 58], [480, "maximum", 79], [566, "baggage", 60], [633, "or", 16], [658, "120", 28], [691, "lbs", 22], [719, "auxiliary", 69], [795, "seat", 29], [831, "passenger.", 79]]],
+    ["riga", "testo", 747, [[380, "For", 28], [413, "additional", 81], [500, "loading", 59], [564, "instructions", 94], [664, "see", 23], [693, "weight", 52], [751, "&", 14], [771, "balance", 58], [836, "data.", 37]]],
+    ["riga", "testo", 898, [[336, "(5)", 22], [367, "On", 23], [397, "left", 28], [433, "hand", 37], [479, "instrument", 87], [574, "panel", 41], [624, "cover", 42], [674, "(if", 19], [700, "optional", 65], [773, "strobe", 49], [830, "lights", 43], [880, "are", 23], [911, "installed):", 79]]],
+    ["riga", "testo", 998, [[605, "WARNING", 90]]],
+    ["riga", "testo", 1061, [[420, "Turn", 38], [464, "off", 25], [493, "strobe", 49], [549, "lights", 42], [597, "when", 42], [646, "taxiing", 54], [705, "in", 15], [726, "vicinity", 59], [792, "of", 17], [813, "other", 43]]],
+    ["riga", "testo", 1092, [[419, "aircraft,", 62], [488, "or", 17], [510, "during", 52], [567, "flight", 42], [616, "through", 62], [685, "clouds,", 55], [746, "fog", 25], [777, "or", 17], [799, "haze.", 40]]],
+    ["riga", "testo", 1259, [[333, "(6)", 23], [376, "On", 22], [405, "right", 36], [448, "hand", 38], [492, "instrument", 87], [586, "panel", 42], [634, "cover:", 47]]],
+    ["riga", "testo", 1343, [[418, "When", 44], [469, "winterization", 105], [581, "kit", 22], [608, "is", 11], [625, "installed,", 71], [703, "it", 11], [720, "must", 39], [765, "be", 18], [789, "removed", 67]]],
+    ["riga", "testo", 1372, [[419, "when", 41], [467, "outside", 56], [530, "air", 20], [556, "temp.", 45], [608, "is", 11], [625, "above", 46], [677, "20", 19], [697, "o", 10], [708, "F.", 15]], {"sup": [7], "unite": [6, 7], "supK": 0.85, "supY": 0.38}],
+    ["riga", "testo", 1521, [[329, "(7)", 23], [359, "Near", 38], [405, "wing", 37], [449, "flap", 30], [488, "position", 64], [560, "indicator:", 77]]],
+    ["riga", "testo", 1604, [[517, "Avoid", 46], [570, "slips", 34], [609, "with", 36], [651, "flaps", 37], [694, "extended.", 77]]],
+    ["svgfile", "figure/cartelli-2-7.svg"]
+  ]
+}
