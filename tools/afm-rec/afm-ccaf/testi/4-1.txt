@@ -1,0 +1,31 @@
+177 | Flight Manual
+208 | Reims Rocket
+241 | Reims Aviation Page: 4-1
+272 | Reims, Marne France Edition: 3
+366 titolo 700-1010 c=33 | SECTION IV
+493 titolo c=29 | NORMAL PROCEDURES
+554 titolo | OPERATING CHECK LIST
+646 titolo | BEFORE ENTERING THE AIRPLANE.
+708 | (1) Make an exterior inspection in accordance with figure 4-1.
+804 titolo | BEFORE STARTING THE ENGINE.
+864 | (1) Seats, Seat Belts and Shoulder Harnesses - - Adjust and lock.
+896 | (2) Brakes - - Test and set.
+927 | (3) Radios and Electrical Equipment - - “OFF.”
+959 | (4) Fuel Selector Valve Handle - - “BOTH”.
+991 | (5) Fuel Shutoff Valve Knob - - On (pushed full in).
+1083 titolo | STARTING THE ENGINE.
+1146 | (1) Mixture - - Rich.
+1178 | (2) Propeller - - High RPM.
+1208 | (3) Throttle - - Opened 1 inch (2,5 cm).
+1239 | (4) Master Switch - - ”ON”.
+1270 | (5) Auxiliary Fuel Pump Switch - - on “LOW”.
+1301 | (6) Ignition Switch - - When fuel flow is steady at 2 to 4 gal/hr (7,8 to 15,5
+1332 | litres/hr), turn switch to “START”; hold until engine starts but no longer than
+1363 | 30 seconds.
+1393 | (7) Auxiliary Fuel Pump Switch - - “OFF” (after engine runs smoothly).
+1454 | NOTE
+1515 | The engine should start in two to three revolutions. If it does
+1548 | not, increase the fuel flow by turning the auxiliary fuel pump
+1579 | switch momentarily on “HIGH” and crank for two to four ad-
+1610 | ditional revolutions. If it still does not start, turn the auxiliary
+1641 | fuel pump off, set mixture to idle cut-off, and crank until the

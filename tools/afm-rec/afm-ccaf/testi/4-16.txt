@@ -1,0 +1,10 @@
+138 | Flight Manual
+171 | Reims Rocket
+361 | Page: 4-16 Reims Aviation
+391 | Edition: 3 Reims, Marne France
+484 | times to higher RPM. If the engine accelerates smoothly and oil pressure remains
+515 | normal and steady, the aircraft is ready for take-off.
+578 | Refer to Section VI for cold weather equipment.
+668 titolo | HOT WEATHER OPERATION.
+733 | Refer to the general warm temperature starting information under Starting
+766 | Engine in this section. Avoid prolonged engine operation on the ground.

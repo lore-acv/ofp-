@@ -662,7 +662,7 @@ differenza (dove coincidono resta nero); O passa dall'una all'altra.
 | `tools/afm-rec/riga.py`, `puntini.py` | una riga dal suo testo letto a vista (le parole sui gruppi di inchiostro, in ordine) e i puntini guida di una riga |
 | `tools/afm-rec/segmenti.py`, `estremi.py`, `parole.py`, `etichette.py` | dove sta l'inchiostro di una riga, di una parola in un intervallo, delle parole piccole di una figura; le scritte delle figure lette da Tesseract sull'ingrandimento |
 | `tools/afm-rec/filetti.py`, `filetto.py` | i filetti di tabelle e cornici, e un filetto misurato lungo tutta la sua lunghezza (spessore e pendenza) come poligono |
-| `tools/afm-rec/tratto.py` | un disegno al tratto con potrace, tolte le scritte e le forme gia' ricostruite; con `--retino` le campiture a puntini diventano grigio pieno |
+| `tools/afm-rec/tratto.py` | un disegno al tratto con potrace, tolte le scritte e le forme gia' ricostruite; con `--retino` le campiture a puntini diventano grigio pieno (`--retino=min,max,grigio,pieno,bordo` per un retino piu' scuro o piu' chiaro del solito, come nelle figure 4-1 e 4-2) |
 | `tools/afm-rec/vista.py`, `chiudi.py` | i ritagli dei numeri non confermati, e la loro chiusura a vista in controlli.json dopo averli guardati |
 | `tools/afm-rec/bozza2.py` | bozza riga per riga solo dentro la colonna del testo (per le pagine con grafica ai bordi, come la striscia della sezione III) |
 | `tools/afm-rec/testo.py` | le righe di una pagina dal testo letto a vista (`testi/<pagina>.txt`): ogni parola si aggancia al suo inchiostro con la programmazione dinamica |
@@ -683,15 +683,16 @@ CHROME=/percorso/chrome node tools/afm-rec/rec.mjs afm-ccaf
 CHROME=/percorso/chrome node tools/afm-rec/verifica.mjs afm-ccaf
 ```
 
-Stato: I-CCAF sezioni I, II e III complete (pagine 1-1…1-14, 2-1…2-8 e
-3-1…3-9: testo,
+Stato: I-CCAF sezioni I…IV complete (pagine 1-1…1-14, 2-1…2-8, 3-1…3-9 e
+4-1…4-16: testo,
 tabelle, cartelli, figure 1-1 dimensioni, 1-2 cruscotto, 1-3 impianto
-carburante, 1-5 impianto elettrico) e la pagina campione 5-12: tutte
+carburante, 1-5 impianto elettrico, 4-1 ispezione esterna, 4-2 rullaggio,
+4-3 velocita' di crociera) e la pagina campione 5-12: tutte
 verificate, zero differenze aperte, nella via di mezzo e nella normale. Nella
 sezione II ogni numero ha due conferme indipendenti (Tesseract, strato di
 testo del PDF, lettura a vista con una seconda fonte: un'altra pagina del
 manuale, il manuale di I-CCAB, DATI-AFM.md o una conversione di unita' che
-torna); cosi' anche nella sezione III. Prossime: sezioni IV…VI, pagine
+torna); cosi' anche nella sezione III. Prossime: sezioni V e VI, pagine
 iniziali, poi I-CCAB.
 
 Come si rifa' una pagina di testo: `bozza.py` → `dubbi.py` (e i ritagli) →

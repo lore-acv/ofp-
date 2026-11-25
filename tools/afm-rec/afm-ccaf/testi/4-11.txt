@@ -1,0 +1,31 @@
+170 | Flight Manual
+201 | Reims Rocket
+231 | Reims Aviation Page: 4-11
+262 | Reims, Marne France Edition: 3
+353 | ed off abruptly to prevent possible settling back to the runway while drifting. When
+384 | clear of the ground, make a coordinated turn into the wind to correct for drift.
+477 titolo | ENROUTE CLIMB.
+536 | CLIMB DATA.
+602 | For detailed data, refer to the Maximum Rate-Of-Climb Data chart in Section V.
+665 | CLIMB SPEEDS.
+726 | Normal climbs are performed at 161 to 177 km/h - 87 to 96 kts - 100 to 110
+758 | MPH with flaps up, 25 inches (847 mb) of manifold pressure, and 2600 RPM. The
+788 | mixture should be set at approximately 13 gal/hr (49,2 litres/hr).
+853 | The best rate-of-climb speeds range from 137 km/h - 74 kts - 85 MPH at sea
+882 | level to 134 km/h - 72 kts - 83 MPH at 10,000 feet using full throttle, 2800 RPM,
+913 | and mixture leaned in accordance with the fuel flow indicator placard located on
+944 | the right side of the instrument panel. If an obstacle dictates the use of a steep
+976 | climb angle, an obstacle clearance speed should be used with flaps up, full throttle,
+1008 | and 2800 RPM. This speed is approximately 109 km/h - 59 kts - 68 MPH at sea
+1039 | level, increasing to 121 km/h - 65 kts - 75 MPH at 10,000 feet.
+1097 | NOTE
+1159 | Steep climbs at low speeds should be of short duration to
+1190 | improve engine cooling.
+1253 | For detailed data, refer to the Maximum Rate-Of-Climb Data chart in Section V.
+1345 titolo | CRUISE.
+1403 | Normal cruising is done between 65% and 75% power with the mixture leaned
+1434 | at all altitudes. The power settings required to obtain these powers at various alti-
+1464 | tudes and standard outside air temperatures can be determined by using the Cruise
+1495 | Performance charts in Section V.
+1561 | NOTE
+1622 | The Cruise Performance charts in Section V outline complete

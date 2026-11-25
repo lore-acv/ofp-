@@ -130,6 +130,38 @@ scansione non e' stampa stanno in fondo.
 - 3-2 e 3-4, 3-6, 3-8: segni a evidenziatore sopra "Page:" e "Reims
   Aviation"; non si ricostruiscono (vedi sotto).
 
+### Sezione IV (pagine 4-1 … 4-16)
+- 4-1: intestazione "SECTION IV" con barre e frecce, come 1-1, 2-1, 3-1;
+  "OPERATING CHECK LIST" e (4-7) "OPERATING DETAILS" sottolineati: filetti
+  misurati.
+- 4-2 e 4-3: la figura 4-1 (ispezione esterna) occupa due pagine dentro la
+  stessa cornice; la didascalia e' spezzata: "Figure" in fondo a 4-2, "4-1."
+  in fondo a 4-3. Si segue. I numeri cerchiati dell'elenco (1 su 4-2, 2…8
+  su 4-3) sono ellissi misurate con la cifra come testo vero; quelli del
+  disegno restano disegno. Il lato destro della cornice su 4-3 e' sbiadito
+  in alto nella scansione: si disegna continuo.
+- 4-2, "a. Remove control wheel lock": senza punto finale, come
+  stampato.
+- 4-4, decollo normale: l'elenco salta da (5) a (7); errore dell'originale,
+  resta.
+- 4-5, 4-11: "ENROUTE CLIMB." in una parola, come stampato (e nell'indice).
+- 4-9: "voltage regualtor": errore di stampa, resta.
+- 4-13: "The application of ailerons": la scansione taglia il bordo destro
+  dopo "aileron" (resta l'attacco della s); il plurale e' ricostruito (la
+  frase vuole il plurale, "aileron:" dello strato di testo e' il taglio).
+- 4-15: la scansione taglia il bordo destro (Page: 4-15, Edition: 3,
+  "through"); 4-16 il bordo sinistro (Page:, Edition:, "times", "normal",
+  HOT): le parole sono scritte intere con le larghezze delle stesse parole
+  sulle altre pagine.
+- 4-12, figura 4-3: tabella con filetti misurati; le parole di ogni cella si
+  misurano solo dentro la cella (i filetti verticali sono attaccati).
+- 4-8, figura 4-2 (taxiing diagram): i quattro settori a retino fitto e scuro
+  diventano grigio pieno (135); le scritte dei riquadri e la nota sono in un
+  serif a grazie spesse, ricostruite col ruolo "nota" (STIX in grassetto
+  sintetico: il font ha solo il tondo).
+- I segni "°" dei flap e delle temperature sono una o piccola in apice nella
+  stampa; si scrive il segno di grado.
+
 ## Decisioni su cio' che nella scansione non e' stampa
 - **Sottolineature colorate** (giallo, azzurro) sulla scansione di I-CCAF:
   sono segni a evidenziatore sulla copia scansionata, non stampa del manuale.

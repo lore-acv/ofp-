@@ -1,0 +1,37 @@
+166 | Flight Manual
+197 | Reims Rocket
+235 270-1060 | Reims Aviation Page: 4-15
+266 270-1060 | Reims, Marne France Edition: 3
+358 | Without Preheat:
+416 270-1060 | (1) With ignition switch “OFF” and throttle closed, pull the propeller through
+448 | three to four revolutions by hand.
+479 | (2) Mixture - - Full rich.
+510 | (3) Clear Propeller.
+541 | (4) Master Switch - - “ON.”
+572 | (5) Throttle - - Cracked (2,5 cm).
+602 | (6) Primer - - Use two to three strokes in -5°C temperature range, and four to
+634 | six strokes in -20°C temperature range.
+698 | NOTE
+759 | Leave primer full and ready for stroke.
+820 | (7) Auxiliary Fuel Pump Switch - - On “LOW.”
+851 | (8) Ignition Switch - - “START.”
+882 | (9) When the engine fires, use additional strokes of the primer as necessary
+914 | to keep the engine running.
+945 | (10) Auxiliary Fuel Pump Switch - - “OFF” (after engine runs smoothly).
+976 | (11) Primer - - Locked.
+1038 | NOTE
+1098 | If engine does not start during first few attempts or if engine
+1129 | firing diminishes in strength, it is probable that the spark plugs
+1160 | have been frosted over. In this case, spark plugs should be re-
+1190 | moved and heated as necessary to remove ice, or preheat should
+1222 | be applied to engine. Either method should ensure a successful
+1253 | re-start.
+1312 | IMPORTANT
+1374 | Excessive priming may cause raw fuel to drain on pavement be-
+1404 | neath engine cowling, creating a fire hazard. If this occurs, air-
+1435 | craft should be moved away from fuel puddle before attempting
+1465 | start again. An outside attendant with a fire extinguisher is
+1496 | recommended for cold starts without preheat.
+1559 | During cold weather operations, no indication will be apparent on the oil tem-
+1590 | perature gage prior to take-off if outside air temperatures are very cold. After a
+1620 | suitable warm-up period (2 to 5 minutes at 1000 RPM), accelerate the engine several

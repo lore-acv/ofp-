@@ -1,0 +1,35 @@
+115 | Flight Manual
+147 | Reims Rocket
+183 | Page: 4-4 Reims Aviation
+318 | Edition: 3 Reims, Marne France
+408 | engine fires or for approximately 15 seconds. If still unsuccessful,
+439 | start again using the normal starting procedure after allowing the
+470 | starter motor to cool.
+533 | (8) Oil Pressure Gage - - Check in green arc range within 30 seconds.
+643 titolo | BEFORE TAKE-OFF.
+704 | (1) Parking Brake - - Set.
+736 | (2) Flight Controls - - Check for free and correct movement.
+768 | (3) Fuel Selector Valve Handle - - “BOTH.”
+801 | (4) Elevator Trim - - “TAKE-OFF” setting.
+832 | (5) Throttle Setting - - 1800 RPM.
+864 | (6) Engine Instruments and Ammeter - - Check.
+895 | (7) Suction Gage - - Check (4, 6 to 5,4 inches of mercury).
+925 | (8) Magnetos - - Check (RPM drop should not exceed 150 RPM on either
+955 | magneto or 50 RPM differential between magnetos).
+982 | (9) Propeller - - Cycle from high to low RPM; return to high RPM (full in).
+1013 | (10) Flight Instruments and Radios - - Set.
+1045 | (11) Optional Wing Leveler - - Off.
+1076 | (12) Cabin Doors and Window - - Closed and locked.
+1185 titolo | TAKE-OFF.
+1246 | NORMAL TAKE-OFF.
+1306 | (1) Wing Flaps - - 0° to 10°.
+1337 | (2) Power - - Full throttle and 2800 RPM.
+1367 | (3) Mixture - - Lean for field elevation per fuel flow indicator placard.
+1397 | (4) Elevator Control - - Lift nose wheel at 97 km/h - 52 kts - 60 MPH.
+1427 | (5) Climb Speed - - 137 to 153 km/h - 74 to 83 kts - 85 to 95 MPH.
+1458 | (7) Wing Flaps - - Retract (if extended).
+1516 | MAXIMUM PERFORMANCE TAKE-OFF.
+1578 | (1) Wing Flaps 10°.
+1608 | (2) Brakes - - Apply.
+1640 | (3) Power - - Full throttle and 2800 RPM.
+1671 | (4) Mixture - - Lean for field elevation per fuel flow indicator placard.

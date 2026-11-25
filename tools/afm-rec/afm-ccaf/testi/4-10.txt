@@ -1,0 +1,37 @@
+180 | Flight Manual
+211 | Reims Rocket
+319 | Page: 4-10 Reims Aviation
+351 | Edition: 3 Reims, Marne France
+438 | throttle be advanced slowly. This allows the airplane to start rolling before high
+469 | RPM is developed, and the gravel will be blown back of the propeller rather than
+501 | pulled into it.
+563 | For maximum engine power, the mixture should be adjusted during the initial
+593 | take-off roll to the fuel flow corresponding to field elevation. (Refer to fuel flow
+625 | placard located on the right side of the instrument panel.) The power increase is
+656 | significant above 3000 feet and this procedure always should be employed for field
+687 | elevations greater than 5000 feet above sea level.
+749 | WING FLAP SETTINGS.
+812 | Normal take-offs are accomplished with wing flaps up, full throttle, and 2800
+843 | RPM. Reduce power to 25 inches (847 mb) of manifold pressure and 2600 RPM
+875 | as soon as practical to minimize engine wear.
+936 | Using 10° wing flaps reduces the total distance over an obstacle by approxi-
+967 | mately 5 per cent. Soft field take-offs can be performed with 15° flaps by lifting
+998 | the airplane off the ground as soon as practical in a slightly tail-low attitude. How-
+1029 | ever, the airplane should be leveled off immediately to accelerate to a safe climb
+1060 | speed. When departing a soft field with an aft c.g. loading, the elevator trim should
+1090 | be adjusted towards the nose down direction to give comfortable stick forces during
+1121 | the initial climb.
+1182 | If wing flaps are used for take-off, they should be left down until all obstacles
+1213 | are cleared rather than retract them in the climb to the obstacle. To clear an ob-
+1244 | stacle with wing flaps 10°, the speeds shown in the Take-Off chart in Section V
+1275 | should be used. If no obstructions are ahead, a best “flaps up” rate-of-climb speed
+1305 | (137 km/h - 74 kts - 85 MPH) would be most efficient with flaps retracted. Flap
+1336 | deflections greater than 15° are not recommended for take-off under any circum-
+1367 | stances.
+1430 | PERFORMANCE CHARTS.
+1488 | Consult the Take-Off chart in Section V for take-off distances under various
+1521 | gross weight, altitude, and headwind conditions.
+1581 | CROSSWIND TAKE-OFFS.
+1643 | Take-offs into strong crosswinds normally are performed with the minimum flap
+1673 | setting necessary for the field length, to minimize the drift angle immediately after
+1703 | take-off. The airplane is accelerated to a speed slightly higher than normal, then pull-

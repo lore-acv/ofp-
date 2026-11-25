@@ -1,0 +1,29 @@
+154 | Flight Manual
+184 | Reims Rocket
+333 | Page: 4-12 Reims Aviation
+363 | Edition: 3 Reims, Marne France
+474 tabella 252-938 c=19 | MAXIMUM CRUISE SPEED PERFORMANCE
+536 tabella 590-938 c=19 | TRUE AIRSPEED RANGE
+558 tabella 252-580 c=19 | ALTITUDE % POWER
+579 tabella 590-938 c=19 | km/h kts MPH km N.M.
+640 tabella 252-938 c=19 | 5500 75 232 125 144 933 504
+701 tabella 252-938 c=19 | 7500 70 229 123 142 982 530
+761 tabella 252-938 c=19 | 9000 65 224 121 139 1038 560
+849 | Figure 4-3.
+905 | cruise figures for the Reims Rocket.
+966 | Cruising can be done most efficiently at high altitudes because very nearly the
+998 | same cruising speed can be maintained at much less power. This is illustrated in the
+1029 | Maximum Cruise Speed Performance table above.
+1148 titolo | STALLS.
+1211 | The stall characteristics are conventional and aural warning is provided by a
+1241 | stall warning horn which sounds between 8 and 16 km/h - 4 and 8,5 kts - 5 and 10
+1272 | MPH above the stall in all configurations.
+1331 | Power-off stall speeds at maximum gross weight and aft c.g. position are pre-
+1361 | sented in figure 5-3 as calibrated airspeeds since indicated airspeeds are unreliable
+1392 | near the stall.
+1513 titolo | SPINS.
+1572 | Intentional spins are approved in this airplane in the utility category only. Al-
+1602 | though this airplane is inherently resistant to spins, the following techniques may be
+1632 | used to perform intentional spins for training or practice. To obtain a clean entry,
+1662 | decelerate the airplane at a faster rate than is used for stalls. Then, just as the stall
+1692 | occurs, apply full up elevator, full rudder in the desired spin direction, and momen-

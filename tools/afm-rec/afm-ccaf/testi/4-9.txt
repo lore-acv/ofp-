@@ -1,0 +1,35 @@
+160 | Flight Manual
+192 | Reims Rocket
+230 | Reims Aviation Page: 4-9
+261 | Reims, Marne France Edition: 3
+353 titolo | BEFORE TAKE-OFF.
+413 | WARM-UP.
+475 | Since the engine is closely cowled for efficient in-flight engine cooling, precau-
+506 | tions should be taken to avoid overheating during prolonged engine operation on
+538 | the ground.
+600 | MAGNETO CHECK.
+657 | The magneto check should be made at 1800 RPM as follows. Move ignition
+688 | switch first to “R” position and note RPM. Next move switch back to “BOTH”
+719 | to clear the other set of plugs. Then move switch to the “L” position, note
+750 | RPM, and return to “BOTH” position. RPM drop should not exceed 150 RPM on
+782 | either magneto and the difference between the two magnetos operated individually
+813 | should not be more than 50 RPM. If there is a doubt concerning operation of the
+844 | ignition system, RPM checks at higher engine speeds will usually confirm whether a
+876 | deficiency exists.
+934 | An absence of RPM drop may be an indication of faulty grounding of one side
+965 | of the ignition system or should be cause for suspicion that the magneto timing is
+997 | set in advance of the setting specified.
+1055 | ALTERNATOR CHECK.
+1117 | Prior to flights where verification of proper alternator and voltage regulator
+1148 | operation is essential (such as night or instrument flights), a positive verification can
+1178 | be made by loading the electrical system momentarily ( 3 to 5 seconds) with the
+1210 | optional landing light (if so equipped), or by operating the wing flaps during the
+1240 | engine runup (1800 RPM). The ammeter will remain within a needle width of zero
+1271 | if the alternator and voltage regualtor are operating properly.
+1348 titolo | TAKE-OFF.
+1403 | POWER CHECK.
+1466 | It is important to check full-throttle engine operation early in the take-off
+1497 | run. Any signs of rough engine operation or sluggish engine acceleration is good
+1529 | cause for discontinuing the take-off.
+1588 | Full-throttle runups over loose gravel are especially harmful to propeller tips.
+1619 | When take-offs must be made over a gravel surface, it is very important that the

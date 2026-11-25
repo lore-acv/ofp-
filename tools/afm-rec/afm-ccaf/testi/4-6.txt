@@ -1,0 +1,26 @@
+128 | Flight Manual
+160 | Reims Rocket
+191 | Page: 4-6 Reims Aviation
+323 | Edition: 3 Reims, Marne France
+418 | (2) Fuel Selector Valve Handle - - “BOTH.”
+450 | (3) Propeller - - High RPM.
+481 | (4) Airspeed - - 121 to 137 km/h - 65 to 74 kts - 75 to 85 MPH (flaps up).
+512 | (5) Wing Flaps - - As desired.
+544 | (6) Airspeed - - 113 to 129 km/h - 61 to 70 kts - 70 to 80 MPH (flaps down).
+637 titolo | BALKED LANDING.
+699 | (1) Power - - Full throttle and 2800 RPM.
+730 | (2) Wing Flaps - - Retract to 20°.
+762 | (3) Upon reaching an airspeed of approximately 121 km/h - 65 kts - 75 MPH,
+793 | retract flaps slowly.
+887 titolo | NORMAL LANDING.
+950 | (1) Touchdown - - Main wheels first.
+981 | (2) Landing Roll - - Lower nose wheel gently.
+1012 | (3) Braking - - Minimum required.
+1104 titolo | AFTER LANDING.
+1167 | (1) Wing Flaps - - Retract.
+1256 titolo | SECURING AIRCRAFT.
+1319 | (1) Parking Brake - - Set.
+1350 | (2) Radios and Electrical Equipment - - “OFF.”
+1381 | (3) Mixture - - Idle cut-off (pulled full out).
+1411 | (4) Ignition and Master Switch - - “OFF.”
+1442 | (5) Control Lock - - Installed.

@@ -1033,5 +1033,362 @@
         "valore": "3"
       }
     ]
+  },
+  "4-3": {
+    "righe": [
+      {
+        "testo": "4-1.",
+        "base": 1633,
+        "come": "la riga e' al suo posto (ingrandimento); la fascia di controllo, larga 6 px oltre la parola, prende in alto il fondo del cerchio dell'8 (riga 1602), che nella ricostruita e' un'ellisse un poco diversa"
+      },
+      {
+        "testo": "Edition: 3",
+        "base": 273,
+        "come": "la scansione taglia il bordo destro: del 3 resta un pezzetto; la ricostruita lo scrive intero, percio' finisce piu' in la'"
+      },
+      {
+        "testo": "4",
+        "base": 579,
+        "come": "la cifra cerchiata e' al suo posto (ingrandimento: coincide); il 4 ha la traversa a meta' altezza, e la misura della linea di base dell'inchiostro, che cerca il calo piu' basso, nella banda stretta della cifra prende quella invece del piede"
+      }
+    ],
+    "macchie": [
+      {
+        "riquadro": [
+          996,
+          325,
+          1018,
+          632
+        ],
+        "come": "il lato destro della cornice della figura 4-1: nella scansione la parte alta e' sbiadita fino a sparire, nella ricostruita il filetto e' continuo (come i filetti sbiaditi della figura 1-2)"
+      }
+    ],
+    "letti": [
+      {
+        "riga": 273,
+        "x": 1002,
+        "come": "a vista: Edition: e un pezzo del 3, tagliato dal bordo della scansione",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+        "valore": "3"
+      },
+      {
+        "riga": 1236,
+        "x": 312,
+        "valore": "6",
+        "come": "cifra cerchiata; a vista: 6",
+        "seconda": "la numerazione delle stazioni dell'ispezione esterna: 6 viene fra 5 e 7 nella stessa pagina"
+      },
+      {
+        "riga": 1418,
+        "x": 313,
+        "valore": "7",
+        "come": "cifra cerchiata; a vista: 7",
+        "seconda": "la numerazione delle stazioni: 7 viene fra 6 e 8"
+      },
+      {
+        "riga": 1633,
+        "x": 279,
+        "valore": "4-1.",
+        "come": "a vista: 4-1. (seguito della didascalia \"Figure\" di 4-2)",
+        "seconda": "mappa tools/afm/afm-ccaf.json: la figura 4-1 (Exterior Inspection) e' a pagina 4-2; 4-1 e' citata anche su 4-1 (\"in accordance with figure 4-1\")"
+      }
+    ]
+  },
+  "4-7": {
+    "righe": [
+      {
+        "testo": "To avoid flooding, be sure you are ready to crank the engine as soon as a steady",
+        "base": 724,
+        "come": "la riga e' al suo posto (ingrandimento della differenza: inizio e fine coincidono); la fascia di controllo prende in alto la coda di una g della riga sopra, che nella ricostruita scende un pixel piu' in basso: e' quella a dare la fine 5 px piu' in la'"
+      }
+    ],
+    "letti": [
+      {
+        "riga": 1068,
+        "x": 578,
+        "valore": "5",
+        "come": "OCR legge 3; a vista: 3 to 5 revolutions",
+        "seconda": "lo strato di testo del PDF (lettura indipendente) legge 5 (\"5revolutions\")"
+      }
+    ]
+  },
+  "4-13": {
+    "righe": [
+      {
+        "testo": "and maintain full pro-spin elevator and rudder deflections. The application of ailerons",
+        "base": 376,
+        "come": "la riga e' al suo posto; l'ultima parola, \"ailerons\", nella scansione e' tagliata dal bordo destro della pagina scansionata (resta l'attacco della s): la ricostruita la scrive intera, percio' finisce 5 px piu' in la'"
+      }
+    ],
+    "letti": [
+      {
+        "riga": 1334,
+        "x": 520,
+        "valore": "40°,",
+        "come": "OCR legge 409,; a vista: 40 con la o in apice",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado; lo strato di testo del PDF legge 400,"
+      }
+    ]
+  },
+  "4-14": {
+    "righe": [
+      {
+        "testo": "energy.",
+        "base": 1149,
+        "come": "la riga e' al suo posto (ingrandimento); e' una parola sola con g e y: la misura della linea di base dell'inchiostro, che cerca il calo piu' basso, la prende sulle discendenti, diversamente nelle due pagine"
+      }
+    ],
+    "macchie": [
+      {
+        "riquadro": [
+          238,
+          200,
+          322,
+          310
+        ],
+        "come": "segni a evidenziatore sopra \"Page: 4-14\" (le strisce colorate della scansione, qui abbastanza scure e poco colorate da passare per inchiostro): non sono stampa, non si ricostruiscono"
+      },
+      {
+        "riquadro": [
+          770,
+          200,
+          850,
+          310
+        ],
+        "come": "segni a evidenziatore sopra \"Reims Aviation\": non sono stampa, non si ricostruiscono"
+      }
+    ],
+    "letti": [
+      {
+        "riga": 319,
+        "x": 304,
+        "valore": "4-14",
+        "come": "a vista: Page: 4-14",
+        "seconda": "posizione nel PDF: pagina 54, fra 4-13 e 4-15 (mappa tools/afm/afm-ccaf.json)"
+      }
+    ]
+  },
+  "4-15": {
+    "righe": [
+      {
+        "testo": "Page: 4-15",
+        "base": 232,
+        "come": "la scansione taglia il bordo destro della pagina: del numero resta \"4-1\" e l'attacco del 5; la ricostruita lo scrive intero (la pagina viene fra 4-14 e 4-16), percio' finisce piu' in la'"
+      },
+      {
+        "testo": "Edition: 3",
+        "base": 264,
+        "come": "la scansione taglia il bordo destro: del 3 resta un pezzetto; la ricostruita lo scrive intero, percio' finisce piu' in la'"
+      }
+    ],
+    "letti": [
+      {
+        "riga": 232,
+        "x": 979,
+        "valore": "4-15",
+        "come": "a vista: Page: 4-1 e l'attacco del 5, tagliato dal bordo della scansione",
+        "seconda": "posizione nel PDF: pagina 55, fra 4-14 e 4-16 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 264,
+        "x": 1004,
+        "come": "a vista: Edition: e un pezzo del 3, tagliato dal bordo della scansione",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+        "valore": "3"
+      },
+      {
+        "riga": 1620,
+        "x": 555,
+        "valore": "5",
+        "come": "OCR non legge; a vista: (2 to 5 minutes at 1000 RPM)",
+        "seconda": "lo strato di testo del PDF legge 5"
+      }
+    ]
+  },
+  "4-16": {
+    "righe": [
+      {
+        "testo": "Page: 4-16",
+        "base": 361,
+        "come": "la scansione taglia il bordo sinistro della pagina: della P di \"Page:\" resta poco; la ricostruita la scrive intera, al margine delle altre righe (\"Engine\", intera, comincia a x 229), percio' comincia prima"
+      }
+    ]
+  },
+  "4-1": {
+    "letti": [
+      {
+        "riga": 237,
+        "x": 961,
+        "valore": "4-1",
+        "come": "a vista: Page: 4-1",
+        "seconda": "posizione nel PDF: pagina 41, fra 3-9 (pagina 40 bianca) e 4-2 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 1208,
+        "x": 539,
+        "valore": "1",
+        "come": "OCR legge l; a vista: Opened 1 inch (2,5 cm)",
+        "seconda": "1 inch = 2,54 cm, e la parentesi dice 2,5 cm; su 3-2 la stessa voce: \"Opened one inch (2,5 cm)\""
+      }
+    ]
+  },
+  "4-4": {
+    "letti": [
+      {
+        "riga": 318,
+        "x": 314,
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+        "valore": "3"
+      }
+    ]
+  },
+  "4-5": {
+    "letti": [
+      {
+        "riga": 376,
+        "x": 331,
+        "valore": "(5)",
+        "come": "OCR legge altro; a vista: (5)",
+        "seconda": "la numerazione: (5) viene fra (4) in fondo a 4-4 e (6)"
+      },
+      {
+        "riga": 746,
+        "x": 484,
+        "valore": "161",
+        "come": "OCR legge 61; a vista: 161 to 177 km/h",
+        "seconda": "la terna torna: 161 km/h = 86,9 kt = 100,0 MPH (87 kts e 100 MPH sulla stessa riga); la stessa frase su 4-11"
+      },
+      {
+        "riga": 1205,
+        "x": 779,
+        "valore": "75%",
+        "come": "OCR legge 1SK; a vista: 75% power",
+        "seconda": "su 4-11: \"Normal cruising is done between 65% and 75% power\""
+      }
+    ],
+    "dati": [
+      "Velocita' della sezione IV: terne km/h - kts - MPH che tornano fra loro (1 kt = 1,852 km/h, 1 MPH = 1,609 km/h): 97-52-60, 109-59-68, 113-61-70, 117-63-73, 121-65-75, 129-70-80, 134-72-83, 137-74-85, 153-83-95, 161-87-100, 177-96-110 ✓"
+    ]
+  },
+  "4-6": {
+    "letti": [
+      {
+        "riga": 481,
+        "x": 726,
+        "valore": "75",
+        "come": "OCR legge 15; a vista: 75 to 85 MPH",
+        "seconda": "la terna torna: 121 km/h = 75,2 MPH (121 sulla stessa riga); uguale su 3-5"
+      },
+      {
+        "riga": 699,
+        "x": 293,
+        "valore": "(1)",
+        "come": "OCR legge altro; a vista: (1)",
+        "seconda": "la numerazione: (1) viene fra il titolo BALKED LANDING e (2)"
+      },
+      {
+        "riga": 730,
+        "x": 551,
+        "valore": "20°.",
+        "come": "OCR legge 209,; a vista: Retract to 20 con la o in apice",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado; su 4-14 la stessa manovra: \"reduced to 20°\""
+      }
+    ]
+  },
+  "4-10": {
+    "letti": [
+      {
+        "riga": 319,
+        "x": 305,
+        "valore": "4-10",
+        "come": "a vista: Page: 4-10",
+        "seconda": "posizione nel PDF: pagina 50, fra 4-9 e 4-11 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 967,
+        "x": 783,
+        "valore": "15°",
+        "come": "OCR legge 159; a vista: 15 con la o in apice",
+        "seconda": "lo strato di testo del PDF legge 150 (15 e il grado); e piu' sotto nella stessa pagina \"greater than 15°\""
+      }
+    ]
+  },
+  "4-11": {
+    "letti": [
+      {
+        "riga": 229,
+        "x": 977,
+        "valore": "4-11",
+        "come": "a vista: Page: 4-11",
+        "seconda": "posizione nel PDF: pagina 51, fra 4-10 e 4-12 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 1403,
+        "x": 699,
+        "valore": "75%",
+        "come": "OCR legge 15h; a vista: 65% and 75% power",
+        "seconda": "su 4-5: \"no more than 75% power\""
+      }
+    ]
+  },
+  "4-2": {
+    "letti": [
+      {
+        "riga": 1437,
+        "x": 270,
+        "valore": "1",
+        "come": "cifra cerchiata; a vista: 1",
+        "seconda": "la numerazione delle stazioni dell'ispezione esterna: la 1 apre l'elenco (a. ... f.), poi 2 ... 8 su 4-3; e la stazione 1 e' segnata nel disegno sopra"
+      },
+      {
+        "riga": 161,
+        "x": 305,
+        "valore": "4-2",
+        "come": "a vista: Page: 4-2",
+        "seconda": "posizione nel PDF: pagina 42, fra 4-1 e 4-3 (mappa tools/afm/afm-ccaf.json)"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "1",
+        "base": 1437,
+        "come": "la cifra e' al suo posto (ingrandimento); la fascia di controllo prende anche l'anello del cerchio, che nella ricostruita e' un'ellisse misurata un poco diversa"
+      },
+      {
+        "testo": "Figure",
+        "base": 1678,
+        "come": "la parola e' al suo posto (ingrandimento: base a 1678, fine e inizio coincidono); la fascia di controllo comincia 12 px prima e prende la punta del filetto spesso della cornice (finisce a x 916, alto 12 px), che sposta la misura della linea di base"
+      }
+    ]
+  },
+  "4-12": {
+    "letti": [
+      {
+        "riga": 333,
+        "x": 304,
+        "valore": "4-12",
+        "come": "a vista: Page: 4-12 (sotto i segni a evidenziatore)",
+        "seconda": "posizione nel PDF: pagina 52, fra 4-11 e 4-13 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 1241,
+        "x": 597,
+        "valore": "8",
+        "come": "a vista: between 8 and 16 km/h",
+        "seconda": "la terna torna: 8 km/h = 4,3 kt = 5,0 MPH (4 kts e 5 MPH sulla stessa riga)"
+      }
+    ],
+    "dati": [
+      "Figura 4-3: velocita' vere 232 km/h = 125,3 kt = 144,2 MPH, 229 = 123,6 = 142,3, 224 = 121,0 = 139,2 ✓; autonomie 933 km = 503,8 NM, 982 = 530,2, 1038 = 560,5 ✓ (1 NM = 1,852 km); potenze 75 / 70 / 65 % coerenti con \"between 65% and 75% power\" di 4-11 ✓",
+      "Avviso di stallo 8 e 16 km/h - 4 e 8,5 kts - 5 e 10 MPH: le terne tornano (16 km/h = 8,6 kt = 9,9 MPH) ✓"
+    ],
+    "righe": [
+      {
+        "testo": "144",
+        "base": 638,
+        "come": "la cifra e' al suo posto (ingrandimento: base a 638 in tutte e due); \"144\" ha due 4 con la traversa larga a meta' altezza, e la misura della linea di base dell'inchiostro, che cerca il calo piu' basso, nella banda di una cella sola prende quella invece del piede"
+      }
+    ]
   }
 }

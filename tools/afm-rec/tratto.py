@@ -30,8 +30,19 @@ ID, N, NOME = sys.argv[1], sys.argv[2], sys.argv[3]
 X0, Y0, X1, Y1 = map(int, sys.argv[4:8])
 togli, tieni = [], []
 a = sys.argv[8:]
-RETINO = '--retino' in a
-a = [x for x in a if x != '--retino']
+RETINO = any(x == '--retino' or x.startswith('--retino=') for x in a)
+# --retino=min,max,grigio,pieno: il retino e' dove la sfocatura e' fra min e max (di solito 130-195);
+# si riempie col grigio dato (di solito 163); "pieno" e' la frazione di inchiostro scuro oltre la quale
+# un tratto dentro il retino resta (linee, bordi: di solito 0,55). Per un retino fitto e scuro come i
+# settori della figura 4-2: --retino=95,200,135,0.85,9 (il quinto: la fascia, in px, attorno al
+# retino dove i puntini sparsi del bordo si tolgono dal tratto; di solito 3)
+R_MIN, R_MAX, R_GRIGIO, R_PIENO, R_BORDO = 130, 195, 163, 0.55, 3
+for x in a:
+    if x.startswith('--retino='):
+        v = x.split('=', 1)[1].split(',')
+        R_MIN, R_MAX, R_GRIGIO, R_PIENO = float(v[0]), float(v[1]), int(v[2]), float(v[3])
+        if len(v) > 4: R_BORDO = int(v[4])     # quanto si allarga il retino per togliere i suoi puntini dal tratto (dispari)
+a = [x for x in a if not (x == '--retino' or x.startswith('--retino='))]
 for i in range(0, len(a), 2):
     (togli if a[i] == '--togli' else tieni).append(tuple(map(int, a[i + 1].split(','))))
 INGR = 6
@@ -107,17 +118,17 @@ if RETINO:
     std_v = np.sqrt(np.maximum(sfoca(Vv ** 2, 9, 1) - sfoca(Vv, 9, 1) ** 2, 0))   # quanto cambia, da colonna a colonna, la sfocatura verticale
     std_h = np.sqrt(np.maximum(sfoca(Hh ** 2, 1, 9) - sfoca(Hh, 1, 9) ** 2, 0))
     media = sfoca(A, 9, 9)
-    ret = (media > 130) & (media < 195) & (std_v < 28) & (std_h < 28)
+    ret = (media > R_MIN) & (media < R_MAX) & (std_v < 28) & (std_h < 28)
     # pulizia: via i punti isolati, chiusi i buchi piccoli (maschera sfocata e risoglia)
     rm = np.array(Image.fromarray((ret * 255).astype(np.uint8)).filter(F.GaussianBlur(2))) > 140
     big = np.array(Image.fromarray((rm * 255).astype(np.uint8)).resize((w * INGR, h * INGR), Image.BILINEAR).filter(F.GaussianBlur(INGR * 0.6))) > 128
-    svg_r, n_r = potrace(big, INGR, 'retino', '#a3a3a3', turd=INGR * INGR * 30)
+    svg_r, n_r = potrace(big, INGR, 'retino', '#%02x%02x%02x' % (R_GRIGIO, R_GRIGIO, R_GRIGIO), turd=INGR * INGR * 30)
     strati.append(svg_r)
     # nel tratto i puntini del retino non ci sono: dove c'e' retino, solo l'inchiostro molto scuro e
     # in tratti lunghi (bordi, frecce) resta; i puntini (scuri ma isolati) vanno via
     scuro = reg < 110
-    dil = np.array(Image.fromarray((rm * 255).astype(np.uint8)).filter(F.MaxFilter(3))) > 0
-    pieno = sfoca(scuro.astype(float), 5, 5) > 0.55          # inchiostro fitto: linee, non puntini
+    dil = np.array(Image.fromarray((rm * 255).astype(np.uint8)).filter(F.MaxFilter(R_BORDO))) > 0
+    pieno = sfoca(scuro.astype(float), 5, 5) > R_PIENO          # inchiostro fitto: linee, non puntini
     reg = np.where(dil & ~pieno, 255, reg).astype(np.uint8)
     print(f'retino: {n_r} tracciati, {int(rm.sum())} px')
 big = Image.fromarray(reg).resize((w * INGR, h * INGR), Image.BICUBIC).filter(ImageFilter.GaussianBlur(INGR * 0.35))

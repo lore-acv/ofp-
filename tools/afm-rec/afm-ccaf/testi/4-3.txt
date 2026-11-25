@@ -1,0 +1,46 @@
+182 | Flight Manual
+213 | Reims Rocket
+243 270-1040 | Reims Aviation Page: 4-3
+273 270-1040 | Reims, Marne France Edition: 3
+397 312-335 | 2
+397 343-1000 | a. Remove rudder gust lock, if installed.
+429 343-1000 | b. Disconnect tail tie-down.
+460 343-1000 | c. Check control surfaces for freedom of movement and security.
+515 312-335 | 3
+515 343-1000 | a. Check aileron for freedom of movement and security.
+577 311-334 | 4
+577 343-1000 | a. Disconnect wing tie-down.
+608 343-1000 | b. Before first flight of day and after each refueling, use sampler cup and
+639 343-1000 | drain small amount of fuel from quick drain valve in fuel tank sump to
+671 343-1000 | check for water.
+701 343-1000 | c. Check main wheel tire for proper inflation.
+733 343-1000 | d. Visually check fuel quantity; then check fuel filler cap secure.
+797 310-333 | 5
+797 343-1000 | a. Check propeller and spinner for nicks and security, and propeller for oil
+827 343-1000 | leaks.
+855 343-1000 | b. Check nose wheel strut and tire for proper inflation.
+886 343-1000 | c. Disconnect tie-down rope.
+916 343-1000 | d. Check oil level. Do not operate with less than seven quarts (6,6 litres).
+947 343-1000 | Fill to ten quarts (9,5 litres) for extended flight.
+978 343-1000 | e. Before first flight of day and after each refueling, pull out strainer drain
+1009 343-1000 | knob for about four seconds to clear fuel strainer of possible water and
+1040 343-1000 | sediment. Check strainer drain closed. If water is observed, the fuel
+1071 343-1000 | reservoir drain valve should be drained and the fuel selector valve drain
+1101 343-1000 | plug should be removed to check for the presence of water.
+1135 343-1000 | f. Inspect flight instrument static source opening on side of fuselage for
+1166 343-1000 | stoppage (both sides).
+1233 308-331 | 6
+1233 343-1000 | a. Check main wheel tire for proper inflation.
+1265 343-1000 | b. Before first flight of day and after each refueling, use sampler cup and
+1296 343-1000 | drain small amount of fuel from quick drain valve in fuel tank sump to
+1326 343-1000 | check for water.
+1355 343-1000 | c. Visually check fuel quantity; then check fuel filler cap secure.
+1416 307-329 | 7
+1416 343-1000 | a. Check stall warning vent opening for stoppage.
+1446 343-1000 | b. Remove pitot tube cover, if installed, and check pitot tube opening for
+1481 343-1000 | stoppage.
+1507 343-1000 | c. Check fuel tank vent opening for stoppage.
+1540 343-1000 | d. Disconnect wing tie-down.
+1602 306-328 | 8
+1602 343-1000 | a. Check aileron for freedom of movement and security.
+1633 250-305 | 4-1.

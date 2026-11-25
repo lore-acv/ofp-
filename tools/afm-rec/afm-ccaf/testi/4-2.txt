@@ -1,0 +1,22 @@
+93 | Flight Manual
+121 | Reims Rocket
+153 | Page: 4-2 Reims Aviation
+325 | Edition: 3 Reims, Marne France
+846 titolo 320-540 c=30 | EXTERIOR
+846 titolo 680-920 c=30 | INSPECTION
+1174 titolo 560-650 c=21 | Note
+1218 300-1060 | Visually check aircraft for general condition during walk-around
+1248 300-1060 | inspection. In cold weather, remove even small accumulations
+1278 300-1060 | of frost, ice or snow from wing, tail and control surfaces. Also,
+1308 300-1060 | make sure that control surfaces contain no internal accumulations
+1339 300-1060 | of ice or debris. If night flight is planned, check operation of all
+1369 300-1060 | lights, and make sure a flashlight is available.
+1435 295-1000 | a. Remove control wheel lock
+1466 295-1000 | b. Check ignition switch “OFF”.
+1496 295-1000 | c. Turn master switch ”ON” and check fuel quantity indicators; then turn
+1526 295-1000 | master switch “OFF”.
+1556 295-1000 | d. Check fuel selector valve handle on “BOTH”.
+1586 295-1000 | e. Check fuel shutoff valve knob “ON” (full in).
+1617 295-1000 | f. Check baggage door for security. Lock with key if children are to occupy
+1646 295-1000 | child’s seat.
+1680 915-1060 | Figure

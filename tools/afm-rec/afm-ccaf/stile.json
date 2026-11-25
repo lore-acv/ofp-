@@ -22,6 +22,15 @@
       "sx": 0.64,
       "spazio": 0.0425
     },
+    "nota": {
+      "font": "serif",
+      "classe": "rs",
+      "peso": 700,
+      "c": 15,
+      "capRatio": 0.672,
+      "sx": 0.64,
+      "spazio": 0.0425
+    },
     "titolo": {
       "font": "sans",
       "classe": "rh",

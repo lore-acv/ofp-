@@ -1,0 +1,32 @@
+165 | Flight Manual
+197 | Reims Rocket
+319 | Page: 4-14 Reims Aviation
+351 | Edition: 3 Reims, Marne France
+439 | der deflection, some elevator oscillation may be felt at normal approach speeds.
+470 | However, this does not affect control of the aircraft. Use a wing-low, crab, or a
+501 | combination method of drift correction and land in a nearly level attitude. Hold a
+532 | straight course with the steerable nose wheel and occasional differential braking if
+564 | necessary.
+620 | BALKED LANDING.
+686 | In a balked landing (go-around) climb, the wing flap setting should be reduced
+717 | to 20° immediately after full power is applied. This may be approximated by plac-
+748 | ing the flap switch in the “UP” position for a 2 second count, and then returning
+779 | the switch to neutral. Upon reaching a safe airspeed and an altitude above immedi-
+810 | ate obstacles, flaps should be slowly retracted to the full up position.
+964 titolo | COLD WEATHER OPERATION.
+1026 | STARTING.
+1088 | Prior to starting on a cold morning, it is advisable to pull the propeller through
+1119 | several times by hand to “break loose” or “limber” the oil, thus conserving battery
+1149 | energy.
+1212 | NOTE
+1273 | When pulling the propeller through by hand, treat it as if the
+1302 | ignition switch is turned on. A loose or broken ground wire
+1332 | on either magneto could cause the engine to fire.
+1391 | In extremely cold (-20°C and lower) weather, the use of an external preheater and
+1421 | an external power source are recommended to reduce wear and abuse to the engine
+1451 | and the electrical system. When using an external power source, the position of the
+1482 | master switch is important. Refer to Section VI, paragraph Ground Service Plug
+1512 | Receptacle, for operating details.
+1574 | Cold weather starting procedures are as follows:
+1636 | With Preheat:
+1697 | (1) Use normal starting procedure.

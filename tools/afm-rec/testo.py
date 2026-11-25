@@ -41,8 +41,9 @@ def peso(t):
         else: s += .52
     return s
 
-def gruppi(base, x0, x1, c):
-    z = ink[int(base - c * 1.3):int(base + c * 0.35), x0:x1]
+def gruppi(base, x0, x1, c, basso=None):
+    # una riga senza discendenti si ferma poco sotto la linea di base (una sottolineatura non e' la riga)
+    z = ink[int(base - c * 1.3):int(basso if basso else base + c * 0.35), x0:x1]
     col = z.any(0); g = []; s = None; vuoto = 0
     for i, v in enumerate(list(col) + [False] * 4):
         if v:
@@ -100,7 +101,7 @@ for ln in open(TXT, encoding='utf-8'):
         else: ruolo = q
     c = opz.get('c', 25 if ruolo == 'titolo' else 18.5)
     tok = testo.split()
-    g = gruppi(base, x0, x1, c)
+    g = gruppi(base, x0, x1, c, None if re.search(r'[gjpqyQ,;()\[\]/_]', testo) else base + 3)
     r = accoppia(tok, g)
     if r is None:
         print(f'NO {base}: {len(tok)} parole, {len(g)} gruppi {g}', file=sys.stderr); sys.exit(1)

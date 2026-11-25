@@ -1,0 +1,34 @@
+161 | Flight Manual
+193 | Reims Rocket
+225 | Reims Aviation Page: 4-13
+257 | Reims, Marne France Edition: 3
+345 | tarily use full engine power. As the airplane begins to spin, reduce the power to idle
+376 | and maintain full pro-spin elevator and rudder deflections. The application of ailerons
+408 | in the direction of the desired spin may also help obtain a clean entry.
+471 | During extended spins of two to three turns or more, the spin will tend to
+503 | change into a spiral, particularly to the right. This will be accompanied by an in-
+532 | crease in airspeed and gravity loads on the airplane. If this occurs, recovery should
+564 | be accomplished quickly by leveling the wings and recovering from the resulting dive.
+625 | To recover from an intentional or inadvertent spin use the following procedure:
+688 | (1) Retard throttle to idle position.
+718 | (2) Apply full rudder opposite to the direction of rotation.
+749 | (3) After one-fourth turn, move the control wheel forward of neutral in a
+780 | brisk motion.
+812 | (4) As the rotation stops, neutralize the rudder, and make a smooth recovery
+842 | from the resulting dive.
+904 | Intentional spins with flaps extended are prohibited.
+1028 titolo | LANDING.
+1089 | Normal landings are made power-off with any flap setting. Steep slips should
+1121 | be avoided with flap settings greater than 20° due to a slight tendency for the ele-
+1151 | vator to oscillate in a random motion under certain combinations of airspeed, side-
+1183 | slip angle, and center of gravity loadings.
+1243 | SHORT FIELD LANDINGS.
+1305 | For short field landings, make a power-off approach at approximately 117 km/h -
+1334 | 63 kts - 73 MPH with flaps 40°, and land on the main wheels first. Immediately
+1364 | after touchdown, lower the nose gear to the ground and apply heavy braking as re-
+1394 | quired. For maximum brake effectiveness after all three wheels are on the ground,
+1425 | retract the flaps, hold full nose up elevator and apply maximum possible brake pres-
+1455 | sure without sliding the tires.
+1516 | CROSSWIND LANDINGS.
+1579 | When landing in a strong crosswind, use the minimum flap setting required for
+1610 | the field length. If flap settings greater than 20° are used in sideslips with full rud-

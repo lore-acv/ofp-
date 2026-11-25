@@ -1,0 +1,31 @@
+188 | Flight Manual
+219 | Reims Rocket
+250 | Reims Aviation Page: 4-5
+281 | Reims, Marne France Edition: 3
+376 | (5) Brakes - - Release.
+406 | (6) Airplane Attitude - - Slightly tail low.
+440 | (7) Climb Speed - - 109 km/h - 59 kts - 68 MPH until all obstacles cleared,
+471 | then set up climb speed as shown in “MAXIMUM PERFORMANCE CLIMB”
+502 | check list.
+530 | (8) Wing Flaps - - Retract after obstacles are cleared.
+621 titolo | ENROUTE CLIMB.
+685 | NORMAL CLIMB.
+746 | (1) Airspeed - - 161 to 177 km/h - 87 to 96 kts - 100 to 110 MPH.
+776 | (2) Power - - 25 inches (847 mb) and 2600 RPM.
+806 | (3) Mixture - - Lean to 13 gal/hr (49,2 litres/hr).
+870 | MAXIMUM PERFORMANCE CLIMB.
+929 | (1) Airspeed - - 137 km/h - 74 kts - 85 MPH at sea level to 134 km/h - 72 kts
+960 | 83 MPH at 10,000 feet.
+989 | (2) Power - - Full throttle and 2800 RPM.
+1020 | (3) Mixture - - Lean for altitude per fuel flow indicator placard.
+1117 titolo | CRUISING.
+1174 | (1) Power - - 15 to 25 inches (508 to 847 mb) manifold pressure and 2200 to
+1205 | 2600 RPM. Select combination to give no more than 75% power.
+1236 | (2) Trim Tab - - Adjust.
+1267 | (3) Mixture - - Lean for cruise fuel flow as shown in the Cruise Performance
+1298 | charts in Section V.
+1391 titolo | LET-DOWN.
+1450 | (1) Power - - As desired.
+1481 | (2) Mixture - - Adjust for smooth operation.
+1575 titolo | BEFORE LANDING.
+1634 | (1) Mixture - - Rich (or adjust for altitude).
