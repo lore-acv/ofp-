@@ -78,5 +78,32 @@
         0.086
       ]
     }
+  },
+  "medio": {
+    "_nota": "Prova 'via di mezzo' (rec.mjs --medio): la stessa gabbia della pagina piena, con margini a meta' strada fra la scansione (circa 21% ai lati, 9% e 6% sopra e sotto) e la pagina piena (8,6% e 6%): 15% ai lati, 7,5% sopra e sotto. La correzione della compressione della scansione e' di conseguenza a meta'.",
+    "verticale": {
+      "gabbia": [
+        280,
+        158,
+        1003,
+        1660
+      ],
+      "margini": [
+        0.15,
+        0.075
+      ]
+    },
+    "orizzontale": {
+      "gabbia": [
+        58,
+        237,
+        1630,
+        945
+      ],
+      "margini": [
+        0.075,
+        0.15
+      ]
+    }
   }
 }

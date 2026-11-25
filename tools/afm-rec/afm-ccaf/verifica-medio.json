@@ -1,0 +1,2571 @@
+[
+ {
+  "n": "1-13",
+  "pdf": 21,
+  "stato": "campione",
+  "figure": [],
+  "inkA": 117718,
+  "soloA": 7133,
+  "soloB": 4437,
+  "entrambi": 110585,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     534.94,
+     688.48
+    ],
+    "attraverso": [
+     129,
+     161
+    ],
+    "base": 154.09,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     534.94,
+     690.9
+    ],
+    "attraverso": [
+     159,
+     191
+    ],
+    "base": 184,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     352.04
+    ],
+    "attraverso": [
+     195,
+     227
+    ],
+    "base": 219.9,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     929.48,
+     1058.82
+    ],
+    "attraverso": [
+     195,
+     227
+    ],
+    "base": 219.9,
+    "testo": "Page: 1-13",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     411.34000000000003
+    ],
+    "attraverso": [
+     227,
+     259
+    ],
+    "base": 251.81,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     929.48,
+     1057.6100000000001
+    ],
+    "attraverso": [
+     227,
+     259
+    ],
+    "base": 251.81,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     186.39,
+     1070.92
+    ],
+    "attraverso": [
+     317,
+     349
+    ],
+    "base": 341.55,
+    "testo": "pilot and is helpful when checking maps and other flight data during night operations.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     186.39,
+     1060.03
+    ],
+    "attraverso": [
+     348,
+     380
+    ],
+    "base": 372.46,
+    "testo": "To operate the light, first turn on the “NAV LT” switch, then adjust the map light’s",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     1028.56
+    ],
+    "attraverso": [
+     378,
+     411
+    ],
+    "base": 403.37,
+    "testo": "intensity with the rheostat control knob located on the back of the control wheel",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     186.39,
+     416.19
+    ],
+    "attraverso": [
+     409,
+     442
+    ],
+    "base": 434.28,
+    "testo": "pad on the right side.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     234.8,
+     1035.82
+    ],
+    "attraverso": [
+     471,
+     503
+    ],
+    "base": 496.11,
+    "testo": "A door post map light is also offered as optional equipment, and is located at",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     1049.1299999999999
+    ],
+    "attraverso": [
+     502,
+     534
+    ],
+    "base": 527.02,
+    "testo": "the top of the left forward door post. The light contains both red and white bulbs,",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     1049.14
+    ],
+    "attraverso": [
+     532,
+     564
+    ],
+    "base": 556.93,
+    "testo": "and may be positioned to illuminate any area desired by the pilot. A switch on the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     1053.98
+    ],
+    "attraverso": [
+     563,
+     595
+    ],
+    "base": 587.84,
+    "testo": "left forward door post is labeled “RED”, “OFF”, and “WHITE”. Placing the switch",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     1041.8700000000001
+    ],
+    "attraverso": [
+     594,
+     626
+    ],
+    "base": 618.75,
+    "testo": "in the top position will provide a red light. In the bottom position, standard white",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     717.53
+    ],
+    "attraverso": [
+     626,
+     658
+    ],
+    "base": 650.66,
+    "testo": "lighting is provided. The center position is “OFF”.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     1044.29
+    ],
+    "attraverso": [
+     746,
+     781
+    ],
+    "base": 773.31,
+    "testo": "CABIN HEATING, VENTILATING AND DEFROSTING SYSTEM.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     236.01,
+     1039.46
+    ],
+    "attraverso": [
+     809,
+     842
+    ],
+    "base": 834.13,
+    "testo": "For cabin ventilation, pull the “CABIN AIR” knob out. To raise the air tem-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     1012.83
+    ],
+    "attraverso": [
+     841,
+     873
+    ],
+    "base": 866.04,
+    "testo": "perature, pull the “CABIN HT” knob out approximately 0,5 cm to 1,0 cm for a",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     1018.88
+    ],
+    "attraverso": [
+     871,
+     903
+    ],
+    "base": 895.96,
+    "testo": "small amount of cabin heat. Additional heat is available by pulling the knob out",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     1038.25
+    ],
+    "attraverso": [
+     902,
+     934
+    ],
+    "base": 926.87,
+    "testo": "farther; maximum heat is available with the “CABIN HT” knob pulled full out and",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     1029.78
+    ],
+    "attraverso": [
+     933,
+     965
+    ],
+    "base": 957.78,
+    "testo": "the “CABIN AIR” knob pushed full in. When no heat is desired in the cabin, the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     571.09
+    ],
+    "attraverso": [
+     965,
+     997
+    ],
+    "base": 989.69,
+    "testo": "“CABIN HT” knob is pushed full in.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     233.59,
+     1038.24
+    ],
+    "attraverso": [
+     1026,
+     1058
+    ],
+    "base": 1050.51,
+    "testo": "Front cabin heat and ventilating air is supplied by outlet holes spaced across a",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     1022.51
+    ],
+    "attraverso": [
+     1057,
+     1089
+    ],
+    "base": 1081.42,
+    "testo": "cabin manifold just forward of the pilot’s and copilot’s feet. Rear cabin heat and",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     182.76,
+     1018.88
+    ],
+    "attraverso": [
+     1087,
+     1120
+    ],
+    "base": 1112.34,
+    "testo": "air is supplied by two ducts from the manifold, one extending down each side of",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     1028.56
+    ],
+    "attraverso": [
+     1118,
+     1151
+    ],
+    "base": 1143.25,
+    "testo": "the cabin to an outlet at the front door post at floor level. Windshield defrost air",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     1050.35
+    ],
+    "attraverso": [
+     1148,
+     1181
+    ],
+    "base": 1173.16,
+    "testo": "is supplied by two ducts leading from the cabin manifold to outlets below the wind-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     182.76,
+     260.06
+    ],
+    "attraverso": [
+     1179,
+     1211
+    ],
+    "base": 1204.07,
+    "testo": "shield.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     232.38,
+     1055.19
+    ],
+    "attraverso": [
+     1241,
+     1273
+    ],
+    "base": 1265.89,
+    "testo": "Separate adjustable ventilators supply additional air, one near each upper corner",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     1044.3
+    ],
+    "attraverso": [
+     1271,
+     1303
+    ],
+    "base": 1295.81,
+    "testo": "of the windshield supplies air for the pilot and copilot, and two optional ventilators",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     817.98
+    ],
+    "attraverso": [
+     1300,
+     1332
+    ],
+    "base": 1324.73,
+    "testo": "in the rear cabin ceiling supply air to the rear seat passengers.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     176.71,
+     523.89
+    ],
+    "attraverso": [
+     1417,
+     1453
+    ],
+    "base": 1444.38,
+    "testo": "SHOULDER HARNESSES.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     228.75,
+     1032.19
+    ],
+    "attraverso": [
+     1485,
+     1518
+    ],
+    "base": 1510.19,
+    "testo": "Shoulder harnesses are provided as standard equipment for the pilot and front",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     177.92,
+     899.0699999999999
+    ],
+    "attraverso": [
+     1516,
+     1548
+    ],
+    "base": 1541.1,
+    "testo": "seat passenger, and as optional equipment for the rear seat passengers.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     228.75,
+     1030.99
+    ],
+    "attraverso": [
+     1577,
+     1609
+    ],
+    "base": 1601.93,
+    "testo": "Each front seat harness is attached to a rear door post just above window line",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 36,
+  "righeFuori": [],
+  "fuori": 0.09828573370257734,
+  "numeri": [
+   {
+    "riga": 246,
+    "x": 963,
+    "valore": "1-13",
+    "tesseract": "1-13",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 278,
+    "x": 985,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 894,
+    "x": 766,
+    "valore": "0,5",
+    "tesseract": "0,5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 894,
+    "x": 857,
+    "valore": "1,0",
+    "tesseract": "1,0",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": false,
+  "deboli": [],
+  "chiuse": 0,
+  "dif": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "2-1",
+  "pdf": 23,
+  "stato": "campione",
+  "figure": [
+   {
+    "figura": "Grafica della sezione (barre e frecce)",
+    "metodo": "ridisegnata in SVG: rettangoli e triangoli misurati sulla scansione (coordinate dei bordi pixel per pixel)."
+   },
+   {
+    "figura": "Figura 2-1 (Stall speeds)",
+    "metodo": "tabella ricostruita: filetti SVG misurati (spessore compreso, doppi dove sono doppi) e testo vero nelle celle."
+   }
+  ],
+  "inkA": 92390,
+  "soloA": 3863,
+  "soloB": 1889,
+  "entrambi": 88527,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     533.73,
+     688.48
+    ],
+    "attraverso": [
+     135,
+     167
+    ],
+    "base": 160.07,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     533.73,
+     689.69
+    ],
+    "attraverso": [
+     166,
+     198
+    ],
+    "base": 190.98,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     352.03999999999996
+    ],
+    "attraverso": [
+     196,
+     228
+    ],
+    "base": 220.9,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     931.9,
+     1047.93
+    ],
+    "attraverso": [
+     196,
+     228
+    ],
+    "base": 220.9,
+    "testo": "Page: 2-1",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     182.76,
+     411.34
+    ],
+    "attraverso": [
+     227,
+     259
+    ],
+    "base": 251.81,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     931.9,
+     1061.24
+    ],
+    "attraverso": [
+     227,
+     259
+    ],
+    "base": 251.81,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     769.73,
+     1056.3899999999999
+    ],
+    "attraverso": [
+     303,
+     361
+    ],
+    "base": 347.53,
+    "testo": "SECTION II",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     492.58,
+     739.31
+    ],
+    "attraverso": [
+     466,
+     517
+    ],
+    "base": 505.08,
+    "testo": "LIMITATIONS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     176.71,
+     509.38
+    ],
+    "attraverso": [
+     600,
+     636
+    ],
+    "base": 627.73,
+    "testo": "CERTIFICATION BASIS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     232.38,
+     1050.3400000000001
+    ],
+    "attraverso": [
+     664,
+     696
+    ],
+    "base": 688.55,
+    "testo": "The Reims Rocket is certificated as Model FR172J under French Type Certifi-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     719.96
+    ],
+    "attraverso": [
+     696,
+     728
+    ],
+    "base": 720.46,
+    "testo": "cate No. 43 and FAA Type Certificate No. A18EU.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     606.19
+    ],
+    "attraverso": [
+     817,
+     852
+    ],
+    "base": 844.11,
+    "testo": "AIRSPEED LIMITATIONS (VC).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     787.88,
+     856.71
+    ],
+    "attraverso": [
+     882,
+     914
+    ],
+    "base": 906.93,
+    "testo": "km/h",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     888.33,
+     935.38
+    ],
+    "attraverso": [
+     882,
+     914
+    ],
+    "base": 906.93,
+    "testo": "kts",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     989.99,
+     1055.19
+    ],
+    "attraverso": [
+     882,
+     914
+    ],
+    "base": 906.93,
+    "testo": "MPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     465.79999999999995
+    ],
+    "attraverso": [
+     944,
+     976
+    ],
+    "base": 968.75,
+    "testo": "Vne (Never Exceed Speed)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.09,
+     842.19
+    ],
+    "attraverso": [
+     944,
+     976
+    ],
+    "base": 968.75,
+    "testo": "298",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     891.96,
+     940.22
+    ],
+    "attraverso": [
+     944,
+     976
+    ],
+    "base": 968.75,
+    "testo": "161",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     993.62,
+     1043.09
+    ],
+    "attraverso": [
+     944,
+     976
+    ],
+    "base": 968.75,
+    "testo": "185",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     619.18
+    ],
+    "attraverso": [
+     976,
+     1008
+    ],
+    "base": 1000.66,
+    "testo": "Vno (Maximum Structural Cruising Speed)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     787.88,
+     840.98
+    ],
+    "attraverso": [
+     976,
+     1008
+    ],
+    "base": 1000.66,
+    "testo": "235",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     891.96,
+     942.64
+    ],
+    "attraverso": [
+     976,
+     1008
+    ],
+    "base": 1000.66,
+    "testo": "127",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     993.62,
+     1044.3
+    ],
+    "attraverso": [
+     976,
+     1008
+    ],
+    "base": 1000.66,
+    "testo": "146",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     177.92,
+     593.77
+    ],
+    "attraverso": [
+     1007,
+     1039
+    ],
+    "base": 1031.57,
+    "testo": "Vfe (Maximum Speed, Flaps Extended)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     790.3,
+     839.77
+    ],
+    "attraverso": [
+     1007,
+     1039
+    ],
+    "base": 1031.57,
+    "testo": "161",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     900.43,
+     942.63
+    ],
+    "attraverso": [
+     1007,
+     1039
+    ],
+    "base": 1031.57,
+    "testo": "87",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     992.41,
+     1044.3
+    ],
+    "attraverso": [
+     1007,
+     1039
+    ],
+    "base": 1031.57,
+    "testo": "100",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     448.86
+    ],
+    "attraverso": [
+     1037,
+     1069
+    ],
+    "base": 1061.48,
+    "testo": "Vp (Maneuvering Speed)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     790.3,
+     842.1899999999999
+    ],
+    "attraverso": [
+     1037,
+     1069
+    ],
+    "base": 1061.48,
+    "testo": "190",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     890.75,
+     942.64
+    ],
+    "attraverso": [
+     1037,
+     1069
+    ],
+    "base": 1061.48,
+    "testo": "104",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     992.41,
+     1043.09
+    ],
+    "attraverso": [
+     1037,
+     1069
+    ],
+    "base": 1061.48,
+    "testo": "118",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     388.5,
+     847.02
+    ],
+    "attraverso": [
+     1217,
+     1248
+    ],
+    "base": 1240.97,
+    "testo": "STALL SPEEDS - POWER OFF - AFT C. G.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     210.6,
+     492.42
+    ],
+    "attraverso": [
+     1289,
+     1320
+    ],
+    "base": 1312.76,
+    "testo": "GROSS WEIGHT 1157 kg",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     210.6,
+     607.4
+    ],
+    "attraverso": [
+     1318,
+     1350
+    ],
+    "base": 1342.67,
+    "testo": "ZERO DEGREES ANGLE OF BANK",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     717.69,
+     785.3100000000001
+    ],
+    "attraverso": [
+     1300,
+     1332
+    ],
+    "base": 1324.73,
+    "testo": "km/h",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     847.18,
+     891.81
+    ],
+    "attraverso": [
+     1300,
+     1332
+    ],
+    "base": 1324.73,
+    "testo": "kts",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     954.89,
+     1016.46
+    ],
+    "attraverso": [
+     1300,
+     1332
+    ],
+    "base": 1324.73,
+    "testo": "MPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     361.88,
+     486.38
+    ],
+    "attraverso": [
+     1384,
+     1416
+    ],
+    "base": 1408.49,
+    "testo": "FLAPS UP",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     733.42,
+     774.41
+    ],
+    "attraverso": [
+     1384,
+     1416
+    ],
+    "base": 1408.49,
+    "testo": "98",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     847.18,
+     889.38
+    ],
+    "attraverso": [
+     1384,
+     1416
+    ],
+    "base": 1408.49,
+    "testo": "53",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     963.36,
+     1001.9300000000001
+    ],
+    "attraverso": [
+     1384,
+     1416
+    ],
+    "base": 1408.49,
+    "testo": "61",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     360.67,
+     493.64000000000004
+    ],
+    "attraverso": [
+     1443,
+     1475
+    ],
+    "base": 1467.32,
+    "testo": "FLAPS 20 o",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     733.42,
+     774.41
+    ],
+    "attraverso": [
+     1443,
+     1475
+    ],
+    "base": 1467.32,
+    "testo": "89",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     847.18,
+     888.17
+    ],
+    "attraverso": [
+     1443,
+     1475
+    ],
+    "base": 1467.32,
+    "testo": "48",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     963.36,
+     1004.35
+    ],
+    "attraverso": [
+     1443,
+     1475
+    ],
+    "base": 1467.32,
+    "testo": "55",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     360.67,
+     493.64000000000004
+    ],
+    "attraverso": [
+     1508,
+     1539
+    ],
+    "base": 1532.13,
+    "testo": "FLAPS 40 o",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     733.42,
+     774.41
+    ],
+    "attraverso": [
+     1508,
+     1539
+    ],
+    "base": 1532.13,
+    "testo": "85",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     844.76,
+     886.96
+    ],
+    "attraverso": [
+     1508,
+     1539
+    ],
+    "base": 1532.13,
+    "testo": "46",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     962.15,
+     1003.14
+    ],
+    "attraverso": [
+     1508,
+     1539
+    ],
+    "base": 1532.13,
+    "testo": "53",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     547.04,
+     670.34
+    ],
+    "attraverso": [
+     1595,
+     1627
+    ],
+    "base": 1619.88,
+    "testo": "Figure 2-1.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1
+   }
+  ],
+  "macchie": [],
+  "righe": 50,
+  "righeFuori": [],
+  "fuori": 0.06225782011040156,
+  "numeri": [
+   {
+    "riga": 247,
+    "x": 964,
+    "valore": "2-1",
+    "tesseract": "2-",
+    "pdf": true,
+    "vista": "ritaglio OCR troppo stretto; a vista: 2-1",
+    "conferme": 2
+   },
+   {
+    "riga": 278,
+    "x": 989,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 716,
+    "x": 688,
+    "valore": "FR172J",
+    "tesseract": "FRI72J",
+    "pdf": true,
+    "vista": "OCR legge FRI72); a vista: FR172J",
+    "conferme": 2
+   },
+   {
+    "riga": 748,
+    "x": 361,
+    "valore": "43",
+    "tesseract": "43",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 748,
+    "x": 651,
+    "valore": "A18EU.",
+    "tesseract": "AI8EU.",
+    "pdf": true,
+    "vista": "OCR legge AI8EU.; a vista: A18EU. (e cosi' nel manuale FR172H a 600 dpi)",
+    "conferme": 2
+   },
+   {
+    "riga": 997,
+    "x": 787,
+    "valore": "298",
+    "tesseract": "298",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 997,
+    "x": 872,
+    "valore": "161",
+    "tesseract": "161",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 997,
+    "x": 956,
+    "valore": "185",
+    "tesseract": "185",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1029,
+    "x": 786,
+    "valore": "235",
+    "tesseract": "235",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1029,
+    "x": 872,
+    "valore": "127",
+    "tesseract": "127",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1029,
+    "x": 956,
+    "valore": "146",
+    "tesseract": "146",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1060,
+    "x": 788,
+    "valore": "161",
+    "tesseract": "161",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1060,
+    "x": 879,
+    "valore": "87",
+    "tesseract": "87",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1060,
+    "x": 955,
+    "valore": "100",
+    "tesseract": "100",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1090,
+    "x": 788,
+    "valore": "190",
+    "tesseract": "190",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1090,
+    "x": 871,
+    "valore": "104",
+    "tesseract": "104",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1090,
+    "x": 955,
+    "valore": "118",
+    "tesseract": "118",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1342,
+    "x": 462,
+    "valore": "1157",
+    "tesseract": "1157",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1438,
+    "x": 741,
+    "valore": "98",
+    "tesseract": "98",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1438,
+    "x": 835,
+    "valore": "53",
+    "tesseract": "53",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1438,
+    "x": 931,
+    "valore": "61",
+    "tesseract": "61",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1497,
+    "x": 498,
+    "valore": "20",
+    "tesseract": "20",
+    "pdf": false,
+    "vista": "OCR legge 90 (il 2 tocca il filetto); a vista: FLAPS 20° · seconda conferma: DATI-AFM.md: stallo flap UP / 20° / 40°",
+    "conferme": 3
+   },
+   {
+    "riga": 1497,
+    "x": 741,
+    "valore": "89",
+    "tesseract": "89",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1497,
+    "x": 835,
+    "valore": "48",
+    "tesseract": "48",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1497,
+    "x": 931,
+    "valore": "55",
+    "tesseract": "55",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1562,
+    "x": 497,
+    "valore": "40",
+    "tesseract": "40",
+    "pdf": false,
+    "vista": "a vista: FLAPS 40° · seconda conferma: DATI-AFM.md: stallo flap UP / 20° / 40°",
+    "conferme": 3
+   },
+   {
+    "riga": 1562,
+    "x": 741,
+    "valore": "85",
+    "tesseract": "85",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1562,
+    "x": 833,
+    "valore": "46",
+    "tesseract": "46",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1562,
+    "x": 930,
+    "valore": "53",
+    "tesseract": "53",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1650,
+    "x": 645,
+    "valore": "2-1.",
+    "tesseract": "2-1,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 3,
+  "dif": [],
+  "aperte": 0,
+  "dati": [
+   "Vne 298 km/h · 161 kts · 185 MPH, Vno 235 · 127 · 146, Vfe 161 · 87 · 100: nessuna tabella del progetto da confrontare (il progetto usa le velocita' di prestazione, non queste).",
+   "Vp 190 km/h · 104 kts · 118 MPH = DATI-AFM.md, 'VA' FR172J: 190 km/h, 104 kt, 118 MPH ✓",
+   "Stallo a 1157 kg, flap UP / 20° / 40°: 61 / 55 / 53 MPH = DATI-AFM.md (tabella delle differenze FR172J/FR172H) ✓; 98/89/85 km/h e 53/48/46 kts coerenti con le MPH (1 MPH = 1,609 km/h = 0,869 kt) ✓",
+   "GROSS WEIGHT 1157 kg = massa massima del progetto (DATI-AFM.md) ✓"
+  ]
+ },
+ {
+  "n": "5-12",
+  "pdf": 68,
+  "stato": "campione",
+  "figure": [
+   {
+    "figura": "Figura 5-7 (Maximum glide)",
+    "metodo": "cornice e griglia: filetti SVG misurati; fascia di planata: 689 punti della retinatura ridisegnati uno per uno nella posizione misurata sulla scansione, piu' 117 punti ricavati dal reticolo locale solo dove si fondono con i filetti della griglia; aeroplano: disegno al tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto i filetti e i punti che lo attraversano (tools/afm-rec/afm-ccaf/figure/fig-5-7.py); scritte: testo vero, misurato parola per parola."
+   }
+  ],
+  "inkA": 113271,
+  "soloA": 5473,
+  "soloB": 2740,
+  "entrambi": 107798,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     540.08,
+     696.5
+    ],
+    "attraverso": [
+     127,
+     158
+    ],
+    "base": 151.2,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1762,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     540.08,
+     698.97
+    ],
+    "attraverso": [
+     158,
+     189
+    ],
+    "base": 181.69,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.21,
+     309.66999999999996
+    ],
+    "attraverso": [
+     295,
+     326
+    ],
+    "base": 318.89,
+    "testo": "Page: 5-12",
+    "giro": 0,
+    "Lw": 1762,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     834.22,
+     1006.7099999999999
+    ],
+    "attraverso": [
+     295,
+     326
+    ],
+    "base": 318.89,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1762,
+    "inizio": 1,
+    "fine": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.21,
+     310.91
+    ],
+    "attraverso": [
+     325,
+     355
+    ],
+    "base": 348.42,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1762,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     834.22,
+     1066.03
+    ],
+    "attraverso": [
+     325,
+     355
+    ],
+    "base": 348.42,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     765.15,
+     901.2900000000001
+    ],
+    "attraverso": [
+     219,
+     249
+    ],
+    "base": 241.88,
+    "testo": "SPEED VI:",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": -1,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     930.93,
+     1259.52
+    ],
+    "attraverso": [
+     219,
+     249
+    ],
+    "base": 241.88,
+    "testo": "137 km/h - 74 kts - 85 MPH",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     315.46,
+     536.4
+    ],
+    "attraverso": [
+     251,
+     281
+    ],
+    "base": 274.01,
+    "testo": "MAXIMUM GLIDE",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 1,
+    "fine": -1
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     767.06,
+     1109.94
+    ],
+    "attraverso": [
+     263,
+     293
+    ],
+    "base": 286.37,
+    "testo": "PROPELLER WINDMILLING",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     767.06,
+     898.4300000000001
+    ],
+    "attraverso": [
+     306,
+     337
+    ],
+    "base": 329.63,
+    "testo": "FLAPS UP",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     929.02,
+     1088.02
+    ],
+    "attraverso": [
+     306,
+     337
+    ],
+    "base": 329.63,
+    "testo": "ZERO WIND",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     260.2,
+     342.03
+    ],
+    "attraverso": [
+     338,
+     369
+    ],
+    "base": 361.76,
+    "testo": "12000",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     259.25,
+     341.08
+    ],
+    "attraverso": [
+     429,
+     459
+    ],
+    "base": 451.98,
+    "testo": "10000",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": -1,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     268.78,
+     339.17999999999995
+    ],
+    "attraverso": [
+     519,
+     549
+    ],
+    "base": 542.2,
+    "testo": "8000",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     268.78,
+     339.17999999999995
+    ],
+    "attraverso": [
+     613,
+     643
+    ],
+    "base": 636.12,
+    "testo": "6000",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     267.82,
+     339.17
+    ],
+    "attraverso": [
+     704,
+     735
+    ],
+    "base": 727.58,
+    "testo": "4000",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     265.92,
+     336.32
+    ],
+    "attraverso": [
+     799,
+     830
+    ],
+    "base": 822.74,
+    "testo": "2000",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     327.85,
+     358.24
+    ],
+    "attraverso": [
+     909,
+     940
+    ],
+    "base": 932.73,
+    "testo": "0",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     563.17,
+     604.04
+    ],
+    "attraverso": [
+     909,
+     940
+    ],
+    "base": 932.73,
+    "testo": "10",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     807.07,
+     850.7900000000001
+    ],
+    "attraverso": [
+     909,
+     940
+    ],
+    "base": 932.73,
+    "testo": "20",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     1053.83,
+     1097.55
+    ],
+    "attraverso": [
+     909,
+     940
+    ],
+    "base": 932.73,
+    "testo": "30",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": 0
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     1294.87,
+     1337.6399999999999
+    ],
+    "attraverso": [
+     909,
+     940
+    ],
+    "base": 932.73,
+    "testo": "40",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     673.69,
+     992.76
+    ],
+    "attraverso": [
+     951,
+     982
+    ],
+    "base": 974.75,
+    "testo": "GROUND DISTANCE (km)",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 0,
+    "fine": -1
+   },
+   {
+    "rif": "pag",
+    "ang": -90,
+    "lungo": [
+     -822.38,
+     -428.68
+    ],
+    "attraverso": [
+     207,
+     235
+    ],
+    "base": 228.38,
+    "testo": "HEIGHT ABOVE TERRAIN (FEET)",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 2,
+    "fine": 1
+   },
+   {
+    "rif": "pag",
+    "ang": 0,
+    "lungo": [
+     663.21,
+     795.54
+    ],
+    "attraverso": [
+     1040,
+     1068
+    ],
+    "base": 1061.26,
+    "testo": "Figure 5-7.",
+    "giro": -90,
+    "Lw": 1762,
+    "inizio": 1,
+    "fine": -1
+   }
+  ],
+  "macchie": [],
+  "righe": 26,
+  "righeFuori": [],
+  "fuori": 0.07250752619823256,
+  "numeri": [
+   {
+    "riga": 328,
+    "x": 297,
+    "valore": "5-12",
+    "tesseract": "5-1)",
+    "pdf": false,
+    "vista": "ritaglio OCR corto; a vista: Page: 5-12 · seconda conferma: numerazione della mappa (tools/afm/afm-ccaf.json: pagina 68 del PDF = 5-12)",
+    "conferme": 2
+   },
+   {
+    "riga": 359,
+    "x": 323,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": false,
+    "vista": "a vista: Edition: 3",
+    "conferme": 2
+   },
+   {
+    "riga": 281,
+    "x": 909,
+    "valore": "137",
+    "tesseract": "137",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 281,
+    "x": 1046,
+    "valore": "74",
+    "tesseract": "74",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 281,
+    "x": 1144,
+    "valore": "85",
+    "tesseract": "85",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 378,
+    "x": 205,
+    "valore": "12000",
+    "tesseract": "712000",
+    "pdf": false,
+    "vista": "OCR legge 712000 (prende il filetto); a vista: 12000 · seconda conferma: sequenza dell'asse: 2000-10000 lette da Tesseract a passo 2000, 12000 sulla linea piu' alta",
+    "conferme": 2
+   },
+   {
+    "riga": 451,
+    "x": 204,
+    "valore": "10000",
+    "tesseract": "10000",
+    "pdf": false,
+    "vista": "a vista: asse delle quote, 10000",
+    "conferme": 2
+   },
+   {
+    "riga": 524,
+    "x": 214,
+    "valore": "8000",
+    "tesseract": "8000",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 600,
+    "x": 214,
+    "valore": "6000",
+    "tesseract": "6000",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 674,
+    "x": 213,
+    "valore": "4000",
+    "tesseract": "4000",
+    "pdf": false,
+    "vista": "a vista: asse delle quote, 4000",
+    "conferme": 2
+   },
+   {
+    "riga": 751,
+    "x": 211,
+    "valore": "2000",
+    "tesseract": "2000",
+    "pdf": false,
+    "vista": "a vista: asse delle quote, 2000",
+    "conferme": 2
+   },
+   {
+    "riga": 840,
+    "x": 276,
+    "valore": "0",
+    "tesseract": "O",
+    "pdf": true,
+    "vista": "OCR legge O; a vista: 0 · seconda conferma: sequenza dell'asse: 10-20-30-40 lette da Tesseract a passo 10",
+    "conferme": 3
+   },
+   {
+    "riga": 840,
+    "x": 523,
+    "valore": "10",
+    "tesseract": "10",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 840,
+    "x": 779,
+    "valore": "20",
+    "tesseract": "20",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 840,
+    "x": 1038,
+    "valore": "30",
+    "tesseract": "30",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 840,
+    "x": 1291,
+    "valore": "40",
+    "tesseract": "40",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 944,
+    "x": 709,
+    "valore": "5-7.",
+    "tesseract": "3-7.",
+    "pdf": true,
+    "vista": "OCR legge 3-7.; a vista: Figure 5-7. · seconda conferma: indice della mappa (figure: 5-7 a pagina 5-12) e DATI-AFM.md (fig. 5-7, V best glide)",
+    "conferme": 3
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 4,
+  "dif": [],
+  "aperte": 0,
+  "dati": [
+   "SPEED VI 137 km/h - 74 kts - 85 MPH: V best glide 85 MPH = DATI-AFM.md e index.html (AFM_SPEEDS.glide, fig. 5-7) ✓; 85 MPH = 136,8 km/h = 73,9 kt ✓",
+   "La fascia di planata (distanza per quota) non ha valori nel progetto: non c'e' un dato indipendente con cui controllare la curva; e' ricalcata punto per punto sulla scansione (vedi metodo della figura)."
+  ]
+ }
+]

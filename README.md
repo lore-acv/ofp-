@@ -605,6 +605,11 @@ ancora ricostruite e originale del confronto) si trasformano allo stesso modo.
 Si verifica con `verifica.mjs afm-ccaf --pieno` (rapporto in
 `tools/afm-rec/VERIFICA-PIENO.md`).
 
+**Prova "via di mezzo"** (`?libro=afm-ccaf-rec-medio`, `rec.mjs --medio`,
+`verifica.mjs --medio`): la stessa gabbia con margini a meta' strada fra la
+scansione e la pagina piena (15% ai lati, 7,5% sopra e sotto); la compressione
+della scansione si corregge a meta'.
+
 **Pagina per pagina, non a flusso.** Ogni pagina e' un SVG a misura fissa nelle
 coordinate della scansione retina: ogni parola sta sulla sua linea di base, dove
 sta nell'originale, larga quanto la parola misurata sulla scansione (la

@@ -74,21 +74,21 @@ export const misuraNelBrowser = (parole) => {
    cambiano solo le coordinate; corpo (altezza delle maiuscole) e larghezza del
    disegno seguono la trasformazione, e la spaziatura di ogni parola si ricalcola
    (misuraNelBrowser) perche' la parola occupi esattamente il suo posto. */
-export function affinePiena(stile, p) {
-  const g = stile.pieno[p.rot === -90 ? 'orizzontale' : 'verticale'];
+export function affinePiena(stile, p, variante = 'pieno') {
+  const g = stile[variante][p.rot === -90 ? 'orizzontale' : 'verticale'];
   const [x0, y0, x1, y1] = g.gabbia, [mx, my] = g.margini, W = p.w, H = p.h;
   const ax = (W * (1 - 2 * mx)) / (x1 - x0), ay = (H * (1 - 2 * my)) / (y1 - y0);
   return { ax, ay, bx: W * mx - x0 * ax, by: H * my - y0 * ay };
 }
 /* la stessa trasformazione nelle coordinate della pagina del libro (diritta):
    per le pagine girate x_libro = Y, y_libro = W - X */
-export function affineLibro(stile, p) {
-  const t = affinePiena(stile, p);
+export function affineLibro(stile, p, variante = 'pieno') {
+  const t = affinePiena(stile, p, variante);
   if (p.rot !== -90) return t;
   return { ax: t.ay, ay: t.ax, bx: t.by, by: p.w - p.w * t.ax - t.bx };
 }
-export function pienaPagina(p, stile) {
-  const T = affinePiena(stile, p), L = affineLibro(stile, p);
+export function pienaPagina(p, stile, variante = 'pieno') {
+  const T = affinePiena(stile, p, variante), L = affineLibro(stile, p, variante);
   const q = JSON.parse(JSON.stringify(p));
   const n3 = (x) => Math.round(x * 100) / 100;
   q.el = q.el.map((e) => {

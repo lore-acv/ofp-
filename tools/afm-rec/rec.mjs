@@ -35,6 +35,7 @@
 
      node tools/afm-rec/rec.mjs afm-ccaf            (data/afm-rec/afm-ccaf/)
      node tools/afm-rec/rec.mjs afm-ccaf --pieno    (prova "pagina piena": data/afm-rec/afm-ccaf-pieno/)
+     node tools/afm-rec/rec.mjs afm-ccaf --medio    (prova "via di mezzo": data/afm-rec/afm-ccaf-medio/)
 
    PAGINA PIENA (prova): la gabbia del testo, comune a tutto il manuale
    (stile.json, "pieno"), riempie la pagina con margini fissi; stesse parole
@@ -49,9 +50,10 @@ import { createRequire } from 'node:module';
 
 const RADICE = process.cwd();
 const ID = process.argv[2] || 'afm-ccaf';
-const PIENO = process.argv.includes('--pieno');
+const VARIANTE = process.argv.includes('--pieno') ? 'pieno' : process.argv.includes('--medio') ? 'medio' : null;   // prove di impaginazione (stile.json)
+const PIENO = !!VARIANTE;
 const DIR = path.join(RADICE, 'tools', 'afm-rec', ID);
-const OUT = path.join(RADICE, 'data', 'afm-rec', ID + (PIENO ? '-pieno' : ''));
+const OUT = path.join(RADICE, 'data', 'afm-rec', ID + (VARIANTE ? '-' + VARIANTE : ''));
 const FONT_OUT = path.join(RADICE, 'data', 'afm-rec', 'fonts');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -60,7 +62,7 @@ const stile = JSON.parse(await readFile(path.join(DIR, 'stile.json'), 'utf8'));
 const pagine = {};
 for (const f of (await readdir(path.join(DIR, 'pagine'))).filter((f) => f.endsWith('.json') && !f.includes('.bozza'))) {
   const p = await risolvi(JSON.parse(await readFile(path.join(DIR, 'pagine', f), 'utf8')), DIR);
-  pagine[p.pdf] = PIENO ? pienaPagina(p, stile) : p;
+  pagine[p.pdf] = PIENO ? pienaPagina(p, stile, VARIANTE) : p;
 }
 
 // la misura delle parole, con i font veri, in Chromium
@@ -88,7 +90,7 @@ const trasformaScansione = (pdf, attr) => {
   if (!PIENO || !/data-n="/.test(attr)) return '';
   const rot = (mappa.ruota || {})[pdf] ? -90 : 0;
   const finta = rot === -90 ? { rot, w: 1762, h: 1250 } : { rot, w: 1250, h: 1762 };
-  const L = affineLibro(stile, finta);
+  const L = affineLibro(stile, finta, VARIANTE);
   return ` style="transform-origin:0 0;transform:translate(${pct(L.bx / 1250 * 100)}%,${pct(L.by / 1762 * 100)}%) scale(${pct(L.ax)},${pct(L.ay)})"`;
 };
 let libro = ufficiale.replace(/<div class="pg-afm([^"]*)" data-pdf="(\d+)"([^>]*)>((?:<i id="[^"]*"><\/i>)*)<img ([^>]*)><\/div>/g, (tutto, cls, pdf, attr, ancore, img) => {
@@ -100,7 +102,7 @@ let libro = ufficiale.replace(/<div class="pg-afm([^"]*)" data-pdf="(\d+)"([^>]*
 });
 const meta = JSON.parse(libro.match(/data-meta="([^"]*)"/)[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&'));
 meta.rec = true; meta.testo = null;
-meta.titolo += ' · reconstructed preview' + (PIENO ? ' (full page test)' : '');
+meta.titolo += ' · reconstructed preview' + ({ pieno: ' (full page test)', medio: ' (middle test)' }[VARIANTE] || '');
 libro = libro.replace(/data-meta="[^"]*"/, `data-meta="${esc(JSON.stringify(meta))}"`)
   .replace('<div class="libro-afm"', '<div class="libro-afm libro-rec"');
 

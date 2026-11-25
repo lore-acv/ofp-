@@ -38,8 +38,9 @@ const RADICE = process.cwd();
 const ID = process.argv[2] || 'afm-ccaf';
 /* --pieno: la prova "pagina piena" (rec.mjs --pieno). L'originale si trasforma
    come la ricostruita (stessa trasformazione affine), poi si confronta allo stesso modo. */
-const PIENO = process.argv.includes('--pieno');
-const SUFF = PIENO ? '-pieno' : '';
+const VARIANTE = process.argv.includes('--pieno') ? 'pieno' : process.argv.includes('--medio') ? 'medio' : null;
+const PIENO = !!VARIANTE;
+const SUFF = VARIANTE ? '-' + VARIANTE : '';
 const CHROME = process.env.CHROME || '/opt/pw-browsers/chromium';
 const pup = createRequire(path.join(RADICE, 'x.js'))('puppeteer-core');
 const SOGLIA = 0.02;        // inchiostro non coincidente oltre il 2% dell'inchiostro della pagina: va guardata
@@ -157,8 +158,8 @@ try {
     // le righe: dove comincia e dove finisce l'inchiostro, nell'originale e nella ricostruita
     const pjg0 = JSON.parse(await readFile(path.join(DIR, 'pagine', p.n + '.json'), 'utf8'));
     const stg0 = JSON.parse(await readFile(path.join(DIR, 'stile.json'), 'utf8'));
-    const pjg = PIENO ? pienaPagina(pjg0, stg0) : pjg0;
-    const affOrig = PIENO ? affineLibro(stg0, pjg0) : { ax: 1, ay: 1, bx: 0, by: 0 };
+    const pjg = PIENO ? pienaPagina(pjg0, stg0, VARIANTE) : pjg0;
+    const affOrig = PIENO ? affineLibro(stg0, pjg0, VARIANTE) : { ax: 1, ay: 1, bx: 0, by: 0 };
     const stg = JSON.parse(await readFile(path.join(DIR, 'stile.json'), 'utf8'));
     // Ogni gruppo di parole e' una banda: "lungo" va nel verso della scrittura, "attraverso" dalla
     // cima delle maiuscole alle discendenti. ref: libro (pagina del libro) o pag (la pagina, che per
