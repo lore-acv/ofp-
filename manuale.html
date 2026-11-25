@@ -142,8 +142,24 @@
   @media (max-width:1099.98px){ .fb-main.toc-open .fb-nav.prev{left:1rem} }
   .fb-telefono .fb-nav{display:none}
   .fb-stato{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
-    color:var(--txt-dim);padding:2rem;line-height:1.6}
+    color:var(--txt-dim);padding:2rem;line-height:1.6;background:var(--bg);z-index:5;transition:opacity .2s var(--ease-out,ease-out)}
   .fb-stato a{color:var(--accent-2)}
+  .fb-stato.via{opacity:0;pointer-events:none}
+  /* IL CARICAMENTO: una barra senza percentuale (non sappiamo quanto manca) e,
+     se tarda, una frase alla volta per passare il tempo */
+  .fb-carica{display:flex;flex-direction:column;align-items:center;gap:16px;width:min(320px,80vw)}
+  .fb-barra{position:relative;width:180px;height:3px;border-radius:var(--r-pill);background:var(--control);overflow:hidden}
+  .fb-barra i{position:absolute;top:0;bottom:0;left:0;width:40%;border-radius:inherit;background:var(--accent-2);
+    animation:fbBarra 1.15s cubic-bezier(0.77,0,0.175,1) infinite}
+  @keyframes fbBarra{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+  .fb-frase{margin:0;min-height:1.6em;font-size:14px;color:var(--txt-dim);opacity:0;transition:opacity .2s var(--ease-out,ease-out)}
+  .fb-frase.vista{opacity:1}
+  .fb-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  @media (prefers-reduced-motion:reduce){
+    .fb-barra i{width:100%;animation:fbBarraPiano 1.6s ease-in-out infinite alternate}
+    @keyframes fbBarraPiano{from{opacity:.35}to{opacity:1}}
+    .fb-frase,.fb-stato{transition:none}
+  }
 
   /* ====================== barra di scorrimento a sezioni ================== */
   .fb-foot{position:relative;z-index:45;flex:0 0 auto;display:flex;align-items:center;gap:1rem;padding:.35rem max(1.1rem,env(safe-area-inset-right)) max(.45rem,env(safe-area-inset-bottom)) max(1.1rem,env(safe-area-inset-left));
@@ -577,7 +593,32 @@
     <button type="button" class="fb-nav prev" id="fbPrev" aria-label="Previous page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
     <div class="fb-box" id="fbBox"><div id="fbBook"></div></div>
     <button type="button" class="fb-nav next" id="fbNext" aria-label="Next page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
-    <div class="fb-stato" id="fbStato">Opening the manual&hellip;</div>
+    <div class="fb-stato" id="fbStato" role="status"><div class="fb-carica">
+      <span class="fb-sr">Opening the manual&hellip;</span>
+      <div class="fb-barra" aria-hidden="true"><i></i></div>
+      <p class="fb-frase" id="fbFrase" aria-hidden="true"></p>
+    </div></div>
+    <script>
+    /* Il caricamento: se tarda, una frase alla volta (in inglese come l'interfaccia),
+       in ordine sparso e senza ripetersi finche' non sono finite. Sta qui, subito
+       dopo la barra, perche' parta prima che il resto della pagina sia scaricato. */
+    (function(){
+      const FRASI=['Weighing the Cessnas…','Kicking the tires…','Draining the fuel sumps…','Checking the fuel for water…',
+        'Untying the tail tie-down…','Removing the pitot cover…','Counting the rivets…','Setting the altimeter to QNH…',
+        'Asking the tower for a page turn…','Leaning the mixture…','Polishing the windshield…','Calculating the center of gravity…',
+        'Waiting for the ATIS to repeat itself…','Finding the logbook…','Ironing the sectional chart…','Warming up the vacuum pump…'];
+      const moto=!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+      let mazzo=[], tFrasi=0;
+      const frase=()=>{
+        const el=document.getElementById('fbFrase'); if(!el) return;
+        if(!mazzo.length) mazzo=FRASI.slice().sort(()=>Math.random()-.5);
+        el.classList.remove('vista');
+        setTimeout(()=>{ el.textContent=mazzo.pop(); el.classList.add('vista'); }, moto ? 200 : 0);
+      };
+      const tPrima=setTimeout(()=>{ frase(); tFrasi=setInterval(frase, 2600); }, 700);
+      window.fbFermaFrasi=()=>{ clearTimeout(tPrima); clearInterval(tFrasi); };
+    })();
+    </script>
   </div>
   <div class="fb-scrim" id="fbScrim"></div>
   <nav class="fb-toc" id="fbToc" aria-label="Contents">
@@ -1457,7 +1498,8 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
   $('fbTitolo').innerHTML=LIB.titolo;
   $('fbStage').setAttribute('aria-label', LIB.regione);
   $('fbScarica').href=LIB.pdf; $('fbScarica').setAttribute('download', LIB.scarica);
-  const ripiego=(msg)=>{ stato.innerHTML=`${msg}<br><a href="${esc(LIB.pdf)}">Open ${esc(LIB.nome)} as PDF</a>`; };
+  const fermaFrasi=()=>window.fbFermaFrasi && window.fbFermaFrasi();
+  const ripiego=(msg)=>{ fermaFrasi(); stato.innerHTML=`${msg}<br><a href="${esc(LIB.pdf)}">Open ${esc(LIB.nome)} as PDF</a>`; };
   if(!window.Sfoglia) return ripiego('The page-turning viewer could not load.');
   try{
     const html=await fetch(LIBRO_URL,{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); });
@@ -1487,8 +1529,16 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
     $('fbMain').classList.toggle('toc-open', aperto);
     $('fbIndice').setAttribute('aria-pressed', aperto?'true':'false');
     const h=daHash(); scelta=h&&h.id||null;
-    stato.remove();
     costruisci(h ? h.i : 0);
+    // il caricamento resta finche' le pagine in vista non hanno la loro immagine (al piu' 8 s)
+    if(FISSO){
+      const [a,b]=visibili();
+      const imm=[]; for(let k=a;k<=b;k++){ const p=pagine[k]; const im=p && (p.ras||p.img); if(im && im.getAttribute('src')) imm.push(im.decode().catch(()=>{})); }
+      await Promise.race([Promise.all(imm), new Promise(r=>setTimeout(r,8000))]);
+    }
+    fermaFrasi();
+    stato.classList.add('via');
+    setTimeout(()=>stato.remove(), MOTO ? 220 : 0);
   }catch(e){
     console.error(e);
     ripiego(`Cannot open ${esc(LIB.nome)} (${esc(e.message||e)}).`);

@@ -634,6 +634,14 @@ foglio si alza: sfogliare, anche di fila, costa quanto con le scansioni, e a
 libro fermo il testo e' vero (selezionabile, nitido a ogni ingrandimento). La
 lente mostra la fotografia retina della ricostruita.
 
+**Il caricamento.** Finche' il libro e le immagini delle pagine in vista non
+sono pronti, al posto del libro c'e' una barra che scorre (senza percentuale:
+non si sa quanto manca) e, se il caricamento passa i 0,7 s, una frase alla
+volta per passare il tempo ("Weighing the Cessnas…", "Kicking the tires…"…),
+in ordine sparso, ogni 2,6 s. Le frasi partono da uno script subito dopo la
+barra, prima che il resto della pagina sia scaricato. Con il movimento
+ridotto la barra pulsa invece di scorrere.
+
 **Modalita' confronto** (pulsante nella barra o tasto O): la scansione
 originale sopra la ricostruita, con un cursore di trasparenza o in
 differenza (dove coincidono resta nero); O passa dall'una all'altra.
