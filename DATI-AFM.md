@@ -5,8 +5,12 @@ Reims Rocket (French TC 43, FAA TC A18EU), ciascuno con il proprio manuale:
 
 | Aeromobile | Modello | Manuale |
 |---|---|---|
-| **I-CCAF** | FR172J | Flight Manual Reims Rocket, Edition 3 |
+| **I-CCAF** | FR172J | Flight Manual Reims Rocket, Edition 3 (settembre 1972; traduzione inglese di cortesia) |
 | **I-CCAB** | FR172H | Flight Manual Reims Rocket, Edition 2 (settembre 1971; traduzione inglese di cortesia) |
+
+Tutti e due sono traduzioni inglesi di cortesia, non approvate da ENAC: lo
+dice la copertina, e fa fede solo il manuale originale in francese approvato
+dalla SGAC.
 
 I due manuali sono stati confrontati tabella per tabella. **Coincidono al
 numero**: limiti di velocità (VNE, VNO, VFE), masse, inviluppo di centraggio,
