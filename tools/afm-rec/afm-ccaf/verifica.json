@@ -722,9 +722,9 @@
    }
   ],
   "inkA": 76749,
-  "soloA": 2962,
+  "soloA": 2388,
   "soloB": 1109,
-  "entrambi": 73787,
+  "entrambi": 74361,
   "geom": [
    {
     "rif": "libro",
@@ -1612,7 +1612,7 @@
   "macchie": [],
   "righe": 49,
   "righeFuori": [],
-  "fuori": 0.05304303639135363,
+  "fuori": 0.04556411158451576,
   "numeri": [
    {
     "riga": 247,

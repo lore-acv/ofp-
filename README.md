@@ -590,8 +590,20 @@ originali e non si toccano), `manuale.html?libro=afm-ccaf-rec` mostra il
 manuale **ricomposto in digitale**: stesso testo, stessa impaginazione, stessi
 numeri di pagina e di figura, testo vero (selezionabile, ricercabile, nitido a
 ogni ingrandimento) e figure vettoriali. Nessun link dall'app: ci si arriva solo
-con l'indirizzo. Ogni pagina porta la fascia "RECONSTRUCTED PREVIEW — NOT
-AUTHORITATIVE". Le pagine non ancora ricostruite mostrano la scansione.
+con l'indirizzo. La copertina porta l'avvertenza "Reconstructed preview — not
+authoritative" (una volta sola, non su ogni pagina). Le pagine non ancora
+ricostruite mostrano la scansione.
+
+**Prova "pagina piena"** (`manuale.html?libro=afm-ccaf-rec-pieno`, `rec.mjs
+--pieno`): la gabbia del testo, comune a tutto il manuale e misurata su tutte le
+pagine della scansione (`stile.json`, "pieno"), riempie la pagina con margini
+fissi (8,6% ai lati, 6% sopra e sotto). Stesse parole, stesse righe, stesse
+posizioni relative; corpo e spaziatura ricalcolati. Allargando il testo per
+riempire la pagina si toglie anche la compressione orizzontale della scansione
+di I-CCAF (rapporto 1,39 contro 0,72 misurato). Anche le scansioni (pagine non
+ancora ricostruite e originale del confronto) si trasformano allo stesso modo.
+Si verifica con `verifica.mjs afm-ccaf --pieno` (rapporto in
+`tools/afm-rec/VERIFICA-PIENO.md`).
 
 **Pagina per pagina, non a flusso.** Ogni pagina e' un SVG a misura fissa nelle
 coordinate della scansione retina: ogni parola sta sulla sua linea di base, dove

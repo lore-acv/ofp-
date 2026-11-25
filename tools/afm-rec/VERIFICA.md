@@ -1,6 +1,6 @@
 # VERIFICA — Flight Manual I-CCAF, anteprima ricostruita
 
-> Generato da `tools/afm-rec/verifica.mjs afm-ccaf` il 2026-11-23. L'anteprima ricostruita **non fa fede**: fa fede il Flight Manual originale (data/afm/).
+> Generato da `tools/afm-rec/verifica.mjs afm-ccaf` il 2026-11-25. L'anteprima ricostruita **non fa fede**: fa fede il Flight Manual originale (data/afm/).
 
 ## Come si verifica una pagina
 
@@ -18,7 +18,7 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 | Pagina | Stato | Righe coincidenti | Macchie | Numeri (conferme) | Differenze aperte | Inchiostro non coincidente | Esito |
 |---|---|---|---|---|---|---|---|
 | 1-13 | campione | 36/36 | 0 | 4 (4 con 2+ conferme) | 0 | 7.1% | **verificata** |
-| 2-1 | campione | 49/49 | 0 | 30 (30 con 2+ conferme) | 0 | 5.3% | **verificata** |
+| 2-1 | campione | 49/49 | 0 | 30 (30 con 2+ conferme) | 0 | 4.6% | **verificata** |
 | 5-12 | campione | 26/26 | 0 | 17 (17 con 2+ conferme) | 0 | 6.6% | **verificata** |
 
 ## Figure: metodo

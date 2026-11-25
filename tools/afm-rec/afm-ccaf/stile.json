@@ -51,5 +51,32 @@
       "spazio": 0.08,
       "coda": 0.4
     }
+  },
+  "pieno": {
+    "_nota": "Prova 'pagina piena' (rec.mjs --pieno): la gabbia del testo, comune a tutto il manuale e misurata su tutte le pagine della scansione (x0, y0, x1, y1 in px della retina), si porta alla pagina con questi margini (frazioni della pagina: lati, alto e basso). Le pagine girate (orizzontali) hanno la loro gabbia, misurata sulla pagina diritta, e gli stessi margini fisici della pagina del libro.",
+    "verticale": {
+      "gabbia": [
+        280,
+        158,
+        1003,
+        1660
+      ],
+      "margini": [
+        0.086,
+        0.06
+      ]
+    },
+    "orizzontale": {
+      "gabbia": [
+        58,
+        237,
+        1630,
+        945
+      ],
+      "margini": [
+        0.06,
+        0.086
+      ]
+    }
   }
 }

@@ -33,17 +33,25 @@
    per l'intestazione delle pagine girate), unite (parole senza spazio dopo,
    per il testo copiato: [indice, ...]).
 
-     node tools/afm-rec/rec.mjs afm-ccaf
+     node tools/afm-rec/rec.mjs afm-ccaf            (data/afm-rec/afm-ccaf/)
+     node tools/afm-rec/rec.mjs afm-ccaf --pieno    (prova "pagina piena": data/afm-rec/afm-ccaf-pieno/)
+
+   PAGINA PIENA (prova): la gabbia del testo, comune a tutto il manuale
+   (stile.json, "pieno"), riempie la pagina con margini fissi; stesse parole
+   nelle stesse posizioni relative, corpo e spaziatura ricalcolati (pagina.mjs,
+   pienaPagina). Le scansioni (pagine non ancora ricostruite e originale del
+   confronto) si trasformano allo stesso modo, cosi' il confronto resta valido.
    ========================================================================== */
 import { readFile, writeFile, mkdir, readdir, copyFile } from 'node:fs/promises';
 import path from 'node:path';
-import { svgPagina, cssRuoli, cssFont, risolvi, paroleDaMisurare, misuraNelBrowser } from './pagina.mjs';
+import { svgPagina, cssRuoli, cssFont, risolvi, paroleDaMisurare, misuraNelBrowser, pienaPagina, affineLibro } from './pagina.mjs';
 import { createRequire } from 'node:module';
 
 const RADICE = process.cwd();
 const ID = process.argv[2] || 'afm-ccaf';
+const PIENO = process.argv.includes('--pieno');
 const DIR = path.join(RADICE, 'tools', 'afm-rec', ID);
-const OUT = path.join(RADICE, 'data', 'afm-rec', ID);
+const OUT = path.join(RADICE, 'data', 'afm-rec', ID + (PIENO ? '-pieno' : ''));
 const FONT_OUT = path.join(RADICE, 'data', 'afm-rec', 'fonts');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -52,7 +60,7 @@ const stile = JSON.parse(await readFile(path.join(DIR, 'stile.json'), 'utf8'));
 const pagine = {};
 for (const f of (await readdir(path.join(DIR, 'pagine'))).filter((f) => f.endsWith('.json') && !f.includes('.bozza'))) {
   const p = await risolvi(JSON.parse(await readFile(path.join(DIR, 'pagine', f), 'utf8')), DIR);
-  pagine[p.pdf] = p;
+  pagine[p.pdf] = PIENO ? pienaPagina(p, stile) : p;
 }
 
 // la misura delle parole, con i font veri, in Chromium
@@ -72,16 +80,27 @@ try {
 // il libro: le pagine ufficiali, con le ricostruite al posto delle immagini
 const ufficiale = await readFile(path.join(RADICE, 'data', 'afm', ID, 'libro.html'), 'utf8');
 let fatte = 0;
+const mappa = JSON.parse(await readFile(path.join(RADICE, 'tools', 'afm', ID + '.json'), 'utf8'));
+/* pagina piena: la scansione si trasforma come la ricostruita (coordinate della pagina del libro),
+   solo per le pagine numerate (la copertina e il retro restano come sono) */
+const pct = (x) => Math.round(x * 10000) / 10000;
+const trasformaScansione = (pdf, attr) => {
+  if (!PIENO || !/data-n="/.test(attr)) return '';
+  const rot = (mappa.ruota || {})[pdf] ? -90 : 0;
+  const finta = rot === -90 ? { rot, w: 1762, h: 1250 } : { rot, w: 1250, h: 1762 };
+  const L = affineLibro(stile, finta);
+  return ` style="transform-origin:0 0;transform:translate(${pct(L.bx / 1250 * 100)}%,${pct(L.by / 1762 * 100)}%) scale(${pct(L.ax)},${pct(L.ay)})"`;
+};
 let libro = ufficiale.replace(/<div class="pg-afm([^"]*)" data-pdf="(\d+)"([^>]*)>((?:<i id="[^"]*"><\/i>)*)<img ([^>]*)><\/div>/g, (tutto, cls, pdf, attr, ancore, img) => {
   const p = pagine[+pdf];
-  const orig = `<img class="rec-orig" ${img}>`;
-  if (!p) return `<div class="pg-afm${cls} rec-no" data-pdf="${pdf}"${attr}>${ancore}${orig}<div class="rec-nota">Not yet reconstructed · original scan</div></div>`;
+  const orig = `<img class="rec-orig"${trasformaScansione(pdf, attr)} ${img}>`;
+  if (!p) return `<div class="pg-afm${cls} rec-no" data-pdf="${pdf}"${attr}>${ancore}${orig}</div>`;
   fatte++;
   return `<div class="pg-afm${cls} rec" data-pdf="${pdf}"${attr} data-stato="${esc(p.stato || '')}">${ancore}${svgPagina(p, stile, misure)}${orig}</div>`;
 });
 const meta = JSON.parse(libro.match(/data-meta="([^"]*)"/)[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&'));
 meta.rec = true; meta.testo = null;
-meta.titolo += ' · reconstructed preview';
+meta.titolo += ' · reconstructed preview' + (PIENO ? ' (full page test)' : '');
 libro = libro.replace(/data-meta="[^"]*"/, `data-meta="${esc(JSON.stringify(meta))}"`)
   .replace('<div class="libro-afm"', '<div class="libro-afm libro-rec"');
 
@@ -97,4 +116,4 @@ await mkdir(OUT, { recursive: true });
 await mkdir(FONT_OUT, { recursive: true });
 for (const f of Object.values(stile.font)) await copyFile(path.join(RADICE, 'tools', 'afm-rec', 'font', f.file), path.join(FONT_OUT, f.file));
 await writeFile(path.join(OUT, 'libro.html'), intestazione + libro.replace(/^<!--[^\n]*-->\n/, ''));
-console.log(`data/afm-rec/${ID}/libro.html: ${fatte} reconstructed pages of ${Object.keys(pagine).length} sources`);
+console.log(`${path.relative(RADICE, OUT)}/libro.html: ${fatte} reconstructed pages of ${Object.keys(pagine).length} sources`);

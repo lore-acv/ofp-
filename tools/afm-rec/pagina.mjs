@@ -65,6 +65,63 @@ export const misuraNelBrowser = (parole) => {
   return out;
 };
 
+
+/* PAGINA PIENA (prova). La gabbia del testo della scansione si porta a
+   riempire la pagina con margini fissi: una trasformazione affine per tutto il
+   manuale (x' = ax x + bx, y' = ay y + by), diversa in orizzontale e in
+   verticale perche' la scansione e' deformata. Le parole restano le stesse,
+   nello stesso ordine, sulle stesse righe e nelle stesse posizioni relative:
+   cambiano solo le coordinate; corpo (altezza delle maiuscole) e larghezza del
+   disegno seguono la trasformazione, e la spaziatura di ogni parola si ricalcola
+   (misuraNelBrowser) perche' la parola occupi esattamente il suo posto. */
+export function affinePiena(stile, p) {
+  const g = stile.pieno[p.rot === -90 ? 'orizzontale' : 'verticale'];
+  const [x0, y0, x1, y1] = g.gabbia, [mx, my] = g.margini, W = p.w, H = p.h;
+  const ax = (W * (1 - 2 * mx)) / (x1 - x0), ay = (H * (1 - 2 * my)) / (y1 - y0);
+  return { ax, ay, bx: W * mx - x0 * ax, by: H * my - y0 * ay };
+}
+/* la stessa trasformazione nelle coordinate della pagina del libro (diritta):
+   per le pagine girate x_libro = Y, y_libro = W - X */
+export function affineLibro(stile, p) {
+  const t = affinePiena(stile, p);
+  if (p.rot !== -90) return t;
+  return { ax: t.ay, ay: t.ax, bx: t.by, by: p.w - p.w * t.ax - t.bx };
+}
+export function pienaPagina(p, stile) {
+  const T = affinePiena(stile, p), L = affineLibro(stile, p);
+  const q = JSON.parse(JSON.stringify(p));
+  const n3 = (x) => Math.round(x * 100) / 100;
+  q.el = q.el.map((e) => {
+    const [tipo] = e;
+    if (tipo === 'riga') {
+      const [, ruolo, base, parole, opz0 = {}] = e; const r = stile.ruoli[ruolo];
+      const opz = { ...opz0 }, t = opz.libro ? L : T;
+      if (opz.ang === -90) {      // riga verticale: la linea di base e' una x, le parole corrono lungo y
+        opz.c = n3((opz.c || r.c) * t.ax); opz.sx = Math.round((opz.sx || r.sx) * t.ay / t.ax * 1000) / 1000;
+        return ['riga', ruolo, n3(t.ax * base + t.bx), parole.map(([x, w, l, ...resto]) => [n3(t.ay * x + t.by), w, l == null ? l : n3(l * t.ay), ...resto]), opz];
+      }
+      opz.c = n3((opz.c || r.c) * t.ay); opz.sx = Math.round((opz.sx || r.sx) * t.ax / t.ay * 1000) / 1000;
+      return ['riga', ruolo, n3(t.ay * base + t.by), parole.map(([x, w, l, lettere]) => {
+        const o = [n3(t.ax * x + t.bx), w];
+        if (l != null) o.push(n3(l * t.ax));
+        if (lettere) o.push(lettere.map(([s0, w0]) => [s0 * t.ax, w0 * t.ax]));
+        return o;
+      }), opz];
+    }
+    if (tipo === 'punti') return ['punti', n3(T.ay * e[1] + T.by), e[2].map((x) => n3(T.ax * x + T.bx)), e[3]];
+    if (tipo === 'linea') {
+      const [, x1, y1, x2, y2, sp] = e, oriz = Math.abs(y2 - y1) < Math.abs(x2 - x1);
+      return ['linea', n3(T.ax * x1 + T.bx), n3(T.ay * y1 + T.by), n3(T.ax * x2 + T.bx), n3(T.ay * y2 + T.by), n3(sp * (oriz ? T.ay : T.ax))];
+    }
+    if (tipo === 'rett') { const [, x, y, w, h] = e; return ['rett', n3(T.ax * x + T.bx), n3(T.ay * y + T.by), n3(w * T.ax), n3(h * T.ay)]; }
+    if (tipo === 'poli') return ['poli', e[1].map(([x, y]) => [n3(T.ax * x + T.bx), n3(T.ay * y + T.by)])];
+    if (tipo === 'svg') return ['svg', `<g transform="matrix(${T.ax},0,0,${T.ay},${T.bx},${T.by})">${e[1]}</g>`];
+    return e;
+  });
+  q.pieno = { libro: L };
+  return q;
+}
+
 export function svgPagina(p, stile, misure = {}) {
   const out = [], libro = [];
   for (const e of p.el) {

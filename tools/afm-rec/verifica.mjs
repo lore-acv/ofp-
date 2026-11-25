@@ -30,19 +30,24 @@ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { pienaPagina, affineLibro } from './pagina.mjs';
 import path from 'node:path';
 import os from 'node:os';
 
 const RADICE = process.cwd();
 const ID = process.argv[2] || 'afm-ccaf';
+/* --pieno: la prova "pagina piena" (rec.mjs --pieno). L'originale si trasforma
+   come la ricostruita (stessa trasformazione affine), poi si confronta allo stesso modo. */
+const PIENO = process.argv.includes('--pieno');
+const SUFF = PIENO ? '-pieno' : '';
 const CHROME = process.env.CHROME || '/opt/pw-browsers/chromium';
 const pup = createRequire(path.join(RADICE, 'x.js'))('puppeteer-core');
 const SOGLIA = 0.02;        // inchiostro non coincidente oltre il 2% dell'inchiostro della pagina: va guardata
 const DIR = path.join(RADICE, 'tools', 'afm-rec', ID);
-const OUT_IMG = path.join(DIR, 'verifica');
+const OUT_IMG = path.join(DIR, 'verifica' + SUFF);
 await mkdir(OUT_IMG, { recursive: true });
 
-const libro = await readFile(path.join(RADICE, 'data', 'afm-rec', ID, 'libro.html'), 'utf8');
+const libro = await readFile(path.join(RADICE, 'data', 'afm-rec', ID + SUFF, 'libro.html'), 'utf8');
 const stileCss = libro.match(/<style data-libro>([\s\S]*?)<\/style>/)[1].replace(/url\(data\//g, `url(file://${RADICE}/data/`);
 const pagine = [...libro.matchAll(/<div class="pg-afm[^"]* rec" data-pdf="(\d+)"[^>]*data-n="([^"]*)"[^>]*>(?:<i[^>]*><\/i>)*(<svg[\s\S]*?<\/svg>)<img class="rec-orig" [^>]*data-s2="([^"]+)"/g)]
   .map((m) => ({ pdf: +m[1], n: m[2], svg: m[3], orig: m[4] }));
@@ -150,7 +155,10 @@ try {
     await pg.screenshot({ path: recPng, clip: { x: 0, y: 0, width: r.W, height: r.H } });
     const recB64 = (await readFile(recPng)).toString('base64');
     // le righe: dove comincia e dove finisce l'inchiostro, nell'originale e nella ricostruita
-    const pjg = JSON.parse(await readFile(path.join(DIR, 'pagine', p.n + '.json'), 'utf8'));
+    const pjg0 = JSON.parse(await readFile(path.join(DIR, 'pagine', p.n + '.json'), 'utf8'));
+    const stg0 = JSON.parse(await readFile(path.join(DIR, 'stile.json'), 'utf8'));
+    const pjg = PIENO ? pienaPagina(pjg0, stg0) : pjg0;
+    const affOrig = PIENO ? affineLibro(stg0, pjg0) : { ax: 1, ay: 1, bx: 0, by: 0 };
     const stg = JSON.parse(await readFile(path.join(DIR, 'stile.json'), 'utf8'));
     // Ogni gruppo di parole e' una banda: "lungo" va nel verso della scrittura, "attraverso" dalla
     // cima delle maiuscole alle discendenti. ref: libro (pagina del libro) o pag (la pagina, che per
@@ -179,12 +187,12 @@ try {
         return { rif, ang: 0, lungo: [Math.max(prima, gr[0][0] - 12), Math.min(dopo, fineUltima)], attraverso, base: e[2], testo: gr.map((w) => w[1]).join(' ') };
       });
     }).flat().map((g) => ({ ...g, giro: g.rif === 'pag' ? pjg.rot : 0, Lw: pjg.w }));
-    const conf = await pg.evaluate(async (origUrl, recB64, righe) => {
+    const conf = await pg.evaluate(async (origUrl, recB64, righe, T) => {
       const carica = async (src) => { const i = new Image(); i.src = src; await i.decode(); return i; };
       const o = await carica(origUrl), q = await carica('data:image/png;base64,' + recB64);
       const W = o.naturalWidth, H = o.naturalHeight;
-      const px = (img) => { const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); x.drawImage(img, 0, 0, W, H); return x.getImageData(0, 0, W, H).data; };
-      const a = px(o), b = px(q);
+      const px = (img, t) => { const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); if (t) x.setTransform(t.ax, 0, 0, t.ay, t.bx, t.by); x.drawImage(img, 0, 0, W, H); return x.getImageData(0, 0, W, H).data; };
+      const a = px(o, T), b = px(q);   // l'originale con la trasformazione della pagina piena (identita' nella prova normale)
       // inchiostro: scuro (le sottolineature colorate della scansione non sono stampa: si guarda la luminanza)
       const ink = (d, i) => (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) < 140;
       const A = new Uint8Array(W * H), B = new Uint8Array(W * H);
@@ -234,7 +242,7 @@ try {
         }
       }
       return { inkA, soloA, soloB, entrambi, geom, macchie, diff: c.toDataURL('image/png').split(',')[1] };
-    }, 'file://' + origPath, recB64, righeGeom);
+    }, 'file://' + origPath, recB64, righeGeom, affOrig);
     await writeFile(path.join(OUT_IMG, `${p.n}-differenza.png`), Buffer.from(conf.diff, 'base64'));
     // numeri
     const pj = JSON.parse(await readFile(path.join(DIR, 'pagine', p.n + '.json'), 'utf8'));
@@ -263,7 +271,7 @@ try {
   await browser.close();
   await rm(vuota, { force: true });
 }
-await writeFile(path.join(DIR, 'verifica.json'), JSON.stringify(esiti, null, 1) + '\n');
+await writeFile(path.join(DIR, 'verifica' + SUFF + '.json'), JSON.stringify(esiti, null, 1) + '\n');
 
 /* ------------------------------------------------------------ il rapporto */
 const md = [];
@@ -301,5 +309,5 @@ for (const e of esiti) {
   if (e.dati.length) { md.push('', 'Confronto con i dati del progetto:', ''); for (const d of e.dati) md.push(`- ${d}`); }
   md.push('');
 }
-await writeFile(path.join(RADICE, 'tools', 'afm-rec', 'VERIFICA.md'), md.join('\n') + '\n');
-console.log('scritto tools/afm-rec/VERIFICA.md');
+await writeFile(path.join(RADICE, 'tools', 'afm-rec', `VERIFICA${SUFF.toUpperCase()}.md`), md.join('\n') + '\n');
+console.log(`scritto tools/afm-rec/VERIFICA${SUFF.toUpperCase()}.md`);
