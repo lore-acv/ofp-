@@ -49,6 +49,11 @@
   ! Cache-Control
   Cache-Control: private, max-age=31536000, immutable
 
+# Le fotografie delle pagine ricostruite (tools/afm-rec/rec.mjs): stessa regola.
+/data/afm-rec/*.webp
+  ! Cache-Control
+  Cache-Control: private, max-age=31536000, immutable
+
 /rotta-av.*.js
   Cache-Control: public, max-age=31536000, immutable
 

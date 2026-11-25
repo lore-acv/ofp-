@@ -50,7 +50,7 @@ await mkdir(OUT_IMG, { recursive: true });
 
 const libro = await readFile(path.join(RADICE, 'data', 'afm-rec', ID + SUFF, 'libro.html'), 'utf8');
 const stileCss = libro.match(/<style data-libro>([\s\S]*?)<\/style>/)[1].replace(/url\(data\//g, `url(file://${RADICE}/data/`);
-const pagine = [...libro.matchAll(/<div class="pg-afm[^"]* rec" data-pdf="(\d+)"[^>]*data-n="([^"]*)"[^>]*>(?:<i[^>]*><\/i>)*(<svg[\s\S]*?<\/svg>)<img class="rec-orig" [^>]*data-s2="([^"]+)"/g)]
+const pagine = [...libro.matchAll(/<div class="pg-afm[^"]* rec" data-pdf="(\d+)"[^>]*data-n="([^"]*)"[^>]*>(?:<i[^>]*><\/i>)*(?:<img class="rec-ras"[^>]*><template class="rec-t">)?(<svg[\s\S]*?<\/svg>)(?:<\/template>)?<img class="rec-orig" [^>]*data-s2="([^"]+)"/g)]
   .map((m) => ({ pdf: +m[1], n: m[2], svg: m[3], orig: m[4] }));
 const controlli = existsSync(path.join(DIR, 'controlli.json')) ? JSON.parse(await readFile(path.join(DIR, 'controlli.json'), 'utf8')) : {};
 

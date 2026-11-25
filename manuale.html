@@ -504,6 +504,7 @@
   .rec-svg g[style*="fill"] path{fill:inherit}   /* le campiture col loro colore (il retino grigio) */
   .pg.afm.rec .rec-orig{opacity:0;pointer-events:none}
   .pg.afm .rec-ras{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+  .pg.afm.rec.svg-on .rec-ras{visibility:hidden}
   #fbBook.confronto .pg.afm.rec .rec-orig{opacity:var(--orig,.5)}
   #fbBook.confronto.diff .pg.afm.rec .rec-orig{opacity:1;mix-blend-mode:difference}
   /* l'avvertenza sulla copertina: un cartellino in basso, sopra la scansione */
@@ -906,9 +907,10 @@ function impaginaFisso(){
     if(FISSO.rec && !out.length){
       pg.insertAdjacentHTML('beforeend', `<div class="rec-copertina" role="note"><b>Reconstructed preview — not authoritative</b>This copy is a digital reconstruction made for preview. Refer to the original Flight Manual. Pages not yet reconstructed show the original scan.</div>`);
     }
-    const img=pg.querySelector('img');
-    if(img){ img.draggable=false; img.decoding='async'; }
-    out.push({el:pg, n:s.dataset.n||'', traverso:s.classList.contains('traverso'), img, bianca:s.classList.contains('bianca')});
+    // la scansione (o, per le pagine ricostruite, l'originale del confronto); la fotografia della ricostruita
+    const img=pg.querySelector('img.rec-orig')||pg.querySelector('img'), ras=pg.querySelector('img.rec-ras'), tpl=pg.querySelector('template.rec-t');
+    for(const x of [img,ras]) if(x){ x.draggable=false; x.decoding='async'; }
+    out.push({el:pg, n:s.dataset.n||'', traverso:s.classList.contains('traverso'), img, ras, tpl, svg:null, bianca:s.classList.contains('bianca')});
   });
   const N=out.length; paginaDi={};
   out.forEach((o,i)=>{
@@ -940,114 +942,54 @@ function risoluzione(){
   return px>FISSO.w*1.1 ? 2 : 1;
 }
 function caricaPagina(i){
-  const p=pagine[i]; if(!p || !p.img) return;
-  if(p.el.classList.contains('rec') && !$('fbBook').classList.contains('confronto')) return;   // la scansione serve solo per il confronto
-  const liv=risoluzione(), ora=+(p.img.dataset.liv||0);
-  if(ora>=liv) return;
-  p.img.src=p.img.dataset['s'+liv]; p.img.dataset.liv=liv;
+  const p=pagine[i]; if(!p) return;
+  const liv=risoluzione();
+  const carica=(im)=>{ if(!im || +(im.dataset.liv||0)>=liv) return; im.src=im.dataset['s'+liv]; im.dataset.liv=liv; };
+  carica(p.ras);                                                                   // la fotografia della ricostruita
+  if(!p.ras || $('fbBook').classList.contains('confronto')) carica(p.img);        // la scansione (per la ricostruita, solo nel confronto)
 }
 function caricaIntorno(i){
   if(!FISSO || !libro) return;
   let [a,b]=visibili();
   if(i!=null){ a=b=i; }
   for(let k=a-2;k<=b+2;k++) caricaPagina(k);
-  // le fotografie delle pagine ricostruite intorno, una alla volta quando il browser e' libero
-  if(FISSO.rec){
-    const ordine=[b+1,a-1,b+2,a-2,b+3,a-3,a,b].filter((k,j,v)=>k>=0 && k<pagine.length && v.indexOf(k)===j);
-    const fai=()=>{ const k=ordine.shift(); if(k==null) return; const r=rasterizza(k); (r||Promise.resolve()).then(()=>(window.requestIdleCallback||setTimeout)(fai)); };
-    (window.requestIdleCallback||setTimeout)(fai);
-  }
+  idrata();
 }
 
-/* LE PAGINE RICOSTRUITE IN MOVIMENTO. Il motore disegna il foglio che gira con
-   una ventina di copie della pagina (parte distesa, fasce del cilindro, lembo)
-   e le ridisegna a ogni fotogramma. Una scansione e' un'immagine e costa poco;
-   una pagina ricostruita e' un SVG con centinaia di parole e figure
-   vettoriali, e venti copie da ridisegnare fanno crollare i fotogrammi. Percio'
-   le copie di una pagina ricostruita usano una fotografia (bitmap) della sua
-   SVG, fatta una volta alla misura delle copie sullo schermo (scala del libro
-   per densita' dei pixel), mentre la pagina ferma resta SVG vera: testo vero,
-   nitido a ogni ingrandimento. Le fotografie si fanno in anticipo per le
-   pagine intorno a quelle in vista; quando una e' pronta, i fogli gia'
-   preparati con la copia lenta si rifanno. */
-const RAS={mappa:new Map(), corso:new Map(), css:null, max:14};
+/* LE PAGINE RICOSTRUITE. Nel libro una pagina ricostruita e' la sua
+   fotografia (fatta da tools/afm-rec/rec.mjs alle due misure delle scansioni,
+   caricata come una scansione) piu' la sua SVG vera in un <template>, inerte.
+   Il motore disegna il foglio che gira con una ventina di copie della pagina,
+   ridisegnate a ogni fotogramma: con le fotografie sfogliare costa quanto con le
+   scansioni, anche di fila. L'SVG vera (testo vero, nitido a ogni
+   ingrandimento) si monta solo sulle pagine in vista, quando il libro e' fermo
+   da un momento, e si smonta appena un foglio si alza. */
 const inVolo=()=>!!(libro && (libro.fogli.length || libro.posati.length));
-/* il libro fermo: le fotografie si fanno solo allora (convertire un SVG in
-   immagine occupa il thread principale e farebbe saltare la girata) */
-const quieto=()=>new Promise((ok)=>{ const g=()=>inVolo() ? setTimeout(g,180) : ok(); g(); });
-function rasLarghezza(){ return libro ? Math.round(libro.W*libro.q*Math.min(2, window.devicePixelRatio||1)) : 0; }
-const comeDato=(url)=>fetch(url).then(r=>r.blob()).then(b=>new Promise((ok)=>{ const fr=new FileReader(); fr.onload=()=>ok(fr.result); fr.readAsDataURL(b); }));
-async function rasCss(){
-  if(RAS.css) return RAS.css;
-  let css=[...document.querySelectorAll('style[data-libro]')].map(s=>s.textContent).join('\n');
-  // i font dentro l'SVG come dati: un'immagine non carica niente da fuori
-  for(const u of [...new Set([...css.matchAll(/url\(([^)'"]+)\)/g)].map(m=>m[1]))]) css=css.split(`url(${u})`).join(`url(${await comeDato(u)})`);
-  RAS.css=css+' text{fill:#161616;white-space:pre} line{stroke:#161616} rect,polygon,path,circle{fill:#161616} g[style*="fill"] path{fill:inherit}';
-  return RAS.css;
+let tIdrata=0;
+function idrata(){
+  clearTimeout(tIdrata);
+  if(!FISSO || !FISSO.rec || !libro) return;
+  tIdrata=setTimeout(()=>{
+    if(inVolo()) return idrata();
+    const [a,b]=visibili();
+    pagine.forEach((p,k)=>{ if(p.tpl && (k<a || k>b)) smonta(p); });
+    // una pagina per fotogramma (impaginare una SVG costa, su WebKit di piu'),
+    // e niente se nel frattempo un foglio si e' alzato
+    const da=[]; for(let k=a;k<=b;k++) if(pagine[k] && pagine[k].tpl && !pagine[k].svg) da.push(pagine[k]);
+    const passo=()=>{ if(!da.length || inVolo()) return; monta(da.shift()); requestAnimationFrame(passo); };
+    requestAnimationFrame(passo);
+  }, 600);
 }
-function rasterizza(i){
-  const p=pagine[i]; if(!p || !p.el.classList.contains('rec') || !libro) return null;
-  const w=rasLarghezza(), chiave=i+'@'+w;
-  if(RAS.mappa.has(chiave)) return Promise.resolve(RAS.mappa.get(chiave));
-  if(RAS.corso.has(chiave)) return RAS.corso.get(chiave);
-  const lavoro=(async()=>{
-    await quieto();
-    const s0=p.el.querySelector('svg.rec-svg'); if(!s0) return null;
-    const h=Math.round(w*libro.H/libro.W);
-    const s=s0.cloneNode(true);
-    s.setAttribute('xmlns','http://www.w3.org/2000/svg'); s.setAttribute('width',w); s.setAttribute('height',h);
-    for(const im of s.querySelectorAll('image')) im.setAttribute('href', await comeDato(im.getAttribute('href')));
-    const st=document.createElementNS('http://www.w3.org/2000/svg','style'); st.textContent=await rasCss(); s.prepend(st);
-    const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(s)],{type:'image/svg+xml'}));
-    const img=new Image(); img.src=url; await img.decode(); URL.revokeObjectURL(url);
-    const cv=document.createElement('canvas'); cv.width=w; cv.height=h;
-    const x=cv.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,w,h); x.drawImage(img,0,0,w,h);
-    await quieto();
-    const blob=await new Promise((ok)=>cv.toBlob(ok,'image/webp',.9));
-    const r={url:URL.createObjectURL(blob)};
-    // decodificata subito e tenuta: alla prima girata non c'e' da decodificare niente
-    r.dec=new Image(); r.dec.src=r.url; await r.dec.decode().catch(()=>{});
-    RAS.mappa.set(chiave,r); RAS.corso.delete(chiave);
-    while(RAS.mappa.size>RAS.max){ const [k,v]=RAS.mappa.entries().next().value; URL.revokeObjectURL(v.url); RAS.mappa.delete(k); }
-    rinfrescaFogli(i);
-    return r;
-  })().catch(()=>{ RAS.corso.delete(chiave); return null; });
-  RAS.corso.set(chiave,lavoro);
-  return lavoro;
+function monta(p){
+  if(p.svg) return;
+  p.svg=p.tpl.content.firstElementChild.cloneNode(true);
+  p.ras.after(p.svg); p.el.classList.add('svg-on');
 }
-/* la pagina da copiare per il foglio che gira: per una ricostruita con la
-   fotografia pronta, la pagina senza SVG e con la fotografia (null: si copia la vera) */
-function paginaLeggera(i){
-  const p=pagine[i]; if(!p || !p.el.classList.contains('rec')) return null;
-  const r=RAS.mappa.get(i+'@'+rasLarghezza());
-  if(!r){ rasterizza(i); return null; }
-  if(r.pagina) return r.pagina;
-  const l=p.el.cloneNode(false);
-  for(const ch of p.el.children) if(!ch.matches('svg.rec-svg')) l.appendChild(ch.cloneNode(true));
-  const im=document.createElement('img'); im.className='rec-ras'; im.alt=''; im.decoding='sync'; im.src=r.url;
-  l.prepend(im);
-  return (r.pagina=l);
+function smonta(p){
+  if(!p.svg) return;
+  p.svg.remove(); p.svg=null; p.el.classList.remove('svg-on');
 }
-/* a libro fermo, nelle sedi tornano le pagine vere (SVG) */
-function rimettiVere(){
-  clearTimeout(RAS.tv);
-  RAS.tv=setTimeout(()=>{
-    if(!libro) return; if(inVolo()) return rimettiVere();
-    for(const sede of [libro.fermoSx, libro.fermoDx]){
-      const c=sede.firstChild;
-      if(c && c.classList.contains('rec-leggera') && sede.__i!=null){ sede.replaceChildren(); libro.metti(sede, sede.__i); }
-    }
-  }, 160);
-}
-/* i fogli gia' preparati con la copia lenta di quella pagina si rifanno */
-function rinfrescaFogli(i){
-  if(!libro) return;
-  for(const [k,f] of [...libro.cache]){
-    const [fr,re]=k.split('|');
-    if((+fr===i || +re===i) && !libro.fogli.some(v=>v.dom===f) && !libro.posati.some(v=>v.dom===f)){ libro.togli(f); libro.cache.delete(k); }
-  }
-  libro.preparaVicini();
-}
+const smontaTutte=()=>pagine.forEach(p=>{ if(p.svg) smonta(p); });
 
 /* ======================================================= IL LIBRO */
 function costruisci(start){
@@ -1067,30 +1009,19 @@ function costruisci(start){
     // il motore copia una pagina per disegnare il foglio che gira: prima di
     // copiarla, la sua immagine deve avere gia' l'indirizzo giusto
     const copia=libro.copia;
-    /* le sedi delle pagine ferme: mentre un foglio e' in volo, una pagina ricostruita
-       che entra nel libro e' la fotografia (inserire l'SVG vera vuol dire impaginare
-       centinaia di parole nel mezzo della girata); l'SVG vera torna a libro fermo */
+    /* appena un foglio si alza, le SVG montate si smontano: le pagine del libro
+       restano fotografie finche' non e' di nuovo fermo (idrata) */
     const metti=libro.metti;
-    libro.metti=function(sede,i){
-      sede.__i=i;
-      const fermo=!inVolo(), mostra=sede.firstChild && sede.firstChild.classList.contains('rec-leggera');
-      if(FISSO.rec && i!=null && !$('fbBook').classList.contains('confronto') && (!fermo || mostra)){
-        const l=paginaLeggera(i);
-        if(l){
-          if(sede.firstChild!==l.sede){ l.sede=l.sede||Object.assign(l.cloneNode(true),{}); l.sede.classList.add('rec-leggera'); sede.replaceChildren(l.sede); }
-          rimettiVere(); return;
-        }
-      }
-      return metti.call(this,sede,i);
-    };
+    libro.metti=function(sede,i){ if(FISSO.rec && inVolo()){ smontaTutte(); idrata(); } return metti.call(this,sede,i); };
+    /* la copia di una pagina con l'SVG montata: senza l'SVG (la fotografia basta) */
     libro.copia=function(i){
       if(typeof i!=='number') return copia.call(this,i);
       caricaPagina(i);
-      // pagina ricostruita con la fotografia pronta: la copia e' leggera (l'involucro
-      // della pagina, la fotografia, la scansione del confronto), l'SVG non si clona
-      const leggera=FISSO.rec && paginaLeggera(i);
-      if(!leggera) return copia.call(this,i);
-      const vera=this.pagine[i]; this.pagine[i]=leggera;
+      const p=pagine[i];
+      if(!p || !p.svg) return copia.call(this,i);
+      const l=p.el.cloneNode(false); l.classList.remove('svg-on');
+      for(const ch of p.el.children) if(ch!==p.svg) l.appendChild(ch.cloneNode(true));
+      const vera=this.pagine[i]; this.pagine[i]=l;
       try{ return copia.call(this,i); } finally{ this.pagine[i]=vera; }
     };
   }
@@ -1338,7 +1269,7 @@ const conImmagine=(i)=> pagine[i] && pagine[i].img;
 function vicinaConImmagine(i, v){ for(let k=i+v;k>=0&&k<pagine.length;k+=v) if(conImmagine(k)) return k; return null; }
 async function lentePagina(i){
   if(!conImmagine(i)) return;
-  const p=pagine[i], z=$('fbZoomImg'), box=$('fbZoom'), url=p.img.dataset.s2;
+  const p=pagine[i], z=$('fbZoomImg'), box=$('fbZoom'), url=(p.ras||p.img).dataset.s2;
   const giaAperta=box.classList.contains('aperta');
   lentePag=i; lenteDa=null;
   const et=etichetta(i), nome = i===0 ? 'Cover' : i===pagine.length-1 ? 'Back cover' : et ? 'Page '+et : 'Page '+(i+1);

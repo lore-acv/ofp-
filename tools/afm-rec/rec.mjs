@@ -78,19 +78,17 @@ for (const f of (await readdir(path.join(DIR, 'pagine'))).filter((f) => f.endsWi
 const pup = createRequire(path.join(RADICE, 'x.js'))('puppeteer-core');
 const browser = await pup.launch({ executablePath: process.env.CHROME || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--allow-file-access-from-files'] });
 let misure = {};
-try {
-  const vuota = path.join(DIR, '_vuota.html');
-  await writeFile(vuota, '<!doctype html><meta charset="utf-8">');
-  const pg = await browser.newPage(); await pg.goto('file://' + vuota);
-  await pg.addStyleTag({ content: cssFont(stile, `file://${RADICE}/tools/afm-rec/font/`) });
-  await pg.evaluate(async (fams) => { await Promise.all(fams.map((f) => document.fonts.load(f))); }, Object.entries(stile.ruoli).map(([, r]) => `${r.peso || stile.font[r.font].peso} 20px '${stile.font[r.font].famiglia}'`));
-  misure = await pg.evaluate(misuraNelBrowser, paroleDaMisurare(Object.values(pagine), stile));
-  await (await import('node:fs/promises')).rm(vuota, { force: true });
-} finally { await browser.close(); }
+const vuota = path.join(DIR, '_vuota.html');
+await writeFile(vuota, '<!doctype html><meta charset="utf-8">');
+const pg = await browser.newPage(); await pg.goto('file://' + vuota);
+await pg.addStyleTag({ content: cssFont(stile, `file://${RADICE}/tools/afm-rec/font/`) });
+await pg.evaluate(async (fams) => { await Promise.all(fams.map((f) => document.fonts.load(f))); }, Object.entries(stile.ruoli).map(([, r]) => `${r.peso || stile.font[r.font].peso} 20px '${stile.font[r.font].famiglia}'`));
+misure = await pg.evaluate(misuraNelBrowser, paroleDaMisurare(Object.values(pagine), stile));
 
 // il libro: le pagine ufficiali, con le ricostruite al posto delle immagini
 const ufficiale = await readFile(path.join(RADICE, 'data', 'afm', ID, 'libro.html'), 'utf8');
 let fatte = 0;
+const daFotografare = [];
 const mappa = JSON.parse(await readFile(path.join(RADICE, 'tools', 'afm', ID + '.json'), 'utf8'));
 /* pagina piena: la scansione si trasforma come la ricostruita (coordinate della pagina del libro),
    solo per le pagine numerate (la copertina e il retro restano come sono) */
@@ -107,7 +105,12 @@ let libro = ufficiale.replace(/<div class="pg-afm([^"]*)" data-pdf="(\d+)"([^>]*
   const orig = `<img class="rec-orig"${trasformaScansione(pdf, attr)} ${img}>`;
   if (!p) return `<div class="pg-afm${cls} rec-no" data-pdf="${pdf}"${attr}>${ancore}${orig}</div>`;
   fatte++;
-  return `<div class="pg-afm${cls} rec" data-pdf="${pdf}"${attr} data-stato="${esc(p.stato || '')}">${ancore}${svgPagina(p, stile, misure)}${orig}</div>`;
+  const svg = svgPagina(p, stile, misure), dim = img.match(/width="(\d+)" height="(\d+)"/);
+  daFotografare.push({ pdf: +pdf, n: p.n, svg, w1: +dim[1], h1: +dim[2] });
+  /* LA PAGINA NEL LIBRO: la sua fotografia (come la scansione, due risoluzioni, la
+     carica il visore) e l'SVG vera in un <template>, inerte: il visore la monta solo
+     sulle pagine in vista a libro fermo. Sfogliare costa cosi' quanto le scansioni. */
+  return `<div class="pg-afm${cls} rec" data-pdf="${pdf}"${attr} data-stato="${esc(p.stato || '')}">${ancore}<img class="rec-ras" alt="" width="${dim[1]}" height="${dim[2]}" data-s1="@RAS1-${pdf}@" data-s2="@RAS2-${pdf}@"><template class="rec-t">${svg}</template>${orig}</div>`;
 });
 const meta = JSON.parse(libro.match(/data-meta="([^"]*)"/)[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&'));
 meta.rec = true; meta.testo = null;
@@ -128,5 +131,34 @@ await mkdir(FONT_OUT, { recursive: true });
 for (const f of Object.values(stile.font)) await copyFile(path.join(RADICE, 'tools', 'afm-rec', 'font', f.file), path.join(FONT_OUT, f.file));
 await mkdir(path.join(RADICE, 'data', 'afm-rec', 'foto'), { recursive: true });
 for (const nome of foto) await copyFile(path.join(DIR, 'figure', nome), path.join(RADICE, 'data', 'afm-rec', 'foto', `${ID}-${nome}`));
+/* LE FOTOGRAFIE DELLE PAGINE RICOSTRUITE: Chromium disegna ogni SVG con i font
+   veri alle due misure delle scansioni (s1 alla misura dell'immagine nel libro,
+   s2 la retina, 1250 px di larghezza) e la salva in webp col nome che porta
+   l'impronta del contenuto (si tiene in cache per sempre, come le scansioni). */
+const { createHash } = await import('node:crypto');
+const { rm } = await import('node:fs/promises');
+const DIRP = path.join(OUT, 'p');
+await rm(DIRP, { recursive: true, force: true }); await mkdir(DIRP, { recursive: true });
+await pg.addStyleTag({ content: classi + ' body{margin:0;background:#fff} .rec-svg{display:block} .rec-svg text{fill:#161616;white-space:pre} .rec-svg line{stroke:#161616} .rec-svg rect,.rec-svg polygon,.rec-svg path,.rec-svg circle{fill:#161616} .rec-svg g[style*="fill"] path{fill:inherit}' });
+const RETINA = 1250;
+for (const f of daFotografare) {
+  for (const [liv, w] of [[1, f.w1], [2, RETINA]]) {
+    const h = Math.round(w * f.h1 / f.w1);
+    await pg.setViewport({ width: w, height: h, deviceScaleFactor: 1 });
+    await pg.evaluate(async (svg, w, h) => {
+      document.body.innerHTML = svg;
+      const s = document.querySelector('svg'); s.setAttribute('width', w); s.setAttribute('height', h);
+      await document.fonts.ready;
+      await Promise.all([...s.querySelectorAll('image')].map((im) => { const i = new Image(); i.src = im.getAttribute('href'); return i.decode().catch(() => {}); }));
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    }, f.svg.replace(/href="data\//g, `href="file://${RADICE}/data/`), w, h);
+    const buf = await pg.screenshot({ type: 'webp', quality: 88, clip: { x: 0, y: 0, width: w, height: h } });
+    const nome = `${String(f.pdf).padStart(3, '0')}-${liv}.${createHash('sha1').update(buf).digest('hex').slice(0, 8)}.webp`;
+    await writeFile(path.join(DIRP, nome), buf);
+    libro = libro.replace(`@RAS${liv}-${f.pdf}@`, path.relative(RADICE, path.join(DIRP, nome)));
+  }
+}
+await rm(vuota, { force: true });
+await browser.close();
 await writeFile(path.join(OUT, 'libro.html'), intestazione + libro.replace(/^<!--[^\n]*-->\n/, ''));
 console.log(`${path.relative(RADICE, OUT)}/libro.html: ${fatte} reconstructed pages of ${Object.keys(pagine).length} sources`);

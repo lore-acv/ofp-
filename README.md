@@ -623,15 +623,16 @@ va a capo da solo.
 
 **Sfogliare senza scatti.** Il motore del libro disegna il foglio che gira
 con una ventina di copie della pagina e le ridisegna a ogni fotogramma: con le
-pagine SVG (centinaia di parole, figure vettoriali) il libro si bloccava per
-secondi a ogni girata. Il visore percio' fa, a libro fermo e per le pagine
-intorno a quelle in vista, una fotografia (bitmap) di ogni pagina ricostruita
-alla misura dello schermo; le copie del foglio in volo, e le pagine che
-entrano nel libro mentre un foglio gira, usano la fotografia. A libro fermo
-la pagina e' di nuovo l'SVG vera (testo vero, nitido a ogni ingrandimento);
-nella modalita' confronto sempre. Misurato con la CPU rallentata 4 volte: da
-5 fotogrammi in 1,6 s (blocchi fino a 3,7 s) a 41-50, come il libro delle
-scansioni; al telefono da 4-7 a 62-75.
+pagine SVG (centinaia di parole, figure vettoriali) il libro si bloccava. Per
+questo `rec.mjs` fa anche una **fotografia** di ogni pagina ricostruita
+(Chromium con i font veri, webp alle due misure delle scansioni, il nome porta
+l'impronta del contenuto, `data/afm-rec/<id>/p/`), e nel libro la pagina e' la
+sua fotografia, caricata come una scansione, con l'SVG vera in un
+`<template>` inerte. Il visore monta l'SVG solo sulle pagine in vista, quando
+il libro e' fermo da 0,6 s, una pagina per fotogramma, e la smonta appena un
+foglio si alza: sfogliare, anche di fila, costa quanto con le scansioni, e a
+libro fermo il testo e' vero (selezionabile, nitido a ogni ingrandimento). La
+lente mostra la fotografia retina della ricostruita.
 
 **Modalita' confronto** (pulsante nella barra o tasto O): la scansione
 originale sopra la ricostruita, con un cursore di trasparenza o in
