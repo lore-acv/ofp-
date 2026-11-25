@@ -24923,13 +24923,13 @@
    },
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 84234,
+  "inkA": 67264,
   "soloA": 1978,
-  "soloB": 878,
-  "entrambi": 82256,
+  "soloB": 835,
+  "entrambi": 65286,
   "geom": [
    {
     "rif": "libro",
@@ -25628,7 +25628,7 @@
   "macchie": [],
   "righe": 33,
   "righeFuori": [],
-  "fuori": 0.033905548828264125,
+  "fuori": 0.041820290199809707,
   "numeri": [
    {
     "riga": 234,
@@ -25848,13 +25848,13 @@
   "figure": [
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 95873,
-  "soloA": 2984,
-  "soloB": 1087,
-  "entrambi": 92889,
+  "inkA": 80375,
+  "soloA": 2974,
+  "soloB": 1066,
+  "entrambi": 77401,
   "geom": [
    {
     "rif": "libro",
@@ -26679,7 +26679,7 @@
   "macchie": [],
   "righe": 39,
   "righeFuori": [],
-  "fuori": 0.04246242424874574,
+  "fuori": 0.05026438569206843,
   "numeri": [
    {
     "riga": 190,
@@ -26869,13 +26869,13 @@
   "figure": [
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 74829,
+  "inkA": 62426,
   "soloA": 2520,
-  "soloB": 758,
-  "entrambi": 72309,
+  "soloB": 738,
+  "entrambi": 59906,
   "geom": [
    {
     "rif": "libro",
@@ -27595,7 +27595,7 @@
   "macchie": [],
   "righe": 34,
   "righeFuori": [],
-  "fuori": 0.04380654559061326,
+  "fuori": 0.05218979271457406,
   "numeri": [
    {
     "riga": 238,
@@ -27767,13 +27767,13 @@
   "figure": [
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 104063,
+  "inkA": 94221,
   "soloA": 3959,
-  "soloB": 867,
-  "entrambi": 100104,
+  "soloB": 863,
+  "entrambi": 90262,
   "geom": [
    {
     "rif": "libro",
@@ -28535,7 +28535,7 @@
   "macchie": [],
   "righe": 36,
   "righeFuori": [],
-  "fuori": 0.04637575314953442,
+  "fuori": 0.05117755065219006,
   "numeri": [
    {
     "riga": 187,
@@ -28680,13 +28680,13 @@
   "figure": [
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 105279,
+  "inkA": 88223,
   "soloA": 3508,
-  "soloB": 1451,
-  "entrambi": 101771,
+  "soloB": 1432,
+  "entrambi": 84715,
   "geom": [
    {
     "rif": "libro",
@@ -28979,7 +28979,7 @@
     "giro": 0,
     "Lw": 1250,
     "inizio": 0,
-    "fine": 0,
+    "fine": -1,
     "alto": 0
    },
    {
@@ -29511,7 +29511,7 @@
   "macchie": [],
   "righe": 39,
   "righeFuori": [],
-  "fuori": 0.04710341093665403,
+  "fuori": 0.05599446856261973,
   "numeri": [
    {
     "riga": 228,
@@ -29910,13 +29910,13 @@
   "figure": [
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 117463,
-  "soloA": 4471,
-  "soloB": 1423,
-  "entrambi": 112992,
+  "inkA": 100269,
+  "soloA": 4431,
+  "soloB": 1394,
+  "entrambi": 95838,
   "geom": [
    {
     "rif": "libro",
@@ -30460,7 +30460,7 @@
     "testo": "encounter should be handled as follows:",
     "giro": 0,
     "Lw": 1250,
-    "inizio": 1,
+    "inizio": -3,
     "fine": 0,
     "alto": 0
    },
@@ -30741,7 +30741,7 @@
   "macchie": [],
   "righe": 39,
   "righeFuori": [],
-  "fuori": 0.05017750270297881,
+  "fuori": 0.058093727872024256,
   "numeri": [
    {
     "riga": 179,
@@ -30969,13 +30969,13 @@
   "figure": [
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 120945,
+  "inkA": 105212,
   "soloA": 7822,
-  "soloB": 3566,
-  "entrambi": 113123,
+  "soloB": 3554,
+  "entrambi": 97390,
   "geom": [
    {
     "rif": "libro",
@@ -31800,7 +31800,7 @@
   "macchie": [],
   "righe": 39,
   "righeFuori": [],
-  "fuori": 0.09415850179833808,
+  "fuori": 0.10812454853058587,
   "numeri": [
    {
     "riga": 232,
@@ -32053,13 +32053,13 @@
   "figure": [
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 137278,
-  "soloA": 4213,
-  "soloB": 1562,
-  "entrambi": 133065,
+  "inkA": 124011,
+  "soloA": 4211,
+  "soloB": 1546,
+  "entrambi": 119800,
   "geom": [
    {
     "rif": "libro",
@@ -32884,7 +32884,7 @@
   "macchie": [],
   "righe": 39,
   "righeFuori": [],
-  "fuori": 0.042067920569938376,
+  "fuori": 0.04642330115876817,
   "numeri": [
    {
     "riga": 236,
@@ -32930,13 +32930,13 @@
   "figure": [
    {
     "figura": "Striscia delle procedure di emergenza",
-    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+    "metodo": "ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo."
    }
   ],
-  "inkA": 91572,
+  "inkA": 77989,
   "soloA": 2898,
-  "soloB": 615,
-  "entrambi": 88674,
+  "soloB": 588,
+  "entrambi": 75091,
   "geom": [
    {
     "rif": "libro",
@@ -33509,7 +33509,7 @@
   "macchie": [],
   "righe": 27,
   "righeFuori": [],
-  "fuori": 0.038363255143493646,
+  "fuori": 0.04469861134262524,
   "numeri": [
    {
     "riga": 237,

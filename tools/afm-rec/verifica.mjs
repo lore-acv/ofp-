@@ -225,6 +225,25 @@ try {
          delle lettere non lo sono, cosi' il controllo del testo resta stretto */
       const L = new Float32Array(W * H);
       for (let k = 0; k < W * H; k++) { A[k] = ink(a, k * 4); B[k] = ink(b, k * 4); L[k] = 0.299 * b[k * 4] + 0.587 * b[k * 4 + 1] + 0.114 * b[k * 4 + 2]; }
+      /* la colonna del testo, se la pagina la dichiara (sezione III): fuori c'e' solo la striscia di
+         emergenza, ridisegnata regolare per scelta e non ricalcata, che non si confronta */
+      if (T.colonna) {
+        // fuori dalla colonna non si guarda; e nemmeno le barre stampate che entrano di qualche pixel
+        // nella colonna (la striscia della scansione e' storta): l'inchiostro dell'originale attaccato
+        // a quello fuori, fino a 6 px dentro il bordo, si ignora in tutte e due le pagine
+        const [c0, c1] = T.colonna, M = new Uint8Array(W * H), coda = [];
+        const bordo = (X) => X <= c0 + 6 || X >= c1 - 6;
+        for (let k = 0; k < W * H; k++) { const X = k % W; if (X < c0 - 1 || X > c1 + 1) { M[k] = 1; if (A[k]) coda.push(k); } }
+        while (coda.length) {
+          const k = coda.pop(), X = k % W;
+          for (const d of [-1, 1, -W, W, -W - 1, -W + 1, W - 1, W + 1]) {
+            const j = k + d; if (j < 0 || j >= W * H || M[j] || !A[j]) continue;
+            const Xj = j % W; if (Math.abs(Xj - X) > 1 || !bordo(Xj)) continue;
+            M[j] = 1; coda.push(j);
+          }
+        }
+        for (let k = 0; k < W * H; k++) if (M[k]) { A[k] = 0; B[k] = 0; }
+      }
       for (let y = 1; y < H - 1; y++) for (let x = 1; x < W - 1; x++) {
         const k = y * W + x; if (B[k]) { Bg[k] = 1; continue; }
         let piatto = true;
@@ -291,7 +310,7 @@ try {
         }
       }
       return { inkA, soloA, soloB, entrambi, geom, macchie, diff: c.toDataURL('image/png').split(',')[1] };
-    }, 'file://' + origPath, recB64, righeGeom, affOrig);
+    }, 'file://' + origPath, recB64, righeGeom, { ...affOrig, colonna: pjg.colonna || null });
     await writeFile(path.join(OUT_IMG, `${p.n}-differenza.png`), Buffer.from(conf.diff, 'base64'));
     // numeri
     const pj = JSON.parse(await readFile(path.join(DIR, 'pagine', p.n + '.json'), 'utf8'));

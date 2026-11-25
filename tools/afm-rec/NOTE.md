@@ -101,11 +101,20 @@ scansione non e' stampa stanno in fondo.
 - "SPEED VI:": la sigla e' VI (velocita' indicata), come nell'originale.
 
 ### Sezione III (pagine 3-1 … 3-9)
-- **Striscia delle procedure di emergenza**: sul bordo esterno di ogni pagina
-  (a destra sulle dispari, a sinistra sulle pari) c'e' una fila di barre nere
-  oblique. Si ricostruiscono come quadrilateri misurati uno per uno
-  (`strisce.py`); dove una barra e' piu' lunga delle altre (3-2, 3-6 in alto)
-  o tagliata dal bordo della pagina, e' cosi' anche nella scansione.
+- **Striscia delle procedure di emergenza** (scelta del 2026, su richiesta):
+  sul bordo esterno di ogni pagina c'e' una fila di barre nere oblique. Nella
+  stampa sono irregolari (larghe 20-25 px, passo 94-97, alcune piu' lunghe o
+  tagliate dal bordo) e quasi toccano il testo (2 px). Nella ricostruzione si
+  ridisegnano **regolari** (`striscia.py`, numeri in `stile.json` →
+  `striscia`): 16 barre uguali a parallelogramma, parallele, a passo 96,
+  centrate in verticale sulla pagina, a 28 px dal testo piu' sporgente della
+  sezione e nella stessa posizione su tutte le pagine; sulle pari la striscia
+  e' lo specchio di quella delle dispari (pende come una \ invece che come
+  una /), cosi' la doppia pagina e' simmetrica. Non ricalca la scansione: la
+  verifica confronta l'inchiostro solo dentro la colonna del testo e ignora
+  le barre stampate (anche dove entrano di qualche pixel nella colonna).
+  Le barre misurate sulla stampa (`strisce.py`) restano come riferimento
+  delle misure.
 - "Throttle - - Idle.", "Mixture - - Rich." ecc.: nella stampa il segno fra
   la voce e l'azione sono due trattini corti separati, e cosi' restano (non
   diventano una lineetta). Dove ce n'e' uno solo, lungo ("Switch – “OFF”",

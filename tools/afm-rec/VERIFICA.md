@@ -41,15 +41,15 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 | 2-6 | ricostruita | 57/57 | 0 | 29 (29 con 2+ conferme) | 0 | 9.1% | **verificata** |
 | 2-7 | ricostruita | 20/20 | 0 | 10 (10 con 2+ conferme) | 0 | 2.8% | **verificata** |
 | 2-8 | ricostruita | 17/17 | 0 | 11 (11 con 2+ conferme) | 0 | 2.5% | **verificata** |
-| 3-1 | ricostruita | 33/33 | 0 | 22 (22 con 2+ conferme) | 0 | 3.4% | **verificata** |
-| 3-2 | ricostruita | 39/39 | 0 | 19 (19 con 2+ conferme) | 0 | 4.2% | **verificata** |
-| 3-3 | ricostruita | 34/34 | 0 | 17 (17 con 2+ conferme) | 0 | 4.4% | **verificata** |
-| 3-4 | ricostruita | 36/36 | 0 | 14 (14 con 2+ conferme) | 0 | 4.6% | **verificata** |
-| 3-5 | ricostruita | 39/39 | 0 | 42 (42 con 2+ conferme) | 0 | 4.7% | **verificata** |
-| 3-6 | ricostruita | 39/39 | 0 | 23 (23 con 2+ conferme) | 0 | 5.0% | **verificata** |
-| 3-7 | ricostruita | 39/39 | 0 | 26 (26 con 2+ conferme) | 0 | 9.4% | **verificata** |
-| 3-8 | ricostruita | 39/39 | 0 | 3 (3 con 2+ conferme) | 0 | 4.2% | **verificata** |
-| 3-9 | ricostruita | 27/27 | 0 | 2 (2 con 2+ conferme) | 0 | 3.8% | **verificata** |
+| 3-1 | ricostruita | 33/33 | 0 | 22 (22 con 2+ conferme) | 0 | 4.2% | **verificata** |
+| 3-2 | ricostruita | 39/39 | 0 | 19 (19 con 2+ conferme) | 0 | 5.0% | **verificata** |
+| 3-3 | ricostruita | 34/34 | 0 | 17 (17 con 2+ conferme) | 0 | 5.2% | **verificata** |
+| 3-4 | ricostruita | 36/36 | 0 | 14 (14 con 2+ conferme) | 0 | 5.1% | **verificata** |
+| 3-5 | ricostruita | 39/39 | 0 | 42 (42 con 2+ conferme) | 0 | 5.6% | **verificata** |
+| 3-6 | ricostruita | 39/39 | 0 | 23 (23 con 2+ conferme) | 0 | 5.8% | **verificata** |
+| 3-7 | ricostruita | 39/39 | 0 | 26 (26 con 2+ conferme) | 0 | 10.8% | **verificata** |
+| 3-8 | ricostruita | 39/39 | 0 | 3 (3 con 2+ conferme) | 0 | 4.6% | **verificata** |
+| 3-9 | ricostruita | 27/27 | 0 | 2 (2 con 2+ conferme) | 0 | 4.5% | **verificata** |
 | 5-12 | campione | 26/26 | 0 | 17 (17 con 2+ conferme) | 0 | 6.4% | **verificata** |
 
 ## Figure: metodo
@@ -66,15 +66,15 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 - **Cartelli (3)-(7) di pagina 2-7** (pagina 2-7): riquadri: tratto vettorializzato con potrace (tratto.py); scritte: testo vero.
 - **Cartello (8) di pagina 2-8** (pagina 2-8): riquadro e sottolineatura: tratto vettorializzato con potrace (tratto.py); puntini guida dell'ultima riga, irregolari nell'originale (un puntino in alto e due ravvicinati): disegno; scritte: testo vero.
 - **Grafica della sezione (barre e frecce)** (pagina 3-1): ridisegnata in SVG: rettangolo e poligoni misurati sulla scansione (le barre sono un poco inclinate come stampate).
-- **Striscia delle procedure di emergenza** (pagina 3-1): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
-- **Striscia delle procedure di emergenza** (pagina 3-2): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
-- **Striscia delle procedure di emergenza** (pagina 3-3): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
-- **Striscia delle procedure di emergenza** (pagina 3-4): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
-- **Striscia delle procedure di emergenza** (pagina 3-5): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
-- **Striscia delle procedure di emergenza** (pagina 3-6): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
-- **Striscia delle procedure di emergenza** (pagina 3-7): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
-- **Striscia delle procedure di emergenza** (pagina 3-8): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
-- **Striscia delle procedure di emergenza** (pagina 3-9): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-1): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
+- **Striscia delle procedure di emergenza** (pagina 3-2): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
+- **Striscia delle procedure di emergenza** (pagina 3-3): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
+- **Striscia delle procedure di emergenza** (pagina 3-4): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
+- **Striscia delle procedure di emergenza** (pagina 3-5): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
+- **Striscia delle procedure di emergenza** (pagina 3-6): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
+- **Striscia delle procedure di emergenza** (pagina 3-7): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
+- **Striscia delle procedure di emergenza** (pagina 3-8): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
+- **Striscia delle procedure di emergenza** (pagina 3-9): ridisegnata regolare (striscia.py, scelta del 2026): barre uguali, parallele, a passo costante, a 28 px dal testo e speculari fra pari e dispari; non ricalca la scansione (la' le barre sono irregolari e quasi toccano il testo), percio' la verifica confronta l'inchiostro solo dentro la colonna del testo.
 - **Figura 5-7 (Maximum glide)** (pagina 5-12): cornice e griglia: filetti SVG misurati; fascia di planata: 689 punti della retinatura ridisegnati uno per uno nella posizione misurata sulla scansione, piu' 117 punti ricavati dal reticolo locale solo dove si fondono con i filetti della griglia; aeroplano: disegno al tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto i filetti e i punti che lo attraversano (tools/afm-rec/afm-ccaf/figure/fig-5-7.py); scritte: testo vero, misurato parola per parola.
 
 ## Differenze aperte
@@ -94,6 +94,7 @@ Differenze della misura, non della pagina: guardate sull'ingrandimento (coordina
 | 1-10 | riga "RADIO 4" (base 823) | la riga e' al suo posto (ingrandimento); la fascia di controllo comincia 12 px prima e prende il cerchietto dell'interruttore sopra l'etichetta |
 | 3-4 | riga "power exclusively." (base 1502) | la riga e' al suo posto (ingrandimento della differenza: inizio e fine coincidono); la fascia di controllo, per una riga corta, prende in alto la coda della g di "change" della riga sopra, che nella ricostruita scende un pixel piu' in basso: e' quella a dare la fine 5 px piu' in la' |
 | 3-6 | riga "swells and light wind, land parallel to swells." (base 639) | la riga e' al suo posto (ingrandimento della differenza: inizio e fine coincidono); la fascia prende in alto la coda di una lettera della riga sopra (la g di "high"), che nella ricostruita scende un pixel piu' in basso: e' quella a dare la fine 7 px piu' in la' |
+| 3-6 | riga "FLIGHT IN ICING CONDITIONS." (base 1165) | la riga e' al suo posto (ingrandimento); nella scansione la F tocca una barra della striscia stampata, e la verifica, che ignora la striscia (ridisegnata regolare), toglie con la barra anche l'asta della F dell'originale: per questo l'originale sembra cominciare 6 px dopo |
 
 ## Numeri, uno per uno
 

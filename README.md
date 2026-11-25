@@ -667,6 +667,7 @@ differenza (dove coincidono resta nero); O passa dall'una all'altra.
 | `tools/afm-rec/bozza2.py` | bozza riga per riga solo dentro la colonna del testo (per le pagine con grafica ai bordi, come la striscia della sezione III) |
 | `tools/afm-rec/testo.py` | le righe di una pagina dal testo letto a vista (`testi/<pagina>.txt`): ogni parola si aggancia al suo inchiostro con la programmazione dinamica |
 | `tools/afm-rec/strisce.py` | la striscia delle procedure di emergenza: ogni barra obliqua diventa un quadrilatero misurato |
+| `tools/afm-rec/striscia.py` | la striscia delle procedure di emergenza ridisegnata regolare (barre uguali, parallele, speculari fra pari e dispari, a distanza fissa dal testo; numeri in `stile.json`): e' quella usata |
 | `tools/afm-rec/rec.mjs` | costruisce `data/afm-rec/<id>/libro.html` |
 | `tools/afm-rec/verifica.mjs` | il controllo: righe (inizio, fine, linea di base), macchie, parole strozzate o sovrapposte, numeri (due letture), e scrive `tools/afm-rec/VERIFICA.md` |
 | `tools/afm-rec/calibra.mjs`, `font-prova.mjs`, `font-confronto.mjs` | taratura dei font e proposta dei font a confronto |
@@ -697,7 +698,7 @@ Come si rifa' una pagina di testo: `bozza.py` → `dubbi.py` (e i ritagli) →
 `correggi.py` → `misura.py` → `ribasa.py` → `misura.py` → `rec.mjs --medio` →
 `verifica.mjs --medio` → `vista.py`/`chiudi.py` per i numeri che l'OCR non
 legge. Nella sezione III si e' fatto piu' in fretta: `bozza2.py` → testo letto a vista
-in `testi/<pagina>.txt` → `testo.py` → `strisce.py` → `misura.py` →
+in `testi/<pagina>.txt` → `testo.py` → `striscia.py` → `misura.py` →
 `ribasa.py`; la pagina dichiara la sua `colonna` del testo, che misura e
 verifica rispettano (la striscia fuori non e' testo). Una pagina con figura ha il suo script in `costruisci/`, poi
 `misura.py`, `ribasa.py` e `tratto.py`.

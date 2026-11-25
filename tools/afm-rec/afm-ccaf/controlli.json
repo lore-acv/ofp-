@@ -997,6 +997,11 @@
         "testo": "swells and light wind, land parallel to swells.",
         "base": 639,
         "come": "la riga e' al suo posto (ingrandimento della differenza: inizio e fine coincidono); la fascia prende in alto la coda di una lettera della riga sopra (la g di \"high\"), che nella ricostruita scende un pixel piu' in basso: e' quella a dare la fine 7 px piu' in la'"
+      },
+      {
+        "testo": "FLIGHT IN ICING CONDITIONS.",
+        "base": 1165,
+        "come": "la riga e' al suo posto (ingrandimento); nella scansione la F tocca una barra della striscia stampata, e la verifica, che ignora la striscia (ridisegnata regolare), toglie con la barra anche l'asta della F dell'originale: per questo l'originale sembra cominciare 6 px dopo"
       }
     ]
   },
