@@ -31,7 +31,8 @@ ogni numero che porta in cabina e' giusto oppure segnalato come dubbio.
 ## Positioning
 
 Non e' un'app generica di pianificazione: usa le tabelle dei due manuali
-Reims Rocket (FR172J Edition 3, FR172H Edition 2), il foglio Pesi e
+Reims Rocket (FR172J Edition 3, FR172H Edition 2, entrambi nella traduzione
+inglese di cortesia), il foglio Pesi e
 Bilanciamento Rev. 17 dei due aeroplani, le rotte standard e il modulo
 Navigation Log del club. Ogni valore stampato rimanda alla figura del manuale o
 al documento del club da cui viene.
