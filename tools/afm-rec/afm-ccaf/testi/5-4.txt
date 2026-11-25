@@ -1,0 +1,34 @@
+164 libro 400-850 | Flight Manual
+198 libro 400-850 | Reims Rocket
+331 libro 200-650 | Page: 5-4
+327 libro 650-1100 | Reims Aviation
+363 libro 200-650 | Edition: 3
+357 libro 650-1100 | Reims, Marne France
+270 cella 74-1336 c=11.0 gap=6 fissa | CRUISE PERFORMANCE
+304 cella 74-1336 c=11.0 gap=6 fissa | NORMAL LEAN MIXTURE
+330 cella 74-1336 c=11.0 gap=6 fissa | GROSS WEIGHT 1157 kg • STANDARD CONDITIONS • ZERO WIND
+358 cella 74-1336 c=11.0 gap=6 fissa | 7500 FEET
+416 cella 74-153 c=10.0 gap=6 fissa | RPM
+396 cella 167-314 c=10.0 gap=6 fissa | MP
+408 cella 328-418 c=10.0 gap=6 fissa | %
+424 cella 328-418 c=10.0 gap=6 fissa | BHP
+397 cella 432-661 c=10.0 gap=6 fissa | TRUE AIRSPEED
+438 cella 167-233 c=10.0 gap=6 fissa | mb
+438 cella 247-314 c=10.0 gap=6 fissa | in Hg
+438 cella 432-503 c=10.0 gap=6 fissa | km/h
+439 cella 517-581 c=10.0 gap=6 fissa | kts
+439 cella 595-661 c=10.0 gap=6 fissa | MPH
+389 cella 675-904 c=10.0 gap=6 fissa | FUEL CONSUMPTION
+405 cella 675-904 c=10.0 gap=6 fissa | PER HOUR
+388 cella 918-1336 c=10.0 gap=6 fissa | 46 GAL (174 LITRES)
+405 cella 918-1336 c=10.0 gap=6 fissa | NO RESERVE
+431 cella 675-783 c=10.0 gap=6 fissa | U.S.
+447 cella 675-783 c=10.0 gap=6 fissa | GAL.
+439 cella 797-904 c=10.0 gap=6 fissa | LITRES
+431 cella 918-1091 c=10.0 gap=6 fissa | ENDURANCE
+447 cella 918-1091 c=10.0 gap=6 fissa | HOURS
+428 cella 1105-1336 c=10.0 gap=6 fissa | RANGE
+449 cella 1105-1221 c=10.0 gap=6 fissa | km
+449 cella 1235-1336 c=10.0 gap=6 fissa | N.M.
+883 cella 74-1336 c=10.0 gap=6 fissa | NOTE: Speed performance is shown for an airplane equipped with optional speed fairings, which increases speed by 1 knot.
+951 testo 531-846 c=15 sx=1.1 fissa | Figure 5-1 (Sheet 3 of 5).

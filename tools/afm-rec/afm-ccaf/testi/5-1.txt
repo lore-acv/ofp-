@@ -1,0 +1,15 @@
+160 | Flight Manual
+192 | Reims Rocket
+223 | Reims Aviation Page: 5-1
+254 | Reims, Marne France Edition: 3
+354 titolo 700-1010 c=36 basefissa | SECTION V
+503 titolo c=29 | PERFORMANCE
+598 titolo | NOTIFICATION.
+656 | The tables appearing on the following pages result from actual tests with a stan-
+687 | dard equipped airplane in good flying condition. They will be useful in flight plan-
+718 fine=978 | ning; nevertheless, it will be advisable to plan on an ample safety margin concerning
+749 | the fuel reserve at arrival, since the data given does not take into account the effects
+781 | of wind, navigational errors, pilot technique, warm-up, take-off, external optional
+813 | equipment, etc. All these factors should be considered when estimating the reserve
+844 | required by regulations. Don’t forget that maximum range increases by using a lower
+875 | power setting. To solve these problems, consult the Cruise Performance charts.

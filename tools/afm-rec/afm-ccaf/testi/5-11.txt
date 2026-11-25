@@ -1,0 +1,114 @@
+160 libro 400-850 | Flight Manual
+191 libro 400-850 | Reims Rocket
+224 libro 200-650 | Reims Aviation
+223 libro 650-1100 | Page: 5-11
+255 libro 200-650 | Reims, Marne France
+254 libro 650-1100 | Edition: 3
+355 cella 187-1434 c=11.5 gap=6 sx=0.95 fissa | MAXIMUM RATE OF CLIMB DATA
+431 cella 183-276 c=11.5 gap=6 sx=0.95 fissa | GROSS
+449 cella 183-276 c=11.5 gap=6 sx=0.95 fissa | WEIGHT
+504 cella 183-276 c=11.5 gap=6 sx=0.95 fissa | kg
+430 cella 288-562 c=11.5 gap=6 sx=0.95 fissa | AT SEA LEVEL
+449 cella 288-562 c=11.5 gap=6 sx=0.95 fissa | AND +15°C
+505 cella 288-377 c=11.5 gap=6 sx=0.95 fissa | VI
+505 cella 387-486 c=11.5 gap=6 sx=0.95 fissa | RATE OF
+523 cella 387-486 c=11.5 gap=6 sx=0.95 fissa | CLIMB
+541 cella 387-486 c=11.5 gap=6 sx=0.95 fissa | F/MIN
+505 cella 494-564 c=11.5 gap=6 sx=0.95 fissa | FUEL
+523 cella 494-564 c=11.5 gap=6 sx=0.95 fissa | USED
+541 cella 494-564 c=11.5 gap=6 sx=0.95 fissa | Litres
+430 cella 574-854 c=11.5 gap=6 sx=0.95 fissa | AT 5000 FEET
+448 cella 574-854 c=11.5 gap=6 sx=0.95 fissa | AND +5°C
+506 cella 574-667 c=11.5 gap=6 sx=0.95 fissa | VI
+505 cella 677-775 c=11.5 gap=6 sx=0.95 fissa | RATE OF
+524 cella 677-775 c=11.5 gap=6 sx=0.95 fissa | CLIMB
+542 cella 677-775 c=11.5 gap=6 sx=0.95 fissa | F/MIN
+506 cella 783-856 c=11.5 gap=6 sx=0.95 fissa | FUEL
+524 cella 783-856 c=11.5 gap=6 sx=0.95 fissa | USED
+542 cella 783-856 c=11.5 gap=6 sx=0.95 fissa | Litres
+430 cella 866-1148 c=11.5 gap=6 sx=0.95 fissa | AT 10000 FEET
+449 cella 866-1148 c=11.5 gap=6 sx=0.95 fissa | AND -5°C
+505 cella 866-957 c=11.5 gap=6 sx=0.95 fissa | VI
+506 cella 967-1066 c=11.5 gap=6 sx=0.95 fissa | RATE OF
+524 cella 967-1066 c=11.5 gap=6 sx=0.95 fissa | CLIMB
+542 cella 967-1066 c=11.5 gap=6 sx=0.95 fissa | F/MIN
+506 cella 1074-1150 c=11.5 gap=6 sx=0.95 fissa | FUEL
+524 cella 1074-1150 c=11.5 gap=6 sx=0.95 fissa | USED
+543 cella 1074-1150 c=11.5 gap=6 sx=0.95 fissa | Litres
+430 cella 1160-1438 c=11.5 gap=6 sx=0.95 fissa | AT 15000 FEET
+449 cella 1160-1438 c=11.5 gap=6 sx=0.95 fissa | AND -15°C
+507 cella 1160-1251 c=11.5 gap=6 sx=0.95 fissa | VI
+506 cella 1261-1358 c=11.5 gap=6 sx=0.95 fissa | RATE OF
+524 cella 1261-1358 c=11.5 gap=6 sx=0.95 fissa | CLIMB
+542 cella 1261-1358 c=11.5 gap=6 sx=0.95 fissa | F/MIN
+506 cella 1366-1440 c=11.5 gap=6 sx=0.95 fissa | FUEL
+524 cella 1366-1440 c=11.5 gap=6 sx=0.95 fissa | USED
+542 cella 1366-1440 c=11.5 gap=6 sx=0.95 fissa | Litres
+621 cella 183-276 c=11.5 gap=6 sx=0.95 fissa | 1157
+602 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 137 km/h
+621 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 74 kts
+639 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 85 MPH
+621 cella 389-484 c=11.5 gap=6 sx=0.95 fissa | 880
+621 cella 496-562 c=11.5 gap=6 sx=0.95 fissa | 4,9
+603 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 135 km/h
+621 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 73 kts
+639 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 84 MPH
+621 cella 679-773 c=11.5 gap=6 sx=0.95 fissa | 650
+621 cella 785-854 c=11.5 gap=6 sx=0.95 fissa | 11,7
+603 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 134 km/h
+621 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 72 kts
+640 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 83 MPH
+621 cella 969-1064 c=11.5 gap=6 sx=0.95 fissa | 420
+622 cella 1076-1148 c=11.5 gap=6 sx=0.95 fissa | 20,1
+604 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 132 km/h
+621 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 71 kts
+640 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 82 MPH
+621 cella 1263-1356 c=11.5 gap=6 sx=0.95 fissa | 190
+621 cella 1368-1438 c=11.5 gap=6 sx=0.95 fissa | 33,3
+714 cella 183-276 c=11.5 gap=6 sx=0.95 fissa | 1000
+696 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 132 km/h
+714 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 71 kts
+732 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 82 MPH
+714 cella 389-484 c=11.5 gap=6 sx=0.95 fissa | 1120
+714 cella 496-562 c=11.5 gap=6 sx=0.95 fissa | 4,9
+697 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 130 km/h
+715 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 70 kts
+733 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 81 MPH
+715 cella 679-773 c=11.5 gap=6 sx=0.95 fissa | 860
+715 cella 785-854 c=11.5 gap=6 sx=0.95 fissa | 10,2
+697 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 129 km/h
+715 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 70 kts
+733 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 80 MPH
+715 cella 969-1064 c=11.5 gap=6 sx=0.95 fissa | 595
+716 cella 1076-1148 c=11.5 gap=6 sx=0.95 fissa | 16,3
+697 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 127 km/h
+716 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 69 kts
+733 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 79 MPH
+716 cella 1263-1356 c=11.5 gap=6 sx=0.95 fissa | 340
+716 cella 1368-1438 c=11.5 gap=6 sx=0.95 fissa | 24,2
+807 cella 183-276 c=11.5 gap=6 sx=0.95 fissa | 850
+790 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 129 km/h
+808 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 70 kts
+826 cella 287-378 c=11.5 gap=6 sx=0.95 fissa | 80 MPH
+807 cella 389-484 c=11.5 gap=6 sx=0.95 fissa | 1420
+808 cella 496-562 c=11.5 gap=6 sx=0.95 fissa | 4,9
+790 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 126 km/h
+809 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 68 kts
+826 cella 573-668 c=11.5 gap=6 sx=0.95 fissa | 78 MPH
+808 cella 679-773 c=11.5 gap=6 sx=0.95 fissa | 1115
+808 cella 785-854 c=11.5 gap=6 sx=0.95 fissa | 8,7
+791 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 124 km/h
+809 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 67 kts
+827 cella 865-958 c=11.5 gap=6 sx=0.95 fissa | 77 MPH
+809 cella 969-1064 c=11.5 gap=6 sx=0.95 fissa | 815
+809 cella 1076-1148 c=11.5 gap=6 sx=0.95 fissa | 13,2
+791 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 122 km/h
+810 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 66 kts
+828 cella 1159-1252 c=11.5 gap=6 sx=0.95 fissa | 76 MPH
+809 cella 1263-1356 c=11.5 gap=6 sx=0.95 fissa | 515
+809 cella 1368-1438 c=11.5 gap=6 sx=0.95 fissa | 19,3
+882 cella 189-1432 c=10.5 gap=5 sx=0.95 fissa | NOTES: 1. Flaps up, full throttle, 2800 RPM, mixture at recommended leaning schedule.
+900 cella 189-1005 c=10.5 gap=5 sx=0.95 fissa | 2. Fuel used includes warm-up and take-off allowance.
+919 cella 189-1432 c=10.5 gap=5 sx=0.95 fissa | 3. For hot weather, decrease rate of climb 20 ft/min. for each 5°C
+937 cella 189-1432 c=10.5 gap=5 sx=0.95 fissa | above standard day temperature for particular altitude.
+1009 testo 600-1100 c=15 sx=1.1 fissa | Figure 5-6.

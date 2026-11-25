@@ -30,7 +30,7 @@ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
-import { pienaPagina, affineLibro } from './pagina.mjs';
+import { pienaPagina, affineLibro, affinePiena } from './pagina.mjs';
 import path from 'node:path';
 import os from 'node:os';
 
@@ -187,6 +187,25 @@ try {
         if (sopra.length) attraverso[0] = Math.max(attraverso[0], Math.round(Math.max(...sopra.map((q) => q.b)) + c * 0.35));
         if (sotto.length) attraverso[1] = Math.min(attraverso[1], Math.round(Math.min(...sotto.map((q) => q.b - q.c * q.k))));
       }
+      // i filetti orizzontali della pagina (tabelle): la fascia non li attraversa
+      if (!opz.ang && !opz.libro) {
+        const a0 = Math.min(...e[3].map((w) => w[0])), z0 = Math.max(...e[3].map((w) => w[0] + (w[2] || 14 * w[1].length)));
+        for (const q of pjg.el) {
+          let xa, xb, yc, mezzo;
+          if (q[0] === 'linea') {
+            if (Math.abs(q[4] - q[2]) > Math.abs(q[3] - q[1]) * 0.2) continue;
+            xa = Math.min(q[1], q[3]); xb = Math.max(q[1], q[3]); yc = (q[2] + q[4]) / 2; mezzo = q[5] / 2 + 2;
+          } else if (q[0] === 'poli' && q[1].length === 4) {
+            const xs = q[1].map((v) => v[0]), ys = q[1].map((v) => v[1]);
+            xa = Math.min(...xs); xb = Math.max(...xs);
+            if (xb - xa < (Math.max(...ys) - Math.min(...ys)) * 5) continue;      // solo i filetti orizzontali
+            yc = (Math.min(...ys) + Math.max(...ys)) / 2; mezzo = (Math.max(...ys) - Math.min(...ys)) / 2 + 2;   // +2: i filetti della scansione sono un poco curvi
+          } else continue;
+          if (xa > z0 || xb < a0) continue;
+          if (yc < e[2] - c * 0.5 && yc + mezzo > attraverso[0]) attraverso[0] = Math.ceil(yc + mezzo);
+          if (yc > e[2] + 1 && yc - mezzo < attraverso[1]) attraverso[1] = Math.floor(yc - mezzo);
+        }
+      }
       if (opz.ang === -90) {
         const p0 = e[3][0], pu = e[3][e[3].length - 1];
         return [{ rif, ang: -90, lungo: [-p0[0] - 12, -(pu[0] - (pu[2] || largo(pu[1]))) + 6], attraverso, base: e[2], c, testo: e[3].map((w) => w[1]).join(' ') }];
@@ -327,7 +346,10 @@ try {
        tocca il numero, un filetto che nella scansione sbiadisce), guardata sull'ingrandimento */
     const ctr = controlli[p.n] || {};
     const aPagina = (x, y) => [(x - affOrig.bx) / affOrig.ax, (y - affOrig.by) / affOrig.ay];
-    const rigaVista = (g) => (ctr.righe || []).some((r) => r.testo === g.testo && Math.abs(aPagina(0, g.base)[1] - r.base) <= 3);
+    // la base di una riga e' nel riferimento della pagina (girata diritta per le pagine di traverso), non del libro
+    const affPag = PIENO ? affinePiena(stg0, pjg0, VARIANTE) : { ax: 1, ay: 1, bx: 0, by: 0 };
+    const basePag = (g) => g.rif === 'pag' ? (g.base - affPag.by) / affPag.ay : aPagina(0, g.base)[1];
+    const rigaVista = (g) => (ctr.righe || []).some((r) => r.testo === g.testo && Math.abs(basePag(g) - r.base) <= 3);
     const macchiaVista = (m) => (ctr.macchie || []).some((r) => { const [x0, y0] = aPagina(m.box[0], m.box[1]), [x1, y1] = aPagina(m.box[2], m.box[3]); return x0 >= r.riquadro[0] - 3 && y0 >= r.riquadro[1] - 3 && x1 <= r.riquadro[2] + 3 && y1 <= r.riquadro[3] + 3; });
     const righeTutte = conf.geom.filter((g) => Math.abs(g.inizio) > 4 || Math.abs(g.fine) > 4 || (!g.apici && Math.abs(g.alto) > 3));
     const righeFuori = righeTutte.filter((g) => !rigaVista(g));

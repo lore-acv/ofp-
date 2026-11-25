@@ -668,6 +668,8 @@ differenza (dove coincidono resta nero); O passa dall'una all'altra.
 | `tools/afm-rec/testo.py` | le righe di una pagina dal testo letto a vista (`testi/<pagina>.txt`): ogni parola si aggancia al suo inchiostro con la programmazione dinamica |
 | `tools/afm-rec/strisce.py` | la striscia delle procedure di emergenza: ogni barra obliqua diventa un quadrilatero misurato |
 | `tools/afm-rec/striscia.py` | la striscia delle procedure di emergenza ridisegnata (barre sottili uguali e parallele, sempre a sinistra del testo, alla stessa distanza dal bordo su tutte le pagine; numeri in `stile.json`): e' quella usata |
+| `tools/afm-rec/afm-ccaf/costruisci/griglia.py` | le tabelle a griglia delle pagine di traverso: filetti misurati ai due capi, una riga di testo per riga d'inchiostro di ogni cella, intestazione nel riferimento del libro (5-7, 5-9, 5-10, 5-11) |
+| `tools/afm-rec/afm-ccaf/costruisci/crociera.py`, `crociera_leggi.py`, `crociera_chiudi.py` | i cinque fogli della figura 5-1: struttura comune, numeri letti due volte e decisi dall'aritmetica della riga, ritagli dei numeri da guardare e loro seconda conferma |
 | `tools/afm-rec/rec.mjs` | costruisce `data/afm-rec/<id>/libro.html` |
 | `tools/afm-rec/verifica.mjs` | il controllo: righe (inizio, fine, linea di base), macchie, parole strozzate o sovrapposte, numeri (due letture), e scrive `tools/afm-rec/VERIFICA.md` |
 | `tools/afm-rec/calibra.mjs`, `font-prova.mjs`, `font-confronto.mjs` | taratura dei font e proposta dei font a confronto |
@@ -683,16 +685,16 @@ CHROME=/percorso/chrome node tools/afm-rec/rec.mjs afm-ccaf
 CHROME=/percorso/chrome node tools/afm-rec/verifica.mjs afm-ccaf
 ```
 
-Stato: I-CCAF sezioni I…IV complete (pagine 1-1…1-14, 2-1…2-8, 3-1…3-9 e
-4-1…4-16: testo,
+Stato: I-CCAF sezioni I…V complete (pagine 1-1…1-14, 2-1…2-8, 3-1…3-9,
+4-1…4-16 e 5-1…5-12: testo,
 tabelle, cartelli, figure 1-1 dimensioni, 1-2 cruscotto, 1-3 impianto
 carburante, 1-5 impianto elettrico, 4-1 ispezione esterna, 4-2 rullaggio,
-4-3 velocita' di crociera) e la pagina campione 5-12: tutte
+4-3 velocita' di crociera, 5-1…5-7 tabelle e grafico delle prestazioni): tutte
 verificate, zero differenze aperte, nella via di mezzo e nella normale. Nella
 sezione II ogni numero ha due conferme indipendenti (Tesseract, strato di
 testo del PDF, lettura a vista con una seconda fonte: un'altra pagina del
 manuale, il manuale di I-CCAB, DATI-AFM.md o una conversione di unita' che
-torna); cosi' anche nella sezione III. Prossime: sezioni V e VI, pagine
+torna); cosi' anche nella sezione III. Prossime: sezione VI, pagine
 iniziali, poi I-CCAB.
 
 Come si rifa' una pagina di testo: `bozza.py` → `dubbi.py` (e i ritagli) →

@@ -1,0 +1,164 @@
+163 libro 400-850 | Flight Manual
+194 libro 400-850 | Reims Rocket
+226 libro 200-650 | Reims Aviation
+222 libro 650-1100 | Page: 5-9
+257 libro 200-650 | Reims, Marne France
+252 libro 650-1100 | Edition: 3
+341 cella 165-776 c=13.5 gap=6 fissa | TAKE-OFF DISTANCE
+330 cella 796-1428 c=13.5 gap=6 fissa | FLAPS 10°
+352 cella 796-1428 c=13.5 gap=6 fissa | HARD SURFACE RUNWAY
+399 cella 161-261 c=13.5 gap=6 fissa | GROSS
+421 cella 161-261 c=13.5 gap=6 fissa | WT
+492 cella 161-261 c=13.5 gap=6 fissa | kg
+398 cella 273-401 c=13.5 gap=6 fissa | VI
+421 cella 273-401 c=13.5 gap=6 fissa | 15m
+398 cella 413-565 c=13.5 gap=6 fissa | HEAD
+420 cella 413-565 c=13.5 gap=6 fissa | WIND
+492 cella 413-482 c=13.5 gap=6 fissa | km/h
+492 cella 494-565 c=13.5 gap=6 fissa | kts
+398 cella 577-780 c=13.5 gap=6 fissa | AT SEA LEVEL
+421 cella 577-780 c=13.5 gap=6 fissa | AND +15°C
+470 cella 577-674 c=13.5 gap=6 fissa | Ground
+492 cella 577-674 c=13.5 gap=6 fissa | Run
+514 cella 577-674 c=13.5 gap=6 fissa | m
+470 cella 686-780 c=13.5 gap=6 fissa | Total
+492 cella 686-780 c=13.5 gap=6 fissa | to Clear
+515 cella 686-780 c=13.5 gap=6 fissa | 15 m
+538 cella 686-780 c=13.5 gap=6 fissa | obs
+560 cella 686-780 c=13.5 gap=6 fissa | m
+399 cella 792-998 c=13.5 gap=6 fissa | AT 2500 FEET
+421 cella 792-998 c=13.5 gap=6 fissa | AND +10°C
+471 cella 792-889 c=13.5 gap=6 fissa | Ground
+493 cella 792-889 c=13.5 gap=6 fissa | Run
+515 cella 792-889 c=13.5 gap=6 fissa | m
+471 cella 901-998 c=13.5 gap=6 fissa | Total
+493 cella 901-998 c=13.5 gap=6 fissa | to Clear
+516 cella 901-998 c=13.5 gap=6 fissa | 15 m
+539 cella 901-998 c=13.5 gap=6 fissa | obs
+560 cella 901-998 c=13.5 gap=6 fissa | m
+399 cella 1010-1215 c=13.5 gap=6 fissa | AT 5000 FEET
+421 cella 1010-1215 c=13.5 gap=6 fissa | AND +5°C
+471 cella 1010-1106 c=13.5 gap=6 fissa | Ground
+493 cella 1010-1106 c=13.5 gap=6 fissa | Run
+515 cella 1010-1106 c=13.5 gap=6 fissa | m
+470 cella 1118-1215 c=13.5 gap=6 fissa | Total
+493 cella 1118-1215 c=13.5 gap=6 fissa | to Clear
+515 cella 1118-1215 c=13.5 gap=6 fissa | 15 m
+538 cella 1118-1215 c=13.5 gap=6 fissa | obs
+560 cella 1118-1215 c=13.5 gap=6 fissa | m
+399 cella 1227-1432 c=13.5 gap=6 fissa | AT 7500 FEET
+421 cella 1227-1432 c=13.5 gap=6 fissa | AND 0°C
+470 cella 1227-1322 c=13.5 gap=6 fissa | Ground
+492 cella 1227-1322 c=13.5 gap=6 fissa | Run
+514 cella 1227-1322 c=13.5 gap=6 fissa | m
+470 cella 1334-1432 c=13.5 gap=6 fissa | Total
+492 cella 1334-1432 c=13.5 gap=6 fissa | to Clear
+514 cella 1334-1432 c=13.5 gap=6 fissa | 15 m
+537 cella 1334-1432 c=13.5 gap=6 fissa | obs
+558 cella 1334-1432 c=13.5 gap=6 fissa | m
+629 cella 161-261 c=13.5 gap=6 fissa | 1157
+606 cella 273-401 c=13.5 gap=6 fissa | 109 km/h
+629 cella 273-401 c=13.5 gap=6 fissa | 59 kts
+652 cella 273-401 c=13.5 gap=6 fissa | 68 MPH
+607 cella 413-482 c=13.5 gap=6 fissa | 0
+629 cella 413-482 c=13.5 gap=6 fissa | 19
+652 cella 413-482 c=13.5 gap=6 fissa | 37
+606 cella 494-565 c=13.5 gap=6 fissa | 0
+629 cella 494-565 c=13.5 gap=6 fissa | 10
+651 cella 494-565 c=13.5 gap=6 fissa | 20
+606 cella 577-674 c=13.5 gap=6 fissa | 226
+629 cella 577-674 c=13.5 gap=6 fissa | 158
+651 cella 577-674 c=13.5 gap=6 fissa | 102
+606 cella 686-780 c=13.5 gap=6 fissa | 375
+629 cella 686-780 c=13.5 gap=6 fissa | 282
+652 cella 686-780 c=13.5 gap=6 fissa | 201
+606 cella 792-889 c=13.5 gap=6 fissa | 268
+629 cella 792-889 c=13.5 gap=6 fissa | 192
+651 cella 792-889 c=13.5 gap=6 fissa | 126
+606 cella 901-998 c=13.5 gap=6 fissa | 439
+629 cella 901-998 c=13.5 gap=6 fissa | 335
+652 cella 901-998 c=13.5 gap=6 fissa | 242
+606 cella 1010-1106 c=13.5 gap=6 fissa | 325
+629 cella 1010-1106 c=13.5 gap=6 fissa | 235
+651 cella 1010-1106 c=13.5 gap=6 fissa | 158
+606 cella 1118-1215 c=13.5 gap=6 fissa | 526
+629 cella 1118-1215 c=13.5 gap=6 fissa | 405
+651 cella 1118-1215 c=13.5 gap=6 fissa | 297
+606 cella 1227-1322 c=13.5 gap=6 fissa | 393
+628 cella 1227-1322 c=13.5 gap=6 fissa | 288
+651 cella 1227-1322 c=13.5 gap=6 fissa | 200
+606 cella 1334-1432 c=13.5 gap=6 fissa | 639
+628 cella 1334-1432 c=13.5 gap=6 fissa | 497
+651 cella 1334-1432 c=13.5 gap=6 fissa | 370
+721 cella 161-261 c=13.5 gap=6 fissa | 1000
+700 cella 273-401 c=13.5 gap=6 fissa | 101 km/h
+722 cella 273-401 c=13.5 gap=6 fissa | 55 kts
+745 cella 273-401 c=13.5 gap=6 fissa | 63 MPH
+700 cella 413-482 c=13.5 gap=6 fissa | 0
+722 cella 413-482 c=13.5 gap=6 fissa | 19
+745 cella 413-482 c=13.5 gap=6 fissa | 37
+700 cella 494-565 c=13.5 gap=6 fissa | 0
+722 cella 494-565 c=13.5 gap=6 fissa | 10
+745 cella 494-565 c=13.5 gap=6 fissa | 20
+700 cella 577-674 c=13.5 gap=6 fissa | 162
+722 cella 577-674 c=13.5 gap=6 fissa | 110
+745 cella 577-674 c=13.5 gap=6 fissa | 69
+700 cella 686-780 c=13.5 gap=6 fissa | 282
+722 cella 686-780 c=13.5 gap=6 fissa | 209
+744 cella 686-780 c=13.5 gap=6 fissa | 145
+700 cella 792-889 c=13.5 gap=6 fissa | 192
+722 cella 792-889 c=13.5 gap=6 fissa | 134
+744 cella 792-889 c=13.5 gap=6 fissa | 85
+700 cella 901-998 c=13.5 gap=6 fissa | 326
+722 cella 901-998 c=13.5 gap=6 fissa | 245
+745 cella 901-998 c=13.5 gap=6 fissa | 172
+700 cella 1010-1106 c=13.5 gap=6 fissa | 232
+722 cella 1010-1106 c=13.5 gap=6 fissa | 163
+744 cella 1010-1106 c=13.5 gap=6 fissa | 105
+700 cella 1118-1215 c=13.5 gap=6 fissa | 386
+721 cella 1118-1215 c=13.5 gap=6 fissa | 291
+744 cella 1118-1215 c=13.5 gap=6 fissa | 207
+699 cella 1227-1322 c=13.5 gap=6 fissa | 279
+722 cella 1227-1322 c=13.5 gap=6 fissa | 200
+744 cella 1227-1322 c=13.5 gap=6 fissa | 133
+699 cella 1334-1432 c=13.5 gap=6 fissa | 459
+721 cella 1334-1432 c=13.5 gap=6 fissa | 349
+743 cella 1334-1432 c=13.5 gap=6 fissa | 253
+812 cella 161-261 c=13.5 gap=6 fissa | 850
+790 cella 273-401 c=13.5 gap=6 fissa | 93 km/h
+813 cella 273-401 c=13.5 gap=6 fissa | 50 kts
+836 cella 273-401 c=13.5 gap=6 fissa | 58 MPH
+790 cella 413-482 c=13.5 gap=6 fissa | 0
+813 cella 413-482 c=13.5 gap=6 fissa | 19
+836 cella 413-482 c=13.5 gap=6 fissa | 37
+790 cella 494-565 c=13.5 gap=6 fissa | 0
+813 cella 494-565 c=13.5 gap=6 fissa | 10
+835 cella 494-565 c=13.5 gap=6 fissa | 20
+790 cella 577-674 c=13.5 gap=6 fissa | 113
+812 cella 577-674 c=13.5 gap=6 fissa | 75
+836 cella 577-674 c=13.5 gap=6 fissa | 43
+791 cella 686-780 c=13.5 gap=6 fissa | 210
+813 cella 686-780 c=13.5 gap=6 fissa | 154
+836 cella 686-780 c=13.5 gap=6 fissa | 104
+791 cella 792-889 c=13.5 gap=6 fissa | 133
+813 cella 792-889 c=13.5 gap=6 fissa | 90
+836 cella 792-889 c=13.5 gap=6 fissa | 53
+791 cella 901-998 c=13.5 gap=6 fissa | 241
+813 cella 901-998 c=13.5 gap=6 fissa | 177
+836 cella 901-998 c=13.5 gap=6 fissa | 120
+791 cella 1010-1106 c=13.5 gap=6 fissa | 160
+813 cella 1010-1106 c=13.5 gap=6 fissa | 108
+836 cella 1010-1106 c=13.5 gap=6 fissa | 67
+791 cella 1118-1215 c=13.5 gap=6 fissa | 280
+813 cella 1118-1215 c=13.5 gap=6 fissa | 207
+836 cella 1118-1215 c=13.5 gap=6 fissa | 143
+790 cella 1227-1322 c=13.5 gap=6 fissa | 192
+813 cella 1227-1322 c=13.5 gap=6 fissa | 133
+835 cella 1227-1322 c=13.5 gap=6 fissa | 84
+790 cella 1334-1432 c=13.5 gap=6 fissa | 328
+813 cella 1334-1432 c=13.5 gap=6 fissa | 245
+835 cella 1334-1432 c=13.5 gap=6 fissa | 172
+880 cella 167-1426 c=13.5 gap=6 fissa | NOTES: 1. Increase distance 10% for each 14°C above standard temperature for particular altitude.
+902 cella 167-1426 c=13.5 gap=6 fissa | 2. For operation on a dry, grass runway, increase distances (both "ground run" and "total
+925 cella 167-1426 c=13.5 gap=6 fissa | to clear obstacle") by 7% of the "total to clear 15 m obstacle" figure.
+1001 testo 600-1000 c=15 sx=1.1 fissa | Figure 5-4.

@@ -7,11 +7,13 @@ pagina: centro, estremi e spessore misurati pixel per pixel. Un filetto
 leggermente storto (la scansione non e' mai dritta) si misura alle due
 estremita'.
 
-    /usr/bin/python3 tools/afm-rec/filetti.py afm-ccaf <pdf> <x0> <y0> <x1> <y1> [min]
+    /usr/bin/python3 tools/afm-rec/filetti.py afm-ccaf <pdf> <x0> <y0> <x1> <y1> [min] [--girata]
 """
 import re, sys, os, json
 import numpy as np
 from PIL import Image
+GIRATA = '--girata' in sys.argv          # pagina di traverso: coordinate della pagina girata diritta
+sys.argv = [a for a in sys.argv if a != '--girata']
 ID, PDF = sys.argv[1], int(sys.argv[2])
 X0, Y0, X1, Y1 = map(int, sys.argv[3:7])
 MIN = int(sys.argv[7]) if len(sys.argv) > 7 else 60
@@ -19,6 +21,8 @@ libro = open(f'{os.getcwd()}/data/afm/{ID}/libro.html', encoding='utf-8').read()
 m = re.search(r'data-pdf="%d"[^>]*>(?:<i[^>]*></i>)*<img[^>]*data-s2="([^"]+)"' % PDF, libro)
 rgb = np.array(Image.open(m.group(1)).convert('RGB')).astype(int)
 ink = ((rgb @ [0.299, 0.587, 0.114]) < 150) & ((rgb.max(2) - rgb.min(2)) < 40)
+if GIRATA:
+    ink = np.rot90(ink, 3)
 Z = ink[Y0:Y1, X0:X1]
 
 def tratti(riga):

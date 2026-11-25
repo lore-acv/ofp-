@@ -1390,5 +1390,1257 @@
         "come": "la cifra e' al suo posto (ingrandimento: base a 638 in tutte e due); \"144\" ha due 4 con la traversa larga a meta' altezza, e la misura della linea di base dell'inchiostro, che cerca il calo piu' basso, nella banda di una cella sola prende quella invece del piede"
       }
     ]
+  },
+  "5-8": {
+    "letti": [
+      {
+        "riga": 643,
+        "x": 782,
+        "valore": "40°",
+        "come": "OCR legge altro; a vista: 40°",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado"
+      },
+      {
+        "riga": 741,
+        "x": 553,
+        "valore": "53",
+        "come": "OCR legge altro; a vista: 53",
+        "seconda": "DATI-AFM.md: stallo flap UP 98 km/h, 53 kts, 61 MPH (anche su 2-1); la terna torna (98 km/h = 52,9 kt)"
+      },
+      {
+        "riga": 840,
+        "x": 474,
+        "valore": "20°",
+        "come": "OCR legge altro; a vista: 20°",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado"
+      },
+      {
+        "riga": 903,
+        "x": 551,
+        "valore": "55",
+        "come": "OCR legge altro; a vista: 55",
+        "seconda": "la terna della cella torna: 89 km/h = 55,3 MPH (89 km/h e 48 kts sopra); DATI-AFM.md: stallo flap 20° 55 MPH"
+      },
+      {
+        "riga": 903,
+        "x": 659,
+        "valore": "57",
+        "come": "OCR legge altro; a vista: 57",
+        "seconda": "la terna della cella torna: 92 km/h = 49,7 kt = 57,2 MPH (92 km/h e 50 kts sopra)"
+      },
+      {
+        "riga": 871,
+        "x": 766,
+        "valore": "56",
+        "come": "OCR legge altro; a vista: 56",
+        "seconda": "la terna della cella torna: 103 km/h = 55,6 kt (103 km/h e 64 MPH nella stessa cella)"
+      },
+      {
+        "riga": 971,
+        "x": 474,
+        "valore": "40°",
+        "come": "OCR legge altro; a vista: 40°",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado"
+      },
+      {
+        "riga": 1199,
+        "x": 622,
+        "valore": "5-3.",
+        "come": "OCR legge altro; a vista: 5-3.",
+        "seconda": "mappa tools/afm/afm-ccaf.json: la figura 5-3 (Stall Speeds Data) e' a pagina 5-8"
+      }
+    ],
+    "dati": [
+      "Figura 5-3, stallo a 1157 kg: con inclinazione 0° 98/89/85 km/h - 53/48/46 kts - 61/55/53 MPH = DATI-AFM.md e pagina 2-1 ✓; ogni cella e' una terna che torna (1 kt = 1,852 km/h, 1 MPH = 1,609 km/h) ✓; con l'inclinazione la velocita' cresce come 1/√cos φ (flap UP: 61 → 63 → 70 → 86 MPH a 20°, 40°, 60°) ✓"
+    ]
+  },
+  "5-1": {
+    "macchie": [
+      {
+        "riquadro": [
+          940,
+          300,
+          1000,
+          362
+        ],
+        "come": "la V di \"SECTION V\": nella scansione il titolo e' stampato un poco storto (sale verso destra) e la V e' piu' sottile in cima ai bracci e in punta; la ricostruita, dritta, sporge di qualche pixel"
+      }
+    ]
+  },
+  "5-2": {
+    "letti": [
+      {
+        "riga": 959,
+        "x": 813,
+        "valore": "5).",
+        "come": "a vista: (Sheet ... of 5).",
+        "seconda": "la figura 5-1 (Cruise Performance) ha cinque fogli, uno per quota (2500, 5000, 7500, 10000, 15000 piedi), alle pagine 5-2 ... 5-6: questo e' il foglio 1"
+      },
+      {
+        "riga": 480,
+        "x": 185,
+        "valore": "813",
+        "come": "OCR legge B13; a vista: 813",
+        "seconda": "la colonna torna: 24,0 in Hg x 33,86 = 813 mb; e lo strato di testo del PDF legge 813"
+      },
+      {
+        "riga": 512,
+        "x": 534,
+        "valore": "116",
+        "come": "OCR legge 118; a vista: 116",
+        "seconda": "la riga torna: 216,0 km/h / 1,852 = 116,6 kts; e lo strato di testo del PDF legge 116"
+      },
+      {
+        "riga": 528,
+        "x": 271,
+        "valore": "21",
+        "come": "OCR legge 2; a vista: 21",
+        "seconda": "la colonna torna: 711,0 mb / 33,86 = 21.0 in Hg; e lo strato di testo del PDF legge 21"
+      },
+      {
+        "riga": 528,
+        "x": 364,
+        "valore": "62",
+        "come": "OCR legge 82; a vista: 62",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 62"
+      },
+      {
+        "riga": 528,
+        "x": 453,
+        "valore": "209",
+        "come": "OCR legge 208; a vista: 209",
+        "seconda": "la riga torna: 113,0 kts x 1,852 = 209,3 km/h, 130,0 MPH x 1,609 = 209,2 km/h; e lo strato di testo del PDF legge 209"
+      },
+      {
+        "riga": 548,
+        "x": 185,
+        "valore": "847",
+        "come": "OCR legge B47; a vista: 847",
+        "seconda": "la colonna torna: 25,0 in Hg x 33,86 = 847 mb; e lo strato di testo del PDF legge 847"
+      },
+      {
+        "riga": 548,
+        "x": 272,
+        "valore": "25",
+        "come": "OCR legge 26; a vista: 25",
+        "seconda": "la colonna torna: 847,0 mb / 33,86 = 25.0 in Hg; e lo strato di testo del PDF legge 25"
+      },
+      {
+        "riga": 564,
+        "x": 535,
+        "valore": "121",
+        "come": "OCR legge 1271; a vista: 121",
+        "seconda": "la riga torna: 224,0 km/h / 1,852 = 121,0 kts; e lo strato di testo del PDF legge 121"
+      },
+      {
+        "riga": 596,
+        "x": 365,
+        "valore": "64",
+        "come": "OCR legge SA; a vista: 64",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 64"
+      },
+      {
+        "riga": 648,
+        "x": 1151,
+        "valore": "990",
+        "come": "OCR legge 390; a vista: 990",
+        "seconda": "la riga torna: 46 / 9,8 galloni all'ora x 212,0 km/h = 995 km; 534,0 NM x 1,852 = 989 km; e lo strato di testo del PDF legge 990"
+      },
+      {
+        "riga": 664,
+        "x": 365,
+        "valore": "60",
+        "come": "OCR legge ss; a vista: 60",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 60"
+      },
+      {
+        "riga": 664,
+        "x": 534,
+        "valore": "111",
+        "come": "OCR legge 117; a vista: 111",
+        "seconda": "la riga torna: 206,0 km/h / 1,852 = 111,2 kts; e lo strato di testo del PDF legge 111"
+      },
+      {
+        "riga": 684,
+        "x": 1151,
+        "valore": "966",
+        "come": "OCR legge S66; a vista: 966",
+        "seconda": "la riga torna: 46 / 10,4 galloni all'ora x 217,0 km/h = 960 km; 521,0 NM x 1,852 = 965 km; e lo strato di testo del PDF legge 966"
+      },
+      {
+        "riga": 700,
+        "x": 1151,
+        "valore": "990",
+        "come": "OCR legge 390; a vista: 990",
+        "seconda": "la riga torna: 46 / 9,8 galloni all'ora x 211,0 km/h = 990 km; 534,0 NM x 1,852 = 989 km; e lo strato di testo del PDF legge 990"
+      },
+      {
+        "riga": 716,
+        "x": 186,
+        "valore": "779",
+        "come": "OCR legge 7793; a vista: 779",
+        "seconda": "la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779"
+      },
+      {
+        "riga": 716,
+        "x": 364,
+        "valore": "60",
+        "come": "OCR legge 50; a vista: 60",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 60"
+      },
+      {
+        "riga": 716,
+        "x": 534,
+        "valore": "111",
+        "come": "OCR legge 117; a vista: 111",
+        "seconda": "la riga torna: 206,0 km/h / 1,852 = 111,2 kts; e lo strato di testo del PDF legge 111"
+      },
+      {
+        "riga": 752,
+        "x": 723,
+        "valore": "9,7",
+        "come": "OCR legge S,7; a vista: 9,7",
+        "seconda": "la riga torna: 36,7 litri / 3,785 = 9.70 galloni; 46 galloni / 9,7 = 4.74 ore (4,8 stampate); e lo strato di testo del PDF legge 9,7"
+      },
+      {
+        "riga": 752,
+        "x": 1152,
+        "valore": "998",
+        "come": "OCR legge 938; a vista: 998",
+        "seconda": "la riga torna: 46 / 9,7 galloni all'ora x 211,0 km/h = 1001 km; 539,0 NM x 1,852 = 998 km; e lo strato di testo del PDF legge 998"
+      },
+      {
+        "riga": 784,
+        "x": 186,
+        "valore": "779",
+        "come": "OCR legge 773; a vista: 779",
+        "seconda": "la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779"
+      },
+      {
+        "riga": 800,
+        "x": 1143,
+        "valore": "1094",
+        "come": "OCR legge 1034; a vista: 1094",
+        "seconda": "la riga torna: 46 / 8,0 galloni all'ora x 192,0 km/h = 1104 km; 591,0 NM x 1,852 = 1095 km; e lo strato di testo del PDF legge 1094"
+      },
+      {
+        "riga": 865,
+        "x": 623,
+        "valore": "94",
+        "come": "OCR legge BA; a vista: 94",
+        "seconda": "la riga torna: 151,0 km/h / 1,609 = 93,8 MPH; e lo strato di testo del PDF legge 94"
+      },
+      {
+        "riga": 865,
+        "x": 1143,
+        "valore": "1159",
+        "come": "OCR legge 1153; a vista: 1159",
+        "seconda": "la riga torna: 46 / 6,0 galloni all'ora x 151,0 km/h = 1158 km; 626,0 NM x 1,852 = 1159 km; e lo strato di testo del PDF legge 1159"
+      },
+      {
+        "riga": 336,
+        "x": 310,
+        "valore": "5-2",
+        "come": "a vista: Page: 5-2",
+        "seconda": "posizione nel PDF: pagina 58, fra 5-1 (pagina 57) e 5-3 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 365,
+        "x": 335,
+        "valore": "3",
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      },
+      {
+        "riga": 596,
+        "x": 452,
+        "valore": "211",
+        "come": "OCR legge 211; a vista: 211",
+        "seconda": "la riga torna: 114,0 kts x 1,852 = 211,1 km/h, 131,0 MPH x 1,609 = 210,8 km/h"
+      },
+      {
+        "riga": 648,
+        "x": 831,
+        "valore": "37,1",
+        "come": "OCR legge 37,1; a vista: 37,1",
+        "seconda": "la riga torna: 9,8 galloni x 3,785 = 37.09 litri"
+      },
+      {
+        "riga": 684,
+        "x": 453,
+        "valore": "217",
+        "come": "OCR legge 217; a vista: 217",
+        "seconda": "la riga torna: 117,0 kts x 1,852 = 216,7 km/h, 135,0 MPH x 1,609 = 217,2 km/h"
+      },
+      {
+        "riga": 684,
+        "x": 614,
+        "valore": "135",
+        "come": "OCR legge 135; a vista: 135",
+        "seconda": "la riga torna: 217,0 km/h / 1,609 = 134,9 MPH"
+      }
+    ],
+    "dati": [
+      "Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro"
+    ]
+  },
+  "5-3": {
+    "letti": [
+      {
+        "riga": 994,
+        "x": 925,
+        "valore": "5).",
+        "come": "a vista: (Sheet ... of 5).",
+        "seconda": "la figura 5-1 (Cruise Performance) ha cinque fogli, uno per quota (2500, 5000, 7500, 10000, 15000 piedi), alle pagine 5-2 ... 5-6: questo e' il foglio 2"
+      },
+      {
+        "riga": 512,
+        "x": 290,
+        "valore": "779",
+        "come": "OCR legge 773; a vista: 779",
+        "seconda": "la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779"
+      },
+      {
+        "riga": 596,
+        "x": 721,
+        "valore": "137",
+        "come": "OCR legge 437; a vista: 137",
+        "seconda": "la riga torna: 220,0 km/h / 1,609 = 136,7 MPH; e lo strato di testo del PDF legge 137"
+      },
+      {
+        "riga": 596,
+        "x": 1259,
+        "valore": "990",
+        "come": "OCR legge 9930; a vista: 990",
+        "seconda": "la riga torna: 46 / 10,3 galloni all'ora x 220,0 km/h = 983 km; 534,0 NM x 1,852 = 989 km; e lo strato di testo del PDF legge 990"
+      },
+      {
+        "riga": 612,
+        "x": 829,
+        "valore": "9,6",
+        "come": "OCR legge 3,6; a vista: 9,6",
+        "seconda": "la riga torna: 36,3 litri / 3,785 = 9.59 galloni; 46 galloni / 9,6 = 4.79 ore (4,8 stampate); e lo strato di testo del PDF legge 9,6"
+      },
+      {
+        "riga": 648,
+        "x": 289,
+        "valore": "779",
+        "come": "OCR legge 772; a vista: 779",
+        "seconda": "la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779"
+      },
+      {
+        "riga": 681,
+        "x": 467,
+        "valore": "59",
+        "come": "OCR legge 9; a vista: 59",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 59"
+      },
+      {
+        "riga": 696,
+        "x": 467,
+        "valore": "55",
+        "come": "OCR legge 65; a vista: 55",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 55"
+      },
+      {
+        "riga": 733,
+        "x": 467,
+        "valore": "59",
+        "come": "OCR legge (niente); a vista: 59",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 59"
+      },
+      {
+        "riga": 733,
+        "x": 830,
+        "valore": "9,0",
+        "come": "OCR legge 93,0; a vista: 9,0",
+        "seconda": "la riga torna: 34,1 litri / 3,785 = 9.01 galloni; 46 galloni / 9,0 = 5.11 ore (5,1 stampate); e lo strato di testo del PDF legge 9,0"
+      },
+      {
+        "riga": 765,
+        "x": 377,
+        "valore": "20",
+        "come": "OCR legge cJ; a vista: 20",
+        "seconda": "la colonna torna: 677,0 mb / 33,86 = 20.0 in Hg; e lo strato di testo del PDF legge 20"
+      },
+      {
+        "riga": 765,
+        "x": 831,
+        "valore": "7,9",
+        "come": "OCR legge 7,2; a vista: 7,9",
+        "seconda": "la riga torna: 29,9 litri / 3,785 = 7.90 galloni; 46 galloni / 7,9 = 5.82 ore (5,8 stampate); e lo strato di testo del PDF legge 7,9"
+      },
+      {
+        "riga": 786,
+        "x": 289,
+        "valore": "779",
+        "come": "OCR legge 773; a vista: 779",
+        "seconda": "la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779"
+      },
+      {
+        "riga": 786,
+        "x": 722,
+        "valore": "129",
+        "come": "OCR legge 128; a vista: 129",
+        "seconda": "la riga torna: 208,0 km/h / 1,609 = 129,3 MPH; e lo strato di testo del PDF legge 129"
+      },
+      {
+        "riga": 217,
+        "x": 965,
+        "valore": "5-3",
+        "come": "a vista: Page: 5-3",
+        "seconda": "posizione nel PDF: pagina 59, fra 5-2 e 5-4 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 250,
+        "x": 990,
+        "valore": "3",
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      },
+      {
+        "riga": 512,
+        "x": 196,
+        "valore": "2600",
+        "come": "a vista: 2600 (con un puntino di sporco a sinistra)",
+        "seconda": "i gruppi di RPM di ogni foglio sono 2600, 2500, 2400, 2300, 2200; 2600 apre la tabella come negli altri quattro fogli"
+      },
+      {
+        "riga": 512,
+        "x": 1378,
+        "valore": "504",
+        "come": "OCR legge 504; a vista: 504",
+        "seconda": "la riga torna: 933,0 km / 1,852 = 503.8 NM"
+      },
+      {
+        "riga": 545,
+        "x": 721,
+        "valore": "136",
+        "come": "OCR legge 136; a vista: 136",
+        "seconda": "la riga torna: 219,0 km/h / 1,609 = 136,1 MPH"
+      },
+      {
+        "riga": 716,
+        "x": 830,
+        "valore": "9,7",
+        "come": "OCR legge 9,7; a vista: 9,7",
+        "seconda": "la riga torna: 36,7 litri / 3,785 = 9.70 galloni; 46 galloni / 9,7 = 4.74 ore (4,8 stampate)"
+      },
+      {
+        "riga": 749,
+        "x": 942,
+        "valore": "31,8",
+        "come": "OCR legge 31,8; a vista: 31,8",
+        "seconda": "la riga torna: 8,4 galloni x 3,785 = 31.79 litri"
+      },
+      {
+        "riga": 994,
+        "x": 867,
+        "valore": "2",
+        "come": "a vista: Figure 5-1 (Sheet 2 of 5).",
+        "seconda": "i cinque fogli della figura 5-1 sono alle pagine 5-2 ... 5-6: 5-3 e' il secondo (le didascalie di 5-2 e 5-4 dicono Sheet 1 e Sheet 3)"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "2600",
+        "base": 512,
+        "come": "la riga e' al suo posto (ingrandimento); nella scansione accanto al numero c'e' un segno di sporco (un puntino), che la verifica conta come inchiostro della riga (a sinistra del 2600)"
+      },
+      {
+        "testo": "711",
+        "base": 612,
+        "come": "la riga e' al suo posto (ingrandimento); nella scansione accanto al numero c'e' un segno di sporco (un puntino), che la verifica conta come inchiostro della riga (a destra del 711)"
+      },
+      {
+        "testo": "677",
+        "base": 629,
+        "come": "la riga e' al suo posto (ingrandimento); nella scansione accanto al numero c'e' un segno di sporco (un puntino), che la verifica conta come inchiostro della riga (a destra del 677)"
+      },
+      {
+        "testo": "779",
+        "base": 579,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "9,7",
+        "base": 716,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "998",
+        "base": 545,
+        "come": "il numero e' al suo posto (ingrandimento); nella scansione c'e' un puntino di sporco 10 px prima del 998 (lo strato di testo del PDF lo legge come •998), che non si ricostruisce e che la fascia di controllo conta come inchiostro della riga"
+      }
+    ],
+    "dati": [
+      "Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro"
+    ]
+  },
+  "5-4": {
+    "letti": [
+      {
+        "riga": 331,
+        "x": 301,
+        "valore": "5-4",
+        "come": "a vista: Page: 5-4",
+        "seconda": "posizione nel PDF: pagina 60, fra 5-3 e 5-5 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 330,
+        "x": 516,
+        "valore": "1157",
+        "come": "OCR legge 1167; a vista: 1157",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 1157"
+      },
+      {
+        "riga": 951,
+        "x": 631,
+        "valore": "5-1",
+        "come": "OCR legge S-1; a vista: 5-1",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 5-1"
+      },
+      {
+        "riga": 951,
+        "x": 757,
+        "valore": "3",
+        "come": "OCR legge 2; a vista: 3",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 3"
+      },
+      {
+        "riga": 471,
+        "x": 188,
+        "valore": "711",
+        "come": "OCR legge Fe; a vista: 711",
+        "seconda": "la colonna torna: 21,0 in Hg x 33,86 = 711 mb; e lo strato di testo del PDF legge 711"
+      },
+      {
+        "riga": 539,
+        "x": 186,
+        "valore": "711",
+        "come": "OCR legge 717; a vista: 711",
+        "seconda": "la colonna torna: 21,0 in Hg x 33,86 = 711 mb; e lo strato di testo del PDF legge 711"
+      },
+      {
+        "riga": 606,
+        "x": 271,
+        "valore": "21",
+        "come": "OCR legge 27; a vista: 21",
+        "seconda": "la colonna torna: 711,0 mb / 33,86 = 21.0 in Hg; e lo strato di testo del PDF legge 21"
+      },
+      {
+        "riga": 656,
+        "x": 363,
+        "valore": "49",
+        "come": "OCR legge se; a vista: 49",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 49"
+      },
+      {
+        "riga": 676,
+        "x": 186,
+        "valore": "711",
+        "come": "OCR legge aut; a vista: 711",
+        "seconda": "la colonna torna: 21,0 in Hg x 33,86 = 711 mb; e lo strato di testo del PDF legge 711"
+      },
+      {
+        "riga": 676,
+        "x": 271,
+        "valore": "21",
+        "come": "OCR legge 2; a vista: 21",
+        "seconda": "la colonna torna: 711,0 mb / 33,86 = 21.0 in Hg; e lo strato di testo del PDF legge 21"
+      },
+      {
+        "riga": 676,
+        "x": 364,
+        "valore": "58",
+        "come": "OCR legge 68; a vista: 58",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 58"
+      },
+      {
+        "riga": 708,
+        "x": 723,
+        "valore": "7,7",
+        "come": "OCR legge Vat; a vista: 7,7",
+        "seconda": "la riga torna: 29,1 litri / 3,785 = 7.69 galloni; 46 galloni / 7,7 = 5.97 ore (6,0 stampate); e lo strato di testo del PDF legge 7,7"
+      },
+      {
+        "riga": 725,
+        "x": 363,
+        "valore": "45",
+        "come": "OCR legge Bo; a vista: 45",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 45"
+      },
+      {
+        "riga": 725,
+        "x": 724,
+        "valore": "7,1",
+        "come": "OCR legge 71; a vista: 7,1",
+        "seconda": "la riga torna: 26,9 litri / 3,785 = 7.11 galloni; 46 galloni / 7,1 = 6.48 ore (6,5 stampate); e lo strato di testo del PDF legge 7,1"
+      },
+      {
+        "riga": 743,
+        "x": 186,
+        "valore": "711",
+        "come": "OCR legge 717; a vista: 711",
+        "seconda": "la colonna torna: 21,0 in Hg x 33,86 = 711 mb; e lo strato di testo del PDF legge 711"
+      },
+      {
+        "riga": 743,
+        "x": 271,
+        "valore": "21",
+        "come": "OCR legge at; a vista: 21",
+        "seconda": "la colonna torna: 711,0 mb / 33,86 = 21.0 in Hg; e lo strato di testo del PDF legge 21"
+      },
+      {
+        "riga": 759,
+        "x": 724,
+        "valore": "7,8",
+        "come": "OCR legge 738; a vista: 7,8",
+        "seconda": "la riga torna: 29,5 litri / 3,785 = 7.79 galloni; 46 galloni / 7,8 = 5.90 ore (5,9 stampate); e lo strato di testo del PDF legge 7,8"
+      },
+      {
+        "riga": 776,
+        "x": 185,
+        "valore": "643",
+        "come": "OCR legge as; a vista: 643",
+        "seconda": "la colonna torna: 19,0 in Hg x 33,86 = 643 mb; e lo strato di testo del PDF legge 643"
+      },
+      {
+        "riga": 776,
+        "x": 272,
+        "valore": "19",
+        "come": "OCR legge Ls; a vista: 19",
+        "seconda": "la colonna torna: 643,0 mb / 33,86 = 19.0 in Hg; e lo strato di testo del PDF legge 19"
+      },
+      {
+        "riga": 776,
+        "x": 723,
+        "valore": "7,2",
+        "come": "OCR legge 7a; a vista: 7,2",
+        "seconda": "la riga torna: 27,3 litri / 3,785 = 7.21 galloni; 46 galloni / 7,2 = 6.39 ore (6,4 stampate); e lo strato di testo del PDF legge 7,2"
+      },
+      {
+        "riga": 363,
+        "x": 327,
+        "valore": "3",
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "4,7",
+        "base": 487,
+        "come": "la riga e' al suo posto (ingrandimento della pagina girata: coincide); e' accanto a un filetto della tabella, la fascia di controllo resta stretta e la misura della linea di base, che cerca il calo piu' basso, la prende sulla virgola"
+      },
+      {
+        "testo": "6,5",
+        "base": 725,
+        "come": "la riga e' al suo posto (ingrandimento della pagina girata: coincide); e' accanto a un filetto della tabella, la fascia di controllo resta stretta e la misura della linea di base, che cerca il calo piu' basso, la prende sulla virgola"
+      },
+      {
+        "testo": "630",
+        "base": 725,
+        "come": "la riga e' al suo posto (ingrandimento); e' l'ultima del gruppo, sopra il filetto: la fascia di controllo resta stretta e la misura della linea di base ne risente"
+      },
+      {
+        "testo": "610",
+        "base": 725,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "18",
+        "base": 725,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "112",
+        "base": 725,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "7,1",
+        "base": 725,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "26,9",
+        "base": 725,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "1167",
+        "base": 725,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      }
+    ],
+    "dati": [
+      "Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro"
+    ]
+  },
+  "5-5": {
+    "letti": [
+      {
+        "riga": 1000,
+        "x": 729,
+        "valore": "5-1",
+        "come": "OCR legge S-1; a vista: 5-1",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 5-1"
+      },
+      {
+        "riga": 520,
+        "x": 372,
+        "valore": "19",
+        "come": "OCR legge cr); a vista: 19",
+        "seconda": "la colonna torna: 643,0 mb / 33,86 = 19.0 in Hg; e lo strato di testo del PDF legge 19"
+      },
+      {
+        "riga": 569,
+        "x": 462,
+        "valore": "48",
+        "come": "OCR legge 38; a vista: 48",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 48"
+      },
+      {
+        "riga": 588,
+        "x": 372,
+        "valore": "19",
+        "come": "OCR legge 419; a vista: 19",
+        "seconda": "la colonna torna: 643,0 mb / 33,86 = 19.0 in Hg; e lo strato di testo del PDF legge 19"
+      },
+      {
+        "riga": 637,
+        "x": 463,
+        "valore": "46",
+        "come": "OCR legge AGS; a vista: 46",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 46"
+      },
+      {
+        "riga": 637,
+        "x": 645,
+        "valore": "99",
+        "come": "OCR legge 92; a vista: 99",
+        "seconda": "la riga torna: 183,0 km/h / 1,852 = 98,8 kts; e lo strato di testo del PDF legge 99"
+      },
+      {
+        "riga": 637,
+        "x": 716,
+        "valore": "114",
+        "come": "OCR legge TTR; a vista: 114",
+        "seconda": "la riga torna: 183,0 km/h / 1,609 = 113,7 MPH; e lo strato di testo del PDF legge 114"
+      },
+      {
+        "riga": 673,
+        "x": 637,
+        "valore": "108",
+        "come": "OCR legge 10B; a vista: 108",
+        "seconda": "la riga torna: 200,0 km/h / 1,852 = 108,0 kts; e lo strato di testo del PDF legge 108"
+      },
+      {
+        "riga": 673,
+        "x": 1247,
+        "valore": "1151",
+        "come": "OCR legge 1161; a vista: 1151",
+        "seconda": "la riga torna: 46 / 8,0 galloni all'ora x 200,0 km/h = 1150 km; 621,0 NM x 1,852 = 1150 km; e lo strato di testo del PDF legge 1151"
+      },
+      {
+        "riga": 705,
+        "x": 463,
+        "valore": "43",
+        "come": "OCR legge oJ; a vista: 43",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 43"
+      },
+      {
+        "riga": 725,
+        "x": 464,
+        "valore": "52",
+        "come": "OCR legge 62; a vista: 52",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 52"
+      },
+      {
+        "riga": 758,
+        "x": 554,
+        "valore": "179",
+        "come": "OCR legge 1793; a vista: 179",
+        "seconda": "la riga torna: 96,0 kts x 1,852 = 177,8 km/h, 111,0 MPH x 1,609 = 178,6 km/h; e lo strato di testo del PDF legge 179"
+      },
+      {
+        "riga": 774,
+        "x": 464,
+        "valore": "40",
+        "come": "OCR legge hs; a vista: 40",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 40"
+      },
+      {
+        "riga": 774,
+        "x": 554,
+        "valore": "164",
+        "come": "OCR legge AGe; a vista: 164",
+        "seconda": "la riga torna: 89,0 kts x 1,852 = 164,8 km/h, 102,0 MPH x 1,609 = 164,1 km/h; e lo strato di testo del PDF legge 164"
+      },
+      {
+        "riga": 774,
+        "x": 1372,
+        "valore": "643",
+        "come": "OCR legge GAS; a vista: 643",
+        "seconda": "la riga torna: 1191,0 km / 1,852 = 643.1 NM; e lo strato di testo del PDF legge 643"
+      },
+      {
+        "riga": 794,
+        "x": 372,
+        "valore": "19",
+        "come": "OCR legge 419; a vista: 19",
+        "seconda": "la colonna torna: 643,0 mb / 33,86 = 19.0 in Hg; e lo strato di testo del PDF legge 19"
+      },
+      {
+        "riga": 228,
+        "x": 972,
+        "valore": "5-5",
+        "come": "a vista: Page: 5-5",
+        "seconda": "posizione nel PDF: pagina 61, fra 5-4 e 5-6 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 259,
+        "x": 997,
+        "valore": "3",
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      },
+      {
+        "riga": 689,
+        "x": 464,
+        "valore": "47",
+        "come": "OCR legge 47; a vista: 47",
+        "seconda": "il consumo segue la potenza: nella riga 7,4 gal/h al 47% (0,157 gal/h per punto), nello stesso gruppo 8,0 al 52% e 8,6 al 56% (0,154); lo strato di testo del PDF legge 4/ (il 7 non riconosciuto)"
+      },
+      {
+        "riga": 842,
+        "x": 1247,
+        "valore": "1191",
+        "come": "OCR legge 1191; a vista: 1191",
+        "seconda": "la riga torna: 46 / 6,0 galloni all'ora x 156,0 km/h = 1196 km; 643,0 NM x 1,852 = 1191 km"
+      }
+    ],
+    "dati": [
+      "Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro"
+    ],
+    "righe": [
+      {
+        "testo": "7,1",
+        "base": 637,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      }
+    ]
+  },
+  "5-6": {
+    "letti": [
+      {
+        "riga": 950,
+        "x": 819,
+        "valore": "5).",
+        "come": "a vista: (Sheet ... of 5).",
+        "seconda": "la figura 5-1 (Cruise Performance) ha cinque fogli, uno per quota (2500, 5000, 7500, 10000, 15000 piedi), alle pagine 5-2 ... 5-6: questo e' il foglio 5"
+      },
+      {
+        "riga": 485,
+        "x": 363,
+        "valore": "44",
+        "come": "OCR legge ag; a vista: 44",
+        "seconda": "lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 44"
+      },
+      {
+        "riga": 570,
+        "x": 718,
+        "valore": "5,9",
+        "come": "OCR legge 5,2; a vista: 5,9",
+        "seconda": "la riga torna: 22,3 litri / 3,785 = 5.89 galloni; 46 galloni / 5,9 = 7.80 ore (7,7 stampate); e lo strato di testo del PDF legge 5,9"
+      },
+      {
+        "riga": 673,
+        "x": 995,
+        "valore": "7,1",
+        "come": "OCR legge oF; a vista: 7,1",
+        "seconda": "la riga torna: 46 galloni / 6,5 galloni all'ora = 7.08 ore; e lo strato di testo del PDF legge 7,1"
+      },
+      {
+        "riga": 690,
+        "x": 719,
+        "valore": "5,9",
+        "come": "OCR legge 5,3; a vista: 5,9",
+        "seconda": "la riga torna: 22,3 litri / 3,785 = 5.89 galloni; 46 galloni / 5,9 = 7.80 ore (7,8 stampate); e lo strato di testo del PDF legge 5,9"
+      },
+      {
+        "riga": 742,
+        "x": 186,
+        "valore": "508",
+        "come": "OCR legge 608; a vista: 508",
+        "seconda": "la colonna torna: 15,0 in Hg x 33,86 = 508 mb; e lo strato di testo del PDF legge 508"
+      },
+      {
+        "riga": 742,
+        "x": 995,
+        "valore": "7,5",
+        "come": "OCR legge 75; a vista: 7,5",
+        "seconda": "la riga torna: 46 galloni / 6,1 galloni all'ora = 7.54 ore; e lo strato di testo del PDF legge 7,5"
+      },
+      {
+        "riga": 329,
+        "x": 299,
+        "valore": "5-6",
+        "come": "a vista: Page: 5-6",
+        "seconda": "posizione nel PDF: pagina 62, fra 5-5 e 5-7 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 359,
+        "x": 324,
+        "valore": "3",
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      }
+    ],
+    "dati": [
+      "Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro"
+    ],
+    "righe": [
+      {
+        "testo": "440",
+        "base": 570,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "7,7",
+        "base": 570,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      },
+      {
+        "testo": "14",
+        "base": 690,
+        "come": "nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte"
+      }
+    ]
+  },
+  "5-7": {
+    "letti": [
+      {
+        "riga": 457,
+        "x": 690,
+        "valore": "70",
+        "come": "OCR legge 7O; a vista: 70",
+        "seconda": "la tabella torna: VI 70 MPH = 112,6 km/h: e' la colonna di VI 113 km/h (riga sopra)"
+      },
+      {
+        "riga": 653,
+        "x": 691,
+        "valore": "70",
+        "come": "OCR legge 7O; a vista: 70",
+        "seconda": "la tabella torna: VI 70 MPH = 112,6 km/h: la colonna di VI 113 km/h (riga sopra)"
+      },
+      {
+        "riga": 745,
+        "x": 690,
+        "valore": "72",
+        "come": "OCR legge Pgs; a vista: 72",
+        "seconda": "la tabella torna: VC 72 MPH = 115,8 km/h: la colonna di VC 116 km/h (riga sopra)"
+      },
+      {
+        "riga": 686,
+        "x": 248,
+        "valore": "20°",
+        "come": "OCR legge 202P; a vista: 20°",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40°; il segno in apice e' il grado"
+      },
+      {
+        "riga": 802,
+        "x": 510,
+        "valore": "80",
+        "come": "OCR legge BO; a vista: 80",
+        "seconda": "la tabella torna: VI 80 MPH = 128,7 km/h: la colonna di VI 129 km/h (riga sopra)"
+      },
+      {
+        "riga": 224,
+        "x": 962,
+        "valore": "5-7",
+        "come": "OCR legge 5-7; a vista: 5-7",
+        "seconda": "posizione nel PDF: pagina 63, fra 5-6 e 5-8 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 255,
+        "x": 987,
+        "valore": "3",
+        "come": "OCR legge 3; a vista: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      }
+    ],
+    "dati": [
+      "Figura 5-2: in ogni gruppo le righe km/h e MPH sono la stessa velocita' (km/h = MPH x 1,609, arrotondati): tutte le 66 coppie tornano ✓ (controllo in costruisci/5-7.py); VI 50…150 MPH = 80…241 km/h ✓"
+    ]
+  },
+  "5-9": {
+    "letti": [
+      {
+        "riga": 421,
+        "x": 677,
+        "valore": "+15°C",
+        "come": "a vista: AND +15°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C"
+      },
+      {
+        "riga": 421,
+        "x": 891,
+        "valore": "+10°C",
+        "come": "a vista: AND +10°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C"
+      },
+      {
+        "riga": 421,
+        "x": 1116,
+        "valore": "+5°C",
+        "come": "a vista: AND +5°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C"
+      },
+      {
+        "riga": 421,
+        "x": 1340,
+        "valore": "0°C",
+        "come": "a vista: AND 0°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C"
+      },
+      {
+        "riga": 880,
+        "x": 710,
+        "valore": "14°C",
+        "come": "a vista: for each 14°C above standard",
+        "seconda": "14°C = 25°F, la regola dei manuali Cessna (10% ogni 25°F sopra lo standard); lo strato di testo del PDF legge 14°C"
+      },
+      {
+        "riga": 607,
+        "x": 448,
+        "valore": "0",
+        "come": "OCR legge altro; a vista: 0",
+        "seconda": "vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts)"
+      },
+      {
+        "riga": 606,
+        "x": 529,
+        "valore": "0",
+        "come": "OCR legge altro; a vista: 0",
+        "seconda": "vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts)"
+      },
+      {
+        "riga": 700,
+        "x": 449,
+        "valore": "0",
+        "come": "OCR legge altro; a vista: 0",
+        "seconda": "vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts)"
+      },
+      {
+        "riga": 700,
+        "x": 530,
+        "valore": "0",
+        "come": "OCR legge altro; a vista: 0",
+        "seconda": "vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts)"
+      },
+      {
+        "riga": 790,
+        "x": 450,
+        "valore": "0",
+        "come": "OCR legge altro; a vista: 0",
+        "seconda": "vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts)"
+      },
+      {
+        "riga": 790,
+        "x": 529,
+        "valore": "0",
+        "come": "OCR legge altro; a vista: 0",
+        "seconda": "vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts)"
+      },
+      {
+        "riga": 745,
+        "x": 933,
+        "valore": "172",
+        "come": "OCR legge Tt; a vista: 172",
+        "seconda": "lo strato di testo del PDF legge 172"
+      },
+      {
+        "riga": 222,
+        "x": 968,
+        "valore": "5-9",
+        "come": "a vista: Page: 5-9",
+        "seconda": "posizione nel PDF: pagina 65, fra 5-8 e 5-10 (pagina 64 e 66; mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 252,
+        "x": 993,
+        "valore": "3",
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "GROSS",
+        "base": 399,
+        "come": "la parola e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima e prende il filetto sinistro della cornice, che nella scansione e' un poco storto"
+      },
+      {
+        "testo": "m",
+        "base": 514,
+        "come": "la m e' al suo posto (ingrandimento); e' una lettera sola, minuscola, e la misura della linea di base nella sua banda stretta prende la fascia sbagliata"
+      }
+    ],
+    "dati": [
+      "Figura 5-4: VI a 15 m 109 / 101 / 93 km/h = 59 / 55 / 50 kts = 68 / 63 / 58 MPH ✓ (terne che tornano) = DATI-AFM.md, VR / velocita' a 15 m 68 / 63 / 58 MPH a 1157 / 1000 / 850 kg ✓; vento 19 km/h = 10 kts, 37 km/h = 20 kts ✓",
+      "Distanze: crescono con la quota e calano col vento e col peso in ogni colonna (nessuna inversione) ✓; i numeri hanno due letture concordi (Tesseract e strato di testo del PDF) salvo quelli chiusi a vista qui sopra"
+    ]
+  },
+  "5-10": {
+    "letti": [
+      {
+        "riga": 432,
+        "x": 468,
+        "valore": "+15°C",
+        "come": "OCR legge 415PC; a vista: +15°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C"
+      },
+      {
+        "riga": 431,
+        "x": 710,
+        "valore": "+10°C",
+        "come": "OCR legge 4109C; a vista: +10°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C"
+      },
+      {
+        "riga": 431,
+        "x": 967,
+        "valore": "+5°C",
+        "come": "OCR legge 452C; a vista: +5°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C"
+      },
+      {
+        "riga": 432,
+        "x": 1218,
+        "valore": "0°C",
+        "come": "OCR legge oPc; a vista: 0°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C"
+      },
+      {
+        "riga": 338,
+        "x": 309,
+        "valore": "5-10",
+        "come": "OCR legge 5-10; a vista: 5-10",
+        "seconda": "posizione nel PDF: pagina 66, fra 5-9 e 5-11 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 369,
+        "x": 334,
+        "valore": "3",
+        "come": "OCR legge 3; a vista: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      },
+      {
+        "riga": 298,
+        "x": 1234,
+        "valore": "40°",
+        "come": "OCR legge 40; a vista: 40°",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40°; il segno in apice e' il grado"
+      }
+    ],
+    "dati": [
+      "Figura 5-5: velocita' di avvicinamento 117 km/h = 63,2 kts = 72,7 MPH ✓ = DATI-AFM.md, avvicinamento flap 40° 73 MPH a 1157 kg ✓; le distanze crescono con la quota in tutte e due le colonne ✓; i numeri hanno due letture concordi (Tesseract e strato di testo del PDF)"
+    ]
+  },
+  "5-11": {
+    "letti": [
+      {
+        "riga": 223,
+        "x": 979,
+        "valore": "5-11",
+        "come": "OCR legge 5-1); a vista: 5-11",
+        "seconda": "posizione nel PDF: pagina 67, fra 5-10 e 5-12 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 254,
+        "x": 1004,
+        "valore": "3",
+        "come": "OCR legge :; a vista: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      },
+      {
+        "riga": 448,
+        "x": 728,
+        "valore": "+5°C",
+        "come": "OCR legge 459C; a vista: +5°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C, 15000 ft -15°C"
+      },
+      {
+        "riga": 449,
+        "x": 1011,
+        "valore": "-5°C",
+        "come": "OCR legge -59C; a vista: -5°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C, 15000 ft -15°C"
+      },
+      {
+        "riga": 449,
+        "x": 1310,
+        "valore": "-15°C",
+        "come": "OCR legge -159C; a vista: -15°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C, 15000 ft -15°C"
+      },
+      {
+        "riga": 449,
+        "x": 434,
+        "valore": "+15°C",
+        "come": "OCR legge 15PC; a vista: +15°C",
+        "seconda": "atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C, 15000 ft -15°C"
+      },
+      {
+        "riga": 639,
+        "x": 586,
+        "valore": "84",
+        "come": "OCR legge altro; a vista: 84",
+        "seconda": "DATI-AFM.md: VY a 1157 kg 85 / 84 / 83 / 82 MPH a SL / 5000 / 10000 / 15000 ft; e la terna 135 km/h = 72,9 kts = 83,9 MPH torna"
+      },
+      {
+        "riga": 621,
+        "x": 802,
+        "valore": "11,7",
+        "come": "OCR legge altro; a vista: 11,7",
+        "seconda": "DATI-AFM.md: carburante di salita a 1157 kg 4,9 L al livello del mare, 11,7 L a 5000 ft, 20,1 L a 10000 ft"
+      },
+      {
+        "riga": 808,
+        "x": 300,
+        "valore": "70",
+        "come": "OCR legge altro; a vista: 70",
+        "seconda": "la terna torna: 129 km/h = 69,7 kts = 80,2 MPH (129 km/h e 80 MPH nella stessa cella); DATI-AFM.md: VY a 850 kg 80 MPH al livello del mare"
+      },
+      {
+        "riga": 733,
+        "x": 878,
+        "valore": "80",
+        "come": "OCR legge altro; a vista: 80",
+        "seconda": "la terna torna: 129 km/h = 69,7 kts = 80,2 MPH; DATI-AFM.md: VY a 1000 kg 82 / 81 / 80 / 79 MPH (a 10000 ft 80)"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "FUEL",
+        "base": 506,
+        "come": "la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di \"RATE OF\" della cella accanto, che nella scansione tocca il filetto"
+      },
+      {
+        "testo": "USED",
+        "base": 524,
+        "come": "la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di \"RATE OF\" della cella accanto, che nella scansione tocca il filetto"
+      },
+      {
+        "testo": "Litres",
+        "base": 542,
+        "come": "la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di \"RATE OF\" della cella accanto, che nella scansione tocca il filetto"
+      }
+    ],
+    "dati": [
+      "Figura 5-6: VY a 1157 / 1000 / 850 kg = 85-84-83-82 / 82-81-80-79 / 80-78-77-76 MPH a SL, 5000, 10000, 15000 ft = DATI-AFM.md ✓; ratei al livello del mare 880 / 1120 / 1420 ft/min = DATI-AFM.md ✓; carburante a 1157 kg 4,9 / 11,7 / 20,1 L = DATI-AFM.md ✓; ogni terna km/h - kts - MPH torna (controllo in costruisci/5-11.py) ✓; temperature: atmosfera standard ✓"
+    ]
   }
 }

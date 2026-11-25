@@ -66,6 +66,17 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 | 4-14 | ricostruita | 34/34 | 0 | 6 (4 con 2+ conferme) | 0 | 10.3% | **verificata** |
 | 4-15 | ricostruita | 39/39 | 0 | 19 (17 con 2+ conferme) | 0 | 8.4% | **verificata** |
 | 4-16 | ricostruita | 12/12 | 0 | 2 (2 con 2+ conferme) | 0 | 7.8% | **verificata** |
+| 5-1 | ricostruita | 17/17 | 0 | 2 (2 con 2+ conferme) | 0 | 6.9% | **verificata** |
+| 5-2 | ricostruita | 303/303 | 0 | 279 (279 con 2+ conferme) | 0 | 5.1% | **verificata** |
+| 5-3 | ricostruita | 292/292 | 0 | 268 (268 con 2+ conferme) | 0 | 4.5% | **verificata** |
+| 5-4 | ricostruita | 270/270 | 0 | 246 (246 con 2+ conferme) | 0 | 7.7% | **verificata** |
+| 5-5 | ricostruita | 259/259 | 0 | 235 (235 con 2+ conferme) | 0 | 5.5% | **verificata** |
+| 5-6 | ricostruita | 160/160 | 0 | 136 (136 con 2+ conferme) | 0 | 4.4% | **verificata** |
+| 5-7 | ricostruita | 129/129 | 0 | 97 (97 con 2+ conferme) | 0 | 5.1% | **verificata** |
+| 5-8 | ricostruita | 57/57 | 0 | 46 (46 con 2+ conferme) | 0 | 7.1% | **verificata** |
+| 5-9 | ricostruita | 164/164 | 0 | 124 (124 con 2+ conferme) | 0 | 5.6% | **verificata** |
+| 5-10 | ricostruita | 72/72 | 0 | 33 (33 con 2+ conferme) | 0 | 5.7% | **verificata** |
+| 5-11 | ricostruita | 115/115 | 0 | 79 (79 con 2+ conferme) | 0 | 4.3% | **verificata** |
 | 5-12 | campione | 26/26 | 0 | 17 (17 con 2+ conferme) | 0 | 7.1% | **verificata** |
 
 ## Figure: metodo
@@ -96,6 +107,17 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 - **Figura 4-1 (Exterior inspection), seconda meta'** (pagina 4-3): filetti spessi misurati (poligoni), numeri cerchiati: ellissi SVG misurate (la scansione e' compressa in orizzontale) con la cifra come testo vero. Il lato destro della cornice (filetto verticale) nella scansione e' sbiadito in alto: si disegna continuo.
 - **Figura 4-2 (Taxiing diagram)** (pagina 4-8): cornice: poligoni misurati; aeroplano, frecce e settori: tratto vettorializzato con potrace dalla scansione ingrandita, i settori a retino come campitura grigia piena (tratto.py --retino); scritte: testo vero (posizioni dall'OCR dell'ingrandimento, testo letto a vista, linea di base dall'inchiostro). Le scritte minute sul cruscotto dell'aeroplano restano disegno (costruisci/4-8.py).
 - **Figura 4-3 (Maximum cruise speed performance)** (pagina 4-12): tabella ricostruita: filetti SVG misurati (spessore compreso, doppi dove sono doppi) e testo vero nelle celle.
+- **Grafica della sezione (barre e frecce)** (pagina 5-1): ridisegnata in SVG: rettangolo e poligoni misurati sulla scansione (le barre sono un poco inclinate come stampate).
+- **Figura 5-1 (Cruise performance), foglio 1 di 5** (pagina 5-2): tabella ricostruita: filetti SVG misurati e testo vero; i numeri letti due volte (Tesseract cella per cella e strato di testo del PDF) e scelti con l'aritmetica della riga (km/h, kts e MPH; galloni e litri; autonomia = 46 galloni / consumo; autonomia e distanza; km e miglia nautiche); quelli su cui le letture non erano d'accordo guardati a vista (costruisci/crociera.py).
+- **Figura 5-1 (Cruise performance), foglio 2 di 5** (pagina 5-3): tabella ricostruita: filetti SVG misurati e testo vero; i numeri letti due volte (Tesseract cella per cella e strato di testo del PDF) e scelti con l'aritmetica della riga (km/h, kts e MPH; galloni e litri; autonomia = 46 galloni / consumo; autonomia e distanza; km e miglia nautiche); quelli su cui le letture non erano d'accordo guardati a vista (costruisci/crociera.py).
+- **Figura 5-1 (Cruise performance), foglio 3 di 5** (pagina 5-4): tabella ricostruita: filetti SVG misurati e testo vero; i numeri letti due volte (Tesseract cella per cella e strato di testo del PDF) e scelti con l'aritmetica della riga (km/h, kts e MPH; galloni e litri; autonomia = 46 galloni / consumo; autonomia e distanza; km e miglia nautiche); quelli su cui le letture non erano d'accordo guardati a vista (costruisci/crociera.py).
+- **Figura 5-1 (Cruise performance), foglio 4 di 5** (pagina 5-5): tabella ricostruita: filetti SVG misurati e testo vero; i numeri letti due volte (Tesseract cella per cella e strato di testo del PDF) e scelti con l'aritmetica della riga (km/h, kts e MPH; galloni e litri; autonomia = 46 galloni / consumo; autonomia e distanza; km e miglia nautiche); quelli su cui le letture non erano d'accordo guardati a vista (costruisci/crociera.py).
+- **Figura 5-1 (Cruise performance), foglio 5 di 5** (pagina 5-6): tabella ricostruita: filetti SVG misurati e testo vero; i numeri letti due volte (Tesseract cella per cella e strato di testo del PDF) e scelti con l'aritmetica della riga (km/h, kts e MPH; galloni e litri; autonomia = 46 galloni / consumo; autonomia e distanza; km e miglia nautiche); quelli su cui le letture non erano d'accordo guardati a vista (costruisci/crociera.py).
+- **Figura 5-2 (Airspeed correction table)** (pagina 5-7): tabella a griglia ricostruita: filetti misurati ai due capi, testo vero nelle celle (letto a vista; ogni coppia km/h e MPH controllata: km/h = MPH x 1,609), agganciato all'inchiostro cella per cella (costruisci/5-7.py).
+- **Figura 5-3 (Stall speeds)** (pagina 5-8): tabella ricostruita: filetti SVG misurati (spessore compreso, doppi dove sono doppi) e testo vero nelle celle, misurato cella per cella.
+- **Figura 5-4 (Take-off distance)** (pagina 5-9): tabella a griglia ricostruita: filetti misurati ai due capi, testo vero nelle celle (letto a vista, agganciato all'inchiostro riga per riga dentro ogni cella; costruisci/5-9.py).
+- **Figura 5-5 (Landing distance)** (pagina 5-10): tabella a griglia ricostruita: filetti misurati ai due capi, testo vero nelle celle (letto a vista, agganciato all'inchiostro riga per riga dentro ogni cella; costruisci/5-10.py).
+- **Figura 5-6 (Maximum rate-of-climb data)** (pagina 5-11): tabella a griglia ricostruita: filetti misurati ai due capi, testo vero nelle celle (letto a vista, ogni terna km/h, kts, MPH controllata; agganciato all'inchiostro riga per riga dentro ogni cella; costruisci/5-11.py).
 - **Figura 5-7 (Maximum glide)** (pagina 5-12): cornice e griglia: filetti SVG misurati; fascia di planata: 689 punti della retinatura ridisegnati uno per uno nella posizione misurata sulla scansione, piu' 117 punti ricavati dal reticolo locale solo dove si fondono con i filetti della griglia; aeroplano: disegno al tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto i filetti e i punti che lo attraversano (tools/afm-rec/afm-ccaf/figure/fig-5-7.py); scritte: testo vero, misurato parola per parola.
 
 ## Differenze aperte
@@ -117,6 +139,7 @@ Differenze della misura, non della pagina: guardate sull'ingrandimento (coordina
 | 3-6 | riga "swells and light wind, land parallel to swells." (base 639) | la riga e' al suo posto (ingrandimento della differenza: inizio e fine coincidono); la fascia prende in alto la coda di una lettera della riga sopra (la g di "high"), che nella ricostruita scende un pixel piu' in basso: e' quella a dare la fine 7 px piu' in la' |
 | 3-6 | riga "FLIGHT IN ICING CONDITIONS." (base 1165) | la riga e' al suo posto (ingrandimento); nella scansione la F tocca una barra della striscia stampata, e la verifica, che ignora la striscia (ridisegnata regolare), toglie con la barra anche l'asta della F dell'originale: per questo l'originale sembra cominciare 6 px dopo |
 | 4-2 | riga "1" (base 1437) | la cifra e' al suo posto (ingrandimento); la fascia di controllo prende anche l'anello del cerchio, che nella ricostruita e' un'ellisse misurata un poco diversa |
+| 4-2 | riga "Figure" (base 1678) | la parola e' al suo posto (ingrandimento: base a 1678, fine e inizio coincidono); la fascia di controllo comincia 12 px prima e prende la punta del filetto spesso della cornice (finisce a x 916, alto 12 px), che sposta la misura della linea di base |
 | 4-3 | riga "4-1." (base 1633) | la riga e' al suo posto (ingrandimento); la fascia di controllo, larga 6 px oltre la parola, prende in alto il fondo del cerchio dell'8 (riga 1602), che nella ricostruita e' un'ellisse un poco diversa |
 | 4-3 | riga "Edition: 3" (base 273) | la scansione taglia il bordo destro: del 3 resta un pezzetto; la ricostruita lo scrive intero, percio' finisce piu' in la' |
 | 4-3 | riga "4" (base 579) | la cifra cerchiata e' al suo posto (ingrandimento: coincide); il 4 ha la traversa a meta' altezza, e la misura della linea di base dell'inchiostro, che cerca il calo piu' basso, nella banda stretta della cifra prende quella invece del piede |
@@ -130,6 +153,31 @@ Differenze della misura, non della pagina: guardate sull'ingrandimento (coordina
 | 4-15 | riga "Page: 4-15" (base 232) | la scansione taglia il bordo destro della pagina: del numero resta "4-1" e l'attacco del 5; la ricostruita lo scrive intero (la pagina viene fra 4-14 e 4-16), percio' finisce piu' in la' |
 | 4-15 | riga "Edition: 3" (base 264) | la scansione taglia il bordo destro: del 3 resta un pezzetto; la ricostruita lo scrive intero, percio' finisce piu' in la' |
 | 4-16 | riga "Page: 4-16" (base 361) | la scansione taglia il bordo sinistro della pagina: della P di "Page:" resta poco; la ricostruita la scrive intera, al margine delle altre righe ("Engine", intera, comincia a x 229), percio' comincia prima |
+| 5-1 | macchia, riquadro 940, 300, 1000, 362 | la V di "SECTION V": nella scansione il titolo e' stampato un poco storto (sale verso destra) e la V e' piu' sottile in cima ai bracci e in punta; la ricostruita, dritta, sporge di qualche pixel |
+| 5-3 | riga "2600" (base 512) | la riga e' al suo posto (ingrandimento); nella scansione accanto al numero c'e' un segno di sporco (un puntino), che la verifica conta come inchiostro della riga (a sinistra del 2600) |
+| 5-3 | riga "711" (base 612) | la riga e' al suo posto (ingrandimento); nella scansione accanto al numero c'e' un segno di sporco (un puntino), che la verifica conta come inchiostro della riga (a destra del 711) |
+| 5-3 | riga "677" (base 629) | la riga e' al suo posto (ingrandimento); nella scansione accanto al numero c'e' un segno di sporco (un puntino), che la verifica conta come inchiostro della riga (a destra del 677) |
+| 5-3 | riga "779" (base 579) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-3 | riga "9,7" (base 716) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-3 | riga "998" (base 545) | il numero e' al suo posto (ingrandimento); nella scansione c'e' un puntino di sporco 10 px prima del 998 (lo strato di testo del PDF lo legge come •998), che non si ricostruisce e che la fascia di controllo conta come inchiostro della riga |
+| 5-4 | riga "4,7" (base 487) | la riga e' al suo posto (ingrandimento della pagina girata: coincide); e' accanto a un filetto della tabella, la fascia di controllo resta stretta e la misura della linea di base, che cerca il calo piu' basso, la prende sulla virgola |
+| 5-4 | riga "6,5" (base 725) | la riga e' al suo posto (ingrandimento della pagina girata: coincide); e' accanto a un filetto della tabella, la fascia di controllo resta stretta e la misura della linea di base, che cerca il calo piu' basso, la prende sulla virgola |
+| 5-4 | riga "630" (base 725) | la riga e' al suo posto (ingrandimento); e' l'ultima del gruppo, sopra il filetto: la fascia di controllo resta stretta e la misura della linea di base ne risente |
+| 5-4 | riga "610" (base 725) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-4 | riga "18" (base 725) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-4 | riga "112" (base 725) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-4 | riga "7,1" (base 725) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-4 | riga "26,9" (base 725) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-4 | riga "1167" (base 725) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-5 | riga "7,1" (base 637) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-6 | riga "440" (base 570) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-6 | riga "7,7" (base 570) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-6 | riga "14" (base 690) | nella via di mezzo la pagina e' scalata: il numero sta a un pixel o due dal filetto del gruppo, la fascia di controllo resta strettissima e la misura della linea di base prende la cima delle cifre; nella prova normale la stessa riga coincide (zero differenze), e l'ingrandimento della via di mezzo mostra le cifre sovrapposte |
+| 5-9 | riga "GROSS" (base 399) | la parola e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima e prende il filetto sinistro della cornice, che nella scansione e' un poco storto |
+| 5-9 | riga "m" (base 514) | la m e' al suo posto (ingrandimento); e' una lettera sola, minuscola, e la misura della linea di base nella sua banda stretta prende la fascia sbagliata |
+| 5-11 | riga "FUEL" (base 506) | la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di "RATE OF" della cella accanto, che nella scansione tocca il filetto |
+| 5-11 | riga "USED" (base 524) | la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di "RATE OF" della cella accanto, che nella scansione tocca il filetto |
+| 5-11 | riga "Litres" (base 542) | la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di "RATE OF" della cella accanto, che nella scansione tocca il filetto |
 
 ## Numeri, uno per uno
 
@@ -1302,6 +1350,1647 @@ Confronto con i dati del progetto:
 |---|---|---|---|---|---|
 | 361 | 4-16 | 4-16 ✓ | ✓ |  | 2 |
 | 393 | 3 | 3 ✓ | ✓ |  | 2 |
+
+### Pagina 5-1 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 223 | 5-1 | 5-1 ✓ | ✓ |  | 2 |
+| 252 | 3 | 3 ✓ | ✓ |  | 2 |
+
+### Pagina 5-2 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 336 | 5-2 | 5-2 ✓ | – | ✓ a vista: Page: 5-2 · seconda conferma: posizione nel PDF: pagina 58, fra 5-1 (pagina 57) e 5-3 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 365 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 339 | 1157 | 1157 ✓ | ✓ |  | 2 |
+| 367 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 397 | 46 | 46 ✓ | ✓ |  | 2 |
+| 397 | (174 | (174 ✓ | ✓ |  | 2 |
+| 893 | 1 | 1 ✓ | ✓ |  | 2 |
+| 959 | 5-1 | 5-1 ✓ | ✓ |  | 2 |
+| 959 | 1 | 1 ✓ | ✓ |  | 2 |
+| 959 | 5). | 2).  | ✓ | ✓ a vista: (Sheet ... of 5). · seconda conferma: la figura 5-1 (Cruise Performance) ha cinque fogli, uno per quota (2500, 5000, 7500, 10000, 15000 piedi), alle pagine 5-2 ... 5-6: questo e' il foglio 1 | 3 |
+| 480 | 2600 | 2600 ✓ | ✓ |  | 2 |
+| 480 | 813 | B13  | ✓ | ✓ OCR legge B13; a vista: 813 · seconda conferma: la colonna torna: 24,0 in Hg x 33,86 = 813 mb; e lo strato di testo del PDF legge 813 | 3 |
+| 480 | 24 | 24 ✓ | ✓ |  | 2 |
+| 480 | 77 | 77 ✓ | ✓ |  | 2 |
+| 480 | 229 | 229 ✓ | ✓ |  | 2 |
+| 480 | 123 | 123 ✓ | ✓ |  | 2 |
+| 480 | 142 | 142 ✓ | ✓ |  | 2 |
+| 480 | 11,7 | 11,7 ✓ | ✓ |  | 2 |
+| 480 | 44,3 | 44,3 ✓ | ✓ |  | 2 |
+| 480 | 3,9 | 3,9 ✓ | ✓ |  | 2 |
+| 480 | 901 | 901 ✓ | ✓ |  | 2 |
+| 480 | 487 | 487 ✓ | ✓ |  | 2 |
+| 496 | 779 | 779 ✓ | ✓ |  | 2 |
+| 496 | 23 | 23 ✓ | ✓ |  | 2 |
+| 496 | 72 | 72 ✓ | ✓ |  | 2 |
+| 496 | 222 | 222 ✓ | ✓ |  | 2 |
+| 496 | 120 | 120 ✓ | ✓ |  | 2 |
+| 496 | 138 | 138 ✓ | ✓ |  | 2 |
+| 496 | 11,0 | 11,0 ✓ | ✓ |  | 2 |
+| 496 | 41,6 | 41,6 ✓ | ✓ |  | 2 |
+| 496 | 4,2 | 4,2 ✓ | ✓ |  | 2 |
+| 496 | 933 | 933 ✓ | ✓ |  | 2 |
+| 496 | 504 | 504 ✓ | ✓ |  | 2 |
+| 512 | 745 | 745 ✓ | ✓ |  | 2 |
+| 512 | 22 | 22 ✓ | ✓ |  | 2 |
+| 512 | 67 | 67 ✓ | ✓ |  | 2 |
+| 512 | 216 | 216 ✓ | ✓ |  | 2 |
+| 512 | 116 | 118  | ✓ | ✓ OCR legge 118; a vista: 116 · seconda conferma: la riga torna: 216,0 km/h / 1,852 = 116,6 kts; e lo strato di testo del PDF legge 116 | 3 |
+| 512 | 134 | 134 ✓ | ✓ |  | 2 |
+| 512 | 10,2 | 10,2 ✓ | ✓ |  | 2 |
+| 512 | 38,6 | 38,6 ✓ | ✓ |  | 2 |
+| 512 | 4,5 | 4,5 ✓ | ✓ |  | 2 |
+| 512 | 974 | 974 ✓ | ✓ |  | 2 |
+| 512 | 526 | 526 ✓ | ✓ |  | 2 |
+| 528 | 711 | 711 ✓ | ✓ |  | 2 |
+| 528 | 21 | 2  | ✓ | ✓ OCR legge 2; a vista: 21 · seconda conferma: la colonna torna: 711,0 mb / 33,86 = 21.0 in Hg; e lo strato di testo del PDF legge 21 | 3 |
+| 528 | 62 | 82  | ✓ | ✓ OCR legge 82; a vista: 62 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 62 | 3 |
+| 528 | 209 | 208  | ✓ | ✓ OCR legge 208; a vista: 209 · seconda conferma: la riga torna: 113,0 kts x 1,852 = 209,3 km/h, 130,0 MPH x 1,609 = 209,2 km/h; e lo strato di testo del PDF legge 209 | 3 |
+| 528 | 113 | 113 ✓ | ✓ |  | 2 |
+| 528 | 130 | 130 ✓ | ✓ |  | 2 |
+| 528 | 9,5 | 9,5 ✓ | ✓ |  | 2 |
+| 528 | 36,0 | 36,0 ✓ | ✓ |  | 2 |
+| 528 | 4,8 | 4,8 ✓ | ✓ |  | 2 |
+| 528 | 1006 | 1006 ✓ | ✓ |  | 2 |
+| 528 | 543 | 543 ✓ | ✓ |  | 2 |
+| 548 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 548 | 847 | B47  | ✓ | ✓ OCR legge B47; a vista: 847 · seconda conferma: la colonna torna: 25,0 in Hg x 33,86 = 847 mb; e lo strato di testo del PDF legge 847 | 3 |
+| 548 | 25 | 26  | ✓ | ✓ OCR legge 26; a vista: 25 · seconda conferma: la colonna torna: 847,0 mb / 33,86 = 25.0 in Hg; e lo strato di testo del PDF legge 25 | 3 |
+| 548 | 78 | 78 ✓ | ✓ |  | 2 |
+| 548 | 229 | 229 ✓ | ✓ |  | 2 |
+| 548 | 123 | 123 ✓ | ✓ |  | 2 |
+| 548 | 142 | 142 ✓ | ✓ |  | 2 |
+| 548 | 11,8 | 11,8 ✓ | ✓ |  | 2 |
+| 548 | 44,7 | 44,7 ✓ | ✓ |  | 2 |
+| 548 | 3,9 | 3,9 ✓ | ✓ |  | 2 |
+| 548 | 893 | 893 ✓ | ✓ |  | 2 |
+| 548 | 482 | 482 ✓ | ✓ |  | 2 |
+| 564 | 813 | 813 ✓ | ✓ |  | 2 |
+| 564 | 24 | 24 ✓ | ✓ |  | 2 |
+| 564 | 73 | 73 ✓ | ✓ |  | 2 |
+| 564 | 224 | 224 ✓ | ✓ |  | 2 |
+| 564 | 121 | 1271  | ✓ | ✓ OCR legge 1271; a vista: 121 · seconda conferma: la riga torna: 224,0 km/h / 1,852 = 121,0 kts; e lo strato di testo del PDF legge 121 | 3 |
+| 564 | 139 | 139 ✓ | ✓ |  | 2 |
+| 564 | 11,1 | 11,1 ✓ | ✓ |  | 2 |
+| 564 | 42,0 | 42,0 ✓ | ✓ |  | 2 |
+| 564 | 4,1 | 4,1 ✓ | ✓ |  | 2 |
+| 564 | 925 | 925 ✓ | ✓ |  | 2 |
+| 564 | 500 | 500 ✓ | ✓ |  | 2 |
+| 580 | 779 | 779 ✓ | ✓ |  | 2 |
+| 580 | 23 | 23 ✓ | ✓ |  | 2 |
+| 580 | 69 | 69 ✓ | ✓ |  | 2 |
+| 580 | 219 | 219 ✓ | ✓ |  | 2 |
+| 580 | 118 | 118 ✓ | ✓ |  | 2 |
+| 580 | 136 | 136 ✓ | ✓ |  | 2 |
+| 580 | 10,5 | 10,5 ✓ | ✓ |  | 2 |
+| 580 | 39,7 | 39,7 ✓ | ✓ |  | 2 |
+| 580 | 4,4 | 4,4 ✓ | ✓ |  | 2 |
+| 580 | 958 | 958 ✓ | ✓ |  | 2 |
+| 580 | 517 | 517 ✓ | ✓ |  | 2 |
+| 596 | 745 | 745 ✓ | ✓ |  | 2 |
+| 596 | 22 | 22 ✓ | ✓ |  | 2 |
+| 596 | 64 | SA  | ✓ | ✓ OCR legge SA; a vista: 64 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 64 | 3 |
+| 596 | 211 | 211 ✓ | – | ✓ OCR legge 211; a vista: 211 · seconda conferma: la riga torna: 114,0 kts x 1,852 = 211,1 km/h, 131,0 MPH x 1,609 = 210,8 km/h | 3 |
+| 596 | 114 | 114 ✓ | ✓ |  | 2 |
+| 596 | 131 | 131 ✓ | ✓ |  | 2 |
+| 596 | 9,8 | 9,8 ✓ | ✓ |  | 2 |
+| 596 | 37,1 | 37,1 ✓ | ✓ |  | 2 |
+| 596 | 4,7 | 4,7 ✓ | ✓ |  | 2 |
+| 596 | 990 | 990 ✓ | ✓ |  | 2 |
+| 596 | 534 | 534 ✓ | ✓ |  | 2 |
+| 615 | 2400 | 2400 ✓ | ✓ |  | 2 |
+| 615 | 847 | 847 ✓ | ✓ |  | 2 |
+| 615 | 25 | 25 ✓ | ✓ |  | 2 |
+| 615 | 73 | 73 ✓ | ✓ |  | 2 |
+| 615 | 224 | 224 ✓ | ✓ |  | 2 |
+| 615 | 121 | 121 ✓ | ✓ |  | 2 |
+| 615 | 139 | 139 ✓ | ✓ |  | 2 |
+| 615 | 11,1 | 11,1 ✓ | ✓ |  | 2 |
+| 615 | 42,0 | 42,0 ✓ | ✓ |  | 2 |
+| 615 | 4,1 | 4,1 ✓ | ✓ |  | 2 |
+| 615 | 925 | 925 ✓ | ✓ |  | 2 |
+| 615 | 500 | 500 ✓ | ✓ |  | 2 |
+| 632 | 813 | 813 ✓ | ✓ |  | 2 |
+| 632 | 24 | 24 ✓ | ✓ |  | 2 |
+| 632 | 69 | 69 ✓ | ✓ |  | 2 |
+| 632 | 219 | 219 ✓ | ✓ |  | 2 |
+| 632 | 118 | 118 ✓ | ✓ |  | 2 |
+| 632 | 136 | 136 ✓ | ✓ |  | 2 |
+| 632 | 10,5 | 10,5 ✓ | ✓ |  | 2 |
+| 632 | 39,7 | 39,7 ✓ | ✓ |  | 2 |
+| 632 | 4,4 | 4,4 ✓ | ✓ |  | 2 |
+| 632 | 958 | 958 ✓ | ✓ |  | 2 |
+| 632 | 517 | 517 ✓ | ✓ |  | 2 |
+| 648 | 779 | 779 ✓ | ✓ |  | 2 |
+| 648 | 23 | 23 ✓ | ✓ |  | 2 |
+| 648 | 65 | 65 ✓ | ✓ |  | 2 |
+| 648 | 212 | 212 ✓ | ✓ |  | 2 |
+| 648 | 115 | 115 ✓ | ✓ |  | 2 |
+| 648 | 132 | 132 ✓ | ✓ |  | 2 |
+| 648 | 9,8 | 9,8 ✓ | ✓ |  | 2 |
+| 648 | 37,1 | 37,1 ✓ | – | ✓ OCR legge 37,1; a vista: 37,1 · seconda conferma: la riga torna: 9,8 galloni x 3,785 = 37.09 litri | 3 |
+| 648 | 4,7 | 4,7 ✓ | ✓ |  | 2 |
+| 648 | 990 | 390  | ✓ | ✓ OCR legge 390; a vista: 990 · seconda conferma: la riga torna: 46 / 9,8 galloni all'ora x 212,0 km/h = 995 km; 534,0 NM x 1,852 = 989 km; e lo strato di testo del PDF legge 990 | 3 |
+| 648 | 534 | 534 ✓ | ✓ |  | 2 |
+| 664 | 745 | 745 ✓ | ✓ |  | 2 |
+| 664 | 22 | 22 ✓ | ✓ |  | 2 |
+| 664 | 60 | ss  | ✓ | ✓ OCR legge ss; a vista: 60 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 60 | 3 |
+| 664 | 206 | 206 ✓ | ✓ |  | 2 |
+| 664 | 111 | 117  | ✓ | ✓ OCR legge 117; a vista: 111 · seconda conferma: la riga torna: 206,0 km/h / 1,852 = 111,2 kts; e lo strato di testo del PDF legge 111 | 3 |
+| 664 | 128 | 128 ✓ | ✓ |  | 2 |
+| 664 | 9,2 | 9,2 ✓ | ✓ |  | 2 |
+| 664 | 34,8 | 34,8 ✓ | ✓ |  | 2 |
+| 664 | 5,0 | 5,0 ✓ | ✓ |  | 2 |
+| 664 | 1022 | 1022 ✓ | ✓ |  | 2 |
+| 664 | 552 | 552 ✓ | ✓ |  | 2 |
+| 684 | 2300 | 2300 ✓ | ✓ |  | 2 |
+| 684 | 847 | 847 ✓ | ✓ |  | 2 |
+| 684 | 25 | 25 ✓ | ✓ |  | 2 |
+| 684 | 68 | 68 ✓ | ✓ |  | 2 |
+| 684 | 217 | 217 ✓ | – | ✓ OCR legge 217; a vista: 217 · seconda conferma: la riga torna: 117,0 kts x 1,852 = 216,7 km/h, 135,0 MPH x 1,609 = 217,2 km/h | 3 |
+| 684 | 117 | 117 ✓ | ✓ |  | 2 |
+| 684 | 135 | 135 ✓ | – | ✓ OCR legge 135; a vista: 135 · seconda conferma: la riga torna: 217,0 km/h / 1,609 = 134,9 MPH | 3 |
+| 684 | 10,4 | 10,4 ✓ | ✓ |  | 2 |
+| 684 | 39,4 | 39,4 ✓ | ✓ |  | 2 |
+| 684 | 4,4 | 4,4 ✓ | ✓ |  | 2 |
+| 684 | 966 | S66  | ✓ | ✓ OCR legge S66; a vista: 966 · seconda conferma: la riga torna: 46 / 10,4 galloni all'ora x 217,0 km/h = 960 km; 521,0 NM x 1,852 = 965 km; e lo strato di testo del PDF legge 966 | 3 |
+| 684 | 521 | 521 ✓ | ✓ |  | 2 |
+| 700 | 813 | 813 ✓ | ✓ |  | 2 |
+| 700 | 24 | 24 ✓ | ✓ |  | 2 |
+| 700 | 64 | 64 ✓ | ✓ |  | 2 |
+| 700 | 211 | 211 ✓ | ✓ |  | 2 |
+| 700 | 114 | 114 ✓ | ✓ |  | 2 |
+| 700 | 131 | 131 ✓ | ✓ |  | 2 |
+| 700 | 9,8 | 9,8 ✓ | ✓ |  | 2 |
+| 700 | 37,1 | 37,1 ✓ | ✓ |  | 2 |
+| 700 | 4,7 | 4,7 ✓ | ✓ |  | 2 |
+| 700 | 990 | 390  | ✓ | ✓ OCR legge 390; a vista: 990 · seconda conferma: la riga torna: 46 / 9,8 galloni all'ora x 211,0 km/h = 990 km; 534,0 NM x 1,852 = 989 km; e lo strato di testo del PDF legge 990 | 3 |
+| 700 | 534 | 534 ✓ | ✓ |  | 2 |
+| 716 | 779 | 7793  | ✓ | ✓ OCR legge 7793; a vista: 779 · seconda conferma: la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779 | 3 |
+| 716 | 23 | 23 ✓ | ✓ |  | 2 |
+| 716 | 60 | 50  | ✓ | ✓ OCR legge 50; a vista: 60 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 60 | 3 |
+| 716 | 206 | 206 ✓ | ✓ |  | 2 |
+| 716 | 111 | 117  | ✓ | ✓ OCR legge 117; a vista: 111 · seconda conferma: la riga torna: 206,0 km/h / 1,852 = 111,2 kts; e lo strato di testo del PDF legge 111 | 3 |
+| 716 | 128 | 128 ✓ | ✓ |  | 2 |
+| 716 | 9,2 | 9,2 ✓ | ✓ |  | 2 |
+| 716 | 34,8 | 34,8 ✓ | ✓ |  | 2 |
+| 716 | 5,0 | 5,0 ✓ | ✓ |  | 2 |
+| 716 | 1030 | 1030 ✓ | ✓ |  | 2 |
+| 716 | 556 | 556 ✓ | ✓ |  | 2 |
+| 732 | 745 | 745 ✓ | ✓ |  | 2 |
+| 732 | 22 | 22 ✓ | ✓ |  | 2 |
+| 732 | 56 | 56 ✓ | ✓ |  | 2 |
+| 732 | 198 | 198 ✓ | ✓ |  | 2 |
+| 732 | 107 | 107 ✓ | ✓ |  | 2 |
+| 732 | 123 | 123 ✓ | ✓ |  | 2 |
+| 732 | 8,6 | 8,6 ✓ | ✓ |  | 2 |
+| 732 | 32,6 | 32,6 ✓ | ✓ |  | 2 |
+| 732 | 5,3 | 5.3 ✓ | ✓ |  | 2 |
+| 732 | 1062 | 1062 ✓ | ✓ |  | 2 |
+| 732 | 574 | 574 ✓ | ✓ |  | 2 |
+| 752 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 752 | 847 | 847 ✓ | ✓ |  | 2 |
+| 752 | 25 | 25 ✓ | ✓ |  | 2 |
+| 752 | 63 | 63 ✓ | ✓ |  | 2 |
+| 752 | 211 | 211 ✓ | ✓ |  | 2 |
+| 752 | 114 | 114 ✓ | ✓ |  | 2 |
+| 752 | 131 | 131 ✓ | ✓ |  | 2 |
+| 752 | 9,7 | S,7  | ✓ | ✓ OCR legge S,7; a vista: 9,7 · seconda conferma: la riga torna: 36,7 litri / 3,785 = 9.70 galloni; 46 galloni / 9,7 = 4.74 ore (4,8 stampate); e lo strato di testo del PDF legge 9,7 | 3 |
+| 752 | 36,7 | 36,7 ✓ | ✓ |  | 2 |
+| 752 | 4,8 | 4,8 ✓ | ✓ |  | 2 |
+| 752 | 998 | 938  | ✓ | ✓ OCR legge 938; a vista: 998 · seconda conferma: la riga torna: 46 / 9,7 galloni all'ora x 211,0 km/h = 1001 km; 539,0 NM x 1,852 = 998 km; e lo strato di testo del PDF legge 998 | 3 |
+| 752 | 539 | 539 ✓ | ✓ |  | 2 |
+| 768 | 813 | 813 ✓ | ✓ |  | 2 |
+| 768 | 24 | 24 ✓ | ✓ |  | 2 |
+| 768 | 60 | 60 ✓ | ✓ |  | 2 |
+| 768 | 204 | 204 ✓ | ✓ |  | 2 |
+| 768 | 110 | 110 ✓ | ✓ |  | 2 |
+| 768 | 127 | 127 ✓ | ✓ |  | 2 |
+| 768 | 9,1 | 9,1 ✓ | ✓ |  | 2 |
+| 768 | 34,4 | 34,4 ✓ | ✓ |  | 2 |
+| 768 | 5,0 | 5,0 ✓ | ✓ |  | 2 |
+| 768 | 1030 | 1030 ✓ | ✓ |  | 2 |
+| 768 | 556 | 556 ✓ | ✓ |  | 2 |
+| 784 | 779 | 773  | ✓ | ✓ OCR legge 773; a vista: 779 · seconda conferma: la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779 | 3 |
+| 784 | 23 | 23 ✓ | ✓ |  | 2 |
+| 784 | 56 | 56 ✓ | ✓ |  | 2 |
+| 784 | 198 | 198 ✓ | ✓ |  | 2 |
+| 784 | 107 | 107 ✓ | ✓ |  | 2 |
+| 784 | 123 | 123 ✓ | ✓ |  | 2 |
+| 784 | 8,6 | 8,6 ✓ | ✓ |  | 2 |
+| 784 | 32,6 | 32,6 ✓ | ✓ |  | 2 |
+| 784 | 5,4 | 5,4 ✓ | ✓ |  | 2 |
+| 784 | 1062 | 1062 ✓ | ✓ |  | 2 |
+| 784 | 574 | 574 ✓ | ✓ |  | 2 |
+| 800 | 745 | 745 ✓ | ✓ |  | 2 |
+| 800 | 22 | 22 ✓ | ✓ |  | 2 |
+| 800 | 52 | 52 ✓ | ✓ |  | 2 |
+| 800 | 192 | 192 ✓ | ✓ |  | 2 |
+| 800 | 103 | 103 ✓ | ✓ |  | 2 |
+| 800 | 119 | 119 ✓ | ✓ |  | 2 |
+| 800 | 8,0 | 8,0 ✓ | ✓ |  | 2 |
+| 800 | 30,3 | 30,3 ✓ | ✓ |  | 2 |
+| 800 | 5,7 | 5,7 ✓ | ✓ |  | 2 |
+| 800 | 1094 | 1034  | ✓ | ✓ OCR legge 1034; a vista: 1094 · seconda conferma: la riga torna: 46 / 8,0 galloni all'ora x 192,0 km/h = 1104 km; 591,0 NM x 1,852 = 1095 km; e lo strato di testo del PDF legge 1094 | 3 |
+| 800 | 591 | 591 ✓ | ✓ |  | 2 |
+| 816 | 711 | 711 ✓ | ✓ |  | 2 |
+| 816 | 21 | 21 ✓ | ✓ |  | 2 |
+| 816 | 48 | 48 ✓ | ✓ |  | 2 |
+| 816 | 183 | 183 ✓ | ✓ |  | 2 |
+| 816 | 99 | 99 ✓ | ✓ |  | 2 |
+| 816 | 114 | 114 ✓ | ✓ |  | 2 |
+| 816 | 7,5 | 7,5 ✓ | ✓ |  | 2 |
+| 816 | 28,4 | 28,4 ✓ | ✓ |  | 2 |
+| 816 | 6,1 | 6,1 ✓ | ✓ |  | 2 |
+| 816 | 1118 | 1118 ✓ | ✓ |  | 2 |
+| 816 | 604 | 604 ✓ | ✓ |  | 2 |
+| 832 | 677 | 677 ✓ | ✓ |  | 2 |
+| 832 | 20 | 20 ✓ | ✓ |  | 2 |
+| 832 | 44 | 44 ✓ | ✓ |  | 2 |
+| 832 | 174 | 174 ✓ | ✓ |  | 2 |
+| 832 | 94 | 94 ✓ | ✓ |  | 2 |
+| 832 | 108 | 108 ✓ | ✓ |  | 2 |
+| 832 | 7,0 | 7,0 ✓ | ✓ |  | 2 |
+| 832 | 26,5 | 26,5 ✓ | ✓ |  | 2 |
+| 832 | 6,6 | 6,6 ✓ | ✓ |  | 2 |
+| 832 | 1143 | 1143 ✓ | ✓ |  | 2 |
+| 832 | 617 | 617 ✓ | ✓ |  | 2 |
+| 849 | 643 | 643 ✓ | ✓ |  | 2 |
+| 849 | 19 | 19 ✓ | ✓ |  | 2 |
+| 849 | 41 | 41 ✓ | ✓ |  | 2 |
+| 849 | 164 | 164 ✓ | ✓ |  | 2 |
+| 849 | 89 | 89 ✓ | ✓ |  | 2 |
+| 849 | 102 | 102 ✓ | ✓ |  | 2 |
+| 849 | 6,5 | 6,5 ✓ | ✓ |  | 2 |
+| 849 | 24,6 | 24,6 ✓ | ✓ |  | 2 |
+| 849 | 7,1 | 7,1 ✓ | ✓ |  | 2 |
+| 849 | 1159 | 1159s ✓ | ✓ |  | 2 |
+| 849 | 626 | 626 ✓ | ✓ |  | 2 |
+| 865 | 610 | 610 ✓ | ✓ |  | 2 |
+| 865 | 18 | 18 ✓ | ✓ |  | 2 |
+| 865 | 37 | 37 ✓ | ✓ |  | 2 |
+| 865 | 151 | 151 ✓ | ✓ |  | 2 |
+| 865 | 82 | 82 ✓ | ✓ |  | 2 |
+| 865 | 94 | BA  | ✓ | ✓ OCR legge BA; a vista: 94 · seconda conferma: la riga torna: 151,0 km/h / 1,609 = 93,8 MPH; e lo strato di testo del PDF legge 94 | 3 |
+| 865 | 6,0 | 6,0 ✓ | ✓ |  | 2 |
+| 865 | 22,7 | 22,7 ✓ | ✓ |  | 2 |
+| 865 | 7,7 | 7,7 ✓ | ✓ |  | 2 |
+| 865 | 1159 | 1153  | ✓ | ✓ OCR legge 1153; a vista: 1159 · seconda conferma: la riga torna: 46 / 6,0 galloni all'ora x 151,0 km/h = 1158 km; 626,0 NM x 1,852 = 1159 km; e lo strato di testo del PDF legge 1159 | 3 |
+| 865 | 626 | 626 ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro
+
+### Pagina 5-3 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 217 | 5-3 | 5-3 ✓ | – | ✓ a vista: Page: 5-3 · seconda conferma: posizione nel PDF: pagina 59, fra 5-2 e 5-4 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 250 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 371 | 1157 | 1157 ✓ | ✓ |  | 2 |
+| 399 | 5000 | 5000 ✓ | ✓ |  | 2 |
+| 429 | 46 | 46 ✓ | ✓ |  | 2 |
+| 429 | (174 | (174 ✓ | ✓ |  | 2 |
+| 927 | 1 | 1 ✓ | ✓ |  | 2 |
+| 994 | 5-1 | 5-1 ✓ | ✓ |  | 2 |
+| 994 | 2 | Pa  | ✓ | ✓ a vista: Figure 5-1 (Sheet 2 of 5). · seconda conferma: i cinque fogli della figura 5-1 sono alle pagine 5-2 ... 5-6: 5-3 e' il secondo (le didascalie di 5-2 e 5-4 dicono Sheet 1 e Sheet 3) | 3 |
+| 994 | 5). | S).  | ✓ | ✓ a vista: (Sheet ... of 5). · seconda conferma: la figura 5-1 (Cruise Performance) ha cinque fogli, uno per quota (2500, 5000, 7500, 10000, 15000 piedi), alle pagine 5-2 ... 5-6: questo e' il foglio 2 | 3 |
+| 512 | 2600 | 2600 ✓ | – | ✓ a vista: 2600 (con un puntino di sporco a sinistra) · seconda conferma: i gruppi di RPM di ogni foglio sono 2600, 2500, 2400, 2300, 2200; 2600 apre la tabella come negli altri quattro fogli | 3 |
+| 512 | 779 | 773  | ✓ | ✓ OCR legge 773; a vista: 779 · seconda conferma: la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779 | 3 |
+| 512 | 23 | 23 ✓ | ✓ |  | 2 |
+| 512 | 75 | 75 ✓ | ✓ |  | 2 |
+| 512 | 232 | 232 ✓ | ✓ |  | 2 |
+| 512 | 125 | 125 ✓ | ✓ |  | 2 |
+| 512 | 144 | 144 ✓ | ✓ |  | 2 |
+| 512 | 11,4 | 11,4 ✓ | ✓ |  | 2 |
+| 512 | 43,2 | 43,2 ✓ | ✓ |  | 2 |
+| 512 | 4,0 | 4,0 ✓ | ✓ |  | 2 |
+| 512 | 933 | 933 ✓ | ✓ |  | 2 |
+| 512 | 504 | 504 ✓ | – | ✓ OCR legge 504; a vista: 504 · seconda conferma: la riga torna: 933,0 km / 1,852 = 503.8 NM | 3 |
+| 528 | 745 | 745 ✓ | ✓ |  | 2 |
+| 528 | 22 | 22 ✓ | ✓ |  | 2 |
+| 528 | 71 | 71 ✓ | ✓ |  | 2 |
+| 528 | 225 | 225 ✓ | ✓ |  | 2 |
+| 528 | 122 | 122 ✓ | ✓ |  | 2 |
+| 528 | 140 | 140 ✓ | ✓ |  | 2 |
+| 528 | 10,7 | 10,7 ✓ | ✓ |  | 2 |
+| 528 | 40,5 | 40,5 ✓ | ✓ |  | 2 |
+| 528 | 4,3 | 4,3 ✓ | ✓ |  | 2 |
+| 528 | 966 | 966 ✓ | ✓ |  | 2 |
+| 528 | 521 | 521 ✓ | ✓ |  | 2 |
+| 545 | 711 | 711 ✓ | ✓ |  | 2 |
+| 545 | 21 | 21 ✓ | ✓ |  | 2 |
+| 545 | 66 | 66 ✓ | ✓ |  | 2 |
+| 545 | 219 | 219 ✓ | ✓ |  | 2 |
+| 545 | 118 | 118 ✓ | ✓ |  | 2 |
+| 545 | 136 | 136 ✓ | – | ✓ OCR legge 136; a vista: 136 · seconda conferma: la riga torna: 219,0 km/h / 1,609 = 136,1 MPH | 3 |
+| 545 | 10,0 | 10,0 ✓ | ✓ |  | 2 |
+| 545 | 37,9 | 37,9 ✓ | ✓ |  | 2 |
+| 545 | 4,6 | 4,6 ✓ | ✓ |  | 2 |
+| 545 | 998 | 998 ✓ | ✓ |  | 2 |
+| 545 | 539 | 539 ✓ | ✓ |  | 2 |
+| 561 | 677 | 677 ✓ | ✓ |  | 2 |
+| 561 | 20 | 20 ✓ | ✓ |  | 2 |
+| 561 | 61 | 61 ✓ | ✓ |  | 2 |
+| 561 | 211 | 211 ✓ | ✓ |  | 2 |
+| 561 | 114 | 114 ✓ | ✓ |  | 2 |
+| 561 | 131 | 131 ✓ | ✓ |  | 2 |
+| 561 | 9,3 | 9,3 ✓ | ✓ |  | 2 |
+| 561 | 35,2 | 35,2 ✓ | ✓ |  | 2 |
+| 561 | 4,9 | 4,9 ✓ | ✓ |  | 2 |
+| 561 | 1038 | 1038 ✓ | ✓ |  | 2 |
+| 561 | 560 | 560. ✓ | ✓ |  | 2 |
+| 579 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 579 | 779 | 779. ✓ | ✓ |  | 2 |
+| 579 | 23 | 23 ✓ | ✓ |  | 2 |
+| 579 | 72 | 72 ✓ | ✓ |  | 2 |
+| 579 | 227 | 227 ✓ | ✓ |  | 2 |
+| 579 | 123 | 123 ✓ | ✓ |  | 2 |
+| 579 | 141 | 141 ✓ | ✓ |  | 2 |
+| 579 | 11,0 | 11,0 ✓ | ✓ |  | 2 |
+| 579 | 41,6 | 41,6 ✓ | ✓ |  | 2 |
+| 579 | 4,2 | 4,2 ✓ | ✓ |  | 2 |
+| 579 | 958 | 958 ✓ | ✓ |  | 2 |
+| 579 | 517 | 517 ✓ | ✓ |  | 2 |
+| 596 | 745 | 745 ✓ | ✓ |  | 2 |
+| 596 | 22 | 22 ✓ | ✓ |  | 2 |
+| 596 | 68 | 68 ✓ | ✓ |  | 2 |
+| 596 | 220 | 220 ✓ | ✓ |  | 2 |
+| 596 | 119 | 119 ✓ | ✓ |  | 2 |
+| 596 | 137 | 437  | ✓ | ✓ OCR legge 437; a vista: 137 · seconda conferma: la riga torna: 220,0 km/h / 1,609 = 136,7 MPH; e lo strato di testo del PDF legge 137 | 3 |
+| 596 | 10,3 | 10,3 ✓ | ✓ |  | 2 |
+| 596 | 39,0 | 39,0 ✓ | ✓ |  | 2 |
+| 596 | 4,5 | 4,5 ✓ | ✓ |  | 2 |
+| 596 | 990 | 9930  | ✓ | ✓ OCR legge 9930; a vista: 990 · seconda conferma: la riga torna: 46 / 10,3 galloni all'ora x 220,0 km/h = 983 km; 534,0 NM x 1,852 = 989 km; e lo strato di testo del PDF legge 990 | 3 |
+| 596 | 534 | 534 ✓ | ✓ |  | 2 |
+| 612 | 711 | 711 ✓ | ✓ |  | 2 |
+| 612 | 21 | 21 ✓ | ✓ |  | 2 |
+| 612 | 63 | 63 ✓ | ✓ |  | 2 |
+| 612 | 214 | 214 ✓ | ✓ |  | 2 |
+| 612 | 116 | 116 ✓ | ✓ |  | 2 |
+| 612 | 133 | 133 ✓ | ✓ |  | 2 |
+| 612 | 9,6 | 3,6  | ✓ | ✓ OCR legge 3,6; a vista: 9,6 · seconda conferma: la riga torna: 36,3 litri / 3,785 = 9.59 galloni; 46 galloni / 9,6 = 4.79 ore (4,8 stampate); e lo strato di testo del PDF legge 9,6 | 3 |
+| 612 | 36,3 | 36,3 ✓ | ✓ |  | 2 |
+| 612 | 4,8 | 4,8 ✓ | ✓ |  | 2 |
+| 612 | 1022 | 1022 ✓ | ✓ |  | 2 |
+| 612 | 552 | 552 ✓ | ✓ |  | 2 |
+| 629 | 677 | 677 ✓ | ✓ |  | 2 |
+| 629 | 20 | 20 ✓ | ✓ |  | 2 |
+| 629 | 58 | 58 ✓ | ✓ |  | 2 |
+| 629 | 206 | 206 ✓ | ✓ |  | 2 |
+| 629 | 111 | 111 ✓ | ✓ |  | 2 |
+| 629 | 128 | 128 ✓ | ✓ |  | 2 |
+| 629 | 8,9 | 8.9 ✓ | ✓ |  | 2 |
+| 629 | 33,7 | 33,7 ✓ | ✓ |  | 2 |
+| 629 | 5,2 | 5,2 ✓ | ✓ |  | 2 |
+| 629 | 1062 | 1062 ✓ | ✓ |  | 2 |
+| 629 | 574 | 574 ✓ | ✓ |  | 2 |
+| 648 | 2400 | 2400 ✓ | ✓ |  | 2 |
+| 648 | 779 | 772  | ✓ | ✓ OCR legge 772; a vista: 779 · seconda conferma: la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779 | 3 |
+| 648 | 23 | 23 ✓ | ✓ |  | 2 |
+| 648 | 68 | 68 ✓ | ✓ |  | 2 |
+| 648 | 220 | 220 ✓ | ✓ |  | 2 |
+| 648 | 119 | 119 ✓ | ✓ |  | 2 |
+| 648 | 137 | 137 ✓ | ✓ |  | 2 |
+| 648 | 10,3 | 10,3 ✓ | ✓ |  | 2 |
+| 648 | 39,0 | 39,0 ✓ | ✓ |  | 2 |
+| 648 | 4,5 | 4,5 ✓ | ✓ |  | 2 |
+| 648 | 990 | 990 ✓ | ✓ |  | 2 |
+| 648 | 534 | 534 ✓ | ✓ |  | 2 |
+| 664 | 745 | 745 ✓ | ✓ |  | 2 |
+| 664 | 22 | 22 ✓ | ✓ |  | 2 |
+| 664 | 63 | 63 ✓ | ✓ |  | 2 |
+| 664 | 214 | 214 ✓ | ✓ |  | 2 |
+| 664 | 116 | 116 ✓ | ✓ |  | 2 |
+| 664 | 133 | 133 ✓ | ✓ |  | 2 |
+| 664 | 9,7 | 9,7 ✓ | ✓ |  | 2 |
+| 664 | 36,7 | 36,7 ✓ | ✓ |  | 2 |
+| 664 | 4,8 | 4,8 ✓ | ✓ |  | 2 |
+| 664 | 1022 | 1022 ✓ | ✓ |  | 2 |
+| 664 | 552 | 552 ✓ | ✓ |  | 2 |
+| 681 | 711 | 711 ✓ | ✓ |  | 2 |
+| 681 | 21 | 21 ✓ | ✓ |  | 2 |
+| 681 | 59 | 9  | ✓ | ✓ OCR legge 9; a vista: 59 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 59 | 3 |
+| 681 | 208 | 208 ✓ | ✓ |  | 2 |
+| 681 | 112 | 112 ✓ | ✓ |  | 2 |
+| 681 | 129 | 129 ✓ | ✓ |  | 2 |
+| 681 | 9,0 | 9,0 ✓ | ✓ |  | 2 |
+| 681 | 34,1 | 34,1 ✓ | ✓ |  | 2 |
+| 681 | 5,1 | 5,1 ✓ | ✓ |  | 2 |
+| 681 | 1054 | 1054 ✓ | ✓ |  | 2 |
+| 681 | 569 | 569 ✓ | ✓ |  | 2 |
+| 696 | 677 | 677 ✓ | ✓ |  | 2 |
+| 696 | 20 | 20 ✓ | ✓ |  | 2 |
+| 696 | 55 | 65  | ✓ | ✓ OCR legge 65; a vista: 55 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 55 | 3 |
+| 696 | 200 | 200 ✓ | ✓ |  | 2 |
+| 696 | 108 | 108 ✓ | ✓ |  | 2 |
+| 696 | 124 | 124 ✓ | ✓ |  | 2 |
+| 696 | 8,4 | 8,4 ✓ | ✓ |  | 2 |
+| 696 | 31,8 | 31.8 ✓ | ✓ |  | 2 |
+| 696 | 5,5 | 5,5 ✓ | ✓ |  | 2 |
+| 696 | 1094 | 1094, ✓ | ✓ |  | 2 |
+| 696 | 591 | 591 ✓ | ✓ |  | 2 |
+| 716 | 2300 | 2300 ✓ | ✓ |  | 2 |
+| 716 | 779 | 779 ✓ | ✓ |  | 2 |
+| 716 | 23 | 23 ✓ | ✓ |  | 2 |
+| 716 | 63, | 63, ✓ | ✓ |  | 2 |
+| 716 | 214 | 214 ✓ | ✓ |  | 2 |
+| 716 | 116 | 116 ✓ | ✓ |  | 2 |
+| 716 | 133 | 133 ✓ | ✓ |  | 2 |
+| 716 | 9,7 | 9,7 ✓ | – | ✓ OCR legge 9,7; a vista: 9,7 · seconda conferma: la riga torna: 36,7 litri / 3,785 = 9.70 galloni; 46 galloni / 9,7 = 4.74 ore (4,8 stampate) | 3 |
+| 716 | 36,7 | 36,7 ✓ | ✓ |  | 2 |
+| 716 | 4,8 | 4,8 ✓ | ✓ |  | 2 |
+| 716 | 1022 | 1022 ✓ | ✓ |  | 2 |
+| 716 | 552 | 552 ✓ | ✓ |  | 2 |
+| 733 | 745 | 745 ✓ | ✓ |  | 2 |
+| 733 | 22 | 22 ✓ | ✓ |  | 2 |
+| 733 | 59 | –  | ✓ | ✓ OCR legge (niente); a vista: 59 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 59 | 3 |
+| 733 | 208 | 208 ✓ | ✓ |  | 2 |
+| 733 | 112 | 112 ✓ | ✓ |  | 2 |
+| 733 | 129 | 129 ✓ | ✓ |  | 2 |
+| 733 | 9,0 | 93,0  | ✓ | ✓ OCR legge 93,0; a vista: 9,0 · seconda conferma: la riga torna: 34,1 litri / 3,785 = 9.01 galloni; 46 galloni / 9,0 = 5.11 ore (5,1 stampate); e lo strato di testo del PDF legge 9,0 | 3 |
+| 733 | 34,1 | 34,1 ✓ | ✓ |  | 2 |
+| 733 | 5,1 | 5,1 ✓ | ✓ |  | 2 |
+| 733 | 1054 | 1054 ✓ | ✓ |  | 2 |
+| 733 | 569 | 569 ✓ | ✓ |  | 2 |
+| 749 | 711 | 711 ✓ | ✓ |  | 2 |
+| 749 | 21 | 21 ✓ | ✓ |  | 2 |
+| 749 | 55 | 55 ✓ | ✓ |  | 2 |
+| 749 | 200 | 200 ✓ | ✓ |  | 2 |
+| 749 | 108 | 108 ✓ | ✓ |  | 2 |
+| 749 | 124 | 124 ✓ | ✓ |  | 2 |
+| 749 | 8,4 | 8,4 ✓ | ✓ |  | 2 |
+| 749 | 31,8 | 31,8 ✓ | – | ✓ OCR legge 31,8; a vista: 31,8 · seconda conferma: la riga torna: 8,4 galloni x 3,785 = 31.79 litri | 3 |
+| 749 | 5,4 | 5,4 ✓ | ✓ |  | 2 |
+| 749 | 1086 | 1086 ✓ | ✓ |  | 2 |
+| 749 | 587 | 587 ✓ | ✓ |  | 2 |
+| 765 | 677 | 677 ✓ | ✓ |  | 2 |
+| 765 | 20 | cJ  | ✓ | ✓ OCR legge cJ; a vista: 20 · seconda conferma: la colonna torna: 677,0 mb / 33,86 = 20.0 in Hg; e lo strato di testo del PDF legge 20 | 3 |
+| 765 | 51 | 51 ✓ | ✓ |  | 2 |
+| 765 | 192 | 192 ✓ | ✓ |  | 2 |
+| 765 | 103 | 103 ✓ | ✓ |  | 2 |
+| 765 | 119 | 119 ✓ | ✓ |  | 2 |
+| 765 | 7,9 | 7,2  | ✓ | ✓ OCR legge 7,2; a vista: 7,9 · seconda conferma: la riga torna: 29,9 litri / 3,785 = 7.90 galloni; 46 galloni / 7,9 = 5.82 ore (5,8 stampate); e lo strato di testo del PDF legge 7,9 | 3 |
+| 765 | 29,9 | 29,9 ✓ | ✓ |  | 2 |
+| 765 | 5,8 | 5,8 ✓ | ✓ |  | 2 |
+| 765 | 1118 | 1118 ✓ | ✓ |  | 2 |
+| 765 | 604 | 604 ✓ | ✓ |  | 2 |
+| 786 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 786 | 779 | 773  | ✓ | ✓ OCR legge 773; a vista: 779 · seconda conferma: la colonna torna: 23,0 in Hg x 33,86 = 779 mb; e lo strato di testo del PDF legge 779 | 3 |
+| 786 | 23 | 23 ✓ | ✓ |  | 2 |
+| 786 | 59 | 59 ✓ | ✓ |  | 2 |
+| 786 | 208 | 208 ✓ | ✓ |  | 2 |
+| 786 | 112 | 112 ✓ | ✓ |  | 2 |
+| 786 | 129 | 128  | ✓ | ✓ OCR legge 128; a vista: 129 · seconda conferma: la riga torna: 208,0 km/h / 1,609 = 129,3 MPH; e lo strato di testo del PDF legge 129 | 3 |
+| 786 | 9,0 | 9,0 ✓ | ✓ |  | 2 |
+| 786 | 34,1 | 34,1 ✓ | ✓ |  | 2 |
+| 786 | 5,1 | 5,1 ✓ | ✓ |  | 2 |
+| 786 | 1062 | 1062 ✓ | ✓ |  | 2 |
+| 786 | 574 | 574 ✓ | ✓ |  | 2 |
+| 802 | 745 | 745 ✓ | ✓ |  | 2 |
+| 802 | 22 | 22 ✓ | ✓ |  | 2 |
+| 802 | 55 | 55 ✓ | ✓ |  | 2 |
+| 802 | 200 | 200 ✓ | ✓ |  | 2 |
+| 802 | 108 | 108 ✓ | ✓ |  | 2 |
+| 802 | 124 | 124 ✓ | ✓ |  | 2 |
+| 802 | 8,5 | 8,5 ✓ | ✓ |  | 2 |
+| 802 | 32,2 | 32,2 ✓ | ✓ |  | 2 |
+| 802 | 5,4 | 5,4 ✓ | ✓ |  | 2 |
+| 802 | 1086 | 1086 ✓ | ✓ |  | 2 |
+| 802 | 587 | 587 ✓ | ✓ |  | 2 |
+| 818 | 711 | 711 ✓ | ✓ |  | 2 |
+| 818 | 21 | 21 ✓ | ✓ |  | 2 |
+| 818 | 51 | 51 ✓ | ✓ |  | 2 |
+| 818 | 193 | 193 ✓ | ✓ |  | 2 |
+| 818 | 104 | 104 ✓ | ✓ |  | 2 |
+| 818 | 120 | 120 ✓ | ✓ |  | 2 |
+| 818 | 7,9 | 7.9 ✓ | ✓ |  | 2 |
+| 818 | 29,9 | 29,9 ✓ | ✓ |  | 2 |
+| 818 | 5,8 | 5,8 ✓ | ✓ |  | 2 |
+| 818 | 1118 | 1118 ✓ | ✓ |  | 2 |
+| 818 | 604 | 604 ✓ | ✓ |  | 2 |
+| 835 | 677 | 677 ✓ | ✓ |  | 2 |
+| 835 | 20 | 20 ✓ | ✓ |  | 2 |
+| 835 | 47 | 47 ✓ | ✓ |  | 2 |
+| 835 | 183 | 183 ✓ | ✓ |  | 2 |
+| 835 | 99 | 99 ✓ | ✓ |  | 2 |
+| 835 | 114 | 114 ✓ | ✓ |  | 2 |
+| 835 | 7,4 | 7,4 ✓ | ✓ |  | 2 |
+| 835 | 28,0 | 28,0 ✓ | ✓ |  | 2 |
+| 835 | 6,2 | 6,2 ✓ | ✓ |  | 2 |
+| 835 | 1143 | 1143 ✓ | ✓ |  | 2 |
+| 835 | 617 | 617 ✓ | ✓ |  | 2 |
+| 851 | 643 | 643 ✓ | ✓ |  | 2 |
+| 851 | 19 | 19 ✓ | ✓ |  | 2 |
+| 851 | 43 | 43 ✓ | ✓ |  | 2 |
+| 851 | 174 | 174 ✓ | ✓ |  | 2 |
+| 851 | 94 | 94 ✓ | ✓ |  | 2 |
+| 851 | 108 | 108 ✓ | ✓ |  | 2 |
+| 851 | 6,9 | 6,9 ✓ | ✓ |  | 2 |
+| 851 | 26,1 | 26,1 ✓ | ✓ |  | 2 |
+| 851 | 6,7 | 6,7 ✓ | ✓ |  | 2 |
+| 851 | 1159 | 1159 ✓ | ✓ |  | 2 |
+| 851 | 626 | 626 ✓ | ✓ |  | 2 |
+| 867 | 610 | 610 ✓ | ✓ |  | 2 |
+| 867 | 18 | 18 ✓ | ✓ |  | 2 |
+| 867 | 40 | 40 ✓ | ✓ |  | 2 |
+| 867 | 161 | 161 ✓ | ✓ |  | 2 |
+| 867 | 87 | 87 ✓ | ✓ |  | 2 |
+| 867 | 100 | 100 ✓ | ✓ |  | 2 |
+| 867 | 6,4 | 6,4 ✓ | ✓ |  | 2 |
+| 867 | 24,2 | 24,2 ✓ | ✓ |  | 2 |
+| 867 | 7,2 | 7,2 ✓ | ✓ |  | 2 |
+| 867 | 1175 | 1175 ✓ | ✓ |  | 2 |
+| 867 | 634 | 634 ✓ | ✓ |  | 2 |
+| 884 | 576 | 576 ✓ | ✓ |  | 2 |
+| 884 | 17 | 17 ✓ | ✓ |  | 2 |
+| 884 | 36 | 36 ✓ | ✓ |  | 2 |
+| 884 | 150 | 150 ✓ | ✓ |  | 2 |
+| 884 | 81 | 81 ✓ | ✓ |  | 2 |
+| 884 | 93 | 93 ✓ | ✓ |  | 2 |
+| 884 | 5,9 | 5,9 ✓ | ✓ |  | 2 |
+| 884 | 22,3 | 22,3 ✓ | ✓ |  | 2 |
+| 884 | 7,8 | 7.8 ✓ | ✓ |  | 2 |
+| 884 | 1167 | 1167 ✓ | ✓ |  | 2 |
+| 884 | 630 | 630 ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro
+
+### Pagina 5-4 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 331 | 5-4 | 54  | – | ✓ a vista: Page: 5-4 · seconda conferma: posizione nel PDF: pagina 60, fra 5-3 e 5-5 (mappa tools/afm/afm-ccaf.json) | 2 |
+| 363 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 330 | 1157 | 1167  | ✓ | ✓ OCR legge 1167; a vista: 1157 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 1157 | 3 |
+| 358 | 7500 | 7500 ✓ | ✓ |  | 2 |
+| 388 | 46 | 46 ✓ | ✓ |  | 2 |
+| 388 | (174 | (174 ✓ | ✓ |  | 2 |
+| 883 | 1 | 1 ✓ | ✓ |  | 2 |
+| 951 | 5-1 | S-1  | ✓ | ✓ OCR legge S-1; a vista: 5-1 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 5-1 | 3 |
+| 951 | 3 | 2  | ✓ | ✓ OCR legge 2; a vista: 3 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 3 | 3 |
+| 951 | 5). | 5). ✓ | ✓ |  | 2 |
+| 471 | 2600 | 2600 ✓ | ✓ |  | 2 |
+| 471 | 711 | Fe  | ✓ | ✓ OCR legge Fe; a vista: 711 · seconda conferma: la colonna torna: 21,0 in Hg x 33,86 = 711 mb; e lo strato di testo del PDF legge 711 | 3 |
+| 471 | 21 | 21 ✓ | ✓ |  | 2 |
+| 471 | 69 | 69 ✓ | ✓ |  | 2 |
+| 471 | 229 | 229 ✓ | ✓ |  | 2 |
+| 471 | 123 | 123 ✓ | ✓ |  | 2 |
+| 471 | 142 | 142 ✓ | ✓ |  | 2 |
+| 471 | 10,5 | 10,5 ✓ | ✓ |  | 2 |
+| 471 | 39,7 | 39,7 ✓ | ✓ |  | 2 |
+| 471 | 4,4 | 4,4 ✓ | ✓ |  | 2 |
+| 471 | 998 | 998 ✓ | ✓ |  | 2 |
+| 471 | 539 | 539 ✓ | ✓ |  | 2 |
+| 487 | 677 | 677 ✓ | ✓ |  | 2 |
+| 487 | 20 | 20 ✓ | ✓ |  | 2 |
+| 487 | 64 | 64 ✓ | ✓ |  | 2 |
+| 487 | 220 | 220 ✓ | ✓ |  | 2 |
+| 487 | 119 | 119 ✓ | ✓ |  | 2 |
+| 487 | 137 | 137 ✓ | ✓ |  | 2 |
+| 487 | 9,8 | 9,8 ✓ | ✓ |  | 2 |
+| 487 | 37,1 | 37,1 ✓ | ✓ |  | 2 |
+| 487 | 4,7 | 4,7 ✓ | ✓ |  | 2 |
+| 487 | 1030 | 1030 ✓ | ✓ |  | 2 |
+| 487 | 556 | 556 ✓ | ✓ |  | 2 |
+| 503 | 643 | 643 ✓ | ✓ |  | 2 |
+| 503 | 19 | 19 ✓ | ✓ |  | 2 |
+| 503 | 60 | 60 ✓ | ✓ |  | 2 |
+| 503 | 212 | 212 ✓ | ✓ |  | 2 |
+| 503 | 115 | 115 ✓ | ✓ |  | 2 |
+| 503 | 132 | 132 ✓ | ✓ |  | 2 |
+| 503 | 9,1 | 9,1 ✓ | ✓ |  | 2 |
+| 503 | 34,4 | 34,4 ✓ | ✓ |  | 2 |
+| 503 | 5,1 | 5,1 ✓ | ✓ |  | 2 |
+| 503 | 1070 | 1070 ✓ | ✓ |  | 2 |
+| 503 | 578 | 578 ✓ | ✓ |  | 2 |
+| 519 | 610 | 610 ✓ | ✓ |  | 2 |
+| 519 | 18 | 18 ✓ | ✓ |  | 2 |
+| 519 | 55 | 55 ✓ | ✓ |  | 2 |
+| 519 | 203 | 203 ✓ | ✓ |  | 2 |
+| 519 | 109 | 109 ✓ | ✓ |  | 2 |
+| 519 | 126 | 126 ✓ | ✓ |  | 2 |
+| 519 | 8,4 | 8,4 ✓ | ✓ |  | 2 |
+| 519 | 31,8 | 31,8 ✓ | ✓ |  | 2 |
+| 519 | 5,5 | 5,5 ✓ | ✓ |  | 2 |
+| 519 | 1110 | 1110 ✓ | ✓ |  | 2 |
+| 519 | 600 | 600 ✓ | ✓ |  | 2 |
+| 539 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 539 | 711 | 717  | ✓ | ✓ OCR legge 717; a vista: 711 · seconda conferma: la colonna torna: 21,0 in Hg x 33,86 = 711 mb; e lo strato di testo del PDF legge 711 | 3 |
+| 539 | 21 | 21 ✓ | ✓ |  | 2 |
+| 539 | 66 | 66 ✓ | ✓ |  | 2 |
+| 539 | 224 | 224 ✓ | ✓ |  | 2 |
+| 539 | 121 | 121 ✓ | ✓ |  | 2 |
+| 539 | 139 | 139 ✓ | ✓ |  | 2 |
+| 539 | 10,1 | 10,1 ✓ | ✓ |  | 2 |
+| 539 | 38,2 | 38,2 ✓ | ✓ |  | 2 |
+| 539 | 4,6 | 4,6 ✓ | ✓ |  | 2 |
+| 539 | 1022 | 1022 ✓ | ✓ |  | 2 |
+| 539 | 552 | 552 ✓ | ✓ |  | 2 |
+| 555 | 677 | 677 ✓ | ✓ |  | 2 |
+| 555 | 20 | 20 ✓ | ✓ |  | 2 |
+| 555 | 62 | 62 ✓ | ✓ |  | 2 |
+| 555 | 216 | 216 ✓ | ✓ |  | 2 |
+| 555 | 116 | 116 ✓ | ✓ |  | 2 |
+| 555 | 134 | 134 ✓ | ✓ |  | 2 |
+| 555 | 9,4 | 9,4 ✓ | ✓ |  | 2 |
+| 555 | 35,6 | 35,6 ✓ | ✓ |  | 2 |
+| 555 | 4,9 | 4,9 ✓ | ✓ |  | 2 |
+| 555 | 1054 | 1054 ✓ | ✓ |  | 2 |
+| 555 | 569 | 569 ✓ | ✓ |  | 2 |
+| 571 | 643 | 643 ✓ | ✓ |  | 2 |
+| 571 | 19 | 19 ✓ | ✓ |  | 2 |
+| 571 | 57 | 57 ✓ | ✓ |  | 2 |
+| 571 | 208 | 208 ✓ | ✓ |  | 2 |
+| 571 | 112 | 112 ✓ | ✓ |  | 2 |
+| 571 | 129 | 129 ✓ | ✓ |  | 2 |
+| 571 | 8,7 | 8,7 ✓ | ✓ |  | 2 |
+| 571 | 32,9 | 32,9 ✓ | ✓ |  | 2 |
+| 571 | 5,3 | 5,3 ✓ | ✓ |  | 2 |
+| 571 | 1094 | 1094 ✓ | ✓ |  | 2 |
+| 571 | 591 | 591 ✓ | ✓ |  | 2 |
+| 587 | 610 | 610 ✓ | ✓ |  | 2 |
+| 587 | 18 | 18 ✓ | ✓ |  | 2 |
+| 587 | 52 | 52 ✓ | ✓ |  | 2 |
+| 587 | 198 | 198 ✓ | ✓ |  | 2 |
+| 587 | 107 | 107 ✓ | ✓ |  | 2 |
+| 587 | 123 | 123 ✓ | ✓ |  | 2 |
+| 587 | 8,0 | 8,0 ✓ | ✓ |  | 2 |
+| 587 | 30,3 | 30,3 ✓ | ✓ |  | 2 |
+| 587 | 5,7 | 5,7 ✓ | ✓ |  | 2 |
+| 587 | 1127 | 1127 ✓ | ✓ |  | 2 |
+| 587 | 608 | 608 ✓ | ✓ |  | 2 |
+| 606 | 2400 | 2400 ✓ | ✓ |  | 2 |
+| 606 | 711 | 711 ✓ | ✓ |  | 2 |
+| 606 | 21 | 27  | ✓ | ✓ OCR legge 27; a vista: 21 · seconda conferma: la colonna torna: 711,0 mb / 33,86 = 21.0 in Hg; e lo strato di testo del PDF legge 21 | 3 |
+| 606 | 62 | 62 ✓ | ✓ |  | 2 |
+| 606 | 217 | 217 ✓ | ✓ |  | 2 |
+| 606 | 117 | 117 ✓ | ✓ |  | 2 |
+| 606 | 135 | 135 ✓ | ✓ |  | 2 |
+| 606 | 9,5 | 9,5 ✓ | ✓ |  | 2 |
+| 606 | 36,0 | 36,0 ✓ | ✓ |  | 2 |
+| 606 | 4,9 | 4,9 ✓ | ✓ |  | 2 |
+| 606 | 1054 | 1054 ✓ | ✓ |  | 2 |
+| 606 | 569 | 569 ✓ | ✓ |  | 2 |
+| 622 | 677 | 677 ✓ | ✓ |  | 2 |
+| 622 | 20 | 20 ✓ | ✓ |  | 2 |
+| 622 | 58 | 58 ✓ | ✓ |  | 2 |
+| 622 | 209 | 209 ✓ | ✓ |  | 2 |
+| 622 | 113 | 113 ✓ | ✓ |  | 2 |
+| 622 | 130 | 130 ✓ | ✓ |  | 2 |
+| 622 | 8,8 | 8,8 ✓ | ✓ |  | 2 |
+| 622 | 33,3 | 33,3 ✓ | ✓ |  | 2 |
+| 622 | 5,2 | 5,2 ✓ | ✓ |  | 2 |
+| 622 | 1086 | 1086 ✓ | ✓ |  | 2 |
+| 622 | 587 | 587 ✓ | ✓ |  | 2 |
+| 640 | 643 | 643 ✓ | ✓ |  | 2 |
+| 640 | 19 | 19 ✓ | ✓ |  | 2 |
+| 640 | 53 | 53 ✓ | ✓ |  | 2 |
+| 640 | 201 | 201 ✓ | ✓ |  | 2 |
+| 640 | 109 | 109 ✓ | ✓ |  | 2 |
+| 640 | 125 | 125 ✓ | ✓ |  | 2 |
+| 640 | 8,2 | 8,2 ✓ | ✓ |  | 2 |
+| 640 | 31,0 | 31,0 ✓ | ✓ |  | 2 |
+| 640 | 5,6 | 5,6 ✓ | ✓ |  | 2 |
+| 640 | 1118 | 1118 ✓ | ✓ |  | 2 |
+| 640 | 604 | 604 ✓ | ✓ |  | 2 |
+| 656 | 610 | 610 ✓ | ✓ |  | 2 |
+| 656 | 18 | 18 ✓ | ✓ |  | 2 |
+| 656 | 49 | se  | ✓ | ✓ OCR legge se; a vista: 49 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 49 | 3 |
+| 656 | 190 | 190 ✓ | ✓ |  | 2 |
+| 656 | 103 | 103 ✓ | ✓ |  | 2 |
+| 656 | 118 | 118 ✓ | ✓ |  | 2 |
+| 656 | 7,6 | 7,6 ✓ | ✓ |  | 2 |
+| 656 | 28,8 | 28,8 ✓ | ✓ |  | 2 |
+| 656 | 6,0 | 6,0 ✓ | ✓ |  | 2 |
+| 656 | 1151 | 1151 ✓ | ✓ |  | 2 |
+| 656 | 621 | 621 ✓ | ✓ |  | 2 |
+| 676 | 2300 | 2300 ✓ | ✓ |  | 2 |
+| 676 | 711 | aut  | ✓ | ✓ OCR legge aut; a vista: 711 · seconda conferma: la colonna torna: 21,0 in Hg x 33,86 = 711 mb; e lo strato di testo del PDF legge 711 | 3 |
+| 676 | 21 | 2  | ✓ | ✓ OCR legge 2; a vista: 21 · seconda conferma: la colonna torna: 711,0 mb / 33,86 = 21.0 in Hg; e lo strato di testo del PDF legge 21 | 3 |
+| 676 | 58 | 68  | ✓ | ✓ OCR legge 68; a vista: 58 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 58 | 3 |
+| 676 | 209 | 209 ✓ | ✓ |  | 2 |
+| 676 | 113 | 113 ✓ | ✓ |  | 2 |
+| 676 | 130 | 130 ✓ | ✓ |  | 2 |
+| 676 | 8,9 | 8,9 ✓ | ✓ |  | 2 |
+| 676 | 33,7 | 33,7 ✓ | ✓ |  | 2 |
+| 676 | 5,2 | 5,2 ✓ | ✓ |  | 2 |
+| 676 | 1086 | 1086 ✓ | ✓ |  | 2 |
+| 676 | 587 | 587 ✓ | ✓ |  | 2 |
+| 692 | 677 | 677 ✓ | ✓ |  | 2 |
+| 692 | 20 | 20 ✓ | ✓ |  | 2 |
+| 692 | 54 | 54 ✓ | ✓ |  | 2 |
+| 692 | 201 | 201 ✓ | ✓ |  | 2 |
+| 692 | 109 | 109 ✓ | ✓ |  | 2 |
+| 692 | 125 | 125 ✓ | ✓ |  | 2 |
+| 692 | 8,3 | 8,3 ✓ | ✓ |  | 2 |
+| 692 | 31,4 | 31,4 ✓ | ✓ |  | 2 |
+| 692 | 5,6 | 5,6 ✓ | ✓ |  | 2 |
+| 692 | 1118 | 1118 ✓ | ✓ |  | 2 |
+| 692 | 604 | 604 ✓ | ✓ |  | 2 |
+| 708 | 643 | 643 ✓ | ✓ |  | 2 |
+| 708 | 19 | 19 ✓ | ✓ |  | 2 |
+| 708 | 50 | 50 ✓ | ✓ |  | 2 |
+| 708 | 192 | 192 ✓ | ✓ |  | 2 |
+| 708 | 103 | 103 ✓ | ✓ |  | 2 |
+| 708 | 119 | 119 ✓ | ✓ |  | 2 |
+| 708 | 7,7 | Vat  | ✓ | ✓ OCR legge Vat; a vista: 7,7 · seconda conferma: la riga torna: 29,1 litri / 3,785 = 7.69 galloni; 46 galloni / 7,7 = 5.97 ore (6,0 stampate); e lo strato di testo del PDF legge 7,7 | 3 |
+| 708 | 29,1 | 29,1 ✓ | ✓ |  | 2 |
+| 708 | 6,0 | 6,0 ✓ | ✓ |  | 2 |
+| 708 | 1143 | 1143 ✓ | ✓ |  | 2 |
+| 708 | 617 | 617 ✓ | ✓ |  | 2 |
+| 725 | 610 | 610 ✓ | ✓ |  | 2 |
+| 725 | 18 | 18 ✓ | ✓ |  | 2 |
+| 725 | 45 | Bo  | ✓ | ✓ OCR legge Bo; a vista: 45 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 45 | 3 |
+| 725 | 180 | 180 ✓ | ✓ |  | 2 |
+| 725 | 97 | 97 ✓ | ✓ |  | 2 |
+| 725 | 112 | 112 ✓ | ✓ |  | 2 |
+| 725 | 7,1 | 71  | ✓ | ✓ OCR legge 71; a vista: 7,1 · seconda conferma: la riga torna: 26,9 litri / 3,785 = 7.11 galloni; 46 galloni / 7,1 = 6.48 ore (6,5 stampate); e lo strato di testo del PDF legge 7,1 | 3 |
+| 725 | 26,9 | 26,9 ✓ | ✓ |  | 2 |
+| 725 | 6,5 | 6.5 ✓ | ✓ |  | 2 |
+| 725 | 1167 | 1167 ✓ | ✓ |  | 2 |
+| 725 | 630 | 630 ✓ | ✓ |  | 2 |
+| 743 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 743 | 711 | 717  | ✓ | ✓ OCR legge 717; a vista: 711 · seconda conferma: la colonna torna: 21,0 in Hg x 33,86 = 711 mb; e lo strato di testo del PDF legge 711 | 3 |
+| 743 | 21 | at  | ✓ | ✓ OCR legge at; a vista: 21 · seconda conferma: la colonna torna: 711,0 mb / 33,86 = 21.0 in Hg; e lo strato di testo del PDF legge 21 | 3 |
+| 743 | 54 | 54 ✓ | ✓ |  | 2 |
+| 743 | 201 | 201 ✓ | ✓ |  | 2 |
+| 743 | 109 | 109 ✓ | ✓ |  | 2 |
+| 743 | 125 | 125 ✓ | ✓ |  | 2 |
+| 743 | 8,3 | 8,3 ✓ | ✓ |  | 2 |
+| 743 | 31,4 | 31,4 ✓ | ✓ |  | 2 |
+| 743 | 5,5 | 5,5 ✓ | ✓ |  | 2 |
+| 743 | 1118 | 1118 ✓ | ✓ |  | 2 |
+| 743 | 604 | 604 ✓ | ✓ |  | 2 |
+| 759 | 677 | 677 ✓ | ✓ |  | 2 |
+| 759 | 20 | 20 ✓ | ✓ |  | 2 |
+| 759 | 50 | 50 ✓ | ✓ |  | 2 |
+| 759 | 193 | 193 ✓ | ✓ |  | 2 |
+| 759 | 104 | 104 ✓ | ✓ |  | 2 |
+| 759 | 120 | 120 ✓ | ✓ |  | 2 |
+| 759 | 7,8 | 738  | ✓ | ✓ OCR legge 738; a vista: 7,8 · seconda conferma: la riga torna: 29,5 litri / 3,785 = 7.79 galloni; 46 galloni / 7,8 = 5.90 ore (5,9 stampate); e lo strato di testo del PDF legge 7,8 | 3 |
+| 759 | 29,5 | 29,5 ✓ | ✓ |  | 2 |
+| 759 | 5,9 | 5,9 ✓ | ✓ |  | 2 |
+| 759 | 1143 | 1143 ✓ | ✓ |  | 2 |
+| 759 | 617 | 617 ✓ | ✓ |  | 2 |
+| 776 | 643 | as  | ✓ | ✓ OCR legge as; a vista: 643 · seconda conferma: la colonna torna: 19,0 in Hg x 33,86 = 643 mb; e lo strato di testo del PDF legge 643 | 3 |
+| 776 | 19 | Ls  | ✓ | ✓ OCR legge Ls; a vista: 19 · seconda conferma: la colonna torna: 643,0 mb / 33,86 = 19.0 in Hg; e lo strato di testo del PDF legge 19 | 3 |
+| 776 | 46 | 46 ✓ | ✓ |  | 2 |
+| 776 | 183 | 183 ✓ | ✓ |  | 2 |
+| 776 | 99 | 99 ✓ | ✓ |  | 2 |
+| 776 | 114 | 114 ✓ | ✓ |  | 2 |
+| 776 | 7,2 | 7a  | ✓ | ✓ OCR legge 7a; a vista: 7,2 · seconda conferma: la riga torna: 27,3 litri / 3,785 = 7.21 galloni; 46 galloni / 7,2 = 6.39 ore (6,4 stampate); e lo strato di testo del PDF legge 7,2 | 3 |
+| 776 | 27,3 | 27,3 ✓ | ✓ |  | 2 |
+| 776 | 6,4 | 6,4 ✓ | ✓ |  | 2 |
+| 776 | 1159 | 1159 ✓ | ✓ |  | 2 |
+| 776 | 626 | 626 ✓ | ✓ |  | 2 |
+| 791 | 610 | 610 ✓ | ✓ |  | 2 |
+| 791 | 18 | 18 ✓ | ✓ |  | 2 |
+| 791 | 42 | 42 ✓ | ✓ |  | 2 |
+| 791 | 172 | 172 ✓ | ✓ |  | 2 |
+| 791 | 93 | 93 ✓ | ✓ |  | 2 |
+| 791 | 107 | 107 ✓ | ✓ |  | 2 |
+| 791 | 6,7 | 6,7 ✓ | ✓ |  | 2 |
+| 791 | 25,4 | 25,4 ✓ | ✓ |  | 2 |
+| 791 | 6,9 | 6,9 ✓ | ✓ |  | 2 |
+| 791 | 1175 | 1175 ✓ | ✓ |  | 2 |
+| 791 | 634 | 634 ✓ | ✓ |  | 2 |
+| 807 | 576 | 576 ✓ | ✓ |  | 2 |
+| 807 | 17 | 17 ✓ | ✓ |  | 2 |
+| 807 | 38 | 38 ✓ | ✓ |  | 2 |
+| 807 | 159 | 159 ✓ | ✓ |  | 2 |
+| 807 | 86 | 86 ✓ | ✓ |  | 2 |
+| 807 | 99 | 99 ✓ | ✓ |  | 2 |
+| 807 | 6,2 | 6,2 ✓ | ✓ |  | 2 |
+| 807 | 23,5 | 23,5 ✓ | ✓ |  | 2 |
+| 807 | 7,4 | 7.4 ✓ | ✓ |  | 2 |
+| 807 | 1183 | 1183 ✓ | ✓ |  | 2 |
+| 807 | 639 | 639 ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro
+
+### Pagina 5-5 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 228 | 5-5 | 5-5 ✓ | – | ✓ a vista: Page: 5-5 · seconda conferma: posizione nel PDF: pagina 61, fra 5-4 e 5-6 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 259 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 379 | 1157 | 1157 ✓ | ✓ |  | 2 |
+| 408 | 10000 | 10000 ✓ | ✓ |  | 2 |
+| 438 | 46 | 46 ✓ | ✓ |  | 2 |
+| 438 | (174 | (174 ✓ | ✓ |  | 2 |
+| 934 | 1 | 1 ✓ | ✓ |  | 2 |
+| 1000 | 5-1 | S-1  | ✓ | ✓ OCR legge S-1; a vista: 5-1 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 5-1 | 3 |
+| 1000 | 4 | 4 ✓ | ✓ |  | 2 |
+| 1000 | 5). | 5). ✓ | ✓ |  | 2 |
+| 520 | 2600 | 2600 ✓ | ✓ |  | 2 |
+| 520 | 643 | 643 ✓ | ✓ |  | 2 |
+| 520 | 19 | cr)  | ✓ | ✓ OCR legge cr); a vista: 19 · seconda conferma: la colonna torna: 643,0 mb / 33,86 = 19.0 in Hg; e lo strato di testo del PDF legge 19 | 3 |
+| 520 | 63 | 63 ✓ | ✓ |  | 2 |
+| 520 | 222 | 222 ✓ | ✓ |  | 2 |
+| 520 | 120 | 120 ✓ | ✓ |  | 2 |
+| 520 | 138 | 138 ✓ | ✓ |  | 2 |
+| 520 | 9,6 | 9,6 ✓ | ✓ |  | 2 |
+| 520 | 36,3 | 36,3 ✓ | ✓ |  | 2 |
+| 520 | 4,8 | 4,8 ✓ | ✓ |  | 2 |
+| 520 | 1070 | 1070 ✓ | ✓ |  | 2 |
+| 520 | 578 | 578 ✓ | ✓ |  | 2 |
+| 536 | 610 | 610 ✓ | ✓ |  | 2 |
+| 536 | 18 | 18 ✓ | ✓ |  | 2 |
+| 536 | 58 | 58 ✓ | ✓ |  | 2 |
+| 536 | 214 | 214 ✓ | ✓ |  | 2 |
+| 536 | 116 | 116 ✓ | ✓ |  | 2 |
+| 536 | 133 | 133 ✓ | ✓ |  | 2 |
+| 536 | 8,9 | 8,9 ✓ | ✓ |  | 2 |
+| 536 | 33,7 | 33,7 ✓ | ✓ |  | 2 |
+| 536 | 5,2 | 5,2 ✓ | ✓ |  | 2 |
+| 536 | 1102 | 1102 ✓ | ✓ |  | 2 |
+| 536 | 595 | 595 ✓ | ✓ |  | 2 |
+| 553 | 576 | 576 ✓ | ✓ |  | 2 |
+| 553 | 17 | 17 ✓ | ✓ |  | 2 |
+| 553 | 53 | 53 ✓ | ✓ |  | 2 |
+| 553 | 203 | 203 ✓ | ✓ |  | 2 |
+| 553 | 109 | 109 ✓ | ✓ |  | 2 |
+| 553 | 126 | 126 ✓ | ✓ |  | 2 |
+| 553 | 8,2 | 8,2 ✓ | ✓ |  | 2 |
+| 553 | 31,0 | 31,0 ✓ | ✓ |  | 2 |
+| 553 | 5,6 | 5,6 ✓ | ✓ |  | 2 |
+| 553 | 1143 | 1143 ✓ | ✓ |  | 2 |
+| 553 | 617 | 617 ✓ | ✓ |  | 2 |
+| 569 | 542 | 542 ✓ | ✓ |  | 2 |
+| 569 | 16 | 16 ✓ | ✓ |  | 2 |
+| 569 | 48 | 38  | ✓ | ✓ OCR legge 38; a vista: 48 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 48 | 3 |
+| 569 | 190 | 190 ✓ | ✓ |  | 2 |
+| 569 | 103 | 103 ✓ | ✓ |  | 2 |
+| 569 | 118 | 118 ✓ | ✓ |  | 2 |
+| 569 | 7,5 | 7,5 ✓ | ✓ |  | 2 |
+| 569 | 28,4 | 28,4 ✓ | ✓ |  | 2 |
+| 569 | 6,2 | 6,2 ✓ | ✓ |  | 2 |
+| 569 | 1167 | 1167 ✓ | ✓ |  | 2 |
+| 569 | 630 | 630 ✓ | ✓ |  | 2 |
+| 588 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 588 | 643 | 643 ✓ | ✓ |  | 2 |
+| 588 | 19 | 419  | ✓ | ✓ OCR legge 419; a vista: 19 · seconda conferma: la colonna torna: 643,0 mb / 33,86 = 19.0 in Hg; e lo strato di testo del PDF legge 19 | 3 |
+| 588 | 60 | 60 ✓ | ✓ |  | 2 |
+| 588 | 217 | 217 ✓ | ✓ |  | 2 |
+| 588 | 117 | 117 ✓ | ✓ |  | 2 |
+| 588 | 135 | 135 ✓ | ✓ |  | 2 |
+| 588 | 9,2 | 9,2 ✓ | ✓ |  | 2 |
+| 588 | 34,8 | 34,8 ✓ | ✓ |  | 2 |
+| 588 | 5,0 | 5,0 ✓ | ✓ |  | 2 |
+| 588 | 1086 | 1086 ✓ | ✓ |  | 2 |
+| 588 | 587 | 587 ✓ | ✓ |  | 2 |
+| 604 | 610 | 610 ✓ | ✓ |  | 2 |
+| 604 | 18 | 18 ✓ | ✓ |  | 2 |
+| 604 | 55 | 55 ✓ | ✓ |  | 2 |
+| 604 | 208 | 208 ✓ | ✓ |  | 2 |
+| 604 | 112 | 112 ✓ | ✓ |  | 2 |
+| 604 | 129 | 129 ✓ | ✓ |  | 2 |
+| 604 | 8,5 | 8,5 ✓ | ✓ |  | 2 |
+| 604 | 32,2 | 32,2 ✓ | ✓ |  | 2 |
+| 604 | 5,4 | 5,4 ✓ | ✓ |  | 2 |
+| 604 | 1127 | 1127 ✓ | ✓ |  | 2 |
+| 604 | 608 | 608 ✓ | ✓ |  | 2 |
+| 620 | 576 | 576 ✓ | ✓ |  | 2 |
+| 620 | 17 | 17 ✓ | ✓ |  | 2 |
+| 620 | 50 | 50 ✓ | ✓ |  | 2 |
+| 620 | 196 | 196 ✓ | ✓ |  | 2 |
+| 620 | 106 | 106 ✓ | ✓ |  | 2 |
+| 620 | 122 | 122 ✓ | ✓ |  | 2 |
+| 620 | 7,8 | 7,8 ✓ | ✓ |  | 2 |
+| 620 | 29,5 | 29,5 ✓ | ✓ |  | 2 |
+| 620 | 5,9 | 5,9 ✓ | ✓ |  | 2 |
+| 620 | 1159 | 1159 ✓ | ✓ |  | 2 |
+| 620 | 626 | 626 ✓ | ✓ |  | 2 |
+| 637 | 542 | 542 ✓ | ✓ |  | 2 |
+| 637 | 16 | 16 ✓ | ✓ |  | 2 |
+| 637 | 46 | AGS  | ✓ | ✓ OCR legge AGS; a vista: 46 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 46 | 3 |
+| 637 | 183 | 183 ✓ | ✓ |  | 2 |
+| 637 | 99 | 92  | ✓ | ✓ OCR legge 92; a vista: 99 · seconda conferma: la riga torna: 183,0 km/h / 1,852 = 98,8 kts; e lo strato di testo del PDF legge 99 | 3 |
+| 637 | 114 | TTR  | ✓ | ✓ OCR legge TTR; a vista: 114 · seconda conferma: la riga torna: 183,0 km/h / 1,609 = 113,7 MPH; e lo strato di testo del PDF legge 114 | 3 |
+| 637 | 7,1 | 7,1 ✓ | ✓ |  | 2 |
+| 637 | 26,9 | 26,9 ✓ | ✓ |  | 2 |
+| 637 | 6,4 | 6.4 ✓ | ✓ |  | 2 |
+| 637 | 1183 | 1183 ✓ | ✓ |  | 2 |
+| 637 | 639 | 639 ✓ | ✓ |  | 2 |
+| 657 | 2400 | 2400 ✓ | ✓ |  | 2 |
+| 657 | 643 | 643 ✓ | ✓ |  | 2 |
+| 657 | 19 | 19 ✓ | ✓ |  | 2 |
+| 657 | 56 | 56 ✓ | ✓ |  | 2 |
+| 657 | 209 | 209 ✓ | ✓ |  | 2 |
+| 657 | 113 | 113 ✓ | ✓ |  | 2 |
+| 657 | 130 | 130 ✓ | ✓ |  | 2 |
+| 657 | 8,6 | 8,6 ✓ | ✓ |  | 2 |
+| 657 | 32,6 | 32,6 ✓ | ✓ |  | 2 |
+| 657 | 5,3 | 5,3 ✓ | ✓ |  | 2 |
+| 657 | 1118 | 1118 ✓ | ✓ |  | 2 |
+| 657 | 604 | 604 ✓ | ✓ |  | 2 |
+| 673 | 610 | 610 ✓ | ✓ |  | 2 |
+| 673 | 18 | 18 ✓ | ✓ |  | 2 |
+| 673 | 52 | 52 ✓ | ✓ |  | 2 |
+| 673 | 200 | 200 ✓ | ✓ |  | 2 |
+| 673 | 108 | 10B  | ✓ | ✓ OCR legge 10B; a vista: 108 · seconda conferma: la riga torna: 200,0 km/h / 1,852 = 108,0 kts; e lo strato di testo del PDF legge 108 | 3 |
+| 673 | 124 | 124 ✓ | ✓ |  | 2 |
+| 673 | 8,0 | 8,0 ✓ | ✓ |  | 2 |
+| 673 | 30,3 | 30,3 ✓ | ✓ |  | 2 |
+| 673 | 5,7 | 5,7 ✓ | ✓ |  | 2 |
+| 673 | 1151 | 1161  | ✓ | ✓ OCR legge 1161; a vista: 1151 · seconda conferma: la riga torna: 46 / 8,0 galloni all'ora x 200,0 km/h = 1150 km; 621,0 NM x 1,852 = 1150 km; e lo strato di testo del PDF legge 1151 | 3 |
+| 673 | 621 | 621 ✓ | ✓ |  | 2 |
+| 689 | 576 | 576 ✓ | ✓ |  | 2 |
+| 689 | 17 | 17 ✓ | ✓ |  | 2 |
+| 689 | 47 | 47 ✓ | – | ✓ OCR legge 47; a vista: 47 · seconda conferma: il consumo segue la potenza: nella riga 7,4 gal/h al 47% (0,157 gal/h per punto), nello stesso gruppo 8,0 al 52% e 8,6 al 56% (0,154); lo strato di testo del PDF legge 4/ (il 7 non riconosciuto) | 3 |
+| 689 | 188 | 188 ✓ | ✓ |  | 2 |
+| 689 | 102 | 102 ✓ | ✓ |  | 2 |
+| 689 | 117 | 117 ✓ | ✓ |  | 2 |
+| 689 | 7,4 | 7,4 ✓ | ✓ |  | 2 |
+| 689 | 28,0 | 28,0 ✓ | ✓ |  | 2 |
+| 689 | 6,2 | 6,2 ✓ | ✓ |  | 2 |
+| 689 | 1175 | 1175 ✓ | ✓ |  | 2 |
+| 689 | 634 | 634 ✓ | ✓ |  | 2 |
+| 705 | 542 | 542 ✓ | ✓ |  | 2 |
+| 705 | 16 | 16 ✓ | ✓ |  | 2 |
+| 705 | 43 | oJ  | ✓ | ✓ OCR legge oJ; a vista: 43 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 43 | 3 |
+| 705 | 175 | 175 ✓ | ✓ |  | 2 |
+| 705 | 95 | 95 ✓ | ✓ |  | 2 |
+| 705 | 109 | 109 ✓ | ✓ |  | 2 |
+| 705 | 6,8 | 6,8 ✓ | ✓ |  | 2 |
+| 705 | 25,7 | 25,7 ✓ | ✓ |  | 2 |
+| 705 | 6,8 | 6,8 ✓ | ✓ |  | 2 |
+| 705 | 1191 | 1191 ✓ | ✓ |  | 2 |
+| 705 | 643 | 643 ✓ | ✓ |  | 2 |
+| 725 | 2300 | 2300 ✓ | ✓ |  | 2 |
+| 725 | 643 | 643 ✓ | ✓ |  | 2 |
+| 725 | 19 | 19 ✓ | ✓ |  | 2 |
+| 725 | 52 | 62  | ✓ | ✓ OCR legge 62; a vista: 52 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 52 | 3 |
+| 725 | 201 | 201 ✓ | ✓ |  | 2 |
+| 725 | 109 | 109 ✓ | ✓ |  | 2 |
+| 725 | 125 | 125 ✓ | ✓ |  | 2 |
+| 725 | 8,1 | 8,1 ✓ | ✓ |  | 2 |
+| 725 | 30,7 | 30,7 ✓ | ✓ |  | 2 |
+| 725 | 5,7 | 5,7 ✓ | ✓ |  | 2 |
+| 725 | 1143 | 1143 ✓ | ✓ |  | 2 |
+| 725 | 617 | 617 ✓ | ✓ |  | 2 |
+| 742 | 610 | 610 ✓ | ✓ |  | 2 |
+| 742 | 18 | 18 ✓ | ✓ |  | 2 |
+| 742 | 48 | 48 ✓ | ✓ |  | 2 |
+| 742 | 190 | 190 ✓ | ✓ |  | 2 |
+| 742 | 103 | 103 ✓ | ✓ |  | 2 |
+| 742 | 118 | 118 ✓ | ✓ |  | 2 |
+| 742 | 7,5 | 7,5 ✓ | ✓ |  | 2 |
+| 742 | 28,4 | 28,4 ✓ | ✓ |  | 2 |
+| 742 | 6,1 | 6,1 ✓ | ✓ |  | 2 |
+| 742 | 1167 | 1167 ✓ | ✓ |  | 2 |
+| 742 | 630 | 630 ✓ | ✓ |  | 2 |
+| 758 | 576 | 576 ✓ | ✓ |  | 2 |
+| 758 | 17 | 17 ✓ | ✓ |  | 2 |
+| 758 | 44 | 44 ✓ | ✓ |  | 2 |
+| 758 | 179 | 1793  | ✓ | ✓ OCR legge 1793; a vista: 179 · seconda conferma: la riga torna: 96,0 kts x 1,852 = 177,8 km/h, 111,0 MPH x 1,609 = 178,6 km/h; e lo strato di testo del PDF legge 179 | 3 |
+| 758 | 96 | 96 ✓ | ✓ |  | 2 |
+| 758 | 111 | 111 ✓ | ✓ |  | 2 |
+| 758 | 6,9 | 6,9 ✓ | ✓ |  | 2 |
+| 758 | 26,1 | 26,1 ✓ | ✓ |  | 2 |
+| 758 | 6,6 | 6,6 ✓ | ✓ |  | 2 |
+| 758 | 1183 | 1183 ✓ | ✓ |  | 2 |
+| 758 | 639 | 639 ✓ | ✓ |  | 2 |
+| 774 | 542 | 542 ✓ | ✓ |  | 2 |
+| 774 | 16 | 16 ✓ | ✓ |  | 2 |
+| 774 | 40 | hs  | ✓ | ✓ OCR legge hs; a vista: 40 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 40 | 3 |
+| 774 | 164 | AGe  | ✓ | ✓ OCR legge AGe; a vista: 164 · seconda conferma: la riga torna: 89,0 kts x 1,852 = 164,8 km/h, 102,0 MPH x 1,609 = 164,1 km/h; e lo strato di testo del PDF legge 164 | 3 |
+| 774 | 89 | 89 ✓ | ✓ |  | 2 |
+| 774 | 102 | 102 ✓ | ✓ |  | 2 |
+| 774 | 6,4 | 6,4 ✓ | ✓ |  | 2 |
+| 774 | 24,2 | 24,2 ✓ | ✓ |  | 2 |
+| 774 | 7,2 | 7,2 ✓ | ✓ |  | 2 |
+| 774 | 1191 | 1191 ✓ | ✓ |  | 2 |
+| 774 | 643 | GAS  | ✓ | ✓ OCR legge GAS; a vista: 643 · seconda conferma: la riga torna: 1191,0 km / 1,852 = 643.1 NM; e lo strato di testo del PDF legge 643 | 3 |
+| 794 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 794 | 643 | 643 ✓ | ✓ |  | 2 |
+| 794 | 19 | 419  | ✓ | ✓ OCR legge 419; a vista: 19 · seconda conferma: la colonna torna: 643,0 mb / 33,86 = 19.0 in Hg; e lo strato di testo del PDF legge 19 | 3 |
+| 794 | 49 | 49 ✓ | ✓ |  | 2 |
+| 794 | 193 | 193 ✓ | ✓ |  | 2 |
+| 794 | 104 | 104 ✓ | ✓ |  | 2 |
+| 794 | 120 | 120 ✓ | ✓ |  | 2 |
+| 794 | 7,6 | 7,6 ✓ | ✓ |  | 2 |
+| 794 | 28,8 | 28,8 ✓ | ✓ |  | 2 |
+| 794 | 6,0 | 6,0 ✓ | ✓ |  | 2 |
+| 794 | 1167 | 1167 ✓ | ✓ |  | 2 |
+| 794 | 630 | 630 ✓ | ✓ |  | 2 |
+| 810 | 610 | 610 ✓ | ✓ |  | 2 |
+| 810 | 18 | 18 ✓ | ✓ |  | 2 |
+| 810 | 45 | 45 ✓ | ✓ |  | 2 |
+| 810 | 182 | 182 ✓ | ✓ |  | 2 |
+| 810 | 98 | 98 ✓ | ✓ |  | 2 |
+| 810 | 113 | 113 ✓ | ✓ |  | 2 |
+| 810 | 7,1 | 7,1 ✓ | ✓ |  | 2 |
+| 810 | 26,9 | 26,9 ✓ | ✓ |  | 2 |
+| 810 | 6,5 | 6,5 ✓ | ✓ |  | 2 |
+| 810 | 1183 | 1183 ✓ | ✓ |  | 2 |
+| 810 | 639 | 639 ✓ | ✓ |  | 2 |
+| 826 | 576 | 576 ✓ | ✓ |  | 2 |
+| 826 | 17 | 17 ✓ | ✓ |  | 2 |
+| 826 | 41 | 41 ✓ | ✓ |  | 2 |
+| 826 | 169 | 169 ✓ | ✓ |  | 2 |
+| 826 | 91 | 91 ✓ | ✓ |  | 2 |
+| 826 | 105 | 105 ✓ | ✓ |  | 2 |
+| 826 | 6,5 | 6,5 ✓ | ✓ |  | 2 |
+| 826 | 24,6 | 24,6 ✓ | ✓ |  | 2 |
+| 826 | 7,0 | 7,0 ✓ | ✓ |  | 2 |
+| 826 | 1191 | 1191 ✓ | ✓ |  | 2 |
+| 826 | 643 | 643 ✓ | ✓ |  | 2 |
+| 842 | 542 | 542 ✓ | ✓ |  | 2 |
+| 842 | 16 | 16 ✓ | ✓ |  | 2 |
+| 842 | 37 | 37 ✓ | ✓ |  | 2 |
+| 842 | 156 | 156 ✓ | ✓ |  | 2 |
+| 842 | 84 | 84 ✓ | ✓ |  | 2 |
+| 842 | 97 | 97 ✓ | ✓ |  | 2 |
+| 842 | 6,0 | 6,0 ✓ | ✓ |  | 2 |
+| 842 | 22,7 | 22,7 ✓ | ✓ |  | 2 |
+| 842 | 7,6 | 7,6 ✓ | ✓ |  | 2 |
+| 842 | 1191 | 1191 ✓ | – | ✓ OCR legge 1191; a vista: 1191 · seconda conferma: la riga torna: 46 / 6,0 galloni all'ora x 156,0 km/h = 1196 km; 643,0 NM x 1,852 = 1191 km | 3 |
+| 842 | 643 | 643 ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro
+
+### Pagina 5-6 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 329 | 5-6 | 5-6 ✓ | – | ✓ a vista: Page: 5-6 · seconda conferma: posizione nel PDF: pagina 62, fra 5-5 e 5-7 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 359 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 327 | 1157 | 1157 ✓ | ✓ |  | 2 |
+| 355 | 15000 | 15000 ✓ | ✓ |  | 2 |
+| 385 | 46 | 46 ✓ | ✓ |  | 2 |
+| 385 | (174 | (174 ✓ | ✓ |  | 2 |
+| 883 | 1 | 1 ✓ | ✓ |  | 2 |
+| 950 | 5-1 | 5-1 ✓ | ✓ |  | 2 |
+| 950 | 5 | 5 ✓ | ✓ |  | 2 |
+| 950 | 5). | S).  | ✓ | ✓ a vista: (Sheet ... of 5). · seconda conferma: la figura 5-1 (Cruise Performance) ha cinque fogli, uno per quota (2500, 5000, 7500, 10000, 15000 piedi), alle pagine 5-2 ... 5-6: questo e' il foglio 5 | 3 |
+| 469 | 2600 | 2600 ✓ | ✓ |  | 2 |
+| 469 | 508 | 508 ✓ | ✓ |  | 2 |
+| 469 | 15 | 15 ✓ | ✓ |  | 2 |
+| 469 | 49 | 49 ✓ | ✓ |  | 2 |
+| 469 | 198 | 198 ✓ | ✓ |  | 2 |
+| 469 | 107 | 107 ✓ | ✓ |  | 2 |
+| 469 | 123 | 123 ✓ | ✓ |  | 2 |
+| 469 | 7,6 | 7,6 ✓ | ✓ |  | 2 |
+| 469 | 28,8 | 28,8 ✓ | ✓ |  | 2 |
+| 469 | 6,0 | 6,0 ✓ | ✓ |  | 2 |
+| 469 | 1191 | 1191 ✓ | ✓ |  | 2 |
+| 469 | 643 | 643 ✓ | ✓ |  | 2 |
+| 485 | 474 | 474 ✓ | ✓ |  | 2 |
+| 485 | 14 | 14 ✓ | ✓ |  | 2 |
+| 485 | 44 | ag  | ✓ | ✓ OCR legge ag; a vista: 44 · seconda conferma: lo strato di testo del PDF (OCR di Acrobat, lettura indipendente) legge 44 | 3 |
+| 485 | 180 | 180 ✓ | ✓ |  | 2 |
+| 485 | 97 | 97 ✓ | ✓ |  | 2 |
+| 485 | 112 | 112 ✓ | ✓ |  | 2 |
+| 485 | 6,9 | 6,9 ✓ | ✓ |  | 2 |
+| 485 | 26,1 | 26,1 ✓ | ✓ |  | 2 |
+| 485 | 6,7 | 6,7 ✓ | ✓ |  | 2 |
+| 485 | 1207 | 1207 ✓ | ✓ |  | 2 |
+| 485 | 652 | 652 ✓ | ✓ |  | 2 |
+| 502 | 440 | 440 ✓ | ✓ |  | 2 |
+| 502 | 13 | 13 ✓ | ✓ |  | 2 |
+| 502 | 38 | 38 ✓ | ✓ |  | 2 |
+| 502 | 163 | 163 ✓ | ✓ |  | 2 |
+| 502 | 88 | 88 ✓ | ✓ |  | 2 |
+| 502 | 101 | 101 ✓ | ✓ |  | 2 |
+| 502 | 6,1 | 6,1 ✓ | ✓ |  | 2 |
+| 502 | 23,1 | 23,1 ✓ | ✓ |  | 2 |
+| 502 | 7,5 | 7,5 ✓ | ✓ |  | 2 |
+| 502 | 1215 | 1215 ✓ | ✓ |  | 2 |
+| 502 | 656 | 656 ✓ | ✓ |  | 2 |
+| 537 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 537 | 508 | 508 ✓ | ✓ |  | 2 |
+| 537 | 15 | 15 ✓ | ✓ |  | 2 |
+| 537 | 47 | 47 ✓ | ✓ |  | 2 |
+| 537 | 190 | 190 ✓ | ✓ |  | 2 |
+| 537 | 103 | 103 ✓ | ✓ |  | 2 |
+| 537 | 118 | 118 ✓ | ✓ |  | 2 |
+| 537 | 7,3 | 7,3 ✓ | ✓ |  | 2 |
+| 537 | 27,6 | 27.6 ✓ | ✓ |  | 2 |
+| 537 | 6,3 | 6.3 ✓ | ✓ |  | 2 |
+| 537 | 1199 | 1199 ✓ | ✓ |  | 2 |
+| 537 | 647 | 647 ✓ | ✓ |  | 2 |
+| 553 | 474 | 474 ✓ | ✓ |  | 2 |
+| 553 | 14 | 14 ✓ | ✓ |  | 2 |
+| 553 | 41 | 41 ✓ | ✓ |  | 2 |
+| 553 | 174 | 174 ✓ | ✓ |  | 2 |
+| 553 | 94 | 94 ✓ | ✓ |  | 2 |
+| 553 | 108 | 108 ✓ | ✓ |  | 2 |
+| 553 | 6,6 | 6,6 ✓ | ✓ |  | 2 |
+| 553 | 25,0 | 25,0 ✓ | ✓ |  | 2 |
+| 553 | 7,0 | 7,0 ✓ | ✓ |  | 2 |
+| 553 | 1207 | 1207 ✓ | ✓ |  | 2 |
+| 553 | 652 | 652 ✓ | ✓ |  | 2 |
+| 570 | 440 | 440 ✓ | ✓ |  | 2 |
+| 570 | 13 | 13 ✓ | ✓ |  | 2 |
+| 570 | 36 | 36 ✓ | ✓ |  | 2 |
+| 570 | 158 | 158 ✓ | ✓ |  | 2 |
+| 570 | 85 | 85 ✓ | ✓ |  | 2 |
+| 570 | 98 | 98 ✓ | ✓ |  | 2 |
+| 570 | 5,9 | 5,2  | ✓ | ✓ OCR legge 5,2; a vista: 5,9 · seconda conferma: la riga torna: 22,3 litri / 3,785 = 5.89 galloni; 46 galloni / 5,9 = 7.80 ore (7,7 stampate); e lo strato di testo del PDF legge 5,9 | 3 |
+| 570 | 22,3 | 22,3 ✓ | ✓ |  | 2 |
+| 570 | 7,7 | 7,7 ✓ | ✓ |  | 2 |
+| 570 | 1215 | 1215 ✓ | ✓ |  | 2 |
+| 570 | 656 | 656 ✓ | ✓ |  | 2 |
+| 605 | 2400 | 2400 ✓ | ✓ |  | 2 |
+| 605 | 508 | 508 ✓ | ✓ |  | 2 |
+| 605 | 15 | 15 ✓ | ✓ |  | 2 |
+| 605 | 44 | 44 ✓ | ✓ |  | 2 |
+| 605 | 180 | 180 ✓ | ✓ |  | 2 |
+| 605 | 97 | 97 ✓ | ✓ |  | 2 |
+| 605 | 112 | 112 ✓ | ✓ |  | 2 |
+| 605 | 6,9 | 6,9 ✓ | ✓ |  | 2 |
+| 605 | 26,1 | 26,1 ✓ | ✓ |  | 2 |
+| 605 | 6,7 | 6,7 ✓ | ✓ |  | 2 |
+| 605 | 1207 | 1207 ✓ | ✓ |  | 2 |
+| 605 | 652 | 652 ✓ | ✓ |  | 2 |
+| 621 | 474 | 474 ✓ | ✓ |  | 2 |
+| 621 | 14 | 14 ✓ | ✓ |  | 2 |
+| 621 | 39 | 39 ✓ | ✓ |  | 2 |
+| 621 | 166 | 166 ✓ | ✓ |  | 2 |
+| 621 | 90 | 90 ✓ | ✓ |  | 2 |
+| 621 | 103 | 103 ✓ | ✓ |  | 2 |
+| 621 | 6,3 | 6,3 ✓ | ✓ |  | 2 |
+| 621 | 23,8 | 23,8 ✓ | ✓ |  | 2 |
+| 621 | 7,4 | 7,4 ✓ | ✓ |  | 2 |
+| 621 | 1215 | 1215 ✓ | ✓ |  | 2 |
+| 621 | 656 | 656 ✓ | ✓ |  | 2 |
+| 673 | 2300 | 2300 ✓ | ✓ |  | 2 |
+| 673 | 508 | 508 ✓ | ✓ |  | 2 |
+| 673 | 15 | 15 ✓ | ✓ |  | 2 |
+| 673 | 40 | 40 ✓ | ✓ |  | 2 |
+| 673 | 171 | 171 ✓ | ✓ |  | 2 |
+| 673 | 92 | 92 ✓ | ✓ |  | 2 |
+| 673 | 106 | 106 ✓ | ✓ |  | 2 |
+| 673 | 6,5 | 6,5 ✓ | ✓ |  | 2 |
+| 673 | 24,6 | 24,6 ✓ | ✓ |  | 2 |
+| 673 | 7,1 | oF  | ✓ | ✓ OCR legge oF; a vista: 7,1 · seconda conferma: la riga torna: 46 galloni / 6,5 galloni all'ora = 7.08 ore; e lo strato di testo del PDF legge 7,1 | 3 |
+| 673 | 1215 | 1215 ✓ | ✓ |  | 2 |
+| 673 | 656 | 656 ✓ | ✓ |  | 2 |
+| 690 | 474 | 474 ✓ | ✓ |  | 2 |
+| 690 | 14 | 14 ✓ | ✓ |  | 2 |
+| 690 | 36 | 36 ✓ | ✓ |  | 2 |
+| 690 | 156 | 156 ✓ | ✓ |  | 2 |
+| 690 | 84 | 84 ✓ | ✓ |  | 2 |
+| 690 | 97 | 97 ✓ | ✓ |  | 2 |
+| 690 | 5,9 | 5,3  | ✓ | ✓ OCR legge 5,3; a vista: 5,9 · seconda conferma: la riga torna: 22,3 litri / 3,785 = 5.89 galloni; 46 galloni / 5,9 = 7.80 ore (7,8 stampate); e lo strato di testo del PDF legge 5,9 | 3 |
+| 690 | 22,3 | 22,3 ✓ | ✓ |  | 2 |
+| 690 | 7,8 | 7.8 ✓ | ✓ |  | 2 |
+| 690 | 1215 | 1215 ✓ | ✓ |  | 2 |
+| 690 | 656 | 656 ✓ | ✓ |  | 2 |
+| 742 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 742 | 508 | 608  | ✓ | ✓ OCR legge 608; a vista: 508 · seconda conferma: la colonna torna: 15,0 in Hg x 33,86 = 508 mb; e lo strato di testo del PDF legge 508 | 3 |
+| 742 | 15 | 15 ✓ | ✓ |  | 2 |
+| 742 | 38 | 38 ✓ | ✓ |  | 2 |
+| 742 | 163 | 163 ✓ | ✓ |  | 2 |
+| 742 | 88 | 88 ✓ | ✓ |  | 2 |
+| 742 | 101 | 101 ✓ | ✓ |  | 2 |
+| 742 | 6,1 | 6,1 ✓ | ✓ |  | 2 |
+| 742 | 23,1 | 23,1 ✓ | ✓ |  | 2 |
+| 742 | 7,5 | 75  | ✓ | ✓ OCR legge 75; a vista: 7,5 · seconda conferma: la riga torna: 46 galloni / 6,1 galloni all'ora = 7.54 ore; e lo strato di testo del PDF legge 7,5 | 3 |
+| 742 | 1215 | 1215 ✓ | ✓ |  | 2 |
+| 742 | 656 | 656 ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-1: ogni riga controllata con l'aritmetica della tabella (km/h = kts x 1,852 = MPH x 1,609; litri = galloni x 3,785; autonomia = 46 galloni / consumo; km = autonomia x km/h; NM = km / 1,852; in Hg = mb / 33,86): tutte tornano entro gli arrotondamenti ✓ (crociera_leggi.py). Le distanze sono quelle del manuale: in qualche riga km e autonomia differiscono di meno dell'1%, ma km e NM tornano sempre fra loro
+
+### Pagina 5-7 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 224 | 5-7 | 5-7 ✓ | – | ✓ OCR legge 5-7; a vista: 5-7 · seconda conferma: posizione nel PDF: pagina 63, fra 5-6 e 5-8 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 255 | 3 | 3 ✓ | – | ✓ OCR legge 3; a vista: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 411 | 80 | 80 ✓ | ✓ |  | 2 |
+| 409 | 97 | 97 ✓ | ✓ |  | 2 |
+| 410 | 113 | 113 ✓ | ✓ |  | 2 |
+| 409 | 129 | 129 ✓ | ✓ |  | 2 |
+| 409 | 145 | 145 ✓ | ✓ |  | 2 |
+| 410 | 161 | 161 ✓ | ✓ |  | 2 |
+| 408 | 177 | 177 ✓ | ✓ |  | 2 |
+| 410 | 193 | 193 ✓ | ✓ |  | 2 |
+| 411 | 209 | 209 ✓ | ✓ |  | 2 |
+| 411 | 225 | 225 ✓ | ✓ |  | 2 |
+| 411 | 241 | 241 ✓ | ✓ |  | 2 |
+| 458 | 50 | 50 ✓ | ✓ |  | 2 |
+| 457 | 60 | 60 ✓ | ✓ |  | 2 |
+| 457 | 70 | 7O  | ✓ | ✓ OCR legge 7O; a vista: 70 · seconda conferma: la tabella torna: VI 70 MPH = 112,6 km/h: e' la colonna di VI 113 km/h (riga sopra) | 3 |
+| 457 | 80 | 80 ✓ | ✓ |  | 2 |
+| 457 | 90 | 90 ✓ | ✓ |  | 2 |
+| 457 | 100 | 100 ✓ | ✓ |  | 2 |
+| 457 | 110 | 110 ✓ | ✓ |  | 2 |
+| 457 | 120 | 120 ✓ | ✓ |  | 2 |
+| 457 | 130 | 130 ✓ | ✓ |  | 2 |
+| 457 | 140 | 140 ✓ | ✓ |  | 2 |
+| 458 | 150 | 150 ✓ | ✓ |  | 2 |
+| 504 | 95 | 95 ✓ | ✓ |  | 2 |
+| 504 | 105 | 105 ✓ | ✓ |  | 2 |
+| 504 | 116 | 116 ✓ | ✓ |  | 2 |
+| 503 | 129 | 129 ✓ | ✓ |  | 2 |
+| 504 | 143 | 143 ✓ | ✓ |  | 2 |
+| 503 | 159 | 159 ✓ | ✓ |  | 2 |
+| 503 | 175 | 175 ✓ | ✓ |  | 2 |
+| 504 | 192 | 192 ✓ | ✓ |  | 2 |
+| 504 | 206 | 206 ✓ | ✓ |  | 2 |
+| 504 | 222 | 222 ✓ | ✓ |  | 2 |
+| 504 | 238 | 238 ✓ | ✓ |  | 2 |
+| 550 | 59 | 59 ✓ | ✓ |  | 2 |
+| 551 | 65 | 65 ✓ | ✓ |  | 2 |
+| 550 | 72 | 72 ✓ | ✓ |  | 2 |
+| 551 | 80 | 80 ✓ | ✓ |  | 2 |
+| 550 | 89 | 89 ✓ | ✓ |  | 2 |
+| 550 | 99 | 99 ✓ | ✓ |  | 2 |
+| 550 | 109 | 109 ✓ | ✓ |  | 2 |
+| 550 | 119 | 119 ✓ | ✓ |  | 2 |
+| 551 | 128 | 128 ✓ | ✓ |  | 2 |
+| 551 | 138 | 138 ✓ | ✓ |  | 2 |
+| 551 | 148 | 148 ✓ | ✓ |  | 2 |
+| 606 | 80 | 80 ✓ | ✓ |  | 2 |
+| 605 | 97 | 97 ✓ | ✓ |  | 2 |
+| 605 | 113 | 113 ✓ | ✓ |  | 2 |
+| 605 | 129 | 129 ✓ | ✓ |  | 2 |
+| 605 | 145 | 145 ✓ | ✓ |  | 2 |
+| 605 | 161 | 161 ✓ | ✓ |  | 2 |
+| 653 | 50 | 50 ✓ | ✓ |  | 2 |
+| 653 | 60 | 60 ✓ | ✓ |  | 2 |
+| 653 | 70 | 7O  | ✓ | ✓ OCR legge 7O; a vista: 70 · seconda conferma: la tabella torna: VI 70 MPH = 112,6 km/h: la colonna di VI 113 km/h (riga sopra) | 3 |
+| 653 | 80 | 80 ✓ | ✓ |  | 2 |
+| 653 | 90 | 90 ✓ | ✓ |  | 2 |
+| 653 | 100 | 100 ✓ | ✓ |  | 2 |
+| 700 | 95 | 95 ✓ | ✓ |  | 2 |
+| 699 | 103 | 103 ✓ | ✓ |  | 2 |
+| 699 | 116 | 116 ✓ | ✓ |  | 2 |
+| 699 | 130 | 130 ✓ | ✓ |  | 2 |
+| 700 | 145 | 145 ✓ | ✓ |  | 2 |
+| 699 | 161 | 161 ✓ | ✓ |  | 2 |
+| 745 | 59 | 59 ✓ | ✓ |  | 2 |
+| 745 | 64 | 64 ✓ | ✓ |  | 2 |
+| 745 | 72 | Pgs  | ✓ | ✓ OCR legge Pgs; a vista: 72 · seconda conferma: la tabella torna: VC 72 MPH = 115,8 km/h: la colonna di VC 116 km/h (riga sopra) | 3 |
+| 745 | 81 | 81 ✓ | ✓ |  | 2 |
+| 745 | 90 | 90 ✓ | ✓ |  | 2 |
+| 744 | 100 | 100 ✓ | ✓ |  | 2 |
+| 686 | 20° | 202P  | ✓ | ✓ OCR legge 202P; a vista: 20° · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40°; il segno in apice e' il grado | 3 |
+| 802 | 80 | BO  | ✓ | ✓ OCR legge BO; a vista: 80 · seconda conferma: la tabella torna: VI 80 MPH = 128,7 km/h: la colonna di VI 129 km/h (riga sopra) | 3 |
+| 802 | 97 | 97 ✓ | ✓ |  | 2 |
+| 801 | 113 | 113 ✓ | ✓ |  | 2 |
+| 802 | 129 | 129 ✓ | ✓ |  | 2 |
+| 802 | 145 | 145 ✓ | ✓ |  | 2 |
+| 802 | 161 | 161 ✓ | ✓ |  | 2 |
+| 849 | 50 | 50 ✓ | ✓ |  | 2 |
+| 849 | 60 | 60 ✓ | ✓ |  | 2 |
+| 848 | 70 | 70 ✓ | ✓ |  | 2 |
+| 848 | 80 | 80 ✓ | ✓ |  | 2 |
+| 849 | 90 | 90 ✓ | ✓ |  | 2 |
+| 848 | 100 | 100 ✓ | ✓ |  | 2 |
+| 895 | 95 | 95 ✓ | ✓ |  | 2 |
+| 894 | 103 | 103 ✓ | ✓ |  | 2 |
+| 894 | 116 | 116 ✓ | ✓ |  | 2 |
+| 895 | 132 | 132 ✓ | ✓ |  | 2 |
+| 895 | 146 | 146 ✓ | ✓ |  | 2 |
+| 894 | 163 | 163 ✓ | ✓ |  | 2 |
+| 941 | 59 | 59 ✓ | ✓ |  | 2 |
+| 941 | 64 | 64 ✓ | ✓ |  | 2 |
+| 940 | 72 | 72 ✓ | ✓ |  | 2 |
+| 941 | 82 | 82 ✓ | ✓ |  | 2 |
+| 940 | 91 | 91 ✓ | ✓ |  | 2 |
+| 940 | 101 | 101 ✓ | ✓ |  | 2 |
+| 884 | 40° | 40 ✓ | ✓ |  | 2 |
+| 993 | 5-2. | 5-2. ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-2: in ogni gruppo le righe km/h e MPH sono la stessa velocita' (km/h = MPH x 1,609, arrotondati): tutte le 66 coppie tornano ✓ (controllo in costruisci/5-7.py); VI 50…150 MPH = 80…241 km/h ✓
+
+### Pagina 5-8 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 333 | 5-8 | 5-8 ✓ | ✓ |  | 2 |
+| 366 | 3 | 3 ✓ | ✓ |  | 2 |
+| 643 | 0° | 0 ✓ | ✓ |  | 2 |
+| 643 | 20° | 20 ✓ | ✓ |  | 2 |
+| 643 | 40° | 49  | ✓ | ✓ OCR legge altro; a vista: 40° · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado | 3 |
+| 643 | 60° | 60 ✓ | ✓ |  | 2 |
+| 711 | 98 | 98 ✓ | ✓ |  | 2 |
+| 741 | 53 | 03  | ✓ | ✓ OCR legge altro; a vista: 53 · seconda conferma: DATI-AFM.md: stallo flap UP 98 km/h, 53 kts, 61 MPH (anche su 2-1); la terna torna (98 km/h = 52,9 kt) | 3 |
+| 772 | 61 | 61 ✓ | ✓ |  | 2 |
+| 711 | 101 | 101 ✓ | ✓ |  | 2 |
+| 741 | 55 | 55 ✓ | ✓ |  | 2 |
+| 772 | 63 | 63 ✓ | ✓ |  | 2 |
+| 711 | 113 | 113 ✓ | ✓ |  | 2 |
+| 741 | 61 | 61 ✓ | ✓ |  | 2 |
+| 772 | 70 | 70 ✓ | ✓ |  | 2 |
+| 711 | 138 | 138 ✓ | ✓ |  | 2 |
+| 741 | 75 | 75 ✓ | ✓ |  | 2 |
+| 772 | 86 | 86 ✓ | ✓ |  | 2 |
+| 840 | 20° | 909  | ✓ | ✓ OCR legge altro; a vista: 20° · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado | 3 |
+| 841 | 89 | 89 ✓ | ✓ |  | 2 |
+| 871 | 48 | 48 ✓ | ✓ |  | 2 |
+| 903 | 55 | 65  | ✓ | ✓ OCR legge altro; a vista: 55 · seconda conferma: la terna della cella torna: 89 km/h = 55,3 MPH (89 km/h e 48 kts sopra); DATI-AFM.md: stallo flap 20° 55 MPH | 3 |
+| 841 | 92 | 92 ✓ | ✓ |  | 2 |
+| 871 | 50 | 50 ✓ | ✓ |  | 2 |
+| 903 | 57 | 5/7  | ✓ | ✓ OCR legge altro; a vista: 57 · seconda conferma: la terna della cella torna: 92 km/h = 49,7 kt = 57,2 MPH (92 km/h e 50 kts sopra) | 3 |
+| 841 | 103 | 103 ✓ | ✓ |  | 2 |
+| 871 | 56 | –  | ✓ | ✓ OCR legge altro; a vista: 56 · seconda conferma: la terna della cella torna: 103 km/h = 55,6 kt (103 km/h e 64 MPH nella stessa cella) | 3 |
+| 903 | 64 | 64 ✓ | ✓ |  | 2 |
+| 841 | 127 | 127 ✓ | ✓ |  | 2 |
+| 871 | 69 | 69 ✓ | ✓ |  | 2 |
+| 903 | 79 | 79 ✓ | ✓ |  | 2 |
+| 971 | 40° | 409  | ✓ | ✓ OCR legge altro; a vista: 40° · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado | 3 |
+| 971 | 85 | 85 ✓ | ✓ |  | 2 |
+| 1002 | 46 | 46 ✓ | ✓ |  | 2 |
+| 1032 | 53 | 53 ✓ | ✓ |  | 2 |
+| 971 | 89 | 89 ✓ | ✓ |  | 2 |
+| 1002 | 48 | 48 ✓ | ✓ |  | 2 |
+| 1032 | 55 | 55 ✓ | ✓ |  | 2 |
+| 971 | 97 | 97 ✓ | ✓ |  | 2 |
+| 1002 | 52 | 52 ✓ | ✓ |  | 2 |
+| 1032 | 60 | 60 ✓ | ✓ |  | 2 |
+| 971 | 121 | 121 ✓ | ✓ |  | 2 |
+| 1002 | 65 | 65 ✓ | ✓ |  | 2 |
+| 1032 | 75 | 75 ✓ | ✓ |  | 2 |
+| 900 | 1157 | 1157 ✓ | ✓ |  | 2 |
+| 1199 | 5-3. | 3-3.  | ✓ | ✓ OCR legge altro; a vista: 5-3. · seconda conferma: mappa tools/afm/afm-ccaf.json: la figura 5-3 (Stall Speeds Data) e' a pagina 5-8 | 3 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-3, stallo a 1157 kg: con inclinazione 0° 98/89/85 km/h - 53/48/46 kts - 61/55/53 MPH = DATI-AFM.md e pagina 2-1 ✓; ogni cella e' una terna che torna (1 kt = 1,852 km/h, 1 MPH = 1,609 km/h) ✓; con l'inclinazione la velocita' cresce come 1/√cos φ (flap UP: 61 → 63 → 70 → 86 MPH a 20°, 40°, 60°) ✓
+
+### Pagina 5-9 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 222 | 5-9 | 5-9 ✓ | – | ✓ a vista: Page: 5-9 · seconda conferma: posizione nel PDF: pagina 65, fra 5-8 e 5-10 (pagina 64 e 66; mappa tools/afm/afm-ccaf.json) | 3 |
+| 252 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 330 | 10° | 10 ✓ | ✓ |  | 2 |
+| 421 | 15m | 15m ✓ | ✓ |  | 2 |
+| 421 | +15°C | 4159C  | – | ✓ a vista: AND +15°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C | 2 |
+| 515 | 15 | 15 ✓ | ✓ |  | 2 |
+| 399 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 421 | +10°C | 10C ✓ | – | ✓ a vista: AND +10°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C | 3 |
+| 516 | 15 | 15 ✓ | ✓ |  | 2 |
+| 399 | 5000 | 5000 ✓ | ✓ |  | 2 |
+| 421 | +5°C | 59C  | – | ✓ a vista: AND +5°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C | 2 |
+| 515 | 15 | 15 ✓ | ✓ |  | 2 |
+| 399 | 7500 | 7500 ✓ | ✓ |  | 2 |
+| 421 | 0°C | oPc  | – | ✓ a vista: AND 0°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C | 2 |
+| 514 | 15 | 15 ✓ | ✓ |  | 2 |
+| 629 | 1157 | 1157 ✓ | ✓ |  | 2 |
+| 606 | 109 | 109 ✓ | ✓ |  | 2 |
+| 629 | 59 | 59 ✓ | ✓ |  | 2 |
+| 652 | 68 | 68 ✓ | ✓ |  | 2 |
+| 607 | 0 | a  | ✓ | ✓ OCR legge altro; a vista: 0 · seconda conferma: vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts) | 3 |
+| 629 | 19 | 19 ✓ | ✓ |  | 2 |
+| 652 | 37 | 37 ✓ | ✓ |  | 2 |
+| 606 | 0 | 0 ✓ | ✓ | ✓ OCR legge altro; a vista: 0 · seconda conferma: vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts) | 4 |
+| 629 | 10 | 10 ✓ | ✓ |  | 2 |
+| 651 | 20 | 20 ✓ | ✓ |  | 2 |
+| 606 | 226 | 226 ✓ | ✓ |  | 2 |
+| 629 | 158 | 158 ✓ | ✓ |  | 2 |
+| 651 | 102 | 102 ✓ | ✓ |  | 2 |
+| 606 | 375 | 375 ✓ | ✓ |  | 2 |
+| 629 | 282 | 282 ✓ | ✓ |  | 2 |
+| 652 | 201 | 201 ✓ | ✓ |  | 2 |
+| 606 | 268 | 268 ✓ | ✓ |  | 2 |
+| 629 | 192 | 192 ✓ | ✓ |  | 2 |
+| 651 | 126 | 126 ✓ | ✓ |  | 2 |
+| 606 | 439 | 439 ✓ | ✓ |  | 2 |
+| 629 | 335 | 335 ✓ | ✓ |  | 2 |
+| 652 | 242 | 242 ✓ | ✓ |  | 2 |
+| 606 | 325 | 325 ✓ | ✓ |  | 2 |
+| 629 | 235 | 235 ✓ | ✓ |  | 2 |
+| 651 | 158 | 158 ✓ | ✓ |  | 2 |
+| 606 | 526 | 526 ✓ | ✓ |  | 2 |
+| 629 | 405 | 405 ✓ | ✓ |  | 2 |
+| 651 | 297 | 297 ✓ | ✓ |  | 2 |
+| 606 | 393 | 393 ✓ | ✓ |  | 2 |
+| 628 | 288 | 288 ✓ | ✓ |  | 2 |
+| 651 | 200 | 200 ✓ | ✓ |  | 2 |
+| 606 | 639 | 639 ✓ | ✓ |  | 2 |
+| 628 | 497 | 497 ✓ | ✓ |  | 2 |
+| 651 | 370 | 370 ✓ | ✓ |  | 2 |
+| 721 | 1000 | 1000 ✓ | ✓ |  | 2 |
+| 700 | 101 | 101 ✓ | ✓ |  | 2 |
+| 722 | 55 | 55 ✓ | ✓ |  | 2 |
+| 745 | 63 | 63 ✓ | ✓ |  | 2 |
+| 700 | 0 | a  | ✓ | ✓ OCR legge altro; a vista: 0 · seconda conferma: vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts) | 3 |
+| 722 | 19 | 19 ✓ | ✓ |  | 2 |
+| 745 | 37 | 37 ✓ | ✓ |  | 2 |
+| 700 | 0 | –  | ✓ | ✓ OCR legge altro; a vista: 0 · seconda conferma: vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts) | 3 |
+| 722 | 10 | 10 ✓ | ✓ |  | 2 |
+| 745 | 20 | 20 ✓ | ✓ |  | 2 |
+| 700 | 162 | 162 ✓ | ✓ |  | 2 |
+| 722 | 110 | 110 ✓ | ✓ |  | 2 |
+| 745 | 69 | 69 ✓ | ✓ |  | 2 |
+| 700 | 282 | 282 ✓ | ✓ |  | 2 |
+| 722 | 209 | 209 ✓ | ✓ |  | 2 |
+| 744 | 145 | 145 ✓ | ✓ |  | 2 |
+| 700 | 192 | 192 ✓ | ✓ |  | 2 |
+| 722 | 134 | 134 ✓ | ✓ |  | 2 |
+| 744 | 85 | 85 ✓ | ✓ |  | 2 |
+| 700 | 326 | 326 ✓ | ✓ |  | 2 |
+| 722 | 245 | 245 ✓ | ✓ |  | 2 |
+| 745 | 172 | Tt  | ✓ | ✓ OCR legge Tt; a vista: 172 · seconda conferma: lo strato di testo del PDF legge 172 | 3 |
+| 700 | 232 | 232 ✓ | ✓ |  | 2 |
+| 722 | 163 | 163 ✓ | ✓ |  | 2 |
+| 744 | 105 | 105 ✓ | ✓ |  | 2 |
+| 700 | 386 | 386 ✓ | ✓ |  | 2 |
+| 721 | 291 | 291 ✓ | ✓ |  | 2 |
+| 744 | 207 | 207 ✓ | ✓ |  | 2 |
+| 699 | 279 | 279 ✓ | ✓ |  | 2 |
+| 722 | 200 | 200 ✓ | ✓ |  | 2 |
+| 744 | 133 | 133 ✓ | ✓ |  | 2 |
+| 699 | 459 | 459 ✓ | ✓ |  | 2 |
+| 721 | 349 | 349 ✓ | ✓ |  | 2 |
+| 743 | 253 | 253 ✓ | ✓ |  | 2 |
+| 812 | 850 | 850 ✓ | ✓ |  | 2 |
+| 790 | 93 | 93 ✓ | ✓ |  | 2 |
+| 813 | 50 | 50 ✓ | ✓ |  | 2 |
+| 836 | 58 | 58 ✓ | ✓ |  | 2 |
+| 790 | 0 | –  | ✓ | ✓ OCR legge altro; a vista: 0 · seconda conferma: vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts) | 3 |
+| 813 | 19 | 19 ✓ | ✓ |  | 2 |
+| 836 | 37 | 37 ✓ | ✓ |  | 2 |
+| 790 | 0 | –  | ✓ | ✓ OCR legge altro; a vista: 0 · seconda conferma: vento in prua nullo: 0 km/h = 0 kts, la prima riga di ogni gruppo (poi 19 km/h = 10 kts, 37 km/h = 20 kts) | 3 |
+| 813 | 10 | 10 ✓ | ✓ |  | 2 |
+| 835 | 20 | 20 ✓ | ✓ |  | 2 |
+| 790 | 113 | 113 ✓ | ✓ |  | 2 |
+| 812 | 75 | 75 ✓ | ✓ |  | 2 |
+| 836 | 43 | 43 ✓ | ✓ |  | 2 |
+| 791 | 210 | 210 ✓ | ✓ |  | 2 |
+| 813 | 154 | 154 ✓ | ✓ |  | 2 |
+| 836 | 104 | 104 ✓ | ✓ |  | 2 |
+| 791 | 133 | 133 ✓ | ✓ |  | 2 |
+| 813 | 90 | 90 ✓ | ✓ |  | 2 |
+| 836 | 53 | 53 ✓ | ✓ |  | 2 |
+| 791 | 241 | 241 ✓ | ✓ |  | 2 |
+| 813 | 177 | 177 ✓ | ✓ |  | 2 |
+| 836 | 120 | 120 ✓ | ✓ |  | 2 |
+| 791 | 160 | 160 ✓ | ✓ |  | 2 |
+| 813 | 108 | 108 ✓ | ✓ |  | 2 |
+| 836 | 67 | 67 ✓ | ✓ |  | 2 |
+| 791 | 280 | 280 ✓ | ✓ |  | 2 |
+| 813 | 207 | 207 ✓ | ✓ |  | 2 |
+| 836 | 143 | 143 ✓ | ✓ |  | 2 |
+| 790 | 192 | 192 ✓ | ✓ |  | 2 |
+| 813 | 133 | 133 ✓ | ✓ |  | 2 |
+| 835 | 84 | 84 ✓ | ✓ |  | 2 |
+| 790 | 328 | 328 ✓ | ✓ |  | 2 |
+| 813 | 245 | 245 ✓ | ✓ |  | 2 |
+| 835 | 172 | 172 ✓ | ✓ |  | 2 |
+| 880 | 1. | 1. ✓ | ✓ |  | 2 |
+| 880 | 10% | 10 ✓ | ✓ |  | 2 |
+| 880 | 14°C | 14aC ✓ | – | ✓ a vista: for each 14°C above standard · seconda conferma: 14°C = 25°F, la regola dei manuali Cessna (10% ogni 25°F sopra lo standard); lo strato di testo del PDF legge 14°C | 3 |
+| 902 | 2. | 2. ✓ | ✓ |  | 2 |
+| 925 | 7% | 7 ✓ | ✓ |  | 2 |
+| 925 | 15 | 15 ✓ | ✓ |  | 2 |
+| 1001 | 5-4. | 5-4. ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-4: VI a 15 m 109 / 101 / 93 km/h = 59 / 55 / 50 kts = 68 / 63 / 58 MPH ✓ (terne che tornano) = DATI-AFM.md, VR / velocita' a 15 m 68 / 63 / 58 MPH a 1157 / 1000 / 850 kg ✓; vento 19 km/h = 10 kts, 37 km/h = 20 kts ✓
+- Distanze: crescono con la quota e calano col vento e col peso in ogni colonna (nessuna inversione) ✓; i numeri hanno due letture concordi (Tesseract e strato di testo del PDF) salvo quelli chiusi a vista qui sopra
+
+### Pagina 5-10 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 338 | 5-10 | 5-10 ✓ | – | ✓ OCR legge 5-10; a vista: 5-10 · seconda conferma: posizione nel PDF: pagina 66, fra 5-9 e 5-11 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 369 | 3 | 3 ✓ | – | ✓ OCR legge 3; a vista: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 298 | 40° | 40 ✓ | – | ✓ OCR legge 40; a vista: 40° · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40°; il segno in apice e' il grado | 3 |
+| 432 | +15°C | 415PC  | – | ✓ OCR legge 415PC; a vista: +15°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C | 2 |
+| 538 | 15 | 15 ✓ | ✓ |  | 2 |
+| 409 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 431 | +10°C | 4109C  | – | ✓ OCR legge 4109C; a vista: +10°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C | 2 |
+| 538 | 15 | 15 ✓ | ✓ |  | 2 |
+| 409 | 5000 | 5000 ✓ | ✓ |  | 2 |
+| 431 | +5°C | 452C  | – | ✓ OCR legge 452C; a vista: +5°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C | 2 |
+| 538 | 15 | 15 ✓ | ✓ |  | 2 |
+| 409 | 7500 | 7500 ✓ | ✓ |  | 2 |
+| 432 | 0°C | oPc  | – | ✓ OCR legge oPc; a vista: 0°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C | 2 |
+| 538 | 15 | 15 ✓ | ✓ |  | 2 |
+| 697 | 1157 | 1157 ✓ | ✓ |  | 2 |
+| 652 | 117 | 117 ✓ | ✓ |  | 2 |
+| 697 | 63 | 63 ✓ | ✓ |  | 2 |
+| 742 | 73 | 73 ✓ | ✓ |  | 2 |
+| 697 | 189 | 189 ✓ | ✓ |  | 2 |
+| 696 | 387 | 387 ✓ | ✓ |  | 2 |
+| 696 | 201 | 201 ✓ | ✓ |  | 2 |
+| 695 | 411 | 411 ✓ | ✓ |  | 2 |
+| 696 | 212 | 212 ✓ | ✓ |  | 2 |
+| 695 | 434 | 434 ✓ | ✓ |  | 2 |
+| 696 | 224 | 224 ✓ | ✓ |  | 2 |
+| 696 | 460 | 460 ✓ | ✓ |  | 2 |
+| 811 | 1. | 1. ✓ | ✓ |  | 2 |
+| 811 | 10% | 10 ✓ | ✓ |  | 2 |
+| 811 | 5 | 5 ✓ | ✓ |  | 2 |
+| 833 | 2. | 2. ✓ | ✓ |  | 2 |
+| 855 | 20% | 20 ✓ | ✓ |  | 2 |
+| 855 | 15m | 15m ✓ | ✓ |  | 2 |
+| 962 | 5-5. | 5-5. ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-5: velocita' di avvicinamento 117 km/h = 63,2 kts = 72,7 MPH ✓ = DATI-AFM.md, avvicinamento flap 40° 73 MPH a 1157 kg ✓; le distanze crescono con la quota in tutte e due le colonne ✓; i numeri hanno due letture concordi (Tesseract e strato di testo del PDF)
+
+### Pagina 5-11 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 223 | 5-11 | 5-1)  | – | ✓ OCR legge 5-1); a vista: 5-11 · seconda conferma: posizione nel PDF: pagina 67, fra 5-10 e 5-12 (mappa tools/afm/afm-ccaf.json) | 2 |
+| 254 | 3 | :  | – | ✓ OCR legge :; a vista: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 2 |
+| 449 | +15°C | 15PC ✓ | – | ✓ OCR legge 15PC; a vista: +15°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C, 15000 ft -15°C | 3 |
+| 430 | 5000 | 5000 ✓ | ✓ |  | 2 |
+| 448 | +5°C | 459C  | – | ✓ OCR legge 459C; a vista: +5°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C, 15000 ft -15°C | 2 |
+| 430 | 10000 | 10000 ✓ | ✓ |  | 2 |
+| 449 | -5°C | -59C  | ✓ | ✓ OCR legge -59C; a vista: -5°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C, 15000 ft -15°C | 3 |
+| 430 | 15000 | 15000 ✓ | ✓ |  | 2 |
+| 449 | -15°C | -159C  | ✓ | ✓ OCR legge -159C; a vista: -15°C · seconda conferma: atmosfera standard (ISA): +15°C al livello del mare, -2°C ogni 1000 piedi: 2500 ft +10°C, 5000 ft +5°C, 7500 ft 0°C, 10000 ft -5°C, 15000 ft -15°C | 3 |
+| 621 | 1157 | 1157 ✓ | ✓ |  | 2 |
+| 602 | 137 | 137 ✓ | ✓ |  | 2 |
+| 621 | 74 | 74 ✓ | ✓ |  | 2 |
+| 639 | 85 | 85 ✓ | ✓ |  | 2 |
+| 621 | 880 | 880 ✓ | ✓ |  | 2 |
+| 621 | 4,9 | 4,9 ✓ | ✓ |  | 2 |
+| 603 | 135 | 135 ✓ | ✓ |  | 2 |
+| 621 | 73 | 73 ✓ | ✓ |  | 2 |
+| 639 | 84 | B4  | ✓ | ✓ OCR legge altro; a vista: 84 · seconda conferma: DATI-AFM.md: VY a 1157 kg 85 / 84 / 83 / 82 MPH a SL / 5000 / 10000 / 15000 ft; e la terna 135 km/h = 72,9 kts = 83,9 MPH torna | 3 |
+| 621 | 650 | 650 ✓ | ✓ |  | 2 |
+| 621 | 11,7 | Tikes  | ✓ | ✓ OCR legge altro; a vista: 11,7 · seconda conferma: DATI-AFM.md: carburante di salita a 1157 kg 4,9 L al livello del mare, 11,7 L a 5000 ft, 20,1 L a 10000 ft | 3 |
+| 603 | 134 | 134 ✓ | ✓ |  | 2 |
+| 621 | 72 | 72 ✓ | ✓ |  | 2 |
+| 640 | 83 | 83 ✓ | ✓ |  | 2 |
+| 621 | 420 | 420 ✓ | ✓ |  | 2 |
+| 622 | 20,1 | 20,1 ✓ | ✓ |  | 2 |
+| 604 | 132 | 132 ✓ | ✓ |  | 2 |
+| 621 | 71 | 71 ✓ | ✓ |  | 2 |
+| 640 | 82 | 82 ✓ | ✓ |  | 2 |
+| 621 | 190 | 190 ✓ | ✓ |  | 2 |
+| 621 | 33,3 | 33,3 ✓ | ✓ |  | 2 |
+| 714 | 1000 | 1000 ✓ | ✓ |  | 2 |
+| 696 | 132 | 132 ✓ | ✓ |  | 2 |
+| 714 | 71 | 71 ✓ | ✓ |  | 2 |
+| 732 | 82 | 82 ✓ | ✓ |  | 2 |
+| 714 | 1120 | 1120 ✓ | ✓ |  | 2 |
+| 714 | 4,9 | 4,9 ✓ | ✓ |  | 2 |
+| 697 | 130 | 130 ✓ | ✓ |  | 2 |
+| 715 | 70 | 70 ✓ | ✓ |  | 2 |
+| 733 | 81 | 81 ✓ | ✓ |  | 2 |
+| 715 | 860 | 860 ✓ | ✓ |  | 2 |
+| 715 | 10,2 | 10,2 ✓ | ✓ |  | 2 |
+| 697 | 129 | 129 ✓ | ✓ |  | 2 |
+| 715 | 70 | 70 ✓ | ✓ |  | 2 |
+| 733 | 80 | 80 ✓ | – | ✓ OCR legge altro; a vista: 80 · seconda conferma: la terna torna: 129 km/h = 69,7 kts = 80,2 MPH; DATI-AFM.md: VY a 1000 kg 82 / 81 / 80 / 79 MPH (a 10000 ft 80) | 3 |
+| 715 | 595 | 595 ✓ | ✓ |  | 2 |
+| 716 | 16,3 | 16,3 ✓ | ✓ |  | 2 |
+| 697 | 127 | 127 ✓ | ✓ |  | 2 |
+| 716 | 69 | 69 ✓ | ✓ |  | 2 |
+| 733 | 79 | 79 ✓ | ✓ |  | 2 |
+| 716 | 340 | 340 ✓ | ✓ |  | 2 |
+| 716 | 24,2 | 24,2 ✓ | ✓ |  | 2 |
+| 807 | 850 | 850 ✓ | ✓ |  | 2 |
+| 790 | 129 | 129 ✓ | ✓ |  | 2 |
+| 808 | 70 | 7O  | ✓ | ✓ OCR legge altro; a vista: 70 · seconda conferma: la terna torna: 129 km/h = 69,7 kts = 80,2 MPH (129 km/h e 80 MPH nella stessa cella); DATI-AFM.md: VY a 850 kg 80 MPH al livello del mare | 3 |
+| 826 | 80 | 80 ✓ | ✓ |  | 2 |
+| 807 | 1420 | 1420 ✓ | ✓ |  | 2 |
+| 808 | 4,9 | 4,9 ✓ | ✓ |  | 2 |
+| 790 | 126 | 126 ✓ | ✓ |  | 2 |
+| 809 | 68 | 68 ✓ | ✓ |  | 2 |
+| 826 | 78 | 78 ✓ | ✓ |  | 2 |
+| 808 | 1115 | 1115 ✓ | ✓ |  | 2 |
+| 808 | 8,7 | 8,7 ✓ | ✓ |  | 2 |
+| 791 | 124 | 124 ✓ | ✓ |  | 2 |
+| 809 | 67 | 67 ✓ | ✓ |  | 2 |
+| 827 | 77 | 77 ✓ | ✓ |  | 2 |
+| 809 | 815 | 815 ✓ | ✓ |  | 2 |
+| 809 | 13,2 | 13,2 ✓ | ✓ |  | 2 |
+| 791 | 122 | 122 ✓ | ✓ |  | 2 |
+| 810 | 66 | 66 ✓ | ✓ |  | 2 |
+| 828 | 76 | 76 ✓ | ✓ |  | 2 |
+| 809 | 515 | 515 ✓ | ✓ |  | 2 |
+| 809 | 19,3 | 19,3 ✓ | ✓ |  | 2 |
+| 882 | 1. | 1. ✓ | ✓ |  | 2 |
+| 882 | 2800 | 2800 ✓ | ✓ |  | 2 |
+| 900 | 2. | 2, ✓ | ✓ |  | 2 |
+| 919 | 3. | 3. ✓ | ✓ |  | 2 |
+| 919 | 20 | 20 ✓ | ✓ |  | 2 |
+| 919 | 5°C | 5PC ✓ | ✓ |  | 2 |
+| 1009 | 5-6. | 5-6. ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Figura 5-6: VY a 1157 / 1000 / 850 kg = 85-84-83-82 / 82-81-80-79 / 80-78-77-76 MPH a SL, 5000, 10000, 15000 ft = DATI-AFM.md ✓; ratei al livello del mare 880 / 1120 / 1420 ft/min = DATI-AFM.md ✓; carburante a 1157 kg 4,9 / 11,7 / 20,1 L = DATI-AFM.md ✓; ogni terna km/h - kts - MPH torna (controllo in costruisci/5-11.py) ✓; temperature: atmosfera standard ✓
 
 ### Pagina 5-12 (due conferme)
 

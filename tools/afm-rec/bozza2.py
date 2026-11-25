@@ -9,19 +9,23 @@ caselle delle parole; la linea di base e' la mediana dei fondi delle lettere.
 Scrive pagine/<n>.json (stato "bozza", tutte le righe col ruolo testo): titoli,
 correzioni e grafica si fanno poi a mano.
 
-    /usr/bin/python3 tools/afm-rec/bozza2.py afm-ccaf <pdf> <n> <x0> <x1> [y0 y1]
+    /usr/bin/python3 tools/afm-rec/bozza2.py afm-ccaf <pdf> <n> <x0> <x1> [y0 y1] [--girata]
 """
 import csv, io, json, os, re, subprocess, sys, tempfile
 import numpy as np
 from PIL import Image
 R = os.getcwd()
 ID, PDF, N, X0, X1 = sys.argv[1], int(sys.argv[2]), sys.argv[3], int(sys.argv[4]), int(sys.argv[5])
-Y0, Y1 = (int(sys.argv[6]), int(sys.argv[7])) if len(sys.argv) > 7 else (60, 1720)
+A_ = [x for x in sys.argv if x != '--girata']
+Y0, Y1 = (int(A_[6]), int(A_[7])) if len(A_) > 7 else (60, 1720)
 libro = open(f'{R}/data/afm/{ID}/libro.html', encoding='utf-8').read()
 m = re.search(r'data-pdf="%d"[^>]*>(?:<i[^>]*></i>)*<img[^>]*data-s2="([^"]+)"' % PDF, libro)
 rgb = np.array(Image.open(f'{R}/{m.group(1)}').convert('RGB')).astype(int)
 g = rgb @ [0.299, 0.587, 0.114]; g[(rgb.max(2) - rgb.min(2)) >= 40] = 255
 ink = g < 140
+ROT = 0
+if '--girata' in sys.argv:          # pagina di traverso: si lavora sulla pagina girata diritta (come misura.py)
+    g = np.rot90(g, 3); ink = np.rot90(ink, 3); ROT = -90
 z = ink[Y0:Y1, X0:X1]
 prof = z.sum(1)
 # le bande: righe di pixel con inchiostro (piu' di 2 px), buchi di 2 righe ammessi
@@ -67,7 +71,7 @@ for a, b in bande:
                 st = None
         base = a2 + (int(np.median(fondi)) + 1 if fondi else b2 - a2 + 1)
         righe.append(['riga', 'testo', base, parole])
-p = {'pdf': PDF, 'n': N, 'w': 1250, 'h': 1762, 'rot': 0, 'stato': 'bozza', 'figure': [], 'el': righe}
+p = {'pdf': PDF, 'n': N, 'w': g.shape[1], 'h': g.shape[0], 'rot': ROT, 'stato': 'bozza', 'figure': [], 'el': righe}
 f = f'{R}/tools/afm-rec/{ID}/pagine/{N}.json'
 r = ['    ' + json.dumps(e, ensure_ascii=False) for e in p['el']]
 open(f, 'w').write('{\n' + ',\n'.join(f'  {json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}' for k, v in p.items() if k != 'el') + ',\n  "el": [\n' + ',\n'.join(r) + '\n  ]\n}\n')

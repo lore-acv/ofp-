@@ -60,6 +60,16 @@
       "spazio": 0.08,
       "coda": 0.4
     },
+    "cella": {
+      "font": "sans",
+      "classe": "rc",
+      "peso": 400,
+      "larghezza": "112.5%",
+      "c": 10,
+      "capRatio": 0.6875,
+      "sx": 1.0,
+      "spazio": 0.0
+    },
     "richiamo": {
       "font": "sans",
       "classe": "rn",

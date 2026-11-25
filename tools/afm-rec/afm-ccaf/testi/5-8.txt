@@ -1,0 +1,55 @@
+155 | Flight Manual
+186 | Reims Rocket
+333 | Page: 5-8 Reims Aviation
+364 | Edition: 3 Reims, Marne France
+493 tabella 262-953 c=20 | STALL SPEEDS — KM/H - KTS - MPH, VC
+575 tabella 534-953 c=20 | ANGLE OF BANK
+643 tabella 391-525 c=20 fine=525 | CONDITIONS
+643 tabella 534-632 c=20 fine=632 basefissa | 0°
+643 tabella 641-740 c=20 fine=740 basefissa | 20°
+643 tabella 748-847 c=20 fine=847 basefissa | 40°
+643 tabella 855-953 c=20 fine=953 basefissa | 60°
+711 tabella 391-525 c=20 fine=525 | FLAPS UP
+711 tabella 534-632 c=20 fine=632 | 98 km/h
+741 tabella 534-632 c=20 fine=632 | 53 kts
+772 tabella 534-632 c=20 fine=632 | 61 MPH
+711 tabella 641-740 c=20 fine=740 | 101 km/h
+741 tabella 641-740 c=20 fine=740 | 55 kts
+772 tabella 641-740 c=20 fine=740 | 63 MPH
+711 tabella 748-847 c=20 fine=847 | 113 km/h
+741 tabella 748-847 c=20 fine=847 | 61 kts
+772 tabella 748-847 c=20 fine=847 | 70 MPH
+711 tabella 855-953 c=20 fine=953 | 138 km/h
+741 tabella 855-953 c=20 fine=953 | 75 kts
+772 tabella 855-953 c=20 fine=953 | 86 MPH
+840 tabella 391-525 c=20 fine=525 | FLAPS 20°
+841 tabella 534-632 c=20 fine=632 | 89 km/h
+871 tabella 534-632 c=20 fine=632 | 48 kts
+903 tabella 534-632 c=20 fine=632 | 55 MPH
+841 tabella 641-740 c=20 fine=740 | 92 km/h
+871 tabella 641-740 c=20 fine=740 | 50 kts
+903 tabella 641-740 c=20 fine=740 | 57 MPH
+841 tabella 748-847 c=20 fine=847 | 103 km/h
+871 tabella 748-847 c=20 fine=847 | 56 kts
+903 tabella 748-847 c=20 fine=847 | 64 MPH
+841 tabella 855-953 c=20 fine=953 | 127 km/h
+871 tabella 855-953 c=20 fine=953 | 69 kts
+903 tabella 855-953 c=20 fine=953 | 79 MPH
+971 tabella 391-525 c=20 fine=525 | FLAPS 40°
+971 tabella 534-632 c=20 fine=632 | 85 km/h
+1002 tabella 534-632 c=20 fine=632 | 46 kts
+1032 tabella 534-632 c=20 fine=632 | 53 MPH
+971 tabella 641-740 c=20 fine=740 | 89 km/h
+1002 tabella 641-740 c=20 fine=740 | 48 kts
+1032 tabella 641-740 c=20 fine=740 | 55 MPH
+971 tabella 748-847 c=20 fine=847 | 97 km/h
+1002 tabella 748-847 c=20 fine=847 | 52 kts
+1032 tabella 748-847 c=20 fine=847 | 60 MPH
+971 tabella 855-953 c=20 fine=953 | 121 km/h
+1002 tabella 855-953 c=20 fine=953 | 65 kts
+1032 tabella 855-953 c=20 fine=953 | 75 MPH
+838 tabella 262-383 c=20 fine=383 | MAXIMUM
+869 tabella 262-383 c=20 fine=383 | GROSS WT
+900 tabella 262-383 c=20 fine=383 | 1157 kg
+1102 tabella 262-953 c=20 | POWER OFF — AFT CG
+1199 | Figure 5-3.

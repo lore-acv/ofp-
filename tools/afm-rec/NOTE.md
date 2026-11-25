@@ -162,6 +162,29 @@ scansione non e' stampa stanno in fondo.
 - I segni "°" dei flap e delle temperature sono una o piccola in apice nella
   stampa; si scrive il segno di grado.
 
+### Sezione V (pagine 5-1 … 5-12)
+- 5-1: intestazione "SECTION V" con barre e frecce, come le altre sezioni. Il
+  titolo e' stampato un poco storto (sale verso destra): si scrive dritto.
+- Le pagine 5-2 … 5-7 e 5-9 … 5-12 sono di traverso; si ricostruiscono sulla
+  pagina girata diritta, con l'intestazione nel riferimento del libro.
+- Figura 5-1 (crociera, cinque fogli 5-2 … 5-6): ogni numero e' letto due
+  volte (Tesseract cella per cella e strato di testo del PDF) e la scelta fra
+  le due letture, quando non concordano, la fa l'aritmetica della riga (km/h,
+  kts e MPH; galloni e litri; autonomia = 46 galloni / consumo; km e NM; mb e
+  in Hg). Tutte le righe tornano entro gli arrotondamenti. Le distanze in km
+  sono quelle stampate: in qualche riga differiscono di meno dell'1% da
+  autonomia x velocita' (l'autonomia stampata e' arrotondata), ma km e NM
+  tornano sempre fra loro.
+- Il carattere delle tabelle (un bastoni largo) si rende con Archivo a
+  larghezza 112,5% (ruolo "cella"); la figura 5-6 ha un carattere piu' piccolo
+  e stretto (corpo 11,5, larghezza 0,95).
+- Figura 5-2 (correzione delle velocita'): i pallini delle celle vuote sono
+  cerchi misurati.
+- Note: "15m obstacle"figure (5-10) senza spazio, "allowance." e gli altri
+  segni come stampati.
+- Didascalie delle pagine di traverso nello stile di 5-12 (corpo 15,
+  larghezza 1,1).
+
 ## Decisioni su cio' che nella scansione non e' stampa
 - **Sottolineature colorate** (giallo, azzurro) sulla scansione di I-CCAF:
   sono segni a evidenziatore sulla copia scansionata, non stampa del manuale.

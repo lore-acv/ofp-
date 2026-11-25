@@ -8,7 +8,8 @@ ogni gruppo di parole di una riga (un salto grande separa i gruppi) si misura
 la linea di base sulla scansione: l'riga di pixel dove l'inchiostro cala di colpo
 (il fondo delle lettere: la mediana dei fondi delle lettere, componenti
 dell'inchiostro alte almeno 6 decimi del corpo). Se e' a 2 px o piu' da quella scritta, il gruppo diventa una
-riga sua con la base giusta. Le righe fissa, girate e con apici non si toccano.
+riga sua con la base giusta. Le righe fissa, girate, con apici o con basefissa (base misurata a
+mano: le punte delle V, i gradi in apice ingannano il calcolo) non si toccano.
 
     /usr/bin/python3 tools/afm-rec/ribasa.py afm-ccaf 1-3 [--prova]
 """
@@ -24,7 +25,7 @@ rgb = np.array(Image.open(f'{R}/{m.group(1)}').convert('RGB')).astype(int)
 ink = ((rgb @ [0.299, 0.587, 0.114]) < 140) & ((rgb.max(2) - rgb.min(2)) < 40)
 if p.get('rot') == -90:
     ink = np.rot90(ink, 3)
-normali = [e for e in p['el'] if e[0] == 'riga' and not (len(e) > 4 and (e[4].get('ang') or e[4].get('libro') or e[4].get('fissa') or e[4].get('sup')))]
+normali = [e for e in p['el'] if e[0] == 'riga' and not (len(e) > 4 and (e[4].get('ang') or e[4].get('libro') or e[4].get('fissa') or e[4].get('sup') or e[4].get('basefissa')))]
 
 def base_ink(x0, x1, base, c, e, maiuscole=False):
     y0, y1 = int(base - c * 1.35), int(base + c * (0.15 if maiuscole else 0.4))   # maiuscole: un filetto sotto non e' la riga

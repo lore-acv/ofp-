@@ -1,0 +1,72 @@
+127 libro 400-850 | Flight Manual
+160 libro 400-850 | Reims Rocket
+338 libro 200-650 | Page: 5-10
+335 libro 650-1100 | Reims Aviation
+369 libro 200-650 | Edition: 3
+366 libro 650-1100 | Reims, Marne France
+319 cella 61-850 c=13.5 gap=6 fissa | LANDING DISTANCE
+298 cella 870-1321 c=13.5 gap=6 fissa | FLAPS LOWERED TO 40°
+321 cella 870-1321 c=13.5 gap=6 fissa | POWER OFF - ZERO WIND
+344 cella 870-1321 c=13.5 gap=6 fissa | HARD SURFACE RUNWAY
+409 cella 57-178 c=13.5 gap=6 fissa | GROSS
+432 cella 57-178 c=13.5 gap=6 fissa | WEIGHT
+493 cella 57-178 c=13.5 gap=6 fissa | kg
+409 cella 190-345 c=13.5 gap=6 fissa | APPROACH
+432 cella 190-345 c=13.5 gap=6 fissa | SPEED
+494 cella 190-345 c=13.5 gap=6 fissa | VI
+409 cella 357-587 c=13.5 gap=6 fissa | AT SEA LEVEL
+432 cella 357-587 c=13.5 gap=6 fissa | AND +15°C
+494 cella 357-466 c=13.5 gap=6 fissa | Ground
+517 cella 357-466 c=13.5 gap=6 fissa | Roll
+538 cella 357-466 c=13.5 gap=6 fissa | m
+493 cella 478-587 c=13.5 gap=6 fissa | Total
+516 cella 478-587 c=13.5 gap=6 fissa | to Clear
+538 cella 478-587 c=13.5 gap=6 fissa | 15 m
+561 cella 478-587 c=13.5 gap=6 fissa | obs
+583 cella 478-587 c=13.5 gap=6 fissa | m
+409 cella 599-833 c=13.5 gap=6 fissa | AT 2500 FEET
+431 cella 599-833 c=13.5 gap=6 fissa | AND +10°C
+493 cella 599-709 c=13.5 gap=6 fissa | Ground
+516 cella 599-709 c=13.5 gap=6 fissa | Roll
+538 cella 599-709 c=13.5 gap=6 fissa | m
+493 cella 721-833 c=13.5 gap=6 fissa | Total
+516 cella 721-833 c=13.5 gap=6 fissa | to Clear
+538 cella 721-833 c=13.5 gap=6 fissa | 15 m
+561 cella 721-833 c=13.5 gap=6 fissa | obs
+583 cella 721-833 c=13.5 gap=6 fissa | m
+409 cella 845-1079 c=13.5 gap=6 fissa | AT 5000 FEET
+431 cella 845-1079 c=13.5 gap=6 fissa | AND +5°C
+493 cella 845-957 c=13.5 gap=6 fissa | Ground
+516 cella 845-957 c=13.5 gap=6 fissa | Roll
+538 cella 845-957 c=13.5 gap=6 fissa | m
+493 cella 969-1079 c=13.5 gap=6 fissa | Total
+516 cella 969-1079 c=13.5 gap=6 fissa | to Clear
+538 cella 969-1079 c=13.5 gap=6 fissa | 15 m
+561 cella 969-1079 c=13.5 gap=6 fissa | obs
+583 cella 969-1079 c=13.5 gap=6 fissa | m
+409 cella 1091-1325 c=13.5 gap=6 fissa | AT 7500 FEET
+432 cella 1091-1325 c=13.5 gap=6 fissa | AND 0°C
+493 cella 1091-1203 c=13.5 gap=6 fissa | Ground
+516 cella 1091-1203 c=13.5 gap=6 fissa | Roll
+538 cella 1091-1203 c=13.5 gap=6 fissa | m
+494 cella 1215-1325 c=13.5 gap=6 fissa | Total
+516 cella 1215-1325 c=13.5 gap=6 fissa | to Clear
+538 cella 1215-1325 c=13.5 gap=6 fissa | 15 m
+560 cella 1215-1325 c=13.5 gap=6 fissa | obs
+583 cella 1215-1325 c=13.5 gap=6 fissa | m
+697 cella 57-178 c=13.5 gap=6 fissa | 1157
+652 cella 190-345 c=13.5 gap=6 fissa | 117 km/h
+697 cella 190-345 c=13.5 gap=6 fissa | 63 kts
+742 cella 190-345 c=13.5 gap=6 fissa | 73 MPH.
+697 cella 357-466 c=13.5 gap=6 fissa | 189
+696 cella 478-587 c=13.5 gap=6 fissa | 387
+696 cella 599-709 c=13.5 gap=6 fissa | 201
+695 cella 721-833 c=13.5 gap=6 fissa | 411
+696 cella 845-957 c=13.5 gap=6 fissa | 212
+695 cella 969-1079 c=13.5 gap=6 fissa | 434
+696 cella 1091-1203 c=13.5 gap=6 fissa | 224
+696 cella 1215-1325 c=13.5 gap=6 fissa | 460
+811 cella 63-1319 c=13.5 gap=6 fissa | NOTES: 1. Reduce landing distance 10% for each 5 knots headwind.
+833 cella 63-1319 c=13.5 gap=6 fissa | 2. For operation on a dry grass runway, increase distance (both "ground roll" and "total to clear
+855 cella 63-1319 c=13.5 gap=6 fissa | obstacle") by 20% of the "total to clear 15m obstacle"figure.
+962 testo 500-1000 c=15 sx=1.1 fissa | Figure 5-5.
