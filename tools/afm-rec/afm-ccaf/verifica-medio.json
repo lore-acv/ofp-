@@ -148,8 +148,8 @@
      1055.1899999999998
     ],
     "attraverso": [
-     295,
-     353
+     300,
+     343
     ],
     "base": 339.55,
     "c": 32.91,
@@ -169,8 +169,8 @@
      707.8499999999999
     ],
     "attraverso": [
-     456,
-     507
+     460,
+     499
     ],
     "base": 495.11,
     "c": 28.92,
@@ -190,8 +190,8 @@
      408.91999999999996
     ],
     "attraverso": [
-     591,
-     627
+     594,
+     622
     ],
     "base": 618.75,
     "c": 20.44,
@@ -253,8 +253,8 @@
      548.1
     ],
     "attraverso": [
-     777,
-     812
+     780,
+     807
     ],
     "base": 804.22,
     "c": 20.44,
@@ -664,6 +664,8 @@
   "deboli": [],
   "chiuse": 2,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -678,9 +680,9 @@
    }
   ],
   "inkA": 77541,
-  "soloA": 771,
-  "soloB": 1519,
-  "entrambi": 76770,
+  "soloA": 662,
+  "soloB": 1289,
+  "entrambi": 76879,
   "geom": [
    {
     "rif": "libro",
@@ -816,8 +818,8 @@
      476.7
     ],
     "attraverso": [
-     877,
-     931
+     882,
+     923
     ],
     "base": 918.89,
     "c": 30.91,
@@ -826,7 +828,7 @@
     "giro": 0,
     "Lw": 1250,
     "inizio": 0,
-    "fine": 0,
+    "fine": -1,
     "alto": 0
    },
    {
@@ -837,8 +839,8 @@
      513
     ],
     "attraverso": [
-     951,
-     1005
+     956,
+     996
     ],
     "base": 992.68,
     "c": 30.91,
@@ -869,7 +871,7 @@
     "Lw": 1250,
     "inizio": 0,
     "fine": 0,
-    "alto": 0
+    "alto": -1
    },
    {
     "rif": "libro",
@@ -973,7 +975,7 @@
     "giro": 0,
     "Lw": 1250,
     "inizio": 1,
-    "fine": -2,
+    "fine": -1,
     "alto": 0
    },
    {
@@ -1036,7 +1038,7 @@
     "giro": 0,
     "Lw": 1250,
     "inizio": -3,
-    "fine": 0,
+    "fine": 1,
     "alto": 0
    },
    {
@@ -1148,7 +1150,7 @@
   "macchie": [],
   "righe": 22,
   "righeFuori": [],
-  "fuori": 0.029532763312312197,
+  "fuori": 0.025160882629834538,
   "numeri": [
    {
     "riga": 199,
@@ -1245,6 +1247,8 @@
   "deboli": [],
   "chiuse": 4,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -1392,8 +1396,8 @@
      913.59
     ],
     "attraverso": [
-     320,
-     356
+     323,
+     351
     ],
     "base": 347.53,
     "c": 20.44,
@@ -1413,8 +1417,8 @@
      480.33
     ],
     "attraverso": [
-     385,
-     418
+     388,
+     413
     ],
     "base": 410.35,
     "c": 18.45,
@@ -1497,8 +1501,8 @@
      272.15999999999997
     ],
     "attraverso": [
-     572,
-     604
+     575,
+     600
     ],
     "base": 596.82,
     "c": 18.45,
@@ -1623,7 +1627,7 @@
      329.04
     ],
     "attraverso": [
-     820,
+     823,
      848
     ],
     "base": 845.1,
@@ -1707,8 +1711,8 @@
      352.04
     ],
     "attraverso": [
-     971,
-     1003
+     974,
+     999
     ],
     "base": 995.67,
     "c": 18.45,
@@ -1833,7 +1837,7 @@
      704.22
     ],
     "attraverso": [
-     1157,
+     1160,
      1185
     ],
     "base": 1182.14,
@@ -2001,8 +2005,8 @@
      459.75
     ],
     "attraverso": [
-     1463,
-     1492
+     1466,
+     1491
     ],
     "base": 1488.26,
     "c": 18.45,
@@ -2514,6 +2518,8 @@
   "deboli": [],
   "chiuse": 15,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -2661,8 +2667,8 @@
      491.22
     ],
     "attraverso": [
-     370,
-     399
+     373,
+     398
     ],
     "base": 395.39,
     "c": 18.45,
@@ -2913,8 +2919,8 @@
      336.3
     ],
     "attraverso": [
-     589,
-     621
+     592,
+     617
     ],
     "base": 613.77,
     "c": 18.45,
@@ -3144,8 +3150,8 @@
      320.58
     ],
     "attraverso": [
-     930,
-     962
+     933,
+     958
     ],
     "base": 954.79,
     "c": 18.45,
@@ -3291,8 +3297,8 @@
      291.53
     ],
     "attraverso": [
-     1146,
-     1179
+     1149,
+     1174
     ],
     "base": 1171.17,
     "c": 18.45,
@@ -3375,8 +3381,8 @@
      226.17
     ],
     "attraverso": [
-     1328,
-     1360
+     1331,
+     1356
     ],
     "base": 1352.65,
     "c": 18.45,
@@ -3786,6 +3792,2442 @@
   "deboli": [],
   "chiuse": 6,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "1-5",
+  "pdf": 13,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Figura 1-2 (Instrument panel)",
+    "metodo": "fotografia: la scansione pulita (bianco della carta riportato al bianco, numeri di richiamo tolti perche' sono testo vero) e ingrandita due volte (Lanczos, lieve maschera di contrasto), figure/fig-1-2.webp; le linee di richiamo restano nella foto. Numeri di richiamo, titolo e legenda: testo vero (numeri: posizioni dalle componenti dell'inchiostro; legenda letta a vista). Cornice e riquadro del titolo: poligoni misurati (filetto.py)."
+   }
+  ],
+  "inkA": 311071,
+  "soloA": 6209,
+  "soloB": 3233,
+  "entrambi": 304862,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     553.09,
+     707.8499999999999
+    ],
+    "attraverso": [
+     138,
+     170
+    ],
+    "base": 163.06,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     553.09,
+     709.0600000000001
+    ],
+    "attraverso": [
+     170,
+     201
+    ],
+    "base": 193.97,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     198.49,
+     366.57
+    ],
+    "attraverso": [
+     201,
+     233
+    ],
+    "base": 225.88,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     946.42,
+     1063.66
+    ],
+    "attraverso": [
+     201,
+     233
+    ],
+    "base": 225.88,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 1-5",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     198.49,
+     427.07
+    ],
+    "attraverso": [
+     232,
+     264
+    ],
+    "base": 256.79,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     946.42,
+     1073.34
+    ],
+    "attraverso": [
+     232,
+     264
+    ],
+    "base": 256.79,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     394.55,
+     884.54
+    ],
+    "attraverso": [
+     362,
+     404
+    ],
+    "base": 400.38,
+    "c": 31.91,
+    "apici": false,
+    "testo": "INSTRUMENT PANEL",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     277.69,
+     289.74
+    ],
+    "attraverso": [
+     460,
+     490
+    ],
+    "base": 487.13,
+    "c": 22.93,
+    "apici": false,
+    "testo": "1",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     332.15,
+     346.62
+    ],
+    "attraverso": [
+     460,
+     490
+    ],
+    "base": 487.13,
+    "c": 22.93,
+    "apici": false,
+    "testo": "2",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     380.56,
+     396.24
+    ],
+    "attraverso": [
+     460,
+     490
+    ],
+    "base": 487.13,
+    "c": 22.93,
+    "apici": false,
+    "testo": "3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     424.13,
+     441.02
+    ],
+    "attraverso": [
+     460,
+     490
+    ],
+    "base": 487.13,
+    "c": 22.93,
+    "apici": false,
+    "testo": "4",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     479.8,
+     494.27000000000004
+    ],
+    "attraverso": [
+     460,
+     490
+    ],
+    "base": 487.13,
+    "c": 22.93,
+    "apici": false,
+    "testo": "5",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     529.42,
+     545.0999999999999
+    ],
+    "attraverso": [
+     458,
+     488
+    ],
+    "base": 485.14,
+    "c": 22.93,
+    "apici": false,
+    "testo": "6",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     772.67,
+     787.14
+    ],
+    "attraverso": [
+     457,
+     487
+    ],
+    "base": 484.14,
+    "c": 22.93,
+    "apici": false,
+    "testo": "7",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     817.45,
+     833.13
+    ],
+    "attraverso": [
+     457,
+     487
+    ],
+    "base": 484.14,
+    "c": 22.93,
+    "apici": false,
+    "testo": "8",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     859.81,
+     873.0699999999999
+    ],
+    "attraverso": [
+     457,
+     487
+    ],
+    "base": 484.14,
+    "c": 22.93,
+    "apici": false,
+    "testo": "9",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     894.91,
+     919.06
+    ],
+    "attraverso": [
+     457,
+     487
+    ],
+    "base": 484.14,
+    "c": 22.93,
+    "apici": false,
+    "testo": "10",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     933.64,
+     955.37
+    ],
+    "attraverso": [
+     457,
+     487
+    ],
+    "base": 484.14,
+    "c": 22.93,
+    "apici": false,
+    "testo": "11",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     974.78,
+     998.93
+    ],
+    "attraverso": [
+     457,
+     487
+    ],
+    "base": 484.14,
+    "c": 22.93,
+    "apici": false,
+    "testo": "12",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     220.81,
+     246.17000000000002
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "34",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     253.48000000000002,
+     278.84000000000003
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "33",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     287.37,
+     311.52
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "32",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     321.26,
+     344.2
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "31",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     350.3,
+     375.66
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "30",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     381.77,
+     407.13
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "29",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     414.44,
+     439.8
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "28",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     449.54,
+     474.90000000000003
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "27",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     487.06,
+     512.4200000000001
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "26",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     525.79,
+     552.36
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "25",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     738.79,
+     764.15
+    ],
+    "attraverso": [
+     1017,
+     1048
+    ],
+    "base": 1044.53,
+    "c": 22.93,
+    "apici": false,
+    "testo": "20",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     782.36,
+     807.72
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "19",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     819.87,
+     845.23
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "18",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     858.6,
+     882.75
+    ],
+    "attraverso": [
+     1017,
+     1048
+    ],
+    "base": 1044.53,
+    "c": 22.93,
+    "apici": false,
+    "testo": "17",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     897.33,
+     921.48
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "16",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     933.64,
+     959
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "15",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     973.57,
+     997.72
+    ],
+    "attraverso": [
+     1019,
+     1050
+    ],
+    "base": 1046.52,
+    "c": 22.93,
+    "apici": false,
+    "testo": "14",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     1012.3,
+     1036.45
+    ],
+    "attraverso": [
+     1017,
+     1048
+    ],
+    "base": 1044.53,
+    "c": 22.93,
+    "apici": false,
+    "testo": "13",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     525.79,
+     551.15
+    ],
+    "attraverso": [
+     1055,
+     1084
+    ],
+    "base": 1081.42,
+    "c": 22.93,
+    "apici": false,
+    "testo": "24",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     741.21,
+     764.1500000000001
+    ],
+    "attraverso": [
+     1053,
+     1082
+    ],
+    "base": 1079.43,
+    "c": 22.93,
+    "apici": false,
+    "testo": "21",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     525.79,
+     551.15
+    ],
+    "attraverso": [
+     1089,
+     1119
+    ],
+    "base": 1116.32,
+    "c": 22.93,
+    "apici": false,
+    "testo": "23",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     741.21,
+     766.57
+    ],
+    "attraverso": [
+     1089,
+     1119
+    ],
+    "base": 1116.32,
+    "c": 22.93,
+    "apici": false,
+    "testo": "22",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     247.43,
+     455.54
+    ],
+    "attraverso": [
+     1191,
+     1210
+    ],
+    "base": 1206.07,
+    "c": 10.97,
+    "apici": false,
+    "testo": "1. Flight Instrument Group",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     756.8900000000001
+    ],
+    "attraverso": [
+     1191,
+     1210
+    ],
+    "base": 1206.07,
+    "c": 10.97,
+    "apici": false,
+    "testo": "12. Cylinder Head Temperature",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     962.63
+    ],
+    "attraverso": [
+     1192,
+     1211
+    ],
+    "base": 1207.06,
+    "c": 10.97,
+    "apici": false,
+    "testo": "23. Microphone (Opt.)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     246.22,
+     419.24
+    ],
+    "attraverso": [
+     1214,
+     1233
+    ],
+    "base": 1229,
+    "c": 10.97,
+    "apici": false,
+    "testo": "2. Suction Gage (Opt.)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     547.57,
+     638.2900000000001
+    ],
+    "attraverso": [
+     1213,
+     1232
+    ],
+    "base": 1228,
+    "c": 10.97,
+    "apici": false,
+    "testo": "Gage (Opt.)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     1037.6699999999998
+    ],
+    "attraverso": [
+     1215,
+     1234
+    ],
+    "base": 1230,
+    "c": 10.97,
+    "apici": false,
+    "testo": "24. Elevator Trim Control Wheel",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     246.22,
+     455.53999999999996
+    ],
+    "attraverso": [
+     1238,
+     1257
+    ],
+    "base": 1252.93,
+    "c": 10.97,
+    "apici": false,
+    "testo": "3. Marker Beacon Indicator",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     733.89
+    ],
+    "attraverso": [
+     1237,
+     1256
+    ],
+    "base": 1251.94,
+    "c": 10.97,
+    "apici": false,
+    "testo": "13. Optional Instrument and",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     965.0500000000001
+    ],
+    "attraverso": [
+     1238,
+     1257
+    ],
+    "base": 1252.93,
+    "c": 10.97,
+    "apici": false,
+    "testo": "25. Electrical Switches",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     270.43,
+     468.86
+    ],
+    "attraverso": [
+     1261,
+     1280
+    ],
+    "base": 1275.87,
+    "c": 10.97,
+    "apici": false,
+    "testo": "Lights and Switches (Opt.)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     548.78,
+     644.34
+    ],
+    "attraverso": [
+     1261,
+     1280
+    ],
+    "base": 1275.87,
+    "c": 10.97,
+    "apici": false,
+    "testo": "Radio Space",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     943.26
+    ],
+    "attraverso": [
+     1261,
+     1280
+    ],
+    "base": 1275.87,
+    "c": 10.97,
+    "apici": false,
+    "testo": "26. Circuit Breakers",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     246.22,
+     485.8
+    ],
+    "attraverso": [
+     1284,
+     1303
+    ],
+    "base": 1298.8,
+    "c": 10.97,
+    "apici": false,
+    "testo": "4. Manifold Pressure/Fuel Flow",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     690.33
+    ],
+    "attraverso": [
+     1284,
+     1303
+    ],
+    "base": 1298.8,
+    "c": 10.97,
+    "apici": false,
+    "testo": "14. Map Compartment",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     971.1
+    ],
+    "attraverso": [
+     1284,
+     1303
+    ],
+    "base": 1298.8,
+    "c": 10.97,
+    "apici": false,
+    "testo": "27. Map Light Rheostat",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     269.22,
+     340.57000000000005
+    ],
+    "attraverso": [
+     1305,
+     1324
+    ],
+    "base": 1319.74,
+    "c": 10.97,
+    "apici": false,
+    "testo": "Indicator",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     647.97
+    ],
+    "attraverso": [
+     1305,
+     1324
+    ],
+    "base": 1319.74,
+    "c": 10.97,
+    "apici": false,
+    "testo": "15. Cigar Lighter",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     984.4100000000001
+    ],
+    "attraverso": [
+     1305,
+     1324
+    ],
+    "base": 1319.74,
+    "c": 10.97,
+    "apici": false,
+    "testo": "28. Parking Brake Handle",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     246.22,
+     362.36
+    ],
+    "attraverso": [
+     1329,
+     1348
+    ],
+    "base": 1343.67,
+    "c": 10.97,
+    "apici": false,
+    "testo": "5. Tachometer",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     741.16
+    ],
+    "attraverso": [
+     1328,
+     1347
+    ],
+    "base": 1342.67,
+    "c": 10.97,
+    "apici": false,
+    "testo": "16. Cabin Heat Control Knob",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     994.1
+    ],
+    "attraverso": [
+     1328,
+     1347
+    ],
+    "base": 1342.67,
+    "c": 10.97,
+    "apici": false,
+    "testo": "29. Ignition/Starter Switch",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     246.22,
+     409.55
+    ],
+    "attraverso": [
+     1351,
+     1370
+    ],
+    "base": 1365.61,
+    "c": 10.97,
+    "apici": false,
+    "testo": "6. Magnetic Compass",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     680.65
+    ],
+    "attraverso": [
+     1351,
+     1370
+    ],
+    "base": 1365.61,
+    "c": 10.97,
+    "apici": false,
+    "testo": "17. Wing Flap Switch",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     788.41,
+     928.74
+    ],
+    "attraverso": [
+     1351,
+     1370
+    ],
+    "base": 1365.61,
+    "c": 10.97,
+    "apici": false,
+    "testo": "30. Master Switch",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     247.43,
+     402.29
+    ],
+    "attraverso": [
+     1374,
+     1393
+    ],
+    "base": 1388.54,
+    "c": 10.97,
+    "apici": false,
+    "testo": "7. Rear View Mirror",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     730.27
+    ],
+    "attraverso": [
+     1374,
+     1393
+    ],
+    "base": 1388.54,
+    "c": 10.97,
+    "apici": false,
+    "testo": "18. Cabin Air Control Knob",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     1021.94
+    ],
+    "attraverso": [
+     1374,
+     1393
+    ],
+    "base": 1388.54,
+    "c": 10.97,
+    "apici": false,
+    "testo": "31. Instrument and Radio Dial",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     246.22,
+     499.10999999999996
+    ],
+    "attraverso": [
+     1396,
+     1415
+    ],
+    "base": 1410.48,
+    "c": 10.97,
+    "apici": false,
+    "testo": "8. Radio Selector Switches (Opt.)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -2,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     716.95
+    ],
+    "attraverso": [
+     1397,
+     1416
+    ],
+    "base": 1411.48,
+    "c": 10.97,
+    "apici": false,
+    "testo": "19. Mixture Control Knob",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     822.29,
+     942.05
+    ],
+    "attraverso": [
+     1397,
+     1416
+    ],
+    "base": 1411.48,
+    "c": 10.97,
+    "apici": false,
+    "testo": "Light Rheostats",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     246.22,
+     372.03999999999996
+    ],
+    "attraverso": [
+     1421,
+     1440
+    ],
+    "base": 1435.41,
+    "c": 10.97,
+    "apici": false,
+    "testo": "9. Radios (Opt.)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     516.1,
+     770.1999999999999
+    ],
+    "attraverso": [
+     1420,
+     1439
+    ],
+    "base": 1434.41,
+    "c": 10.97,
+    "apici": false,
+    "testo": "20. Alternate Static Source Valve",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     966.26
+    ],
+    "attraverso": [
+     1420,
+     1439
+    ],
+    "base": 1434.41,
+    "c": 10.97,
+    "apici": false,
+    "testo": "32. Fuel Shutoff Valve",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     237.75,
+     459.17
+    ],
+    "attraverso": [
+     1444,
+     1463
+    ],
+    "base": 1458.34,
+    "c": 10.97,
+    "apici": false,
+    "testo": "10. Ammeter and Fuel Gages",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     548.78,
+     703.64
+    ],
+    "attraverso": [
+     1444,
+     1463
+    ],
+    "base": 1458.34,
+    "c": 10.97,
+    "apici": false,
+    "testo": "Control Knob (Opt.)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 2,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     821.08,
+     931.17
+    ],
+    "attraverso": [
+     1442,
+     1461
+    ],
+    "base": 1456.35,
+    "c": 10.97,
+    "apici": false,
+    "testo": "Control Knob.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238.96,
+     416.81
+    ],
+    "attraverso": [
+     1466,
+     1486
+    ],
+    "base": 1481.28,
+    "c": 10.97,
+    "apici": false,
+    "testo": "11. Oil Pressure and Oil",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     516.1,
+     725.43
+    ],
+    "attraverso": [
+     1466,
+     1486
+    ],
+    "base": 1481.28,
+    "c": 10.97,
+    "apici": false,
+    "testo": "21. Propeller Control Knob",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     874.2800000000001
+    ],
+    "attraverso": [
+     1464,
+     1484
+    ],
+    "base": 1479.28,
+    "c": 10.97,
+    "apici": false,
+    "testo": "33. Primer",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     268.01,
+     415.61
+    ],
+    "attraverso": [
+     1491,
+     1511
+    ],
+    "base": 1506.2,
+    "c": 10.97,
+    "apici": false,
+    "testo": "Temperature Gages",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     517.31,
+     614.08
+    ],
+    "attraverso": [
+     1491,
+     1511
+    ],
+    "base": 1506.2,
+    "c": 10.97,
+    "apici": false,
+    "testo": "22. Throttle",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.62,
+     908.17
+    ],
+    "attraverso": [
+     1492,
+     1512
+    ],
+    "base": 1507.2,
+    "c": 10.97,
+    "apici": false,
+    "testo": "34. Phone Jack",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     567.62,
+     694.5400000000001
+    ],
+    "attraverso": [
+     1587,
+     1619
+    ],
+    "base": 1611.9,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Figure 1-2.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 84,
+  "righeFuori": [],
+  "fuori": 0.03035319910888511,
+  "numeri": [
+   {
+    "riga": 252,
+    "x": 977,
+    "valore": "1-5",
+    "tesseract": "1-5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 283,
+    "x": 1001,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 514,
+    "x": 357,
+    "valore": "1",
+    "tesseract": "",
+    "pdf": false,
+    "vista": "OCR legge '(niente)'; a vista: 1 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 514,
+    "x": 402,
+    "valore": "2",
+    "tesseract": "d",
+    "pdf": false,
+    "vista": "OCR legge 'd'; a vista: 2 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 514,
+    "x": 442,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": false,
+    "vista": null,
+    "conferme": 1
+   },
+   {
+    "riga": 514,
+    "x": 478,
+    "valore": "4",
+    "tesseract": "",
+    "pdf": false,
+    "vista": "OCR legge '(niente)'; a vista: 4 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 514,
+    "x": 524,
+    "valore": "5",
+    "tesseract": ",",
+    "pdf": false,
+    "vista": "OCR legge ','; a vista: 5 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 512,
+    "x": 565,
+    "valore": "6",
+    "tesseract": "6",
+    "pdf": false,
+    "vista": null,
+    "conferme": 1
+   },
+   {
+    "riga": 511,
+    "x": 766,
+    "valore": "7",
+    "tesseract": "z",
+    "pdf": false,
+    "vista": "OCR legge 'z'; a vista: 7 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 511,
+    "x": 803,
+    "valore": "8",
+    "tesseract": ")",
+    "pdf": false,
+    "vista": "OCR legge ')'; a vista: 8 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 511,
+    "x": 838,
+    "valore": "9",
+    "tesseract": "q",
+    "pdf": false,
+    "vista": "OCR legge 'q'; a vista: 9 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 511,
+    "x": 867,
+    "valore": "10",
+    "tesseract": "I",
+    "pdf": false,
+    "vista": "OCR legge 'I'; a vista: 10 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 511,
+    "x": 899,
+    "valore": "11",
+    "tesseract": "i",
+    "pdf": false,
+    "vista": "OCR legge 'i'; a vista: 11 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 511,
+    "x": 933,
+    "valore": "12",
+    "tesseract": "2",
+    "pdf": false,
+    "vista": "OCR legge '2'; a vista: 12 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 310,
+    "valore": "34",
+    "tesseract": "i",
+    "pdf": false,
+    "vista": "OCR legge 'i'; a vista: 34 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 337,
+    "valore": "33",
+    "tesseract": "i",
+    "pdf": false,
+    "vista": "OCR legge 'i'; a vista: 33 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 365,
+    "valore": "32",
+    "tesseract": "1",
+    "pdf": false,
+    "vista": "OCR legge '1'; a vista: 32 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 393,
+    "valore": "31",
+    "tesseract": "i",
+    "pdf": false,
+    "vista": "OCR legge 'i'; a vista: 31 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 417,
+    "valore": "30",
+    "tesseract": "0",
+    "pdf": false,
+    "vista": "OCR legge '0'; a vista: 30 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 443,
+    "valore": "29",
+    "tesseract": "9",
+    "pdf": false,
+    "vista": "OCR legge '9'; a vista: 29 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 470,
+    "valore": "28",
+    "tesseract": "08",
+    "pdf": false,
+    "vista": "OCR legge '08'; a vista: 28 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 499,
+    "valore": "27",
+    "tesseract": "21",
+    "pdf": false,
+    "vista": "OCR legge '21'; a vista: 27 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 530,
+    "valore": "26",
+    "tesseract": "26",
+    "pdf": false,
+    "vista": null,
+    "conferme": 1
+   },
+   {
+    "riga": 1075,
+    "x": 562,
+    "valore": "25",
+    "tesseract": "5",
+    "pdf": false,
+    "vista": "OCR legge '5'; a vista: 25 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 1
+   },
+   {
+    "riga": 1073,
+    "x": 738,
+    "valore": "20",
+    "tesseract": "Hl",
+    "pdf": true,
+    "vista": "OCR legge 'Hl'; a vista: 20 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1075,
+    "x": 774,
+    "valore": "19",
+    "tesseract": "i9",
+    "pdf": true,
+    "vista": "OCR legge 'i9'; a vista: 19 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1075,
+    "x": 805,
+    "valore": "18",
+    "tesseract": "i8",
+    "pdf": true,
+    "vista": "OCR legge 'i8'; a vista: 18 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1073,
+    "x": 837,
+    "valore": "17",
+    "tesseract": "17",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1075,
+    "x": 869,
+    "valore": "16",
+    "tesseract": "i6",
+    "pdf": true,
+    "vista": "OCR legge 'i6'; a vista: 16 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1075,
+    "x": 899,
+    "valore": "15",
+    "tesseract": "5",
+    "pdf": true,
+    "vista": "OCR legge '5'; a vista: 15 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1075,
+    "x": 932,
+    "valore": "14",
+    "tesseract": "14",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1073,
+    "x": 964,
+    "valore": "13",
+    "tesseract": "13",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1110,
+    "x": 562,
+    "valore": "24",
+    "tesseract": "24",
+    "pdf": false,
+    "vista": null,
+    "conferme": 1
+   },
+   {
+    "riga": 1108,
+    "x": 740,
+    "valore": "21",
+    "tesseract": "v",
+    "pdf": true,
+    "vista": "OCR legge 'v'; a vista: 21 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1145,
+    "x": 562,
+    "valore": "23",
+    "tesseract": "23",
+    "pdf": false,
+    "vista": null,
+    "conferme": 1
+   },
+   {
+    "riga": 1145,
+    "x": 740,
+    "valore": "22",
+    "tesseract": "2",
+    "pdf": true,
+    "vista": "OCR legge '2'; a vista: 22 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1235,
+    "x": 332,
+    "valore": "1.",
+    "tesseract": "1.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1235,
+    "x": 556,
+    "valore": "12.",
+    "tesseract": "12,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1236,
+    "x": 780,
+    "valore": "23.",
+    "tesseract": "23.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1258,
+    "x": 331,
+    "valore": "2.",
+    "tesseract": "2.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1259,
+    "x": 780,
+    "valore": "24.",
+    "tesseract": "24,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1282,
+    "x": 331,
+    "valore": "3.",
+    "tesseract": "3.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1281,
+    "x": 556,
+    "valore": "13.",
+    "tesseract": "13.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1282,
+    "x": 780,
+    "valore": "25.",
+    "tesseract": "25,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1305,
+    "x": 780,
+    "valore": "26.",
+    "tesseract": "26,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1328,
+    "x": 331,
+    "valore": "4.",
+    "tesseract": "4,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1328,
+    "x": 556,
+    "valore": "14.",
+    "tesseract": "14.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1328,
+    "x": 780,
+    "valore": "27.",
+    "tesseract": "27.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1349,
+    "x": 556,
+    "valore": "15.",
+    "tesseract": "15.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1349,
+    "x": 780,
+    "valore": "28.",
+    "tesseract": "28,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1373,
+    "x": 331,
+    "valore": "5.",
+    "tesseract": "5,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1372,
+    "x": 556,
+    "valore": "16.",
+    "tesseract": "16.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1372,
+    "x": 780,
+    "valore": "29.",
+    "tesseract": "29,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1395,
+    "x": 331,
+    "valore": "6.",
+    "tesseract": "",
+    "pdf": true,
+    "vista": "OCR legge '(niente)'; a vista: 6. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1395,
+    "x": 556,
+    "valore": "17.",
+    "tesseract": "17,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1395,
+    "x": 779,
+    "valore": "30.",
+    "tesseract": "30,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1418,
+    "x": 332,
+    "valore": "7.",
+    "tesseract": "7.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1418,
+    "x": 556,
+    "valore": "18.",
+    "tesseract": "18.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1418,
+    "x": 780,
+    "valore": "31.",
+    "tesseract": "31.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1440,
+    "x": 331,
+    "valore": "8.",
+    "tesseract": "",
+    "pdf": true,
+    "vista": "OCR legge '(niente)'; a vista: 8. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1441,
+    "x": 556,
+    "valore": "19.",
+    "tesseract": "19,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1465,
+    "x": 331,
+    "valore": "9.",
+    "tesseract": "9.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1464,
+    "x": 554,
+    "valore": "20.",
+    "tesseract": "20.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1464,
+    "x": 780,
+    "valore": "32.",
+    "tesseract": "32.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1488,
+    "x": 324,
+    "valore": "10.",
+    "tesseract": "10,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1511,
+    "x": 325,
+    "valore": "11.",
+    "tesseract": "1,",
+    "pdf": true,
+    "vista": "OCR legge '1,'; a vista: 11. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   },
+   {
+    "riga": 1511,
+    "x": 554,
+    "valore": "21.",
+    "tesseract": "21.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1509,
+    "x": 780,
+    "valore": "33.",
+    "tesseract": "33,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1536,
+    "x": 555,
+    "valore": "22.",
+    "tesseract": "22,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1537,
+    "x": 780,
+    "valore": "34.",
+    "tesseract": "34,",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1642,
+    "x": 665,
+    "valore": "1-2.",
+    "tesseract": "12,",
+    "pdf": true,
+    "vista": "OCR legge '12,'; a vista: 1-2. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)",
+    "conferme": 2
+   }
+  ],
+  "dueVolte": false,
+  "deboli": [],
+  "chiuse": 30,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -3800,9 +6242,9 @@
    }
   ],
   "inkA": 131781,
-  "soloA": 5661,
-  "soloB": 1156,
-  "entrambi": 126120,
+  "soloA": 5316,
+  "soloB": 1039,
+  "entrambi": 126465,
   "geom": [
    {
     "rif": "libro",
@@ -3934,12 +6376,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     280.79,
-     624.35
+     289.79,
+     621.35
     ],
     "attraverso": [
-     386,
-     445
+     391,
+     435
     ],
     "base": 431.29,
     "c": 33.9,
@@ -3955,12 +6397,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     665.65,
-     834.93
+     674.65,
+     831.93
     ],
     "attraverso": [
-     392,
-     434
+     396,
+     427
     ],
     "base": 424.31,
     "c": 23.93,
@@ -3976,12 +6418,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     226.33,
-     396.82
+     235.33,
+     393.82
     ],
     "attraverso": [
-     465,
-     489
+     467,
+     486
     ],
     "base": 483.14,
     "c": 13.46,
@@ -3997,12 +6439,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     664.43,
-     839.77
+     673.43,
+     836.77
     ],
     "attraverso": [
-     463,
-     487
+     465,
+     484
     ],
     "base": 481.15,
     "c": 13.46,
@@ -4018,12 +6460,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     162.19,
-     226.18
+     171.19,
+     223.18
     ],
     "attraverso": [
-     576,
-     599
+     578,
+     597
     ],
     "base": 593.82,
     "c": 13.46,
@@ -4039,12 +6481,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     479.27,
-     588.04
+     488.27,
+     585.04
     ],
     "attraverso": [
-     541,
-     563
+     543,
+     562
     ],
     "base": 558.92,
     "c": 13.46,
@@ -4060,12 +6502,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     493.79,
-     569.88
+     502.79,
+     566.88
     ],
     "attraverso": [
      564,
-     584
+     582
     ],
     "base": 578.87,
     "c": 13.46,
@@ -4081,11 +6523,11 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     162.19,
-     408.92
+     171.19,
+     405.92
     ],
     "attraverso": [
-     643,
+     644,
      657
     ],
     "base": 655.65,
@@ -4094,7 +6536,7 @@
     "testo": "TO ENSURE MAXIMUM FUEL CAPACITY",
     "giro": 0,
     "Lw": 1250,
-    "inizio": 0,
+    "inizio": -1,
     "fine": -1,
     "alto": 1
    },
@@ -4102,8 +6544,8 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     160.98,
-     400.45000000000005
+     169.98,
+     397.45000000000005
     ],
     "attraverso": [
      659,
@@ -4123,8 +6565,8 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     162.19,
-     398.03000000000003
+     171.19,
+     395.03000000000003
     ],
     "attraverso": [
      672,
@@ -4144,8 +6586,8 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     162.19,
-     385.93
+     171.19,
+     382.93
     ],
     "attraverso": [
      686,
@@ -4165,12 +6607,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     162.19,
-     277.01
+     171.19,
+     274.01
     ],
     "attraverso": [
      700,
-     715
+     714
     ],
     "base": 711.49,
     "c": 9.47,
@@ -4186,12 +6628,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     354.61,
-     519.05
+     363.61,
+     516.05
     ],
     "attraverso": [
-     736,
-     758
+     738,
+     757
     ],
     "base": 754.36,
     "c": 13.46,
@@ -4200,19 +6642,19 @@
     "giro": 0,
     "Lw": 1250,
     "inizio": 1,
-    "fine": 0,
+    "fine": -1,
     "alto": 0
    },
    {
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     403.02,
-     467.01
+     412.02,
+     464.01
     ],
     "attraverso": [
      759,
-     780
+     777
     ],
     "base": 774.31,
     "c": 13.46,
@@ -4228,12 +6670,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     349.77,
-     498.48
+     358.77,
+     495.48
     ],
     "attraverso": [
-     790,
-     812
+     792,
+     811
     ],
     "base": 808.21,
     "c": 13.46,
@@ -4249,12 +6691,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     360.67,
-     490.01
+     369.67,
+     487.01
     ],
     "attraverso": [
      813,
-     834
+     831
     ],
     "base": 828.15,
     "c": 13.46,
@@ -4270,12 +6712,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     585.77,
-     648.55
+     594.77,
+     645.55
     ],
     "attraverso": [
-     789,
-     812
+     791,
+     810
     ],
     "base": 807.21,
     "c": 13.46,
@@ -4291,12 +6733,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     570.04,
-     665.5
+     579.04,
+     662.5
     ],
     "attraverso": [
      812,
-     832
+     831
     ],
     "base": 828.15,
     "c": 13.46,
@@ -4312,12 +6754,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     578.51,
-     653.39
+     587.51,
+     650.39
     ],
     "attraverso": [
      833,
-     853
+     851
     ],
     "base": 848.09,
     "c": 13.46,
@@ -4333,12 +6775,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     643.86,
-     719.95
+     652.86,
+     716.95
     ],
     "attraverso": [
-     855,
-     877
+     857,
+     876
     ],
     "base": 873.02,
     "c": 13.46,
@@ -4354,12 +6796,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     643.86,
-     719.95
+     652.86,
+     716.95
     ],
     "attraverso": [
      878,
-     898
+     896
     ],
     "base": 892.97,
     "c": 13.46,
@@ -4375,12 +6817,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     227.54,
-     268.53
+     236.54,
+     265.53
     ],
     "attraverso": [
-     903,
-     926
+     905,
+     924
     ],
     "base": 920.89,
     "c": 13.46,
@@ -4396,12 +6838,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     206.97,
-     287.9
+     215.97,
+     284.9
     ],
     "attraverso": [
-     926,
-     949
+     928,
+     947
     ],
     "base": 943.82,
     "c": 13.46,
@@ -4417,12 +6859,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     576.09,
-     640.08
+     585.09,
+     637.08
     ],
     "attraverso": [
-     904,
-     926
+     906,
+     925
     ],
     "base": 921.88,
     "c": 13.46,
@@ -4438,12 +6880,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     557.93,
-     659.4399999999999
+     566.93,
+     656.4399999999999
     ],
     "attraverso": [
      927,
-     947
+     945
     ],
     "base": 941.83,
     "c": 13.46,
@@ -4451,7 +6893,7 @@
     "testo": "STRAINER",
     "giro": 0,
     "Lw": 1250,
-    "inizio": 0,
+    "inizio": 1,
     "fine": -1,
     "alto": 0
    },
@@ -4459,12 +6901,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     271.11,
-     429.49
+     280.11,
+     426.49
     ],
     "attraverso": [
-     951,
-     974
+     953,
+     972
     ],
     "base": 968.75,
     "c": 13.46,
@@ -4480,11 +6922,11 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     153.72,
-     267.33
+     162.72,
+     264.33
     ],
     "attraverso": [
-     1007,
+     1009,
      1029
     ],
     "base": 1025.58,
@@ -4501,8 +6943,8 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     152.51,
-     272.16999999999996
+     161.51,
+     269.16999999999996
     ],
     "attraverso": [
      1030,
@@ -4522,12 +6964,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     169.45,
-     251.58999999999997
+     178.45,
+     248.58999999999997
     ],
     "attraverso": [
      1050,
-     1071
+     1068
     ],
     "base": 1065.47,
     "c": 13.46,
@@ -4543,11 +6985,11 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     585.77,
-     698.17
+     594.77,
+     695.17
     ],
     "attraverso": [
-     1008,
+     1010,
      1029
     ],
     "base": 1026.58,
@@ -4564,12 +7006,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     580.93,
-     700.5899999999999
+     589.93,
+     697.5899999999999
     ],
     "attraverso": [
      1031,
-     1051
+     1049
     ],
     "base": 1045.53,
     "c": 13.46,
@@ -4577,7 +7019,7 @@
     "testo": "FUEL PUMP",
     "giro": 0,
     "Lw": 1250,
-    "inizio": 0,
+    "inizio": 1,
     "fine": 0,
     "alto": 0
    },
@@ -4585,12 +7027,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     289.26,
-     344.78
+     298.26,
+     341.78
     ],
     "attraverso": [
-     989,
-     1012
+     991,
+     1010
     ],
     "base": 1006.64,
     "c": 12.96,
@@ -4606,12 +7048,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     297.73,
-     345.99
+     306.73,
+     342.99
     ],
     "attraverso": [
-     1011,
-     1033
+     1012,
+     1031
     ],
     "base": 1027.58,
     "c": 12.96,
@@ -4627,12 +7069,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     291.68,
-     344.78000000000003
+     300.68,
+     341.78000000000003
     ],
     "attraverso": [
-     1032,
-     1055
+     1034,
+     1053
     ],
     "base": 1049.52,
     "c": 12.96,
@@ -4648,11 +7090,11 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     340.09,
-     391.97999999999996
+     349.09,
+     388.97999999999996
     ],
     "attraverso": [
-     1042,
+     1044,
      1060
     ],
     "base": 1059.49,
@@ -4669,12 +7111,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     340.09,
-     398.03
+     349.09,
+     395.03
     ],
     "attraverso": [
      1064,
-     1081
+     1078
     ],
     "base": 1075.44,
     "c": 12.96,
@@ -4690,12 +7132,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     330.41,
-     485.17
+     339.41,
+     482.17
     ],
     "attraverso": [
-     1112,
-     1134
+     1114,
+     1133
     ],
     "base": 1130.28,
     "c": 13.46,
@@ -4711,12 +7153,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     348.56,
-     467.01
+     357.56,
+     464.01
     ],
     "attraverso": [
      1135,
-     1154
+     1153
     ],
     "base": 1150.23,
     "c": 13.46,
@@ -4732,12 +7174,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     378.82,
-     433.13
+     387.82,
+     430.13
     ],
     "attraverso": [
      1155,
-     1174
+     1173
     ],
     "base": 1170.17,
     "c": 13.46,
@@ -4753,12 +7195,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     335.25,
-     479.12
+     344.25,
+     476.12
     ],
     "attraverso": [
      1175,
-     1195
+     1193
     ],
     "base": 1190.11,
     "c": 13.46,
@@ -4774,12 +7216,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     741.89,
-     838.56
+     750.89,
+     835.56
     ],
     "attraverso": [
-     1149,
-     1171
+     1151,
+     1170
     ],
     "base": 1167.18,
     "c": 13.46,
@@ -4795,8 +7237,8 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     739.47,
-     839.77
+     748.47,
+     836.77
     ],
     "attraverso": [
      1172,
@@ -4816,12 +7258,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     757.62,
-     821.61
+     766.62,
+     818.61
     ],
     "attraverso": [
      1192,
-     1211
+     1209
     ],
     "base": 1206.07,
     "c": 13.46,
@@ -4837,11 +7279,11 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     337.67,
-     476.7
+     346.67,
+     473.7
     ],
     "attraverso": [
-     1229,
+     1231,
      1250
     ],
     "base": 1246.95,
@@ -4858,12 +7300,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     327.99,
-     486.38
+     336.99,
+     483.38
     ],
     "attraverso": [
      1252,
-     1271
+     1269
     ],
     "base": 1265.89,
     "c": 13.46,
@@ -4879,12 +7321,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     734.63,
-     845.8199999999999
+     743.63,
+     842.8199999999999
     ],
     "attraverso": [
-     1241,
-     1264
+     1243,
+     1262
     ],
     "base": 1258.91,
     "c": 13.46,
@@ -4892,7 +7334,7 @@
     "testo": "THROTTLE",
     "giro": 0,
     "Lw": 1250,
-    "inizio": 0,
+    "inizio": 1,
     "fine": 0,
     "alto": 0
    },
@@ -4900,12 +7342,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     317.1,
-     521.48
+     326.1,
+     473.7
     ],
     "attraverso": [
-     1320,
-     1343
+     1322,
+     1341
     ],
     "base": 1337.69,
     "c": 13.46,
@@ -4914,19 +7356,19 @@
     "giro": 0,
     "Lw": 1250,
     "inizio": 1,
-    "fine": 0,
+    "fine": -1,
     "alto": 1
    },
    {
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     240.85,
-     303.63
+     249.85,
+     300.63
     ],
     "attraverso": [
-     1406,
-     1428
+     1408,
+     1427
     ],
     "base": 1424.44,
     "c": 13.46,
@@ -4942,8 +7384,8 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     220.28,
-     326.63
+     229.28,
+     323.63
     ],
     "attraverso": [
      1429,
@@ -4963,12 +7405,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     228.75,
-     314.52
+     237.75,
+     311.52
     ],
     "attraverso": [
      1449,
-     1469
+     1466
     ],
     "base": 1463.33,
     "c": 13.46,
@@ -4984,12 +7426,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     382.45,
-     545.68
+     391.45,
+     496.69
     ],
     "attraverso": [
-     1473,
-     1495
+     1475,
+     1494
     ],
     "base": 1491.25,
     "c": 13.46,
@@ -4998,19 +7440,19 @@
     "giro": 0,
     "Lw": 1250,
     "inizio": 1,
-    "fine": 0,
+    "fine": -1,
     "alto": 0
    },
    {
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     384.87,
-     494.85
+     393.87,
+     491.85
     ],
     "attraverso": [
      1496,
-     1517
+     1514
     ],
     "base": 1511.19,
     "c": 13.46,
@@ -5026,8 +7468,8 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     380.03,
-     637.66
+     389.03,
+     634.66
     ],
     "attraverso": [
      1516,
@@ -5047,12 +7489,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     760.04,
-     824.03
+     769.04,
+     821.03
     ],
     "attraverso": [
-     1310,
-     1334
+     1312,
+     1332
     ],
     "base": 1328.71,
     "c": 13.96,
@@ -5060,20 +7502,20 @@
     "testo": "CODE",
     "giro": 0,
     "Lw": 1250,
-    "inizio": 0,
+    "inizio": 1,
     "fine": 0,
-    "alto": 0
+    "alto": 1
    },
    {
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     747.94,
-     884.54
+     756.94,
+     881.54
     ],
     "attraverso": [
-     1345,
-     1369
+     1347,
+     1367
     ],
     "base": 1363.61,
     "c": 13.46,
@@ -5089,11 +7531,11 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     746.73,
-     920.85
+     755.73,
+     917.85
     ],
     "attraverso": [
-     1375,
+     1377,
      1395
     ],
     "base": 1393.53,
@@ -5110,12 +7552,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     744.31,
-     896.64
+     753.31,
+     893.64
     ],
     "attraverso": [
      1398,
-     1417
+     1414
     ],
     "base": 1411.48,
     "c": 13.46,
@@ -5131,12 +7573,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     746.73,
-     810.72
+     755.73,
+     807.72
     ],
     "attraverso": [
-     1418,
-     1442
+     1420,
+     1439
     ],
     "base": 1436.41,
     "c": 13.46,
@@ -5152,11 +7594,11 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     745.52,
-     878.49
+     754.52,
+     875.49
     ],
     "attraverso": [
-     1446,
+     1448,
      1467
     ],
     "base": 1464.33,
@@ -5173,12 +7615,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     763.67,
-     856.6999999999999
+     772.67,
+     853.6999999999999
     ],
     "attraverso": [
      1469,
-     1489
+     1486
     ],
     "base": 1483.27,
     "c": 13.46,
@@ -5194,12 +7636,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     746.73,
-     874.86
+     755.73,
+     871.86
     ],
     "attraverso": [
-     1493,
-     1515
+     1495,
+     1514
     ],
     "base": 1511.19,
     "c": 13.46,
@@ -5215,12 +7657,12 @@
     "rif": "libro",
     "ang": 0,
     "lungo": [
-     745.52,
-     874.86
+     754.52,
+     871.86
     ],
     "attraverso": [
      1516,
-     1537
+     1534
     ],
     "base": 1531.13,
     "c": 13.46,
@@ -5257,7 +7699,7 @@
   "macchie": [],
   "righe": 69,
   "righeFuori": [],
-  "fuori": 0.0517297637747475,
+  "fuori": 0.048223947306516114,
   "numeri": [
    {
     "riga": 196,
@@ -5291,6 +7733,8 @@
   "deboli": [],
   "chiuse": 0,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -5443,8 +7887,8 @@
      399.24
     ],
     "attraverso": [
-     313,
-     349
+     316,
+     344
     ],
     "base": 340.55,
     "c": 20.44,
@@ -5716,8 +8160,8 @@
      655.81
     ],
     "attraverso": [
-     843,
-     875
+     846,
+     871
     ],
     "base": 868.04,
     "c": 18.45,
@@ -5842,8 +8286,8 @@
      761.1
     ],
     "attraverso": [
-     1166,
-     1199
+     1168,
+     1194
     ],
     "base": 1191.11,
     "c": 18.95,
@@ -5863,8 +8307,8 @@
      383.5
     ],
     "attraverso": [
-     1260,
-     1293
+     1263,
+     1289
     ],
     "base": 1285.84,
     "c": 18.95,
@@ -5884,8 +8328,8 @@
      653.39
     ],
     "attraverso": [
-     1258,
-     1291
+     1261,
+     1287
     ],
     "base": 1283.84,
     "c": 18.95,
@@ -5905,8 +8349,8 @@
      828.8699999999999
     ],
     "attraverso": [
-     1259,
-     1292
+     1262,
+     1288
     ],
     "base": 1284.84,
     "c": 18.95,
@@ -5926,8 +8370,8 @@
      999.51
     ],
     "attraverso": [
-     1259,
-     1292
+     1262,
+     1288
     ],
     "base": 1284.84,
     "c": 18.95,
@@ -5947,8 +8391,8 @@
      642.5
     ],
     "attraverso": [
-     1290,
-     1321
+     1291,
+     1317
     ],
     "base": 1313.76,
     "c": 18.95,
@@ -5968,8 +8412,8 @@
      791.36
     ],
     "attraverso": [
-     1291,
-     1322
+     1292,
+     1318
     ],
     "base": 1314.75,
     "c": 18.95,
@@ -5989,8 +8433,8 @@
      644.92
     ],
     "attraverso": [
-     1320,
-     1351
+     1321,
+     1347
     ],
     "base": 1343.67,
     "c": 18.95,
@@ -6010,8 +8454,8 @@
      463.39
     ],
     "attraverso": [
-     1407,
-     1440
+     1410,
+     1435
     ],
     "base": 1432.42,
     "c": 18.95,
@@ -6349,6 +8793,8 @@
   "deboli": [],
   "chiuse": 3,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -6496,8 +8942,8 @@
      614.66
     ],
     "attraverso": [
-     359,
-     391
+     361,
+     386
     ],
     "base": 383.43,
     "c": 18.45,
@@ -6727,8 +9173,8 @@
      523.9
     ],
     "attraverso": [
-     788,
-     821
+     791,
+     816
     ],
     "base": 813.19,
     "c": 18.45,
@@ -7276,6 +9722,8 @@
   "deboli": [],
   "chiuse": 1,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -7507,8 +9955,8 @@
      506.95
     ],
     "attraverso": [
-     599,
-     635
+     602,
+     630
     ],
     "base": 626.73,
     "c": 20.44,
@@ -7717,8 +10165,8 @@
      407.71
     ],
     "attraverso": [
-     971,
-     1003
+     974,
+     999
     ],
     "base": 995.67,
     "c": 18.45,
@@ -7990,8 +10438,8 @@
      332.67
     ],
     "attraverso": [
-     1456,
-     1489
+     1459,
+     1484
     ],
     "base": 1481.28,
     "c": 18.45,
@@ -8149,6 +10597,2538 @@
   "deboli": [],
   "chiuse": 2,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "1-10",
+  "pdf": 18,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Figura 1-5 (Electrical system schematic)",
+    "metodo": "cornice: poligoni misurati; schema: tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, tolte le scritte (tratto.py); scritte: testo vero (righe e posizioni dall'OCR dell'ingrandimento, testo corretto a vista, linea di base dall'inchiostro). Restano disegno vettorializzato, perche' troppo piccoli per leggerli con certezza o non testo tipografico: le lettere dei morsetti di regolatore e alternatore, i numeri negli interruttori (amperaggi), L e R dei magneti, le scritte bianche sulle barre nere dei bus (costruisci/1-10.py)."
+   }
+  ],
+  "inkA": 132580,
+  "soloA": 1368,
+  "soloB": 1905,
+  "entrambi": 131212,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     472.01,
+     626.76
+    ],
+    "attraverso": [
+     67,
+     100
+    ],
+    "base": 92.26,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     472.01,
+     627.97
+    ],
+    "attraverso": [
+     99,
+     132
+    ],
+    "base": 124.17,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     123.46000000000001,
+     252.8
+    ],
+    "attraverso": [
+     133,
+     165
+    ],
+    "base": 158.08,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 1-10",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     761.25,
+     930.54
+    ],
+    "attraverso": [
+     128,
+     160
+    ],
+    "base": 153.09,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     124.66999999999999,
+     254.01000000000002
+    ],
+    "attraverso": [
+     273,
+     305
+    ],
+    "base": 297.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     763.67,
+     991.04
+    ],
+    "attraverso": [
+     269,
+     301
+    ],
+    "base": 293.69,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     329.2,
+     678.8000000000001
+    ],
+    "attraverso": [
+     390,
+     419
+    ],
+    "base": 416.33,
+    "c": 21.94,
+    "apici": false,
+    "testo": "ELECTRICAL SYSTEM",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     692.27,
+     821.61
+    ],
+    "attraverso": [
+     394,
+     416
+    ],
+    "base": 413.34,
+    "c": 15.95,
+    "apici": false,
+    "testo": "SCHEMATIC",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     304.31,
+     367.19
+    ],
+    "attraverso": [
+     433,
+     445
+    ],
+    "base": 442.26,
+    "c": 7.98,
+    "apici": false,
+    "testo": "REGULATOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     560.88,
+     577.77
+    ],
+    "attraverso": [
+     433,
+     445
+    ],
+    "base": 442.26,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     542.73,
+     591.09
+    ],
+    "attraverso": [
+     446,
+     458
+    ],
+    "base": 455.22,
+    "c": 7.98,
+    "apici": false,
+    "testo": "PRIMARY",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     558.46,
+     581.4000000000001
+    ],
+    "attraverso": [
+     461,
+     473
+    ],
+    "base": 470.18,
+    "c": 7.98,
+    "apici": false,
+    "testo": "BUS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     865.81
+    ],
+    "attraverso": [
+     463,
+     475
+    ],
+    "base": 472.17,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO MASTER SWITCH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 3,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     197.81,
+     232.86
+    ],
+    "attraverso": [
+     469,
+     481
+    ],
+    "base": 478.16,
+    "c": 7.98,
+    "apici": false,
+    "testo": "OVER-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     196.6,
+     246.17
+    ],
+    "attraverso": [
+     483,
+     495
+    ],
+    "base": 492.12,
+    "c": 7.98,
+    "apici": false,
+    "testo": "VOLTAGE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     199.02,
+     249.8
+    ],
+    "attraverso": [
+     497,
+     510
+    ],
+    "base": 507.07,
+    "c": 7.98,
+    "apici": false,
+    "testo": "WARNING",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     199.02,
+     231.65
+    ],
+    "attraverso": [
+     513,
+     526
+    ],
+    "base": 523.03,
+    "c": 7.98,
+    "apici": false,
+    "testo": "LIGHT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     926.32
+    ],
+    "attraverso": [
+     491,
+     503
+    ],
+    "base": 500.09,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO OVER-VOLTAGE SENSOR AND",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     926.33
+    ],
+    "attraverso": [
+     503,
+     516
+    ],
+    "base": 513.06,
+    "c": 7.98,
+    "apici": false,
+    "testo": "OVER-VOLTAGE WARNING LIGHT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     704.9,
+     762.95
+    ],
+    "attraverso": [
+     497,
+     509
+    ],
+    "base": 506.08,
+    "c": 7.98,
+    "apici": false,
+    "testo": "ALT FIELD",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     487.06,
+     555.99
+    ],
+    "attraverso": [
+     500,
+     513
+    ],
+    "base": 510.06,
+    "c": 7.98,
+    "apici": false,
+    "testo": "ALTERNATOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     425.34,
+     495.48
+    ],
+    "attraverso": [
+     538,
+     551
+    ],
+    "base": 547.96,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO ALT FIELD",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     414.44,
+     507.58
+    ],
+    "attraverso": [
+     553,
+     566
+    ],
+    "base": 562.91,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CIRCUIT BREAKER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     880.34
+    ],
+    "attraverso": [
+     537,
+     550
+    ],
+    "base": 546.96,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO FUEL PUMP SWITCH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     593.56,
+     616.5
+    ],
+    "attraverso": [
+     539,
+     552
+    ],
+    "base": 548.95,
+    "c": 7.98,
+    "apici": false,
+    "testo": "ALT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     717,
+     747.2
+    ],
+    "attraverso": [
+     562,
+     575
+    ],
+    "base": 571.89,
+    "c": 7.98,
+    "apici": false,
+    "testo": "FUEL",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     717,
+     745.99
+    ],
+    "attraverso": [
+     575,
+     588
+    ],
+    "base": 584.85,
+    "c": 7.98,
+    "apici": false,
+    "testo": "PUMP",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 2,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     520.95,
+     600.77
+    ],
+    "attraverso": [
+     602,
+     615
+    ],
+    "base": 611.77,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CIGAR LIGHTER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     524.58,
+     598.35
+    ],
+    "attraverso": [
+     616,
+     630
+    ],
+    "base": 626.73,
+    "c": 7.98,
+    "apici": false,
+    "testo": "(WITH CIRCUIT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     535.47,
+     588.6700000000001
+    ],
+    "attraverso": [
+     630,
+     644
+    ],
+    "base": 640.69,
+    "c": 7.98,
+    "apici": false,
+    "testo": "BREAKER)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     408.39,
+     442.22999999999996
+    ],
+    "attraverso": [
+     605,
+     618
+    ],
+    "base": 614.76,
+    "c": 7.98,
+    "apici": false,
+    "testo": "OVER-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 3,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     402.34,
+     450.7
+    ],
+    "attraverso": [
+     618,
+     631
+    ],
+    "base": 627.73,
+    "c": 7.98,
+    "apici": false,
+    "testo": "VOLTAGE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     405.97,
+     447.07000000000005
+    ],
+    "attraverso": [
+     631,
+     644
+    ],
+    "base": 640.69,
+    "c": 7.98,
+    "apici": false,
+    "testo": "SENSOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238.96,
+     282.48
+    ],
+    "attraverso": [
+     619,
+     632
+    ],
+    "base": 628.72,
+    "c": 7.98,
+    "apici": false,
+    "testo": "MASTER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     241.38,
+     281.27
+    ],
+    "attraverso": [
+     632,
+     645
+    ],
+    "base": 641.69,
+    "c": 7.98,
+    "apici": false,
+    "testo": "SWITCH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     847.65
+    ],
+    "attraverso": [
+     624,
+     638
+    ],
+    "base": 634.71,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO RADIO (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     473.75,
+     490.64
+    ],
+    "attraverso": [
+     638,
+     650
+    ],
+    "base": 647.67,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     454.38,
+     510.01
+    ],
+    "attraverso": [
+     650,
+     663
+    ],
+    "base": 659.64,
+    "c": 7.98,
+    "apici": false,
+    "testo": "ALT FIELD",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     460.43,
+     503.95
+    ],
+    "attraverso": [
+     664,
+     677
+    ],
+    "base": 673.6,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CIRCUIT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     458.01,
+     507.58
+    ],
+    "attraverso": [
+     677,
+     690
+    ],
+    "base": 686.56,
+    "c": 7.98,
+    "apici": false,
+    "testo": "BREAKER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     709.74,
+     753.26
+    ],
+    "attraverso": [
+     647,
+     660
+    ],
+    "base": 656.64,
+    "c": 7.98,
+    "apici": false,
+    "testo": "RADIO 1",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     769.04,
+     848.86
+    ],
+    "attraverso": [
+     671,
+     685
+    ],
+    "base": 681.57,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO RADIO (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     709.74,
+     753.26
+    ],
+    "attraverso": [
+     693,
+     706
+    ],
+    "base": 702.51,
+    "c": 7.98,
+    "apici": false,
+    "testo": "RADIO 2",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     527,
+     578.99
+    ],
+    "attraverso": [
+     714,
+     726
+    ],
+    "base": 723.45,
+    "c": 7.98,
+    "apici": false,
+    "testo": "AMMETER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     848.86
+    ],
+    "attraverso": [
+     716,
+     730
+    ],
+    "base": 726.44,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO RADIO (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     236.54,
+     286.11
+    ],
+    "attraverso": [
+     733,
+     745
+    ],
+    "base": 742.4,
+    "c": 7.98,
+    "apici": false,
+    "testo": "STARTER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     228.07,
+     290.95
+    ],
+    "attraverso": [
+     747,
+     759
+    ],
+    "base": 756.36,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CONTACTOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     340.62,
+     441.02
+    ],
+    "attraverso": [
+     733,
+     745
+    ],
+    "base": 742.4,
+    "c": 7.98,
+    "apici": false,
+    "testo": "REVERSE POLARITY",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     355.14,
+     418.02
+    ],
+    "attraverso": [
+     745,
+     757
+    ],
+    "base": 754.36,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CONTACTOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     709.74,
+     754.4699999999999
+    ],
+    "attraverso": [
+     739,
+     751
+    ],
+    "base": 748.38,
+    "c": 7.98,
+    "apici": false,
+    "testo": "RADIO 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     520.95,
+     609.24
+    ],
+    "attraverso": [
+     739,
+     751
+    ],
+    "base": 748.38,
+    "c": 7.98,
+    "apici": false,
+    "testo": "GROUND SERVICE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     518.52,
+     612.87
+    ],
+    "attraverso": [
+     752,
+     764
+    ],
+    "base": 761.34,
+    "c": 7.98,
+    "apici": false,
+    "testo": "PLUG RECEPTACLE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     549.99,
+     578.98
+    ],
+    "attraverso": [
+     764,
+     778
+    ],
+    "base": 774.31,
+    "c": 7.98,
+    "apici": false,
+    "testo": "(OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     847.6500000000001
+    ],
+    "attraverso": [
+     763,
+     777
+    ],
+    "base": 773.31,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO RADIO (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     710.95,
+     754.47
+    ],
+    "attraverso": [
+     785,
+     797
+    ],
+    "base": 794.25,
+    "c": 7.98,
+    "apici": false,
+    "testo": "RADIO 4",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     902.11
+    ],
+    "attraverso": [
+     807,
+     821
+    ],
+    "base": 818.18,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO AUDIO AMPLIFIER (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     707.32,
+     755.68
+    ],
+    "attraverso": [
+     831,
+     843
+    ],
+    "base": 840.12,
+    "c": 7.98,
+    "apici": false,
+    "testo": "AUD AMP",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     903.32
+    ],
+    "attraverso": [
+     853,
+     867
+    ],
+    "base": 864.05,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO AUTOMATIC PILOT (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     715.79,
+     745.99
+    ],
+    "attraverso": [
+     876,
+     889
+    ],
+    "base": 885.99,
+    "c": 7.98,
+    "apici": false,
+    "testo": "AUTO",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     714.58,
+     745.99
+    ],
+    "attraverso": [
+     889,
+     902
+    ],
+    "base": 898.95,
+    "c": 7.98,
+    "apici": false,
+    "testo": "PILOT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     890.0100000000001
+    ],
+    "attraverso": [
+     904,
+     917
+    ],
+    "base": 913.91,
+    "c": 7.98,
+    "apici": false,
+    "testo": "FROM ALTERNATOR BUS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     881.5400000000001
+    ],
+    "attraverso": [
+     930,
+     943
+    ],
+    "base": 939.83,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO LANDING AND TAXI",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     834.34
+    ],
+    "attraverso": [
+     943,
+     957
+    ],
+    "base": 953.79,
+    "c": 7.98,
+    "apici": false,
+    "testo": "LIGHTS (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     582.67,
+     635.86
+    ],
+    "attraverso": [
+     939,
+     952
+    ],
+    "base": 948.81,
+    "c": 7.98,
+    "apici": false,
+    "testo": "SPLIT BUS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     576.62,
+     638.29
+    ],
+    "attraverso": [
+     952,
+     965
+    ],
+    "base": 961.77,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CONTACTOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     556.04,
+     661.28
+    ],
+    "attraverso": [
+     965,
+     978
+    ],
+    "base": 974.73,
+    "c": 7.98,
+    "apici": false,
+    "testo": "(NORMALLY CLOSED)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     709.74,
+     755.68
+    ],
+    "attraverso": [
+     953,
+     966
+    ],
+    "base": 962.77,
+    "c": 7.98,
+    "apici": false,
+    "testo": "LAND LT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     910.59
+    ],
+    "attraverso": [
+     973,
+     986
+    ],
+    "base": 982.71,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO NAVIGATION LIGHTS AND",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     904.5400000000001
+    ],
+    "attraverso": [
+     986,
+     999
+    ],
+    "base": 995.67,
+    "c": 7.98,
+    "apici": false,
+    "testo": "OPTIONAL CONTROL WHEEL",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     824.6700000000001
+    ],
+    "attraverso": [
+     999,
+     1012
+    ],
+    "base": 1008.63,
+    "c": 7.98,
+    "apici": false,
+    "testo": "MAP LIGHT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     425.34,
+     489.41999999999996
+    ],
+    "attraverso": [
+     1012,
+     1026
+    ],
+    "base": 1022.59,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CLOCK (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 3,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     205.07,
+     254.64
+    ],
+    "attraverso": [
+     1035,
+     1048
+    ],
+    "base": 1044.53,
+    "c": 7.98,
+    "apici": false,
+    "testo": "STARTER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     765.41,
+     917.85
+    ],
+    "attraverso": [
+     1034,
+     1048
+    ],
+    "base": 1044.53,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO TRANSMITTER RELAY (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     718.21,
+     743.57
+    ],
+    "attraverso": [
+     1038,
+     1050
+    ],
+    "base": 1047.52,
+    "c": 7.98,
+    "apici": false,
+    "testo": "NAV",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     721.84,
+     737.52
+    ],
+    "attraverso": [
+     1050,
+     1062
+    ],
+    "base": 1059.49,
+    "c": 7.98,
+    "apici": false,
+    "testo": "LT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     915.4300000000001
+    ],
+    "attraverso": [
+     1061,
+     1073
+    ],
+    "base": 1070.46,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO IGNITION-STARTER SWITCH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     236.54,
+     284.9
+    ],
+    "attraverso": [
+     1089,
+     1101
+    ],
+    "base": 1098.38,
+    "c": 7.98,
+    "apici": false,
+    "testo": "BATTERY",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     229.28,
+     292.16
+    ],
+    "attraverso": [
+     1102,
+     1114
+    ],
+    "base": 1111.34,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CONTACTOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     905.74
+    ],
+    "attraverso": [
+     1099,
+     1113
+    ],
+    "base": 1109.34,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO FLASHING BEACON (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     591.14,
+     608.03
+    ],
+    "attraverso": [
+     1114,
+     1126
+    ],
+    "base": 1123.3,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     566.93,
+     631.02
+    ],
+    "attraverso": [
+     1126,
+     1138
+    ],
+    "base": 1135.27,
+    "c": 7.98,
+    "apici": false,
+    "testo": "NAVIGATION",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     562.09,
+     635.8699999999999
+    ],
+    "attraverso": [
+     1138,
+     1150
+    ],
+    "base": 1147.24,
+    "c": 7.98,
+    "apici": false,
+    "testo": "LIGHT CIRCUIT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     572.99,
+     622.5600000000001
+    ],
+    "attraverso": [
+     1151,
+     1163
+    ],
+    "base": 1160.2,
+    "c": 7.98,
+    "apici": false,
+    "testo": "BREAKER",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     712.16,
+     750.84
+    ],
+    "attraverso": [
+     1121,
+     1133
+    ],
+    "base": 1130.28,
+    "c": 7.98,
+    "apici": false,
+    "testo": "BCN LT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     765.41,
+     923.9
+    ],
+    "attraverso": [
+     1145,
+     1159
+    ],
+    "base": 1156.21,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO DOOR POST MAP LIGHT (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     890.02
+    ],
+    "attraverso": [
+     1182,
+     1194
+    ],
+    "base": 1191.11,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO DOME AND OPTIONAL",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     859.76
+    ],
+    "attraverso": [
+     1194,
+     1206
+    ],
+    "base": 1203.08,
+    "c": 7.98,
+    "apici": false,
+    "testo": "COURTESY LIGHTS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     709.74,
+     746
+    ],
+    "attraverso": [
+     1202,
+     1215
+    ],
+    "base": 1212.05,
+    "c": 7.98,
+    "apici": false,
+    "testo": "INT LT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     919.06
+    ],
+    "attraverso": [
+     1214,
+     1227
+    ],
+    "base": 1224.02,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO COMPASS AND INSTRUMENT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     806.51
+    ],
+    "attraverso": [
+     1228,
+     1241
+    ],
+    "base": 1237.98,
+    "c": 7.98,
+    "apici": false,
+    "testo": "LIGHTS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     543.94,
+     592.3000000000001
+    ],
+    "attraverso": [
+     1252,
+     1265
+    ],
+    "base": 1261.91,
+    "c": 7.98,
+    "apici": false,
+    "testo": "IGNITION-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     530.63,
+     616.51
+    ],
+    "attraverso": [
+     1265,
+     1278
+    ],
+    "base": 1274.87,
+    "c": 7.98,
+    "apici": false,
+    "testo": "STARTER SWITCH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     765.41,
+     926.32
+    ],
+    "attraverso": [
+     1274,
+     1287
+    ],
+    "base": 1283.84,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO FUEL QUANTITY INDICATORS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     886.3900000000001
+    ],
+    "attraverso": [
+     1302,
+     1315
+    ],
+    "base": 1311.76,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO WING FLAP POSITION",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     823.45
+    ],
+    "attraverso": [
+     1315,
+     1328
+    ],
+    "base": 1324.73,
+    "c": 7.98,
+    "apici": false,
+    "testo": "INDICATOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -2,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     718.21,
+     743.57
+    ],
+    "attraverso": [
+     1310,
+     1323
+    ],
+    "base": 1319.74,
+    "c": 7.98,
+    "apici": false,
+    "testo": "INST",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     254.69,
+     301.84
+    ],
+    "attraverso": [
+     1314,
+     1327
+    ],
+    "base": 1323.73,
+    "c": 7.98,
+    "apici": false,
+    "testo": "BATTERY",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     880.3399999999999
+    ],
+    "attraverso": [
+     1363,
+     1376
+    ],
+    "base": 1372.59,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO WING FLAP SYSTEM",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     717,
+     745.99
+    ],
+    "attraverso": [
+     1386,
+     1399
+    ],
+    "base": 1395.52,
+    "c": 7.98,
+    "apici": false,
+    "testo": "FLAP",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     491.9,
+     548.73
+    ],
+    "attraverso": [
+     1393,
+     1406
+    ],
+    "base": 1402.5,
+    "c": 7.98,
+    "apici": false,
+    "testo": "MAGNETOS",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     891.22
+    ],
+    "attraverso": [
+     1412,
+     1426
+    ],
+    "base": 1422.45,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO STROBE LIGHTS (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     704.9,
+     762.9399999999999
+    ],
+    "attraverso": [
+     1433,
+     1445
+    ],
+    "base": 1442.39,
+    "c": 7.98,
+    "apici": false,
+    "testo": "STROBE LT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     293.42,
+     339.36
+    ],
+    "attraverso": [
+     1448,
+     1463
+    ],
+    "base": 1460.34,
+    "c": 9.97,
+    "apici": false,
+    "testo": "CODE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     913.01
+    ],
+    "attraverso": [
+     1460,
+     1474
+    ],
+    "base": 1470.31,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO PITOT HEAT SYSTEM (OPT)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     707.32,
+     755.68
+    ],
+    "attraverso": [
+     1482,
+     1494
+    ],
+    "base": 1491.25,
+    "c": 7.98,
+    "apici": false,
+    "testo": "PITOT HT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     222.02,
+     397.46
+    ],
+    "attraverso": [
+     1475,
+     1489
+    ],
+    "base": 1486.26,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CIRCUIT BREAKER (PUSH-TO-RESET)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     223.23,
+     251.01
+    ],
+    "attraverso": [
+     1500,
+     1512
+    ],
+    "base": 1509.2,
+    "c": 7.98,
+    "apici": false,
+    "testo": "FUSE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     297.05,
+     330.89
+    ],
+    "attraverso": [
+     1501,
+     1513
+    ],
+    "base": 1510.19,
+    "c": 7.98,
+    "apici": false,
+    "testo": "DIODE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     378.14,
+     428.91999999999996
+    ],
+    "attraverso": [
+     1501,
+     1513
+    ],
+    "base": 1510.19,
+    "c": 7.98,
+    "apici": false,
+    "testo": "RESISTOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     225.65,
+     363.57
+    ],
+    "attraverso": [
+     1522,
+     1536
+    ],
+    "base": 1533.13,
+    "c": 7.98,
+    "apici": false,
+    "testo": "CAPACITOR (NOISE FILTER)",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     905.75
+    ],
+    "attraverso": [
+     1510,
+     1522
+    ],
+    "base": 1519.17,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TO TURN COORDINATOR OR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     766.62,
+     904.53
+    ],
+    "attraverso": [
+     1523,
+     1535
+    ],
+    "base": 1532.13,
+    "c": 7.98,
+    "apici": false,
+    "testo": "OPTIONAL TURN AND BANK",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     767.83,
+     824.6600000000001
+    ],
+    "attraverso": [
+     1536,
+     1548
+    ],
+    "base": 1545.09,
+    "c": 7.98,
+    "apici": false,
+    "testo": "INDICATOR",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     718.21,
+     748.4100000000001
+    ],
+    "attraverso": [
+     1534,
+     1545
+    ],
+    "base": 1543.1,
+    "c": 7.98,
+    "apici": false,
+    "testo": "TURN",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     714.58,
+     753.26
+    ],
+    "attraverso": [
+     1546,
+     1558
+    ],
+    "base": 1555.06,
+    "c": 7.98,
+    "apici": false,
+    "testo": "COORD",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     495,
+     618.3
+    ],
+    "attraverso": [
+     1619,
+     1651
+    ],
+    "base": 1643.81,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Figure 1-5.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   }
+  ],
+  "macchie": [],
+  "righe": 116,
+  "righeFuori": [],
+  "fuori": 0.024686981445165183,
+  "numeri": [
+   {
+    "riga": 184,
+    "x": 296,
+    "valore": "1-10",
+    "tesseract": "1-10",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 324,
+    "x": 322,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 684,
+    "x": 743,
+    "valore": "1",
+    "tesseract": "",
+    "pdf": false,
+    "vista": "OCR legge '(niente)'; a vista: 1 (ingrandimento: RADIO 1 ... RADIO 4 in ordine sotto i quattro interruttori del bus elettronico)",
+    "conferme": 1
+   },
+   {
+    "riga": 730,
+    "x": 741,
+    "valore": "2",
+    "tesseract": "2",
+    "pdf": false,
+    "vista": null,
+    "conferme": 1
+   },
+   {
+    "riga": 776,
+    "x": 741,
+    "valore": "3",
+    "tesseract": "K",
+    "pdf": false,
+    "vista": "OCR legge 'K'; a vista: 3 (ingrandimento: RADIO 1 ... RADIO 4 in ordine sotto i quattro interruttori del bus elettronico)",
+    "conferme": 1
+   },
+   {
+    "riga": 822,
+    "x": 742,
+    "valore": "4",
+    "tesseract": "4",
+    "pdf": false,
+    "vista": null,
+    "conferme": 1
+   },
+   {
+    "riga": 1674,
+    "x": 604,
+    "valore": "1-5.",
+    "tesseract": "1-5.",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": false,
+  "deboli": [],
+  "chiuse": 2,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -8359,8 +13339,8 @@
      736.8900000000001
     ],
     "attraverso": [
-     479,
-     511
+     482,
+     507
     ],
     "base": 504.08,
     "c": 18.45,
@@ -8653,8 +13633,8 @@
      560.2
     ],
     "attraverso": [
-     1096,
-     1129
+     1099,
+     1124
     ],
     "base": 1121.31,
     "c": 18.45,
@@ -8989,6 +13969,8 @@
   "deboli": [],
   "chiuse": 1,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -9136,8 +14118,8 @@
      479.11
     ],
     "attraverso": [
-     355,
-     391
+     358,
+     385
     ],
     "base": 382.43,
     "c": 20.44,
@@ -9157,8 +14139,8 @@
      405.29
     ],
     "attraverso": [
-     419,
-     452
+     422,
+     447
     ],
     "base": 444.25,
     "c": 18.45,
@@ -9346,8 +14328,8 @@
      642.5
     ],
     "attraverso": [
-     760,
-     793
+     763,
+     788
     ],
     "base": 785.27,
     "c": 18.45,
@@ -9451,8 +14433,8 @@
      643.71
     ],
     "attraverso": [
-     974,
-     1006
+     977,
+     1002
     ],
     "base": 998.66,
     "c": 18.45,
@@ -9556,8 +14538,8 @@
      393.19000000000005
     ],
     "attraverso": [
-     1189,
-     1221
+     1192,
+     1217
     ],
     "base": 1214.04,
     "c": 18.45,
@@ -9829,6 +14811,8 @@
   "deboli": [],
   "chiuse": 0,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -10522,8 +15506,8 @@
      523.89
     ],
     "attraverso": [
-     1417,
-     1453
+     1420,
+     1447
     ],
     "base": 1444.38,
     "c": 20.44,
@@ -10645,6 +15629,8 @@
   "deboli": [],
   "chiuse": 0,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -11401,6 +16387,8 @@
   "deboli": [],
   "chiuse": 0,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": []
  },
@@ -11557,8 +16545,8 @@
      1056.3899999999999
     ],
     "attraverso": [
-     303,
-     361
+     308,
+     351
     ],
     "base": 347.53,
     "c": 32.91,
@@ -11578,8 +16566,8 @@
      739.31
     ],
     "attraverso": [
-     466,
-     517
+     470,
+     509
     ],
     "base": 505.08,
     "c": 28.92,
@@ -11599,8 +16587,8 @@
      509.38
     ],
     "attraverso": [
-     600,
-     636
+     603,
+     631
     ],
     "base": 627.73,
     "c": 20.44,
@@ -12082,8 +17070,8 @@
      847.02
     ],
     "attraverso": [
-     1217,
-     1248
+     1219,
+     1244
     ],
     "base": 1240.97,
     "c": 17.95,
@@ -12124,8 +17112,8 @@
      607.4
     ],
     "attraverso": [
-     1319,
-     1350
+     1321,
+     1346
     ],
     "base": 1342.67,
     "c": 17.95,
@@ -12208,8 +17196,8 @@
      486.38
     ],
     "attraverso": [
-     1384,
-     1416
+     1387,
+     1411
     ],
     "base": 1408.49,
     "c": 17.95,
@@ -12229,8 +17217,8 @@
      774.41
     ],
     "attraverso": [
-     1384,
-     1416
+     1387,
+     1411
     ],
     "base": 1408.49,
     "c": 17.95,
@@ -12250,8 +17238,8 @@
      889.38
     ],
     "attraverso": [
-     1384,
-     1416
+     1387,
+     1411
     ],
     "base": 1408.49,
     "c": 17.95,
@@ -12271,8 +17259,8 @@
      1001.9300000000001
     ],
     "attraverso": [
-     1384,
-     1416
+     1387,
+     1411
     ],
     "base": 1408.49,
     "c": 17.95,
@@ -12754,6 +17742,8 @@
   "deboli": [],
   "chiuse": 3,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": [
    "Vne 298 km/h · 161 kts · 185 MPH, Vno 235 · 127 · 146, Vfe 161 · 87 · 100: nessuna tabella del progetto da confrontare (il progetto usa le velocita' di prestazione, non queste).",
@@ -12773,9 +17763,9 @@
    }
   ],
   "inkA": 113179,
-  "soloA": 5408,
-  "soloB": 2749,
-  "entrambi": 107771,
+  "soloA": 5251,
+  "soloB": 2800,
+  "entrambi": 107928,
   "geom": [
    {
     "rif": "libro",
@@ -12953,8 +17943,8 @@
      536.4
     ],
     "attraverso": [
-     251,
-     281
+     253,
+     277
     ],
     "base": 274.01,
     "c": 17.3,
@@ -12974,8 +17964,8 @@
      1109.94
     ],
     "attraverso": [
-     263,
-     293
+     266,
+     289
     ],
     "base": 286.37,
     "c": 17.3,
@@ -12995,8 +17985,8 @@
      898.4300000000001
     ],
     "attraverso": [
-     306,
-     337
+     309,
+     333
     ],
     "base": 329.63,
     "c": 17.3,
@@ -13016,8 +18006,8 @@
      1088.02
     ],
     "attraverso": [
-     306,
-     337
+     309,
+     333
     ],
     "base": 329.63,
     "c": 17.3,
@@ -13037,8 +18027,8 @@
      342.03
     ],
     "attraverso": [
-     338,
-     369
+     341,
+     365
     ],
     "base": 361.76,
     "c": 17.3,
@@ -13058,8 +18048,8 @@
      341.08
     ],
     "attraverso": [
-     429,
-     459
+     431,
+     455
     ],
     "base": 451.98,
     "c": 17.3,
@@ -13079,8 +18069,8 @@
      339.17999999999995
     ],
     "attraverso": [
-     519,
-     549
+     521,
+     545
     ],
     "base": 542.2,
     "c": 17.3,
@@ -13100,8 +18090,8 @@
      339.17999999999995
     ],
     "attraverso": [
-     613,
-     643
+     615,
+     639
     ],
     "base": 636.12,
     "c": 17.3,
@@ -13121,8 +18111,8 @@
      339.17
     ],
     "attraverso": [
-     704,
-     735
+     707,
+     731
     ],
     "base": 727.58,
     "c": 17.3,
@@ -13142,8 +18132,8 @@
      336.32
     ],
     "attraverso": [
-     799,
-     830
+     802,
+     826
     ],
     "base": 822.74,
     "c": 17.3,
@@ -13163,8 +18153,8 @@
      358.24
     ],
     "attraverso": [
-     909,
-     940
+     912,
+     936
     ],
     "base": 932.73,
     "c": 17.3,
@@ -13184,8 +18174,8 @@
      604.04
     ],
     "attraverso": [
-     909,
-     940
+     912,
+     936
     ],
     "base": 932.73,
     "c": 17.3,
@@ -13205,8 +18195,8 @@
      850.7900000000001
     ],
     "attraverso": [
-     909,
-     940
+     912,
+     936
     ],
     "base": 932.73,
     "c": 17.3,
@@ -13226,8 +18216,8 @@
      1097.55
     ],
     "attraverso": [
-     909,
-     940
+     912,
+     936
     ],
     "base": 932.73,
     "c": 17.3,
@@ -13247,8 +18237,8 @@
      1337.6399999999999
     ],
     "attraverso": [
-     909,
-     940
+     912,
+     936
     ],
     "base": 932.73,
     "c": 17.3,
@@ -13309,16 +18299,16 @@
      795.54
     ],
     "attraverso": [
-     1040,
-     1068
+     1036,
+     1069
     ],
     "base": 1061.26,
-    "c": 16.07,
+    "c": 18.54,
     "apici": false,
     "testo": "Figure 5-7.",
     "giro": -90,
     "Lw": 1762,
-    "inizio": 1,
+    "inizio": 0,
     "fine": -1,
     "alto": 0
    }
@@ -13326,7 +18316,7 @@
   "macchie": [],
   "righe": 26,
   "righeFuori": [],
-  "fuori": 0.07207167407381228,
+  "fuori": 0.07113510456886879,
   "numeri": [
    {
     "riga": 328,
@@ -13486,6 +18476,8 @@
   "deboli": [],
   "chiuse": 4,
   "dif": [],
+  "strane": [],
+  "sovrapposte": [],
   "aperte": 0,
   "dati": [
    "SPEED VI 137 km/h - 74 kts - 85 MPH: V best glide 85 MPH = DATI-AFM.md e index.html (AFM_SPEEDS.glide, fig. 5-7) ✓; 85 MPH = 136,8 km/h = 73,9 kt ✓",

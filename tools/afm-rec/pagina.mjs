@@ -40,7 +40,9 @@ export function paroleDaMisurare(pagine, stile) {
 export const misuraNelBrowser = (parole) => {
   const c = document.createElement('canvas').getContext('2d'), out = {};
   for (const q of parole) {
-    c.font = q.font; c.fontStretch = q.stretch === '100%' ? 'normal' : q.stretch; c.letterSpacing = '0px';
+    // il canvas vuole le parole chiave della larghezza, non le percentuali del CSS
+    const kw = { '50%': 'ultra-condensed', '62.5%': 'extra-condensed', '75%': 'condensed', '87.5%': 'semi-condensed', '100%': 'normal', '112.5%': 'semi-expanded', '125%': 'expanded' };
+    c.font = q.font; c.fontStretch = kw[q.stretch] || 'normal'; c.letterSpacing = '0px';
     const m0 = c.measureText(q.t), n = [...q.t].length;
     const ink0 = m0.actualBoundingBoxLeft + m0.actualBoundingBoxRight;
     const ls = n > 1 ? (q.w / q.sx - ink0) / (n - 1) : 0;

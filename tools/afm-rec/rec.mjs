@@ -34,7 +34,8 @@
    per il testo copiato: [indice, ...]), fissa (x e larghezze misurate a mano:
    misura.py non la tocca; per le righe impilate, come le tolleranze +0/-2), fine (x dove
    finisce la riga per la misura: l'ultima parola non va oltre, se dopo c'e' altro vicino), figura
-   (scritta dentro una figura: misura.py cerca l'inchiostro solo dentro la casella della parola).
+   (scritta dentro una figura: misura.py cerca l'inchiostro solo dentro la casella della parola,
+   letta da etichette.py e salvata alla prima misura in caselle: [larghezza, ...]).
 
      node tools/afm-rec/rec.mjs afm-ccaf            (data/afm-rec/afm-ccaf/)
      node tools/afm-rec/rec.mjs afm-ccaf --pieno    (prova "pagina piena": data/afm-rec/afm-ccaf-pieno/)
@@ -63,9 +64,13 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 const stile = JSON.parse(await readFile(path.join(DIR, 'stile.json'), 'utf8'));
 const pagine = {};
+const foto = new Set();
 for (const f of (await readdir(path.join(DIR, 'pagine'))).filter((f) => f.endsWith('.json') && !f.includes('.bozza'))) {
   const p = await risolvi(JSON.parse(await readFile(path.join(DIR, 'pagine', f), 'utf8')), DIR);
   if (p.stato === 'bozza') continue;   // la bozza grezza (bozza.py) non si pubblica finche' non e' corretta
+  /* le fotografie delle figure (figure/*.webp) stanno in file a parte, comuni alle prove:
+     data/afm-rec/foto/<id>-<nome>; l'SVG le chiama con un percorso relativo a manuale.html */
+  for (const e of p.el) if (e[0] === 'svg') e[1] = e[1].replace(/href="figure\/([^"]+)"/g, (t, nome) => { foto.add(nome); return `href="data/afm-rec/foto/${ID}-${nome}"`; });
   pagine[p.pdf] = PIENO ? pienaPagina(p, stile, VARIANTE) : p;
 }
 
@@ -106,7 +111,7 @@ let libro = ufficiale.replace(/<div class="pg-afm([^"]*)" data-pdf="(\d+)"([^>]*
 });
 const meta = JSON.parse(libro.match(/data-meta="([^"]*)"/)[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&'));
 meta.rec = true; meta.testo = null;
-meta.titolo += ' · reconstructed preview' + ({ pieno: ' (full page test)', medio: ' (middle test)' }[VARIANTE] || '');
+meta.titolo += ' · reconstructed preview' + ({ pieno: ' (full page test)', medio: ' (middle layout)' }[VARIANTE] || '');
 libro = libro.replace(/data-meta="[^"]*"/, `data-meta="${esc(JSON.stringify(meta))}"`)
   .replace('<div class="libro-afm"', '<div class="libro-afm libro-rec"');
 
@@ -121,5 +126,7 @@ ${classi}
 await mkdir(OUT, { recursive: true });
 await mkdir(FONT_OUT, { recursive: true });
 for (const f of Object.values(stile.font)) await copyFile(path.join(RADICE, 'tools', 'afm-rec', 'font', f.file), path.join(FONT_OUT, f.file));
+await mkdir(path.join(RADICE, 'data', 'afm-rec', 'foto'), { recursive: true });
+for (const nome of foto) await copyFile(path.join(DIR, 'figure', nome), path.join(RADICE, 'data', 'afm-rec', 'foto', `${ID}-${nome}`));
 await writeFile(path.join(OUT, 'libro.html'), intestazione + libro.replace(/^<!--[^\n]*-->\n/, ''));
 console.log(`${path.relative(RADICE, OUT)}/libro.html: ${fatte} reconstructed pages of ${Object.keys(pagine).length} sources`);

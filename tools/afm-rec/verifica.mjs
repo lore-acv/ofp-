@@ -144,12 +144,15 @@ try {
       document.body.innerHTML = svg;
       const s = document.querySelector('svg'); s.setAttribute('width', W); s.setAttribute('height', H);
       await document.fonts.ready;
+      // le fotografie delle figure: caricate prima della fotografia della pagina
+      await Promise.all([...s.querySelectorAll('image')].map((im) => { const i = new Image(); i.src = im.getAttribute('href'); return i.decode().catch(() => {}); }));
+      await new Promise((r) => setTimeout(r, 200));
       // la ricostruita in una tela, come immagine
       const ser = new XMLSerializer().serializeToString(s).replace('<svg ', `<svg xmlns="http://www.w3.org/2000/svg" `);
       const conCss = ser.replace(/(<svg[^>]*>)/, `$1<style>${css.replace(/url\(file:[^)]+\)/g, (u) => u)} line{stroke:#000} rect,polygon{fill:#000} text{fill:#000;white-space:pre}</style>`);
       const ri = new Image(); ri.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(conCss); await ri.decode().catch(() => {});
       return { W, H };
-    }, p.svg, stileCss, 'file://' + origPath);
+    }, p.svg.replace(/href="data\//g, `href="file://${RADICE}/data/`), stileCss, 'file://' + origPath);
     // la ricostruita si fotografa dalla pagina (i font caricati dal documento)
     await pg.setViewport({ width: r.W, height: r.H, deviceScaleFactor: 1 });
     const recPng = path.join(OUT_IMG, `${p.n}-ricostruita.png`);
@@ -173,6 +176,10 @@ try {
       const rif = opz.libro || pjg.rot !== -90 ? 'libro' : 'pag';
       const fs = c / r.capRatio, largo = (t) => [...t].length * fs * 0.62 * (opz.sx || r.sx) + 12;
       const attraverso = [Math.round(e[2] - c * 1.35), Math.round(e[2] + c * 0.4)];
+      // come in misura.py: una riga tutta maiuscole e cifre non sale oltre le maiuscole e non scende
+      // sotto la linea di base (un filetto subito sopra o sotto non e' la riga)
+      if (e[3].every((w) => /^[A-Z0-9.:\-–&]+$/.test(w[1]))) { attraverso[0] = Math.round(e[2] - c * 1.2); attraverso[1] = Math.round(e[2] + Math.max(3, c * 0.12)); }
+      const margine = opz.figura ? [3, 3] : [12, 6];    // le scritte nelle figure: le linee del disegno sono vicine
       if (!opz.ang && !opz.libro) {
         const a0 = Math.min(...e[3].map((w) => w[0])), z0 = Math.max(...e[3].map((w) => w[0] + (w[2] || 14 * w[1].length)));
         const vic = normali.filter((q) => q.a < z0 && q.z > a0);
@@ -194,9 +201,9 @@ try {
         const ultima = gr[gr.length - 1];
         let dopo = gruppi[k + 1] ? gruppi[k + 1][0][0] - 8 : 1e9;
         for (const px of puntini) if (px > ultima[0] + 4) dopo = Math.min(dopo, px - 4);   // i puntini guida non fanno parte della riga
-        const fineUltima = ultima[2] ? ultima[0] + ultima[2] + 6 : ultima[0] + largo(ultima[1]);
+        const fineUltima = ultima[2] ? ultima[0] + ultima[2] + margine[1] : ultima[0] + largo(ultima[1]);
         const prima = k ? fineDi(gruppi[k - 1][gruppi[k - 1].length - 1]) + 4 : -1e9;   // la banda non tocca il gruppo prima
-        return { rif, ang: 0, lungo: [Math.max(prima, gr[0][0] - 12), Math.min(dopo, fineUltima)], attraverso, base: e[2], c, apici: !!(opz.sup && opz.sup.length), testo: gr.map((w) => w[1]).join(' ') };
+        return { rif, ang: 0, lungo: [Math.max(prima, gr[0][0] - margine[0]), Math.min(dopo, fineUltima)], attraverso, base: e[2], c, apici: !!(opz.sup && opz.sup.length), testo: gr.map((w) => w[1]).join(' ') };
       });
     }).flat().map((g) => ({ ...g, giro: g.rif === 'pag' ? pjg.rot : 0, Lw: pjg.w }));
     const conf = await pg.evaluate(async (origUrl, recB64, righe, T) => {
@@ -293,7 +300,17 @@ try {
     // una riga coincide se comincia e finisce entro 4 px (un terzo di millimetro sulla pagina stampata)
     // e sta alla stessa altezza: linea di base entro 3 px
     // (le righe con apici no: il grado in apice fa da fondo quanto la cifra; sono misurate a mano)
-    const righeFuori = conf.geom.filter((g) => Math.abs(g.inizio) > 4 || Math.abs(g.fine) > 4 || (!g.apici && Math.abs(g.alto) > 3));
+    /* Righe e macchie chiuse a vista (controlli.json, "righe" e "macchie", in coordinate della
+       pagina): dove la differenza e' della misura e non della pagina (una linea di richiamo che
+       tocca il numero, un filetto che nella scansione sbiadisce), guardata sull'ingrandimento */
+    const ctr = controlli[p.n] || {};
+    const aPagina = (x, y) => [(x - affOrig.bx) / affOrig.ax, (y - affOrig.by) / affOrig.ay];
+    const rigaVista = (g) => (ctr.righe || []).some((r) => r.testo === g.testo && Math.abs(aPagina(0, g.base)[1] - r.base) <= 3);
+    const macchiaVista = (m) => (ctr.macchie || []).some((r) => { const [x0, y0] = aPagina(m.box[0], m.box[1]), [x1, y1] = aPagina(m.box[2], m.box[3]); return x0 >= r.riquadro[0] - 3 && y0 >= r.riquadro[1] - 3 && x1 <= r.riquadro[2] + 3 && y1 <= r.riquadro[3] + 3; });
+    const righeTutte = conf.geom.filter((g) => Math.abs(g.inizio) > 4 || Math.abs(g.fine) > 4 || (!g.apici && Math.abs(g.alto) > 3));
+    const righeFuori = righeTutte.filter((g) => !rigaVista(g));
+    const macchieTutte = conf.macchie; conf.macchie = macchieTutte.filter((m) => !macchiaVista(m));
+    const chiuseGeo = righeTutte.length - righeFuori.length + macchieTutte.length - conf.macchie.length;
     // le letture di ogni numero: Tesseract sul ritaglio, strato di testo del PDF, a vista
     const numeri = nr.map((q) => {
       const vista = letti.find((l) => l.riga === q.y && l.x === q.x && l.valore === q.t);
@@ -304,9 +321,29 @@ try {
     const dueVolte = SEZIONI_DUE_VOLTE.test(p.n);
     const deboli = numeri.filter((q) => q.conferme < (dueVolte ? 2 : 1));
     const pjv = JSON.parse(await readFile(path.join(DIR, 'pagine', p.n + '.json'), 'utf8'));
-    const aperte = righeFuori.length + conf.macchie.length + dif.length + deboli.length;
-    esiti.push({ n: p.n, pdf: p.pdf, stato: pjv.stato, figure: pjv.figure || [], ...conf, diff: undefined, righe: conf.geom.length, righeFuori, fuori, numeri, dueVolte, deboli, chiuse, dif, aperte, dati: (controlli[p.n] || {}).dati || [] });
-    console.log(`${p.n}: macchie ${conf.macchie.length} · righe fuori posto ${righeFuori.length}/${conf.geom.length} · inchiostro non coincidente ${(fuori * 100).toFixed(1)}% · parole con numeri ${nr.length}, differenze aperte ${dif.length} (chiuse a vista ${chiuse})`);
+    /* PAROLE STROZZATE O SFILACCIATE: la spaziatura fra le lettere che porta una parola alla sua
+       larghezza misurata, in em. Molto negativa vuol dire lettere sovrapposte (la misura ha preso solo
+       un pezzo della parola), molto positiva lettere sparse (ha preso anche altro): in tutti e due i
+       casi la parola si vede sbagliata anche se la riga comincia e finisce al posto giusto */
+    const strane = [...p.svg.matchAll(/<text[^>]*style="letter-spacing:(-?[\d.]+)px;font-size:([\d.]+)px"[^>]*>([^<]*)<\/text>/g)]
+      .map((m) => ({ em: +m[1] / +m[2], testo: m[3].trim() }))
+      .filter((q) => [...q.testo].length > 1 && (q.em < -0.3 || q.em > 0.5));
+    /* PAROLE SOVRAPPOSTE: due parole di righe diverse che occupano lo stesso posto (una riga messa
+       sulla linea di base di un'altra): le caselle [x, base - c, x + w, base] si coprono per piu' di
+       un terzo della piu' piccola */
+    const caselle = [];
+    pjv.el.forEach((e, k) => { if (e[0] === 'riga' && !(e[4] && (e[4].ang || e[4].libro))) { const c = (e[4] && e[4].c) || stg0.ruoli[e[1]].c; e[3].forEach((w) => { if (w[2]) caselle.push({ k, t: w[1], b: [w[0], e[2] - c, w[0] + w[2], e[2]] }); }); } });
+    const sovrapposte = [];
+    for (let i = 0; i < caselle.length; i++) for (let j = i + 1; j < caselle.length; j++) {
+      const a = caselle[i], b = caselle[j]; if (a.k === b.k) continue;
+      const ix = Math.min(a.b[2], b.b[2]) - Math.max(a.b[0], b.b[0]), iy = Math.min(a.b[3], b.b[3]) - Math.max(a.b[1], b.b[1]);
+      if (ix <= 0 || iy <= 0) continue;
+      const area = (q) => (q.b[2] - q.b[0]) * (q.b[3] - q.b[1]);
+      if (ix * iy > Math.min(area(a), area(b)) / 3) sovrapposte.push({ testo: `${a.t} / ${b.t}`, base: a.b[3] });
+    }
+    const aperte = righeFuori.length + conf.macchie.length + dif.length + deboli.length + strane.length + sovrapposte.length;
+    esiti.push({ n: p.n, pdf: p.pdf, stato: pjv.stato, figure: pjv.figure || [], ...conf, diff: undefined, righe: conf.geom.length, righeFuori, fuori, numeri, dueVolte, deboli, chiuse, dif, strane, sovrapposte, aperte, dati: (controlli[p.n] || {}).dati || [] });
+    console.log(`${p.n}: macchie ${conf.macchie.length} · righe fuori posto ${righeFuori.length}/${conf.geom.length} · inchiostro non coincidente ${(fuori * 100).toFixed(1)}% · parole con numeri ${nr.length}, differenze aperte ${dif.length} (chiuse a vista ${chiuse})${strane.length ? ` · parole strozzate o sfilacciate ${strane.length}` : ''}${sovrapposte.length ? ` · parole sovrapposte ${sovrapposte.length}` : ''}${chiuseGeo ? ` · righe e macchie chiuse a vista ${chiuseGeo}` : ''}`);
   }
 } finally {
   await browser.close();
@@ -324,7 +361,7 @@ md.push(`# VERIFICA — ${mappa.titolo}, anteprima ricostruita`, '',
   '2. **Macchie.** Inchiostro che c\'e\' solo nell\'originale o solo nella ricostruita, tolti gli aloni di un pixel dovuti al disegno diverso delle lettere: ogni macchia di almeno 25 px e\' contenuto mancante o in piu\'.',
   '3. **Numeri.** Ogni parola con cifre si ritaglia dall\'originale e la legge Tesseract da sola; la seconda lettura e\' lo strato di testo del PDF (per I-CCAF l\'OCR di Acrobat, indipendente). Dove le letture automatiche sbagliano decide il controllo a vista, annotato in `tools/afm-rec/' + ID + '/controlli.json`. Nelle sezioni 2, 3, 5 e 6 (limitazioni, emergenze, prestazioni, centraggio) ogni numero deve avere **due conferme** indipendenti.',
   '4. **Dati del progetto.** Dove il progetto ha gia\' i valori verificati (DATI-AFM.md, tabelle di index.html) si confrontano con la pagina.', '',
-  'Una pagina e\' **verificata** solo con zero differenze aperte (righe fuori posto + macchie + numeri non confermati).', '',
+  '3. **Parole.** La spaziatura che porta ogni parola alla larghezza misurata sta fra -0,3 e 0,5 em: fuori, le lettere si sovrappongono o si sparpagliano (la misura ha preso un pezzo della parola, o anche altro). E nessuna parola copre per piu\' di un terzo una parola di un\'altra riga.', '', 'Una pagina e\' **verificata** solo con zero differenze aperte (righe fuori posto + macchie + parole strozzate o sfilacciate + numeri non confermati).', '',
   '"Inchiostro non coincidente" e\' solo un\'indicazione: misura anche la differenza di disegno fra il font libero e quello originale, e la scansione piu\' scura della stampa.', '',
   '## Pagine', '',
   '| Pagina | Stato | Righe coincidenti | Macchie | Numeri (conferme) | Differenze aperte | Inchiostro non coincidente | Esito |',
@@ -340,9 +377,15 @@ const aperteTutte = esiti.flatMap((e) => [
   ...e.righeFuori.map((g) => `| ${e.n} | ${g.base} | riga "${g.testo.slice(0, 40)}" | inizio ${g.inizio} px, fine ${g.fine} px, linea di base ${g.alto} px | |`),
   ...e.macchie.map((m) => `| ${e.n} | ${m.box[1]} | macchia ${m.tipo}, ${m.px} px | riquadro ${m.box.join(', ')} | |`),
   ...e.dif.map((d) => `| ${e.n} | ${d.riga} | numero | ${d.originale} | ${d.ricostruito} |`),
+  ...e.sovrapposte.map((q) => `| ${e.n} | ${q.base} | parole sovrapposte | | ${q.testo} |`),
+  ...e.strane.map((q) => `| ${e.n} | | parola ${q.em < 0 ? 'strozzata' : 'sfilacciata'} (spaziatura ${q.em.toFixed(2)} em) | | ${q.testo} |`),
   ...e.deboli.filter((q) => !e.dif.some((d) => d.riga === q.riga && d.x === q.x)).map((q) => `| ${e.n} | ${q.riga} | numero con una sola conferma | ${q.tesseract} | ${q.valore} |`)]);
 if (aperteTutte.length) md.push('| Pagina | Riga (y) | Cosa | Valore originale | Valore ricostruito |', '|---|---|---|---|---|', ...aperteTutte);
 else md.push('Nessuna.');
+// le righe e le macchie chiuse a vista (controlli.json), con il perche'
+const viste = esiti.flatMap((e) => [...((controlli[e.n] || {}).righe || []).map((r) => `| ${e.n} | riga "${r.testo}" (base ${r.base}) | ${r.come} |`),
+  ...((controlli[e.n] || {}).macchie || []).map((r) => `| ${e.n} | macchia, riquadro ${r.riquadro.join(', ')} | ${r.come} |`)]);
+if (viste.length) md.push('', '## Righe e macchie chiuse a vista', '', 'Differenze della misura, non della pagina: guardate sull\'ingrandimento (coordinate della pagina originale).', '', '| Pagina | Cosa | Perche\' |', '|---|---|---|', ...viste);
 md.push('', '## Numeri, uno per uno', '', 'Sezioni 2, 3, 5 e 6: due conferme indipendenti per ogni numero. ✓ = conferma.', '');
 for (const e of esiti) {
   md.push(`### Pagina ${e.n}${e.dueVolte ? ' (due conferme)' : ''}`, '', '| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |', '|---|---|---|---|---|---|');

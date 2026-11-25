@@ -46,6 +46,13 @@ basi = [(e[2], min(w[0] for w in e[3]), max(w[0] + (w[2] if len(w) > 2 else 14 *
 vicine = lambda base, x0, x1, verso: [(b, k) for b, a, z, k in basi if a < x1 and z > x0 and (b > base + 8 if verso > 0 else b < base - 8)]
 # si ripete fino a che niente si muove: dove due parole si toccano la fine di una
 # dipende dall'inizio dell'altra, e viceversa
+# le caselle lette da etichette.py per le scritte nelle figure: il limite resta quello di partenza
+# (non la larghezza appena misurata, che a ogni giro potrebbe allargarsi su una linea vicina)
+# (salvate nella riga, opzione "caselle", alla prima misura: restano quelle lette, a ogni esecuzione)
+for e in p['el']:
+    if e[0] == 'riga' and len(e) > 4 and e[4].get('figura') and 'caselle' not in e[4]:
+        e[4]['caselle'] = [[w[0], w[2]] if len(w) > 2 else None for w in e[3]]
+casella = {(id(e), i): c for e in p['el'] if e[0] == 'riga' and len(e) > 4 and e[4].get('figura') for i, c in enumerate(e[4]['caselle']) if c}
 for giro in range(6):
     prima = json.dumps(p['el'])
     for e in p['el']:
@@ -103,10 +110,10 @@ for giro in range(6):
                 sotto = vicine(base, x, stima, 1) if normale else []
                 if sotto:
                     yy1 = min(yy1, int(min(b - c * k for b, k in sotto)))
-            if opz.get('figura') and len(w) > 2:
+            if opz.get('figura') and (id(e), i) in casella:
                 # scritte dentro una figura: l'inchiostro si cerca solo dentro la casella della parola
-                # (letta da etichette.py o gia' misurata), non nelle linee del disegno che la toccano
-                fine = min(fine, x + w[2] + 3)
+                # (letta da etichette.py), non nelle linee del disegno che la toccano
+                fine = min(fine, casella[(id(e), i)][0] + casella[(id(e), i)][1] + 1)
             for px in punti.get(base, []):            # i puntini guida della stessa riga non sono la parola
                 if px > x + 4:
                     fine = min(fine, px - 4)
@@ -114,7 +121,7 @@ for giro in range(6):
             # (cosi' rimisurare non sposta niente); una nuova (dalla bozza) un poco piu' in la'
             a = max(0, x - (1 if i in sup or len(w) > 2 else 6))
             if opz.get('figura'):
-                a = max(0, x - 2)
+                a = max(0, (casella[(id(e), i)][0] if (id(e), i) in casella else x) - 1)
             # non oltre la fine della parola prima: l'inchiostro di una lettera finale
             # vicina (la s di "Pilot's" a un passo da "Check", un grado in apice) non e' l'inizio di questa
             if i > 0 and len(parole[i - 1]) > 2:
@@ -130,6 +137,8 @@ for giro in range(6):
                 if xs[k] - xs[k - 1] > gap:
                     break
                 fine_ink = xs[k]
+            if opz.get('figura') and (id(e), i) in casella:
+                fine_ink = xs[-1]          # nella figura la casella delimita gia' la parola: tutto il suo inchiostro
             sinistra, destra = a + int(xs[0]), a + int(fine_ink) + 1
             w[:] = [sinistra, w[1], destra - sinistra]
             # i titoli spaziati a mano: dove comincia ogni lettera, se le lettere sono staccate

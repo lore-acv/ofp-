@@ -50,6 +50,27 @@
       "sx": 0.85,
       "spazio": 0.08,
       "coda": 0.4
+    },
+    "richiamo": {
+      "font": "sans",
+      "classe": "rn",
+      "peso": 700,
+      "larghezza": "62.5%",
+      "c": 23,
+      "capRatio": 0.6875,
+      "sx": 0.55,
+      "spazio": 0.0,
+      "lettere": true
+    },
+    "legenda": {
+      "font": "sans",
+      "classe": "rl",
+      "peso": 400,
+      "larghezza": "75%",
+      "c": 11,
+      "capRatio": 0.6875,
+      "sx": 1.0,
+      "spazio": 0.02
     }
   },
   "pieno": {

@@ -9,7 +9,9 @@
 3. **Numeri.** Ogni parola con cifre si ritaglia dall'originale e la legge Tesseract da sola; la seconda lettura e' lo strato di testo del PDF (per I-CCAF l'OCR di Acrobat, indipendente). Dove le letture automatiche sbagliano decide il controllo a vista, annotato in `tools/afm-rec/afm-ccaf/controlli.json`. Nelle sezioni 2, 3, 5 e 6 (limitazioni, emergenze, prestazioni, centraggio) ogni numero deve avere **due conferme** indipendenti.
 4. **Dati del progetto.** Dove il progetto ha gia' i valori verificati (DATI-AFM.md, tabelle di index.html) si confrontano con la pagina.
 
-Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto + macchie + numeri non confermati).
+3. **Parole.** La spaziatura che porta ogni parola alla larghezza misurata sta fra -0,3 e 0,5 em: fuori, le lettere si sovrappongono o si sparpagliano (la misura ha preso un pezzo della parola, o anche altro). E nessuna parola copre per piu' di un terzo una parola di un'altra riga.
+
+Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto + macchie + parole strozzate o sfilacciate + numeri non confermati).
 
 "Inchiostro non coincidente" e' solo un'indicazione: misura anche la differenza di disegno fra il font libero e quello originale, e la scansione piu' scura della stampa.
 
@@ -18,26 +20,30 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 | Pagina | Stato | Righe coincidenti | Macchie | Numeri (conferme) | Differenze aperte | Inchiostro non coincidente | Esito |
 |---|---|---|---|---|---|---|---|
 | 1-1 | ricostruita | 27/27 | 0 | 8 (8 con 2+ conferme) | 0 | 5.6% | **verificata** |
-| 1-2 | ricostruita | 22/22 | 0 | 10 (4 con 2+ conferme) | 0 | 3.0% | **verificata** |
+| 1-2 | ricostruita | 22/22 | 0 | 10 (4 con 2+ conferme) | 0 | 2.5% | **verificata** |
 | 1-3 | ricostruita | 40/40 | 0 | 45 (23 con 2+ conferme) | 0 | 12.3% | **verificata** |
 | 1-4 | ricostruita | 44/44 | 0 | 36 (26 con 2+ conferme) | 0 | 9.0% | **verificata** |
-| 1-6 | ricostruita | 69/69 | 0 | 3 (3 con 2+ conferme) | 0 | 5.2% | **verificata** |
+| 1-5 | ricostruita | 84/84 | 0 | 71 (47 con 2+ conferme) | 0 | 3.0% | **verificata** |
+| 1-6 | ricostruita | 69/69 | 0 | 3 (3 con 2+ conferme) | 0 | 4.8% | **verificata** |
 | 1-7 | ricostruita | 43/43 | 0 | 14 (12 con 2+ conferme) | 0 | 6.3% | **verificata** |
 | 1-8 | ricostruita | 40/40 | 0 | 7 (6 con 2+ conferme) | 0 | 9.5% | **verificata** |
 | 1-9 | ricostruita | 37/37 | 0 | 8 (4 con 2+ conferme) | 0 | 9.0% | **verificata** |
+| 1-10 | ricostruita | 116/116 | 0 | 7 (3 con 2+ conferme) | 0 | 2.5% | **verificata** |
 | 1-11 | ricostruita | 38/38 | 0 | 2 (1 con 2+ conferme) | 0 | 8.1% | **verificata** |
 | 1-12 | ricostruita | 38/38 | 0 | 2 (2 con 2+ conferme) | 0 | 10.9% | **verificata** |
 | 1-13 | campione | 36/36 | 0 | 4 (4 con 2+ conferme) | 0 | 8.6% | **verificata** |
 | 1-14 | ricostruita | 34/34 | 0 | 2 (2 con 2+ conferme) | 0 | 6.7% | **verificata** |
 | 2-1 | campione | 50/50 | 0 | 30 (30 con 2+ conferme) | 0 | 6.2% | **verificata** |
-| 5-12 | campione | 26/26 | 0 | 17 (17 con 2+ conferme) | 0 | 7.2% | **verificata** |
+| 5-12 | campione | 26/26 | 0 | 17 (17 con 2+ conferme) | 0 | 7.1% | **verificata** |
 
 ## Figure: metodo
 
 - **Grafica della sezione (barre e frecce)** (pagina 1-1): ridisegnata in SVG: rettangoli e triangoli misurati sulla scansione (coordinate dei bordi pixel per pixel).
 - **Figura 1-1 (Principal dimensions)** (pagina 1-2): cornice, filetti e blocco del titolo: poligoni misurati sulla scansione (tools/afm-rec/filetto.py); disegno delle tre viste con le linee di quota: tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto le scritte e le forme gia' ricostruite (tools/afm-rec/tratto.py); scritte, quote e nota: testo vero, misurato parola per parola.
+- **Figura 1-2 (Instrument panel)** (pagina 1-5): fotografia: la scansione pulita (bianco della carta riportato al bianco, numeri di richiamo tolti perche' sono testo vero) e ingrandita due volte (Lanczos, lieve maschera di contrasto), figure/fig-1-2.webp; le linee di richiamo restano nella foto. Numeri di richiamo, titolo e legenda: testo vero (numeri: posizioni dalle componenti dell'inchiostro; legenda letta a vista). Cornice e riquadro del titolo: poligoni misurati (filetto.py).
 - **Figura 1-3 (Fuel system schematic)** (pagina 1-6): cornice: poligoni misurati (tools/afm-rec/filetto.py); schema: tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, tolte le scritte (tools/afm-rec/tratto.py); campiture a retino (fuel supply): campitura grigia piena vettorializzata dalla maschera del retino, al posto dei puntini; scritte: testo vero, lette a vista sull'ingrandimento, linea di base e altezza delle maiuscole dall'inchiostro (costruisci/1-6.py).
 - **Figura 1-4 (Fuel quantity data)** (pagina 1-7): tabella ricostruita: filetti misurati con tools/afm-rec/filetto.py (bordi alto e basso lungo tutto il filetto, retta ai minimi quadrati: spessore e pendenza della scansione), doppi dove sono doppi; testo vero nelle celle, ognuna sulla sua linea di base.
+- **Figura 1-5 (Electrical system schematic)** (pagina 1-10): cornice: poligoni misurati; schema: tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, tolte le scritte (tratto.py); scritte: testo vero (righe e posizioni dall'OCR dell'ingrandimento, testo corretto a vista, linea di base dall'inchiostro). Restano disegno vettorializzato, perche' troppo piccoli per leggerli con certezza o non testo tipografico: le lettere dei morsetti di regolatore e alternatore, i numeri negli interruttori (amperaggi), L e R dei magneti, le scritte bianche sulle barre nere dei bus (costruisci/1-10.py).
 - **Grafica della sezione (barre e frecce)** (pagina 2-1): ridisegnata in SVG: rettangoli e triangoli misurati sulla scansione (coordinate dei bordi pixel per pixel).
 - **Figura 2-1 (Stall speeds)** (pagina 2-1): tabella ricostruita: filetti SVG misurati (spessore compreso, doppi dove sono doppi) e testo vero nelle celle.
 - **Figura 5-7 (Maximum glide)** (pagina 5-12): cornice e griglia: filetti SVG misurati; fascia di planata: 689 punti della retinatura ridisegnati uno per uno nella posizione misurata sulla scansione, piu' 117 punti ricavati dal reticolo locale solo dove si fondono con i filetti della griglia; aeroplano: disegno al tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto i filetti e i punti che lo attraversano (tools/afm-rec/afm-ccaf/figure/fig-5-7.py); scritte: testo vero, misurato parola per parola.
@@ -45,6 +51,18 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 ## Differenze aperte
 
 Nessuna.
+
+## Righe e macchie chiuse a vista
+
+Differenze della misura, non della pagina: guardate sull'ingrandimento (coordinate della pagina originale).
+
+| Pagina | Cosa | Perche' |
+|---|---|---|
+| 1-5 | riga "1" (base 514) | il numero 1 e' nel posto giusto (componente dell'inchiostro, 357-360 x 491-513); la sua linea di richiamo parte dal piede della cifra e la misura della linea di base la prende per la cifra |
+| 1-5 | riga "4" (base 514) | il numero 4 e' nel posto giusto (componente dell'inchiostro, 478-486 x 491-513); come per l'1, la sua linea di richiamo parte dal piede della cifra e la misura della linea di base la prende per la cifra |
+| 1-5 | macchia, riquadro 1003, 338, 1013, 425 | il filetto destro della cornice: nella scansione in alto sbiadisce sotto la soglia dell'inchiostro (grigio, interrotto), sulla pagina e' continuo come gli altri tre lati; la ricostruita lo disegna continuo |
+| 1-10 | riga "OVER-VOLTAGE WARNING LIGHT" (base 541) | la riga e' al suo posto (ingrandimento); la fascia di controllo comincia 12 px prima e prende la D di ALT FIELD, etichetta vicina 6 px piu' in alto, che nel carattere della ricostruita finisce un poco piu' a destra |
+| 1-10 | riga "RADIO 4" (base 823) | la riga e' al suo posto (ingrandimento); la fascia di controllo comincia 12 px prima e prende il cerchietto dell'interruttore sopra l'etichetta |
 
 ## Numeri, uno per uno
 
@@ -169,6 +187,82 @@ Sezioni 2, 3, 5 e 6: due conferme indipendenti per ogni numero. ✓ = conferma.
 | 1444 | 2 | 2 ✓ | ✓ |  | 2 |
 | 1475 | 91 | 91 ✓ | ✓ |  | 2 |
 
+### Pagina 1-5
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 252 | 1-5 | 1-5 ✓ | ✓ |  | 2 |
+| 283 | 3 | 3 ✓ | ✓ |  | 2 |
+| 514 | 1 | –  | – | ✓ OCR legge '(niente)'; a vista: 1 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 514 | 2 | d  | – | ✓ OCR legge 'd'; a vista: 2 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 514 | 3 | 3 ✓ | – |  | 1 |
+| 514 | 4 | –  | – | ✓ OCR legge '(niente)'; a vista: 4 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 514 | 5 | ,  | – | ✓ OCR legge ','; a vista: 5 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 512 | 6 | 6 ✓ | – |  | 1 |
+| 511 | 7 | z  | – | ✓ OCR legge 'z'; a vista: 7 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 511 | 8 | )  | – | ✓ OCR legge ')'; a vista: 8 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 511 | 9 | q  | – | ✓ OCR legge 'q'; a vista: 9 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 511 | 10 | I  | – | ✓ OCR legge 'I'; a vista: 10 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 511 | 11 | i  | – | ✓ OCR legge 'i'; a vista: 11 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 511 | 12 | 2  | – | ✓ OCR legge '2'; a vista: 12 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 34 | i  | – | ✓ OCR legge 'i'; a vista: 34 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 33 | i  | – | ✓ OCR legge 'i'; a vista: 33 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 32 | 1  | – | ✓ OCR legge '1'; a vista: 32 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 31 | i  | – | ✓ OCR legge 'i'; a vista: 31 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 30 | 0  | – | ✓ OCR legge '0'; a vista: 30 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 29 | 9  | – | ✓ OCR legge '9'; a vista: 29 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 28 | 08  | – | ✓ OCR legge '08'; a vista: 28 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 27 | 21  | – | ✓ OCR legge '21'; a vista: 27 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1075 | 26 | 26 ✓ | – |  | 1 |
+| 1075 | 25 | 5  | – | ✓ OCR legge '5'; a vista: 25 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 1 |
+| 1073 | 20 | Hl  | ✓ | ✓ OCR legge 'Hl'; a vista: 20 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1075 | 19 | i9  | ✓ | ✓ OCR legge 'i9'; a vista: 19 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1075 | 18 | i8  | ✓ | ✓ OCR legge 'i8'; a vista: 18 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1073 | 17 | 17 ✓ | ✓ |  | 2 |
+| 1075 | 16 | i6  | ✓ | ✓ OCR legge 'i6'; a vista: 16 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1075 | 15 | 5  | ✓ | ✓ OCR legge '5'; a vista: 15 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1075 | 14 | 14 ✓ | ✓ |  | 2 |
+| 1073 | 13 | 13 ✓ | ✓ |  | 2 |
+| 1110 | 24 | 24 ✓ | – |  | 1 |
+| 1108 | 21 | v  | ✓ | ✓ OCR legge 'v'; a vista: 21 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1145 | 23 | 23 ✓ | – |  | 1 |
+| 1145 | 22 | 2  | ✓ | ✓ OCR legge '2'; a vista: 22 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1235 | 1. | 1. ✓ | ✓ |  | 2 |
+| 1235 | 12. | 12, ✓ | ✓ |  | 2 |
+| 1236 | 23. | 23. ✓ | ✓ |  | 2 |
+| 1258 | 2. | 2. ✓ | ✓ |  | 2 |
+| 1259 | 24. | 24, ✓ | ✓ |  | 2 |
+| 1282 | 3. | 3. ✓ | ✓ |  | 2 |
+| 1281 | 13. | 13. ✓ | ✓ |  | 2 |
+| 1282 | 25. | 25, ✓ | ✓ |  | 2 |
+| 1305 | 26. | 26, ✓ | ✓ |  | 2 |
+| 1328 | 4. | 4, ✓ | ✓ |  | 2 |
+| 1328 | 14. | 14. ✓ | ✓ |  | 2 |
+| 1328 | 27. | 27. ✓ | ✓ |  | 2 |
+| 1349 | 15. | 15. ✓ | ✓ |  | 2 |
+| 1349 | 28. | 28, ✓ | ✓ |  | 2 |
+| 1373 | 5. | 5, ✓ | ✓ |  | 2 |
+| 1372 | 16. | 16. ✓ | ✓ |  | 2 |
+| 1372 | 29. | 29, ✓ | ✓ |  | 2 |
+| 1395 | 6. | –  | ✓ | ✓ OCR legge '(niente)'; a vista: 6. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1395 | 17. | 17, ✓ | ✓ |  | 2 |
+| 1395 | 30. | 30, ✓ | ✓ |  | 2 |
+| 1418 | 7. | 7. ✓ | ✓ |  | 2 |
+| 1418 | 18. | 18. ✓ | ✓ |  | 2 |
+| 1418 | 31. | 31. ✓ | ✓ |  | 2 |
+| 1440 | 8. | –  | ✓ | ✓ OCR legge '(niente)'; a vista: 8. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1441 | 19. | 19, ✓ | ✓ |  | 2 |
+| 1465 | 9. | 9. ✓ | ✓ |  | 2 |
+| 1464 | 20. | 20. ✓ | ✓ |  | 2 |
+| 1464 | 32. | 32. ✓ | ✓ |  | 2 |
+| 1488 | 10. | 10, ✓ | ✓ |  | 2 |
+| 1511 | 11. | 1,  | ✓ | ✓ OCR legge '1,'; a vista: 11. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+| 1511 | 21. | 21. ✓ | ✓ |  | 2 |
+| 1509 | 33. | 33, ✓ | ✓ |  | 2 |
+| 1536 | 22. | 22, ✓ | ✓ |  | 2 |
+| 1537 | 34. | 34, ✓ | ✓ |  | 2 |
+| 1642 | 1-2. | 12,  | ✓ | ✓ OCR legge '12,'; a vista: 1-2. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo) | 2 |
+
 ### Pagina 1-6
 
 | Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
@@ -220,6 +314,18 @@ Sezioni 2, 3, 5 e 6: due conferme indipendenti per ogni numero. ✓ = conferma.
 | 715 | 14-volt, | 14-volt, ✓ | – |  | 1 |
 | 746 | 1-5). | 1-5), ✓ | – |  | 1 |
 | 746 | 12-volt | 2-volt  | – | ✓ OCR legge '2-volt'; a vista: 12-volt (ritaglio ingrandito) | 1 |
+
+### Pagina 1-10
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 184 | 1-10 | 1-10 ✓ | ✓ |  | 2 |
+| 324 | 3 | 3 ✓ | ✓ |  | 2 |
+| 684 | 1 | –  | – | ✓ OCR legge '(niente)'; a vista: 1 (ingrandimento: RADIO 1 ... RADIO 4 in ordine sotto i quattro interruttori del bus elettronico) | 1 |
+| 730 | 2 | 2 ✓ | – |  | 1 |
+| 776 | 3 | K  | – | ✓ OCR legge 'K'; a vista: 3 (ingrandimento: RADIO 1 ... RADIO 4 in ordine sotto i quattro interruttori del bus elettronico) | 1 |
+| 822 | 4 | 4 ✓ | – |  | 1 |
+| 1674 | 1-5. | 1-5. ✓ | ✓ |  | 2 |
 
 ### Pagina 1-11
 

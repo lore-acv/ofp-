@@ -66,7 +66,10 @@ for e in p['el']:
     else:
         for g, b in zip(gruppi, basi):
             print(f'  {N} riga {e[2]} gruppo -> {b}: {" ".join(w[1] for w in g)}'); cambi += 1
-            nuove.append([e[0], e[1], b, g] + e[4:])
+            o = [dict(e[4])] if len(e) > 4 else []
+            if o and 'caselle' in o[0]:      # le caselle seguono le loro parole
+                k0 = e[3].index(g[0]); o[0]['caselle'] = o[0]['caselle'][k0:k0 + len(g)]
+            nuove.append([e[0], e[1], b, g] + o)
 print(f'{N}: {cambi} cambi')
 if not PROVA and cambi:
     p['el'] = nuove

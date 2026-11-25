@@ -605,10 +605,14 @@ ancora ricostruite e originale del confronto) si trasformano allo stesso modo.
 Si verifica con `verifica.mjs afm-ccaf --pieno` (rapporto in
 `tools/afm-rec/VERIFICA-PIENO.md`).
 
-**Prova "via di mezzo"** (`?libro=afm-ccaf-rec-medio`, `rec.mjs --medio`,
+**"Via di mezzo"** (`?libro=afm-ccaf-rec-medio`, `rec.mjs --medio`,
 `verifica.mjs --medio`): la stessa gabbia con margini a meta' strada fra la
 scansione e la pagina piena (15% ai lati, 7,5% sopra e sotto); la compressione
-della scansione si corregge a meta'.
+della scansione si corregge a meta'. **E' l'impaginazione scelta per tutto il
+manuale**: ogni pagina si verifica qui fino a zero differenze aperte (e anche
+nella normale, `?libro=afm-ccaf-rec`). La pagina piena resta come prova: si
+costruisce ancora, ma non si insegue a zero (le differenze che restano li' sono
+effetti della scala sulle fasce di controllo).
 
 **Pagina per pagina, non a flusso.** Ogni pagina e' un SVG a misura fissa nelle
 coordinate della scansione retina: ogni parola sta sulla sua linea di base, dove
@@ -625,13 +629,21 @@ differenza (dove coincidono resta nero); O passa dall'una all'altra.
 |---|---|
 | `tools/afm-rec/<id>/pagine/<n>.json` | una pagina: righe (ruolo, linea di base, parole con x e larghezza misurate), filetti, poligoni, figure |
 | `tools/afm-rec/<id>/stile.json` | i font dei ruoli (testo, titolo, tabella, grafico): famiglia, corpo (altezza delle maiuscole), larghezza del disegno |
-| `tools/afm-rec/<id>/figure/` | lo script di ogni figura e il suo SVG (retinature punto per punto, disegni al tratto con potrace) |
-| `tools/afm-rec/<id>/controlli.json` | i numeri controllati a vista dove l'OCR sbaglia, con la seconda conferma; i confronti con DATI-AFM.md |
+| `tools/afm-rec/<id>/figure/` | gli SVG delle figure (retinature punto per punto, disegni al tratto con potrace) e le fotografie pulite (`.webp`, pubblicate in `data/afm-rec/foto/`) |
+| `tools/afm-rec/<id>/costruisci/` | gli script delle pagine con figura: le scritte lette a vista, cornici, foto (`scritte.py` e' il modulo comune) |
+| `tools/afm-rec/<id>/controlli.json` | i numeri controllati a vista dove l'OCR sbaglia, con la seconda conferma; le righe e le macchie chiuse a vista (differenze della misura, non della pagina), con il perche'; i confronti con DATI-AFM.md |
 | `tools/afm-rec/font/` | i font liberi scelti (woff2, licenza OFL) |
 | `tools/afm-rec/bozza.py` | prima bozza di una pagina dalla scansione (Tesseract, filetti, puntini guida), da correggere a mano |
-| `tools/afm-rec/misura.py` | misura sulla scansione dove comincia e finisce ogni parola (e ogni lettera dei titoli) |
+| `tools/afm-rec/misura.py` | misura sulla scansione dove comincia e finisce ogni parola (e ogni lettera dei titoli); ripetibile: rimisurare non sposta niente |
+| `tools/afm-rec/dubbi.py` | le parole su cui la bozza e lo strato di testo del PDF non sono d'accordo, ritagliate da guardare; la punteggiatura in fondo alle parole (punto o virgola) |
+| `tools/afm-rec/correggi.py` | le correzioni a mano di una pagina (testo di una parola, via i filetti e i puntini della bozza, stato) |
+| `tools/afm-rec/ribasa.py` | la linea di base di ogni gruppo di parole dall'inchiostro (divide le righe della bozza che uniscono pezzi a basi diverse) |
+| `tools/afm-rec/segmenti.py`, `estremi.py`, `parole.py`, `etichette.py` | dove sta l'inchiostro di una riga, di una parola in un intervallo, delle parole piccole di una figura; le scritte delle figure lette da Tesseract sull'ingrandimento |
+| `tools/afm-rec/filetti.py`, `filetto.py` | i filetti di tabelle e cornici, e un filetto misurato lungo tutta la sua lunghezza (spessore e pendenza) come poligono |
+| `tools/afm-rec/tratto.py` | un disegno al tratto con potrace, tolte le scritte e le forme gia' ricostruite; con `--retino` le campiture a puntini diventano grigio pieno |
+| `tools/afm-rec/vista.py`, `chiudi.py` | i ritagli dei numeri non confermati, e la loro chiusura a vista in controlli.json dopo averli guardati |
 | `tools/afm-rec/rec.mjs` | costruisce `data/afm-rec/<id>/libro.html` |
-| `tools/afm-rec/verifica.mjs` | il controllo: righe, macchie, numeri (due letture), e scrive `tools/afm-rec/VERIFICA.md` |
+| `tools/afm-rec/verifica.mjs` | il controllo: righe (inizio, fine, linea di base), macchie, parole strozzate o sovrapposte, numeri (due letture), e scrive `tools/afm-rec/VERIFICA.md` |
 | `tools/afm-rec/calibra.mjs`, `font-prova.mjs`, `font-confronto.mjs` | taratura dei font e proposta dei font a confronto |
 | `tools/afm-rec/NOTE.md` | cio' che nell'originale non si corregge, e le decisioni su cio' che non e' stampa |
 
@@ -645,8 +657,17 @@ CHROME=/percorso/chrome node tools/afm-rec/rec.mjs afm-ccaf
 CHROME=/percorso/chrome node tools/afm-rec/verifica.mjs afm-ccaf
 ```
 
-Stato: tre pagine campione di I-CCAF (1-13 testo, 2-1 tabella, 5-12 grafico),
-verificate; il resto dopo la scelta dei font.
+Stato: I-CCAF sezione I completa (pagine 1-1…1-14, testo, tabella 1-4,
+figure 1-1 dimensioni, 1-2 cruscotto, 1-3 impianto carburante, 1-5 impianto
+elettrico) e le pagine campione 2-1 e 5-12: tutte verificate, zero differenze
+aperte, nella via di mezzo e nella normale. Prossime: sezioni II…VI, pagine
+iniziali, poi I-CCAB.
+
+Come si rifa' una pagina di testo: `bozza.py` → `dubbi.py` (e i ritagli) →
+`correggi.py` → `misura.py` → `ribasa.py` → `misura.py` → `rec.mjs --medio` →
+`verifica.mjs --medio` → `vista.py`/`chiudi.py` per i numeri che l'OCR non
+legge. Una pagina con figura ha il suo script in `costruisci/`, poi
+`misura.py`, `ribasa.py` e `tratto.py`.
 
 ### Cosa resta fuori
 

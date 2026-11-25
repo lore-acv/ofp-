@@ -356,5 +356,240 @@
         "come": "OCR legge -1.; a vista: Figure 1-1."
       }
     ]
+  },
+  "1-5": {
+    "righe": [
+      {
+        "testo": "1",
+        "base": 514,
+        "come": "il numero 1 e' nel posto giusto (componente dell'inchiostro, 357-360 x 491-513); la sua linea di richiamo parte dal piede della cifra e la misura della linea di base la prende per la cifra"
+      },
+      {
+        "testo": "4",
+        "base": 514,
+        "come": "il numero 4 e' nel posto giusto (componente dell'inchiostro, 478-486 x 491-513); come per l'1, la sua linea di richiamo parte dal piede della cifra e la misura della linea di base la prende per la cifra"
+      }
+    ],
+    "macchie": [
+      {
+        "riquadro": [
+          1003,
+          338,
+          1013,
+          425
+        ],
+        "come": "il filetto destro della cornice: nella scansione in alto sbiadisce sotto la soglia dell'inchiostro (grigio, interrotto), sulla pagina e' continuo come gli altri tre lati; la ricostruita lo disegna continuo"
+      }
+    ],
+    "letti": [
+      {
+        "riga": 514,
+        "x": 357,
+        "valore": "1",
+        "come": "OCR legge '(niente)'; a vista: 1 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 514,
+        "x": 402,
+        "valore": "2",
+        "come": "OCR legge 'd'; a vista: 2 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 514,
+        "x": 478,
+        "valore": "4",
+        "come": "OCR legge '(niente)'; a vista: 4 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 514,
+        "x": 524,
+        "valore": "5",
+        "come": "OCR legge ','; a vista: 5 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 511,
+        "x": 766,
+        "valore": "7",
+        "come": "OCR legge 'z'; a vista: 7 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 511,
+        "x": 803,
+        "valore": "8",
+        "come": "OCR legge ')'; a vista: 8 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 511,
+        "x": 838,
+        "valore": "9",
+        "come": "OCR legge 'q'; a vista: 9 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 511,
+        "x": 867,
+        "valore": "10",
+        "come": "OCR legge 'I'; a vista: 10 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 511,
+        "x": 899,
+        "valore": "11",
+        "come": "OCR legge 'i'; a vista: 11 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 511,
+        "x": 933,
+        "valore": "12",
+        "come": "OCR legge '2'; a vista: 12 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 310,
+        "valore": "34",
+        "come": "OCR legge 'i'; a vista: 34 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 337,
+        "valore": "33",
+        "come": "OCR legge 'i'; a vista: 33 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 365,
+        "valore": "32",
+        "come": "OCR legge '1'; a vista: 32 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 393,
+        "valore": "31",
+        "come": "OCR legge 'i'; a vista: 31 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 417,
+        "valore": "30",
+        "come": "OCR legge '0'; a vista: 30 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 443,
+        "valore": "29",
+        "come": "OCR legge '9'; a vista: 29 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 470,
+        "valore": "28",
+        "come": "OCR legge '08'; a vista: 28 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 499,
+        "valore": "27",
+        "come": "OCR legge '21'; a vista: 27 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 562,
+        "valore": "25",
+        "come": "OCR legge '5'; a vista: 25 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1073,
+        "x": 738,
+        "valore": "20",
+        "come": "OCR legge 'Hl'; a vista: 20 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 774,
+        "valore": "19",
+        "come": "OCR legge 'i9'; a vista: 19 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 805,
+        "valore": "18",
+        "come": "OCR legge 'i8'; a vista: 18 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 869,
+        "valore": "16",
+        "come": "OCR legge 'i6'; a vista: 16 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1075,
+        "x": 899,
+        "valore": "15",
+        "come": "OCR legge '5'; a vista: 15 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1108,
+        "x": 740,
+        "valore": "21",
+        "come": "OCR legge 'v'; a vista: 21 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1145,
+        "x": 740,
+        "valore": "22",
+        "come": "OCR legge '2'; a vista: 22 (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1395,
+        "x": 331,
+        "valore": "6.",
+        "come": "OCR legge '(niente)'; a vista: 6. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1440,
+        "x": 331,
+        "valore": "8.",
+        "come": "OCR legge '(niente)'; a vista: 8. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1511,
+        "x": 325,
+        "valore": "11.",
+        "come": "OCR legge '1,'; a vista: 11. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      },
+      {
+        "riga": 1642,
+        "x": 665,
+        "valore": "1-2.",
+        "come": "OCR legge '12,'; a vista: 1-2. (ingrandimento: numeri di richiamo 1-34 in sequenza, ognuno con la sua voce in legenda; l'OCR non legge le cifre nere strette toccate dalle linee di richiamo)"
+      }
+    ]
+  },
+  "1-10": {
+    "righe": [
+      {
+        "testo": "OVER-VOLTAGE WARNING LIGHT",
+        "base": 541,
+        "come": "la riga e' al suo posto (ingrandimento); la fascia di controllo comincia 12 px prima e prende la D di ALT FIELD, etichetta vicina 6 px piu' in alto, che nel carattere della ricostruita finisce un poco piu' a destra"
+      },
+      {
+        "testo": "RADIO 4",
+        "base": 823,
+        "come": "la riga e' al suo posto (ingrandimento); la fascia di controllo comincia 12 px prima e prende il cerchietto dell'interruttore sopra l'etichetta"
+      }
+    ],
+    "letti": [
+      {
+        "riga": 684,
+        "x": 743,
+        "valore": "1",
+        "come": "OCR legge '(niente)'; a vista: 1 (ingrandimento: RADIO 1 ... RADIO 4 in ordine sotto i quattro interruttori del bus elettronico)"
+      },
+      {
+        "riga": 776,
+        "x": 741,
+        "valore": "3",
+        "come": "OCR legge 'K'; a vista: 3 (ingrandimento: RADIO 1 ... RADIO 4 in ordine sotto i quattro interruttori del bus elettronico)"
+      }
+    ]
   }
 }
