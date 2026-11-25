@@ -667,7 +667,7 @@ differenza (dove coincidono resta nero); O passa dall'una all'altra.
 | `tools/afm-rec/bozza2.py` | bozza riga per riga solo dentro la colonna del testo (per le pagine con grafica ai bordi, come la striscia della sezione III) |
 | `tools/afm-rec/testo.py` | le righe di una pagina dal testo letto a vista (`testi/<pagina>.txt`): ogni parola si aggancia al suo inchiostro con la programmazione dinamica |
 | `tools/afm-rec/strisce.py` | la striscia delle procedure di emergenza: ogni barra obliqua diventa un quadrilatero misurato |
-| `tools/afm-rec/striscia.py` | la striscia delle procedure di emergenza ridisegnata regolare (barre uguali, parallele, speculari fra pari e dispari, a distanza fissa dal testo; numeri in `stile.json`): e' quella usata |
+| `tools/afm-rec/striscia.py` | la striscia delle procedure di emergenza ridisegnata (barre sottili uguali e parallele, sempre a sinistra del testo, alla stessa distanza dal bordo su tutte le pagine; numeri in `stile.json`): e' quella usata |
 | `tools/afm-rec/rec.mjs` | costruisce `data/afm-rec/<id>/libro.html` |
 | `tools/afm-rec/verifica.mjs` | il controllo: righe (inizio, fine, linea di base), macchie, parole strozzate o sovrapposte, numeri (due letture), e scrive `tools/afm-rec/VERIFICA.md` |
 | `tools/afm-rec/calibra.mjs`, `font-prova.mjs`, `font-confronto.mjs` | taratura dei font e proposta dei font a confronto |

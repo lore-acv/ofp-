@@ -149,17 +149,13 @@
     }
   },
   "striscia": {
-    "_nota": "la striscia delle procedure di emergenza (sezione III), ridisegnata regolare: barre parallelogramme tutte uguali, lati verticali, passo costante, centrate in verticale sulla pagina; sulle pari e' lo specchio di quella delle dispari. Le misure vengono dalla striscia stampata (strisce.py): larghezza 20-25 px, lato 48, salita 34-36, passo 94-97.",
-    "larghezza": 24,
-    "lato": 48,
-    "salita": 34,
-    "passo": 96,
-    "barre": 16,
-    "centro": 881,
-    "distanza": 28,
-    "testo": [
-      248,
-      994
-    ]
+    "_nota": "la striscia delle procedure di emergenza (sezione III), ridisegnata: barre sottili tutte uguali e parallele, orientate come nella stampa (una /), a passo costante, centrate in verticale; sempre a sinistra del testo, su pari e dispari, con il bordo sinistro a 'x' px dal bordo della pagina (uguale su tutte). Nella stampa le barre sono larghe 20-25 px, con passo 94-97, sul bordo esterno.",
+    "x": 212,
+    "larghezza": 8,
+    "lato": 46,
+    "salita": 11,
+    "passo": 72,
+    "barre": 21,
+    "centro": 881
   }
 }
