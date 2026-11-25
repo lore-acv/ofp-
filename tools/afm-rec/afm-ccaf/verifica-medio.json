@@ -24976,6 +24976,8633 @@
   "dati": []
  },
  {
+  "n": "3-1",
+  "pdf": 31,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Grafica della sezione (barre e frecce)",
+    "metodo": "ridisegnata in SVG: rettangolo e poligoni misurati sulla scansione (le barre sono un poco inclinate come stampate)."
+   },
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 100967,
+  "soloA": 3470,
+  "soloB": 1608,
+  "entrambi": 97497,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     526.47,
+     680.01
+    ],
+    "attraverso": [
+     118,
+     151
+    ],
+    "base": 143.12,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     526.47,
+     681.22
+    ],
+    "attraverso": [
+     150,
+     181
+    ],
+    "base": 174.03,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     177.92,
+     344.78000000000003
+    ],
+    "attraverso": [
+     183,
+     215
+    ],
+    "base": 207.93,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     917.37,
+     1026.15
+    ],
+    "attraverso": [
+     183,
+     215
+    ],
+    "base": 207.93,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-1",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     176.71,
+     400.45000000000005
+    ],
+    "attraverso": [
+     214,
+     246
+    ],
+    "base": 238.84,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     916.16,
+     1041.93
+    ],
+    "attraverso": [
+     214,
+     246
+    ],
+    "base": 238.84,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     750.36,
+     1041.93
+    ],
+    "attraverso": [
+     291,
+     335
+    ],
+    "base": 330.58,
+    "c": 32.91,
+    "apici": false,
+    "testo": "SECTION III",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     355.83,
+     862.76
+    ],
+    "attraverso": [
+     452,
+     491
+    ],
+    "base": 487.13,
+    "c": 28.92,
+    "apici": false,
+    "testo": "EMERGENCY PROCEDURES",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     174.29,
+     425.86
+    ],
+    "attraverso": [
+     584,
+     612
+    ],
+    "base": 608.78,
+    "c": 20.44,
+    "apici": false,
+    "testo": "ENGINE FAILURE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     174.29,
+     828.8800000000001
+    ],
+    "attraverso": [
+     646,
+     678
+    ],
+    "base": 670.6,
+    "c": 18.45,
+    "apici": false,
+    "testo": "DURING TAKE-OFF (WITH SUFFICIENT RUNWAY AHEAD).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     223.91,
+     446.44
+    ],
+    "attraverso": [
+     711,
+     743
+    ],
+    "base": 735.42,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Throttle - - Idle.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     223.91,
+     424.65
+    ],
+    "attraverso": [
+     742,
+     774
+    ],
+    "base": 766.33,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Apply brakes.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     223.91,
+     926.9
+    ],
+    "attraverso": [
+     773,
+     805
+    ],
+    "base": 797.24,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Flaps - - Retract (if extended) during ground roll to provide more",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 2,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     222.7,
+     406.5
+    ],
+    "attraverso": [
+     804,
+     835
+    ],
+    "base": 827.15,
+    "c": 18.45,
+    "apici": false,
+    "testo": "effective braking.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     222.7,
+     513
+    ],
+    "attraverso": [
+     834,
+     865
+    ],
+    "base": 858.07,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Mixture - - Idle cut-off.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     222.7,
+     653.38
+    ],
+    "attraverso": [
+     865,
+     896
+    ],
+    "base": 888.98,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Ignition and Master Switch – “OFF”.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     170.66,
+     390.77
+    ],
+    "attraverso": [
+     929,
+     954
+    ],
+    "base": 950.8,
+    "c": 18.45,
+    "apici": false,
+    "testo": "AFTER TAKE-OFF.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     221.49,
+     715.11
+    ],
+    "attraverso": [
+     988,
+     1020
+    ],
+    "base": 1012.62,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Glide Speed - - 129 km/h - 70 kts - 80 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     221.49,
+     523.9
+    ],
+    "attraverso": [
+     1019,
+     1051
+    ],
+    "base": 1043.53,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Mixture - - Idle cut - off.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     220.28,
+     710.27
+    ],
+    "attraverso": [
+     1050,
+     1081
+    ],
+    "base": 1073.45,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Fuel Shutoff Valve Knob - - Pulled full out.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     220.28,
+     544.46
+    ],
+    "attraverso": [
+     1080,
+     1113
+    ],
+    "base": 1105.36,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Ignition Switch - - “OFF”.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219.07,
+     909.9599999999999
+    ],
+    "attraverso": [
+     1112,
+     1144
+    ],
+    "base": 1136.27,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Master Switch is to be left “ON” so that flaps may be extended.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     520.42,
+     672.76
+    ],
+    "attraverso": [
+     1176,
+     1201
+    ],
+    "base": 1198.09,
+    "c": 18.45,
+    "apici": false,
+    "testo": "IMPORTANT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     267.48,
+     917.22
+    ],
+    "attraverso": [
+     1235,
+     1267
+    ],
+    "base": 1259.91,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Perform the landing straight ahead, making only small changes in",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     267.48,
+     924.49
+    ],
+    "attraverso": [
+     1266,
+     1297
+    ],
+    "base": 1289.83,
+    "c": 18.45,
+    "apici": false,
+    "testo": "heading to avoid obstructions. Never attempt to turn back to the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     267.48,
+     891.8
+    ],
+    "attraverso": [
+     1296,
+     1328
+    ],
+    "base": 1320.74,
+    "c": 18.45,
+    "apici": false,
+    "testo": "landing strip because your altitude after take-off is not usually",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     266.27,
+     709.06
+    ],
+    "attraverso": [
+     1327,
+     1358
+    ],
+    "base": 1350.65,
+    "c": 18.45,
+    "apici": false,
+    "testo": "sufficient to safely turn back to the airport.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     165.82,
+     371.41
+    ],
+    "attraverso": [
+     1390,
+     1415
+    ],
+    "base": 1412.47,
+    "c": 18.45,
+    "apici": false,
+    "testo": "DURING FLIGHT.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     215.44,
+     966.8399999999999
+    ],
+    "attraverso": [
+     1449,
+     1482
+    ],
+    "base": 1474.3,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Glide Speed - - 137 km/h - 74 kts - 85 MPH (optimum glide angle with",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     215.44,
+     454.90999999999997
+    ],
+    "attraverso": [
+     1483,
+     1516
+    ],
+    "base": 1508.2,
+    "c": 18.45,
+    "apici": false,
+    "testo": "propeller windmilling).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     215.44,
+     698.16
+    ],
+    "attraverso": [
+     1515,
+     1546
+    ],
+    "base": 1539.11,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Fuel Shutoff Valve Knob - - Pushed full in.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     214.23,
+     665.49
+    ],
+    "attraverso": [
+     1546,
+     1576
+    ],
+    "base": 1569.02,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Fuel Selector Valve Handle – “BOTH”.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     215.44,
+     441.6
+    ],
+    "attraverso": [
+     1575,
+     1607
+    ],
+    "base": 1599.94,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Mixture - - Rich.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 33,
+  "righeFuori": [],
+  "fuori": 0.05029366030485208,
+  "numeri": [
+   {
+    "riga": 234,
+    "x": 946,
+    "valore": "3-1",
+    "tesseract": "3-",
+    "pdf": true,
+    "vista": "OCR legge 3- (ritaglio stretto); a vista: Page: 3-1 · seconda conferma: posizione nel PDF: pagina 31, prima pagina della sezione III dopo 2-8 (mappa tools/afm/afm-ccaf.json)",
+    "conferme": 3
+   },
+   {
+    "riga": 265,
+    "x": 975,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": false,
+    "vista": "a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+    "conferme": 3
+   },
+   {
+    "riga": 763,
+    "x": 320,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 794,
+    "x": 320,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 825,
+    "x": 320,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 886,
+    "x": 319,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 917,
+    "x": 319,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1041,
+    "x": 318,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1041,
+    "x": 483,
+    "valore": "129",
+    "tesseract": "129",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1041,
+    "x": 576,
+    "valore": "70",
+    "tesseract": "70",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1041,
+    "x": 642,
+    "valore": "80",
+    "tesseract": "80",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1072,
+    "x": 318,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1102,
+    "x": 317,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1134,
+    "x": 317,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1165,
+    "x": 316,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1504,
+    "x": 313,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1504,
+    "x": 480,
+    "valore": "137",
+    "tesseract": "137",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1504,
+    "x": 573,
+    "valore": "74",
+    "tesseract": "74",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1504,
+    "x": 638,
+    "valore": "85",
+    "tesseract": "85",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1569,
+    "x": 313,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1599,
+    "x": 312,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1630,
+    "x": 313,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 1,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": [
+   "Planata dopo il decollo 129 km/h - 70 kts - 80 MPH: la terna torna (129 km/h = 69,7 kt = 80,2 MPH) ✓",
+   "Planata in volo 137 km/h - 74 kts - 85 MPH: DATI-AFM.md, V best glide 85 MPH (fig. 5-7) ✓; la terna torna (137 km/h = 74,0 kt = 85,1 MPH) ✓"
+  ]
+ },
+ {
+  "n": "3-2",
+  "pdf": 32,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 114849,
+  "soloA": 5274,
+  "soloB": 2045,
+  "entrambi": 109575,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     513.16,
+     665.49
+    ],
+    "attraverso": [
+     76,
+     109
+    ],
+    "base": 101.24,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     513.16,
+     666.6999999999999
+    ],
+    "attraverso": [
+     108,
+     140
+    ],
+    "base": 132.15,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     168.24,
+     280.64
+    ],
+    "attraverso": [
+     139,
+     171
+    ],
+    "base": 164.06,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-2",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     799.98,
+     965.63
+    ],
+    "attraverso": [
+     143,
+     175
+    ],
+    "base": 168.05,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     165.82,
+     295.15999999999997
+    ],
+    "attraverso": [
+     283,
+     315
+    ],
+    "base": 307.65,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     798.77,
+     1021.3000000000001
+    ],
+    "attraverso": [
+     280,
+     312
+    ],
+    "base": 304.65,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     206.97,
+     984.99
+    ],
+    "attraverso": [
+     372,
+     404
+    ],
+    "base": 397.39,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Auxiliary Fuel Pump Switch - - On “HIGH” for 3-5 seconds with throttle",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     209.39,
+     630.4
+    ],
+    "attraverso": [
+     404,
+     434
+    ],
+    "base": 426.31,
+    "c": 18.45,
+    "apici": false,
+    "testo": "1/2 open, then switch to “OFF” position.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     205.76,
+     643.7099999999999
+    ],
+    "attraverso": [
+     433,
+     465
+    ],
+    "base": 457.22,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) Throttle - - Opened one inch (2,5 cm).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     205.76,
+     545.6800000000001
+    ],
+    "attraverso": [
+     464,
+     495
+    ],
+    "base": 487.13,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(7) Ignition Switch - - “BOTH”.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     215.44,
+     1007.9899999999999
+    ],
+    "attraverso": [
+     524,
+     556
+    ],
+    "base": 548.95,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If the propeller is allowed to stop windmilling, the engine will have to be turned",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     164.61,
+     1022.51
+    ],
+    "attraverso": [
+     555,
+     587
+    ],
+    "base": 579.86,
+    "c": 18.45,
+    "apici": false,
+    "testo": "with the starter. If the engine will not start, select an unobstructed area to land in and",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     163.4,
+     454.90999999999997
+    ],
+    "attraverso": [
+     586,
+     617
+    ],
+    "base": 609.78,
+    "c": 18.45,
+    "apici": false,
+    "testo": "secure the engine as follows:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     208.18,
+     456.12
+    ],
+    "attraverso": [
+     646,
+     678
+    ],
+    "base": 670.6,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Throttle - - Closed.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     208.18,
+     660.65
+    ],
+    "attraverso": [
+     677,
+     709
+    ],
+    "base": 701.52,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Mixture - - Idle cut-off (pulled full-out).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     206.97,
+     635.24
+    ],
+    "attraverso": [
+     708,
+     740
+    ],
+    "base": 732.43,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Fuel Shutoff Knob - - Pulled full out.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     206.97,
+     529.94
+    ],
+    "attraverso": [
+     739,
+     771
+    ],
+    "base": 763.34,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Ignition Switch - - “OFF”.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     205.76,
+     827.6700000000001
+    ],
+    "attraverso": [
+     770,
+     802
+    ],
+    "base": 794.25,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Leave master switch “ON” so that flaps can be extended.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     545.83,
+     623.13
+    ],
+    "attraverso": [
+     823,
+     848
+    ],
+    "base": 845.1,
+    "c": 18.45,
+    "apici": false,
+    "testo": "NOTE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     255.38,
+     891.81
+    ],
+    "attraverso": [
+     864,
+     896
+    ],
+    "base": 888.98,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Full flaps are recommended for emergency landings on unpaved",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     255.38,
+     354.47
+    ],
+    "attraverso": [
+     895,
+     927
+    ],
+    "base": 919.89,
+    "c": 18.45,
+    "apici": false,
+    "testo": "surfaces.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.09,
+     246.75
+    ],
+    "attraverso": [
+     955,
+     983
+    ],
+    "base": 979.72,
+    "c": 20.44,
+    "apici": false,
+    "testo": "FIRES.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.09,
+     658.23
+    ],
+    "attraverso": [
+     1016,
+     1042
+    ],
+    "base": 1038.55,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ENGINE FIRE DURING START ON GROUND.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     203.34,
+     1010.4100000000001
+    ],
+    "attraverso": [
+     1075,
+     1108
+    ],
+    "base": 1100.37,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Improper starting procedures involving the excessive use of auxiliary fuel pump",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.09,
+     1018.88
+    ],
+    "attraverso": [
+     1107,
+     1139
+    ],
+    "base": 1131.28,
+    "c": 18.45,
+    "apici": false,
+    "testo": "operation can cause engine flooding and subsequent collection of fuel on the parking",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.09,
+     1016.4599999999999
+    ],
+    "attraverso": [
+     1138,
+     1171
+    ],
+    "base": 1163.19,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ramp. This is sometimes experienced in difficult starts in cold weather where engine",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.09,
+     994.68
+    ],
+    "attraverso": [
+     1170,
+     1201
+    ],
+    "base": 1194.1,
+    "c": 18.45,
+    "apici": false,
+    "testo": "preheat service is not available. If this occurs, the airplane should be pushed away",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.09,
+     1021.3
+    ],
+    "attraverso": [
+     1201,
+     1230
+    ],
+    "base": 1223.02,
+    "c": 18.45,
+    "apici": false,
+    "testo": "from the fuel puddle before another engine start is attempted. In the rare event that",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.09,
+     914.8
+    ],
+    "attraverso": [
+     1229,
+     1260
+    ],
+    "base": 1252.93,
+    "c": 18.45,
+    "apici": false,
+    "testo": "the fuel puddle is ignited by exhaust from the tailpipe, proceed as follows:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     199.7,
+     602.56
+    ],
+    "attraverso": [
+     1289,
+     1321
+    ],
+    "base": 1313.76,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Turn auxiliary fuel pump “OFF.”",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     199.7,
+     635.23
+    ],
+    "attraverso": [
+     1320,
+     1351
+    ],
+    "base": 1343.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Move mixture control to idle cut-off.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     199.7,
+     487.59000000000003
+    ],
+    "attraverso": [
+     1350,
+     1381
+    ],
+    "base": 1373.59,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Release parking brake,",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     199.7,
+     504.53000000000003
+    ],
+    "attraverso": [
+     1380,
+     1411
+    ],
+    "base": 1403.5,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Obtain fire extinguisher.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     198.49,
+     636.4399999999999
+    ],
+    "attraverso": [
+     1410,
+     1441
+    ],
+    "base": 1433.41,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Extinguish fire with fire extinguisher.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     538.57,
+     617.08
+    ],
+    "attraverso": [
+     1457,
+     1482
+    ],
+    "base": 1479.28,
+    "c": 18.45,
+    "apici": false,
+    "testo": "NOTE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     248.11,
+     905.12
+    ],
+    "attraverso": [
+     1499,
+     1532
+    ],
+    "base": 1524.15,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If fire extinguisher is not available, move aircraft away from the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     246.89999999999998,
+     930.5400000000001
+    ],
+    "attraverso": [
+     1531,
+     1561
+    ],
+    "base": 1554.07,
+    "c": 18.45,
+    "apici": false,
+    "testo": "fire by pushing rearward on the leading edge of the horizontal tail.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     194.86,
+     1003.15
+    ],
+    "attraverso": [
+     1589,
+     1621
+    ],
+    "base": 1613.9,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) Make a thorough inspection of fire damage, and repair or replace damaged",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     193.65,
+     664.28
+    ],
+    "attraverso": [
+     1620,
+     1651
+    ],
+    "base": 1643.81,
+    "c": 18.45,
+    "apici": false,
+    "testo": "components before conducting another flight.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -2,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 39,
+  "righeFuori": [],
+  "fuori": 0.06372715478584924,
+  "numeri": [
+   {
+    "riga": 190,
+    "x": 328,
+    "valore": "3-2",
+    "tesseract": "3-2",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 334,
+    "x": 355,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 424,
+    "x": 306,
+    "valore": "(5)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": "OCR legge altro; a vista: (5) · seconda conferma: la numerazione dei punti: (5) viene fra (4) di 3-1 (in fondo) e (6) nello stesso elenco",
+    "conferme": 3
+   },
+   {
+    "riga": 424,
+    "x": 734,
+    "valore": "3-5",
+    "tesseract": "3-5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 453,
+    "x": 308,
+    "valore": "1/2",
+    "tesseract": "1/2",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 305,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 580,
+    "valore": "(2,5",
+    "tesseract": "(2,5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 514,
+    "x": 305,
+    "valore": "(7)",
+    "tesseract": "(7)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 698,
+    "x": 307,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 729,
+    "x": 307,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 760,
+    "x": 306,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 791,
+    "x": 306,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 822,
+    "x": 305,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1343,
+    "x": 300,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1373,
+    "x": 300,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1403,
+    "x": 300,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1433,
+    "x": 300,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1463,
+    "x": 299,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1644,
+    "x": 296,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 1,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "3-3",
+  "pdf": 33,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 89884,
+  "soloA": 4522,
+  "soloB": 1414,
+  "entrambi": 85362,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     539.78,
+     693.3199999999999
+    ],
+    "attraverso": [
+     127,
+     159
+    ],
+    "base": 152.09,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     540.99,
+     694.53
+    ],
+    "attraverso": [
+     159,
+     190
+    ],
+    "base": 183,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     192.44,
+     358.1
+    ],
+    "attraverso": [
+     189,
+     221
+    ],
+    "base": 213.92,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     929.48,
+     1040.67
+    ],
+    "attraverso": [
+     187,
+     219
+    ],
+    "base": 211.92,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     192.44,
+     414.97
+    ],
+    "attraverso": [
+     220,
+     252
+    ],
+    "base": 244.83,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     930.69,
+     1054.03
+    ],
+    "attraverso": [
+     220,
+     252
+    ],
+    "base": 244.83,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 2,
+    "fine": 0,
+    "alto": 2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     481.54
+    ],
+    "attraverso": [
+     313,
+     339
+    ],
+    "base": 335.57,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ENGINE FIRE IN FLIGHT.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238.43,
+     1026.14
+    ],
+    "attraverso": [
+     372,
+     405
+    ],
+    "base": 397.39,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Although engine fires are extremely rare in flight, the following steps should be",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     188.81,
+     475.48
+    ],
+    "attraverso": [
+     404,
+     436
+    ],
+    "base": 428.3,
+    "c": 18.45,
+    "apici": false,
+    "testo": "taken if one is encountered:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     240.85,
+     652.18
+    ],
+    "attraverso": [
+     465,
+     496
+    ],
+    "base": 490.12,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Pull mixture control to idle cut-off.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     239.64,
+     659.44
+    ],
+    "attraverso": [
+     497,
+     525
+    ],
+    "base": 518.04,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Pull fuel shutoff valve knob full out.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     239.64,
+     577.14
+    ],
+    "attraverso": [
+     524,
+     556
+    ],
+    "base": 548.95,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Turn master switch “OFF.”",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     239.64,
+     771.99
+    ],
+    "attraverso": [
+     555,
+     587
+    ],
+    "base": 579.86,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Establish a 193 km/h - 104 kts - 120 MPH glide.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     239.64,
+     755.04
+    ],
+    "attraverso": [
+     586,
+     618
+    ],
+    "base": 610.78,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Close cabin heat control and cabin air control.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238.43,
+     715.11
+    ],
+    "attraverso": [
+     617,
+     649
+    ],
+    "base": 641.69,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) Select a field suitable for a forced landing.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238.43,
+     993.4599999999999
+    ],
+    "attraverso": [
+     648,
+     680
+    ],
+    "base": 672.6,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(7) If fire is not extinguished, increase glide speed in an attempt to find an",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238.43,
+     763.52
+    ],
+    "attraverso": [
+     679,
+     711
+    ],
+    "base": 703.51,
+    "c": 18.45,
+    "apici": false,
+    "testo": "airspeed that will provide an incombustible mixture.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     238.43,
+     998.31
+    ],
+    "attraverso": [
+     710,
+     742
+    ],
+    "base": 734.42,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(8) Execute a forced landing as described in paragraph Emergency Landing",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     237.22,
+     851.8599999999999
+    ],
+    "attraverso": [
+     741,
+     773
+    ],
+    "base": 765.33,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Without Engine Power. Do not attempt to restart the engine.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     338.73
+    ],
+    "attraverso": [
+     836,
+     861
+    ],
+    "base": 858.07,
+    "c": 18.45,
+    "apici": false,
+    "testo": "CABIN FIRE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     236.01,
+     546.88
+    ],
+    "attraverso": [
+     895,
+     927
+    ],
+    "base": 919.89,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Master Switch - - ”OFF”.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     236.01,
+     953.52
+    ],
+    "attraverso": [
+     926,
+     958
+    ],
+    "base": 950.8,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Cabin Heating and Ventilation Controls - - Closed (to avoid drafts).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     576.09,
+     655.8100000000001
+    ],
+    "attraverso": [
+     989,
+     1015
+    ],
+    "base": 1011.62,
+    "c": 18.45,
+    "apici": false,
+    "testo": "NOTE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     285.63,
+     926.9100000000001
+    ],
+    "attraverso": [
+     1048,
+     1080
+    ],
+    "base": 1072.45,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Use a portable extinguisher if available. If the fire cannot be ex-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     284.42,
+     761.1
+    ],
+    "attraverso": [
+     1079,
+     1110
+    ],
+    "base": 1102.36,
+    "c": 18.45,
+    "apici": false,
+    "testo": "tinguished, land the aircraft as soon as possible.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     533.73,
+     687.28
+    ],
+    "attraverso": [
+     1141,
+     1166
+    ],
+    "base": 1163.19,
+    "c": 18.45,
+    "apici": false,
+    "testo": "IMPORTANT",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     283.21,
+     947.48
+    ],
+    "attraverso": [
+     1201,
+     1233
+    ],
+    "base": 1226.01,
+    "c": 18.45,
+    "apici": false,
+    "testo": "After discharging an extinguisher within a closed cabin, ventilating",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     283.21,
+     558.99
+    ],
+    "attraverso": [
+     1232,
+     1264
+    ],
+    "base": 1256.92,
+    "c": 18.45,
+    "apici": false,
+    "testo": "the cabin is recommended.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     327.83
+    ],
+    "attraverso": [
+     1323,
+     1348
+    ],
+    "base": 1344.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "WING FIRE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     234.8,
+     545.6700000000001
+    ],
+    "attraverso": [
+     1381,
+     1413
+    ],
+    "base": 1405.49,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Master Switch - - “OFF”.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     233.59,
+     600.14
+    ],
+    "attraverso": [
+     1412,
+     1444
+    ],
+    "base": 1436.41,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Ventilating Controls - - Closed.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     576.09,
+     654.6
+    ],
+    "attraverso": [
+     1477,
+     1502
+    ],
+    "base": 1499.23,
+    "c": 18.45,
+    "apici": false,
+    "testo": "NOTE",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     283.21,
+     903.91
+    ],
+    "attraverso": [
+     1536,
+     1568
+    ],
+    "base": 1561.05,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Perform a sideslip to keep flames away from the fuel tank and",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     283.21,
+     834.9300000000001
+    ],
+    "attraverso": [
+     1568,
+     1599
+    ],
+    "base": 1591.96,
+    "c": 18.45,
+    "apici": false,
+    "testo": "cabin, and land as soon as possible with flaps retracted.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 34,
+  "righeFuori": [],
+  "fuori": 0.06604067464732322,
+  "numeri": [
+   {
+    "riga": 238,
+    "x": 956,
+    "valore": "3-3",
+    "tesseract": "3-3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 271,
+    "x": 985,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 517,
+    "x": 334,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 545,
+    "x": 333,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 576,
+    "x": 333,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 607,
+    "x": 333,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 607,
+    "x": 467,
+    "valore": "193",
+    "tesseract": "193",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 607,
+    "x": 563,
+    "valore": "104",
+    "tesseract": "104",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 607,
+    "x": 638,
+    "valore": "120",
+    "tesseract": "120",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 638,
+    "x": 333,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 669,
+    "x": 332,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 700,
+    "x": 332,
+    "valore": "(7)",
+    "tesseract": "(7)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 762,
+    "x": 332,
+    "valore": "(8)",
+    "tesseract": "(8)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 948,
+    "x": 330,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 979,
+    "x": 330,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1435,
+    "x": 329,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1466,
+    "x": 328,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 0,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "3-4",
+  "pdf": 34,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 125653,
+  "soloA": 6702,
+  "soloB": 1563,
+  "entrambi": 118951,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     497.42,
+     652.1800000000001
+    ],
+    "attraverso": [
+     70,
+     103
+    ],
+    "base": 95.26,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     497.42,
+     654.5999999999999
+    ],
+    "attraverso": [
+     102,
+     135
+    ],
+    "base": 127.16,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.45,
+     263.7
+    ],
+    "attraverso": [
+     136,
+     168
+    ],
+    "base": 161.07,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-4",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     789.09,
+     958.37
+    ],
+    "attraverso": [
+     132,
+     164
+    ],
+    "base": 157.08,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.45,
+     274.58
+    ],
+    "attraverso": [
+     274,
+     306
+    ],
+    "base": 298.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     787.88,
+     1017.6700000000001
+    ],
+    "attraverso": [
+     272,
+     304
+    ],
+    "base": 296.68,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     494.84999999999997
+    ],
+    "attraverso": [
+     371,
+     396
+    ],
+    "base": 393.4,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ELECTRICAL FIRE IN FLIGHT.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     191.23,
+     989.84
+    ],
+    "attraverso": [
+     430,
+     463
+    ],
+    "base": 455.22,
+    "c": 18.45,
+    "apici": false,
+    "testo": "The initial indication of an electrical fire is the odor of burning insulation. The",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     1024.9299999999998
+    ],
+    "attraverso": [
+     462,
+     495
+    ],
+    "base": 487.13,
+    "c": 18.45,
+    "apici": false,
+    "testo": "immediate response should be to turn the master switch “OFF.” Then close off ven-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     919.64
+    ],
+    "attraverso": [
+     494,
+     525
+    ],
+    "base": 518.04,
+    "c": 18.45,
+    "apici": false,
+    "testo": "tilating air as much as practicable to reduce the chances of a sustained fire.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     192.44,
+     991.04
+    ],
+    "attraverso": [
+     556,
+     588
+    ],
+    "base": 580.86,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If electrical power is indispensable for the flight, an attempt may be made to",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     681.23
+    ],
+    "attraverso": [
+     588,
+     620
+    ],
+    "base": 612.77,
+    "c": 18.45,
+    "apici": false,
+    "testo": "identify and cut off the defective circuit as follows:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     192.44,
+     508.16
+    ],
+    "attraverso": [
+     652,
+     682
+    ],
+    "base": 676.59,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Master Switch – “OFF.”",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     192.44,
+     803.45
+    ],
+    "attraverso": [
+     683,
+     712
+    ],
+    "base": 704.51,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) All other switches (except ignition switch) - - “OFF.”",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     192.44,
+     986.2099999999999
+    ],
+    "attraverso": [
+     712,
+     744
+    ],
+    "base": 736.42,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Check condition of circuit breakers to identify faulty circuit if possible.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     192.44,
+     531.15
+    ],
+    "attraverso": [
+     743,
+     776
+    ],
+    "base": 768.32,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Leave faulty circuit deactivated.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     191.23,
+     503.32
+    ],
+    "attraverso": [
+     775,
+     808
+    ],
+    "base": 800.23,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Master Switch - - “ON.”",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     191.23,
+     1007.99
+    ],
+    "attraverso": [
+     807,
+     838
+    ],
+    "base": 830.15,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Select switches “ON” successively, permitting a short time delay to elapse",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     191.23,
+     859.13
+    ],
+    "attraverso": [
+     837,
+     869
+    ],
+    "base": 862.05,
+    "c": 18.45,
+    "apici": false,
+    "testo": "after each switch is turned on until the short circuit is localized.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     191.23,
+     952.32
+    ],
+    "attraverso": [
+     869,
+     900
+    ],
+    "base": 892.97,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) Make sure fire is completely extinguished before opening ventilators.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     291.53
+    ],
+    "attraverso": [
+     992,
+     1020
+    ],
+    "base": 1016.61,
+    "c": 20.44,
+    "apici": false,
+    "testo": "LANDING.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     494.85
+    ],
+    "attraverso": [
+     1055,
+     1080
+    ],
+    "base": 1077.44,
+    "c": 18.45,
+    "apici": false,
+    "testo": "LANDING WITH A FLAT TIRE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     801.04
+    ],
+    "attraverso": [
+     1114,
+     1147
+    ],
+    "base": 1139.26,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Expect the airplane to swing toward the flat tire side.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     974.1
+    ],
+    "attraverso": [
+     1146,
+     1178
+    ],
+    "base": 1170.17,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Lower the flaps normally and land the airplane with nose up and wing",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     989.83
+    ],
+    "attraverso": [
+     1177,
+     1208
+    ],
+    "base": 1201.08,
+    "c": 18.45,
+    "apici": false,
+    "testo": "tilted to hold the flat tire off the ground as long as possible. At touchdown,",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     1020.09
+    ],
+    "attraverso": [
+     1208,
+     1238
+    ],
+    "base": 1231,
+    "c": 18.45,
+    "apici": false,
+    "testo": "directional control can be maintained with rudder and the brake on good wheel.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     580.77
+    ],
+    "attraverso": [
+     1298,
+     1323
+    ],
+    "base": 1319.74,
+    "c": 18.45,
+    "apici": false,
+    "testo": "LANDING WITHOUT PITCH CONTROL.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     981.36
+    ],
+    "attraverso": [
+     1356,
+     1388
+    ],
+    "base": 1380.57,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Trim for horizontal flight (with an airspeed of approximately 121 km/h - 65",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     963.21
+    ],
+    "attraverso": [
+     1387,
+     1419
+    ],
+    "base": 1411.48,
+    "c": 18.45,
+    "apici": false,
+    "testo": "kts - 75 MPH and flaps set to 20°) by using throttle and elevator trim controls.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     980.1600000000001
+    ],
+    "attraverso": [
+     1418,
+     1450
+    ],
+    "base": 1442.39,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Then do not change the elevator trim setting; control the glide angle by adjusting",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     337.52
+    ],
+    "attraverso": [
+     1449,
+     1480
+    ],
+    "base": 1472.3,
+    "c": 18.45,
+    "apici": false,
+    "testo": "power exclusively.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     985
+    ],
+    "attraverso": [
+     1509,
+     1542
+    ],
+    "base": 1534.12,
+    "c": 18.45,
+    "apici": false,
+    "testo": "At flareout, the nose down moment resulting from power reduction is an ad-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     984.99
+    ],
+    "attraverso": [
+     1541,
+     1571
+    ],
+    "base": 1564.04,
+    "c": 18.45,
+    "apici": false,
+    "testo": "verse factor and the aircraft may hit on the nose wheel. Consequently at flareout",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     980.16
+    ],
+    "attraverso": [
+     1570,
+     1602
+    ],
+    "base": 1594.95,
+    "c": 18.45,
+    "apici": false,
+    "testo": "the elevator trim should be rolled toward the nose up position and the power ad-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     952.32
+    ],
+    "attraverso": [
+     1601,
+     1633
+    ],
+    "base": 1625.86,
+    "c": 18.45,
+    "apici": false,
+    "testo": "justed so that the aircraft will rotate to the horizontal attitude for touchdown.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     146.35,
+     485.15999999999997
+    ],
+    "attraverso": [
+     1632,
+     1664
+    ],
+    "base": 1656.77,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Close the throttle at touchdown.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   }
+  ],
+  "macchie": [],
+  "righe": 36,
+  "righeFuori": [],
+  "fuori": 0.06577638416910062,
+  "numeri": [
+   {
+    "riga": 187,
+    "x": 313,
+    "valore": "3-4",
+    "tesseract": "34",
+    "pdf": false,
+    "vista": "a vista: Page: 3-4 · seconda conferma: posizione nel PDF: pagina 34, fra 3-3 e 3-5 (mappa tools/afm/afm-ccaf.json)",
+    "conferme": 2
+   },
+   {
+    "riga": 325,
+    "x": 339,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 704,
+    "x": 294,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 732,
+    "x": 294,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 764,
+    "x": 294,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 828,
+    "x": 293,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 858,
+    "x": 293,
+    "valore": "(5)",
+    "tesseract": "(3)",
+    "pdf": false,
+    "vista": "OCR legge altro; a vista: (5) · seconda conferma: la numerazione dei punti: (5) viene fra (4) e (6) nello stesso elenco",
+    "conferme": 2
+   },
+   {
+    "riga": 921,
+    "x": 293,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1168,
+    "x": 292,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1199,
+    "x": 292,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1410,
+    "x": 814,
+    "valore": "121",
+    "tesseract": "121",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1410,
+    "x": 912,
+    "valore": "65",
+    "tesseract": "65",
+    "pdf": false,
+    "vista": "a vista: 121 km/h - 65 kts · seconda conferma: la terna torna: 121 km/h = 65,3 kt = 75,2 MPH; e la stessa terna 121 km/h - 65 kts - 75 MPH sta su 3-5 (righe 635 e 791)",
+    "conferme": 3
+   },
+   {
+    "riga": 1441,
+    "x": 294,
+    "valore": "75",
+    "tesseract": "15",
+    "pdf": false,
+    "vista": "OCR legge 15; a vista: 75 MPH · seconda conferma: la terna torna: 121 km/h = 65,3 kt = 75,2 MPH; e la stessa terna 121 km/h - 65 kts - 75 MPH sta su 3-5 (righe 635 e 791)",
+    "conferme": 2
+   },
+   {
+    "riga": 1441,
+    "x": 505,
+    "valore": "20°)",
+    "tesseract": "209)",
+    "pdf": false,
+    "vista": "OCR legge 209); a vista: 20 con la o in apice · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado",
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 4,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "3-5",
+  "pdf": 35,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 126097,
+  "soloA": 5850,
+  "soloB": 2936,
+  "entrambi": 120247,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     532.52,
+     686.06
+    ],
+    "attraverso": [
+     119,
+     152
+    ],
+    "base": 144.12,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     532.52,
+     686.06
+    ],
+    "attraverso": [
+     151,
+     183
+    ],
+    "base": 176.02,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     348.41
+    ],
+    "attraverso": [
+     181,
+     213
+    ],
+    "base": 205.94,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     921,
+     1035.8300000000002
+    ],
+    "attraverso": [
+     177,
+     209
+    ],
+    "base": 201.95,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-5",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     180.34,
+     406.5
+    ],
+    "attraverso": [
+     212,
+     243
+    ],
+    "base": 235.85,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     921,
+     1041.93
+    ],
+    "attraverso": [
+     208,
+     240
+    ],
+    "base": 232.86,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     473.05999999999995
+    ],
+    "attraverso": [
+     306,
+     334
+    ],
+    "base": 330.58,
+    "c": 20.44,
+    "apici": false,
+    "testo": "FORCED LANDINGS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     763.52
+    ],
+    "attraverso": [
+     370,
+     395
+    ],
+    "base": 392.4,
+    "c": 18.45,
+    "apici": false,
+    "testo": "PRECAUTIONARY LANDING WITH ENGINE POWER.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     229.96,
+     1037.03
+    ],
+    "attraverso": [
+     428,
+     461
+    ],
+    "base": 453.23,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Before attempting an “off airport” landing, one should drag the landing area at",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     177.92,
+     1040.66
+    ],
+    "attraverso": [
+     460,
+     492
+    ],
+    "base": 484.14,
+    "c": 18.45,
+    "apici": false,
+    "testo": "a safe but low altitude to inspect the terrain for obstructions and surface conditions,",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     413.76
+    ],
+    "attraverso": [
+     491,
+     523
+    ],
+    "base": 516.05,
+    "c": 18.45,
+    "apici": false,
+    "testo": "proceeding as follows:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     227.54,
+     618.29
+    ],
+    "attraverso": [
+     553,
+     585
+    ],
+    "base": 577.87,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Perform “before landing” check.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     227.54,
+     1018.88
+    ],
+    "attraverso": [
+     584,
+     615
+    ],
+    "base": 607.78,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Drag over selected field with flaps 20° and 121 km/h - 65 kts - 75 MPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     226.33,
+     1041.93
+    ],
+    "attraverso": [
+     614,
+     646
+    ],
+    "base": 638.7,
+    "c": 18.45,
+    "apici": false,
+    "testo": "airspeed, noting the preferred area for touchdown for the next landing approach.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     226.33,
+     738.11
+    ],
+    "attraverso": [
+     645,
+     677
+    ],
+    "base": 669.61,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Then retract flaps after well clear of all obstacles.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     226.33,
+     994.67
+    ],
+    "attraverso": [
+     676,
+     708
+    ],
+    "base": 700.52,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) On downwind leg, turn off all switches except the ignition and master",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     226.33,
+     329.05
+    ],
+    "attraverso": [
+     708,
+     740
+    ],
+    "base": 732.43,
+    "c": 18.45,
+    "apici": false,
+    "testo": "switches.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     226.33,
+     868.81
+    ],
+    "attraverso": [
+     739,
+     771
+    ],
+    "base": 763.34,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Approach with flaps 40° at 121 km/h - 65 kts - 75 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     226.33,
+     732.0600000000001
+    ],
+    "attraverso": [
+     770,
+     802
+    ],
+    "base": 794.25,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Unlatch cabin doors prior to final approach.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     225.12,
+     905.1099999999999
+    ],
+    "attraverso": [
+     801,
+     833
+    ],
+    "base": 825.16,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) Before touchdown, turn ignition and master switches “OFF.”",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     225.12,
+     638.87
+    ],
+    "attraverso": [
+     832,
+     864
+    ],
+    "base": 857.07,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(7) Land in a slightly tail-low attitude.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     174.29,
+     752.63
+    ],
+    "attraverso": [
+     957,
+     982
+    ],
+    "base": 978.72,
+    "c": 18.45,
+    "apici": false,
+    "testo": "EMERGENCY LANDING WITHOUT ENGINE POWER.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     223.91,
+     1014.0400000000001
+    ],
+    "attraverso": [
+     1015,
+     1047
+    ],
+    "base": 1039.54,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If an engine stoppage occurs, establish a flaps up glide at 137 km/h - 74 kts -",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     173.08,
+     1041.93
+    ],
+    "attraverso": [
+     1047,
+     1079
+    ],
+    "base": 1071.45,
+    "c": 18.45,
+    "apici": false,
+    "testo": "85 MPH. If time permits, attempt to restart the engine by checking for fuel quantity,",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     173.08,
+     1030.99
+    ],
+    "attraverso": [
+     1078,
+     1109
+    ],
+    "base": 1101.37,
+    "c": 18.45,
+    "apici": false,
+    "testo": "proper fuel selector valve position, and mixture control setting. Also check that en-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     171.87,
+     937.79
+    ],
+    "attraverso": [
+     1108,
+     1139
+    ],
+    "base": 1131.28,
+    "c": 18.45,
+    "apici": false,
+    "testo": "gine primer is full in and locked and ignition switch is properly positioned.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     222.7,
+     1040.66
+    ],
+    "attraverso": [
+     1168,
+     1200
+    ],
+    "base": 1193.1,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If all attempts to restart the engine fail, and a forced landing is imminent, select",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     171.87,
+     728.42
+    ],
+    "attraverso": [
+     1200,
+     1231
+    ],
+    "base": 1224.02,
+    "c": 18.45,
+    "apici": false,
+    "testo": "a suitable field and prepare for the landing as follows:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     221.49,
+     729.64
+    ],
+    "attraverso": [
+     1261,
+     1293
+    ],
+    "base": 1285.84,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Pull mixture control to idle cut-off position.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     220.28,
+     652.1800000000001
+    ],
+    "attraverso": [
+     1292,
+     1322
+    ],
+    "base": 1314.75,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Pull fuel shutoff valve knob full out.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     221.49,
+     757.47
+    ],
+    "attraverso": [
+     1321,
+     1352
+    ],
+    "base": 1344.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Turn all switches “OFF” except master switch.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     220.28,
+     1006.78
+    ],
+    "attraverso": [
+     1351,
+     1383
+    ],
+    "base": 1375.58,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Airspeed - - 121 to 137 km/h - 65 to 74 kts - 75 to 85 MPH (flaps up).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     220.28,
+     911.1700000000001
+    ],
+    "attraverso": [
+     1382,
+     1413
+    ],
+    "base": 1405.49,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Extend wing flaps as necessary within gliding distance of field.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     220.28,
+     959.58
+    ],
+    "attraverso": [
+     1412,
+     1444
+    ],
+    "base": 1436.41,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) Airspeed - - 113 to 129 km/h - 61 to 70 kts - 70 to 80 MPH (flaps",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     221.49,
+     306.05
+    ],
+    "attraverso": [
+     1443,
+     1474
+    ],
+    "base": 1466.32,
+    "c": 18.45,
+    "apici": false,
+    "testo": "down).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     223.91,
+     567.46
+    ],
+    "attraverso": [
+     1475,
+     1508
+    ],
+    "base": 1500.22,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(7) Turn master switch “OFF.”",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     223.91,
+     730.8499999999999
+    ],
+    "attraverso": [
+     1507,
+     1539
+    ],
+    "base": 1531.13,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(8) Unlatch cabin doors prior to final approach.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     223.91,
+     637.66
+    ],
+    "attraverso": [
+     1538,
+     1568
+    ],
+    "base": 1561.05,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(9) Land in a slightly tail-low attitude.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     210.6,
+     803.46
+    ],
+    "attraverso": [
+     1568,
+     1600
+    ],
+    "base": 1592.96,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(10) Apply heavy braking while holding full up elevator.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   }
+  ],
+  "macchie": [],
+  "righe": 39,
+  "righeFuori": [],
+  "fuori": 0.06967651887039343,
+  "numeri": [
+   {
+    "riga": 228,
+    "x": 954,
+    "valore": "3-5",
+    "tesseract": "3-5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 259,
+    "x": 978,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": false,
+    "vista": "a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+    "conferme": 3
+   },
+   {
+    "riga": 605,
+    "x": 323,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 323,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 651,
+    "valore": "20°",
+    "tesseract": "20",
+    "pdf": false,
+    "vista": "a vista: 20 con la o in apice · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado",
+    "conferme": 3
+   },
+   {
+    "riga": 635,
+    "x": 728,
+    "valore": "121",
+    "tesseract": "121",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 826,
+    "valore": "65",
+    "tesseract": "65",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 635,
+    "x": 896,
+    "valore": "75",
+    "tesseract": "75",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 728,
+    "x": 322,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 791,
+    "x": 322,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 791,
+    "x": 537,
+    "valore": "40°",
+    "tesseract": "40",
+    "pdf": false,
+    "vista": "a vista: 40 con la o in apice · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado",
+    "conferme": 3
+   },
+   {
+    "riga": 791,
+    "x": 599,
+    "valore": "121",
+    "tesseract": "121",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 791,
+    "x": 698,
+    "valore": "65",
+    "tesseract": "65",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 791,
+    "x": 768,
+    "valore": "75",
+    "tesseract": "75",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 822,
+    "x": 322,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 853,
+    "x": 321,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 885,
+    "x": 321,
+    "valore": "(7)",
+    "tesseract": "(7)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1068,
+    "x": 799,
+    "valore": "137",
+    "tesseract": "137",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1068,
+    "x": 895,
+    "valore": "74",
+    "tesseract": "14",
+    "pdf": true,
+    "vista": "OCR legge 14; a vista: 137 km/h - 74 kts - 85 MPH · seconda conferma: la terna torna: 137 km/h = 74,0 kt = 85,1 MPH; DATI-AFM.md V best glide 85 MPH; uguale su 3-1",
+    "conferme": 3
+   },
+   {
+    "riga": 1100,
+    "x": 278,
+    "valore": "85",
+    "tesseract": "85",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1315,
+    "x": 318,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1344,
+    "x": 317,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1374,
+    "x": 318,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1405,
+    "x": 317,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1405,
+    "x": 462,
+    "valore": "121",
+    "tesseract": "121",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1405,
+    "x": 524,
+    "valore": "137",
+    "tesseract": "137",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1405,
+    "x": 623,
+    "valore": "65",
+    "tesseract": "65",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1405,
+    "x": 674,
+    "valore": "74",
+    "tesseract": "14",
+    "pdf": true,
+    "vista": "OCR legge 14; a vista: 65 to 74 kts · seconda conferma: la terna torna: 137 km/h = 74,0 kt = 85,1 MPH (85 MPH sulla stessa riga)",
+    "conferme": 3
+   },
+   {
+    "riga": 1405,
+    "x": 745,
+    "valore": "75",
+    "tesseract": "15",
+    "pdf": true,
+    "vista": "OCR legge 15; a vista: 75 to 85 MPH · seconda conferma: la terna torna: 121 km/h = 65,3 kt = 75,2 MPH (121 e 65 sulla stessa riga)",
+    "conferme": 3
+   },
+   {
+    "riga": 1405,
+    "x": 796,
+    "valore": "85",
+    "tesseract": "85",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1435,
+    "x": 317,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1466,
+    "x": 317,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1466,
+    "x": 472,
+    "valore": "113",
+    "tesseract": "13",
+    "pdf": true,
+    "vista": "OCR legge 13; a vista: 113 to 129 km/h · seconda conferma: la terna torna: 113 km/h = 61,0 kt = 70,2 MPH; e 113 km/h - 61 kts - 70 MPH sta anche su 3-6 (riga 701)",
+    "conferme": 3
+   },
+   {
+    "riga": 1466,
+    "x": 524,
+    "valore": "129",
+    "tesseract": "129",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1466,
+    "x": 622,
+    "valore": "61",
+    "tesseract": "6)",
+    "pdf": true,
+    "vista": "OCR legge 6); a vista: 61 to 70 kts · seconda conferma: 113 km/h = 61,0 kt; la stessa terna su 3-6 (riga 701)",
+    "conferme": 3
+   },
+   {
+    "riga": 1466,
+    "x": 674,
+    "valore": "70",
+    "tesseract": "70",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1466,
+    "x": 744,
+    "valore": "70",
+    "tesseract": "70",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1466,
+    "x": 796,
+    "valore": "80",
+    "tesseract": "80",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1530,
+    "x": 320,
+    "valore": "(7)",
+    "tesseract": "(7)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1561,
+    "x": 320,
+    "valore": "(8)",
+    "tesseract": "(8)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1591,
+    "x": 320,
+    "valore": "(9)",
+    "tesseract": "(9)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1623,
+    "x": 309,
+    "valore": "(10)",
+    "tesseract": "(10)",
+    "pdf": false,
+    "vista": "OCR legge altro; a vista: (10) · seconda conferma: la numerazione dei punti: (10) viene fra (9) e la fine dell'elenco nello stesso elenco",
+    "conferme": 3
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 5,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": [
+   "Velocita' della sezione III, tutte terne km/h - kts - MPH che tornano fra loro (1 kt = 1,852 km/h, 1 MPH = 1,609 km/h): 113-61-70, 121-65-75, 129-70-80, 137-74-85 (V best glide 85 MPH in DATI-AFM.md), 145-78-90, 193-104-120 ✓"
+  ]
+ },
+ {
+  "n": "3-6",
+  "pdf": 36,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 141466,
+  "soloA": 7615,
+  "soloB": 2831,
+  "entrambi": 133851,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     496.21,
+     649.76
+    ],
+    "attraverso": [
+     62,
+     95
+    ],
+    "base": 87.28,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     496.21,
+     650.97
+    ],
+    "attraverso": [
+     94,
+     127
+    ],
+    "base": 119.19,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     149.98,
+     258.86
+    ],
+    "attraverso": [
+     128,
+     160
+    ],
+    "base": 153.09,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-6",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     778.2,
+     945.0600000000001
+    ],
+    "attraverso": [
+     128,
+     160
+    ],
+    "base": 153.09,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     149.98,
+     270.95
+    ],
+    "attraverso": [
+     275,
+     307
+    ],
+    "base": 299.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     776.99,
+     1005.57
+    ],
+    "attraverso": [
+     275,
+     307
+    ],
+    "base": 299.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     149.98,
+     275.79
+    ],
+    "attraverso": [
+     372,
+     397
+    ],
+    "base": 394.4,
+    "c": 18.45,
+    "apici": false,
+    "testo": "DITCHING.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     1004.36
+    ],
+    "attraverso": [
+     431,
+     464
+    ],
+    "base": 456.22,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Prepare for ditching by securing or jettisoning heavy objects located in the bag-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     149.98,
+     988.62
+    ],
+    "attraverso": [
+     463,
+     495
+    ],
+    "base": 487.13,
+    "c": 18.45,
+    "apici": false,
+    "testo": "gage area, and collect folded coats or cushions for protection of occupant’s face at",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     149.98,
+     1023.72
+    ],
+    "attraverso": [
+     494,
+     526
+    ],
+    "base": 519.04,
+    "c": 18.45,
+    "apici": false,
+    "testo": "touchdown. Transmit Mayday message on 121.5 MHz., giving location and intentions.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     1001.9399999999999
+    ],
+    "attraverso": [
+     556,
+     588
+    ],
+    "base": 580.86,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Plan approach into wind if winds are high and seas are heavy. With heavy",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     190.02,
+     650.97
+    ],
+    "attraverso": [
+     587,
+     619
+    ],
+    "base": 611.77,
+    "c": 18.45,
+    "apici": false,
+    "testo": "swells and light wind, land parallel to swells.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     188.81,
+     980.15
+    ],
+    "attraverso": [
+     618,
+     650
+    ],
+    "base": 642.68,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Approach with flaps 40° and sufficient power for a 300 ft./min. rate of",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     188.81,
+     607.4000000000001
+    ],
+    "attraverso": [
+     649,
+     681
+    ],
+    "base": 673.6,
+    "c": 18.45,
+    "apici": false,
+    "testo": "descent at 113 km/h - 61 kts - 70 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     188.81,
+     500.9
+    ],
+    "attraverso": [
+     680,
+     712
+    ],
+    "base": 704.51,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Unlatch the cabin doors.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     187.6,
+     977.73
+    ],
+    "attraverso": [
+     711,
+     743
+    ],
+    "base": 735.42,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Maintain a continuous descent until touchdown in level attitude. Avoid",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     187.6,
+     997.1
+    ],
+    "attraverso": [
+     742,
+     773
+    ],
+    "base": 765.33,
+    "c": 18.45,
+    "apici": false,
+    "testo": "a landing flare because of difficulty in judging airplane height over a water sur-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     187.6,
+     249.17
+    ],
+    "attraverso": [
+     772,
+     805
+    ],
+    "base": 797.24,
+    "c": 18.45,
+    "apici": false,
+    "testo": "face.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     187.6,
+     935.37
+    ],
+    "attraverso": [
+     804,
+     836
+    ],
+    "base": 828.15,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Place folded coat or cushion in front of face at time of touchdown.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     186.39,
+     1012.83
+    ],
+    "attraverso": [
+     835,
+     865
+    ],
+    "base": 858.07,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) Evacuate airplane through cabin doors. If necessary, open window to flood",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     186.39,
+     916.01
+    ],
+    "attraverso": [
+     865,
+     897
+    ],
+    "base": 889.97,
+    "c": 18.45,
+    "apici": false,
+    "testo": "cabin compartment for equalizing pressure so that door can be opened.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     988.63
+    ],
+    "attraverso": [
+     897,
+     929
+    ],
+    "base": 921.88,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(7) Inflate life vests and raft (if available) after evacuation of cabin. The air-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     185.18,
+     932.96
+    ],
+    "attraverso": [
+     928,
+     959
+    ],
+    "base": 951.8,
+    "c": 18.45,
+    "apici": false,
+    "testo": "craft can not be depended on for flotation for more than a few minutes.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     149.98,
+     594.09
+    ],
+    "attraverso": [
+     1112,
+     1139
+    ],
+    "base": 1136.27,
+    "c": 20.44,
+    "apici": false,
+    "testo": "FLIGHT IN ICING CONDITIONS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     183.97,
+     971.68
+    ],
+    "attraverso": [
+     1170,
+     1202
+    ],
+    "base": 1195.1,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Although flying in known icing conditions is prohibited, an unexpected icing",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     149.98,
+     551.72
+    ],
+    "attraverso": [
+     1202,
+     1232
+    ],
+    "base": 1225.01,
+    "c": 18.45,
+    "apici": false,
+    "testo": "encounter should be handled as follows:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     182.76,
+     676.3900000000001
+    ],
+    "attraverso": [
+     1261,
+     1293
+    ],
+    "base": 1285.84,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Turn pitot heat switch “ON” (if installed).",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     982.5699999999999
+    ],
+    "attraverso": [
+     1292,
+     1324
+    ],
+    "base": 1316.75,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Turn back or change altitude to obtain an outside air temperature that is",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     427.08
+    ],
+    "attraverso": [
+     1323,
+     1354
+    ],
+    "base": 1346.66,
+    "c": 18.45,
+    "apici": false,
+    "testo": "less conducive to icing.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     1005.57
+    ],
+    "attraverso": [
+     1353,
+     1385
+    ],
+    "base": 1377.57,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Pull cabin heat control full out to obtain windshield defroster airflow. Ad-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     853.0699999999999
+    ],
+    "attraverso": [
+     1384,
+     1415
+    ],
+    "base": 1407.49,
+    "c": 18.45,
+    "apici": false,
+    "testo": "just cabin air control to get maximum defroster heat and airflow.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     181.55,
+     839.76
+    ],
+    "attraverso": [
+     1414,
+     1446
+    ],
+    "base": 1438.4,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Increase RPM to minimize ice build-up on propeller blades.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     180.34,
+     1003.1500000000001
+    ],
+    "attraverso": [
+     1445,
+     1477
+    ],
+    "base": 1469.31,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Plan a landing at the nearest airport. With an extremely rapid ice build-up,",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     617.09
+    ],
+    "attraverso": [
+     1476,
+     1507
+    ],
+    "base": 1499.23,
+    "c": 18.45,
+    "apici": false,
+    "testo": "select a suitable “off airport” landing site.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     964.42
+    ],
+    "attraverso": [
+     1506,
+     1537
+    ],
+    "base": 1529.14,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) With an ice accumulation of 0,5 cm or more on the wing leading edges,",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     661.86
+    ],
+    "attraverso": [
+     1536,
+     1566
+    ],
+    "base": 1559.05,
+    "c": 18.45,
+    "apici": false,
+    "testo": "be prepared for significantly higher stall speed.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     179.13,
+     968.05
+    ],
+    "attraverso": [
+     1566,
+     1596
+    ],
+    "base": 1588.97,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(7) Leave wing flaps retracted. With a severe ice build-up on the horizontal",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     177.92,
+     969.26
+    ],
+    "attraverso": [
+     1595,
+     1627
+    ],
+    "base": 1619.88,
+    "c": 18.45,
+    "apici": false,
+    "testo": "tail, the change in wing wake airflow direction caused by wing flap extension",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     177.92,
+     653.38
+    ],
+    "attraverso": [
+     1626,
+     1656
+    ],
+    "base": 1648.8,
+    "c": 18.45,
+    "apici": false,
+    "testo": "could result in a loss of elevator effectiveness.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 39,
+  "righeFuori": [],
+  "fuori": 0.07384106428399757,
+  "numeri": [
+   {
+    "riga": 179,
+    "x": 310,
+    "valore": "3-6",
+    "tesseract": "3-6",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 326,
+    "x": 336,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 546,
+    "x": 612,
+    "valore": "121.5",
+    "tesseract": "121.5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 608,
+    "x": 292,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 670,
+    "x": 291,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 670,
+    "x": 507,
+    "valore": "40°",
+    "tesseract": "409",
+    "pdf": false,
+    "vista": "OCR legge 409; a vista: 40 con la o in apice · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado",
+    "conferme": 2
+   },
+   {
+    "riga": 670,
+    "x": 768,
+    "valore": "300",
+    "tesseract": "300",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 701,
+    "x": 383,
+    "valore": "113",
+    "tesseract": "113",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 701,
+    "x": 481,
+    "valore": "61",
+    "tesseract": "61",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 701,
+    "x": 553,
+    "valore": "70",
+    "tesseract": "70",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 732,
+    "x": 291,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 763,
+    "x": 290,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 856,
+    "x": 290,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 886,
+    "x": 289,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 950,
+    "x": 288,
+    "valore": "(7)",
+    "tesseract": "(7)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1315,
+    "x": 286,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1346,
+    "x": 285,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1407,
+    "x": 285,
+    "valore": "(3)",
+    "tesseract": "(3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1468,
+    "x": 285,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1499,
+    "x": 284,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1559,
+    "x": 283,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1559,
+    "x": 564,
+    "valore": "0,5",
+    "tesseract": "0,5",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1619,
+    "x": 283,
+    "valore": "(7)",
+    "tesseract": "(7)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 1,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": [
+   "121.5 MHz: la frequenza d'emergenza aeronautica ✓; 0,5 cm di ghiaccio, 300 ft./min.: nessuna fonte del progetto da confrontare (due letture concordi)"
+  ]
+ },
+ {
+  "n": "3-7",
+  "pdf": 37,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 146438,
+  "soloA": 11823,
+  "soloB": 4938,
+  "entrambi": 134615,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     524.05,
+     678.8
+    ],
+    "attraverso": [
+     117,
+     150
+    ],
+    "base": 142.12,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     525.26,
+     681.22
+    ],
+    "attraverso": [
+     149,
+     180
+    ],
+    "base": 173.03,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     165.72,
+     335.1
+    ],
+    "attraverso": [
+     189,
+     221
+    ],
+    "base": 213.92,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     912.53,
+     1029.78
+    ],
+    "attraverso": [
+     181,
+     213
+    ],
+    "base": 205.94,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-7",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     165.72,
+     394.4
+    ],
+    "attraverso": [
+     220,
+     251
+    ],
+    "base": 243.83,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     912.53,
+     1041.93
+    ],
+    "attraverso": [
+     212,
+     243
+    ],
+    "base": 235.85,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     1037.03
+    ],
+    "attraverso": [
+     311,
+     343
+    ],
+    "base": 335.57,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(8) Open left window and, if practical, scrape ice from a portion of the wind-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     672.75
+    ],
+    "attraverso": [
+     344,
+     372
+    ],
+    "base": 368.47,
+    "c": 18.45,
+    "apici": false,
+    "testo": "shield for visibility in the landing approach.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -3
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     1041.93
+    ],
+    "attraverso": [
+     375,
+     402
+    ],
+    "base": 394.4,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(9) Perform a landing approach using a forward slip, if necessary, for improved",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     215.44,
+     323
+    ],
+    "attraverso": [
+     403,
+     435
+    ],
+    "base": 428.3,
+    "c": 18.45,
+    "apici": false,
+    "testo": "visibility.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     204.55,
+     1024.93
+    ],
+    "attraverso": [
+     435,
+     465
+    ],
+    "base": 457.22,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(10) Approach at 129 to 145 km/h - 70 to 78 kts - 80 to 90 MPH, depending",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     620.72
+    ],
+    "attraverso": [
+     464,
+     496
+    ],
+    "base": 488.13,
+    "c": 18.45,
+    "apici": false,
+    "testo": "upon the amount of ice accumulation.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     204.55,
+     756.26
+    ],
+    "attraverso": [
+     495,
+     527
+    ],
+    "base": 520.04,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(11) Avoid steep turns during the landing approach.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     204.55,
+     635.24
+    ],
+    "attraverso": [
+     526,
+     557
+    ],
+    "base": 549.95,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(12) Perform a landing in level attitude.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     169.45,
+     695.74
+    ],
+    "attraverso": [
+     650,
+     678
+    ],
+    "base": 674.59,
+    "c": 20.44,
+    "apici": false,
+    "testo": "RECOVERY FROM A SPIRAL DIVE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     690.9
+    ],
+    "attraverso": [
+     713,
+     745
+    ],
+    "base": 737.41,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If a spiral is encountered, proceed as follows:",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     467.02000000000004
+    ],
+    "attraverso": [
+     775,
+     807
+    ],
+    "base": 800.23,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(1) Close the throttle.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     1038.25
+    ],
+    "attraverso": [
+     807,
+     837
+    ],
+    "base": 829.15,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(2) Stop the turn by using coordinated aileron and rudder control to align the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     975.3100000000001
+    ],
+    "attraverso": [
+     836,
+     867
+    ],
+    "base": 860.06,
+    "c": 18.45,
+    "apici": false,
+    "testo": "symbolic airplane in the turn coordinator with the horizon reference line.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -3
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219.07,
+     1037.04
+    ],
+    "attraverso": [
+     867,
+     899
+    ],
+    "base": 891.97,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(3) Cautiously apply elevator back pressure to slowly reduce the indicated air-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": -2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     629.18
+    ],
+    "attraverso": [
+     900,
+     932
+    ],
+    "base": 924.87,
+    "c": 18.45,
+    "apici": false,
+    "testo": "speed to 145 km/h - 78 kts - 90 MPH.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219.07,
+     1041.93
+    ],
+    "attraverso": [
+     931,
+     961
+    ],
+    "base": 953.79,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(4) Adjust the elevator trim control to maintain a 145 km/h - 78 kts - 90 MPH",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -2,
+    "alto": -3
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     286.69
+    ],
+    "attraverso": [
+     965,
+     994
+    ],
+    "base": 989.69,
+    "c": 18.45,
+    "apici": false,
+    "testo": "glide.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     1026.1399999999999
+    ],
+    "attraverso": [
+     996,
+     1024
+    ],
+    "base": 1016.61,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(5) Keep hands off the control wheel, using rudder control to hold a straight",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     217.86,
+     315.74
+    ],
+    "attraverso": [
+     1026,
+     1056
+    ],
+    "base": 1050.51,
+    "c": 18.45,
+    "apici": false,
+    "testo": "heading.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219.07,
+     1001.94
+    ],
+    "attraverso": [
+     1057,
+     1086
+    ],
+    "base": 1078.43,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(6) Clear engine occasionally, but avoid using enough power to disturb the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 1,
+    "alto": -2
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219.07,
+     379.88
+    ],
+    "attraverso": [
+     1086,
+     1118
+    ],
+    "base": 1111.34,
+    "c": 18.45,
+    "apici": false,
+    "testo": "trimmed glide.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219.07,
+     998.3
+    ],
+    "attraverso": [
+     1118,
+     1148
+    ],
+    "base": 1140.26,
+    "c": 18.45,
+    "apici": false,
+    "testo": "(7) Upon breaking out of clouds, apply normal cruising power and resume",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     219.07,
+     293.95
+    ],
+    "attraverso": [
+     1148,
+     1181
+    ],
+    "base": 1173.16,
+    "c": 18.45,
+    "apici": false,
+    "testo": "flight.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     171.87,
+     942.63
+    ],
+    "attraverso": [
+     1268,
+     1296
+    ],
+    "base": 1292.82,
+    "c": 20.44,
+    "apici": false,
+    "testo": "ELECTRICAL POWER SUPPLY SYSTEM MALFUNCTIONS.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     221.49,
+     1039.46
+    ],
+    "attraverso": [
+     1329,
+     1361
+    ],
+    "base": 1353.64,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Malfunctions in the electrical power supply system can be detected by periodic",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     170.66,
+     1006.77
+    ],
+    "attraverso": [
+     1360,
+     1392
+    ],
+    "base": 1384.55,
+    "c": 18.45,
+    "apici": false,
+    "testo": "monitoring of the ammeter and over-voltage warning light; however, the cause of",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     170.66,
+     1038.25
+    ],
+    "attraverso": [
+     1391,
+     1422
+    ],
+    "base": 1414.47,
+    "c": 18.45,
+    "apici": false,
+    "testo": "these malfunctions is usually difficult to determine. Broken or loose alternator wir-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     170.66,
+     1039.45
+    ],
+    "attraverso": [
+     1421,
+     1454
+    ],
+    "base": 1446.38,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ing is most likely the cause of alternator failures, although other factors could cause",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     170.66,
+     1007.99
+    ],
+    "attraverso": [
+     1453,
+     1485
+    ],
+    "base": 1477.29,
+    "c": 18.45,
+    "apici": false,
+    "testo": "the problem. A damaged or improperly adjusted voltage regulator can also cause",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     170.66,
+     1041.93
+    ],
+    "attraverso": [
+     1485,
+     1518
+    ],
+    "base": 1510.19,
+    "c": 18.45,
+    "apici": false,
+    "testo": "malfunctions. Problems of this nature constitute an electrical emergency and should",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     170.66,
+     1041.8799999999999
+    ],
+    "attraverso": [
+     1517,
+     1548
+    ],
+    "base": 1541.1,
+    "c": 18.45,
+    "apici": false,
+    "testo": "be dealt with immediately. Electrical power malfunctions usually fall into two cate-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     171.87,
+     1035.83
+    ],
+    "attraverso": [
+     1548,
+     1578
+    ],
+    "base": 1571.02,
+    "c": 18.45,
+    "apici": false,
+    "testo": "gories: excessive rate of charge and insufficient rate of charge. The paragraphs be-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     171.87,
+     775.63
+    ],
+    "attraverso": [
+     1577,
+     1609
+    ],
+    "base": 1601.93,
+    "c": 18.45,
+    "apici": false,
+    "testo": "low describe the recommended remedy for each situation.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 39,
+  "righeFuori": [],
+  "fuori": 0.11445799587538753,
+  "numeri": [
+   {
+    "riga": 232,
+    "x": 947,
+    "valore": "3-7",
+    "tesseract": "3-7",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 262,
+    "x": 973,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": false,
+    "vista": "a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+    "conferme": 3
+   },
+   {
+    "riga": 362,
+    "x": 315,
+    "valore": "(8)",
+    "tesseract": "(8)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 421,
+    "x": 315,
+    "valore": "(9)",
+    "tesseract": "(9)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 304,
+    "valore": "(10)",
+    "tesseract": "(10)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 468,
+    "valore": "129",
+    "tesseract": "129",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 531,
+    "valore": "145",
+    "tesseract": "145",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 629,
+    "valore": "70",
+    "tesseract": "70",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 681,
+    "valore": "78",
+    "tesseract": "78",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 753,
+    "valore": "80",
+    "tesseract": "80",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 484,
+    "x": 805,
+    "valore": "90",
+    "tesseract": "90",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 547,
+    "x": 304,
+    "valore": "(11)",
+    "tesseract": "(11)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 577,
+    "x": 304,
+    "valore": "(12)",
+    "tesseract": "(12)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 828,
+    "x": 315,
+    "valore": "(1)",
+    "tesseract": "(1)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 857,
+    "x": 315,
+    "valore": "(2)",
+    "tesseract": "(2)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 920,
+    "x": 316,
+    "valore": "(3)",
+    "tesseract": "3)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 953,
+    "x": 394,
+    "valore": "145",
+    "tesseract": "145",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 953,
+    "x": 493,
+    "valore": "78",
+    "tesseract": "78",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 953,
+    "x": 569,
+    "valore": "90",
+    "tesseract": "90",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 982,
+    "x": 316,
+    "valore": "(4)",
+    "tesseract": "(4)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 982,
+    "x": 751,
+    "valore": "145",
+    "tesseract": "145",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 982,
+    "x": 849,
+    "valore": "78",
+    "tesseract": "78",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 982,
+    "x": 920,
+    "valore": "90",
+    "tesseract": "90",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1045,
+    "x": 315,
+    "valore": "(5)",
+    "tesseract": "(5)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1107,
+    "x": 316,
+    "valore": "(6)",
+    "tesseract": "(6)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 1169,
+    "x": 316,
+    "valore": "(7)",
+    "tesseract": "(7)",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 0,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "3-8",
+  "pdf": 38,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 165433,
+  "soloA": 7428,
+  "soloB": 2634,
+  "entrambi": 158005,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     501.04999999999995,
+     655.81
+    ],
+    "attraverso": [
+     118,
+     151
+    ],
+    "base": 143.12,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     502.26,
+     657.02
+    ],
+    "attraverso": [
+     150,
+     182
+    ],
+    "base": 175.03,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     261.28
+    ],
+    "attraverso": [
+     185,
+     217
+    ],
+    "base": 209.93,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-8",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     786.67,
+     955.95
+    ],
+    "attraverso": [
+     181,
+     213
+    ],
+    "base": 205.94,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     273.37
+    ],
+    "attraverso": [
+     285,
+     317
+    ],
+    "base": 309.64,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     786.67,
+     1015.25
+    ],
+    "attraverso": [
+     283,
+     315
+    ],
+    "base": 307.65,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     509.37
+    ],
+    "attraverso": [
+     381,
+     406
+    ],
+    "base": 403.37,
+    "c": 18.45,
+    "apici": false,
+    "testo": "EXCESSIVE RATE OF CHARGE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     196.07,
+     1030.99
+    ],
+    "attraverso": [
+     441,
+     474
+    ],
+    "base": 466.19,
+    "c": 18.45,
+    "apici": false,
+    "testo": "After engine starting and heavy electrical usage at low engine speeds (such as ex-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     983.78
+    ],
+    "attraverso": [
+     473,
+     505
+    ],
+    "base": 498.1,
+    "c": 18.45,
+    "apici": false,
+    "testo": "tended taxiing) the battery condition will be low enough to accept above normal",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1017.67
+    ],
+    "attraverso": [
+     505,
+     536
+    ],
+    "base": 529.01,
+    "c": 18.45,
+    "apici": false,
+    "testo": "charging during the initial part of a flight. However, after thirty minutes of cruising",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1022.51
+    ],
+    "attraverso": [
+     535,
+     567
+    ],
+    "base": 559.92,
+    "c": 18.45,
+    "apici": false,
+    "testo": "flight, the ammeter should be indicating less than two needle widths of charging cur-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1007.99
+    ],
+    "attraverso": [
+     566,
+     598
+    ],
+    "base": 590.83,
+    "c": 18.45,
+    "apici": false,
+    "testo": "rent. If the charging rate were to remain above this value on a long flight, the bat-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     993.47
+    ],
+    "attraverso": [
+     597,
+     629
+    ],
+    "base": 621.74,
+    "c": 18.45,
+    "apici": false,
+    "testo": "tery would overheat and evaporate the electrolyte at an excessive rate. Electronic",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1011.6199999999999
+    ],
+    "attraverso": [
+     629,
+     661
+    ],
+    "base": 653.65,
+    "c": 18.45,
+    "apici": false,
+    "testo": "components in the electrical system could be adversely affected by higher than nor-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1009.2
+    ],
+    "attraverso": [
+     660,
+     692
+    ],
+    "base": 684.56,
+    "c": 18.45,
+    "apici": false,
+    "testo": "mal voltage if a faulty voltage regulator setting is causing the overcharging. To pre-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1010.4
+    ],
+    "attraverso": [
+     692,
+     724
+    ],
+    "base": 716.47,
+    "c": 18.45,
+    "apici": false,
+    "testo": "clude these possibilities, an over-voltage sensor will automatically shut down the al-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     957.15
+    ],
+    "attraverso": [
+     723,
+     755
+    ],
+    "base": 747.38,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ternator and the over-voltage warning light will illuminate if the charge voltage",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     995.89
+    ],
+    "attraverso": [
+     754,
+     786
+    ],
+    "base": 778.29,
+    "c": 18.45,
+    "apici": false,
+    "testo": "reaches approximately 16 volts. Assuming that the malfunction was only momen-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     982.5799999999999
+    ],
+    "attraverso": [
+     785,
+     818
+    ],
+    "base": 810.2,
+    "c": 18.45,
+    "apici": false,
+    "testo": "tary, an attempt should be made to reactivate the alternator system. To do this,",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1030.98
+    ],
+    "attraverso": [
+     817,
+     848
+    ],
+    "base": 841.11,
+    "c": 18.45,
+    "apici": false,
+    "testo": "turn both sides of the master switch off and then on again. If the problem no longer",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1037.04
+    ],
+    "attraverso": [
+     849,
+     881
+    ],
+    "base": 874.02,
+    "c": 18.45,
+    "apici": false,
+    "testo": "exists, normal alternator charging will resume and the warning light will go off. If the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1016.46
+    ],
+    "attraverso": [
+     880,
+     912
+    ],
+    "base": 904.93,
+    "c": 18.45,
+    "apici": false,
+    "testo": "light comes on again, a malfunction is confirmed. In this event, the flight should be",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1033.41
+    ],
+    "attraverso": [
+     911,
+     943
+    ],
+    "base": 935.84,
+    "c": 18.45,
+    "apici": false,
+    "testo": "terminated and/or the current drain on the battery minimized because the battery can",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1014.04
+    ],
+    "attraverso": [
+     942,
+     974
+    ],
+    "base": 966.75,
+    "c": 18.45,
+    "apici": false,
+    "testo": "supply the electrical system for only a limited period of time. If the emergency oc-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     989.8399999999999
+    ],
+    "attraverso": [
+     973,
+     1004
+    ],
+    "base": 996.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "curs at night, power must be conserved for later use of the landing light and flaps",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     309.69
+    ],
+    "attraverso": [
+     1004,
+     1036
+    ],
+    "base": 1028.58,
+    "c": 18.45,
+    "apici": false,
+    "testo": "during landing.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     544.47
+    ],
+    "attraverso": [
+     1066,
+     1091
+    ],
+    "base": 1088.4,
+    "c": 18.45,
+    "apici": false,
+    "testo": "INSUFFICIENT RATE OF CHARGE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     192.44,
+     1004.35
+    ],
+    "attraverso": [
+     1124,
+     1157
+    ],
+    "base": 1149.23,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If the ammeter indicates a continuous discharge rate in flight, the alternator is",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     977.73
+    ],
+    "attraverso": [
+     1156,
+     1189
+    ],
+    "base": 1181.14,
+    "c": 18.45,
+    "apici": false,
+    "testo": "not supplying power to the system and should be shut down since the alternator",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     981.36
+    ],
+    "attraverso": [
+     1188,
+     1219
+    ],
+    "base": 1212.05,
+    "c": 18.45,
+    "apici": false,
+    "testo": "field circuit may be placing an unnecessary load on the system. All non-essential",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -2,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     993.47
+    ],
+    "attraverso": [
+     1219,
+     1250
+    ],
+    "base": 1242.96,
+    "c": 18.45,
+    "apici": false,
+    "testo": "equipment should be turned “OFF” and the flight terminated as soon as practical.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     893.02
+    ],
+    "attraverso": [
+     1368,
+     1396
+    ],
+    "base": 1392.53,
+    "c": 20.44,
+    "apici": false,
+    "testo": "ROUGH ENGINE OPERATION OR LOSS OF POWER.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     424.65000000000003
+    ],
+    "attraverso": [
+     1432,
+     1457
+    ],
+    "base": 1454.35,
+    "c": 18.45,
+    "apici": false,
+    "testo": "SPARK PLUG FOULING.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     193.65,
+     1029.77
+    ],
+    "attraverso": [
+     1490,
+     1523
+    ],
+    "base": 1515.18,
+    "c": 18.45,
+    "apici": false,
+    "testo": "An engine roughness in flight may be caused by one or more spark plugs becom-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1005.56
+    ],
+    "attraverso": [
+     1522,
+     1553
+    ],
+    "base": 1546.09,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ing fouled by carbon or lead deposits. This may be verified by turning the ignition",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1018.88
+    ],
+    "attraverso": [
+     1553,
+     1583
+    ],
+    "base": 1576,
+    "c": 18.45,
+    "apici": false,
+    "testo": "switch momentarily from “BOTH” to either “LEFT” or “RIGHT” position. An ob-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     982.5799999999999
+    ],
+    "attraverso": [
+     1582,
+     1614
+    ],
+    "base": 1606.92,
+    "c": 18.45,
+    "apici": false,
+    "testo": "vious power loss in single ignition operation is evidence of spark plug or magneto",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     989.8299999999999
+    ],
+    "attraverso": [
+     1613,
+     1645
+    ],
+    "base": 1637.83,
+    "c": 18.45,
+    "apici": false,
+    "testo": "trouble. Assuming that spark plugs are the more likely cause, lean the mixture to",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     147.56,
+     1001.94
+    ],
+    "attraverso": [
+     1644,
+     1676
+    ],
+    "base": 1668.74,
+    "c": 18.45,
+    "apici": false,
+    "testo": "the normal lean setting for cruising flight. If the problem does not clear up in sev-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   }
+  ],
+  "macchie": [],
+  "righe": 39,
+  "righeFuori": [],
+  "fuori": 0.06082220596857942,
+  "numeri": [
+   {
+    "riga": 236,
+    "x": 313,
+    "valore": "3-8",
+    "tesseract": "if",
+    "pdf": false,
+    "vista": "a vista: Page: 3-8 · seconda conferma: posizione nel PDF: pagina 38, fra 3-7 e 3-9 (mappa tools/afm/afm-ccaf.json)",
+    "conferme": 2
+   },
+   {
+    "riga": 336,
+    "x": 338,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": false,
+    "vista": "a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+    "conferme": 3
+   },
+   {
+    "riga": 806,
+    "x": 448,
+    "valore": "16",
+    "tesseract": "16",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 1,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
+  "n": "3-9",
+  "pdf": 39,
+  "stato": "ricostruita",
+  "figure": [
+   {
+    "figura": "Striscia delle procedure di emergenza",
+    "metodo": "barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero."
+   }
+  ],
+  "inkA": 110677,
+  "soloA": 5061,
+  "soloB": 1246,
+  "entrambi": 105616,
+  "geom": [
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     520.42,
+     675.1700000000001
+    ],
+    "attraverso": [
+     121,
+     153
+    ],
+    "base": 146.11,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Flight Manual",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     520.42,
+     676.38
+    ],
+    "attraverso": [
+     153,
+     185
+    ],
+    "base": 178.02,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Rocket",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.19,
+     331.46999999999997
+    ],
+    "attraverso": [
+     188,
+     220
+    ],
+    "base": 212.92,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims Aviation",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     910.11,
+     1028.57
+    ],
+    "attraverso": [
+     186,
+     218
+    ],
+    "base": 210.92,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Page: 3-9",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": -1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.19,
+     390.77
+    ],
+    "attraverso": [
+     219,
+     251
+    ],
+    "base": 243.83,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Reims, Marne France",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     910.11,
+     1040.66
+    ],
+    "attraverso": [
+     219,
+     251
+    ],
+    "base": 243.83,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Edition: 3",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     164.61,
+     1027.35
+    ],
+    "attraverso": [
+     313,
+     345
+    ],
+    "base": 337.56,
+    "c": 18.45,
+    "apici": false,
+    "testo": "eral minutes, determine if a richer mixture setting will produce smoother operation.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     164.61,
+     1021.31
+    ],
+    "attraverso": [
+     345,
+     377
+    ],
+    "base": 369.47,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If not, proceed to the nearest airport for repairs using the “BOTH” position of the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     164.61,
+     1044.3
+    ],
+    "attraverso": [
+     376,
+     407
+    ],
+    "base": 399.38,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ignition switch unless extreme roughness dictates the use of a single ignition position.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     163.4,
+     480.32000000000005
+    ],
+    "attraverso": [
+     441,
+     466
+    ],
+    "base": 463.2,
+    "c": 18.45,
+    "apici": false,
+    "testo": "MAGNETO MALFUNCTION.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     213.02,
+     1045.56
+    ],
+    "attraverso": [
+     500,
+     532
+    ],
+    "base": 525.02,
+    "c": 18.45,
+    "apici": false,
+    "testo": "A sudden engine roughness or misfiring is usually evidence of magneto problems.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     163.4,
+     1043.09
+    ],
+    "attraverso": [
+     531,
+     562
+    ],
+    "base": 554.94,
+    "c": 18.45,
+    "apici": false,
+    "testo": "Switching from “BOTH” to either “LEFT” or “RIGHT” ignition switch position will",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.19,
+     1009.1999999999999
+    ],
+    "attraverso": [
+     561,
+     593
+    ],
+    "base": 585.85,
+    "c": 18.45,
+    "apici": false,
+    "testo": "identify which magneto is malfunctioning. Select different power settings and en-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.19,
+     992.25
+    ],
+    "attraverso": [
+     592,
+     624
+    ],
+    "base": 616.76,
+    "c": 18.45,
+    "apici": false,
+    "testo": "richen the mixture to determine if continued operation on “BOTH” magnetos is",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.19,
+     1018.8800000000001
+    ],
+    "attraverso": [
+     624,
+     656
+    ],
+    "base": 648.67,
+    "c": 18.45,
+    "apici": false,
+    "testo": "practicable. If not, switch to the good magneto and proceed to the nearest airport",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     162.19,
+     287.89
+    ],
+    "attraverso": [
+     656,
+     688
+    ],
+    "base": 680.58,
+    "c": 18.45,
+    "apici": false,
+    "testo": "for repairs.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     160.98,
+     407.71000000000004
+    ],
+    "attraverso": [
+     721,
+     746
+    ],
+    "base": 743.4,
+    "c": 18.45,
+    "apici": false,
+    "testo": "LOW OIL PRESSURE.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     210.6,
+     1040.67
+    ],
+    "attraverso": [
+     780,
+     813
+    ],
+    "base": 805.22,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If low oil pressure is accompanied by normal oil temperature, there is a possibil-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     158.56,
+     1011.62
+    ],
+    "attraverso": [
+     812,
+     844
+    ],
+    "base": 836.13,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ity the oil pressure gage or relief valve is malfunctioning. A leak in the line to the",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     158.56,
+     1045.56
+    ],
+    "attraverso": [
+     843,
+     875
+    ],
+    "base": 868.04,
+    "c": 18.45,
+    "apici": false,
+    "testo": "gage is not necessarily cause for an immediate precautionary landing because an orifice",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     158.56,
+     1034.6100000000001
+    ],
+    "attraverso": [
+     874,
+     906
+    ],
+    "base": 898.95,
+    "c": 18.45,
+    "apici": false,
+    "testo": "in this line will prevent a sudden loss of oil from the engine sump. However, a land-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     158.56,
+     957.15
+    ],
+    "attraverso": [
+     905,
+     937
+    ],
+    "base": 929.86,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ing at the nearest airport would be advisable to inspect the source of trouble.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     208.18,
+     1021.3
+    ],
+    "attraverso": [
+     967,
+     999
+    ],
+    "base": 991.68,
+    "c": 18.45,
+    "apici": false,
+    "testo": "If a total loss of oil pressure is accompanied by a rise in oil temperature, there",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     157.35,
+     1040.6599999999999
+    ],
+    "attraverso": [
+     998,
+     1030
+    ],
+    "base": 1022.59,
+    "c": 18.45,
+    "apici": false,
+    "testo": "is reason to suspect an engine failure is imminent. Reduce engine power immediately",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": 0,
+    "alto": 1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     157.35,
+     1045.56
+    ],
+    "attraverso": [
+     1029,
+     1060
+    ],
+    "base": 1052.51,
+    "c": 18.45,
+    "apici": false,
+    "testo": "and select a suitable forced landing field. Leave the engine running at low power dur-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     157.35,
+     1044.29
+    ],
+    "attraverso": [
+     1059,
+     1091
+    ],
+    "base": 1083.42,
+    "c": 18.45,
+    "apici": false,
+    "testo": "ing the approach, using only the minimum power required to reach the desired touch-",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 1,
+    "fine": -1,
+    "alto": -1
+   },
+   {
+    "rif": "libro",
+    "ang": 0,
+    "lungo": [
+     157.24,
+     284.27
+    ],
+    "attraverso": [
+     1090,
+     1122
+    ],
+    "base": 1114.33,
+    "c": 18.45,
+    "apici": false,
+    "testo": "down spot.",
+    "giro": 0,
+    "Lw": 1250,
+    "inizio": 0,
+    "fine": -1,
+    "alto": 0
+   }
+  ],
+  "macchie": [],
+  "righe": 27,
+  "righeFuori": [],
+  "fuori": 0.05698564290683701,
+  "numeri": [
+   {
+    "riga": 237,
+    "x": 946,
+    "valore": "3-9",
+    "tesseract": "3-9",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   },
+   {
+    "riga": 270,
+    "x": 972,
+    "valore": "3",
+    "tesseract": "3",
+    "pdf": true,
+    "vista": null,
+    "conferme": 2
+   }
+  ],
+  "dueVolte": true,
+  "deboli": [],
+  "chiuse": 0,
+  "dif": [],
+  "strane": [],
+  "sovrapposte": [],
+  "aperte": 0,
+  "dati": []
+ },
+ {
   "n": "5-12",
   "pdf": 68,
   "stato": "campione",

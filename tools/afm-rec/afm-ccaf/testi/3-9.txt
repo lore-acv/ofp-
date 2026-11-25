@@ -1,0 +1,25 @@
+172 | Flight Manual
+204 | Reims Rocket
+239 | Reims Aviation Page: 3-9
+270 | Reims, Marne France Edition: 3
+364 | eral minutes, determine if a richer mixture setting will produce smoother operation.
+396 | If not, proceed to the nearest airport for repairs using the “BOTH” position of the
+426 | ignition switch unless extreme roughness dictates the use of a single ignition position.
+490 | MAGNETO MALFUNCTION.
+552 | A sudden engine roughness or misfiring is usually evidence of magneto problems.
+582 | Switching from “BOTH” to either “LEFT” or “RIGHT” ignition switch position will
+613 | identify which magneto is malfunctioning. Select different power settings and en-
+644 | richen the mixture to determine if continued operation on “BOTH” magnetos is
+676 | practicable. If not, switch to the good magneto and proceed to the nearest airport
+708 | for repairs.
+771 | LOW OIL PRESSURE.
+833 | If low oil pressure is accompanied by normal oil temperature, there is a possibil-
+864 | ity the oil pressure gage or relief valve is malfunctioning. A leak in the line to the
+896 | gage is not necessarily cause for an immediate precautionary landing because an orifice
+927 | in this line will prevent a sudden loss of oil from the engine sump. However, a land-
+958 | ing at the nearest airport would be advisable to inspect the source of trouble.
+1020 | If a total loss of oil pressure is accompanied by a rise in oil temperature, there
+1051 | is reason to suspect an engine failure is imminent. Reduce engine power immediately
+1081 | and select a suitable forced landing field. Leave the engine running at low power dur-
+1112 | ing the approach, using only the minimum power required to reach the desired touch-
+1143 | down spot.

@@ -41,6 +41,15 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 | 2-6 | ricostruita | 57/57 | 0 | 29 (29 con 2+ conferme) | 0 | 12.0% | **verificata** |
 | 2-7 | ricostruita | 20/20 | 0 | 10 (10 con 2+ conferme) | 0 | 4.1% | **verificata** |
 | 2-8 | ricostruita | 17/17 | 0 | 11 (11 con 2+ conferme) | 0 | 4.2% | **verificata** |
+| 3-1 | ricostruita | 33/33 | 0 | 22 (22 con 2+ conferme) | 0 | 5.0% | **verificata** |
+| 3-2 | ricostruita | 39/39 | 0 | 19 (19 con 2+ conferme) | 0 | 6.4% | **verificata** |
+| 3-3 | ricostruita | 34/34 | 0 | 17 (17 con 2+ conferme) | 0 | 6.6% | **verificata** |
+| 3-4 | ricostruita | 36/36 | 0 | 14 (14 con 2+ conferme) | 0 | 6.6% | **verificata** |
+| 3-5 | ricostruita | 39/39 | 0 | 42 (42 con 2+ conferme) | 0 | 7.0% | **verificata** |
+| 3-6 | ricostruita | 39/39 | 0 | 23 (23 con 2+ conferme) | 0 | 7.4% | **verificata** |
+| 3-7 | ricostruita | 39/39 | 0 | 26 (26 con 2+ conferme) | 0 | 11.4% | **verificata** |
+| 3-8 | ricostruita | 39/39 | 0 | 3 (3 con 2+ conferme) | 0 | 6.1% | **verificata** |
+| 3-9 | ricostruita | 27/27 | 0 | 2 (2 con 2+ conferme) | 0 | 5.7% | **verificata** |
 | 5-12 | campione | 26/26 | 0 | 17 (17 con 2+ conferme) | 0 | 7.1% | **verificata** |
 
 ## Figure: metodo
@@ -56,6 +65,16 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 - **Cartelli (1) e (2) di pagina 2-6** (pagina 2-6): bordi, filetti, sottolineature e puntini guida dei cartelli: tratto vettorializzato con potrace (tratto.py); scritte: testo vero, carattere senza grazie condensato per il cartello (1) come nell'originale, lette a vista sull'ingrandimento (costruisci/2-6.py).
 - **Cartelli (3)-(7) di pagina 2-7** (pagina 2-7): riquadri: tratto vettorializzato con potrace (tratto.py); scritte: testo vero.
 - **Cartello (8) di pagina 2-8** (pagina 2-8): riquadro e sottolineatura: tratto vettorializzato con potrace (tratto.py); puntini guida dell'ultima riga, irregolari nell'originale (un puntino in alto e due ravvicinati): disegno; scritte: testo vero.
+- **Grafica della sezione (barre e frecce)** (pagina 3-1): ridisegnata in SVG: rettangolo e poligoni misurati sulla scansione (le barre sono un poco inclinate come stampate).
+- **Striscia delle procedure di emergenza** (pagina 3-1): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-2): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-3): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-4): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-5): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-6): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-7): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-8): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
+- **Striscia delle procedure di emergenza** (pagina 3-9): barre oblique misurate una per una (strisce.py): inviluppo dei pixel ridotto a quadrilatero.
 - **Figura 5-7 (Maximum glide)** (pagina 5-12): cornice e griglia: filetti SVG misurati; fascia di planata: 689 punti della retinatura ridisegnati uno per uno nella posizione misurata sulla scansione, piu' 117 punti ricavati dal reticolo locale solo dove si fondono con i filetti della griglia; aeroplano: disegno al tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto i filetti e i punti che lo attraversano (tools/afm-rec/afm-ccaf/figure/fig-5-7.py); scritte: testo vero, misurato parola per parola.
 
 ## Differenze aperte
@@ -624,6 +643,232 @@ Confronto con i dati del progetto:
 | 753 | 13 | 13 ✓ | – | ✓ Tesseract legge 13; lo strato del PDF no · seconda conferma: pagina 2-5: 8000 Feet 13 gal/hr | 3 |
 | 784 | 12000 | 12000 ✓ | ✓ |  | 2 |
 | 784 | 11 | l  | ✓ | ✓ OCR legge l; a vista: 12000 FT 11 GPH · seconda conferma: pagina 2-5: 12000 Feet 11 gal/hr | 3 |
+
+### Pagina 3-1 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 234 | 3-1 | 3-  | ✓ | ✓ OCR legge 3- (ritaglio stretto); a vista: Page: 3-1 · seconda conferma: posizione nel PDF: pagina 31, prima pagina della sezione III dopo 2-8 (mappa tools/afm/afm-ccaf.json) | 3 |
+| 265 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 763 | (1) | (1) ✓ | ✓ |  | 2 |
+| 794 | (2) | (2) ✓ | ✓ |  | 2 |
+| 825 | (3) | (3) ✓ | ✓ |  | 2 |
+| 886 | (4) | (4) ✓ | ✓ |  | 2 |
+| 917 | (5) | (5) ✓ | ✓ |  | 2 |
+| 1041 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1041 | 129 | 129 ✓ | ✓ |  | 2 |
+| 1041 | 70 | 70 ✓ | ✓ |  | 2 |
+| 1041 | 80 | 80 ✓ | ✓ |  | 2 |
+| 1072 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1102 | (3) | (3) ✓ | ✓ |  | 2 |
+| 1134 | (4) | (4) ✓ | ✓ |  | 2 |
+| 1165 | (5) | (5) ✓ | ✓ |  | 2 |
+| 1504 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1504 | 137 | 137 ✓ | ✓ |  | 2 |
+| 1504 | 74 | 74 ✓ | ✓ |  | 2 |
+| 1504 | 85 | 85 ✓ | ✓ |  | 2 |
+| 1569 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1599 | (3) | (3) ✓ | ✓ |  | 2 |
+| 1630 | (4) | (4) ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- Planata dopo il decollo 129 km/h - 70 kts - 80 MPH: la terna torna (129 km/h = 69,7 kt = 80,2 MPH) ✓
+- Planata in volo 137 km/h - 74 kts - 85 MPH: DATI-AFM.md, V best glide 85 MPH (fig. 5-7) ✓; la terna torna (137 km/h = 74,0 kt = 85,1 MPH) ✓
+
+### Pagina 3-2 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 190 | 3-2 | 3-2 ✓ | ✓ |  | 2 |
+| 334 | 3 | 3 ✓ | ✓ |  | 2 |
+| 424 | (5) | (3)  | ✓ | ✓ OCR legge altro; a vista: (5) · seconda conferma: la numerazione dei punti: (5) viene fra (4) di 3-1 (in fondo) e (6) nello stesso elenco | 3 |
+| 424 | 3-5 | 3-5 ✓ | ✓ |  | 2 |
+| 453 | 1/2 | 1/2 ✓ | ✓ |  | 2 |
+| 484 | (6) | (6) ✓ | ✓ |  | 2 |
+| 484 | (2,5 | (2,5 ✓ | ✓ |  | 2 |
+| 514 | (7) | (7) ✓ | ✓ |  | 2 |
+| 698 | (1) | (1) ✓ | ✓ |  | 2 |
+| 729 | (2) | (2) ✓ | ✓ |  | 2 |
+| 760 | (3) | (3) ✓ | ✓ |  | 2 |
+| 791 | (4) | (4) ✓ | ✓ |  | 2 |
+| 822 | (5) | (5) ✓ | ✓ |  | 2 |
+| 1343 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1373 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1403 | (3) | (3) ✓ | ✓ |  | 2 |
+| 1433 | (4) | (4) ✓ | ✓ |  | 2 |
+| 1463 | (5) | (5) ✓ | ✓ |  | 2 |
+| 1644 | (6) | (6) ✓ | ✓ |  | 2 |
+
+### Pagina 3-3 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 238 | 3-3 | 3-3 ✓ | ✓ |  | 2 |
+| 271 | 3 | 3 ✓ | ✓ |  | 2 |
+| 517 | (1) | (1) ✓ | ✓ |  | 2 |
+| 545 | (2) | (2) ✓ | ✓ |  | 2 |
+| 576 | (3) | (3) ✓ | ✓ |  | 2 |
+| 607 | (4) | (4) ✓ | ✓ |  | 2 |
+| 607 | 193 | 193 ✓ | ✓ |  | 2 |
+| 607 | 104 | 104 ✓ | ✓ |  | 2 |
+| 607 | 120 | 120 ✓ | ✓ |  | 2 |
+| 638 | (5) | (5) ✓ | ✓ |  | 2 |
+| 669 | (6) | (6) ✓ | ✓ |  | 2 |
+| 700 | (7) | (7) ✓ | ✓ |  | 2 |
+| 762 | (8) | (8) ✓ | ✓ |  | 2 |
+| 948 | (1) | (1) ✓ | ✓ |  | 2 |
+| 979 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1435 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1466 | (2) | (2) ✓ | ✓ |  | 2 |
+
+### Pagina 3-4 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 187 | 3-4 | 34  | – | ✓ a vista: Page: 3-4 · seconda conferma: posizione nel PDF: pagina 34, fra 3-3 e 3-5 (mappa tools/afm/afm-ccaf.json) | 2 |
+| 325 | 3 | 3 ✓ | ✓ |  | 2 |
+| 704 | (1) | (1) ✓ | ✓ |  | 2 |
+| 732 | (2) | (2) ✓ | ✓ |  | 2 |
+| 764 | (3) | (3) ✓ | ✓ |  | 2 |
+| 828 | (4) | (4) ✓ | ✓ |  | 2 |
+| 858 | (5) | (3)  | – | ✓ OCR legge altro; a vista: (5) · seconda conferma: la numerazione dei punti: (5) viene fra (4) e (6) nello stesso elenco | 2 |
+| 921 | (6) | (6) ✓ | ✓ |  | 2 |
+| 1168 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1199 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1410 | 121 | 121 ✓ | ✓ |  | 2 |
+| 1410 | 65 | 65 ✓ | – | ✓ a vista: 121 km/h - 65 kts · seconda conferma: la terna torna: 121 km/h = 65,3 kt = 75,2 MPH; e la stessa terna 121 km/h - 65 kts - 75 MPH sta su 3-5 (righe 635 e 791) | 3 |
+| 1441 | 75 | 15  | – | ✓ OCR legge 15; a vista: 75 MPH · seconda conferma: la terna torna: 121 km/h = 65,3 kt = 75,2 MPH; e la stessa terna 121 km/h - 65 kts - 75 MPH sta su 3-5 (righe 635 e 791) | 2 |
+| 1441 | 20°) | 209)  | – | ✓ OCR legge 209); a vista: 20 con la o in apice · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado | 2 |
+
+### Pagina 3-5 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 228 | 3-5 | 3-5 ✓ | ✓ |  | 2 |
+| 259 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 605 | (1) | (1) ✓ | ✓ |  | 2 |
+| 635 | (2) | (2) ✓ | ✓ |  | 2 |
+| 635 | 20° | 20 ✓ | – | ✓ a vista: 20 con la o in apice · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado | 3 |
+| 635 | 121 | 121 ✓ | ✓ |  | 2 |
+| 635 | 65 | 65 ✓ | ✓ |  | 2 |
+| 635 | 75 | 75 ✓ | ✓ |  | 2 |
+| 728 | (3) | (3) ✓ | ✓ |  | 2 |
+| 791 | (4) | (4) ✓ | ✓ |  | 2 |
+| 791 | 40° | 40 ✓ | – | ✓ a vista: 40 con la o in apice · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado | 3 |
+| 791 | 121 | 121 ✓ | ✓ |  | 2 |
+| 791 | 65 | 65 ✓ | ✓ |  | 2 |
+| 791 | 75 | 75 ✓ | ✓ |  | 2 |
+| 822 | (5) | (5) ✓ | ✓ |  | 2 |
+| 853 | (6) | (6) ✓ | ✓ |  | 2 |
+| 885 | (7) | (7) ✓ | ✓ |  | 2 |
+| 1068 | 137 | 137 ✓ | ✓ |  | 2 |
+| 1068 | 74 | 14  | ✓ | ✓ OCR legge 14; a vista: 137 km/h - 74 kts - 85 MPH · seconda conferma: la terna torna: 137 km/h = 74,0 kt = 85,1 MPH; DATI-AFM.md V best glide 85 MPH; uguale su 3-1 | 3 |
+| 1100 | 85 | 85 ✓ | ✓ |  | 2 |
+| 1315 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1344 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1374 | (3) | (3) ✓ | ✓ |  | 2 |
+| 1405 | (4) | (4) ✓ | ✓ |  | 2 |
+| 1405 | 121 | 121 ✓ | ✓ |  | 2 |
+| 1405 | 137 | 137 ✓ | ✓ |  | 2 |
+| 1405 | 65 | 65 ✓ | ✓ |  | 2 |
+| 1405 | 74 | 14  | ✓ | ✓ OCR legge 14; a vista: 65 to 74 kts · seconda conferma: la terna torna: 137 km/h = 74,0 kt = 85,1 MPH (85 MPH sulla stessa riga) | 3 |
+| 1405 | 75 | 15  | ✓ | ✓ OCR legge 15; a vista: 75 to 85 MPH · seconda conferma: la terna torna: 121 km/h = 65,3 kt = 75,2 MPH (121 e 65 sulla stessa riga) | 3 |
+| 1405 | 85 | 85 ✓ | ✓ |  | 2 |
+| 1435 | (5) | (5) ✓ | ✓ |  | 2 |
+| 1466 | (6) | (6) ✓ | ✓ |  | 2 |
+| 1466 | 113 | 13  | ✓ | ✓ OCR legge 13; a vista: 113 to 129 km/h · seconda conferma: la terna torna: 113 km/h = 61,0 kt = 70,2 MPH; e 113 km/h - 61 kts - 70 MPH sta anche su 3-6 (riga 701) | 3 |
+| 1466 | 129 | 129 ✓ | ✓ |  | 2 |
+| 1466 | 61 | 6)  | ✓ | ✓ OCR legge 6); a vista: 61 to 70 kts · seconda conferma: 113 km/h = 61,0 kt; la stessa terna su 3-6 (riga 701) | 3 |
+| 1466 | 70 | 70 ✓ | ✓ |  | 2 |
+| 1466 | 70 | 70 ✓ | ✓ |  | 2 |
+| 1466 | 80 | 80 ✓ | ✓ |  | 2 |
+| 1530 | (7) | (7) ✓ | ✓ |  | 2 |
+| 1561 | (8) | (8) ✓ | ✓ |  | 2 |
+| 1591 | (9) | (9) ✓ | ✓ |  | 2 |
+| 1623 | (10) | (10) ✓ | – | ✓ OCR legge altro; a vista: (10) · seconda conferma: la numerazione dei punti: (10) viene fra (9) e la fine dell'elenco nello stesso elenco | 3 |
+
+Confronto con i dati del progetto:
+
+- Velocita' della sezione III, tutte terne km/h - kts - MPH che tornano fra loro (1 kt = 1,852 km/h, 1 MPH = 1,609 km/h): 113-61-70, 121-65-75, 129-70-80, 137-74-85 (V best glide 85 MPH in DATI-AFM.md), 145-78-90, 193-104-120 ✓
+
+### Pagina 3-6 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 179 | 3-6 | 3-6 ✓ | ✓ |  | 2 |
+| 326 | 3 | 3 ✓ | ✓ |  | 2 |
+| 546 | 121.5 | 121.5 ✓ | ✓ |  | 2 |
+| 608 | (1) | (1) ✓ | ✓ |  | 2 |
+| 670 | (2) | (2) ✓ | ✓ |  | 2 |
+| 670 | 40° | 409  | – | ✓ OCR legge 409; a vista: 40 con la o in apice · seconda conferma: DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado | 2 |
+| 670 | 300 | 300 ✓ | ✓ |  | 2 |
+| 701 | 113 | 113 ✓ | ✓ |  | 2 |
+| 701 | 61 | 61 ✓ | ✓ |  | 2 |
+| 701 | 70 | 70 ✓ | ✓ |  | 2 |
+| 732 | (3) | (3) ✓ | ✓ |  | 2 |
+| 763 | (4) | (4) ✓ | ✓ |  | 2 |
+| 856 | (5) | (5) ✓ | ✓ |  | 2 |
+| 886 | (6) | (6) ✓ | ✓ |  | 2 |
+| 950 | (7) | (7) ✓ | ✓ |  | 2 |
+| 1315 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1346 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1407 | (3) | (3) ✓ | ✓ |  | 2 |
+| 1468 | (4) | (4) ✓ | ✓ |  | 2 |
+| 1499 | (5) | (5) ✓ | ✓ |  | 2 |
+| 1559 | (6) | (6) ✓ | ✓ |  | 2 |
+| 1559 | 0,5 | 0,5 ✓ | ✓ |  | 2 |
+| 1619 | (7) | (7) ✓ | ✓ |  | 2 |
+
+Confronto con i dati del progetto:
+
+- 121.5 MHz: la frequenza d'emergenza aeronautica ✓; 0,5 cm di ghiaccio, 300 ft./min.: nessuna fonte del progetto da confrontare (due letture concordi)
+
+### Pagina 3-7 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 232 | 3-7 | 3-7 ✓ | ✓ |  | 2 |
+| 262 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 362 | (8) | (8) ✓ | ✓ |  | 2 |
+| 421 | (9) | (9) ✓ | ✓ |  | 2 |
+| 484 | (10) | (10) ✓ | ✓ |  | 2 |
+| 484 | 129 | 129 ✓ | ✓ |  | 2 |
+| 484 | 145 | 145 ✓ | ✓ |  | 2 |
+| 484 | 70 | 70 ✓ | ✓ |  | 2 |
+| 484 | 78 | 78 ✓ | ✓ |  | 2 |
+| 484 | 80 | 80 ✓ | ✓ |  | 2 |
+| 484 | 90 | 90 ✓ | ✓ |  | 2 |
+| 547 | (11) | (11) ✓ | ✓ |  | 2 |
+| 577 | (12) | (12) ✓ | ✓ |  | 2 |
+| 828 | (1) | (1) ✓ | ✓ |  | 2 |
+| 857 | (2) | (2) ✓ | ✓ |  | 2 |
+| 920 | (3) | 3) ✓ | ✓ |  | 2 |
+| 953 | 145 | 145 ✓ | ✓ |  | 2 |
+| 953 | 78 | 78 ✓ | ✓ |  | 2 |
+| 953 | 90 | 90 ✓ | ✓ |  | 2 |
+| 982 | (4) | (4) ✓ | ✓ |  | 2 |
+| 982 | 145 | 145 ✓ | ✓ |  | 2 |
+| 982 | 78 | 78 ✓ | ✓ |  | 2 |
+| 982 | 90 | 90 ✓ | ✓ |  | 2 |
+| 1045 | (5) | (5) ✓ | ✓ |  | 2 |
+| 1107 | (6) | (6) ✓ | ✓ |  | 2 |
+| 1169 | (7) | (7) ✓ | ✓ |  | 2 |
+
+### Pagina 3-8 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 236 | 3-8 | if  | – | ✓ a vista: Page: 3-8 · seconda conferma: posizione nel PDF: pagina 38, fra 3-7 e 3-9 (mappa tools/afm/afm-ccaf.json) | 2 |
+| 336 | 3 | 3 ✓ | – | ✓ a vista: Edition: 3 · seconda conferma: tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate) | 3 |
+| 806 | 16 | 16 ✓ | ✓ |  | 2 |
+
+### Pagina 3-9 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 237 | 3-9 | 3-9 ✓ | ✓ |  | 2 |
+| 270 | 3 | 3 ✓ | ✓ |  | 2 |
 
 ### Pagina 5-12 (due conferme)
 

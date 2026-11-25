@@ -1,0 +1,37 @@
+170 | Flight Manual
+202 | Reims Rocket
+232 | Reims Aviation Page: 3-5
+262 | Reims, Marne France Edition: 3
+357 titolo | FORCED LANDINGS.
+419 | PRECAUTIONARY LANDING WITH ENGINE POWER.
+480 | Before attempting an “off airport” landing, one should drag the landing area at
+511 | a safe but low altitude to inspect the terrain for obstructions and surface conditions,
+543 | proceeding as follows:
+605 | (1) Perform “before landing” check.
+635 | (2) Drag over selected field with flaps 20° and 121 km/h - 65 kts - 75 MPH
+666 | airspeed, noting the preferred area for touchdown for the next landing approach.
+697 | Then retract flaps after well clear of all obstacles.
+728 | (3) On downwind leg, turn off all switches except the ignition and master
+760 | switches.
+791 | (4) Approach with flaps 40° at 121 km/h - 65 kts - 75 MPH.
+822 | (5) Unlatch cabin doors prior to final approach.
+853 | (6) Before touchdown, turn ignition and master switches “OFF.”
+885 | (7) Land in a slightly tail-low attitude.
+1007 | EMERGENCY LANDING WITHOUT ENGINE POWER.
+1068 | If an engine stoppage occurs, establish a flaps up glide at 137 km/h - 74 kts -
+1100 | 85 MPH. If time permits, attempt to restart the engine by checking for fuel quantity,
+1130 | proper fuel selector valve position, and mixture control setting. Also check that en-
+1160 | gine primer is full in and locked and ignition switch is properly positioned.
+1222 | If all attempts to restart the engine fail, and a forced landing is imminent, select
+1253 | a suitable field and prepare for the landing as follows:
+1315 | (1) Pull mixture control to idle cut-off position.
+1344 | (2) Pull fuel shutoff valve knob full out.
+1374 | (3) Turn all switches “OFF” except master switch.
+1405 | (4) Airspeed - - 121 to 137 km/h - 65 to 74 kts - 75 to 85 MPH (flaps up).
+1435 | (5) Extend wing flaps as necessary within gliding distance of field.
+1466 | (6) Airspeed - - 113 to 129 km/h - 61 to 70 kts - 70 to 80 MPH (flaps
+1496 | down).
+1530 | (7) Turn master switch “OFF.”
+1561 | (8) Unlatch cabin doors prior to final approach.
+1591 | (9) Land in a slightly tail-low attitude.
+1623 | (10) Apply heavy braking while holding full up elevator.

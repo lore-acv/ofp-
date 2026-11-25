@@ -1,0 +1,32 @@
+178 | Flight Manual
+209 | Reims Rocket
+240 | Reims Aviation Page: 3-3
+271 | Reims, Marne France Edition: 3
+362 | ENGINE FIRE IN FLIGHT.
+424 | Although engine fires are extremely rare in flight, the following steps should be
+455 | taken if one is encountered:
+517 | (1) Pull mixture control to idle cut-off.
+545 | (2) Pull fuel shutoff valve knob full out.
+576 | (3) Turn master switch “OFF.”
+607 | (4) Establish a 193 km/h - 104 kts - 120 MPH glide.
+638 | (5) Close cabin heat control and cabin air control.
+669 | (6) Select a field suitable for a forced landing.
+700 | (7) If fire is not extinguished, increase glide speed in an attempt to find an
+731 | airspeed that will provide an incombustible mixture.
+762 | (8) Execute a forced landing as described in paragraph Emergency Landing
+793 | Without Engine Power. Do not attempt to restart the engine.
+886 | CABIN FIRE.
+948 | (1) Master Switch - - ”OFF”.
+979 | (2) Cabin Heating and Ventilation Controls - - Closed (to avoid drafts).
+1040 | NOTE
+1101 | Use a portable extinguisher if available. If the fire cannot be ex-
+1131 | tinguished, land the aircraft as soon as possible.
+1192 | IMPORTANT
+1255 | After discharging an extinguisher within a closed cabin, ventilating
+1286 | the cabin is recommended.
+1374 | WING FIRE.
+1435 | (1) Master Switch - - “OFF”.
+1466 | (2) Ventilating Controls - - Closed.
+1529 | NOTE
+1591 | Perform a sideslip to keep flames away from the fuel tank and
+1622 | cabin, and land as soon as possible with flaps retracted.

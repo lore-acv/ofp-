@@ -1,0 +1,37 @@
+168 | Flight Manual
+199 | Reims Rocket
+238 | Reims Aviation Page: 3-7
+268 | Reims, Marne France Edition: 3
+362 | (8) Open left window and, if practical, scrape ice from a portion of the wind-
+393 | shield for visibility in the landing approach.
+424 | (9) Perform a landing approach using a forward slip, if necessary, for improved
+455 | visibility.
+484 | (10) Approach at 129 to 145 km/h - 70 to 78 kts - 80 to 90 MPH, depending
+515 | upon the amount of ice accumulation.
+547 | (11) Avoid steep turns during the landing approach.
+577 | (12) Perform a landing in level attitude.
+702 titolo | RECOVERY FROM A SPIRAL DIVE.
+765 | If a spiral is encountered, proceed as follows:
+828 | (1) Close the throttle.
+857 | (2) Stop the turn by using coordinated aileron and rudder control to align the
+888 | symbolic airplane in the turn coordinator with the horizon reference line.
+920 | (3) Cautiously apply elevator back pressure to slowly reduce the indicated air-
+953 | speed to 145 km/h - 78 kts - 90 MPH.
+982 | (4) Adjust the elevator trim control to maintain a 145 km/h - 78 kts - 90 MPH
+1018 | glide.
+1045 | (5) Keep hands off the control wheel, using rudder control to hold a straight
+1079 | heading.
+1107 | (6) Clear engine occasionally, but avoid using enough power to disturb the
+1140 | trimmed glide.
+1169 | (7) Upon breaking out of clouds, apply normal cruising power and resume
+1202 | flight.
+1322 titolo | ELECTRICAL POWER SUPPLY SYSTEM MALFUNCTIONS.
+1383 | Malfunctions in the electrical power supply system can be detected by periodic
+1414 | monitoring of the ammeter and over-voltage warning light; however, the cause of
+1444 | these malfunctions is usually difficult to determine. Broken or loose alternator wir-
+1476 | ing is most likely the cause of alternator failures, although other factors could cause
+1507 | the problem. A damaged or improperly adjusted voltage regulator can also cause
+1540 | malfunctions. Problems of this nature constitute an electrical emergency and should
+1571 | be dealt with immediately. Electrical power malfunctions usually fall into two cate-
+1601 | gories: excessive rate of charge and insufficient rate of charge. The paragraphs be-
+1632 | low describe the recommended remedy for each situation.

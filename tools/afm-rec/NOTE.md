@@ -100,6 +100,28 @@ scansione non e' stampa stanno in fondo.
   (le figure non seguono il numero di pagina).
 - "SPEED VI:": la sigla e' VI (velocita' indicata), come nell'originale.
 
+### Sezione III (pagine 3-1 … 3-9)
+- **Striscia delle procedure di emergenza**: sul bordo esterno di ogni pagina
+  (a destra sulle dispari, a sinistra sulle pari) c'e' una fila di barre nere
+  oblique. Si ricostruiscono come quadrilateri misurati uno per uno
+  (`strisce.py`); dove una barra e' piu' lunga delle altre (3-2, 3-6 in alto)
+  o tagliata dal bordo della pagina, e' cosi' anche nella scansione.
+- "Throttle - - Idle.", "Mixture - - Rich." ecc.: nella stampa il segno fra
+  la voce e l'azione sono due trattini corti separati, e cosi' restano (non
+  diventano una lineetta). Dove ce n'e' uno solo, lungo ("Switch – “OFF”",
+  "Handle – “BOTH”"), e' una lineetta.
+- 3-3, "(1) Master Switch - - ”OFF”.": l'apertura e' la virgoletta di
+  chiusura (”), errore di stampa; resta. Nello stesso elenco di "WING FIRE."
+  la virgoletta e' giusta (“OFF”).
+- 3-2, 3-4, 3-6, 3-8: nell'intestazione "Page:" ed "Edition:" sono molto
+  distanti (piu' di cento pixel): e' l'impaginazione dell'originale, si segue.
+- "20°", "40°": nella stampa il grado e' una o piccola in apice; si scrive
+  col segno di grado.
+- 3-5, "approach." in fondo alla riga 666: il punto cade sotto la barra della
+  striscia (nero su nero, non si vede); si scrive.
+- 3-2 e 3-4, 3-6, 3-8: segni a evidenziatore sopra "Page:" e "Reims
+  Aviation"; non si ricostruiscono (vedi sotto).
+
 ## Decisioni su cio' che nella scansione non e' stampa
 - **Sottolineature colorate** (giallo, azzurro) sulla scansione di I-CCAF:
   sono segni a evidenziatore sulla copia scansionata, non stampa del manuale.

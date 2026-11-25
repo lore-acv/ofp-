@@ -1,0 +1,34 @@
+121 | Flight Manual
+153 | Reims Rocket
+183 | Page: 3-4 Reims Aviation
+323 | Edition: 3 Reims, Marne France
+420 | ELECTRICAL FIRE IN FLIGHT.
+482 | The initial indication of an electrical fire is the odor of burning insulation. The
+514 | immediate response should be to turn the master switch “OFF.” Then close off ven-
+545 | tilating air as much as practicable to reduce the chances of a sustained fire.
+608 | If electrical power is indispensable for the flight, an attempt may be made to
+640 | identify and cut off the defective circuit as follows:
+704 | (1) Master Switch – “OFF.”
+732 | (2) All other switches (except ignition switch) - - “OFF.”
+764 | (3) Check condition of circuit breakers to identify faulty circuit if possible.
+796 | Leave faulty circuit deactivated.
+828 | (4) Master Switch - - “ON.”
+858 | (5) Select switches “ON” successively, permitting a short time delay to elapse
+890 | after each switch is turned on until the short circuit is localized.
+921 | (6) Make sure fire is completely extinguished before opening ventilators.
+1045 titolo | LANDING.
+1106 | LANDING WITH A FLAT TIRE.
+1168 | (1) Expect the airplane to swing toward the flat tire side.
+1199 | (2) Lower the flaps normally and land the airplane with nose up and wing
+1230 | tilted to hold the flat tire off the ground as long as possible. At touchdown,
+1260 | directional control can be maintained with rudder and the brake on good wheel.
+1349 | LANDING WITHOUT PITCH CONTROL.
+1410 | Trim for horizontal flight (with an airspeed of approximately 121 km/h - 65
+1441 | kts - 75 MPH and flaps set to 20°) by using throttle and elevator trim controls.
+1472 | Then do not change the elevator trim setting; control the glide angle by adjusting
+1502 | power exclusively.
+1564 | At flareout, the nose down moment resulting from power reduction is an ad-
+1594 | verse factor and the aircraft may hit on the nose wheel. Consequently at flareout
+1625 | the elevator trim should be rolled toward the nose up position and the power ad-
+1656 | justed so that the aircraft will rotate to the horizontal attitude for touchdown.
+1687 | Close the throttle at touchdown.

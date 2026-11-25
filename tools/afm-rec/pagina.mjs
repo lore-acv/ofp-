@@ -120,6 +120,8 @@ export function pienaPagina(p, stile, variante = 'pieno') {
     if (tipo === 'svg') return ['svg', `<g transform="matrix(${T.ax},0,0,${T.ay},${T.bx},${T.by})">${e[1]}</g>`];
     return e;
   });
+  // la colonna del testo (sezione III: fuori c'e' la striscia) segue la stessa trasformazione
+  if (q.colonna && p.rot !== -90) q.colonna = q.colonna.map((x) => n3(T.ax * x + T.bx));
   q.pieno = { libro: L };
   return q;
 }

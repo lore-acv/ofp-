@@ -1,0 +1,37 @@
+127 | Flight Manual
+158 | Reims Rocket
+194 | Page: 3-2 Reims Aviation
+331 | Edition: 3 Reims, Marne France
+424 | (5) Auxiliary Fuel Pump Switch - - On “HIGH” for 3-5 seconds with throttle
+453 | 1/2 open, then switch to “OFF” position.
+484 | (6) Throttle - - Opened one inch (2,5 cm).
+514 | (7) Ignition Switch - - “BOTH”.
+576 | If the propeller is allowed to stop windmilling, the engine will have to be turned
+607 | with the starter. If the engine will not start, select an unobstructed area to land in and
+637 | secure the engine as follows:
+698 | (1) Throttle - - Closed.
+729 | (2) Mixture - - Idle cut-off (pulled full-out).
+760 | (3) Fuel Shutoff Knob - - Pulled full out.
+791 | (4) Ignition Switch - - “OFF”.
+822 | (5) Leave master switch “ON” so that flaps can be extended.
+873 | NOTE
+917 | Full flaps are recommended for emergency landings on unpaved
+948 | surfaces.
+1008 titolo | FIRES.
+1067 | ENGINE FIRE DURING START ON GROUND.
+1129 | Improper starting procedures involving the excessive use of auxiliary fuel pump
+1160 | operation can cause engine flooding and subsequent collection of fuel on the parking
+1192 | ramp. This is sometimes experienced in difficult starts in cold weather where engine
+1223 | preheat service is not available. If this occurs, the airplane should be pushed away
+1252 | from the fuel puddle before another engine start is attempted. In the rare event that
+1282 | the fuel puddle is ignited by exhaust from the tailpipe, proceed as follows:
+1343 | (1) Turn auxiliary fuel pump “OFF.”
+1373 | (2) Move mixture control to idle cut-off.
+1403 | (3) Release parking brake,
+1433 | (4) Obtain fire extinguisher.
+1463 | (5) Extinguish fire with fire extinguisher.
+1509 | NOTE
+1554 | If fire extinguisher is not available, move aircraft away from the
+1584 | fire by pushing rearward on the leading edge of the horizontal tail.
+1644 | (6) Make a thorough inspection of fire damage, and repair or replace damaged
+1674 | components before conducting another flight.

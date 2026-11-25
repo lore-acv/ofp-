@@ -829,5 +829,204 @@
         "seconda": "pagina 2-5: 12000 Feet 11 gal/hr"
       }
     ]
+  },
+  "3-1": {
+    "letti": [
+      {
+        "riga": 234,
+        "x": 946,
+        "valore": "3-1",
+        "come": "OCR legge 3- (ritaglio stretto); a vista: Page: 3-1",
+        "seconda": "posizione nel PDF: pagina 31, prima pagina della sezione III dopo 2-8 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 265,
+        "x": 975,
+        "valore": "3",
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)"
+      }
+    ],
+    "dati": [
+      "Planata dopo il decollo 129 km/h - 70 kts - 80 MPH: la terna torna (129 km/h = 69,7 kt = 80,2 MPH) ✓",
+      "Planata in volo 137 km/h - 74 kts - 85 MPH: DATI-AFM.md, V best glide 85 MPH (fig. 5-7) ✓; la terna torna (137 km/h = 74,0 kt = 85,1 MPH) ✓"
+    ]
+  },
+  "3-2": {
+    "letti": [
+      {
+        "riga": 424,
+        "x": 306,
+        "valore": "(5)",
+        "come": "OCR legge altro; a vista: (5)",
+        "seconda": "la numerazione dei punti: (5) viene fra (4) di 3-1 (in fondo) e (6) nello stesso elenco"
+      }
+    ]
+  },
+  "3-4": {
+    "letti": [
+      {
+        "riga": 187,
+        "x": 313,
+        "valore": "3-4",
+        "come": "a vista: Page: 3-4",
+        "seconda": "posizione nel PDF: pagina 34, fra 3-3 e 3-5 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 858,
+        "x": 293,
+        "valore": "(5)",
+        "come": "OCR legge altro; a vista: (5)",
+        "seconda": "la numerazione dei punti: (5) viene fra (4) e (6) nello stesso elenco"
+      },
+      {
+        "riga": 1441,
+        "x": 294,
+        "valore": "75",
+        "come": "OCR legge 15; a vista: 75 MPH",
+        "seconda": "la terna torna: 121 km/h = 65,3 kt = 75,2 MPH; e la stessa terna 121 km/h - 65 kts - 75 MPH sta su 3-5 (righe 635 e 791)"
+      },
+      {
+        "riga": 1441,
+        "x": 505,
+        "valore": "20°)",
+        "come": "OCR legge 209); a vista: 20 con la o in apice",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado"
+      },
+      {
+        "riga": 1410,
+        "x": 912,
+        "valore": "65",
+        "come": "a vista: 121 km/h - 65 kts",
+        "seconda": "la terna torna: 121 km/h = 65,3 kt = 75,2 MPH; e la stessa terna 121 km/h - 65 kts - 75 MPH sta su 3-5 (righe 635 e 791)"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "power exclusively.",
+        "base": 1502,
+        "come": "la riga e' al suo posto (ingrandimento della differenza: inizio e fine coincidono); la fascia di controllo, per una riga corta, prende in alto la coda della g di \"change\" della riga sopra, che nella ricostruita scende un pixel piu' in basso: e' quella a dare la fine 5 px piu' in la'"
+      }
+    ]
+  },
+  "3-5": {
+    "letti": [
+      {
+        "riga": 259,
+        "x": 978,
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+        "valore": "3"
+      },
+      {
+        "riga": 1068,
+        "x": 895,
+        "valore": "74",
+        "come": "OCR legge 14; a vista: 137 km/h - 74 kts - 85 MPH",
+        "seconda": "la terna torna: 137 km/h = 74,0 kt = 85,1 MPH; DATI-AFM.md V best glide 85 MPH; uguale su 3-1"
+      },
+      {
+        "riga": 1405,
+        "x": 674,
+        "valore": "74",
+        "come": "OCR legge 14; a vista: 65 to 74 kts",
+        "seconda": "la terna torna: 137 km/h = 74,0 kt = 85,1 MPH (85 MPH sulla stessa riga)"
+      },
+      {
+        "riga": 1405,
+        "x": 745,
+        "valore": "75",
+        "come": "OCR legge 15; a vista: 75 to 85 MPH",
+        "seconda": "la terna torna: 121 km/h = 65,3 kt = 75,2 MPH (121 e 65 sulla stessa riga)"
+      },
+      {
+        "riga": 1466,
+        "x": 472,
+        "valore": "113",
+        "come": "OCR legge 13; a vista: 113 to 129 km/h",
+        "seconda": "la terna torna: 113 km/h = 61,0 kt = 70,2 MPH; e 113 km/h - 61 kts - 70 MPH sta anche su 3-6 (riga 701)"
+      },
+      {
+        "riga": 1466,
+        "x": 622,
+        "valore": "61",
+        "come": "OCR legge 6); a vista: 61 to 70 kts",
+        "seconda": "113 km/h = 61,0 kt; la stessa terna su 3-6 (riga 701)"
+      },
+      {
+        "riga": 635,
+        "x": 651,
+        "valore": "20°",
+        "come": "a vista: 20 con la o in apice",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado"
+      },
+      {
+        "riga": 791,
+        "x": 537,
+        "valore": "40°",
+        "come": "a vista: 40 con la o in apice",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado"
+      },
+      {
+        "riga": 1623,
+        "x": 309,
+        "valore": "(10)",
+        "come": "OCR legge altro; a vista: (10)",
+        "seconda": "la numerazione dei punti: (10) viene fra (9) e la fine dell'elenco nello stesso elenco"
+      }
+    ],
+    "dati": [
+      "Velocita' della sezione III, tutte terne km/h - kts - MPH che tornano fra loro (1 kt = 1,852 km/h, 1 MPH = 1,609 km/h): 113-61-70, 121-65-75, 129-70-80, 137-74-85 (V best glide 85 MPH in DATI-AFM.md), 145-78-90, 193-104-120 ✓"
+    ]
+  },
+  "3-6": {
+    "letti": [
+      {
+        "riga": 670,
+        "x": 507,
+        "valore": "40°",
+        "come": "OCR legge 409; a vista: 40 con la o in apice",
+        "seconda": "DATI-AFM.md: posizioni dei flap UP / 20° / 40° (tabella di stallo); il segno in apice e' il grado"
+      }
+    ],
+    "dati": [
+      "121.5 MHz: la frequenza d'emergenza aeronautica ✓; 0,5 cm di ghiaccio, 300 ft./min.: nessuna fonte del progetto da confrontare (due letture concordi)"
+    ],
+    "righe": [
+      {
+        "testo": "swells and light wind, land parallel to swells.",
+        "base": 639,
+        "come": "la riga e' al suo posto (ingrandimento della differenza: inizio e fine coincidono); la fascia prende in alto la coda di una lettera della riga sopra (la g di \"high\"), che nella ricostruita scende un pixel piu' in basso: e' quella a dare la fine 7 px piu' in la'"
+      }
+    ]
+  },
+  "3-7": {
+    "letti": [
+      {
+        "riga": 262,
+        "x": 973,
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+        "valore": "3"
+      }
+    ]
+  },
+  "3-8": {
+    "letti": [
+      {
+        "riga": 236,
+        "x": 313,
+        "valore": "3-8",
+        "come": "a vista: Page: 3-8",
+        "seconda": "posizione nel PDF: pagina 38, fra 3-7 e 3-9 (mappa tools/afm/afm-ccaf.json)"
+      },
+      {
+        "riga": 336,
+        "x": 338,
+        "come": "a vista: Edition: 3",
+        "seconda": "tutte le pagine del manuale I-CCAF sono Edition 3 (copertina e intestazioni gia' verificate)",
+        "valore": "3"
+      }
+    ]
   }
 }

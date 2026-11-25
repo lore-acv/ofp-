@@ -1,0 +1,37 @@
+113 | Flight Manual
+145 | Reims Rocket
+179 | Page: 3-6 Reims Aviation
+326 | Edition: 3 Reims, Marne France
+421 | DITCHING.
+483 | Prepare for ditching by securing or jettisoning heavy objects located in the bag-
+514 | gage area, and collect folded coats or cushions for protection of occupant’s face at
+546 | touchdown. Transmit Mayday message on 121.5 MHz., giving location and intentions.
+608 | (1) Plan approach into wind if winds are high and seas are heavy. With heavy
+639 | swells and light wind, land parallel to swells.
+670 | (2) Approach with flaps 40° and sufficient power for a 300 ft./min. rate of
+701 | descent at 113 km/h - 61 kts - 70 MPH.
+732 | (3) Unlatch the cabin doors.
+763 | (4) Maintain a continuous descent until touchdown in level attitude. Avoid
+793 | a landing flare because of difficulty in judging airplane height over a water sur-
+825 | face.
+856 | (5) Place folded coat or cushion in front of face at time of touchdown.
+886 | (6) Evacuate airplane through cabin doors. If necessary, open window to flood
+918 | cabin compartment for equalizing pressure so that door can be opened.
+950 | (7) Inflate life vests and raft (if available) after evacuation of cabin. The air-
+980 | craft can not be depended on for flotation for more than a few minutes.
+1165 titolo | FLIGHT IN ICING CONDITIONS.
+1224 | Although flying in known icing conditions is prohibited, an unexpected icing
+1254 | encounter should be handled as follows:
+1315 | (1) Turn pitot heat switch “ON” (if installed).
+1346 | (2) Turn back or change altitude to obtain an outside air temperature that is
+1376 | less conducive to icing.
+1407 | (3) Pull cabin heat control full out to obtain windshield defroster airflow. Ad-
+1437 | just cabin air control to get maximum defroster heat and airflow.
+1468 | (4) Increase RPM to minimize ice build-up on propeller blades.
+1499 | (5) Plan a landing at the nearest airport. With an extremely rapid ice build-up,
+1529 | select a suitable “off airport” landing site.
+1559 | (6) With an ice accumulation of 0,5 cm or more on the wing leading edges,
+1589 | be prepared for significantly higher stall speed.
+1619 | (7) Leave wing flaps retracted. With a severe ice build-up on the horizontal
+1650 | tail, the change in wing wake airflow direction caused by wing flap extension
+1679 | could result in a loss of elevator effectiveness.

@@ -84,6 +84,10 @@ for giro in range(6):
             unite = set((e[4].get('unite') if len(e) > 4 else None) or [])
             # una parola attaccata alla dopo (unite) finisce dove quella comincia; le altre 3 px prima
             fine = parole[i + 1][0] - (0 if i in unite else 3) if i + 1 < len(parole) else opz.get('fine', W)
+            # la colonna del testo della pagina (sezione III: fuori c'e' la striscia di emergenza,
+            # che tocca le lettere ai margini e non e' la parola)
+            if 'colonna' in p and not opz.get('ang'):
+                fine = min(fine, p['colonna'][1])
             normale = not opz.get('ang') and not opz.get('libro')
             stima = min(fine, x + (w[2] if len(w) > 2 else c * 0.9 * len(w[1])))   # dove finisce, circa (per le righe vicine)
             if i in sup:
@@ -126,6 +130,8 @@ for giro in range(6):
             # vicina (la s di "Pilot's" a un passo da "Check", un grado in apice) non e' l'inizio di questa
             if i > 0 and len(parole[i - 1]) > 2:
                 a = max(a, parole[i - 1][0] + parole[i - 1][2])
+            if 'colonna' in p and not opz.get('ang'):
+                a = max(a, p['colonna'][0])
             col = ink[yy0:yy1, a:max(a + 1, int(fine))].any(0)
             xs = np.flatnonzero(col)
             if not len(xs):

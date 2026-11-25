@@ -664,6 +664,9 @@ differenza (dove coincidono resta nero); O passa dall'una all'altra.
 | `tools/afm-rec/filetti.py`, `filetto.py` | i filetti di tabelle e cornici, e un filetto misurato lungo tutta la sua lunghezza (spessore e pendenza) come poligono |
 | `tools/afm-rec/tratto.py` | un disegno al tratto con potrace, tolte le scritte e le forme gia' ricostruite; con `--retino` le campiture a puntini diventano grigio pieno |
 | `tools/afm-rec/vista.py`, `chiudi.py` | i ritagli dei numeri non confermati, e la loro chiusura a vista in controlli.json dopo averli guardati |
+| `tools/afm-rec/bozza2.py` | bozza riga per riga solo dentro la colonna del testo (per le pagine con grafica ai bordi, come la striscia della sezione III) |
+| `tools/afm-rec/testo.py` | le righe di una pagina dal testo letto a vista (`testi/<pagina>.txt`): ogni parola si aggancia al suo inchiostro con la programmazione dinamica |
+| `tools/afm-rec/strisce.py` | la striscia delle procedure di emergenza: ogni barra obliqua diventa un quadrilatero misurato |
 | `tools/afm-rec/rec.mjs` | costruisce `data/afm-rec/<id>/libro.html` |
 | `tools/afm-rec/verifica.mjs` | il controllo: righe (inizio, fine, linea di base), macchie, parole strozzate o sovrapposte, numeri (due letture), e scrive `tools/afm-rec/VERIFICA.md` |
 | `tools/afm-rec/calibra.mjs`, `font-prova.mjs`, `font-confronto.mjs` | taratura dei font e proposta dei font a confronto |
@@ -679,19 +682,24 @@ CHROME=/percorso/chrome node tools/afm-rec/rec.mjs afm-ccaf
 CHROME=/percorso/chrome node tools/afm-rec/verifica.mjs afm-ccaf
 ```
 
-Stato: I-CCAF sezioni I e II complete (pagine 1-1…1-14 e 2-1…2-8: testo,
+Stato: I-CCAF sezioni I, II e III complete (pagine 1-1…1-14, 2-1…2-8 e
+3-1…3-9: testo,
 tabelle, cartelli, figure 1-1 dimensioni, 1-2 cruscotto, 1-3 impianto
 carburante, 1-5 impianto elettrico) e la pagina campione 5-12: tutte
 verificate, zero differenze aperte, nella via di mezzo e nella normale. Nella
 sezione II ogni numero ha due conferme indipendenti (Tesseract, strato di
 testo del PDF, lettura a vista con una seconda fonte: un'altra pagina del
 manuale, il manuale di I-CCAB, DATI-AFM.md o una conversione di unita' che
-torna). Prossime: sezioni III…VI, pagine iniziali, poi I-CCAB.
+torna); cosi' anche nella sezione III. Prossime: sezioni IV…VI, pagine
+iniziali, poi I-CCAB.
 
 Come si rifa' una pagina di testo: `bozza.py` → `dubbi.py` (e i ritagli) →
 `correggi.py` → `misura.py` → `ribasa.py` → `misura.py` → `rec.mjs --medio` →
 `verifica.mjs --medio` → `vista.py`/`chiudi.py` per i numeri che l'OCR non
-legge. Una pagina con figura ha il suo script in `costruisci/`, poi
+legge. Nella sezione III si e' fatto piu' in fretta: `bozza2.py` → testo letto a vista
+in `testi/<pagina>.txt` → `testo.py` → `strisce.py` → `misura.py` →
+`ribasa.py`; la pagina dichiara la sua `colonna` del testo, che misura e
+verifica rispettano (la striscia fuori non e' testo). Una pagina con figura ha il suo script in `costruisci/`, poi
 `misura.py`, `ribasa.py` e `tratto.py`.
 
 ### Cosa resta fuori

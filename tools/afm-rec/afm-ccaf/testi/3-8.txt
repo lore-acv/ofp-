@@ -1,0 +1,37 @@
+169 | Flight Manual
+201 | Reims Rocket
+232 | Page: 3-8 Reims Aviation
+334 | Edition: 3 Reims, Marne France
+430 | EXCESSIVE RATE OF CHARGE.
+493 | After engine starting and heavy electrical usage at low engine speeds (such as ex-
+525 | tended taxiing) the battery condition will be low enough to accept above normal
+556 | charging during the initial part of a flight. However, after thirty minutes of cruising
+587 | flight, the ammeter should be indicating less than two needle widths of charging cur-
+618 | rent. If the charging rate were to remain above this value on a long flight, the bat-
+649 | tery would overheat and evaporate the electrolyte at an excessive rate. Electronic
+681 | components in the electrical system could be adversely affected by higher than nor-
+712 | mal voltage if a faulty voltage regulator setting is causing the overcharging. To pre-
+744 | clude these possibilities, an over-voltage sensor will automatically shut down the al-
+775 | ternator and the over-voltage warning light will illuminate if the charge voltage
+806 | reaches approximately 16 volts. Assuming that the malfunction was only momen-
+838 | tary, an attempt should be made to reactivate the alternator system. To do this,
+869 | turn both sides of the master switch off and then on again. If the problem no longer
+902 | exists, normal alternator charging will resume and the warning light will go off. If the
+933 | light comes on again, a malfunction is confirmed. In this event, the flight should be
+964 | terminated and/or the current drain on the battery minimized because the battery can
+995 | supply the electrical system for only a limited period of time. If the emergency oc-
+1025 | curs at night, power must be conserved for later use of the landing light and flaps
+1057 | during landing.
+1117 | INSUFFICIENT RATE OF CHARGE.
+1178 | If the ammeter indicates a continuous discharge rate in flight, the alternator is
+1210 | not supplying power to the system and should be shut down since the alternator
+1241 | field circuit may be placing an unnecessary load on the system. All non-essential
+1272 | equipment should be turned “OFF” and the flight terminated as soon as practical.
+1422 titolo | ROUGH ENGINE OPERATION OR LOSS OF POWER.
+1484 | SPARK PLUG FOULING.
+1545 | An engine roughness in flight may be caused by one or more spark plugs becom-
+1576 | ing fouled by carbon or lead deposits. This may be verified by turning the ignition
+1606 | switch momentarily from “BOTH” to either “LEFT” or “RIGHT” position. An ob-
+1637 | vious power loss in single ignition operation is evidence of spark plug or magneto
+1668 | trouble. Assuming that spark plugs are the more likely cause, lean the mixture to
+1699 | the normal lean setting for cruising flight. If the problem does not clear up in sev-
