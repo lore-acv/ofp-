@@ -31,7 +31,10 @@
    che sale; base e' allora la x della linea di base, e la x di ogni parola
    e' la y dove comincia), libro (coordinate della pagina del libro diritta,
    per l'intestazione delle pagine girate), unite (parole senza spazio dopo,
-   per il testo copiato: [indice, ...]).
+   per il testo copiato: [indice, ...]), fissa (x e larghezze misurate a mano:
+   misura.py non la tocca; per le righe impilate, come le tolleranze +0/-2), fine (x dove
+   finisce la riga per la misura: l'ultima parola non va oltre, se dopo c'e' altro vicino), figura
+   (scritta dentro una figura: misura.py cerca l'inchiostro solo dentro la casella della parola).
 
      node tools/afm-rec/rec.mjs afm-ccaf            (data/afm-rec/afm-ccaf/)
      node tools/afm-rec/rec.mjs afm-ccaf --pieno    (prova "pagina piena": data/afm-rec/afm-ccaf-pieno/)
@@ -62,6 +65,7 @@ const stile = JSON.parse(await readFile(path.join(DIR, 'stile.json'), 'utf8'));
 const pagine = {};
 for (const f of (await readdir(path.join(DIR, 'pagine'))).filter((f) => f.endsWith('.json') && !f.includes('.bozza'))) {
   const p = await risolvi(JSON.parse(await readFile(path.join(DIR, 'pagine', f), 'utf8')), DIR);
+  if (p.stato === 'bozza') continue;   // la bozza grezza (bozza.py) non si pubblica finche' non e' corretta
   pagine[p.pdf] = PIENO ? pienaPagina(p, stile, VARIANTE) : p;
 }
 

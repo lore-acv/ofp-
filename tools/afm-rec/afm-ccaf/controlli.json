@@ -101,5 +101,260 @@
       "SPEED VI 137 km/h - 74 kts - 85 MPH: V best glide 85 MPH = DATI-AFM.md e index.html (AFM_SPEEDS.glide, fig. 5-7) ✓; 85 MPH = 136,8 km/h = 73,9 kt ✓",
       "La fascia di planata (distanza per quota) non ha valori nel progetto: non c'e' un dato indipendente con cui controllare la curva; e' ricalcata punto per punto sulla scansione (vedi metodo della figura)."
     ]
+  },
+  "1-1": {
+    "letti": [
+      {
+        "riga": 245,
+        "x": 961,
+        "valore": "1-1",
+        "come": "OCR legge l- (ritaglio troppo stretto); a vista: Page: 1-1"
+      },
+      {
+        "riga": 895,
+        "x": 326,
+        "valore": "(1)",
+        "come": "OCR legge (I); a vista: (1), primo di un elenco (1)…(6)"
+      },
+      {
+        "riga": 243,
+        "x": 961,
+        "valore": "1-1",
+        "come": "OCR legge 'l-'; a vista: 1-1 (gia' guardato a vista prima della correzione della linea di base (stesso valore))"
+      }
+    ]
+  },
+  "1-3": {
+    "letti": [
+      {
+        "riga": 750,
+        "x": 605,
+        "valore": "+0",
+        "come": "OCR legge '4()'; a vista: +0 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 780,
+        "x": 605,
+        "valore": "-2",
+        "come": "OCR legge '-7'; a vista: -2 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 934,
+        "x": 547,
+        "valore": "1",
+        "come": "OCR legge 'BA'; a vista: 1 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 934,
+        "x": 761,
+        "valore": "1",
+        "come": "OCR legge '(niente)'; a vista: 1 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1115,
+        "x": 530,
+        "valore": "40",
+        "come": "OCR legge 'Ag'; a vista: 40 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1105,
+        "x": 566,
+        "valore": "+0",
+        "come": "OCR legge '4Q)'; a vista: +0 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1125,
+        "x": 568,
+        "valore": "-2",
+        "come": "OCR legge 'i'; a vista: -2 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1334,
+        "x": 564,
+        "valore": "+1",
+        "come": "OCR legge '104j'; a vista: +1 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1365,
+        "x": 573,
+        "valore": "-0",
+        "come": "OCR legge '-()'; a vista: -0 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1395,
+        "x": 573,
+        "valore": "+1",
+        "come": "OCR legge '(niente)'; a vista: +1 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1424,
+        "x": 573,
+        "valore": "-0",
+        "come": "OCR legge '-()'; a vista: -0 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1550,
+        "x": 573,
+        "valore": "+1",
+        "come": "OCR legge '(niente)'; a vista: +1 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1581,
+        "x": 573,
+        "valore": "-0",
+        "come": "OCR legge '-()'; a vista: -0 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1612,
+        "x": 573,
+        "valore": "+1",
+        "come": "OCR legge '4)'; a vista: +1 (ritaglio ingrandito: gradi in apice e tolleranze impilate, l'OCR non legge i pezzi staccati)"
+      },
+      {
+        "riga": 1115,
+        "x": 482,
+        "valore": "0",
+        "come": "OCR legge 'Q'; a vista: 0 (ritaglio ingrandito: Control Travel: 0° to 40°)"
+      }
+    ]
+  },
+  "1-4": {
+    "letti": [
+      {
+        "riga": 453,
+        "x": 538,
+        "valore": "2",
+        "come": "OCR legge '(4'; a vista: 2 (ritaglio ingrandito)"
+      },
+      {
+        "riga": 516,
+        "x": 509,
+        "valore": "44’",
+        "come": "OCR legge 'ar'; a vista: 44’ (ritaglio ingrandito)"
+      },
+      {
+        "riga": 516,
+        "x": 549,
+        "valore": "1",
+        "come": "OCR legge 'N'; a vista: 1 (ritaglio ingrandito)"
+      },
+      {
+        "riga": 547,
+        "x": 558,
+        "valore": "1",
+        "come": "OCR legge 'l'; a vista: 1 (ritaglio ingrandito)"
+      },
+      {
+        "riga": 767,
+        "x": 355,
+        "valore": "2,53",
+        "come": "OCR legge '2,93'; a vista: 2,53 (ritaglio ingrandito)"
+      },
+      {
+        "riga": 1013,
+        "x": 472,
+        "valore": "IO-360-H",
+        "come": "OCR legge 'J0-360-H'; a vista: IO-360-H (ritaglio ingrandito)"
+      }
+    ]
+  },
+  "1-8": {
+    "letti": [
+      {
+        "riga": 751,
+        "x": 423,
+        "valore": "1-4",
+        "come": "OCR legge '14'; a vista: 1-4 (ritaglio ingrandito)"
+      }
+    ]
+  },
+  "1-9": {
+    "letti": [
+      {
+        "riga": 407,
+        "x": 625,
+        "valore": "1",
+        "come": "OCR legge 'l'; a vista: 1 (ritaglio ingrandito)"
+      },
+      {
+        "riga": 746,
+        "x": 667,
+        "valore": "12-volt",
+        "come": "OCR legge '2-volt'; a vista: 12-volt (ritaglio ingrandito)"
+      },
+      {
+        "riga": 405,
+        "x": 625,
+        "valore": "1",
+        "come": "OCR legge 'l'; a vista: 1 (gia' guardato a vista prima della correzione della linea di base (stesso valore))"
+      }
+    ]
+  },
+  "1-11": {
+    "letti": [
+      {
+        "riga": 256,
+        "x": 960,
+        "valore": "1-11",
+        "come": "OCR legge 'l-I'; a vista: 1-11 (ritaglio ingrandito)"
+      },
+      {
+        "riga": 251,
+        "x": 960,
+        "valore": "1-11",
+        "come": "OCR legge 'I-I'; a vista: 1-11 (gia' guardato a vista prima della correzione della linea di base (stesso valore))"
+      }
+    ]
+  },
+  "1-7": {
+    "letti": [
+      {
+        "riga": 242,
+        "x": 968,
+        "valore": "1-7",
+        "come": "OCR legge 'l-7'; a vista: 1-7 (ritaglio ingrandito; la tabella torna: 46 usabili + 6 non usabili = 52 U.S. gallons, 174 + 23 = 197 litri)"
+      },
+      {
+        "riga": 1521,
+        "x": 699,
+        "valore": "6",
+        "come": "OCR legge '(niente)'; a vista: 6 (ritaglio ingrandito; la tabella torna: 46 usabili + 6 non usabili = 52 U.S. gallons, 174 + 23 = 197 litri)"
+      },
+      {
+        "riga": 1520,
+        "x": 856,
+        "valore": "52",
+        "come": "OCR legge '92'; a vista: 52 (ritaglio ingrandito; la tabella torna: 46 usabili + 6 non usabili = 52 U.S. gallons, 174 + 23 = 197 litri)"
+      }
+    ]
+  },
+  "1-2": {
+    "letti": [
+      {
+        "riga": 639,
+        "x": 622,
+        "valore": "5",
+        "come": "OCR del ritaglio legge s; Tesseract sull'ingrandimento della figura legge 5° (confidenza 90); a vista: barra superiore piatta, tratto sinistro solo in alto: 5 (la prima lettura a occhio, 6, era sbagliata)",
+        "seconda": "manuale I-CCAB (altra scansione, 1600 px), stessa quota della figura 1-1: 5° senza dubbi"
+      },
+      {
+        "riga": 665,
+        "x": 578,
+        "valore": "8,17",
+        "come": "OCR legge 6171; a vista: 8,17 m (e 8,17 m nella tabella delle dimensioni a pagina 1-3)"
+      },
+      {
+        "riga": 710,
+        "x": 595,
+        "valore": "3,45",
+        "come": "OCR legge 34; a vista: 3,45 m"
+      },
+      {
+        "riga": 1677,
+        "x": 624,
+        "valore": "1-1.",
+        "come": "OCR legge -1.; a vista: Figure 1-1."
+      }
+    ]
   }
 }

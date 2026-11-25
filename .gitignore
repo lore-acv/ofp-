@@ -5,3 +5,7 @@ node_modules/
 dist/
 .wrangler/
 .taste-skill/
+
+# anteprime di cio che va a potrace (tools/afm-rec/tratto.py)
+tools/afm-rec/*/figure/*.ingresso.png
+__pycache__/

@@ -164,14 +164,25 @@ try {
     // Ogni gruppo di parole e' una banda: "lungo" va nel verso della scrittura, "attraverso" dalla
     // cima delle maiuscole alle discendenti. ref: libro (pagina del libro) o pag (la pagina, che per
     // le pagine girate e' quella diritta); ang -90: riga che sale.
+    /* le righe vicine (come in misura.py): la fascia di una riga non entra nelle discendenti
+       della riga sopra ne' nelle maiuscole e negli apici di quella sotto, dove si sovrappongono in x */
+    const normali = pjg.el.filter((e) => e[0] === 'riga' && !(e[4] && (e[4].ang || e[4].libro || e[4].fissa)))
+      .map((e) => ({ b: e[2], a: Math.min(...e[3].map((w) => w[0])), z: Math.max(...e[3].map((w) => w[0] + (w[2] || 14 * w[1].length))), k: e[4] && e[4].sup ? 1.5 : 1.2, c: (e[4] && e[4].c) || stg.ruoli[e[1]].c }));
     const righeGeom = pjg.el.filter((e) => e[0] === 'riga').map((e) => {
       const r = stg.ruoli[e[1]], c = (e[4] && e[4].c) || r.c, opz = e[4] || {};
       const rif = opz.libro || pjg.rot !== -90 ? 'libro' : 'pag';
       const fs = c / r.capRatio, largo = (t) => [...t].length * fs * 0.62 * (opz.sx || r.sx) + 12;
       const attraverso = [Math.round(e[2] - c * 1.35), Math.round(e[2] + c * 0.4)];
+      if (!opz.ang && !opz.libro) {
+        const a0 = Math.min(...e[3].map((w) => w[0])), z0 = Math.max(...e[3].map((w) => w[0] + (w[2] || 14 * w[1].length)));
+        const vic = normali.filter((q) => q.a < z0 && q.z > a0);
+        const sopra = vic.filter((q) => q.b < e[2] - 8), sotto = vic.filter((q) => q.b > e[2] + 8);
+        if (sopra.length) attraverso[0] = Math.max(attraverso[0], Math.round(Math.max(...sopra.map((q) => q.b)) + c * 0.35));
+        if (sotto.length) attraverso[1] = Math.min(attraverso[1], Math.round(Math.min(...sotto.map((q) => q.b - q.c * q.k))));
+      }
       if (opz.ang === -90) {
         const p0 = e[3][0], pu = e[3][e[3].length - 1];
-        return [{ rif, ang: -90, lungo: [-p0[0] - 12, -(pu[0] - (pu[2] || largo(pu[1]))) + 6], attraverso, base: e[2], testo: e[3].map((w) => w[1]).join(' ') }];
+        return [{ rif, ang: -90, lungo: [-p0[0] - 12, -(pu[0] - (pu[2] || largo(pu[1]))) + 6], attraverso, base: e[2], c, testo: e[3].map((w) => w[1]).join(' ') }];
       }
       // le parole della riga in gruppi (colonne): un salto grande fra due parole separa i gruppi
       const gruppi = []; let g = [e[3][0]];
@@ -185,7 +196,7 @@ try {
         for (const px of puntini) if (px > ultima[0] + 4) dopo = Math.min(dopo, px - 4);   // i puntini guida non fanno parte della riga
         const fineUltima = ultima[2] ? ultima[0] + ultima[2] + 6 : ultima[0] + largo(ultima[1]);
         const prima = k ? fineDi(gruppi[k - 1][gruppi[k - 1].length - 1]) + 4 : -1e9;   // la banda non tocca il gruppo prima
-        return { rif, ang: 0, lungo: [Math.max(prima, gr[0][0] - 12), Math.min(dopo, fineUltima)], attraverso, base: e[2], testo: gr.map((w) => w[1]).join(' ') };
+        return { rif, ang: 0, lungo: [Math.max(prima, gr[0][0] - 12), Math.min(dopo, fineUltima)], attraverso, base: e[2], c, apici: !!(opz.sup && opz.sup.length), testo: gr.map((w) => w[1]).join(' ') };
       });
     }).flat().map((g) => ({ ...g, giro: g.rif === 'pag' ? pjg.rot : 0, Lw: pjg.w }));
     const conf = await pg.evaluate(async (origUrl, recB64, righe, T) => {
@@ -194,16 +205,28 @@ try {
       const W = o.naturalWidth, H = o.naturalHeight;
       const px = (img, t) => { const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); if (t) x.setTransform(t.ax, 0, 0, t.ay, t.bx, t.by); x.drawImage(img, 0, 0, W, H); return x.getImageData(0, 0, W, H).data; };
       const a = px(o, T), b = px(q);   // l'originale con la trasformazione della pagina piena (identita' nella prova normale)
-      // inchiostro: scuro (le sottolineature colorate della scansione non sono stampa: si guarda la luminanza)
-      const ink = (d, i) => (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) < 140;
-      const A = new Uint8Array(W * H), B = new Uint8Array(W * H);
-      for (let k = 0; k < W * H; k++) { A[k] = ink(a, k * 4); B[k] = ink(b, k * 4); }
+      /* inchiostro: scuro e grigio. I segni a evidenziatore della scansione (viola, rosa: non si
+         ricostruiscono, scelta del 2026) sono colorati: la stampa ha croma 0, l'evidenziatore oltre 60 */
+      const ink = (d, i) => (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) < 140 && Math.max(d[i], d[i + 1], d[i + 2]) - Math.min(d[i], d[i + 1], d[i + 2]) < 40;
+      const A = new Uint8Array(W * H), B = new Uint8Array(W * H), Bg = new Uint8Array(W * H);
+      /* Bg: inchiostro o campitura grigia della ricostruita. I retini della scansione (puntini scuri)
+         ricostruiti come campitura grigia sono coperti: i loro puntini non sono "solo originale".
+         Campitura = grigio medio piatto (il pixel e i suoi 8 vicini fra 130 e 200): i bordi sfumati
+         delle lettere non lo sono, cosi' il controllo del testo resta stretto */
+      const L = new Float32Array(W * H);
+      for (let k = 0; k < W * H; k++) { A[k] = ink(a, k * 4); B[k] = ink(b, k * 4); L[k] = 0.299 * b[k * 4] + 0.587 * b[k * 4 + 1] + 0.114 * b[k * 4 + 2]; }
+      for (let y = 1; y < H - 1; y++) for (let x = 1; x < W - 1; x++) {
+        const k = y * W + x; if (B[k]) { Bg[k] = 1; continue; }
+        let piatto = true;
+        for (let dy = -1; dy <= 1 && piatto; dy++) for (let dx = -1; dx <= 1; dx++) { const l = L[k + dy * W + dx]; if (l < 130 || l > 200) { piatto = false; break; } }
+        Bg[k] = piatto ? 1 : 0;
+      }
       const vicino = (M, k) => { const x = k % W, y = (k / W) | 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const X = x + dx, Y = y + dy; if (X >= 0 && Y >= 0 && X < W && Y < H && M[Y * W + X]) return true; } return false; };
       let soloA = 0, soloB = 0, entrambi = 0, inkA = 0;
       const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); const id = x.createImageData(W, H);
       for (let k = 0; k < W * H; k++) {
         let col = [255, 255, 255];
-        if (A[k]) { inkA++; if (vicino(B, k)) { entrambi++; col = [40, 40, 40]; } else { soloA++; col = [220, 30, 30]; } }
+        if (A[k]) { inkA++; if (vicino(Bg, k)) { entrambi++; col = [40, 40, 40]; } else { soloA++; col = [220, 30, 30]; } }
         else if (B[k]) { if (!vicino(A, k)) { soloB++; col = [30, 80, 230]; } else col = [150, 150, 150]; }
         id.data.set([...col, 255], k * 4);
       }
@@ -223,12 +246,27 @@ try {
         }
         return [a, b];
       };
-      const geom = righe.map((g) => { const [oa, ob] = estremi(A, g), [ra, rb] = estremi(B, g); return { ...g, inizio: ra - oa, fine: rb - ob }; });
+      /* la linea di base dell'inchiostro nella banda: dove l'inchiostro cala di colpo (il fondo delle
+         lettere; sotto restano solo discendenti e virgole), nella meta' bassa della banda */
+      const baseInk = (M, g) => {
+        const P = [];
+        for (let v = g.attraverso[0]; v <= g.attraverso[1]; v++) { let n = 0; for (let u = Math.round(g.lungo[0]); u <= Math.round(g.lungo[1]); u++) { const k = pixel(g, u, v); if (k >= 0 && M[k]) n++; } P.push(n); }
+        if (!Math.max(...P)) return null;
+        const da = Math.round(g.c * 0.5);   // non nella cima delle lettere
+        let mx = -1e9, b = da;
+        for (let i = da; i < P.length - 1; i++) mx = Math.max(mx, P[i] - P[i + 1]);
+        for (let i = da; i < P.length - 1; i++) if (P[i] - P[i + 1] >= mx * 0.5) b = i;   // il calo grande piu' in basso
+        return g.attraverso[0] + b;
+      };
+      const geom = righe.map((g) => {
+        const [oa, ob] = estremi(A, g), [ra, rb] = estremi(B, g), bo = baseInk(A, g), br = baseInk(B, g);
+        return { ...g, inizio: ra - oa, fine: rb - ob, alto: bo == null || br == null ? 0 : br - bo };
+      });
       /* Le macchie: inchiostro che c'e' solo da una parte. Gli aloni sottili del
          disegno diverso delle lettere si tolgono erodendo di un pixel; quello che
          resta in macchie di almeno 25 px e' contenuto in piu' o in meno. */
       const macchie = [];
-      for (const [nome, M, N] of [['solo originale', A, B], ['solo ricostruita', B, A]]) {
+      for (const [nome, M, N] of [['solo originale', A, Bg], ['solo ricostruita', B, A]]) {
         const S = new Uint8Array(W * H);
         for (let k = 0; k < W * H; k++) if (M[k] && !vicino(N, k)) S[k] = 1;
         const E = new Uint8Array(W * H);
@@ -253,7 +291,9 @@ try {
     const chiuse = tutte.length - dif.length;
     const fuori = (conf.soloA + conf.soloB) / Math.max(1, conf.inkA);
     // una riga coincide se comincia e finisce entro 4 px (un terzo di millimetro sulla pagina stampata)
-    const righeFuori = conf.geom.filter((g) => Math.abs(g.inizio) > 4 || Math.abs(g.fine) > 4);
+    // e sta alla stessa altezza: linea di base entro 3 px
+    // (le righe con apici no: il grado in apice fa da fondo quanto la cifra; sono misurate a mano)
+    const righeFuori = conf.geom.filter((g) => Math.abs(g.inizio) > 4 || Math.abs(g.fine) > 4 || (!g.apici && Math.abs(g.alto) > 3));
     // le letture di ogni numero: Tesseract sul ritaglio, strato di testo del PDF, a vista
     const numeri = nr.map((q) => {
       const vista = letti.find((l) => l.riga === q.y && l.x === q.x && l.valore === q.t);
@@ -280,7 +320,7 @@ const mappa = JSON.parse(await readFile(path.join(RADICE, 'tools', 'afm', ID + '
 md.push(`# VERIFICA — ${mappa.titolo}, anteprima ricostruita`, '',
   `> Generato da \`tools/afm-rec/verifica.mjs ${ID}\` il ${new Date().toISOString().slice(0, 10)}. L'anteprima ricostruita **non fa fede**: fa fede il Flight Manual originale (data/afm/).`, '',
   '## Come si verifica una pagina', '',
-  '1. **Righe.** Per ogni riga (e ogni colonna di una riga) si misura dove comincia e dove finisce l\'inchiostro, nell\'originale e nella ricostruita, alla stessa scala. Coincide se entrambi gli estremi stanno entro 4 px della scansione retina (circa un terzo di millimetro sulla pagina stampata).',
+  '1. **Righe.** Per ogni riga (e ogni colonna di una riga) si misura dove comincia e dove finisce l\'inchiostro, nell\'originale e nella ricostruita, alla stessa scala. Coincide se entrambi gli estremi stanno entro 4 px della scansione retina (circa un terzo di millimetro sulla pagina stampata) e la sua linea di base (l\'ultima riga dove l\'inchiostro e\' almeno un quarto del massimo) entro 3 px.',
   '2. **Macchie.** Inchiostro che c\'e\' solo nell\'originale o solo nella ricostruita, tolti gli aloni di un pixel dovuti al disegno diverso delle lettere: ogni macchia di almeno 25 px e\' contenuto mancante o in piu\'.',
   '3. **Numeri.** Ogni parola con cifre si ritaglia dall\'originale e la legge Tesseract da sola; la seconda lettura e\' lo strato di testo del PDF (per I-CCAF l\'OCR di Acrobat, indipendente). Dove le letture automatiche sbagliano decide il controllo a vista, annotato in `tools/afm-rec/' + ID + '/controlli.json`. Nelle sezioni 2, 3, 5 e 6 (limitazioni, emergenze, prestazioni, centraggio) ogni numero deve avere **due conferme** indipendenti.',
   '4. **Dati del progetto.** Dove il progetto ha gia\' i valori verificati (DATI-AFM.md, tabelle di index.html) si confrontano con la pagina.', '',
@@ -297,7 +337,7 @@ md.push('', '## Figure: metodo', '');
 for (const e of esiti) for (const f of e.figure) md.push(`- **${f.figura}** (pagina ${e.n}): ${f.metodo}`);
 md.push('', '## Differenze aperte', '');
 const aperteTutte = esiti.flatMap((e) => [
-  ...e.righeFuori.map((g) => `| ${e.n} | ${g.base} | riga "${g.testo.slice(0, 40)}" | inizio ${g.inizio} px, fine ${g.fine} px | |`),
+  ...e.righeFuori.map((g) => `| ${e.n} | ${g.base} | riga "${g.testo.slice(0, 40)}" | inizio ${g.inizio} px, fine ${g.fine} px, linea di base ${g.alto} px | |`),
   ...e.macchie.map((m) => `| ${e.n} | ${m.box[1]} | macchia ${m.tipo}, ${m.px} px | riquadro ${m.box.join(', ')} | |`),
   ...e.dif.map((d) => `| ${e.n} | ${d.riga} | numero | ${d.originale} | ${d.ricostruito} |`),
   ...e.deboli.filter((q) => !e.dif.some((d) => d.riga === q.riga && d.x === q.x)).map((q) => `| ${e.n} | ${q.riga} | numero con una sola conferma | ${q.tesseract} | ${q.valore} |`)]);
