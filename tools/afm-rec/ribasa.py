@@ -22,7 +22,8 @@ p = json.load(open(f)); stile = json.load(open(f'{R}/tools/afm-rec/{ID}/stile.js
 libro = open(f'{R}/data/afm/{ID}/libro.html', encoding='utf-8').read()
 m = re.search(r'data-pdf="%d"[^>]*>(?:<i[^>]*></i>)*<img[^>]*data-s2="([^"]+)"' % p['pdf'], libro)
 rgb = np.array(Image.open(f'{R}/{m.group(1)}').convert('RGB')).astype(int)
-ink = ((rgb @ [0.299, 0.587, 0.114]) < 140) & ((rgb.max(2) - rgb.min(2)) < 40)
+# "colori" (la copertina): conta anche l'inchiostro colorato (l'avviso rosso), che li' e' stampa
+ink = ((rgb @ [0.299, 0.587, 0.114]) < 140) & (((rgb.max(2) - rgb.min(2)) < 40) | bool(p.get('colori')))
 if p.get('rot') == -90:
     ink = np.rot90(ink, 3)
 normali = [e for e in p['el'] if e[0] == 'riga' and not (len(e) > 4 and (e[4].get('ang') or e[4].get('libro') or e[4].get('fissa') or e[4].get('sup') or e[4].get('basefissa')))]

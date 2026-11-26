@@ -1,0 +1,7 @@
+89 sigla 940-1240 | I-CCAF
+951 avviso 215-1003 | ENGLISH TRANSLATION - FOR COURTESY ONLY
+981 avviso 215-1003 | This is an unofficial English courtesy translation of the FR172J
+1011 avviso 215-1003 | French Flight Manual approved by SGAC.This manual is not
+1041 avviso 215-1003 | formally approved by ENAC (Italian Civil Aviation Authority).
+1071 avviso 215-1003 | Therefore, please consider that only the original version in
+1101 avviso 215-1003 | French language has a legal value.

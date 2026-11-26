@@ -31,7 +31,8 @@ p = json.load(open(f))
 libro = open(f'{R}/data/afm/{ID}/libro.html', encoding='utf-8').read()
 m = re.search(r'data-pdf="%d"[^>]*>(?:<i[^>]*></i>)*<img[^>]*data-s2="([^"]+)"' % p['pdf'], libro)
 rgb = np.array(Image.open(f'{R}/{m.group(1)}').convert('RGB')).astype(int)
-ink = ((rgb @ [0.299, 0.587, 0.114]) < 150) & ((rgb.max(2) - rgb.min(2)) < 40)
+# "colori" (la copertina): conta anche l'inchiostro colorato (l'avviso rosso), che li' e' stampa
+ink = ((rgb @ [0.299, 0.587, 0.114]) < 150) & (((rgb.max(2) - rgb.min(2)) < 40) | bool(p.get('colori')))
 # pagine di traverso (rot -90): le righe sono nel riferimento della pagina girata diritta, come in
 # misura.py; le righe dell'intestazione ("libro" nel testo) restano nel riferimento del libro
 ink_libro = ink

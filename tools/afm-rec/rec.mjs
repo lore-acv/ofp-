@@ -71,7 +71,9 @@ for (const f of (await readdir(path.join(DIR, 'pagine'))).filter((f) => f.endsWi
   /* le fotografie delle figure (figure/*.webp) stanno in file a parte, comuni alle prove:
      data/afm-rec/foto/<id>-<nome>; l'SVG le chiama con un percorso relativo a manuale.html */
   for (const e of p.el) if (e[0] === 'svg') e[1] = e[1].replace(/href="figure\/([^"]+)"/g, (t, nome) => { foto.add(nome); return `href="data/afm-rec/foto/${ID}-${nome}"`; });
-  pagine[p.pdf] = PIENO ? pienaPagina(p, stile, VARIANTE) : p;
+  // "intera" (la copertina e il suo retro): la pagina e' disegnata tutta, non ha gabbia del testo
+  // e nelle prove di impaginazione resta com'e', come la sua scansione (trasformaScansione)
+  pagine[p.pdf] = PIENO && !p.intera ? pienaPagina(p, stile, VARIANTE) : p;
 }
 
 // la misura delle parole, con i font veri, in Chromium

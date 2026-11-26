@@ -1,0 +1,15 @@
+{
+  "pdf": 2,
+  "n": "inside cover",
+  "w": 1250,
+  "h": 1762,
+  "rot": 0,
+  "stato": "ricostruita",
+  "figure": [{"figura":"Avvertenza dell'anteprima","metodo":"pagina bianca nell'originale: vi si scrive l'avvertenza dell'anteprima, nei ruoli titolo e testo del manuale, giustificata nella colonna del testo (tools/afm-rec/afm-ccaf/costruisci/retro.mjs)."}],
+  "el": [
+    ["riga","titolo",598,[[278,"RECONSTRUCTED"],[485.4,"PREVIEW"],[594.1,"—"],[620.5,"NOT"],[672.6,"AUTHORITATIVE."]]],
+    ["riga","testo",656,[[320,"This"],[360.9,"copy"],[403.9,"of"],[425.1,"the"],[456.4,"Flight"],[510.6,"Manual"],[578.1,"is"],[596.7,"a"],[611.1,"digital"],[668.5,"reconstruction,"],[797.8,"made"],[847.1,"for"],[875.7,"preview"],[945.1,"only."],[989.7,"It"]]],
+    ["riga","testo",687,[[278,"is"],[296.4,"not"],[328.4,"authoritative"],[439.2,"and"],[474.5,"does"],[516.2,"not"],[548.1,"replace"],[611.9,"the"],[643,"original:"],[716.9,"refer"],[760.6,"to"],[781.6,"the"],[812.7,"original"],[881.6,"Flight"],[935.6,"Manual."]]],
+    ["riga","testo",718,[[278,"The"],[314.1,"pages"],[364.4,"not"],[396.2,"yet"],[425.5,"reconstructed"],[542.1,"show"],[589.3,"the"],[620.3,"scan"],[661.6,"of"],[682.5,"the"],[713.5,"original."]]]
+  ]
+}

@@ -111,6 +111,36 @@
       "sx": 0.82,
       "spazio": 0.0,
       "lettere": true
+    },
+    "sigla": {
+      "font": "sans",
+      "classe": "rcs",
+      "peso": 700,
+      "c": 54,
+      "capRatio": 0.6875,
+      "sx": 1.0,
+      "spazio": 0.0
+    },
+    "avviso": {
+      "font": "sans",
+      "classe": "rca",
+      "peso": 700,
+      "c": 17.5,
+      "capRatio": 0.6875,
+      "sx": 1.0,
+      "spazio": 0.0,
+      "colore": "#e52225"
+    },
+    "motto": {
+      "font": "sans",
+      "classe": "rcm",
+      "peso": 560,
+      "larghezza": "62.5%",
+      "c": 18,
+      "capRatio": 0.6875,
+      "sx": 0.82,
+      "spazio": 0.13,
+      "colore": "#c8193c"
     }
   },
   "pieno": {

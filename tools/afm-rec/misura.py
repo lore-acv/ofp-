@@ -28,7 +28,8 @@ libro = open(f'{RADICE}/data/afm/{ID}/libro.html', encoding='utf-8').read()
 m = re.search(r'data-pdf="%d"[^>]*>(?:<i[^>]*></i>)*<img[^>]*data-s2="([^"]+)"' % p['pdf'], libro)
 # inchiostro: scuro e grigio (i segni a evidenziatore sono colorati e non si ricostruiscono)
 rgb = np.array(Image.open(f'{RADICE}/{m.group(1)}').convert('RGB')).astype(int)
-ink_libro = ((rgb @ [0.299, 0.587, 0.114]) < 140) & ((rgb.max(2) - rgb.min(2)) < 40)
+# "colori" (la copertina): conta anche l'inchiostro colorato (l'avviso rosso), che li' e' stampa
+ink_libro = ((rgb @ [0.299, 0.587, 0.114]) < 140) & (((rgb.max(2) - rgb.min(2)) < 40) | bool(p.get('colori')))
 ink_pag = np.rot90(ink_libro, 3) if p.get('rot') == -90 else ink_libro
 
 punti = {}
