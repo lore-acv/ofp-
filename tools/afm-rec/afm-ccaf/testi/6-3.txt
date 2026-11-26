@@ -1,0 +1,31 @@
+168 | Flight Manual
+199 | Reims Rocket
+229 | Reims Aviation Page: 6-3
+260 | Reims, Marne France Edition: 3
+346 titolo | SERVICING INTERVALS CHECK LIST (Continued)
+416 titolo | EACH 100 HOURS
+476 | SPARK PLUGS - - Clean, test and regap.
+507 | BRAKE MASTER CYLINDERS - - Check and fill.
+538 | SHIMMY DAMPENER - - Check and fill.
+567 | FUEL STRAINER - - Disassemble and clean.
+598 | FUEL TANK SUMP DRAIN VALVES - - Drain water and sediment.
+629 | FUEL RESERVOIR DRAIN VALVE - - Drain water and sediment.
+660 | FUEL SELECTOR VALVE DRAIN PLUG - - Drain water and sediment.
+690 | VACUUM SYSTEM OIL SEPARATOR (OPT) - - Clean.
+721 | SUCTION RELIEF VALVE INLET SCREEN (OPT) - - Clean.
+814 titolo | EACH 500 HOURS
+876 | VACUUM SYSTEM AIR FILTER (OPT) - - Replace filter element. Replace sooner
+907 | if suction gage reading drops to 4.6 in. Hg.
+938 | WHEEL BEARINGS - - Lubricate at first 100 hours and at 500 hours thereafter. Re-
+969 | duce lubrication interval to 100 hours when operating in dusty or seacoast areas, dur-
+999 | ing periods of extensive taxiing, or when numerous take-offs and landings are made.
+1089 titolo | AS REQUIRED
+1151 | NOSE GEAR SHOCK STRUT - - Fill with hydraulic fluid and inflate with air to 45 psi.
+1338 titolo 352-908 | ADDITIONAL SERVICE AND TEST REGULATIONS
+1392 360-965 | Servicing Intervals of items in the preceding check list are
+1423 360-965 | recommended by The Cessna Aircraft Company. Govern-
+1453 360-965 | ment regulations may require that additional items be in-
+1484 360-965 | spected, serviced or tested at specific intervals for various
+1513 360-965 | types of flight operations. For these regulations, owners
+1547 360-965 | should check with aviation officials in the country where
+1576 360-965 | the aircraft is being operated.

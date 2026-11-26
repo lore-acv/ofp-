@@ -1,0 +1,30 @@
+163 | Flight Manual
+195 | Reims Rocket
+334 | Page: 6-6 Reims Aviation
+364 | Edition: 3 Reims, Marne France
+453 titolo | PROPELLER CARE.
+515 | Preflight inspection of propeller blades for nicks, and wiping them occasionally
+546 | with an oily cloth to clean off grass and bug stains will assure long, trouble-free ser-
+577 | vice. Small nicks on the propeller, particularly near the tips and on the leading edges,
+607 | should be dressed out as soon as possible since these nicks produce stress concentra-
+638 | tions, and if ignored, may result in cracks. Never use an alkaline cleaner on the
+667 | blades; remove grease and dirt with carbon tetrachloride or Stoddard solvent.
+792 titolo | INTERIOR CARE.
+854 | To remove dust and loose dirt from the upholstery and carpet, clean the interior
+885 | regularly with a vacuum cleaner.
+947 | Blot up any spilled liquid promptly, with cleansing tissue or rags. Don’t pat the
+978 | spot; press the blotting material firmly and hold it for several seconds. Continue
+1009 | blotting until no more liquid is taken up. Scrape off sticky materials with a dull
+1040 | knife, then spot-clean the area.
+1101 | Oily spots may be cleaned with household spot removers, used sparingly. Before
+1131 | using any solvent, read the instructions on the container and test it on an obscure
+1162 | place on the fabric to be cleaned. Never saturate the fabric with a volatile solvent;
+1193 | it may damage the padding and backing material.
+1255 | Soiled upholstery and carpet may be cleaned with foam-type detergent, used
+1284 | according to the manufacturer’s instructions. To minimize wetting the fabric, keep
+1315 | the foam as dry as possible and remove it with a vacuum cleaner.
+1372 | The plastic trim, headliner, instrument panel and control knobs need only be
+1403 | wiped off with a damp cloth. Oil and grease on the control wheel and control knobs
+1433 | can be removed with a cloth moistened with Stoddard solvent. Volatile solvents,
+1462 | such as mentioned in paragraphs on care of the windshield, must never be used since
+1492 | they soften and craze the plastic.

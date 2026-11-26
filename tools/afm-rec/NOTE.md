@@ -185,6 +185,49 @@ scansione non e' stampa stanno in fondo.
 - Didascalie delle pagine di traverso nello stile di 5-12 (corpo 15,
   larghezza 1,1).
 
+### Copertina e pagine iniziali (PDF 1-8)
+- Copertina (PDF 1): e' a colori e consumata (rossi sbiaditi al rosa, blu
+  slavato, puntini bianchi nelle lettere). Si ricostruisce "come stampata":
+  cornice rossa, barra blu e riquadri sono poligoni misurati (la stampa e'
+  appena storta: si tiene); loghi, REIMS ROCKET, MODEL FR172J, bandierine,
+  FLIGHT MANUAL e D967-13 sono strati di colore vettorializzati con potrace
+  nelle tinte restaurate (rosso #c8193c, blu #373c73, grigio #464656); I-CCAF,
+  i due motti rossi e l'avviso ENGLISH TRANSLATION sono testo vero. I motti,
+  sbiaditi fino al rosa, vettorializzati chiudevano gli occhielli delle
+  lettere: per questo sono testo (ruolo "motto"). Nell'avviso
+  "SGAC.This" senza spazio, come stampato.
+- Retro della copertina (PDF 2): bianco nell'originale. Vi si scrive
+  l'avvertenza "Reconstructed preview — not authoritative" come una pagina di
+  testo del manuale (titolo e paragrafo nei ruoli del libro), al posto del
+  cartellino HTML che stava sopra la copertina.
+- Frontespizio (i): "A18EU" e "FR17200351" letti a vista; lo strato di testo
+  del PDF legge "Al8EU" e "FRl7200351" (l e 1 confusi), stesse cifre.
+- Indice (ii-v): i puntini guida sono elementi "punti" misurati uno per uno
+  (costruisci/indice.py); i numeri di pagina hanno la seconda conferma nelle
+  pagine stesse (il numero stampato in testa a ogni pagina). "FUEL SYSTEM
+  SCHEMATIC." (v, con il punto) come stampato.
+- Pagine revisionate (vi): la tabella e' vuota nell'originale.
+
+### Sezione VI (pagine 6-1 … 6-20)
+- 6-1: intestazione "SECTION VI" con barre e frecce, come le altre sezioni.
+- Refusi tenuti come stampati: "cross-feeding)," con la virgola (6-1),
+  "satisafctorily" (6-5).
+- Sottolineature dentro le righe (6-2 "not", "every 25 hours.", "50"; 6-4
+  "Never"; 6-5 "Rinse", "rub", "canvas"): filetti misurati; le righe con
+  sottolineature hanno le parole a larghezza fissa (testo.py "sotto"/"sopra"
+  per non far entrare il filetto nella parola).
+- Figura 6-1 (6-8): come la figura 1-3, con il serbatoio ausiliario. Nella
+  nota piccola del riquadro la scansione sembra dire "BITHER", "LEPT",
+  "HIGHT": e' la stampa che impasta le lettere (la stessa nota nella figura
+  1-3 e' leggibile: EITHER, LEFT, RIGHT).
+- Figura 6-2 (6-12): etichette in un bastoni neretto stretto (ruolo
+  "etichetta"), titolo nel ruolo "figtitolo".
+- Figure 6-3 … 6-6 (6-17 … 6-20, di traverso): testo vero nel ruolo
+  "figtitolo"; le scritte inclinate lungo le rette dei grafici restano
+  disegno. 6-18: i numeri hanno la seconda conferma nella somma (1156,7 kg e
+  130,8 cmkg/1000). 6-19 e 6-20: le scale sono progressioni regolari a passo
+  costante, e le due scale di ogni asse si accordano fra loro.
+
 ## Decisioni su cio' che nella scansione non e' stampa
 - **Sottolineature colorate** (giallo, azzurro) sulla scansione di I-CCAF:
   sono segni a evidenziatore sulla copia scansionata, non stampa del manuale.

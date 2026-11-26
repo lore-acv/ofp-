@@ -1,0 +1,32 @@
+172 | Flight Manual
+204 | Reims Rocket
+233 | Reims Aviation Page: 6-1
+263 | Reims, Marne France Edition: 3
+354 titolo 700-1010 c=36 basefissa | SECTION VI
+505 titolo c=29 | APPENDIX
+562 titolo | LUBRICATION AND SERVICING PROCEDURES
+641 titolo | DAILY
+691 | FUEL TANK FILLERS:
+722 | Service after each flight with 100/130 minimum grade fuel. (100/130 low lead
+753 | aviation fuel with a lead content limited to 2 c.c. per gallon is also approved.)
+784 | The capacity of each wing tank is 26 U.S. gallons (98,5 litres). (To ensure
+814 | maximum fuel capacity when refueling, place the fuel selector valve in either
+845 | “LEFT” or “RIGHT” position to prevent cross-feeding),
+907 | The capacity of the optional baggage area auxiliary fuel tank is 17 U.S. gallons
+936 | (64 litres).
+1030 | FUEL TANK SUMP DRAINS:
+1061 | Before the first flight of the day and after each refueling, use fuel sampler cup
+1091 | stored in the map compartment and drain a small amount of fuel from the
+1122 | quick-drain valve in each fuel tank sump (one under each wing).
+1213 | FUEL STRAINER:
+1244 | Before the first flight of the day and after each refueling, pull out fuel strainer
+1274 | drain knob for about four seconds to clear fuel strainer of possible water and
+1305 | sediment. Release drain knob, then check that strainer drain is closed. If water
+1335 | is observed, the fuel reservoir drain valve should be drained and the fuel selector
+1365 | valve drain plug should be removed to check for the presence of water.
+1454 | OIL DIPSTICK:
+1485 | Check oil level before each flight. Do not operate on less than 7 quarts (6,6
+1516 | litres). To minimize loss of oil through breather, fill to 8 quart (7,6 litres)
+1549 | level for normal flights of less than 3 hours. For extended flight, fill to 10
+1579 | quarts (9,5 litres). If optional oil filter is installed, one additional quart is
+1608 | required when the filter element is changed.

@@ -2642,5 +2642,815 @@
     "dati": [
       "Figura 5-6: VY a 1157 / 1000 / 850 kg = 85-84-83-82 / 82-81-80-79 / 80-78-77-76 MPH a SL, 5000, 10000, 15000 ft = DATI-AFM.md ✓; ratei al livello del mare 880 / 1120 / 1420 ft/min = DATI-AFM.md ✓; carburante a 1157 kg 4,9 / 11,7 / 20,1 L = DATI-AFM.md ✓; ogni terna km/h - kts - MPH torna (controllo in costruisci/5-11.py) ✓; temperature: atmosfera standard ✓"
     ]
+  },
+  "i": {
+    "letti": [
+      {
+        "riga": 857,
+        "x": 714,
+        "valore": "A18EU",
+        "come": "a vista sull'ingrandimento: A18EU",
+        "seconda": "DATI-AFM.md: FAA TC A18EU (lo strato di testo del PDF legge Al8EU, l per 1)"
+      }
+    ]
+  },
+  "ii": {
+    "letti": [
+      {
+        "riga": 321,
+        "x": 330,
+        "valore": "3",
+        "come": "a vista sull'ingrandimento: 3",
+        "seconda": "Edition: 3, come in tutte le pagine del manuale I-CCAF"
+      }
+    ]
+  },
+  "iii": {
+    "letti": [
+      {
+        "riga": 442,
+        "x": 979,
+        "valore": "1-1",
+        "come": "a vista sull'ingrandimento: 1-1",
+        "seconda": "il numero stampato in testa alla pagina 1-1 (la voce comincia li')"
+      },
+      {
+        "riga": 473,
+        "x": 978,
+        "valore": "1-1",
+        "come": "a vista sull'ingrandimento: 1-1",
+        "seconda": "il numero stampato in testa alla pagina 1-1 (la voce comincia li')"
+      },
+      {
+        "riga": 503,
+        "x": 979,
+        "valore": "1-1",
+        "come": "a vista sull'ingrandimento: 1-1",
+        "seconda": "il numero stampato in testa alla pagina 1-1 (la voce comincia li')"
+      },
+      {
+        "riga": 1168,
+        "x": 972,
+        "valore": "2-2",
+        "come": "a vista sull'ingrandimento: 2-2",
+        "seconda": "il numero stampato in testa alla pagina 2-2 (la voce comincia li')"
+      },
+      {
+        "riga": 1233,
+        "x": 972,
+        "valore": "2-3",
+        "come": "a vista sull'ingrandimento: 2-3",
+        "seconda": "il numero stampato in testa alla pagina 2-3 (la voce comincia li')"
+      }
+    ]
+  },
+  "iv": {
+    "letti": [
+      {
+        "riga": 822,
+        "x": 906,
+        "valore": "4-1",
+        "come": "a vista sull'ingrandimento: 4-1",
+        "seconda": "il numero stampato in testa alla pagina 4-1 (la voce comincia li')"
+      },
+      {
+        "riga": 853,
+        "x": 906,
+        "valore": "4-1",
+        "come": "a vista sull'ingrandimento: 4-1",
+        "seconda": "il numero stampato in testa alla pagina 4-1 (la voce comincia li')"
+      },
+      {
+        "riga": 885,
+        "x": 906,
+        "valore": "4-1",
+        "come": "a vista sull'ingrandimento: 4-1",
+        "seconda": "il numero stampato in testa alla pagina 4-1 (la voce comincia li')"
+      },
+      {
+        "riga": 947,
+        "x": 905,
+        "valore": "4-4",
+        "come": "a vista sull'ingrandimento: 4-4",
+        "seconda": "il numero stampato in testa alla pagina 4-4 (la voce comincia li')"
+      },
+      {
+        "riga": 978,
+        "x": 905,
+        "valore": "4-4",
+        "come": "a vista sull'ingrandimento: 4-4",
+        "seconda": "il numero stampato in testa alla pagina 4-4 (la voce comincia li')"
+      },
+      {
+        "riga": 1040,
+        "x": 905,
+        "valore": "4-5",
+        "come": "a vista sull'ingrandimento: 4-5",
+        "seconda": "il numero stampato in testa alla pagina 4-5 (la voce comincia li')"
+      },
+      {
+        "riga": 1463,
+        "x": 895,
+        "valore": "4-11",
+        "come": "a vista sull'ingrandimento: 4-11",
+        "seconda": "il numero stampato in testa alla pagina 4-11 (la voce comincia li')"
+      },
+      {
+        "riga": 1492,
+        "x": 895,
+        "valore": "4-11",
+        "come": "a vista sull'ingrandimento: 4-11",
+        "seconda": "il numero stampato in testa alla pagina 4-11 (la voce comincia li')"
+      },
+      {
+        "riga": 1644,
+        "x": 895,
+        "valore": "4-14",
+        "come": "a vista sull'ingrandimento: 4-14",
+        "seconda": "il numero stampato in testa alla pagina 4-14 (la voce comincia li')"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "4-1",
+        "base": 822,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-5",
+        "base": 1009,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-6",
+        "base": 1193,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-6",
+        "base": 1224,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-7",
+        "base": 1310,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-7",
+        "base": 1341,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-9",
+        "base": 1433,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-14",
+        "base": 1644,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "3-4",
+        "base": 456,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-1",
+        "base": 853,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-5",
+        "base": 978,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-6",
+        "base": 1163,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-9",
+        "base": 1403,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      },
+      {
+        "testo": "4-1",
+        "base": 885,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata"
+      }
+    ]
+  },
+  "v": {
+    "letti": [
+      {
+        "riga": 444,
+        "x": 955,
+        "valore": "5-1",
+        "come": "a vista sull'ingrandimento: 5-1",
+        "seconda": "il numero stampato in testa alla pagina 5-1 (la voce comincia li')"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "6-17",
+        "base": 1528,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); l'ultimo puntino guida sta a 2-3 px dalla cifra e nella via di mezzo la fascia di controllo comincia da li'"
+      },
+      {
+        "testo": "6-18",
+        "base": 1559,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); l'ultimo puntino guida sta a 2-3 px dalla cifra e nella via di mezzo la fascia di controllo comincia da li'"
+      },
+      {
+        "testo": "6-19",
+        "base": 1590,
+        "come": "il numero di pagina e' al suo posto (ingrandimento: coincide); l'ultimo puntino guida sta a 2-3 px dalla cifra e nella via di mezzo la fascia di controllo comincia da li'"
+      }
+    ]
+  },
+  "6-1": {
+    "letti": [
+      {
+        "riga": 784,
+        "x": 749,
+        "valore": "(98,5",
+        "come": "a vista sull'ingrandimento: (98,5",
+        "seconda": "26 U.S. gal x 3,785 = 98,4 l ✓"
+      }
+    ]
+  },
+  "6-2": {
+    "letti": [
+      {
+        "riga": 323,
+        "x": 312,
+        "valore": "6-2",
+        "come": "a vista sull'ingrandimento: 6-2",
+        "seconda": "numero di pagina: la pagina viene fra 6-1 e 6-3 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      },
+      {
+        "riga": 633,
+        "x": 420,
+        "valore": "5°C",
+        "come": "a vista sull'ingrandimento: 5°C",
+        "seconda": "SAE 50 sopra e SAE 30 sotto i 5°C (41°F), la soglia dei manuali Cessna; stessa riga, due volte"
+      },
+      {
+        "riga": 633,
+        "x": 542,
+        "valore": "10W30",
+        "come": "a vista sull'ingrandimento: 10W30",
+        "seconda": "ripetuto nella riga sotto (\"a range of SAE 10W30\"), letto concorde"
+      },
+      {
+        "riga": 633,
+        "x": 754,
+        "valore": "5°C.",
+        "come": "a vista sull'ingrandimento: 5°C.",
+        "seconda": "SAE 50 sopra e SAE 30 sotto i 5°C (41°F), la soglia dei manuali Cessna; stessa riga, due volte"
+      },
+      {
+        "riga": 945,
+        "x": 656,
+        "valore": "MIL-L-6082.",
+        "come": "a vista sull'ingrandimento: MIL-L-6082.",
+        "seconda": "MIL-L-6082: la specifica dell'olio minerale aeronautico (straight mineral oil), citata dai manuali Cessna"
+      }
+    ]
+  },
+  "6-3": {
+    "letti": [
+      {
+        "riga": 907,
+        "x": 549,
+        "valore": "4.6",
+        "come": "a vista sull'ingrandimento: 4.6",
+        "seconda": "strato di testo del PDF: 4.6 in. Hg; 4,6 pollici di mercurio e' il minimo del vuoto dei manuali Cessna"
+      }
+    ]
+  },
+  "6-4": {
+    "letti": [
+      {
+        "riga": 321,
+        "x": 313,
+        "valore": "6-4",
+        "come": "a vista sull'ingrandimento: 6-4",
+        "seconda": "numero di pagina: la pagina viene fra 6-3 e 6-5 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      },
+      {
+        "riga": 690,
+        "x": 397,
+        "valore": "30°",
+        "come": "a vista sull'ingrandimento: 30°",
+        "seconda": "strato di testo del PDF: \"300\" (30 e il segno di grado letto come 0)"
+      }
+    ],
+    "macchie": [
+      {
+        "riquadro": [
+          230,
+          180,
+          820,
+          305
+        ],
+        "come": "segni a evidenziatore sull'intestazione (strisce colorate verticali sopra \"Page:\" e \"Reims Aviation\", abbastanza scure da passare per inchiostro): non sono stampa, non si ricostruiscono"
+      }
+    ]
+  },
+  "6-5": {
+    "letti": [
+      {
+        "riga": 901,
+        "x": 288,
+        "valore": "15",
+        "come": "a vista sull'ingrandimento: 15",
+        "seconda": "strato di testo del PDF: \"15 days\""
+      }
+    ]
+  },
+  "6-9": {
+    "letti": [
+      {
+        "riga": 442,
+        "x": 480,
+        "valore": "1",
+        "come": "a vista sull'ingrandimento: 1",
+        "seconda": "strato di testo del PDF: \"minutes to 1 hour\""
+      }
+    ]
+  },
+  "6-10": {
+    "letti": [
+      {
+        "riga": 320,
+        "x": 300,
+        "valore": "6-10",
+        "come": "a vista sull'ingrandimento: 6-10",
+        "seconda": "numero di pagina: la pagina viene fra 6-9 e 6-11 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      },
+      {
+        "riga": 627,
+        "x": 796,
+        "valore": "-5°C,",
+        "come": "a vista sull'ingrandimento: -5°C,",
+        "seconda": "strato di testo del PDF: \"-SoC\" (5 e il grado letti S o); la stessa soglia di 6-2"
+      }
+    ],
+    "macchie": [
+      {
+        "riquadro": [
+          230,
+          180,
+          820,
+          300
+        ],
+        "come": "segni a evidenziatore sull'intestazione (strisce colorate verticali sopra \"Page:\" e \"Reims Aviation\", abbastanza scure da passare per inchiostro): non sono stampa, non si ricostruiscono"
+      }
+    ]
+  },
+  "6-12": {
+    "letti": [
+      {
+        "riga": 314,
+        "x": 304,
+        "valore": "6-12",
+        "come": "a vista sull'ingrandimento: 6-12",
+        "seconda": "numero di pagina: la pagina viene fra 6-11 e 6-13 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      },
+      {
+        "riga": 1305,
+        "x": 346,
+        "valore": "1",
+        "come": "a vista sull'ingrandimento: 1",
+        "seconda": "testo di 6-12: \"two positions\", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF"
+      },
+      {
+        "riga": 1305,
+        "x": 903,
+        "valore": "1",
+        "come": "a vista sull'ingrandimento: 1",
+        "seconda": "testo di 6-12: \"two positions\", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF"
+      },
+      {
+        "riga": 1388,
+        "x": 343,
+        "valore": "2",
+        "come": "a vista sull'ingrandimento: 2",
+        "seconda": "testo di 6-12: \"two positions\", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF"
+      },
+      {
+        "riga": 1394,
+        "x": 448,
+        "valore": "1",
+        "come": "a vista sull'ingrandimento: 1",
+        "seconda": "testo di 6-12: \"two positions\", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF"
+      },
+      {
+        "riga": 1394,
+        "x": 512,
+        "valore": "1",
+        "come": "a vista sull'ingrandimento: 1",
+        "seconda": "testo di 6-12: \"two positions\", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF"
+      },
+      {
+        "riga": 1394,
+        "x": 582,
+        "valore": "2",
+        "come": "a vista sull'ingrandimento: 2",
+        "seconda": "testo di 6-12: \"two positions\", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF"
+      }
+    ],
+    "macchie": [
+      {
+        "riquadro": [
+          230,
+          180,
+          920,
+          305
+        ],
+        "come": "segni a evidenziatore sull'intestazione (strisce colorate verticali sopra \"Page:\" e \"Reims Aviation\", abbastanza scure da passare per inchiostro): non sono stampa, non si ricostruiscono"
+      },
+      {
+        "riquadro": [
+          230,
+          1015,
+          245,
+          1040
+        ],
+        "come": "l'angolo in alto a sinistra della cornice della figura 6-2: il filetto verticale misurato comincia un paio di pixel sopra lo spigolo della scansione (via di mezzo)"
+      }
+    ]
+  },
+  "6-13": {
+    "letti": [
+      {
+        "riga": 412,
+        "x": 777,
+        "valore": "1",
+        "come": "a vista sull'ingrandimento: 1",
+        "seconda": "la figura 6-2 (pagina 6-12): il selettore TRANS ha le posizioni 1 e 2"
+      }
+    ]
+  },
+  "6-14": {
+    "letti": [
+      {
+        "riga": 322,
+        "x": 300,
+        "valore": "6-14",
+        "come": "a vista sull'ingrandimento: 6-14",
+        "seconda": "numero di pagina: la pagina viene fra 6-13 e 6-15 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      }
+    ],
+    "macchie": [
+      {
+        "riquadro": [
+          800,
+          180,
+          870,
+          300
+        ],
+        "come": "segni a evidenziatore sull'intestazione (strisce colorate verticali sopra \"Page:\" e \"Reims Aviation\", abbastanza scure da passare per inchiostro): non sono stampa, non si ricostruiscono"
+      }
+    ]
+  },
+  "6-16": {
+    "letti": [
+      {
+        "riga": 322,
+        "x": 295,
+        "valore": "6-16",
+        "come": "a vista sull'ingrandimento: 6-16",
+        "seconda": "numero di pagina: la pagina viene fra 6-15 e 6-17 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      }
+    ]
+  },
+  "6-17": {
+    "letti": [
+      {
+        "riga": 219,
+        "x": 967,
+        "valore": "6-17",
+        "come": "a vista sull'ingrandimento: 6-17",
+        "seconda": "numero di pagina: la pagina viene fra 6-16 e 6-18 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      },
+      {
+        "riga": 250,
+        "x": 994,
+        "valore": "3",
+        "come": "a vista sull'ingrandimento: 3",
+        "seconda": "Edition: 3, come in tutte le pagine del manuale I-CCAF"
+      },
+      {
+        "riga": 688,
+        "x": 272,
+        "valore": "**95",
+        "come": "a vista sull'ingrandimento: **95",
+        "seconda": "95 pollici = 241,3 cm, il **241 della stessa riga ✓"
+      }
+    ],
+    "macchie": [
+      {
+        "riquadro": [
+          675,
+          500,
+          698,
+          522
+        ],
+        "come": "forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo)"
+      },
+      {
+        "riquadro": [
+          588,
+          742,
+          612,
+          757
+        ],
+        "come": "forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo)"
+      },
+      {
+        "riquadro": [
+          586,
+          1206,
+          608,
+          1218
+        ],
+        "come": "forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo)"
+      },
+      {
+        "riquadro": [
+          496,
+          1247,
+          518,
+          1262
+        ],
+        "come": "forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo)"
+      },
+      {
+        "riquadro": [
+          858,
+          1472,
+          880,
+          1490
+        ],
+        "come": "forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo)"
+      }
+    ]
+  },
+  "6-18": {
+    "letti": [
+      {
+        "riga": 330,
+        "x": 307,
+        "valore": "6-18",
+        "come": "a vista sull'ingrandimento: 6-18",
+        "seconda": "numero di pagina: la pagina viene fra 6-17 e 6-19 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      },
+      {
+        "riga": 361,
+        "x": 332,
+        "valore": "3",
+        "come": "a vista sull'ingrandimento: 3",
+        "seconda": "Edition: 3, come in tutte le pagine del manuale I-CCAF"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "cmkg/1000",
+        "base": 346,
+        "come": "la scritta e' al suo posto (ingrandimento); la g scende sotto la linea di base e la fascia stretta della cella la prende"
+      },
+      {
+        "testo": "4.",
+        "base": 620,
+        "come": "il numero e' al suo posto (ingrandimento); cifra sola col punto: la misura dell'altezza la prende sul punto"
+      }
+    ]
+  },
+  "6-19": {
+    "letti": [
+      {
+        "riga": 205,
+        "x": 971,
+        "valore": "6-19",
+        "come": "a vista sull'ingrandimento: 6-19",
+        "seconda": "numero di pagina: la pagina viene fra 6-18 e 6-20 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      },
+      {
+        "riga": 236,
+        "x": 997,
+        "valore": "3",
+        "come": "a vista sull'ingrandimento: 3",
+        "seconda": "Edition: 3, come in tutte le pagine del manuale I-CCAF"
+      },
+      {
+        "riga": 729,
+        "x": 424,
+        "valore": "0",
+        "come": "a vista sull'ingrandimento: 0",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 742,
+        "x": 522,
+        "valore": "0",
+        "come": "a vista sull'ingrandimento: 0",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 742,
+        "x": 654,
+        "valore": "5",
+        "come": "a vista sull'ingrandimento: 5",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 742,
+        "x": 781,
+        "valore": "10",
+        "come": "a vista sull'ingrandimento: 10",
+        "seconda": "10 Qts. = 9,5 l (x 0,946) ✓, come la riga 2 della figura 6-4"
+      },
+      {
+        "riga": 783,
+        "x": 748,
+        "valore": "10",
+        "come": "a vista sull'ingrandimento: 10",
+        "seconda": "10 Qts. = 9,5 l (x 0,946) ✓, come la riga 2 della figura 6-4"
+      },
+      {
+        "riga": 784,
+        "x": 1093,
+        "valore": "25",
+        "come": "a vista sull'ingrandimento: 25",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 784,
+        "x": 1326,
+        "valore": "35",
+        "come": "a vista sull'ingrandimento: 35",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 811,
+        "x": 946,
+        "valore": "MOMENT/1000",
+        "come": "a vista sull'ingrandimento: MOMENT/1000",
+        "seconda": "come la scala del momento della figura 6-4 (cmkg/1000) e \"Moment/1000.\" della nota (2)"
+      },
+      {
+        "riga": 935,
+        "x": 532,
+        "valore": "10",
+        "come": "a vista sull'ingrandimento: 10",
+        "seconda": "10 Qts. = 9,5 l (x 0,946) ✓, come la riga 2 della figura 6-4"
+      },
+      {
+        "riga": 935,
+        "x": 918,
+        "valore": "Moment/1000.",
+        "come": "a vista sull'ingrandimento: Moment/1000.",
+        "seconda": "come il titolo della scala, LOAD MOMENT/1000"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "for an average occupant. Refer to the loading arrangements diagram for forward and aft limits of occupant c.g. range.",
+        "base": 917,
+        "come": "la riga e' al suo posto (ingrandimento: \"for\" coincide); la fascia di controllo prende a sinistra la coda della parentesi di \"(1)\" della riga sopra"
+      },
+      {
+        "testo": "NOTES: (1)",
+        "base": 899,
+        "come": "la riga e' al suo posto (ingrandimento); la parentesi di \"(1)\" scende sotto la linea di base e la misura dell'altezza la prende"
+      }
+    ]
+  },
+  "6-20": {
+    "letti": [
+      {
+        "riga": 325,
+        "x": 301,
+        "valore": "6-20",
+        "come": "a vista sull'ingrandimento: 6-20",
+        "seconda": "numero di pagina: la pagina viene fra 6-19 e 6-21 (sequenza del PDF) e l'indice (pagina v) la elenca"
+      },
+      {
+        "riga": 355,
+        "x": 326,
+        "valore": "3",
+        "come": "a vista sull'ingrandimento: 3",
+        "seconda": "Edition: 3, come in tutte le pagine del manuale I-CCAF"
+      },
+      {
+        "riga": 564,
+        "x": 157,
+        "valore": "900",
+        "come": "a vista sull'ingrandimento: 900",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 810,
+        "x": 807,
+        "valore": "90",
+        "come": "a vista sull'ingrandimento: 90",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 810,
+        "x": 932,
+        "valore": "100",
+        "come": "a vista sull'ingrandimento: 100",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 810,
+        "x": 1000,
+        "valore": "105",
+        "come": "a vista sull'ingrandimento: 105",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 810,
+        "x": 1066,
+        "valore": "110",
+        "come": "a vista sull'ingrandimento: 110",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 810,
+        "x": 1132,
+        "valore": "115",
+        "come": "a vista sull'ingrandimento: 115",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 810,
+        "x": 1200,
+        "valore": "120",
+        "come": "a vista sull'ingrandimento: 120",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 811,
+        "x": 355,
+        "valore": "55",
+        "come": "a vista sull'ingrandimento: 55",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 842,
+        "x": 539,
+        "valore": "80",
+        "come": "a vista sull'ingrandimento: 80",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 842,
+        "x": 710,
+        "valore": "95",
+        "come": "a vista sull'ingrandimento: 95",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 843,
+        "x": 595,
+        "valore": "85",
+        "come": "a vista sull'ingrandimento: 85",
+        "seconda": "scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152)"
+      },
+      {
+        "riga": 873,
+        "x": 817,
+        "valore": "MOMENT/1000",
+        "come": "a vista sull'ingrandimento: MOMENT/1000",
+        "seconda": "come le figure 6-4 e 6-5: i momenti si danno /1000"
+      }
+    ]
+  },
+  "6-8": {
+    "macchie": [
+      {
+        "riquadro": [
+          535,
+          1360,
+          570,
+          1395
+        ],
+        "come": "il bordo di un raggio a retino del collettore (fuel manifold): nella ricostruita il retino e' campitura grigia piena e il suo bordo non segue i puntini sfrangiati della scansione (via di mezzo)"
+      }
+    ],
+    "righe": [
+      {
+        "testo": "Reims, Marne France",
+        "base": 361,
+        "come": "l'intestazione e' al suo posto (ingrandimento); sopra ci sono segni a evidenziatore che la misura dell'altezza prende per inchiostro"
+      }
+    ]
   }
 }

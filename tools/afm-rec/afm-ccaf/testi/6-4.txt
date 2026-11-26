@@ -1,0 +1,32 @@
+146 | Flight Manual
+178 | Reims Rocket
+321 | Page: 6-4 Reims Aviation
+352 | Edition: 3 Reims, Marne France
+438 titolo | CARE OF AIRPLANE
+566 titolo | GROUND HANDLING.
+627 | The airplane is most easily and safely maneuvered by hand with the tow-bar at-
+658 | tached to the nose wheel. When towing with a vehicle, do not exceed the nose gear
+690 | turning angle of 30° either side of center, or damage to the gear will result. If the
+721 | airplane is towed or pushed over a rough surface during hangaring, watch that the
+752 | normal cushioning action of the nose strut does not cause excessive vertical move-
+783 | ment of the tail and the resulting contact with low hangar doors or structure. A
+814 | flat nose tire or deflated strut will also increase tail height.
+906 titolo | MOORING YOUR AIRPLANE.
+967 | Proper tie-down procedure is your best precaution against damage to your park-
+998 | ed airplane by gusty or strong winds. To tie-down your airplane securely, proceed
+1028 | as follows:
+1090 | (1) Set the parking brake and install the control wheel lock.
+1121 | (2) Tie sufficiently strong ropes or chains (300 kg tensile strength) to wing,
+1152 | tail, and nose tie-down fittings and secure each rope to a ramp tie-down.
+1182 | (3) Install a surface control lock over the fin and rudder.
+1213 | (4) Install a pitot tube cover.
+1305 titolo | WINDSHIELD-WINDOWS.
+1364 | The plastic windshield and windows should be cleaned with an aircraft wind-
+1395 | shield cleaner. Apply the cleaner sparingly with soft cloths, and rub with moderate
+1425 | pressure until all dirt, oil scum and bug stains are removed. Allow the cleaner to dry,
+1455 | then wipe it off with soft flannel cloths.
+1516 | If a windshield cleaner is not available, the plastic can be cleaned with soft cloths
+1548 | moistened with Stoddard solvent to remove oil and grease.
+1607 | NOTE
+1669 sotto=2 fissa | Never use gasoline, benzine, alcohol, acetone, carbon tetrachloride
+1699 fissa | fire extinguisher or anti-ice fluid, lacquer thinner or glass cleaner

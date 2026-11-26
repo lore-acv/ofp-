@@ -50,12 +50,12 @@ def peso(t):
         else: s += .52
     return s
 
-def gruppi(base, x0, x1, c, basso=None, M=None, gap=3):
+def gruppi(base, x0, x1, c, basso=None, M=None, gap=3, alto=None):
     # una riga senza discendenti si ferma poco sotto la linea di base (una sottolineatura non e' la riga)
     M = ink if M is None else M
     # la finestra si cerca con 3 righe in piu' sopra e sotto: un filetto appena fuori la chiude lo
     # stesso (le sue sbavature di un pixel non sono la riga)
-    ya_, yb_ = int(base - c * 1.22) - 3, int(basso if basso else base + c * 0.35) + 3
+    ya_, yb_ = (int(base - alto) if alto else int(base - c * 1.22) - 3), int(basso if basso else base + c * 0.35) + 3
     z = M[ya_:yb_, x0:x1]
     # un filetto (riga quasi tutta piena) dentro la finestra non e' la riga: la finestra si ferma li'
     if z.shape[0] and z.shape[1] > 20:
@@ -136,8 +136,13 @@ for ln in open(TXT, encoding='utf-8'):
     c = opz.get('c', 25 if ruolo == 'titolo' else 18.5)
     SPORCO_H = c * 0.6
     gap = opz.pop('gap', 3); GAP_RIGA = gap      # colonne vuote che separano due parole (2 per i caratteri piccoli e fitti)
+    # sotto=N: la finestra si ferma N px sotto la base anche se ci sono discendenti (una sottolineatura
+    # sotto parole con la "y", come "every 25 hours." a pagina 6-2, unirebbe le parole)
+    sotto = opz.pop('sotto', None)
+    sopra = opz.pop('sopra', None)      # sopra=N: la finestra comincia N px sopra la base (una sottolineatura della riga di sopra)
     tok = testo.split()
-    g = gruppi(base, x0, x1, c, None if re.search(r'[gjpqyQ,;()\[\]/_]', testo) else base + 3, ink_libro if opz.get('libro') else None, gap)
+    basso = base + sotto if sotto is not None else None if re.search(r'[gjpqyQ,;()\[\]/_]', testo) else base + 3
+    g = gruppi(base, x0, x1, c, basso, ink_libro if opz.get('libro') else None, gap, sopra)
     r = accoppia(tok, g)
     if r is None:
         print(f'NO {base}: {len(tok)} parole, {len(g)} gruppi {g}', file=sys.stderr); sys.exit(1)

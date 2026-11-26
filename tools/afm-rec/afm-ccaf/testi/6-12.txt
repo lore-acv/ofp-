@@ -1,0 +1,37 @@
+166 | Flight Manual
+192 | Reims Rocket
+314 | Page: 6-12 Reims Aviation
+345 | Edition: 3 Reims, Marne France
+468 titolo 340-860 c=28 | RADIO SELECTOR SWITCHES
+559 titolo | RADIO SELECTOR SWITCH OPERATION.
+622 | Operation of the radio equipment is normal as covered in the respective radio
+653 | manuals. When more than one radio is installed, an audio switching system is neces-
+684 | sary. The operation of this switching system is described below.
+777 titolo | TRANSMITTER SELECTOR SWITCH.
+839 | The transmitter selector switch is labeled “TRANS,” and has two positions.
+869 | When two transmitters are installed, it is necessary to switch the microphone to the
+900 | radio unit the pilot desires to use for transmission. This is accomplished by placing
+931 | the transmitter selector switch in the position corresponding to the radio unit which
+962 | is to be used. The up position selects the upper transmitter and the down position
+992 | selects the lower transmitter.
+1099 figtitolo 425-770 fissa | RADIO SELECTOR SWITCHES
+1180 etichetta 630-845 fissa | AUTOPILOT-OMNI SWITCH
+1288 etichetta 562-632 fissa | SPEAKER
+1305 etichetta 335-355 fissa | 1
+1305 etichetta 895-915 fissa | 1
+1388 etichetta 335-355 fissa | 2
+1388 etichetta 895-915 fissa | 2
+1407 etichetta 323-380 fissa | TRANS
+1394 etichetta 395-825 fissa gap=6 | COM 1 NAV 1 COM 2 NAV 2 DME ADF
+1394 etichetta 826-852 fissa sx=0.8 | SS
+1429 etichetta 567-632 fissa | PHONES
+1426 etichetta 880-930 fissa | OMNI
+1451 etichetta 850-946 fissa | AUTOPILOT
+1509 etichetta 296-400 fissa | TRANSMITTER
+1535 etichetta 290-440 fissa | SELECTOR SWITCH
+1509 etichetta 546-820 fissa | SPEAKER-PHONE SWITCH (TYPICAL)
+1535 etichetta 560-860 fissa | SWITCHES CONTROL SPEAKER-PHONE
+1559 etichetta 560-860 fissa | FUNCTION OF COMMUNICATION AND
+1583 etichetta 560-848 fissa | NAVIGATION EQUIPMENT IN RADIO
+1607 etichetta 560-860 fissa | STACK ON INSTRUMENT PANEL.
+1697 | Figure 6-2.

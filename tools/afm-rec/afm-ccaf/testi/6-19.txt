@@ -1,0 +1,51 @@
+149 libro 400-850 | Flight Manual
+180 libro 400-850 | Reims Rocket
+211 libro 200-650 | Reims Aviation
+205 libro 650-1100 | Page: 6-19
+241 libro 200-650 | Reims, Marne France
+236 libro 650-1100 | Edition: 3
+311 figtitolo c=14 fissa 360-395 | KG
+311 figtitolo c=14 fissa 400-444 | 200
+416 figtitolo c=14 fissa 400-444 | 150
+520 figtitolo c=14 fissa 400-444 | 100
+628 figtitolo c=14 fissa 400-444 | 50
+729 figtitolo c=14 fissa 415-444 | 0
+312 figtitolo c=14 fissa 476-520 | LBS
+349 figtitolo c=14 fissa 476-522 | 400
+395 figtitolo c=14 fissa 476-522 | 350
+444 figtitolo c=14 fissa 476-522 | 300
+492 figtitolo c=14 fissa 476-522 | 250
+539 figtitolo c=14 fissa 476-522 | 200
+586 figtitolo c=14 fissa 476-522 | 150
+635 figtitolo c=14 fissa 476-522 | 100
+682 figtitolo c=14 fissa 476-522 | 50
+728 figtitolo c=14 fissa 476-522 | 0
+742 figtitolo c=14 fissa 515-540 | 0
+742 figtitolo c=14 fissa 648-670 | 5
+742 figtitolo c=14 fissa 776-810 | 10
+742 figtitolo c=14 fissa 910-944 | 15
+743 figtitolo c=14 fissa 1043-1080 | 20
+743 figtitolo c=14 fissa 1178-1212 | 25
+743 figtitolo c=14 fissa 1311-1347 | 30
+739 figtitolo c=14 fissa 1388-1470 | POUND-
+753 figtitolo c=14 fissa 1395-1450 sopra=13 | INCH
+783 figtitolo c=14 fissa 515-535 | 0
+783 figtitolo c=14 fissa 630-650 | 5
+783 figtitolo c=14 fissa 743-770 | 10
+784 figtitolo c=14 fissa 860-888 | 15
+783 figtitolo c=14 fissa 971-1002 | 20
+784 figtitolo c=14 fissa 1088-1118 | 25
+784 figtitolo c=14 fissa 1203-1234 | 30
+784 figtitolo c=14 fissa 1321-1350 | 35
+785 figtitolo c=14 fissa 1392-1470 | KG- CM
+811 figtitolo c=14 fissa 878-1092 | LOAD MOMENT/1000
+680 figtitolo c=14 fissa 1200-1390 | LOADING GRAPH
+842 testo c=12 sx=0.86 312-870 | MAXIMUM USABLE FUEL @ 6 LBS/GAL (0,72 KG/LITRE):
+860 testo c=12 sx=0.86 424-761 gap=6 fissa | Standard Tanks in Wings: 46 U.S. Gal
+860 testo c=12 sx=0.86 762-895 gap=7 fissa | (174 Litres)
+878 testo c=12 sx=0.86 424-1008 | Optional Auxiliary Tank in Baggage Area: 17 U.S. Gal (64 Litres)
+899 testo c=12 sx=0.86 310-421 gap=7 fissa basefissa | NOTES: (1)
+902 testo c=12 sx=0.86 424-1405 | Line representing adjustable seats shows the pilot or front passenger center of gravity on adjustable seats positioned
+919 testo c=12 sx=0.86 420-1420 | for an average occupant. Refer to the loading arrangements diagram for forward and aft limits of occupant c.g. range.
+935 testo c=12 sx=0.86 390-1090 gap=5 fissa | (2) Engine oil: 10 Qts. (9,5 litres) = 19 Lbs. (8,5 kg) at -0,5 Moment/1000.
+995 650-900 | Figure 6-5.

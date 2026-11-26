@@ -1,0 +1,29 @@
+160 | Flight Manual
+192 | Reims Rocket
+320 | Page: 6-14 Reims Aviation
+351 | Edition: 3 Reims, Marne France
+475 titolo 340-860 c=28 | WING LEVELER
+566 | A wing leveler may be installed to augment the lateral stability of the airplane.
+597 | The system uses the Turn Coordinator for roll and yaw sensing. Vacuum pressure,
+628 | from the engine-driven vacuum pump, is routed from the Turn Coordinator to cylin-
+660 | der-piston servo units attached to the aileron control system. As the airplane devi-
+691 | ates from a wing level attitude, vacuum pressure in the servo units is increased or
+722 | relieved as needed to actuate the ailerons to oppose the deviations.
+785 | A separately mounted push-pull control knob, labeled “WING LVLR,” is pro-
+817 | vided on the lower center portion of the instrument panel to turn the system on and
+848 | off. A “ROLL TRIM” control knob on the Turn Coordinator is used for manual
+880 | roll trim control to compensate for asymmetrical loading of fuel and passengers, and
+911 | to optimize system performance in climb, cruise and let-down.
+1030 titolo | OPERATING CHECK LIST
+1093 titolo | TAKE-OFF.
+1155 | (1) “WING LVLR” Control Knob - - Check in off position (full in).
+1251 titolo | CLIMB.
+1309 | (1) Adjust elevator trim for climb.
+1340 | (2) “WING LVLR” Control Knob - - Pull control knob “ON.”
+1370 | (3) “ROLL TRIM” Control Knob - - Adjust for wings level attitude.
+1464 titolo | CRUISE.
+1523 | (1) Adjust power and elevator trim for level flight.
+1554 | (2) “ROLL TRIM” Control Knob - - Adjust as desired.
+1615 titolo | DESCENT.
+1676 | (1) Adjust power and elevator trim for desired speed and rate of descent.
+1707 | (2) “ROLL TRIM” Control Knob - - Adjust as desired.

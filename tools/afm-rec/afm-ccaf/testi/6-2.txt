@@ -1,0 +1,38 @@
+127 | Flight Manual
+159 | Reims Rocket
+325 | Page: 6-2 Reims Aviation
+355 | Edition: 3 Reims, Marne France
+451 titolo | LUBRICATION AND SERVICING PROCEDURES
+511 titolo | DAILY (Continued)
+570 | OIL FILLER:
+602 | When preflight check shows low oil level, service with aviation grade engine oil;
+633 | SAE 50 above 5°C and SAE 10W30 or SAE 30 below 5°C. (Multi-viscosity oil
+664 | with a range of SAE 10W30 is recommended for improved starting in cold
+695 | weather.) Detergent or dispersant oil, conforming to Continental Motors
+726 | Specification MHS-24A, must be used. Your Cessna Dealer can supply approved
+757 | brands of oil.
+800 | NOTE
+851 | Your Cessna was delivered from the factory with a corrosion pre-
+882 | ventive aircraft engine oil. If oil must be added during the first
+914 | 25 hours, use only aviation grade straight mineral oil (non-deter-
+945 | gent) conforming to Specification No. MIL-L-6082.
+1027 titolo | SERVICING INTERVALS CHECK LIST
+1114 titolo | FIRST 25 HOURS
+1160 | ENGINE OIL SUMP AND OIL FILTER – After first 25 hours of operation, drain
+1191 | engine oil sump and clean both the oil suction strainer and oil pressure screen. If an
+1222 | optional oil filter is installed, change filter element at this time. Refill sump with
+1253 | straight mineral oil (non-detergent) and use until a total of 50 hours have accumu-
+1283 | lated or oil consumption has stabilized, then change to detergent oil.
+1329 titolo | EACH 50 HOURS
+1372 | BATTERY - - Check and service. Check oftener (at least every 30 days) if oper-
+1402 | ating in hot weather.
+1434 | ENGINE OIL SUMP AND OIL FILTER – Change engine oil and replace filter element.
+1464 sotto=4 fissa | If optional oil filter is not installed, change oil and clean both the oil suction strainer
+1494 sotto=4 fissa | and oil pressure screen every 25 hours. Change engine oil at least every four months
+1525 sopra=19 fissa | even though less than 50 hours have accumulated. Reduce periods for prolonged op-
+1555 | eration in dusty areas, cold climates, or when short flights and long idle periods result
+1585 | in sludging conditions.
+1614 | INDUCTION AIR FILTER - - Clean or replace. Under extremely dusty conditions,
+1645 | daily maintenance of the filter is recommended.
+1677 | NOSE GEAR TORQUE LINKS - - Lubricate. When operating under dusty conditions,
+1707 | more frequent lubrication is recommended.

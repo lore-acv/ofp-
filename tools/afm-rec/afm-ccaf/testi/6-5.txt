@@ -1,0 +1,38 @@
+163 | Flight Manual
+194 | Reims Rocket
+230 | Reims Aviation Page: 6-5
+262 | Reims, Marne France Edition: 3
+349 | to clean the plastic. These materials will attack the plastic and
+381 | may cause it to craze.
+439 sotto=0 fissa | Follow by carefully washing with a mild detergent and plenty of water. Rinse thor-
+470 sotto=0 sopra=19 fissa | oughly, then dry with a clean moist chamois. Do not rub the plastic with a dry
+501 sopra=19 fissa | cloth since this builds up an electrostatic charge which attracts dust. Waxing with a
+533 | good commercial wax will finish the cleaning job. A thin, even coat of wax, polished
+564 | out by hand with clean soft flannel cloths, will fill in minor scratches and help pre-
+595 | vent further scratching.
+657 sotto=0 fissa | Do not use a canvas cover on the windshield unless freezing rain or sleet is an-
+688 sopra=19 fissa | ticipated since the cover may scratch the plastic surface.
+778 titolo | PAINTED SURFACES.
+839 | The painted exterior surfaces of your new Cessna have a durable, long lasting
+870 | finish and, under normal conditions, require no polishing or buffing. Approximately
+901 | 15 days are required for the paint to cure completely; in most cases, the curing
+932 | period will have been completed prior to delivery of the airplane. In the event that
+962 | polishing or buffing is required within the curing period, it is recommended that the
+993 | work be done by someone experienced in handling uncured paint. Any Cessna
+1024 | Dealer can accomplish this work.
+1085 | Generally, the painted surfaces can be kept bright by washing with water and
+1116 | mild soap, followed by a rinse with water and drying with cloths or a chamois.
+1147 | Harsh or abrasive soaps or detergents which cause corrosion or scratches should never
+1178 | be used. Remove stubborn oil and grease with a cloth moistened with Stoddard sol-
+1209 | vent.
+1271 | Waxing is unnecessary to keep the painted surfaces bright. However, if desired,
+1302 | the airplane may be waxed with a good automotive wax. A heavier coating of wax
+1331 | on the leading edges of the wings and tail and on the engine nose cap and propeller
+1361 | spinner will help reduce the abrasion encountered in these areas.
+1422 | When the airplane is parked outside in cold climates and it is necessary to re-
+1452 | move ice before flight, care should be taken to protect the painted surfaces during
+1482 | ice removal with chemical liquids. A 50-50 solution of isopropyl alcohol and water
+1511 | will satisafctorily remove ice accumulations without damaging the paint. A solution
+1544 | with more than 50% alcohol is harmful and should be avoided. While applying the
+1576 | de-icing solution, keep it away from the windshield and cabin windows since the
+1606 | alcohol will attack the plastic and may cause it to craze.

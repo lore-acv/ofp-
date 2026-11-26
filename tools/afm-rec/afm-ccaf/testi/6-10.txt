@@ -1,0 +1,34 @@
+166 | Flight Manual
+197 | Reims Rocket
+320 | Page: 6-10 Reims Aviation
+350 | Edition: 3 Reims, Marne France
+473 titolo 335-855 c=28 | COLD WEATHER EQUIPMENT
+568 titolo | WINTERIZATION KIT.
+627 | For continuous operation in temperatures consistently below -5°C, the Cessna
+657 | winterization kit should be installed to improve engine operation. The kit consists
+688 | of two baffles to partially cover the cowl nose cap openings, and insulation for the
+719 | crankcase breather line. Once installed, the crankcase breather insulation is approved
+750 | for permanent use in both cold and hot weather.
+848 titolo | GROUND SERVICE PLUG RECEPTACLE.
+908 | A ground service plug receptacle may be installed to permit the use of an ex-
+939 | ternal power source for cold weather starting and during lengthy maintenance work
+970 | on the airplane electrical system (with the exception of electronic equipment).
+1031 | NOTE
+1093 | Electrical power for the airplane electrical circuits is provided
+1123 | through a split bus bar having all electronic circuits on one side
+1154 | of the bus and other electrical circuits on the other side of the
+1184 | bus. When an external power source is connected, a contactor
+1215 | automatically opens the circuit to the electronic portion of the
+1246 | split bus bar as a protection against damage to the transistors
+1277 | in the electronic equipment by transient voltages from the power
+1307 | source. Therefore, the external power source can not be used
+1337 | as a source of power when checking electronic components.
+1398 | Just before connecting an external power source (generator type or battery
+1429 | cart), the master switch should be turned “ON.”
+1490 | The ground service plug receptacle circuit incorporates a polarity reversal pro-
+1521 | tection. Power from the external power source will flow only if the ground service
+1551 | plug is correctly connected to the airplane. If the plug is accidentally connected
+1581 | backwards, no power will flow to the airplane’s electrical system, thereby preventing
+1612 | any damage to electrical equipment.
+1672 | The battery and external power circuits have been designed to completely elimi-
+1703 | nate the need to “jumper” across the battery contactor to close it for charging a

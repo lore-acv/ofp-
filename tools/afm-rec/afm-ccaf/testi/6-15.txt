@@ -1,0 +1,23 @@
+170 | Flight Manual
+201 | Reims Rocket
+235 | Reims Aviation Page: 6-15
+266 | Reims, Marne France Edition: 3
+359 titolo | LANDING.
+419 | (1) Before landing, push “WING LVLR” control knob full in to the off
+451 | position.
+539 titolo | EMERGENCY PROCEDURES
+603 | If a malfunction should occur, the system is easily overpowered with pressure
+634 | on the control wheel. The system should then be turned off. In the event of par-
+665 | tial or complete vacuum failure, the wing leveler will automatically become inopera-
+696 | tive. However, the Turn Coordinator used with the wing leveler system will not be
+726 | affected by loss of vacuum since it is designed with a “back-up” system enabling it
+756 | to operate from either vacuum or electrical power in the event of failure of one of
+788 | these sources.
+876 titolo | OPERATING NOTES
+941 | (1) The wing leveler system may be overpowered at any time without damage
+972 | or wear. However, for extended periods of maneuvering it may be desirable to turn
+1003 | the system off.
+1034 | (2) It is recommended that the system not be engaged during take-off and
+1065 | landing. Although the system can be easily overpowered, servo forces could signifi-
+1096 | cantly alter the manual “feel” of the aileron control, especially should a malfunction
+1127 | occur.

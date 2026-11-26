@@ -1,6 +1,6 @@
 # VERIFICA — Flight Manual I-CCAF, anteprima ricostruita
 
-> Generato da `tools/afm-rec/verifica.mjs afm-ccaf` il 2026-11-25. L'anteprima ricostruita **non fa fede**: fa fede il Flight Manual originale (data/afm/).
+> Generato da `tools/afm-rec/verifica.mjs afm-ccaf` il 2026-11-26. L'anteprima ricostruita **non fa fede**: fa fede il Flight Manual originale (data/afm/).
 
 ## Come si verifica una pagina
 
@@ -19,6 +19,12 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 
 | Pagina | Stato | Righe coincidenti | Macchie | Numeri (conferme) | Differenze aperte | Inchiostro non coincidente | Esito |
 |---|---|---|---|---|---|---|---|
+| i | ricostruita | 20/20 | 0 | 7 (7 con 2+ conferme) | 0 | 16.8% | **verificata** |
+| ii | ricostruita | 19/19 | 0 | 1 (1 con 2+ conferme) | 0 | 10.3% | **verificata** |
+| iii | ricostruita | 72/72 | 0 | 32 (32 con 2+ conferme) | 0 | 14.9% | **verificata** |
+| iv | ricostruita | 77/77 | 0 | 35 (35 con 2+ conferme) | 0 | 15.1% | **verificata** |
+| v | ricostruita | 63/63 | 0 | 27 (27 con 2+ conferme) | 0 | 15.8% | **verificata** |
+| vi | ricostruita | 14/14 | 0 | 1 (1 con 2+ conferme) | 0 | 2.2% | **verificata** |
 | 1-1 | ricostruita | 27/27 | 0 | 8 (8 con 2+ conferme) | 0 | 5.6% | **verificata** |
 | 1-2 | ricostruita | 22/22 | 0 | 10 (4 con 2+ conferme) | 0 | 2.5% | **verificata** |
 | 1-3 | ricostruita | 40/40 | 0 | 45 (23 con 2+ conferme) | 0 | 12.3% | **verificata** |
@@ -78,6 +84,26 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 | 5-10 | ricostruita | 72/72 | 0 | 33 (33 con 2+ conferme) | 0 | 5.7% | **verificata** |
 | 5-11 | ricostruita | 115/115 | 0 | 79 (79 con 2+ conferme) | 0 | 4.3% | **verificata** |
 | 5-12 | campione | 26/26 | 0 | 17 (17 con 2+ conferme) | 0 | 7.1% | **verificata** |
+| 6-1 | ricostruita | 34/34 | 0 | 16 (16 con 2+ conferme) | 0 | 7.9% | **verificata** |
+| 6-2 | ricostruita | 40/40 | 0 | 18 (18 con 2+ conferme) | 0 | 6.8% | **verificata** |
+| 6-3 | ricostruita | 33/33 | 0 | 9 (9 con 2+ conferme) | 0 | 7.8% | **verificata** |
+| 6-4 | ricostruita | 34/34 | 0 | 8 (8 con 2+ conferme) | 0 | 9.1% | **verificata** |
+| 6-5 | ricostruita | 40/40 | 0 | 5 (5 con 2+ conferme) | 0 | 7.9% | **verificata** |
+| 6-6 | ricostruita | 32/32 | 0 | 2 (2 con 2+ conferme) | 0 | 7.9% | **verificata** |
+| 6-7 | ricostruita | 36/36 | 0 | 14 (14 con 2+ conferme) | 0 | 6.9% | **verificata** |
+| 6-8 | ricostruita | 79/79 | 0 | 3 (3 con 2+ conferme) | 0 | 6.8% | **verificata** |
+| 6-9 | ricostruita | 21/21 | 0 | 7 (7 con 2+ conferme) | 0 | 8.3% | **verificata** |
+| 6-10 | ricostruita | 36/36 | 0 | 3 (3 con 2+ conferme) | 0 | 6.2% | **verificata** |
+| 6-11 | ricostruita | 23/23 | 0 | 4 (4 con 2+ conferme) | 0 | 6.5% | **verificata** |
+| 6-12 | ricostruita | 41/41 | 0 | 11 (11 con 2+ conferme) | 0 | 12.7% | **verificata** |
+| 6-13 | ricostruita | 31/31 | 0 | 4 (4 con 2+ conferme) | 0 | 8.4% | **verificata** |
+| 6-14 | ricostruita | 31/31 | 0 | 10 (10 con 2+ conferme) | 0 | 7.4% | **verificata** |
+| 6-15 | ricostruita | 25/25 | 0 | 5 (5 con 2+ conferme) | 0 | 8.6% | **verificata** |
+| 6-16 | ricostruita | 9/9 | 0 | 2 (2 con 2+ conferme) | 0 | 4.5% | **verificata** |
+| 6-17 | ricostruita | 50/50 | 0 | 28 (28 con 2+ conferme) | 0 | 13.4% | **verificata** |
+| 6-18 | ricostruita | 57/57 | 0 | 49 (49 con 2+ conferme) | 0 | 9.4% | **verificata** |
+| 6-19 | ricostruita | 52/52 | 0 | 47 (47 con 2+ conferme) | 0 | 6.2% | **verificata** |
+| 6-20 | ricostruita | 66/66 | 0 | 52 (52 con 2+ conferme) | 0 | 5.5% | **verificata** |
 
 ## Figure: metodo
 
@@ -119,6 +145,12 @@ Una pagina e' **verificata** solo con zero differenze aperte (righe fuori posto 
 - **Figura 5-5 (Landing distance)** (pagina 5-10): tabella a griglia ricostruita: filetti misurati ai due capi, testo vero nelle celle (letto a vista, agganciato all'inchiostro riga per riga dentro ogni cella; costruisci/5-10.py).
 - **Figura 5-6 (Maximum rate-of-climb data)** (pagina 5-11): tabella a griglia ricostruita: filetti misurati ai due capi, testo vero nelle celle (letto a vista, ogni terna km/h, kts, MPH controllata; agganciato all'inchiostro riga per riga dentro ogni cella; costruisci/5-11.py).
 - **Figura 5-7 (Maximum glide)** (pagina 5-12): cornice e griglia: filetti SVG misurati; fascia di planata: 689 punti della retinatura ridisegnati uno per uno nella posizione misurata sulla scansione, piu' 117 punti ricavati dal reticolo locale solo dove si fondono con i filetti della griglia; aeroplano: disegno al tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, dopo aver tolto i filetti e i punti che lo attraversano (tools/afm-rec/afm-ccaf/figure/fig-5-7.py); scritte: testo vero, misurato parola per parola.
+- **Figura 6-1 (Fuel system schematic with optional auxiliary fuel system)** (pagina 6-8): cornice e riquadro del codice: filetti misurati (tools/afm-rec/filetti.py); schema: tratto vettorializzato con potrace dalla scansione ingrandita 6 volte, tolte le scritte, con le campiture a retino come campitura grigia piena (tools/afm-rec/tratto.py --retino); scritte: testo vero, lette a vista sull'ingrandimento, linea di base e altezza delle maiuscole dall'inchiostro (costruisci/6-8.py).
+- **Figura 6-2 (Radio selector switches)** (pagina 6-12): cornice e riquadro del titolo: filetti misurati; interruttori, graffe e frecce: tratto vettorializzato con potrace dalla scansione ingrandita 6 volte (tratto.py); titolo ed etichette: testo vero, ruoli figtitolo ed etichetta.
+- **Figura 6-3 (Loading arrangements)** (pagina 6-17): cornice e riquadro del titolo: filetti misurati (filetti.py --girata); sedili, linee delle stazioni e sottolineature: tratto vettorializzato con potrace dalla scansione ingrandita 6 volte (tratto.py); scritte: testo vero, ruolo figtitolo (costruisci/6-17.py).
+- **Figura 6-4 (Sample loading problem)** (pagina 6-18): filetti della tabella misurati (filetti.py --girata); puntini guida: tratto con potrace (tratto.py); testo vero, ruolo figtitolo; numeri confermati dalla somma (peso e momento totali) (costruisci/6-18.py).
+- **Figura 6-5 (Loading graph)** (pagina 6-19): cornice: filetti misurati; griglia, rette di carico con le loro scritte inclinate, scale e riquadro del titolo: tratto vettorializzato con potrace (tratto.py); numeri delle scale, titoli e note: testo vero (costruisci/6-19.py).
+- **Figura 6-6 (Center of gravity moment envelope)** (pagina 6-20): cornice: filetti misurati; griglia, inviluppi, scale e riquadro del titolo, con la scritta inclinata UTILITY CATEGORY: tratto vettorializzato con potrace (tratto.py); numeri delle scale e titoli: testo vero (costruisci/6-20.py).
 
 ## Differenze aperte
 
@@ -130,6 +162,23 @@ Differenze della misura, non della pagina: guardate sull'ingrandimento (coordina
 
 | Pagina | Cosa | Perche' |
 |---|---|---|
+| iv | riga "4-1" (base 822) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-5" (base 1009) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-6" (base 1193) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-6" (base 1224) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-7" (base 1310) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-7" (base 1341) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-9" (base 1433) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-14" (base 1644) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "3-4" (base 456) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-1" (base 853) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-5" (base 978) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-6" (base 1163) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-9" (base 1403) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| iv | riga "4-1" (base 885) | il numero di pagina e' al suo posto (ingrandimento: coincide); la fascia di controllo prende anche l'ultimo puntino guida, a 3-4 px dalla cifra, piu' basso: la misura dell'altezza ne esce spostata |
+| v | riga "6-17" (base 1528) | il numero di pagina e' al suo posto (ingrandimento: coincide); l'ultimo puntino guida sta a 2-3 px dalla cifra e nella via di mezzo la fascia di controllo comincia da li' |
+| v | riga "6-18" (base 1559) | il numero di pagina e' al suo posto (ingrandimento: coincide); l'ultimo puntino guida sta a 2-3 px dalla cifra e nella via di mezzo la fascia di controllo comincia da li' |
+| v | riga "6-19" (base 1590) | il numero di pagina e' al suo posto (ingrandimento: coincide); l'ultimo puntino guida sta a 2-3 px dalla cifra e nella via di mezzo la fascia di controllo comincia da li' |
 | 1-5 | riga "1" (base 514) | il numero 1 e' nel posto giusto (componente dell'inchiostro, 357-360 x 491-513); la sua linea di richiamo parte dal piede della cifra e la misura della linea di base la prende per la cifra |
 | 1-5 | riga "4" (base 514) | il numero 4 e' nel posto giusto (componente dell'inchiostro, 478-486 x 491-513); come per l'1, la sua linea di richiamo parte dal piede della cifra e la misura della linea di base la prende per la cifra |
 | 1-5 | macchia, riquadro 1003, 338, 1013, 425 | il filetto destro della cornice: nella scansione in alto sbiadisce sotto la soglia dell'inchiostro (grigio, interrotto), sulla pagina e' continuo come gli altri tre lati; la ricostruita lo disegna continuo |
@@ -178,10 +227,159 @@ Differenze della misura, non della pagina: guardate sull'ingrandimento (coordina
 | 5-11 | riga "FUEL" (base 506) | la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di "RATE OF" della cella accanto, che nella scansione tocca il filetto |
 | 5-11 | riga "USED" (base 524) | la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di "RATE OF" della cella accanto, che nella scansione tocca il filetto |
 | 5-11 | riga "Litres" (base 542) | la colonna FUEL USED / Litres e' al suo posto (ingrandimento: coincide); la fascia di controllo comincia 12 px prima, attraversa il filetto e prende la F di "RATE OF" della cella accanto, che nella scansione tocca il filetto |
+| 6-4 | macchia, riquadro 230, 180, 820, 305 | segni a evidenziatore sull'intestazione (strisce colorate verticali sopra "Page:" e "Reims Aviation", abbastanza scure da passare per inchiostro): non sono stampa, non si ricostruiscono |
+| 6-8 | riga "Reims, Marne France" (base 361) | l'intestazione e' al suo posto (ingrandimento); sopra ci sono segni a evidenziatore che la misura dell'altezza prende per inchiostro |
+| 6-8 | macchia, riquadro 535, 1360, 570, 1395 | il bordo di un raggio a retino del collettore (fuel manifold): nella ricostruita il retino e' campitura grigia piena e il suo bordo non segue i puntini sfrangiati della scansione (via di mezzo) |
+| 6-10 | macchia, riquadro 230, 180, 820, 300 | segni a evidenziatore sull'intestazione (strisce colorate verticali sopra "Page:" e "Reims Aviation", abbastanza scure da passare per inchiostro): non sono stampa, non si ricostruiscono |
+| 6-12 | macchia, riquadro 230, 180, 920, 305 | segni a evidenziatore sull'intestazione (strisce colorate verticali sopra "Page:" e "Reims Aviation", abbastanza scure da passare per inchiostro): non sono stampa, non si ricostruiscono |
+| 6-12 | macchia, riquadro 230, 1015, 245, 1040 | l'angolo in alto a sinistra della cornice della figura 6-2: il filetto verticale misurato comincia un paio di pixel sopra lo spigolo della scansione (via di mezzo) |
+| 6-14 | macchia, riquadro 800, 180, 870, 300 | segni a evidenziatore sull'intestazione (strisce colorate verticali sopra "Page:" e "Reims Aviation", abbastanza scure da passare per inchiostro): non sono stampa, non si ricostruiscono |
+| 6-17 | macchia, riquadro 675, 500, 698, 522 | forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo) |
+| 6-17 | macchia, riquadro 588, 742, 612, 757 | forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo) |
+| 6-17 | macchia, riquadro 586, 1206, 608, 1218 | forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo) |
+| 6-17 | macchia, riquadro 496, 1247, 518, 1262 | forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo) |
+| 6-17 | macchia, riquadro 858, 1472, 880, 1490 | forma delle lettere dentro una parola a larghezza misurata (testo vero nel bastoni Archivo, l'originale e' un altro bastoni): la parola comincia e finisce dove nell'originale, le singole lettere si spostano di 1-3 px; guardata sull'ingrandimento (via di mezzo) |
+| 6-18 | riga "cmkg/1000" (base 346) | la scritta e' al suo posto (ingrandimento); la g scende sotto la linea di base e la fascia stretta della cella la prende |
+| 6-18 | riga "4." (base 620) | il numero e' al suo posto (ingrandimento); cifra sola col punto: la misura dell'altezza la prende sul punto |
+| 6-19 | riga "for an average occupant. Refer to the loading arrangements diagram for forward and aft limits of occupant c.g. range." (base 917) | la riga e' al suo posto (ingrandimento: "for" coincide); la fascia di controllo prende a sinistra la coda della parentesi di "(1)" della riga sopra |
+| 6-19 | riga "NOTES: (1)" (base 899) | la riga e' al suo posto (ingrandimento); la parentesi di "(1)" scende sotto la linea di base e la misura dell'altezza la prende |
 
 ## Numeri, uno per uno
 
 Sezioni 2, 3, 5 e 6: due conferme indipendenti per ogni numero. ✓ = conferma.
+
+### Pagina i
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 506 | FR172J | FR172J ✓ | ✓ |  | 2 |
+| 639 | 51 | 51 ✓ | ✓ |  | 2 |
+| 763 | 43 | 43 ✓ | ✓ |  | 2 |
+| 857 | A18EU | AI8EU  | ✓ | ✓ a vista sull'ingrandimento: A18EU · seconda conferma: DATI-AFM.md: FAA TC A18EU (lo strato di testo del PDF legge Al8EU, l per 1) | 3 |
+| 1534 | 3 | 3 ✓ | ✓ |  | 2 |
+| 1534 | FR17200351 | FR17200351 ✓ | ✓ |  | 2 |
+| 1563 | 1972 | 1972 ✓ | ✓ |  | 2 |
+
+### Pagina ii
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 321 | 3 | 5  | – | ✓ a vista sull'ingrandimento: 3 · seconda conferma: Edition: 3, come in tutte le pagine del manuale I-CCAF | 2 |
+
+### Pagina iii
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 289 | 3 | 3 ✓ | ✓ |  | 2 |
+| 442 | 1-1 | l-  | ✓ | ✓ a vista sull'ingrandimento: 1-1 · seconda conferma: il numero stampato in testa alla pagina 1-1 (la voce comincia li') | 3 |
+| 473 | 1-1 | l-  | ✓ | ✓ a vista sull'ingrandimento: 1-1 · seconda conferma: il numero stampato in testa alla pagina 1-1 (la voce comincia li') | 3 |
+| 503 | 1-1 | I-  | ✓ | ✓ a vista sull'ingrandimento: 1-1 · seconda conferma: il numero stampato in testa alla pagina 1-1 (la voce comincia li') | 3 |
+| 534 | 1-2 | 1-2 ✓ | ✓ |  | 2 |
+| 564 | 1-3 | 1-3 ✓ | ✓ |  | 2 |
+| 595 | 1-5 | 1-5 ✓ | ✓ |  | 2 |
+| 625 | 1-6 | 1-6 ✓ | ✓ |  | 2 |
+| 655 | 1-7 | 1-7 ✓ | ✓ |  | 2 |
+| 686 | 1-7 | 1-7 ✓ | ✓ |  | 2 |
+| 717 | 1-9 | 1-9 ✓ | ✓ |  | 2 |
+| 747 | 1-10 | 1-10 ✓ | ✓ |  | 2 |
+| 776 | 1-12 | 1-12 ✓ | ✓ |  | 2 |
+| 807 | 1-13 | 1-13 ✓ | ✓ |  | 2 |
+| 838 | 1-13 | 1-13 ✓ | ✓ |  | 2 |
+| 867 | 1-14 | 1-14 ✓ | ✓ |  | 2 |
+| 1018 | 2-1 | 2-1 ✓ | ✓ |  | 2 |
+| 1049 | 2-1 | 2-1 ✓ | ✓ |  | 2 |
+| 1080 | 2-1 | 2-1 ✓ | ✓ |  | 2 |
+| 1111 | 2-2 | 2-2 ✓ | ✓ |  | 2 |
+| 1141 | 2-2 | 2-2 ✓ | ✓ |  | 2 |
+| 1168 | 2-2 | 2  | ✓ | ✓ a vista sull'ingrandimento: 2-2 · seconda conferma: il numero stampato in testa alla pagina 2-2 (la voce comincia li') | 3 |
+| 1204 | 2-2 | 2-2 ✓ | ✓ |  | 2 |
+| 1233 | 2-3 | 23  | ✓ | ✓ a vista sull'ingrandimento: 2-3 · seconda conferma: il numero stampato in testa alla pagina 2-3 (la voce comincia li') | 3 |
+| 1264 | 2-3 | 2-3 ✓ | ✓ |  | 2 |
+| 1294 | 2-4 | 2-4 ✓ | ✓ |  | 2 |
+| 1322 | 2-4 | 2-4 ✓ | ✓ |  | 2 |
+| 1355 | 2-4 | 2-4 ✓ | ✓ |  | 2 |
+| 1382 | 2-5 | 2-5 ✓ | ✓ |  | 2 |
+| 1444 | 2-5 | 2-5 ✓ | ✓ |  | 2 |
+| 1474 | 2-6 | 2-6 ✓ | ✓ |  | 2 |
+| 1629 | 3-1 | 3-1 ✓ | ✓ |  | 2 |
+
+### Pagina iv
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 332 | 3 | 3 ✓ | ✓ |  | 2 |
+| 425 | 3-2 | 3-2 ✓ | ✓ |  | 2 |
+| 456 | 3-4 | 3-4 ✓ | ✓ |  | 2 |
+| 487 | 3-5 | 3-5 ✓ | ✓ |  | 2 |
+| 518 | 3-6 | 3-6 ✓ | ✓ |  | 2 |
+| 547 | 3-7 | 3-7 ✓ | ✓ |  | 2 |
+| 577 | 3-7 | 3-7 ✓ | ✓ |  | 2 |
+| 608 | 3-8 | 3-8 ✓ | ✓ |  | 2 |
+| 822 | 4-1 | 4-  | ✓ | ✓ a vista sull'ingrandimento: 4-1 · seconda conferma: il numero stampato in testa alla pagina 4-1 (la voce comincia li') | 3 |
+| 853 | 4-1 | 4  | ✓ | ✓ a vista sull'ingrandimento: 4-1 · seconda conferma: il numero stampato in testa alla pagina 4-1 (la voce comincia li') | 3 |
+| 885 | 4-1 | 4-  | ✓ | ✓ a vista sull'ingrandimento: 4-1 · seconda conferma: il numero stampato in testa alla pagina 4-1 (la voce comincia li') | 3 |
+| 917 | 4-2 | 4-2 ✓ | ✓ |  | 2 |
+| 947 | 4-4 | 44  | ✓ | ✓ a vista sull'ingrandimento: 4-4 · seconda conferma: il numero stampato in testa alla pagina 4-4 (la voce comincia li') | 3 |
+| 978 | 4-4 | 44  | ✓ | ✓ a vista sull'ingrandimento: 4-4 · seconda conferma: il numero stampato in testa alla pagina 4-4 (la voce comincia li') | 3 |
+| 1009 | 4-5 | 4-5 ✓ | ✓ |  | 2 |
+| 1040 | 4-5 | 45  | ✓ | ✓ a vista sull'ingrandimento: 4-5 · seconda conferma: il numero stampato in testa alla pagina 4-5 (la voce comincia li') | 3 |
+| 1071 | 4-5 | 4-5 ✓ | ✓ |  | 2 |
+| 1101 | 4-5 | 4-5 ✓ | ✓ |  | 2 |
+| 1132 | 4-6 | 4-6 ✓ | ✓ |  | 2 |
+| 1163 | 4-6 | 4-6 ✓ | ✓ |  | 2 |
+| 1193 | 4-6 | 4-6 ✓ | ✓ |  | 2 |
+| 1224 | 4-6 | 4-6 ✓ | ✓ |  | 2 |
+| 1310 | 4-7 | 4-7 ✓ | ✓ |  | 2 |
+| 1341 | 4-7 | 4-7 ✓ | ✓ |  | 2 |
+| 1373 | 4-8 | 4.8 ✓ | ✓ |  | 2 |
+| 1401 | 4-9 | 4-9 ✓ | ✓ |  | 2 |
+| 1433 | 4-9 | 4-9 ✓ | ✓ |  | 2 |
+| 1463 | 4-11 | 4-1)  | ✓ | ✓ a vista sull'ingrandimento: 4-11 · seconda conferma: il numero stampato in testa alla pagina 4-11 (la voce comincia li') | 3 |
+| 1492 | 4-11 | 4-  | ✓ | ✓ a vista sull'ingrandimento: 4-11 · seconda conferma: il numero stampato in testa alla pagina 4-11 (la voce comincia li') | 3 |
+| 1523 | 4-12 | 4-12 ✓ | ✓ |  | 2 |
+| 1554 | 4-12 | 4-12 ✓ | ✓ |  | 2 |
+| 1584 | 4-12 | 4-12 ✓ | ✓ |  | 2 |
+| 1614 | 4-13 | 4-13 ✓ | ✓ |  | 2 |
+| 1644 | 4-14 | 414  | ✓ | ✓ a vista sull'ingrandimento: 4-14 · seconda conferma: il numero stampato in testa alla pagina 4-14 (la voce comincia li') | 3 |
+| 1675 | 4-16 | 4-16 ✓ | ✓ |  | 2 |
+
+### Pagina v
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 287 | 3 | 3 ✓ | ✓ |  | 2 |
+| 444 | 5-1 | Jl  | ✓ | ✓ a vista sull'ingrandimento: 5-1 · seconda conferma: il numero stampato in testa alla pagina 5-1 (la voce comincia li') | 3 |
+| 474 | 5-2 | 5-2 ✓ | ✓ |  | 2 |
+| 507 | 5-7 | 5-7 ✓ | ✓ |  | 2 |
+| 537 | 5-8 | 5-8 ✓ | ✓ |  | 2 |
+| 570 | 5-9 | 5-9 ✓ | ✓ |  | 2 |
+| 601 | 5-10 | 5-10 ✓ | ✓ |  | 2 |
+| 631 | 5-11 | 5-11 ✓ | ✓ |  | 2 |
+| 661 | 5-12 | 5-12 ✓ | ✓ |  | 2 |
+| 815 | 6-1 | 6-1 ✓ | ✓ |  | 2 |
+| 847 | 6-2 | 6-2 ✓ | ✓ |  | 2 |
+| 973 | 6-4 | 6-4 ✓ | ✓ |  | 2 |
+| 1004 | 6-4 | 6-4 ✓ | ✓ |  | 2 |
+| 1035 | 6-4 | 6-4 ✓ | ✓ |  | 2 |
+| 1066 | 6-5 | 6-5 ✓ | ✓ |  | 2 |
+| 1098 | 6-6 | 6-6 ✓ | ✓ |  | 2 |
+| 1129 | 6-6 | 6-6 ✓ | ✓ |  | 2 |
+| 1251 | 6-7 | 6-7 ✓ | ✓ |  | 2 |
+| 1282 | 6-8 | 6-8 ✓ | ✓ |  | 2 |
+| 1314 | 6-10 | 6-10 ✓ | ✓ |  | 2 |
+| 1344 | 6-12 | 6-12 ✓ | ✓ |  | 2 |
+| 1375 | 6-13 | 6-13 ✓ | ✓ |  | 2 |
+| 1405 | 6-14 | 6-14 ✓ | ✓ |  | 2 |
+| 1528 | 6-17 | 6-17 ✓ | ✓ |  | 2 |
+| 1559 | 6-18 | 6-18 ✓ | ✓ |  | 2 |
+| 1590 | 6-19 | 6-19 ✓ | ✓ |  | 2 |
+| 1619 | 6-20 | 6-20 ✓ | ✓ |  | 2 |
+
+### Pagina vi
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 322 | 3 | 3 ✓ | ✓ |  | 2 |
 
 ### Pagina 1-1
 
@@ -3018,4 +3216,401 @@ Confronto con i dati del progetto:
 
 - SPEED VI 137 km/h - 74 kts - 85 MPH: V best glide 85 MPH = DATI-AFM.md e index.html (AFM_SPEEDS.glide, fig. 5-7) ✓; 85 MPH = 136,8 km/h = 73,9 kt ✓
 - La fascia di planata (distanza per quota) non ha valori nel progetto: non c'e' un dato indipendente con cui controllare la curva; e' ricalcata punto per punto sulla scansione (vedi metodo della figura).
+
+### Pagina 6-1 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 231 | 6-1 | 6-1 ✓ | ✓ |  | 2 |
+| 261 | 3 | 3 ✓ | ✓ |  | 2 |
+| 722 | 100/130 | 100/130 ✓ | ✓ |  | 2 |
+| 722 | (100/130 | (100/130 ✓ | ✓ |  | 2 |
+| 753 | 2 | 2 ✓ | ✓ |  | 2 |
+| 784 | 26 | 26 ✓ | ✓ |  | 2 |
+| 784 | (98,5 | (98,5 ✓ | – | ✓ a vista sull'ingrandimento: (98,5 · seconda conferma: 26 U.S. gal x 3,785 = 98,4 l ✓ | 3 |
+| 907 | 17 | 17 ✓ | ✓ |  | 2 |
+| 936 | (64 | (64 ✓ | ✓ |  | 2 |
+| 1485 | 7 | 7 ✓ | ✓ |  | 2 |
+| 1485 | (6,6 | (6,6 ✓ | ✓ |  | 2 |
+| 1516 | 8 | 8 ✓ | ✓ |  | 2 |
+| 1516 | (7,6 | (7,6 ✓ | ✓ |  | 2 |
+| 1549 | 3 | 3 ✓ | ✓ |  | 2 |
+| 1549 | 10 | 10 ✓ | ✓ |  | 2 |
+| 1579 | (9,5 | (9,5 ✓ | ✓ |  | 2 |
+
+### Pagina 6-2 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 323 | 6-2 | b-2  | – | ✓ a vista sull'ingrandimento: 6-2 · seconda conferma: numero di pagina: la pagina viene fra 6-1 e 6-3 (sequenza del PDF) e l'indice (pagina v) la elenca | 2 |
+| 355 | 3 | 3 ✓ | ✓ |  | 2 |
+| 633 | 50 | 50 ✓ | ✓ |  | 2 |
+| 633 | 5°C | sC  | – | ✓ a vista sull'ingrandimento: 5°C · seconda conferma: SAE 50 sopra e SAE 30 sotto i 5°C (41°F), la soglia dei manuali Cessna; stessa riga, due volte | 2 |
+| 633 | 10W30 | L0W30  | ✓ | ✓ a vista sull'ingrandimento: 10W30 · seconda conferma: ripetuto nella riga sotto ("a range of SAE 10W30"), letto concorde | 3 |
+| 633 | 30 | 30 ✓ | ✓ |  | 2 |
+| 633 | 5°C. | oi  | – | ✓ a vista sull'ingrandimento: 5°C. · seconda conferma: SAE 50 sopra e SAE 30 sotto i 5°C (41°F), la soglia dei manuali Cessna; stessa riga, due volte | 2 |
+| 664 | 10W30 | 10W30 ✓ | ✓ |  | 2 |
+| 726 | MHS-24A, | MHS-24A, ✓ | ✓ |  | 2 |
+| 914 | 25 | 25 ✓ | ✓ |  | 2 |
+| 945 | MIL-L-6082. | MIL-L-6082. ✓ | – | ✓ a vista sull'ingrandimento: MIL-L-6082. · seconda conferma: MIL-L-6082: la specifica dell'olio minerale aeronautico (straight mineral oil), citata dai manuali Cessna | 3 |
+| 1114 | 25 | 25 ✓ | ✓ |  | 2 |
+| 1160 | 25 | 25 ✓ | ✓ |  | 2 |
+| 1253 | 50 | 50 ✓ | ✓ |  | 2 |
+| 1329 | 50 | 50 ✓ | ✓ |  | 2 |
+| 1372 | 30 | 30 ✓ | ✓ |  | 2 |
+| 1494 | 25 | 25 ✓ | ✓ |  | 2 |
+| 1525 | 50 | 50 ✓ | ✓ |  | 2 |
+
+### Pagina 6-3 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 227 | 6-3 | 6-3 ✓ | ✓ |  | 2 |
+| 257 | 3 | 3 ✓ | ✓ |  | 2 |
+| 416 | 100 | 100 ✓ | ✓ |  | 2 |
+| 814 | 500 | 500 ✓ | ✓ |  | 2 |
+| 907 | 4.6 | 46  | ✓ | ✓ a vista sull'ingrandimento: 4.6 · seconda conferma: strato di testo del PDF: 4.6 in. Hg; 4,6 pollici di mercurio e' il minimo del vuoto dei manuali Cessna | 3 |
+| 938 | 100 | 100 ✓ | ✓ |  | 2 |
+| 938 | 500 | 500 ✓ | ✓ |  | 2 |
+| 969 | 100 | 100 ✓ | ✓ |  | 2 |
+| 1151 | 45 | 45 ✓ | ✓ |  | 2 |
+
+### Pagina 6-4 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 321 | 6-4 | bd  | – | ✓ a vista sull'ingrandimento: 6-4 · seconda conferma: numero di pagina: la pagina viene fra 6-3 e 6-5 (sequenza del PDF) e l'indice (pagina v) la elenca | 2 |
+| 352 | 3 | 3 ✓ | ✓ |  | 2 |
+| 690 | 30° | 30 ✓ | – | ✓ a vista sull'ingrandimento: 30° · seconda conferma: strato di testo del PDF: "300" (30 e il segno di grado letto come 0) | 3 |
+| 1090 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1121 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1121 | (300 | (300 ✓ | ✓ |  | 2 |
+| 1182 | (3) | (3) ✓ | ✓ |  | 2 |
+| 1213 | (4) | (4) ✓ | ✓ |  | 2 |
+
+### Pagina 6-5 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 225 | 6-5 | 6-5 ✓ | ✓ |  | 2 |
+| 257 | 3 | 3 ✓ | ✓ |  | 2 |
+| 901 | 15 | 1  | ✓ | ✓ a vista sull'ingrandimento: 15 · seconda conferma: strato di testo del PDF: "15 days" | 3 |
+| 1482 | 50-50 | 50-50 ✓ | ✓ |  | 2 |
+| 1544 | 50% | 50 ✓ | ✓ |  | 2 |
+
+### Pagina 6-6 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 334 | 6-6 | 6-6 ✓ | ✓ |  | 2 |
+| 364 | 3 | 3 ✓ | ✓ |  | 2 |
+
+### Pagina 6-7 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 211 | 6-7 | 6-7 ✓ | ✓ |  | 2 |
+| 241 | 3 | 3 ✓ | ✓ |  | 2 |
+| 525 | 6-1) | 6-1) ✓ | ✓ |  | 2 |
+| 556 | 17 | 17 ✓ | ✓ |  | 2 |
+| 556 | (64 | (64 ✓ | ✓ |  | 2 |
+| 586 | (17 | (17 ✓ | ✓ |  | 2 |
+| 586 | -64 | -64 ✓ | ✓ |  | 2 |
+| 1082 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1144 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1205 | (3) | (3) ✓ | ✓ |  | 2 |
+| 1267 | (4) | (4) ✓ | ✓ |  | 2 |
+| 1418 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1477 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1540 | (3) | (3) ✓ | ✓ |  | 2 |
+
+### Pagina 6-8 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 331 | 6-8 | 6-8 ✓ | ✓ |  | 2 |
+| 361 | 3 | 3 ✓ | ✓ |  | 2 |
+| 1692 | 6-1. | ire6-1. ✓ | ✓ |  | 2 |
+
+### Pagina 6-9 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 219 | 6-9 | 6-9 ✓ | ✓ |  | 2 |
+| 251 | 3 | 3 ✓ | ✓ |  | 2 |
+| 410 | 45 | 45 ✓ | ✓ |  | 2 |
+| 442 | 1 | –  | – | ✓ a vista sull'ingrandimento: 1 · seconda conferma: strato di testo del PDF: "minutes to 1 hour" | 2 |
+| 502 | (4) | (4) ✓ | ✓ |  | 2 |
+| 814 | 3 | 3 ✓ | ✓ |  | 2 |
+| 814 | 5 | 5 ✓ | ✓ |  | 2 |
+
+### Pagina 6-10 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 320 | 6-10 | 6-10 ✓ | – | ✓ a vista sull'ingrandimento: 6-10 · seconda conferma: numero di pagina: la pagina viene fra 6-9 e 6-11 (sequenza del PDF) e l'indice (pagina v) la elenca | 3 |
+| 350 | 3 | 3 ✓ | ✓ |  | 2 |
+| 627 | -5°C, | 5, ✓ | – | ✓ a vista sull'ingrandimento: -5°C, · seconda conferma: strato di testo del PDF: "-SoC" (5 e il grado letti S o); la stessa soglia di 6-2 | 3 |
+
+### Pagina 6-11 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 226 | 6-11 | 6-11 ✓ | ✓ |  | 2 |
+| 258 | 3 | 3 ✓ | ✓ |  | 2 |
+| 935 | 6 | 6 ✓ | ✓ |  | 2 |
+| 935 | 30 | 30 ✓ | ✓ |  | 2 |
+
+### Pagina 6-12 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 314 | 6-12 | Ul)  | – | ✓ a vista sull'ingrandimento: 6-12 · seconda conferma: numero di pagina: la pagina viene fra 6-11 e 6-13 (sequenza del PDF) e l'indice (pagina v) la elenca | 2 |
+| 345 | 3 | 3 ✓ | ✓ |  | 2 |
+| 1305 | 1 | –  | – | ✓ a vista sull'ingrandimento: 1 · seconda conferma: testo di 6-12: "two positions", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF | 2 |
+| 1305 | 1 | –  | – | ✓ a vista sull'ingrandimento: 1 · seconda conferma: testo di 6-12: "two positions", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF | 2 |
+| 1388 | 2 | 2 ✓ | – | ✓ a vista sull'ingrandimento: 2 · seconda conferma: testo di 6-12: "two positions", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF | 3 |
+| 1388 | 2 | 2 ✓ | ✓ |  | 2 |
+| 1394 | 1 | –  | ✓ | ✓ a vista sull'ingrandimento: 1 · seconda conferma: testo di 6-12: "two positions", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF | 3 |
+| 1394 | 1 | )  | ✓ | ✓ a vista sull'ingrandimento: 1 · seconda conferma: testo di 6-12: "two positions", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF | 3 |
+| 1394 | 2 | 2 ✓ | – | ✓ a vista sull'ingrandimento: 2 · seconda conferma: testo di 6-12: "two positions", posizioni 1 e 2 (upper e lower); COM 1, NAV 1, COM 2, NAV 2 nello strato di testo del PDF | 3 |
+| 1394 | 2 | 2 ✓ | ✓ |  | 2 |
+| 1697 | 6-2. | 6-2. ✓ | ✓ |  | 2 |
+
+### Pagina 6-13 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 223 | 6-13 | 6-13 ✓ | ✓ |  | 2 |
+| 252 | 3 | 3 ✓ | ✓ |  | 2 |
+| 412 | 1 | l  | ✓ | ✓ a vista sull'ingrandimento: 1 · seconda conferma: la figura 6-2 (pagina 6-12): il selettore TRANS ha le posizioni 1 e 2 | 3 |
+| 412 | 2, | 2, ✓ | ✓ |  | 2 |
+
+### Pagina 6-14 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 322 | 6-14 | 6-14 ✓ | – | ✓ a vista sull'ingrandimento: 6-14 · seconda conferma: numero di pagina: la pagina viene fra 6-13 e 6-15 (sequenza del PDF) e l'indice (pagina v) la elenca | 3 |
+| 351 | 3 | 3 ✓ | ✓ |  | 2 |
+| 1155 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1309 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1340 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1370 | (3) | (3) ✓ | ✓ |  | 2 |
+| 1523 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1554 | (2) | (2) ✓ | ✓ |  | 2 |
+| 1676 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1707 | (2) | (2) ✓ | ✓ |  | 2 |
+
+### Pagina 6-15 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 235 | 6-15 | 6-15 ✓ | ✓ |  | 2 |
+| 264 | 3 | 3 ✓ | ✓ |  | 2 |
+| 419 | (1) | (1) ✓ | ✓ |  | 2 |
+| 941 | (1) | (1) ✓ | ✓ |  | 2 |
+| 1034 | (2) | (2) ✓ | ✓ |  | 2 |
+
+### Pagina 6-16 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 322 | 6-16 | 6-16 ✓ | – | ✓ a vista sull'ingrandimento: 6-16 · seconda conferma: numero di pagina: la pagina viene fra 6-15 e 6-17 (sequenza del PDF) e l'indice (pagina v) la elenca | 3 |
+| 353 | 3 | 3 ✓ | ✓ |  | 2 |
+
+### Pagina 6-17 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 219 | 6-17 | 6-17 ✓ | – | ✓ a vista sull'ingrandimento: 6-17 · seconda conferma: numero di pagina: la pagina viene fra 6-16 e 6-18 (sequenza del PDF) e l'indice (pagina v) la elenca | 3 |
+| 250 | 3 | 3 ✓ | – | ✓ a vista sull'ingrandimento: 3 · seconda conferma: Edition: 3, come in tutte le pagine del manuale I-CCAF | 3 |
+| 534 | *37 | 37 ✓ | ✓ |  | 2 |
+| 534 | *94 | -94 ✓ | ✓ |  | 2 |
+| 534 | *37 | 37 ✓ | ✓ |  | 2 |
+| 534 | *94 | 94 ✓ | ✓ |  | 2 |
+| 557 | (34 | (34 ✓ | ✓ |  | 2 |
+| 557 | 46) | 46) ✓ | ✓ |  | 2 |
+| 557 | (86 | (86 ✓ | ✓ |  | 2 |
+| 557 | 117) | 117) ✓ | ✓ |  | 2 |
+| 557 | (34 | (34 ✓ | ✓ |  | 2 |
+| 557 | 41) | 41) ✓ | ✓ |  | 2 |
+| 557 | (86 | (86 ✓ | ✓ |  | 2 |
+| 557 | 104) | 104) ✓ | ✓ |  | 2 |
+| 622 | 73 | 73 ✓ | ✓ |  | 2 |
+| 622 | 185 | 185 ✓ | ✓ |  | 2 |
+| 622 | 73 | 73 ✓ | ✓ |  | 2 |
+| 622 | 185 | 185 ✓ | ✓ |  | 2 |
+| 688 | **95 | O5  | ✓ | ✓ a vista sull'ingrandimento: **95 · seconda conferma: 95 pollici = 241,3 cm, il **241 della stessa riga ✓ | 3 |
+| 688 | **241 | -241 ✓ | ✓ |  | 2 |
+| 696 | 96 | 96 ✓ | ✓ |  | 2 |
+| 696 | 244 | -244 ✓ | ✓ |  | 2 |
+| 733 | 108 | 108: ✓ | ✓ |  | 2 |
+| 733 | 274 | -274 ✓ | ✓ |  | 2 |
+| 733 | 108 | 108: ✓ | ✓ |  | 2 |
+| 733 | 274 | -274 ✓ | ✓ |  | 2 |
+| 910 | 108) | 108) ✓ | ✓ |  | 2 |
+| 1000 | 6-3. | 6-3. ✓ | ✓ |  | 2 |
+
+### Pagina 6-18 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 330 | 6-18 | 6-18 ✓ | – | ✓ a vista sull'ingrandimento: 6-18 · seconda conferma: numero di pagina: la pagina viene fra 6-17 e 6-19 (sequenza del PDF) e l'indice (pagina v) la elenca | 3 |
+| 361 | 3 | 3 ✓ | – | ✓ a vista sull'ingrandimento: 3 · seconda conferma: Edition: 3, come in tutte le pagine del manuale I-CCAF | 3 |
+| 346 | cmkg/1000 | cmkg/1000 ✓ | ✓ |  | 2 |
+| 346 | cmkg/1000 | cmkg/1000 ✓ | ✓ |  | 2 |
+| 399 | 1. | 1. ✓ | ✓ |  | 2 |
+| 439 | 2. | 2. ✓ | ✓ |  | 2 |
+| 439 | 10 | 10 ✓ | ✓ |  | 2 |
+| 439 | (9,5 | (9,5 ✓ | ✓ |  | 2 |
+| 500 | 3. | 3. ✓ | ✓ |  | 2 |
+| 500 | 46 | 46 ✓ | ✓ |  | 2 |
+| 500 | 6 | 6 ✓ | ✓ |  | 2 |
+| 520 | 174 | 174 ✓ | ✓ |  | 2 |
+| 520 | 0,72 | 0,72 ✓ | ✓ |  | 2 |
+| 560 | 17 | 17 ✓ | ✓ |  | 2 |
+| 580 | 6 | 6 ✓ | ✓ |  | 2 |
+| 580 | (64 | (64 ✓ | ✓ |  | 2 |
+| 580 | 0,72 | 0,72 ✓ | ✓ |  | 2 |
+| 620 | 4. | 4. ✓ | ✓ |  | 2 |
+| 620 | 86 | 86 ✓ | ✓ |  | 2 |
+| 620 | 117 | 117 ✓ | ✓ |  | 2 |
+| 661 | 5. | 5. ✓ | ✓ |  | 2 |
+| 701 | 6. | 6. ✓ | ✓ |  | 2 |
+| 701 | 200 | 200 ✓ | ✓ |  | 2 |
+| 701 | (91 | (91 ✓ | ✓ |  | 2 |
+| 721 | 208 | 208 ✓ | ✓ |  | 2 |
+| 721 | 274 | 274 ✓ | ✓ |  | 2 |
+| 741 | 120 | 120 ✓ | ✓ |  | 2 |
+| 741 | (54 | (54 ✓ | ✓ |  | 2 |
+| 793 | 7. | 7. ✓ | ✓ |  | 2 |
+| 851 | 8. | 8. ✓ | ✓ |  | 2 |
+| 851 | (1156,7 | (1156,7 ✓ | ✓ |  | 2 |
+| 851 | 130,8) | 130,8) ✓ | ✓ |  | 2 |
+| 399 | 677,7 | 677,7 ✓ | ✓ |  | 2 |
+| 399 | 64,1 | 64,1 ✓ | ✓ |  | 2 |
+| 458 | 8,5 | 8,5 ✓ | ✓ |  | 2 |
+| 458 | -0,5 | -0,5 ✓ | ✓ |  | 2 |
+| 458 | 8,5 | 8.5 ✓ | ✓ |  | 2 |
+| 458 | -0,5 | -0,5 ✓ | ✓ |  | 2 |
+| 518 | 125,2 | 125,2 ✓ | ✓ |  | 2 |
+| 518 | 15,3 | 15,3 ✓ | ✓ |  | 2 |
+| 623 | 154,2 | 154,2 ✓ | ✓ |  | 2 |
+| 623 | 14,5 | 14,5 ✓ | ✓ |  | 2 |
+| 665 | 154,2 | 154,2 ✓ | ✓ |  | 2 |
+| 665 | 28,5 | 28,5 ✓ | ✓ |  | 2 |
+| 740 | 36,9 | 36,9 ✓ | ✓ |  | 2 |
+| 740 | 8,9 | 8,9 ✓ | ✓ |  | 2 |
+| 796 | 1156,7 | 1156,7 ✓ | ✓ |  | 2 |
+| 796 | 130,8 | 130,8 ✓ | ✓ |  | 2 |
+| 954 | 6-4. | 6-4. ✓ | ✓ |  | 2 |
+
+### Pagina 6-19 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 205 | 6-19 | 6-19 ✓ | – | ✓ a vista sull'ingrandimento: 6-19 · seconda conferma: numero di pagina: la pagina viene fra 6-18 e 6-20 (sequenza del PDF) e l'indice (pagina v) la elenca | 3 |
+| 236 | 3 | 3 ✓ | – | ✓ a vista sull'ingrandimento: 3 · seconda conferma: Edition: 3, come in tutte le pagine del manuale I-CCAF | 3 |
+| 311 | 200 | 200 ✓ | ✓ |  | 2 |
+| 416 | 150 | 150 ✓ | ✓ |  | 2 |
+| 520 | 100 | 100 ✓ | ✓ |  | 2 |
+| 628 | 50 | 50 ✓ | ✓ |  | 2 |
+| 729 | 0 | a  | ✓ | ✓ a vista sull'ingrandimento: 0 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 349 | 400 | 400 ✓ | ✓ |  | 2 |
+| 395 | 350 | 350 ✓ | ✓ |  | 2 |
+| 444 | 300 | 300 ✓ | ✓ |  | 2 |
+| 492 | 250 | 250 ✓ | ✓ |  | 2 |
+| 539 | 200 | 200 ✓ | ✓ |  | 2 |
+| 586 | 150 | 150 ✓ | ✓ |  | 2 |
+| 635 | 100 | 100 ✓ | ✓ |  | 2 |
+| 682 | 50 | 50 ✓ | ✓ |  | 2 |
+| 728 | 0 | 0 ✓ | ✓ |  | 2 |
+| 742 | 0 | Oo  | ✓ | ✓ a vista sull'ingrandimento: 0 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 742 | 5 | ry  | ✓ | ✓ a vista sull'ingrandimento: 5 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 742 | 10 | 40  | ✓ | ✓ a vista sull'ingrandimento: 10 · seconda conferma: 10 Qts. = 9,5 l (x 0,946) ✓, come la riga 2 della figura 6-4 | 3 |
+| 742 | 15 | 15 ✓ | ✓ |  | 2 |
+| 743 | 20 | 20 ✓ | ✓ |  | 2 |
+| 743 | 25 | 25 ✓ | ✓ |  | 2 |
+| 743 | 30 | 30 ✓ | ✓ |  | 2 |
+| 783 | 0 | 0 ✓ | ✓ |  | 2 |
+| 783 | 5 | 5 ✓ | ✓ |  | 2 |
+| 783 | 10 | 3D  | ✓ | ✓ a vista sull'ingrandimento: 10 · seconda conferma: 10 Qts. = 9,5 l (x 0,946) ✓, come la riga 2 della figura 6-4 | 3 |
+| 784 | 15 | 15 ✓ | ✓ |  | 2 |
+| 783 | 20 | 20 ✓ | ✓ |  | 2 |
+| 784 | 25 | 26  | ✓ | ✓ a vista sull'ingrandimento: 25 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 784 | 30 | 30 ✓ | ✓ |  | 2 |
+| 784 | 35 | –  | ✓ | ✓ a vista sull'ingrandimento: 35 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 811 | MOMENT/1000 | MOMENT/1000 ✓ | – | ✓ a vista sull'ingrandimento: MOMENT/1000 · seconda conferma: come la scala del momento della figura 6-4 (cmkg/1000) e "Moment/1000." della nota (2) | 3 |
+| 840 | 6 | 6 ✓ | ✓ |  | 2 |
+| 840 | (0,72 | (0,72 ✓ | ✓ |  | 2 |
+| 860 | 46 | 46 ✓ | ✓ |  | 2 |
+| 860 | (174 | (174 ✓ | ✓ |  | 2 |
+| 875 | 17 | 17 ✓ | ✓ |  | 2 |
+| 875 | (64 | (64 ✓ | ✓ |  | 2 |
+| 899 | (1) | (1) ✓ | ✓ |  | 2 |
+| 935 | (2) | (2) ✓ | ✓ |  | 2 |
+| 935 | 10 | 10 ✓ | – | ✓ a vista sull'ingrandimento: 10 · seconda conferma: 10 Qts. = 9,5 l (x 0,946) ✓, come la riga 2 della figura 6-4 | 3 |
+| 935 | (9,5 | (9,5 ✓ | ✓ |  | 2 |
+| 935 | 19 | 19 ✓ | ✓ |  | 2 |
+| 935 | (8,5 | (8,5 ✓ | ✓ |  | 2 |
+| 935 | -0,5 | -0.5 ✓ | ✓ |  | 2 |
+| 935 | Moment/1000. | Moment/1000. ✓ | – | ✓ a vista sull'ingrandimento: Moment/1000. · seconda conferma: come il titolo della scala, LOAD MOMENT/1000 | 3 |
+| 1005 | 6-5. | 6-5. ✓ | ✓ |  | 2 |
+
+### Pagina 6-20 (due conferme)
+
+| Riga (y) | Valore ricostruito | Tesseract | Testo del PDF | A vista | Conferme |
+|---|---|---|---|---|---|
+| 325 | 6-20 | 6-2  | – | ✓ a vista sull'ingrandimento: 6-20 · seconda conferma: numero di pagina: la pagina viene fra 6-19 e 6-21 (sequenza del PDF) e l'indice (pagina v) la elenca | 2 |
+| 355 | 3 | 3 ✓ | – | ✓ a vista sull'ingrandimento: 3 · seconda conferma: Edition: 3, come in tutte le pagine del manuale I-CCAF | 3 |
+| 356 | 1100 | 1100 ✓ | ✓ |  | 2 |
+| 461 | 1000 | 1000 ✓ | ✓ |  | 2 |
+| 564 | 900 | 3900  | ✓ | ✓ a vista sull'ingrandimento: 900 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 665 | 800 | 800 ✓ | ✓ |  | 2 |
+| 769 | 700 | 700 ✓ | ✓ |  | 2 |
+| 321 | 2500 | 2500 ✓ | ✓ |  | 2 |
+| 369 | 2400 | 2400 ✓ | ✓ |  | 2 |
+| 415 | 2300 | 2300 ✓ | ✓ |  | 2 |
+| 462 | 2200 | 2200 ✓ | ✓ |  | 2 |
+| 508 | 2100 | 2100 ✓ | ✓ |  | 2 |
+| 556 | 2000 | 2000 ✓ | ✓ |  | 2 |
+| 603 | 1900 | 1900 ✓ | ✓ |  | 2 |
+| 651 | 1800 | 1800 ✓ | ✓ |  | 2 |
+| 697 | 1700 | 1700 ✓ | ✓ |  | 2 |
+| 744 | 1600 | 1600 ✓ | ✓ |  | 2 |
+| 789 | 1500 | 1500 ✓ | ✓ |  | 2 |
+| 811 | 50 | 50. ✓ | ✓ |  | 2 |
+| 811 | 55 | 5S  | ✓ | ✓ a vista sull'ingrandimento: 55 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 810 | 60 | 60 ✓ | ✓ |  | 2 |
+| 810 | 65 | 65 ✓ | ✓ |  | 2 |
+| 810 | 70 | 70 ✓ | ✓ |  | 2 |
+| 810 | 75 | 75 ✓ | ✓ |  | 2 |
+| 810 | 80 | 80 ✓ | ✓ |  | 2 |
+| 810 | 85 | 85 ✓ | ✓ |  | 2 |
+| 810 | 90 | 80  | ✓ | ✓ a vista sull'ingrandimento: 90 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 810 | 95 | 95 ✓ | ✓ |  | 2 |
+| 810 | 100 | 200  | ✓ | ✓ a vista sull'ingrandimento: 100 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 810 | 105 | 1s  | – | ✓ a vista sull'ingrandimento: 105 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 2 |
+| 810 | 110 | 9  | ✓ | ✓ a vista sull'ingrandimento: 110 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 810 | 115 | 116  | ✓ | ✓ a vista sull'ingrandimento: 115 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 810 | 120 | 528  | ✓ | ✓ a vista sull'ingrandimento: 120 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 842 | 60 | 60 ✓ | ✓ |  | 2 |
+| 842 | 65 | 65 ✓ | ✓ |  | 2 |
+| 842 | 70 | 70 ✓ | ✓ |  | 2 |
+| 842 | 75 | 75 ✓ | ✓ |  | 2 |
+| 842 | 80 | 60  | ✓ | ✓ a vista sull'ingrandimento: 80 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 843 | 85 | –  | ✓ | ✓ a vista sull'ingrandimento: 85 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 842 | 90 | 90 ✓ | ✓ |  | 2 |
+| 842 | 95 | OB  | ✓ | ✓ a vista sull'ingrandimento: 95 · seconda conferma: scala regolare: le tacche sono equidistanti e i numeri crescono a passo costante (5 o 50 o 100), e le due scale dello stesso asse si accordano (lbs/kg 2,205; pound-inch/kg-cm 1,152) | 3 |
+| 842 | 100 | 100 ✓ | ✓ |  | 2 |
+| 842 | 105 | 105 ✓ | ✓ |  | 2 |
+| 842 | 110 | 110 ✓ | ✓ |  | 2 |
+| 842 | 115 | 115 ✓ | ✓ |  | 2 |
+| 842 | 120 | 120 ✓ | ✓ |  | 2 |
+| 842 | 125 | 125 ✓ | ✓ |  | 2 |
+| 842 | 130 | 130 ✓ | ✓ |  | 2 |
+| 842 | 135 | 135 ✓ | ✓ |  | 2 |
+| 842 | 140 | 140 ✓ | ✓ |  | 2 |
+| 873 | MOMENT/1000 | MOMENT/1000 ✓ | – | ✓ a vista sull'ingrandimento: MOMENT/1000 · seconda conferma: come le figure 6-4 e 6-5: i momenti si danno /1000 | 3 |
+| 945 | 6-6. | 6-6. ✓ | ✓ |  | 2 |
 

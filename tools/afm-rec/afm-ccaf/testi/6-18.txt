@@ -1,0 +1,57 @@
+139 libro 400-850 | Flight Manual
+171 libro 400-850 | Reims Rocket
+330 libro 200-650 | Page: 6-18
+328 libro 650-1100 | Reims Aviation
+361 libro 200-650 | Edition: 3
+358 libro 650-1100 | Reims, Marne France
+285 figtitolo c=13.5 fissa 815-1065 | SAMPLE AIRPLANE
+285 figtitolo c=13.5 fissa 1088-1338 | YOUR AIRPLANE
+316 figtitolo c=13.5 140-790 | SAMPLE LOADING PROBLEM
+323 figtitolo c=13.5 fissa 815-935 | Weight
+323 figtitolo c=13.5 fissa 945-1065 | Moment
+323 figtitolo c=13.5 fissa 1088-1210 | Weight
+323 figtitolo c=13.5 fissa 1220-1338 | Moment
+343 figtitolo c=13.5 fissa 815-935 | kg
+346 figtitolo c=13.5 fissa 942-1066 | cmkg/1000
+343 figtitolo c=13.5 fissa 1088-1210 | kg
+346 figtitolo c=13.5 fissa 1217-1338 | cmkg/1000
+399 figtitolo c=13.5 80-140 | 1.
+399 figtitolo c=13.5 140-580 | Licensed Empty Weight (Sample Airplane)
+439 figtitolo c=13.5 80-140 | 2.
+439 figtitolo c=13.5 140-790 | Oil: 10 Qts. (9,5 Litres) The weight of full oil may be used
+461 figtitolo c=13.5 140-335 | for all calculations
+500 figtitolo c=13.5 80-140 | 3.
+500 figtitolo c=13.5 140-790 | Fuel: Standard Wing Tanks - 46 U.S. Gal. at 6 pounds/gallon
+520 figtitolo c=13.5 215-728 | Standard Wing Tanks - 174 Litres at 0,72 Kg/Litre
+560 figtitolo c=13.5 140-790 | Fuel: Auxiliary Tank in Baggage Area - 17 U.S. Gal. at
+580 figtitolo c=13.5 215-662 | 6 pounds/gallon (64 Litres at 0,72 Kg/Litre)
+620 figtitolo c=13.5 80-140 | 4.
+620 figtitolo c=13.5 140-647 gap=9 fissa | Pilot and Front Passenger: Station 86 to 117 cm
+661 figtitolo c=13.5 80-140 | 5.
+661 figtitolo c=13.5 140-310 | Rear Passengers
+701 figtitolo c=13.5 80-140 | 6.
+701 figtitolo c=13.5 140-790 | Baggage Area: 200 Lbs. (91 kg) Max.
+721 figtitolo c=13.5 140-790 | Station 208 to 274 cm
+741 figtitolo c=13.5 140-682 | or Passenger on Child’s Seat: 120 Lbs (54 Kg) Max.
+793 figtitolo c=13.5 80-140 | 7.
+793 figtitolo c=13.5 140-498 | TOTAL WEIGHT AND MOMENT
+851 figtitolo c=13.5 80-140 | 8.
+851 figtitolo c=13.5 140-1000 | Locate this point (1156,7 at 130,8) on the center of gravity moment envelope,
+871 figtitolo c=13.5 140-1000 | and since this point falls within the envelope, the loading is acceptable.
+399 figtitolo c=13.5 fissa 815-935 | 677,7
+399 figtitolo c=13.5 fissa 945-1065 | 64,1
+458 figtitolo c=13.5 fissa 815-935 | 8,5
+458 figtitolo c=13.5 fissa 945-1065 | -0,5
+458 figtitolo c=13.5 fissa 1088-1210 | 8,5
+458 figtitolo c=13.5 fissa 1220-1338 | -0,5
+518 figtitolo c=13.5 fissa 815-935 | 125,2
+518 figtitolo c=13.5 fissa 945-1065 | 15,3
+623 figtitolo c=13.5 fissa 815-935 | 154,2
+623 figtitolo c=13.5 fissa 945-1065 | 14,5
+665 figtitolo c=13.5 fissa 815-935 | 154,2
+665 figtitolo c=13.5 fissa 945-1065 | 28,5
+740 figtitolo c=13.5 fissa 815-935 | 36,9
+740 figtitolo c=13.5 fissa 945-1065 | 8,9
+796 figtitolo c=13.5 fissa 815-935 | 1156,7
+796 figtitolo c=13.5 fissa 945-1065 | 130,8
+954 600-800 | Figure 6-4.

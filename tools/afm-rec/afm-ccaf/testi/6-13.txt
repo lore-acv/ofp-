@@ -1,0 +1,29 @@
+163 | Flight Manual
+194 | Reims Rocket
+223 | Reims Aviation Page: 6-13
+255 | Reims, Marne France Edition: 3
+349 | The installation of Cessna radio equipment provides certain audio back-up capa-
+381 | bilities and transmitter selector switch functions that the pilot should be familiar with.
+412 | When the transmitter selector switch is placed in position 1 or 2, the audio amplifier
+443 | of the corresponding transceiver is utilized to provide the speaker audio for all radios.
+474 | If the audio amplifier in the selected transceiver fails, as evidenced by loss of speaker
+505 | audio for all radios, place the transmitter selector switch in the other transceiver posi-
+536 | tion. Since an audio amplifier is not utilized for headphones, a malfunctioning ampli-
+567 | fier will not affect headphone operation.
+659 titolo | SPEAKER-PHONE SWITCHES.
+722 | The speaker-phone switches determine whether the output of the receiver in use
+753 | is fed to the headphones or through the audio amplifier to the speaker. Place the
+784 | switch for the desired receiving system either in the up position for speaker operation
+815 | or in the down position for headphones.
+906 titolo | AUTOPILOT-OMNI SWITCH.
+969 | When a Nav-O-Matic autopilot is installed with two compatible omni receivers,
+1000 | an autopilot-omni switch is utilized. This switch selects the omni receiver to be used
+1031 | for the omni course sensing function of the autopilot. The up position selects the
+1062 | upper omni receiver in the radio panel stack and the down position selects the lower
+1092 | omni receiver.
+1395 titolo 375-895 c=28 | BOOM MICROPHONE
+1485 | A boom microphone may be mounted near the upper left corner of the wind-
+1514 | shield. Use of the boom microphone allows radio communication without the neces-
+1549 | sity of releasing any controls to handle the normal hand microphone. The micro-
+1580 | phone keying switch is a push button located on the left side of the pilot’s control
+1611 | wheel.

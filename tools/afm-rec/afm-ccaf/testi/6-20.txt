@@ -1,0 +1,63 @@
+168 libro 400-850 | Flight Manual
+194 libro 400-850 | Reims Rocket
+325 libro 200-650 | Page: 6-20
+325 libro 650-1100 | Reims Aviation
+355 libro 200-650 | Edition: 3
+356 libro 650-1100 | Reims, Marne France
+274 figtitolo c=13 fissa 150-190 | KG
+356 figtitolo c=13 fissa 140-192 | 1100
+461 figtitolo c=13 fissa 140-192 | 1000
+564 figtitolo c=13 fissa 150-192 | 900
+665 figtitolo c=13 fissa 150-192 | 800
+769 figtitolo c=13 fissa 150-192 | 700
+274 figtitolo c=13 fissa 232-284 | LBS.
+321 figtitolo c=13 fissa 232-284 | 2500
+369 figtitolo c=13 fissa 232-284 | 2400
+415 figtitolo c=13 fissa 232-284 | 2300
+462 figtitolo c=13 fissa 232-284 | 2200
+508 figtitolo c=13 fissa 232-284 | 2100
+556 figtitolo c=13 fissa 232-284 | 2000
+603 figtitolo c=13 fissa 232-284 | 1900
+651 figtitolo c=13 fissa 232-284 | 1800
+697 figtitolo c=13 fissa 232-284 | 1700
+744 figtitolo c=13 fissa 232-284 | 1600
+789 figtitolo c=13 fissa 232-284 | 1500
+811 figtitolo c=13 fissa 287-315 | 50
+811 figtitolo c=13 fissa 347-379 | 55
+810 figtitolo c=13 fissa 410-443 | 60
+810 figtitolo c=13 fissa 475-507 | 65
+810 figtitolo c=13 fissa 545-571 | 70
+810 figtitolo c=13 fissa 604-638 | 75
+810 figtitolo c=13 fissa 670-703 | 80
+810 figtitolo c=13 fissa 735-768 | 85
+810 figtitolo c=13 fissa 801-833 | 90
+810 figtitolo c=13 fissa 865-899 | 95
+810 figtitolo c=13 fissa 929-966 | 100
+810 figtitolo c=13 fissa 997-1032 | 105
+810 figtitolo c=13 fissa 1063-1098 | 110
+810 figtitolo c=13 fissa 1129-1164 | 115
+810 figtitolo c=13 fissa 1193-1231 | 120
+842 figtitolo c=13 fissa 314-339 | 60
+842 figtitolo c=13 fissa 370-394 | 65
+842 figtitolo c=13 fissa 421-450 | 70
+842 figtitolo c=13 fissa 481-505 | 75
+842 figtitolo c=13 fissa 536-562 | 80
+843 figtitolo c=13 fissa 592-618 | 85
+842 figtitolo c=13 fissa 650-676 | 90
+842 figtitolo c=13 fissa 707-732 | 95
+842 figtitolo c=13 fissa 760-796 | 100
+842 figtitolo c=13 fissa 818-852 | 105
+842 figtitolo c=13 fissa 872-907 | 110
+842 figtitolo c=13 fissa 930-965 | 115
+842 figtitolo c=13 fissa 987-1023 | 120
+842 figtitolo c=13 fissa 1043-1078 | 125
+842 figtitolo c=13 fissa 1098-1133 | 130
+842 figtitolo c=13 fissa 1159-1191 | 135
+842 figtitolo c=13 fissa 1215-1250 | 140
+842 figtitolo c=13 fissa 1255-1325 | KG-CM
+873 figtitolo c=13 612-958 | LOADED AIRCRAFT MOMENT/1000
+325 figtitolo c=13 460-700 | CENTER OF GRAVITY
+342 figtitolo c=13 460-700 | MOMENT ENVELOPE
+379 figtitolo c=13 935-1040 sotto=0 | NORMAL
+396 figtitolo c=13 912-1040 sopra=12 | CATEGORY
+943 600-830 | Figure 6-6.

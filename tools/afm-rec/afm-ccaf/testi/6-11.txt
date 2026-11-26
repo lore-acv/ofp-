@@ -1,0 +1,21 @@
+167 | Flight Manual
+197 | Reims Rocket
+229 | Reims Aviation Page: 6-11
+260 | Reims, Marne France Edition: 3
+349 | completely “dead” battery. A special fused circuit in the external power system
+380 | supplies the needed “jumper” across the contacts so that with a “dead” battery and
+411 | an external power source applied, turning the master switch “ON” will close the
+443 | battery contactor.
+537 titolo | STATIC PRESSURE ALTERNATE SOURCE VALVE.
+595 | A static pressure alternate source valve provides continued operation of the air-
+626 | speed indicator, altimeter, and vertical speed indicator in the event that the static
+657 | ports or lines become obstructed.
+717 | If erroneous instrument readings are suspected due to water or ice in the static
+749 | pressure lines, the alternate static source valve knob should be pulled out to close
+780 | off the standard static system and vent the instruments to cabin static pressure.
+811 | Cabin pressures will vary, however, with open air vents or windows. Since open
+842 | cabin windows may cause large errors in airspeed and altimeter readings, it is recom-
+873 | mended that they be closed whenever the alternate static system is used. If the
+904 | windows are closed, the most adverse combination of vent openings will cause errors
+935 | no greater than 6 knots and 30 feet in the normal operating speed range of the air-
+966 | plane.

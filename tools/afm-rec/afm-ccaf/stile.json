@@ -141,6 +141,25 @@
       "sx": 0.82,
       "spazio": 0.13,
       "colore": "#c8193c"
+    },
+    "etichetta": {
+      "font": "sans",
+      "classe": "re",
+      "peso": 700,
+      "larghezza": "87.5%",
+      "c": 14,
+      "capRatio": 0.6875,
+      "sx": 0.9,
+      "spazio": 0.03
+    },
+    "figtitolo": {
+      "font": "sans",
+      "classe": "rf",
+      "peso": 450,
+      "c": 19,
+      "capRatio": 0.6875,
+      "sx": 0.92,
+      "spazio": 0.03
     }
   },
   "pieno": {

@@ -1,0 +1,50 @@
+155 libro 400-850 | Flight Manual
+187 libro 400-850 | Reims Rocket
+220 libro 200-650 | Reims Aviation
+219 libro 650-1100 | Page: 6-17
+252 libro 200-650 | Reims, Marne France
+250 libro 650-1100 | Edition: 3
+364 figtitolo 380-1225 c=16 fissa | LOADING ARRANGEMENTS
+430 figtitolo c=15 fissa 330-630 | STATION (C. G. ARM)
+430 figtitolo c=15 fissa 930-1235 | STATION (C. G. ARM)
+471 figtitolo c=15 fissa 250-360 | INCHES
+471 figtitolo c=15 fissa 570-765 | CENTIMETERS
+471 figtitolo c=15 fissa 855-965 | INCHES
+471 figtitolo c=15 fissa 1172-1370 | CENTIMETERS
+516 figtitolo c=15 fissa 392-552 | PILOT PASS.
+516 figtitolo c=15 fissa 992-1159 | PILOT PASS.
+534 figtitolo c=15 fissa 279-329 | *37
+534 figtitolo c=15 fissa 622-680 | *94
+534 figtitolo c=15 fissa 884-930 | *37
+534 figtitolo c=15 fissa 1229-1282 | *94
+557 figtitolo c=15 fissa 240-372 | (34 TO 46)
+557 figtitolo c=15 fissa 572-728 | (86 TO 117)
+557 figtitolo c=15 fissa 838-976 | (34 TO 41)
+557 figtitolo c=15 fissa 1180-1335 | (86 TO 104)
+607 figtitolo c=15 fissa 395-552 | REAR PASS.
+607 figtitolo c=15 fissa 997-1155 | REAR PASS.
+622 figtitolo c=15 fissa 292-329 | 73
+622 figtitolo c=15 fissa 631-680 | 185
+622 figtitolo c=15 fissa 896-930 | 73
+622 figtitolo c=15 fissa 1239-1290 | 185
+663 figtitolo c=15 fissa 1028-1120 | CHILD
+680 figtitolo c=15 fissa 1040-1112 sopra=15 | SEAT
+688 figtitolo c=15 fissa 266-329 | **95
+688 figtitolo c=15 fissa 604-680 | **241
+696 figtitolo c=15 fissa 893-930 | 96
+696 figtitolo c=15 fissa 1239-1290 | 244
+710 figtitolo c=15 fissa 425-515 | BAGG.
+733 figtitolo c=15 fissa 280-329 | 108
+733 figtitolo c=15 fissa 632-680 | 274
+733 figtitolo c=15 fissa 886-930 | 108
+733 figtitolo c=15 fissa 1239-1290 | 274
+760 figtitolo c=15 fissa 394-548 | STANDARD
+782 figtitolo c=15 fissa 408-530 | SEATING
+760 figtitolo c=15 fissa 1006-1148 | OPTIONAL
+782 figtitolo c=15 fissa 1018-1142 | SEATING
+820 figtitolo 245-1360 c=14 | *Pilot or passenger center of gravity on adjustable seats positioned for average occupant. Numbers
+842 figtitolo 258-1180 c=14 | in parentheses indicate forward and aft limits of occupant center of gravity range.
+873 figtitolo 232-805 c=14 | **Arms measured to the center of the area shown.
+910 figtitolo 170-1420 c=14 | NOTE: The aft baggage wall (approximate station 108) can be used as a convenient interior reference point
+932 figtitolo 262-985 c=14 | for determining the location of baggage area fuselage stations.
+1000 730-870 | Figure 6-3.
