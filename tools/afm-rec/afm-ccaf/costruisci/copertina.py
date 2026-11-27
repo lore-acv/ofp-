@@ -17,8 +17,8 @@ Si ricostruisce com'era stampata:
   (piu' saturi e piu' scuri, la tinta resta), i puntini bianchi dentro le
   lettere e le macchie piccole si chiudono (turdsize);
 - I-CCAF (da testi/copertina.txt con testo.py), i due motti rossi (MORE
-  PEOPLE BUY AND..., WORLD'S LARGEST PRO-...), FLIGHT MANUAL, MODEL FR172J e
-  D967-13 sono testo vero (ruoli "sigla", "motto", "titcop", "modello" e
+  PEOPLE BUY AND..., WORLD'S LARGEST PRO-...), REIMS ROCKET, FLIGHT MANUAL,
+  MODEL FR172J, la scritta del logo Cessna e D967-13 sono testo vero (ruoli "sigla", "motto", "titcop", "modello" e
   "codice" in stile.json, con il loro colore).
 - COME NUOVA: la copertina non si copia com'e', si restaura. L'avviso rosso
   ENGLISH TRANSLATION, incollato sopra la stampa, va sul retro
@@ -199,7 +199,6 @@ aggiungi('logo rosso', LOGO, ROSSO_M, AV_ROSSO, turd=3, sfoca=0.5)
 aggiungi('logo nero', LOGO, NEUTRO_M & (lum < 120), AV_NERO, soglia=90, turd=2, sfoca=0.5)
 # logo Cessna: la parola rossa e la freccia ardesia
 # restauro=(chiusura, apertura) in px dell'ingrandimento (INGR = 6 px per px della scansione)
-aggiungi('REIMS ROCKET', (605, 415, 930, 660), np.ones_like(BLU_M), BLU, soglia=75, turd=14, sfoca=1.0, restauro=(19, 13))
 
 # le bandierine: triangoli misurati sulla scansione (vertice sinistro alto, punta, vertice sinistro basso)
 BANDIERE = [(ROSSO, [[736, 1159.5], [815, 1187.5], [736, 1185.0]]),
@@ -241,7 +240,7 @@ for base, x0, x1, t in MOTTI:
     # la riga intera come una sola stringa, larga quanto nella scansione: la spaziatura delle lettere
     # e' la stessa per tutta la riga (parola per parola le parole venivano stirate diversamente)
     motti.append(['riga', 'motto', base, [[g[0][0], t, g[-1][0] + g[-1][1] - g[0][0]]], {'fissa': True}])
-righe = [e for e in p.get('el', []) if e[0] == 'riga' and e[1] not in ('motto', 'avviso', 'codice', 'titcop', 'modello', 'logo', 'logoc')] + motti
+righe = [e for e in p.get('el', []) if e[0] == 'riga' and e[1] not in ('motto', 'avviso', 'codice', 'titcop', 'modello', 'logo', 'logoc', 'reims')] + motti
 # FLIGHT MANUAL e MODEL FR172J: testo vero (il disegno della scansione ha le lettere consumate, con
 # intacchi e piedi spezzati), ogni riga larga quanto nella scansione
 righe += [['riga', 'titcop', 1308, [[628, 'FLIGHT', 276]], {'fissa': True}],
@@ -251,7 +250,11 @@ righe += [['riga', 'titcop', 1308, [[628, 'FLIGHT', 276]], {'fissa': True}],
           # piu' vicino fra quelli liberi, confronto pixel per pixel con la scansione), misure dell'originale
           ['riga', 'logoc', 397, [[318, 'C', 41]], {'fissa': True, 'unite': [0]}],
           ['riga', 'logo', 398, [[362, 'essna', 133]], {'fissa': True}],
-          ['riga', 'logo', 398, [[496, '®', 6]], {'fissa': True, 'c': 6}]]
+          ['riga', 'logo', 398, [[496, '®', 6]], {'fissa': True, 'c': 6}],
+          # REIMS ROCKET: Kameron grassetto (il piu' vicino fra i liberi: contrasto basso, grazie raccordate),
+          # stretto come le lettere da manifesto dell'originale, la spaziatura riempie la riga
+          ['riga', 'reims', 521, [[648, 'REIMS', 233]], {'fissa': True}],
+          ['riga', 'reims', 646, [[617, 'ROCKET', 300]], {'fissa': True}]]
 # il codice del documento sotto la cornice: testo vero (nella scansione e' consumato a meta')
 righe.append(['riga', 'codice', 1531, [[377, 'D967-13', 53]], {'fissa': True}])
 meta = {'pdf': PDF, 'n': 'cover', 'w': W, 'h': H, 'rot': 0, 'stato': 'ricostruita', 'intera': True, 'colori': True,

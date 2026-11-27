@@ -655,7 +655,7 @@ differenza (dove coincidono resta nero); O passa dall'una all'altra.
 | `tools/afm-rec/<id>/figure/` | gli SVG delle figure (retinature punto per punto, disegni al tratto con potrace) e le fotografie pulite (`.webp`, pubblicate in `data/afm-rec/foto/`) |
 | `tools/afm-rec/<id>/costruisci/` | gli script delle pagine con figura: le scritte lette a vista, cornici, foto (`scritte.py` e' il modulo comune) |
 | `tools/afm-rec/<id>/controlli.json` | i numeri controllati a vista dove l'OCR sbaglia, con la seconda conferma; le righe e le macchie chiuse a vista (differenze della misura, non della pagina), con il perche'; i confronti con DATI-AFM.md |
-| `tools/afm-rec/font/` | i font liberi scelti (woff2, licenza OFL): STIX Two Text e Archivo per il testo, Crimson Pro (logo Cessna) e Old Standard TT (FLIGHT MANUAL) per la copertina |
+| `tools/afm-rec/font/` | i font liberi scelti (woff2, licenza OFL): STIX Two Text e Archivo per il testo, Crimson Pro (logo Cessna), Old Standard TT (FLIGHT MANUAL) e Kameron (REIMS ROCKET) per la copertina |
 | `tools/afm-rec/bozza.py` | prima bozza di una pagina dalla scansione (Tesseract, filetti, puntini guida), da correggere a mano |
 | `tools/afm-rec/misura.py` | misura sulla scansione dove comincia e finisce ogni parola (e ogni lettera dei titoli); ripetibile: rimisurare non sposta niente |
 | `tools/afm-rec/dubbi.py` | le parole su cui la bozza e lo strato di testo del PDF non sono d'accordo, ritagliate da guardare; la punteggiatura in fondo alle parole (punto o virgola) |

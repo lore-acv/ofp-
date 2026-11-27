@@ -21,6 +21,11 @@
       "famiglia": "Old Standard TT",
       "file": "old-standard-tt-latin-400-normal.woff2",
       "peso": 400
+    },
+    "legno": {
+      "famiglia": "Kameron",
+      "file": "kameron-latin-700-normal.woff2",
+      "peso": 700
     }
   },
   "ruoli": {
@@ -218,6 +223,15 @@
       "sx": 0.5,
       "spazio": 0.0,
       "colore": "#c8193c"
+    },
+    "reims": {
+      "font": "legno",
+      "classe": "rcr",
+      "c": 89,
+      "capRatio": 0.64,
+      "sx": 0.46,
+      "spazio": 0.0,
+      "colore": "#373c73"
     }
   },
   "pieno": {

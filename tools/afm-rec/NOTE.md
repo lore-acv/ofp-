@@ -189,11 +189,14 @@ scansione non e' stampa stanno in fondo.
 - Copertina (PDF 1): restaurata "come nuova", non copiata. La scansione e'
   consumata (rossi sbiaditi al rosa, blu slavato, lettere con intacchi e
   piedi spezzati, puntini bianchi). Cornice rossa, barra blu e riquadro del
-  modello sono poligoni misurati; le bandierine triangoli misurati; REIMS
-  ROCKET e' vettorializzato e poi restaurato (chiusura che salda le
-  interruzioni e riempie i buchi, apertura che toglie le sbavature, contorni
-  lisci) nelle tinte piene (rosso #c8193c, blu #373c73); I-CCAF, i motti,
-  FLIGHT MANUAL, MODEL FR172J e D967-13 sono testo vero.
+  modello sono poligoni misurati; le bandierine triangoli misurati; I-CCAF,
+  i motti, REIMS ROCKET, FLIGHT MANUAL, MODEL FR172J e D967-13 sono testo
+  vero, nelle tinte piene (rosso #c8193c, blu #373c73). Del disegno della
+  scansione resta solo il logo dell'aeroclub (gia' digitale).
+- REIMS ROCKET e' in Kameron neretto (OFL), scelto come FLIGHT MANUAL
+  (confronto con la scansione di una sessantina di caratteri liberi, poi a
+  vista): contrasto basso e grazie raccordate come le lettere da manifesto
+  dell'originale; stretto (0,46) con la spaziatura che riempie la riga.
 - Il logo Cessna e' ricostruito: la freccia e' un poligono misurato (il
   tratto diagonale si allarga da 4 a 10 px, la barra si assottiglia a
   sinistra), la scritta e' testo in Crimson Pro (OFL), la C alta e "essna"

@@ -267,6 +267,17 @@
   .fmt-phone .lb-tab{width:17px;padding:7px 0;border-radius:0 6px 6px 0} .fmt-phone .lb-ling.sx .lb-tab{border-radius:6px 0 0 6px}
   .fmt-phone .lb-tab span{font-size:7.5px;letter-spacing:.06em}
   .fmt-phone .lb-tab b{font-size:9px;margin-bottom:4px}
+  /* nell'anteprima ricostruita i segnalibri hanno la grafica del manuale: carta bianca, filetto e
+     testo neri nel carattere dei titoli (Archivo neretto stretto, maiuscolo spaziato); la sezione in
+     lettura e' nera piena col testo bianco, come le barre nere delle aperture di sezione */
+  .afm-rec .lb-tab{background:#fff;color:#161616;border:1.5px solid #161616;border-left:0;border-radius:0 3px 3px 0;
+    box-shadow:1px 2px 5px -2px rgba(0,0,0,.28);font-family:'Archivo',Inter,system-ui,sans-serif}
+  .afm-rec .lb-ling.sx .lb-tab{border-left:1.5px solid #161616;border-right:0;border-radius:3px 0 0 3px;box-shadow:-1px 2px 5px -2px rgba(0,0,0,.28)}
+  .afm-rec .lb-tab span{font-family:'Archivo',Inter,system-ui,sans-serif;font-weight:700;font-stretch:75%;letter-spacing:.1em;font-size:9.5px}
+  .afm-rec .lb-tab b{font:700 13px/1 'Archivo',Inter,system-ui,sans-serif;font-stretch:75%;letter-spacing:.02em}
+  .afm-rec .lb-tab.att{background:#161616;color:#fff}
+  .afm-rec .fmt-phone .lb-tab{border-radius:0 2px 2px 0} .afm-rec .fmt-phone .lb-ling.sx .lb-tab{border-radius:2px 0 0 2px}
+  .afm-rec .fmt-phone .lb-tab span{font-size:7.5px} .afm-rec .fmt-phone .lb-tab b{font-size:10px}
   .lb-velo{position:absolute;top:0;bottom:0;overflow:hidden;z-index:3;pointer-events:none}
   .lb.doppia .lb-velo{width:50%} .lb.doppia .lb-velo.dx{left:50%} .lb.doppia .lb-velo.sx{left:0}
   .lb.singola .lb-velo{left:0;width:100%} .lb.singola .lb-velo.sx{display:none}
@@ -1509,7 +1520,7 @@ window.addEventListener('hashchange', ()=>{ const h=daHash(); if(h) vai(h.i, h.i
       $('fbNum').setAttribute('inputmode','decimal');
       $('fbNum').setAttribute('aria-label','Go to page (book page or AFM page, e.g. 5-3)');
       if(FISSO.testo) $('fbCercaBox').hidden=false;
-      if(FISSO.rec){ $('fbConfWrap').hidden=false; $('fbScarica').setAttribute('aria-label','Download the original Flight Manual (PDF)'); $('fbScarica').title='Download the original Flight Manual (PDF)'; }
+      if(FISSO.rec){ document.documentElement.classList.add('afm-rec'); $('fbConfWrap').hidden=false; $('fbScarica').setAttribute('aria-label','Download the original Flight Manual (PDF)'); $('fbScarica').title='Download the original Flight Manual (PDF)'; }
     }
     const slot=fonte.querySelector('.toc-slot');
     VOCI=JSON.parse(slot.dataset.voci||'[]');
