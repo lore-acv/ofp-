@@ -4,7 +4,7 @@
   "w": 2473,
   "h": 1600,
   "rot": -90,
-  "stato": "bozza",
+  "stato": "ricostruita",
   "figure": [{"figura": "Figura 6-5 (Loading graph)", "metodo": "cornice: filetti misurati; griglia, rette di carico con le loro scritte inclinate, scale e riquadro del titolo: tratto vettorializzato con potrace (tratto.py); numeri delle scale, titoli e note: testo vero (costruisci/6-19.py)."}],
   "el": [
     ["riga", "figtitolo", 624, [[618, "LOAD", 60], [545, "WEIGHT", 91]], {"ang": -90, "c": 16.2, "fissa": true}],
