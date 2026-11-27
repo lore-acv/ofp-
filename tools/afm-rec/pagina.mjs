@@ -178,7 +178,7 @@ export function svgPagina(p, stile, misure = {}) {
 export function cssRuoli(stile) {
   return Object.entries(stile.ruoli).map(([k, r]) => {
     const f = stile.font[r.font];
-    return `.rec-svg .${r.classe}{font-family:'${f.famiglia}';font-weight:${r.peso || f.peso};font-stretch:${r.larghezza || '100%'};font-size:${n2(corpo(stile, k))}px${r.spazio ? `;letter-spacing:${r.spazio}em` : ''}${r.colore ? `;fill:${r.colore}` : ''}}`;
+    return `.rec-svg .${r.classe}{font-family:'${f.famiglia}';font-weight:${r.peso || f.peso};font-stretch:${r.larghezza || '100%'};font-size:${n2(corpo(stile, k))}px${r.spazio ? `;letter-spacing:${r.spazio}em` : ''}${r.colore ? `;fill:${r.colore}` : ''}${r.contorno ? `;stroke:${r.colore || '#161616'};stroke-width:${r.contorno}px;paint-order:stroke` : ''}}`;
   }).join('\n');
 }
 export const cssFont = (stile, base) => Object.values(stile.font).map((f) =>

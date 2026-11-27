@@ -11,6 +11,16 @@
       "file": "archivo-latin-standard-normal.woff2",
       "peso": "100 900",
       "larghezza": "62% 125%"
+    },
+    "logo": {
+      "famiglia": "Crimson Pro",
+      "file": "crimson-pro-latin-400-normal.woff2",
+      "peso": 400
+    },
+    "antico": {
+      "famiglia": "Old Standard TT",
+      "file": "old-standard-tt-latin-400-normal.woff2",
+      "peso": 400
     }
   },
   "ruoli": {
@@ -171,14 +181,14 @@
       "colore": "#4f4f4f"
     },
     "titcop": {
-      "font": "serif",
+      "font": "antico",
       "classe": "rct",
-      "c": 44,
-      "capRatio": 0.672,
+      "c": 45,
+      "capRatio": 0.715,
       "sx": 1.0,
       "spazio": 0.0,
       "colore": "#464656",
-      "peso": 500
+      "contorno": 0.9
     },
     "modello": {
       "font": "sans",
@@ -190,6 +200,24 @@
       "sx": 0.72,
       "spazio": 0.0,
       "colore": "#464656"
+    },
+    "logo": {
+      "font": "logo",
+      "classe": "rcl",
+      "c": 44,
+      "capRatio": 0.43,
+      "sx": 0.56,
+      "spazio": 0.0,
+      "colore": "#c8193c"
+    },
+    "logoc": {
+      "font": "logo",
+      "classe": "rclc",
+      "c": 88,
+      "capRatio": 0.585,
+      "sx": 0.5,
+      "spazio": 0.0,
+      "colore": "#c8193c"
     }
   },
   "pieno": {

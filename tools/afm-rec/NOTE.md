@@ -189,11 +189,21 @@ scansione non e' stampa stanno in fondo.
 - Copertina (PDF 1): restaurata "come nuova", non copiata. La scansione e'
   consumata (rossi sbiaditi al rosa, blu slavato, lettere con intacchi e
   piedi spezzati, puntini bianchi). Cornice rossa, barra blu e riquadro del
-  modello sono poligoni misurati; le bandierine triangoli misurati; il logo
-  Cessna e REIMS ROCKET sono vettorializzati e poi restaurati (chiusura che
-  salda le interruzioni e riempie i buchi, apertura che toglie le sbavature,
-  contorni lisci) nelle tinte piene (rosso #c8193c, blu #373c73); I-CCAF, i
-  motti, FLIGHT MANUAL, MODEL FR172J e D967-13 sono testo vero.
+  modello sono poligoni misurati; le bandierine triangoli misurati; REIMS
+  ROCKET e' vettorializzato e poi restaurato (chiusura che salda le
+  interruzioni e riempie i buchi, apertura che toglie le sbavature, contorni
+  lisci) nelle tinte piene (rosso #c8193c, blu #373c73); I-CCAF, i motti,
+  FLIGHT MANUAL, MODEL FR172J e D967-13 sono testo vero.
+- Il logo Cessna e' ricostruito: la freccia e' un poligono misurato (il
+  tratto diagonale si allarga da 4 a 10 px, la barra si assottiglia a
+  sinistra), la scritta e' testo in Crimson Pro (OFL), la C alta e "essna"
+  alle misure della scansione, stretti come nell'originale.
+- FLIGHT MANUAL e' in Old Standard TT (OFL), con un contorno di 0,9 px dello
+  stesso colore per lo spessore dell'originale. I font si sono scelti
+  confrontando pixel per pixel una trentina di caratteri liberi (pacchetti
+  @fontsource) con la scansione, poi a vista: per FLIGHT MANUAL Old Standard
+  ha la G con lo sperone, la M e le grazie dell'originale; per Cessna Crimson
+  Pro ha le proporzioni del logo una volta stretto.
 - Il riquadro rosso ENGLISH TRANSLATION - FOR COURTESY ONLY e' un avviso
   incollato sopra la stampa (bianco, digitale): sulla copertina restaurata
   non c'e', la cornice e la barra blu sotto di lui sono complete. Il suo testo,

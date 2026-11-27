@@ -199,15 +199,19 @@ aggiungi('logo rosso', LOGO, ROSSO_M, AV_ROSSO, turd=3, sfoca=0.5)
 aggiungi('logo nero', LOGO, NEUTRO_M & (lum < 120), AV_NERO, soglia=90, turd=2, sfoca=0.5)
 # logo Cessna: la parola rossa e la freccia ardesia
 # restauro=(chiusura, apertura) in px dell'ingrandimento (INGR = 6 px per px della scansione)
-aggiungi('Cessna', (295, 250, 525, 410), ROSSO_M, ROSSO, soglia=55, turd=6, sfoca=0.9, restauro=(19, 7))
-aggiungi('freccia', (360, 250, 485, 350), ~ROSSO_M, ARDESIA, soglia=65, turd=8, sfoca=0.9, restauro=(13, 5))
 aggiungi('REIMS ROCKET', (605, 415, 930, 660), np.ones_like(BLU_M), BLU, soglia=75, turd=14, sfoca=1.0, restauro=(19, 13))
 
 # le bandierine: triangoli misurati sulla scansione (vertice sinistro alto, punta, vertice sinistro basso)
 BANDIERE = [(ROSSO, [[736, 1159.5], [815, 1187.5], [736, 1185.0]]),
             (BLU, [[820, 1165.5], [897, 1190.0], [820, 1187.0]]),
             (ROSSO, [[821, 1187.5], [898, 1215.5], [821, 1213.0]])]
-forme = (f'<g style="fill:{ROSSO}"><path style="fill-rule:evenodd" d="{d_quad(est)} {d_quad(inn[::-1])}"/>'
+# la freccia del logo Cessna, ricostruita: il tratto diagonale (si allarga da 4 a 10 px scendendo,
+# lati misurati: x = 374 + 0,986 (y - 262) e x = 377 + 1,083 (y - 262)) e la barra orizzontale
+# (sottile a sinistra, piena verso la punta a destra)
+FRECCIA = [[372.6, 261.2], [376.0, 259.6], [378.6, 261.0], [458.5, 336.8], [471.0, 336.3], [477.0, 336.8],
+           [475.5, 339.6], [468.0, 343.3], [357.0, 343.0], [356.0, 342.2], [357.5, 341.2], [433.0, 338.6], [448.6, 337.6]]
+forme = (f'<g style="fill:{ARDESIA}"><path d="{d_quad(FRECCIA)}"/></g>'
+         + f'<g style="fill:{ROSSO}"><path style="fill-rule:evenodd" d="{d_quad(est)} {d_quad(inn[::-1])}"/>'
          + f'<path style="fill-rule:evenodd" d="{d_quad(mest)} {d_quad(minn[::-1])}"/></g>'
          + f'<g style="fill:{BLU}">' + ''.join(f'<path d="{d_quad(q)}"/>' for q in barra) + '</g>'
          + ''.join(f'<g style="fill:{c}"><path d="{d_quad(q)}"/></g>' for c, q in BANDIERE))
@@ -237,12 +241,17 @@ for base, x0, x1, t in MOTTI:
     # la riga intera come una sola stringa, larga quanto nella scansione: la spaziatura delle lettere
     # e' la stessa per tutta la riga (parola per parola le parole venivano stirate diversamente)
     motti.append(['riga', 'motto', base, [[g[0][0], t, g[-1][0] + g[-1][1] - g[0][0]]], {'fissa': True}])
-righe = [e for e in p.get('el', []) if e[0] == 'riga' and e[1] not in ('motto', 'avviso', 'codice', 'titcop', 'modello')] + motti
+righe = [e for e in p.get('el', []) if e[0] == 'riga' and e[1] not in ('motto', 'avviso', 'codice', 'titcop', 'modello', 'logo', 'logoc')] + motti
 # FLIGHT MANUAL e MODEL FR172J: testo vero (il disegno della scansione ha le lettere consumate, con
 # intacchi e piedi spezzati), ogni riga larga quanto nella scansione
-righe += [['riga', 'titcop', 1309, [[628, 'FLIGHT', 276]], {'fissa': True}],
+righe += [['riga', 'titcop', 1308, [[628, 'FLIGHT', 276]], {'fissa': True}],
           ['riga', 'titcop', 1390, [[626, 'MANUAL', 277]], {'fissa': True}],
-          ['riga', 'modello', 788, [[681, 'MODEL FR172J', 172]], {'fissa': True}]]
+          ['riga', 'modello', 788, [[681, 'MODEL FR172J', 172]], {'fissa': True}],
+          # il logo Cessna ricostruito: la C alta e "essna" in Crimson Pro stretto (il carattere
+          # piu' vicino fra quelli liberi, confronto pixel per pixel con la scansione), misure dell'originale
+          ['riga', 'logoc', 397, [[318, 'C', 41]], {'fissa': True, 'unite': [0]}],
+          ['riga', 'logo', 398, [[362, 'essna', 133]], {'fissa': True}],
+          ['riga', 'logo', 398, [[496, '®', 6]], {'fissa': True, 'c': 6}]]
 # il codice del documento sotto la cornice: testo vero (nella scansione e' consumato a meta')
 righe.append(['riga', 'codice', 1531, [[377, 'D967-13', 53]], {'fissa': True}])
 meta = {'pdf': PDF, 'n': 'cover', 'w': W, 'h': H, 'rot': 0, 'stato': 'ricostruita', 'intera': True, 'colori': True,
