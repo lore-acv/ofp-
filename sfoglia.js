@@ -97,6 +97,26 @@ const molla=(p)=>({k:(2*PI/p.risposta)**2, c:4*PI*p.smorz/p.risposta});
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
 const ombreggia=(d)=>{ const d0=LUCE[2]; return d<d0 ? -Math.min(.5,(d0-d)/d0*.48) : Math.min(.12,(d-d0)*.8); };
 const colore=(v)=> v<0 ? `rgba(26,20,14,${(-v).toFixed(3)})` : `rgba(255,253,248,${v.toFixed(3)})`;
+/* Le immagini di una pagina, decodificate prima di servire. Safari decodifica
+   le immagini grandi solo quando le disegna, e a parte: una pagina appena messa
+   (o una sua copia nel foglio che gira) resta bianca un attimo e poi compare,
+   e se intanto il foglio che la copriva sparisce, la facciata scatta. Qui si
+   chiede la decodifica in anticipo (img.decode()) e si sa quando e' finita. */
+// per ogni immagine, l'indirizzo gia' decodificato (una pagina puo' passare a
+// una risoluzione piu' alta: allora va decodificata di nuovo), o quello in corso
+const DECODIFICATE=new WeakMap(), IN_CORSO=new WeakMap();
+const decodifica=(el)=>{
+  if(!el || !el.querySelectorAll) return;
+  for(const im of el.querySelectorAll('img')){
+    const src=im.getAttribute('src'); if(!src || DECODIFICATE.get(im)===src || IN_CORSO.get(im)===src) continue;
+    IN_CORSO.set(im, src);
+    const fatto=()=>{ if(im.getAttribute('src')===src) DECODIFICATE.set(im, src); if(IN_CORSO.get(im)===src) IN_CORSO.delete(im); };
+    if(im.decode) im.decode().then(fatto, fatto); else fatto();
+  }
+};
+// pronta: ogni immagine decodificata, o rotta (un'immagine che non c'e' non si aspetta)
+const decodificata=(el)=>!el || !el.querySelectorAll || [...el.querySelectorAll('img')].every(im=>{
+  const src=im.getAttribute('src'); return !src || DECODIFICATE.get(im)===src || (im.complete && !im.naturalWidth); });
 const r6=(x)=>Math.round(x*1e6)/1e6, r4=r6;   // sei decimali: su contenitori larghi mille px, quattro lasciavano un decimo di px di scarto (testo meno nitido)
 const m3=(X,Y,Z,T)=>`matrix3d(${r4(X[0])},${r4(X[1])},${r4(X[2])},0,${r4(Y[0])},${r4(Y[1])},${r4(Y[2])},0,${r4(Z[0])},${r4(Z[1])},${r4(Z[2])},0,${r4(T[0])},${r4(T[1])},${r4(T[2])},1)`;
 const m2=(a,b,c,d,e,f)=>`matrix(${r4(a)},${r4(b)},${r4(c)},${r4(d)},${r4(e)},${r4(f)})`;
@@ -235,6 +255,7 @@ P.assegnaFermi=function(){
     }else{ sx=null; dx = this.verso>0 ? ultimo.a : primo.da; }
   }
   this.metti(this.fermoSx, sx); this.metti(this.fermoDx, dx);
+  decodifica(this.fermoSx); decodifica(this.fermoDx);
   this.ombraSx.hidden = sx==null; this.ombraDx.hidden = dx==null;
   this.taglio();
   this.sposta();
@@ -304,6 +325,8 @@ P.copia=function(i){
     c=this.pagine[i].cloneNode(true);
     c.removeAttribute('id'); c.removeAttribute('role'); c.removeAttribute('aria-label');
     c.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
+    // la sorgente e' gia' decodificata (decodifica): la copia la disegna subito
+    c.querySelectorAll('img').forEach(im=>{ im.decoding='sync'; });
   }
   c.classList.add('lb-copia');
   c.style.width=this.W*this.q+'px'; c.style.height=this.H*this.q+'px';
@@ -401,8 +424,16 @@ P.vedi=function(dom, si){ const v=si?'visible':'hidden'; dom.el.style.visibility
 P.preparaVicini=function(){
   if(!this.moto) return;
   clearTimeout(this.tPrep);
-  const fai=()=>{ if(this.fogli.length) return; [1,-1].forEach(v=>{ const sp=this.spec(this.cur, this.cur+v); if(sp) this.foglioDom(sp); }); };
+  const fai=()=>{ if(this.fogli.length) return; [1,-1].forEach(v=>{ const sp=this.spec(this.cur, this.cur+v); if(sp) this.foglioDom(sp); }); this.decodificaIntorno(); };
   this.tPrep=setTimeout(()=>{ (window.requestIdleCallback||((f)=>setTimeout(f,1)))(fai,{timeout:600}); }, 60);
+};
+
+/* le immagini delle pagine fino a due girate avanti e indietro: decodificate
+   prima che servano, anche quando si sfoglia di fila e i fogli non si
+   preparano in anticipo */
+P.decodificaIntorno=function(){
+  const da=Math.max(0, this.cur-(this.doppia?4:2)), a=Math.min(this.N-1, this.cur+(this.doppia?5:2));
+  for(let i=da;i<=a;i++) decodifica(this.pagine[i]);
 };
 
 /* Un foglio in volo. G: il punto preso, in coordinate del foglio (x dalla
@@ -670,9 +701,12 @@ P.passo=function(t){
     const T=this.meta(f);
     if(Math.hypot(f.F.x-T.x, f.F.y-T.y)<.6 && Math.hypot(f.V.x,f.V.y)<30){ f.F={...T}; this.disegna(f); this.atterra(f); }
   }
-  // i fogli posati restano due fotogrammi sopra le pagine vere, gia' giuste
+  // i fogli posati restano sopra le pagine vere, gia' giuste, almeno due
+  // fotogrammi e finche' le loro immagini non sono decodificate (al piu' ~0,5 s)
+  const pronte = decodificata(this.fermoSx) && decodificata(this.fermoDx);
   for(const p of [...this.posati]){
-    if(p.attesa--<=0){
+    p.attesa--;
+    if(p.attesa<0 && (pronte || p.attesa<-30)){
       this.posati.splice(this.posati.indexOf(p),1);
       if(!this.fogli.some(f=>f.dom===p.dom)) this.vedi(p.dom, false);
     }
@@ -726,6 +760,7 @@ P.chiudiVoli=function(){
 P.presaComando=function(sp){ return sp.rigido ? {x:this.W, y:this.H*.9} : {x:this.W*.97, y:this.H*.9}; };
 
 P.gira=function(v, veloce){
+  this.decodificaIntorno();
   if(!this.moto || veloce){ return this.salta(this.cur+v); }
   const ultimo=this.fogli[this.fogli.length-1];
   if(ultimo && !ultimo.preso){
