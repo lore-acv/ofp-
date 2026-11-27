@@ -590,10 +590,11 @@ originali e non si toccano), `manuale.html?libro=afm-ccaf-rec` mostra il
 manuale **ricomposto in digitale**: stesso testo, stessa impaginazione, stessi
 numeri di pagina e di figura, testo vero (selezionabile, ricercabile, nitido a
 ogni ingrandimento) e figure vettoriali. Nessun link dall'app: ci si arriva solo
-con l'indirizzo. L'avvertenza "Reconstructed preview — not authoritative" e'
-una pagina del libro: il retro della copertina (bianco nell'originale), scritto
-come le pagine di testo del manuale (una volta sola, non su ogni pagina). Le
-pagine non ancora ricostruite mostrano la scansione.
+con l'indirizzo. La copertina e' restaurata come nuova; l'avvertenza
+"Reconstructed preview — not authoritative" e l'avviso della traduzione (che
+nell'originale e' un riquadro incollato sulla copertina) stanno sul retro della
+copertina (bianco nell'originale), scritti come le pagine di testo del manuale
+(una volta sola, non su ogni pagina). Le pagine non ancora ricostruite mostrano la scansione.
 
 **Prova "pagina piena"** (`manuale.html?libro=afm-ccaf-rec-pieno`, `rec.mjs
 --pieno`): la gabbia del testo, comune a tutto il manuale e misurata su tutte le

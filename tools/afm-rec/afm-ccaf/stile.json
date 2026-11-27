@@ -160,6 +160,36 @@
       "capRatio": 0.6875,
       "sx": 0.92,
       "spazio": 0.03
+    },
+    "codice": {
+      "font": "serif",
+      "classe": "rcc",
+      "c": 13.5,
+      "capRatio": 0.672,
+      "sx": 0.62,
+      "spazio": 0.02,
+      "colore": "#4f4f4f"
+    },
+    "titcop": {
+      "font": "serif",
+      "classe": "rct",
+      "c": 44,
+      "capRatio": 0.672,
+      "sx": 1.0,
+      "spazio": 0.0,
+      "colore": "#464656",
+      "peso": 500
+    },
+    "modello": {
+      "font": "sans",
+      "classe": "rcmo",
+      "peso": 600,
+      "larghezza": "62.5%",
+      "c": 30,
+      "capRatio": 0.6875,
+      "sx": 0.72,
+      "spazio": 0.0,
+      "colore": "#464656"
     }
   },
   "pieno": {

@@ -186,20 +186,23 @@ scansione non e' stampa stanno in fondo.
   larghezza 1,1).
 
 ### Copertina e pagine iniziali (PDF 1-8)
-- Copertina (PDF 1): e' a colori e consumata (rossi sbiaditi al rosa, blu
-  slavato, puntini bianchi nelle lettere). Si ricostruisce "come stampata":
-  cornice rossa, barra blu e riquadri sono poligoni misurati (la stampa e'
-  appena storta: si tiene); loghi, REIMS ROCKET, MODEL FR172J, bandierine,
-  FLIGHT MANUAL e D967-13 sono strati di colore vettorializzati con potrace
-  nelle tinte restaurate (rosso #c8193c, blu #373c73, grigio #464656); I-CCAF,
-  i due motti rossi e l'avviso ENGLISH TRANSLATION sono testo vero. I motti,
-  sbiaditi fino al rosa, vettorializzati chiudevano gli occhielli delle
-  lettere: per questo sono testo (ruolo "motto"). Nell'avviso
-  "SGAC.This" senza spazio, come stampato.
-- Retro della copertina (PDF 2): bianco nell'originale. Vi si scrive
-  l'avvertenza "Reconstructed preview — not authoritative" come una pagina di
-  testo del manuale (titolo e paragrafo nei ruoli del libro), al posto del
-  cartellino HTML che stava sopra la copertina.
+- Copertina (PDF 1): restaurata "come nuova", non copiata. La scansione e'
+  consumata (rossi sbiaditi al rosa, blu slavato, lettere con intacchi e
+  piedi spezzati, puntini bianchi). Cornice rossa, barra blu e riquadro del
+  modello sono poligoni misurati; le bandierine triangoli misurati; il logo
+  Cessna e REIMS ROCKET sono vettorializzati e poi restaurati (chiusura che
+  salda le interruzioni e riempie i buchi, apertura che toglie le sbavature,
+  contorni lisci) nelle tinte piene (rosso #c8193c, blu #373c73); I-CCAF, i
+  motti, FLIGHT MANUAL, MODEL FR172J e D967-13 sono testo vero.
+- Il riquadro rosso ENGLISH TRANSLATION - FOR COURTESY ONLY e' un avviso
+  incollato sopra la stampa (bianco, digitale): sulla copertina restaurata
+  non c'e', la cornice e la barra blu sotto di lui sono complete. Il suo testo,
+  parola per parola ("SGAC.This" senza spazio, come scritto), e' sul retro
+  della copertina.
+- Retro della copertina (PDF 2): bianco nell'originale. Vi si scrivono
+  l'avviso della traduzione e l'avvertenza "Reconstructed preview — not
+  authoritative", come una pagina di testo del manuale (titoli e paragrafi
+  nei ruoli del libro).
 - Frontespizio (i): "A18EU" e "FR17200351" letti a vista; lo strato di testo
   del PDF legge "Al8EU" e "FRl7200351" (l e 1 confusi), stesse cifre.
 - Indice (ii-v): i puntini guida sono elementi "punti" misurati uno per uno

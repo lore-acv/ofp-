@@ -5,11 +5,16 @@
   "h": 1762,
   "rot": 0,
   "stato": "ricostruita",
-  "figure": [{"figura":"Avvertenza dell'anteprima","metodo":"pagina bianca nell'originale: vi si scrive l'avvertenza dell'anteprima, nei ruoli titolo e testo del manuale, giustificata nella colonna del testo (tools/afm-rec/afm-ccaf/costruisci/retro.mjs)."}],
+  "figure": [{"figura":"Avvertenze","metodo":"pagina bianca nell'originale: vi si scrivono l'avviso della traduzione (che nell'originale e' un riquadro incollato sulla copertina) e l'avvertenza dell'anteprima, nei ruoli titolo e testo del manuale, giustificate nella colonna del testo (tools/afm-rec/afm-ccaf/costruisci/retro.mjs)."}],
   "el": [
-    ["riga","titolo",598,[[278,"RECONSTRUCTED"],[485.4,"PREVIEW"],[594.1,"—"],[620.5,"NOT"],[672.6,"AUTHORITATIVE."]]],
-    ["riga","testo",656,[[320,"This"],[360.9,"copy"],[403.9,"of"],[425.1,"the"],[456.4,"Flight"],[510.6,"Manual"],[578.1,"is"],[596.7,"a"],[611.1,"digital"],[668.5,"reconstruction,"],[797.8,"made"],[847.1,"for"],[875.7,"preview"],[945.1,"only."],[989.7,"It"]]],
-    ["riga","testo",687,[[278,"is"],[296.4,"not"],[328.4,"authoritative"],[439.2,"and"],[474.5,"does"],[516.2,"not"],[548.1,"replace"],[611.9,"the"],[643,"original:"],[716.9,"refer"],[760.6,"to"],[781.6,"the"],[812.7,"original"],[881.6,"Flight"],[935.6,"Manual."]]],
-    ["riga","testo",718,[[278,"The"],[314.1,"pages"],[364.4,"not"],[396.2,"yet"],[425.5,"reconstructed"],[542.1,"show"],[589.3,"the"],[620.3,"scan"],[661.6,"of"],[682.5,"the"],[713.5,"original."]]]
+    ["riga","titolo",598,[[278,"ENGLISH"],[383.1,"TRANSLATION"],[547.2,"-"],[559.7,"FOR"],[611.4,"COURTESY"],[739.8,"ONLY."]]],
+    ["riga","testo",656,[[320,"This"],[365.5,"is"],[388.7,"an"],[418.5,"unofficial"],[507,"English"],[578.8,"courtesy"],[657.2,"translation"],[755.9,"of"],[781.6,"the"],[817.5,"FR172J"],[886.8,"French"],[953.9,"Flight"]]],
+    ["riga","testo",687,[[278,"Manual"],[345.6,"approved"],[425.9,"by"],[450.4,"SGAC.This"],[544.7,"manual"],[611.6,"is"],[630.4,"not"],[662.7,"formally"],[737.1,"approved"],[817.3,"by"],[841.9,"ENAC"],[897.7,"(Italian"],[964,"Civil"]]],
+    ["riga","testo",718,[[278,"Aviation"],[353.6,"Authority)."],[451.1,"Therefore,"],[541.8,"please"],[598.7,"consider"],[674.1,"that"],[713,"only"],[754.8,"the"],[787,"original"],[857,"version"],[922.8,"in"],[945.6,"French"]]],
+    ["riga","testo",749,[[278,"language"],[356.3,"has"],[389,"a"],[403,"legal"],[446.6,"value."]]],
+    ["riga","titolo",839,[[278,"RECONSTRUCTED"],[485.4,"PREVIEW"],[594.1,"—"],[620.5,"NOT"],[672.6,"AUTHORITATIVE."]]],
+    ["riga","testo",897,[[320,"This"],[360.9,"copy"],[403.9,"of"],[425.1,"the"],[456.4,"Flight"],[510.6,"Manual"],[578.1,"is"],[596.7,"a"],[611.1,"digital"],[668.5,"reconstruction,"],[797.8,"made"],[847.1,"for"],[875.7,"preview"],[945.1,"only."],[989.7,"It"]]],
+    ["riga","testo",928,[[278,"is"],[296.4,"not"],[328.4,"authoritative"],[439.2,"and"],[474.5,"does"],[516.2,"not"],[548.1,"replace"],[611.9,"the"],[643,"original:"],[716.9,"refer"],[760.6,"to"],[781.6,"the"],[812.7,"original"],[881.6,"Flight"],[935.6,"Manual."]]],
+    ["riga","testo",959,[[278,"The"],[314.1,"pages"],[364.4,"not"],[396.2,"yet"],[425.5,"reconstructed"],[542.1,"show"],[589.3,"the"],[620.3,"scan"],[661.6,"of"],[682.5,"the"],[713.5,"original."]]]
   ]
 }

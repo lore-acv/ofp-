@@ -16,11 +16,16 @@ Si ricostruisce com'era stampata:
   tinta piena: i colori sono quelli della scansione riportati alla stampa
   (piu' saturi e piu' scuri, la tinta resta), i puntini bianchi dentro le
   lettere e le macchie piccole si chiudono (turdsize);
-- I-CCAF, i due motti rossi (MORE PEOPLE BUY AND..., WORLD'S LARGEST
-  PRO-...) e l'avviso rosso ENGLISH TRANSLATION sono testo vero (righe di
-  pagine/copertina.json, dal testo letto a vista testi/copertina.txt con
-  testo.py; ruoli "sigla", "motto" e "avviso" in stile.json, con il loro
-  colore): si rifanno con testo.py, questo script scrive solo il resto. I
+- I-CCAF (da testi/copertina.txt con testo.py), i due motti rossi (MORE
+  PEOPLE BUY AND..., WORLD'S LARGEST PRO-...), FLIGHT MANUAL, MODEL FR172J e
+  D967-13 sono testo vero (ruoli "sigla", "motto", "titcop", "modello" e
+  "codice" in stile.json, con il loro colore).
+- COME NUOVA: la copertina non si copia com'e', si restaura. L'avviso rosso
+  ENGLISH TRANSLATION, incollato sopra la stampa, va sul retro
+  (costruisci/retro.mjs) e la cornice e la barra blu sotto di lui si
+  completano; gli strati a disegno si chiudono (lettere interrotte e buchi
+  bianchi dell'usura) e si aprono (sbavature), con contorni lisci; le
+  bandierine sono triangoli misurati. I
   motti sono lettere di 18 px sbiadite fino al rosa: vettorializzate, gli
   occhielli si chiudono (la scansione non li risolve), da cui il testo.
 
@@ -116,34 +121,26 @@ def taglia(q_alto, q_basso, v1, v2, y0, y1):
     """un lato verticale (fra le rette v1 e v2) da y0 a y1"""
     return [[np.polyval(v1, y0), y0], [np.polyval(v2, y0), y0], [np.polyval(v2, y1), y1], [np.polyval(v1, y1), y1]]
 
-ya_, yb_ = AVV[1], AVV[3]
-# la cornice: anello esterno meno interno, ma interrotto dal riquadro dell'avviso: si fa a pezzi
-pezzi = []
-pezzi.append([est[0], est[1], [np.polyval(dxe, ya_), ya_], [np.polyval(dxi, ya_), ya_], inn[1], inn[0], [np.polyval(sxi, ya_), ya_], [np.polyval(sxe, ya_), ya_]])
-pezzi.append([[np.polyval(sxe, yb_), yb_], [np.polyval(sxi, yb_), yb_], inn[3], inn[2], [np.polyval(dxi, yb_), yb_], [np.polyval(dxe, yb_), yb_], est[2], est[3]])
+# la cornice: un anello intero (sotto il riquadro dell'avviso, che sulla copertina restaurata non
+# c'e' piu', continua con le stesse rette: la copertina stampata non aveva l'avviso)
 
 # la barra blu: due lati misurati, le teste dritte
 blu_forte = BLU_M & (forza > 70)
 ys_b = [y for y in range(80, 1555, 2) if not (AVV[1] - 10 <= y <= AVV[3] + 10)]
 bs, bd = lato_v(blu_forte, 550, 592, ys_b)
 TB, BB = 66.5, 1566.0
-barra = [taglia(None, None, bs, bd, TB, ya_), taglia(None, None, bs, bd, yb_, BB)]
+barra = [taglia(None, None, bs, bd, TB, BB)]
 
 # il riquadro MODEL FR172J
 mest, minn, _ = cornice(rosso_forte, (655, 672), (866, 882), (710, 728), (815, 833))
 
-# il riquadro dell'avviso: digitale, dritto, 2 px
-def riquadro_avviso():
-    x0, y0, x1, y1 = AVV
-    return [[x0, y0], [x1, y0], [x1, y1], [x0, y1]], [[x0 + 2, y0 + 2], [x1 - 2, y0 + 2], [x1 - 2, y1 - 2], [x0 + 2, y1 - 2]]
-aest, ainn = riquadro_avviso()
 
 # ------------------------------------------------------------------ gli strati vettorializzati
 def potrace(bw, x0, y0, colore, turd):
     with tempfile.TemporaryDirectory() as t:
         pbm = os.path.join(t, 'a.pbm')
         Image.fromarray((~bw * 255).astype(np.uint8)).convert('1').save(pbm)
-        svg = subprocess.run(['potrace', pbm, '-s', '-o', '-', '--turdsize', str(turd), '--alphamax', '1.0', '--opttolerance', '0.3', '-u', '1'],
+        svg = subprocess.run(['potrace', pbm, '-s', '-o', '-', '--turdsize', str(turd), '--alphamax', '1.15', '--opttolerance', '0.4', '-u', '1'],
                              capture_output=True, text=True, check=True).stdout
     gg = re.search(r'<g transform="([^"]+)"[^>]*>(.*?)</g>', svg, re.S)
     tr, paths = gg.group(1).replace('translate(0.000000,', 'translate(0,'), gg.group(2)
@@ -151,7 +148,7 @@ def potrace(bw, x0, y0, colore, turd):
     return (f'<g style="fill:{colore}"><g transform="translate({x0},{y0}) scale({1 / INGR:.6f})"><g transform="{tr}">{paths}</g></g></g>',
             paths.count('<path'))
 
-def strato(box, classe, colore, soglia=70, turd=10, sfoca=0.7, campo=None, locale=None):
+def strato(box, classe, colore, soglia=70, turd=10, sfoca=0.7, campo=None, locale=None, restauro=None):
     """lo strato di un colore dentro un riquadro: l'inchiostro di quella classe, ingrandito e sfocato
     (i bordi morbidi della scansione diventano contorni lisci), alla soglia data. campo: la misura
     dell'inchiostro, se non e' la forza (per i rossi sbiaditi, quanto il pixel e' rosso).
@@ -169,6 +166,24 @@ def strato(box, classe, colore, soglia=70, turd=10, sfoca=0.7, campo=None, local
         bw = big > np.maximum(mx * fr, soglia)
     else:
         bw = big > soglia
+    if restauro:
+        # come nuova: la chiusura (dilata e restringe) salda le lettere interrotte e chiude i buchi
+        # bianchi dell'usura; l'apertura (restringe e dilata) toglie le sbavature e i grumi sul bordo
+        im = Image.fromarray((bw * 255).astype(np.uint8))
+        kc, ko = restauro[:2]
+        if kc: im = im.filter(ImageFilter.MaxFilter(kc)).filter(ImageFilter.MinFilter(kc))
+        if ko: im = im.filter(ImageFilter.MinFilter(ko)).filter(ImageFilter.MaxFilter(ko))
+        bw = np.array(im) > 127
+        if len(restauro) > 2 and restauro[2]:
+            # chiusura solo verticale (una fascia d'usura orizzontale, come ai piedi di MANUAL):
+            # salda dall'alto in basso senza attaccare le lettere fra loro
+            kv = restauro[2] // 2
+            def scorri(a, op):
+                out = a.copy()
+                for d in range(1, kv + 1):
+                    out = op(out, np.roll(a, d, 0)); out = op(out, np.roll(a, -d, 0))
+                return out
+            bw = scorri(scorri(bw, np.logical_or), np.logical_and)
     svg, n = potrace(bw, x0, y0, colore, turd * INGR * INGR)
     return svg, n
 
@@ -183,19 +198,19 @@ aggiungi('logo blu', LOGO, BLU_M, AV_BLU, turd=3, sfoca=0.5)
 aggiungi('logo rosso', LOGO, ROSSO_M, AV_ROSSO, turd=3, sfoca=0.5)
 aggiungi('logo nero', LOGO, NEUTRO_M & (lum < 120), AV_NERO, soglia=90, turd=2, sfoca=0.5)
 # logo Cessna: la parola rossa e la freccia ardesia
-aggiungi('Cessna', (295, 250, 525, 410), ROSSO_M, ROSSO, soglia=60, turd=4)
-aggiungi('freccia', (360, 250, 485, 350), ~ROSSO_M, ARDESIA, soglia=70, turd=8)
-aggiungi('REIMS ROCKET', (605, 415, 930, 660), np.ones_like(BLU_M), BLU, soglia=75, turd=12)
-aggiungi('MODEL FR172J', (674, 742, 862, 805), ~ROSSO_M, GRIGIO, soglia=70, turd=4)
-aggiungi('bandierine rosse', (728, 1150, 915, 1225), ROSSO_M, ROSSO, soglia=60, turd=10)
-aggiungi('bandierina blu', (728, 1150, 915, 1225), ~ROSSO_M, BLU, soglia=60, turd=10)
-aggiungi('FLIGHT MANUAL', (615, 1250, 920, 1400), np.ones_like(BLU_M), GRIGIO, soglia=70, turd=8)
-aggiungi('D967-13', (368, 1508, 438, 1538), np.ones_like(BLU_M), CODICE, soglia=45, turd=2, sfoca=0.5)
+# restauro=(chiusura, apertura) in px dell'ingrandimento (INGR = 6 px per px della scansione)
+aggiungi('Cessna', (295, 250, 525, 410), ROSSO_M, ROSSO, soglia=55, turd=6, sfoca=0.9, restauro=(19, 7))
+aggiungi('freccia', (360, 250, 485, 350), ~ROSSO_M, ARDESIA, soglia=65, turd=8, sfoca=0.9, restauro=(13, 5))
+aggiungi('REIMS ROCKET', (605, 415, 930, 660), np.ones_like(BLU_M), BLU, soglia=75, turd=14, sfoca=1.0, restauro=(19, 13))
 
-forme = (f'<g style="fill:{ROSSO}">' + ''.join(f'<path d="{d_quad(q)}"/>' for q in pezzi)
-         + f'<path fill-rule="evenodd" style="fill-rule:evenodd" d="{d_quad(mest)} {d_quad(minn[::-1])}"/></g>'
+# le bandierine: triangoli misurati sulla scansione (vertice sinistro alto, punta, vertice sinistro basso)
+BANDIERE = [(ROSSO, [[736, 1159.5], [815, 1187.5], [736, 1185.0]]),
+            (BLU, [[820, 1165.5], [897, 1190.0], [820, 1187.0]]),
+            (ROSSO, [[821, 1187.5], [898, 1215.5], [821, 1213.0]])]
+forme = (f'<g style="fill:{ROSSO}"><path style="fill-rule:evenodd" d="{d_quad(est)} {d_quad(inn[::-1])}"/>'
+         + f'<path style="fill-rule:evenodd" d="{d_quad(mest)} {d_quad(minn[::-1])}"/></g>'
          + f'<g style="fill:{BLU}">' + ''.join(f'<path d="{d_quad(q)}"/>' for q in barra) + '</g>'
-         + f'<g style="fill:{AVVISO}"><path style="fill-rule:evenodd" d="{d_quad(aest)} {d_quad(ainn[::-1])}"/></g>')
+         + ''.join(f'<g style="fill:{c}"><path d="{d_quad(q)}"/></g>' for c, q in BANDIERE))
 
 print('cornice esterna', est, '\ninterna', inn)
 print('barra', [np.polyval(bs, y) for y in (TB, BB)], [np.polyval(bd, y) for y in (TB, BB)])
@@ -219,8 +234,17 @@ motti = []
 for base, x0, x1, t in MOTTI:
     g = parole_rosse(base, x0, x1); tok = t.split()
     assert len(g) == len(tok), (t, g)
-    motti.append(['riga', 'motto', base, [[a, w, l] for (a, l), w in zip(g, tok)], {'fissa': True}])
-righe = [e for e in p.get('el', []) if e[0] == 'riga' and e[1] != 'motto'] + motti
+    # la riga intera come una sola stringa, larga quanto nella scansione: la spaziatura delle lettere
+    # e' la stessa per tutta la riga (parola per parola le parole venivano stirate diversamente)
+    motti.append(['riga', 'motto', base, [[g[0][0], t, g[-1][0] + g[-1][1] - g[0][0]]], {'fissa': True}])
+righe = [e for e in p.get('el', []) if e[0] == 'riga' and e[1] not in ('motto', 'avviso', 'codice', 'titcop', 'modello')] + motti
+# FLIGHT MANUAL e MODEL FR172J: testo vero (il disegno della scansione ha le lettere consumate, con
+# intacchi e piedi spezzati), ogni riga larga quanto nella scansione
+righe += [['riga', 'titcop', 1309, [[628, 'FLIGHT', 276]], {'fissa': True}],
+          ['riga', 'titcop', 1390, [[626, 'MANUAL', 277]], {'fissa': True}],
+          ['riga', 'modello', 788, [[681, 'MODEL FR172J', 172]], {'fissa': True}]]
+# il codice del documento sotto la cornice: testo vero (nella scansione e' consumato a meta')
+righe.append(['riga', 'codice', 1531, [[377, 'D967-13', 53]], {'fissa': True}])
 meta = {'pdf': PDF, 'n': 'cover', 'w': W, 'h': H, 'rot': 0, 'stato': 'ricostruita', 'intera': True, 'colori': True,
         'figure': [{'figura': 'Copertina', 'metodo': "cornice, barra e riquadri: poligoni misurati sulla scansione; loghi, motti e titoli a disegno: strati di colore separati e vettorializzati con potrace dalla scansione ingrandita 6 volte, nelle tinte restaurate (tools/afm-rec/afm-ccaf/costruisci/copertina.py); I-CCAF, i motti e l'avviso ENGLISH TRANSLATION: testo vero."}]}
 el = righe + [['svg', forme + ''.join(strati)]]
