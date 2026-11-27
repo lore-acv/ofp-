@@ -1,1 +1,15 @@
-{"pdf": 87, "n": "6-19", "w": 2473, "h": 1600, "rot": -90, "stato": "bozza", "figure": [], "el": []}
+{
+  "pdf": 87,
+  "n": "6-19",
+  "w": 2473,
+  "h": 1600,
+  "rot": -90,
+  "stato": "bozza",
+  "figure": [{"figura": "Figura 6-5 (Loading graph)", "metodo": "cornice: filetti misurati; griglia, rette di carico con le loro scritte inclinate, scale e riquadro del titolo: tratto vettorializzato con potrace (tratto.py); numeri delle scale, titoli e note: testo vero (costruisci/6-19.py)."}],
+  "el": [
+    ["riga", "figtitolo", 624, [[618, "LOAD", 60], [545, "WEIGHT", 91]], {"ang": -90, "c": 16.2, "fissa": true}],
+    ["linea", 393.0, 1236.0, 1904.0, 1238.0, 10.3],
+    ["linea", 400.5, 194.9, 400.0, 1244.0, 11.0],
+    ["svgfile", "figure/fig-6-5.svg"]
+  ]
+}

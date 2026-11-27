@@ -1,70 +1,57 @@
-400 734-933 libro | Flight Manual
-437 734-934 libro | Reims Rocket
-# CONTROLLA (0.79): Tesseract legge «Reims Aviation»
-479 1113-726 libro | Page: 6-18
-# CONTROLLA (0.79): Tesseract legge «Reims Aviation»
-479 728-1331 libro | Reims Aviation
-# CONTROLLA (0.80): Tesseract legge «Reims, Marne France»
-515 1112-726 libro | Edition: 2
-# CONTROLLA (0.80): Tesseract legge «Reims, Marne France»
-515 728-1407 libro | Reims, Marne France
-# DA LEGGERE: riga della sorgente non trovata: SAMPLE AIRPLANE | YOUR AIRPLANE
-# DA LEGGERE: riga della sorgente non trovata: SAMPLE LOADING PROBLEM
-# DA LEGGERE: riga della sorgente non trovata: Weight | Moment | Weight | Moment
-# DA LEGGERE: riga della sorgente non trovata: kg | cmkg/1000 | kg | cmkg/1000
-# DA LEGGERE: riga della sorgente non trovata: 1. | Licensed Empty Weight (Sample Airplane) | 677,7 | 64,1
-# DA LEGGERE: riga della sorgente non trovata: 2. | Oil: 10 Qts. (9,5 Litres) The weight of full oil may be used
-# DA LEGGERE: riga della sorgente non trovata: for all calculations | 8,5 | -0,5 | 8,5 | -0,5
-# DA LEGGERE: riga della sorgente non trovata: 3. | Fuel: Standard Wing Tanks - 46 U.S. Gal. at 6 pounds/gallon
-# DA LEGGERE: riga della sorgente non trovata: Standard Wing Tanks - 174 Litres at 0,72 Kg/Litre | 125,2 | 15,3
-# DA LEGGERE: riga della sorgente non trovata: Fuel: Auxiliary Tank in Baggage Area - 17 U.S. Gal. at
-# DA LEGGERE: riga della sorgente non trovata: 6 pounds/gallon (64 Litres at 0,72 Kg/Litre)
-# DA LEGGERE: riga della sorgente non trovata: 4. | Pilot and Front Passenger: Station 86 to 117 cm | 154,2 | 14,5
-# DA LEGGERE: riga della sorgente non trovata: 5. | Rear Passengers | 154,2 | 28,5
-# DA LEGGERE: riga della sorgente non trovata: 6. | Baggage Area: 200 Lbs. (91 kg) Max.
-# DA LEGGERE: riga della sorgente non trovata: Station 208 to 274 cm
-# DA LEGGERE: riga della sorgente non trovata: or Passenger on Child’s Seat: 120 Lbs (54 Kg) Max. | 36,9 | 8,9
-# DA LEGGERE: riga della sorgente non trovata: 7. | TOTAL WEIGHT AND MOMENT | 1156,7 | 130,8
-# DA LEGGERE: riga della sorgente non trovata: 8. | Locate this point (1156,7 at 130,8) on the center of gravity moment envelope,
-# DA LEGGERE: riga della sorgente non trovata: and since this point falls within the envelope, the loading is acceptable.
-# DA LEGGERE: riga della sorgente non trovata: Figure 6-4.
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Page: 6-18»
-# 472 268-433 | Page: 6-18
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Edition:»
-# 508 269-390 | Edition:
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘yg omnsty»
-# 221 1266-1426 | ‘yg omnsty
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“ajqeydacoe si Buipeoy ayy ‘adojaaua ayi Uy LIM sje} WIod siy] aouis pue»
-# 361 1134-1998 | “ajqeydacoe si Buipeoy ayy ‘adojaaua ayi Uy LIM sje} WIod siy] aouis pue
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘adojaaua JUaWoW AyAesB Yo 4a}Uad aYI UO (g’DEL 12 Z'9GLL) JULOd siy) aye907»
-# 390 1037-1995 | ‘adojaaua JUaWoW AyAesB Yo 4a}Uad aYI UO (g’DEL 12 Z'9GLL) JULOd siy) aye907
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LNIWOW GNV LHOISM TWLOL»
-# 487 1577-1994 | LNIWOW GNV LHOISM TWLOL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «6'9£ "7 7 + “xe (BY 7G) SA OZL "188g S,PI!YD UO Jabuasseg 40»
-# 564 1082-1993 | 6'9£ "7 7 + “xe (BY 7G) SA OZL "188g S,PI!YD UO Jabuasseg 40
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Wo PLZ 1 BOZ UONeIS»
-# 602 1708-1993 | Wo PLZ 1 BOZ UONeIS
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“xeW (6 16) ‘Sq71 00% :eauy abebbeg»
-# 634 1532-1993 | “xeW (6 16) ‘Sq71 00% :eauy abebbeg
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sors ts (aru /6> Z2'0 18 sas] pg) uo|}e6/spunod g»
-# 823 1229-1904 | sors ts (aru /6> Z2'0 18 sas] pg) uo|}e6/spunod g
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ye 18D SN LL - edly abebbeg us yuey Aseyixny sjany»
-# 857 1331-1992 | ye 18D SN LL - edly abebbeg us yuey Aseyixny sjany
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «e's ZG "= ant /By Z72'O 2e saz PLL - syueL Guim psepuers»
-# 922 931-1904 | e's ZG "= ant /By Z72'O 2e saz PLL - syueL Guim psepuers
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «uojje6/spunod g ye “Je5 “Sf OF - syueL Buin, Puepuelg = :jeny»
-# 955 1246-1992 | uojje6/spunod g ye “Je5 “Sf OF - syueL Buin, Puepuelg = :jeny
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «g'0- s‘8 s‘0- s'8 ees sayy 2 404»
-# 1019 621-1995 | g'0- s‘8 s‘0- s'8 ees sayy 2 404
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «pauinsse aq Aew jlo |[Ny - (SAs1I] GG) “SID OL 3110»
-# 1050 1373-1992 | pauinsse aq Aew jlo |[Ny - (SAs1I] GG) “SID OL 3110
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(auerdiny ayduues) ryBiay, Aydwy pasuacd]»
-# 1116 1481-1991 | (auerdiny ayduues) ryBiay, Aydwy pasuacd]
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sid Ailmepesdigsesieeedldtlcgiipepetenstllieksndlidsdaemnemenereneenanllloummenaiaaastliend ccenataitiadddanaaltaataactaaerettneaminnad tema amecetnd east caatitan tonne neta aaaeiesadaetednaemnentneamnanne ee»
-# 1158 888-2087 | sid Ailmepesdigsesieeedldtlcgiipepetenstllieksndlidsdaemnemenereneenanllloummenaiaaastliend ccenataitiadddanaaltaataactaaerettneaminnad tema amecetnd east caatitan tonne neta aaaeiesadaetednaemnentneamnanne ee
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «0001 /64wW9 5 0001 /6ywW9 By»
-# 1201 580-1154 | 0001 /64wW9 5 0001 /6ywW9 By
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «juawoW | 14bIaM wuaHow | 146I8M W318OUd DNIGVOT 31dWvS»
-# 1249 596-1854 | juawoW | 14bIaM wuaHow | 146I8M W318OUd DNIGVOT 31dWvS
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «| | anviauiy anviauiy unon unon | | | anvtauiy aldwvs atawvs |»
-# 1322 567-1223 | | | anviauiy anviauiy unon unon | | | anvtauiy aldwvs atawvs |
+404 libro 526-1241 | Flight Manual
+437 libro 526-1241 | Reims Rocket
+479 libro 208-923 | Page: 6-18
+477 libro 923-1638 | Reims Aviation
+518 libro 208-923 | Edition: 2
+515 libro 923-1638 | Reims, Marne France
+325 figtitolo c=21.5 fissa 1272-1566 | SAMPLE AIRPLANE
+325 figtitolo c=21.5 fissa 1593-1887 | YOUR AIRPLANE
+374 figtitolo c=21.5 479-1243 | SAMPLE LOADING PROBLEM
+386 figtitolo c=21.5 fissa 1272-1413 | Weight
+386 figtitolo c=21.5 fissa 1425-1566 | Moment
+386 figtitolo c=21.5 fissa 1593-1736 | Weight
+386 figtitolo c=21.5 fissa 1748-1887 | Moment
+417 figtitolo c=21.5 fissa 1272-1413 | kg
+422 figtitolo c=21.5 fissa 1421-1567 | cmkg/1000
+417 figtitolo c=21.5 fissa 1593-1736 | kg
+422 figtitolo c=21.5 fissa 1745-1887 | cmkg/1000
+507 figtitolo c=21.5 408-479 | 1.
+507 figtitolo c=21.5 479-996 | Licensed Empty Weight (Sample Airplane)
+571 figtitolo c=21.5 408-479 | 2.
+571 figtitolo c=21.5 479-1243 | Oil: 10 Qts. (9,5 Litres) The weight of full oil may be used
+606 figtitolo c=21.5 479-708 | for all calculations
+668 figtitolo c=21.5 408-479 | 3.
+668 figtitolo c=21.5 479-1243 | Fuel: Standard Wing Tanks - 46 U.S. Gal. at 6 pounds/gallon
+700 figtitolo c=21.5 567-1170 | Standard Wing Tanks - 174 Litres at 0,72 Kg/Litre
+764 figtitolo c=21.5 479-1243 | Fuel: Auxiliary Tank in Baggage Area - 17 U.S. Gal. at
+796 figtitolo c=21.5 567-1092 | 6 pounds/gallon (64 Litres at 0,72 Kg/Litre)
+860 figtitolo c=21.5 408-479 | 4.
+860 figtitolo c=21.5 479-1075 gap=11 fissa | Pilot and Front Passenger: Station 86 to 117 cm
+925 figtitolo c=21.5 408-479 | 5.
+925 figtitolo c=21.5 479-678 | Rear Passengers
+989 figtitolo c=21.5 408-479 | 6.
+989 figtitolo c=21.5 479-1243 | Baggage Area: 200 Lbs. (91 kg) Max.
+1021 figtitolo c=21.5 479-1243 | Station 208 to 274 cm
+1053 figtitolo c=21.5 479-1116 | or Passenger on Child’s Seat: 120 Lbs (54 Kg) Max.
+1136 figtitolo c=21.5 408-479 | 7.
+1136 figtitolo c=21.5 479-899 | TOTAL WEIGHT AND MOMENT
+1228 figtitolo c=21.5 408-479 | 8.
+1228 figtitolo c=21.5 479-1489 | Locate this point (1156,7 at 130,8) on the center of gravity moment envelope,
+1260 figtitolo c=21.5 479-1489 | and since this point falls within the envelope, the loading is acceptable.
+507 figtitolo c=21.5 fissa 1272-1413 | 677,7
+507 figtitolo c=21.5 fissa 1425-1566 | 64,1
+601 figtitolo c=21.5 fissa 1272-1413 | 8,5
+601 figtitolo c=21.5 fissa 1425-1566 | -0,5
+601 figtitolo c=21.5 fissa 1593-1736 | 8,5
+601 figtitolo c=21.5 fissa 1748-1887 | -0,5
+697 figtitolo c=21.5 fissa 1272-1413 | 125,2
+697 figtitolo c=21.5 fissa 1425-1566 | 15,3
+864 figtitolo c=21.5 fissa 1272-1413 | 154,2
+864 figtitolo c=21.5 fissa 1425-1566 | 14,5
+931 figtitolo c=21.5 fissa 1272-1413 | 154,2
+931 figtitolo c=21.5 fissa 1425-1566 | 28,5
+1051 figtitolo c=21.5 fissa 1272-1413 | 36,9
+1051 figtitolo c=21.5 fissa 1425-1566 | 8,9
+1140 figtitolo c=21.5 fissa 1272-1413 | 1156,7
+1140 figtitolo c=21.5 fissa 1425-1566 | 130,8
+1393 1019-1254 | Figure 6-4.

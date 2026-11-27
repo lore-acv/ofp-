@@ -1,63 +1,50 @@
-394 648-846 libro | Flight Manual
-431 649-850 libro | Reims Rocket
-472 181-1159 libro | Reims Aviation
-472 1161-1331 libro | Page: 6-17
-# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
-507 181-1160 libro | Reims, Marne France
-# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
-507 1162-1331 libro | Edition: 2
-# DA LEGGERE: riga della sorgente non trovata: LOADING ARRANGEMENTS
-# DA LEGGERE: riga della sorgente non trovata: STATION (C. G. ARM) | STATION (C. G. ARM)
-# DA LEGGERE: riga della sorgente non trovata: INCHES | CENTIMETERS | INCHES | CENTIMETERS
-# DA LEGGERE: riga della sorgente non trovata: PILOT PASS. | PILOT PASS.
-# DA LEGGERE: riga della sorgente non trovata: *37 | *94 | *37 | *94
-# DA LEGGERE: riga della sorgente non trovata: (34 TO 46) | (86 TO 117) | (34 TO 41) | (86 TO 104)
-# DA LEGGERE: riga della sorgente non trovata: REAR PASS. | REAR PASS.
-# DA LEGGERE: riga della sorgente non trovata: 73 | 185 | 73 | 185
-# DA LEGGERE: riga della sorgente non trovata: CHILD
-# DA LEGGERE: riga della sorgente non trovata: SEAT
-# DA LEGGERE: riga della sorgente non trovata: **95 | **241
-# DA LEGGERE: riga della sorgente non trovata: 96 | 244
-# DA LEGGERE: riga della sorgente non trovata: BAGG.
-# DA LEGGERE: riga della sorgente non trovata: 108 | 274 | 108 | 274
-# DA LEGGERE: Tesseract legge «TWNOILdO QYVONVLS»
-684 figtitolo 925-1986 fissa c=17.9 | STANDARD
-# DA LEGGERE: Tesseract legge «TWNOILdO QYVONVLS»
-684 figtitolo 1988-1812 fissa c=17.9 | OPTIONAL
-# DA LEGGERE: riga della sorgente non trovata: SEATING | SEATING
-# DA LEGGERE: riga della sorgente non trovata: *Pilot or passenger center of gravity on adjustable seats positioned for average occupant. Numbers
-# DA LEGGERE: riga della sorgente non trovata: in parentheses indicate forward and aft limits of occupant center of gravity range.
-# DA LEGGERE: riga della sorgente non trovata: **Arms measured to the center of the area shown.
-# DA LEGGERE: riga della sorgente non trovata: NOTE: The aft baggage wall (approximate station 108) can be used as a convenient interior reference point
-# DA LEGGERE: riga della sorgente non trovata: for determining the location of baggage area fuselage stations.
-# DA LEGGERE: riga della sorgente non trovata: Figure 6-3.
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «"€-9 oINBLy»
-# 300 1254-1415 | "€-9 oINBLy
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘suoieys abeyasny eaie abefbeq yo uoijes0] ay} Buiuiwuajap 10}»
-# 406 1126-1962 | ‘suoieys abeyasny eaie abefbeq yo uoijes0] ay} Buiuiwuajap 10}
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «julod a9uaJajas J0jJ9}U} JUa]UBAUOD e Se Pasn aq UeD (GOL UO!Te]s aleWIxosdde) |jem abebGeq ye aut -JLON»
-# 443 612-2061 | julod a9uaJajas J0jJ9}U} JUa]UBAUOD e Se Pasn aq UeD (GOL UO!Te]s aleWIxosdde) |jem abebGeq ye aut -JLON
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“UMOUS BJ BY] JO 19]U99 ayy} O} pasnseaw SWUY, »»
-# 496 1329-1994 | “UMOUS BJ BY] JO 19]U99 ayy} O} pasnseaw SWUY, »
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘aBues ApAes6 yO Ja}Uad JUEdNDDO JO Sj] Ye Pue PeMIO} ajedIpU! SisayjUBed UL»
-# 552 892-1961 | ‘aBues ApAes6 yO Ja}Uad JUEdNDDO JO Sj] Ye Pue PeMIO} ajedIpU! SisayjUBed UL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sdaquiNN “yuedNII0 abevaae JO} pauolyisod sjeas ajqeisnipe uo AyAesb yO 3ayUao JabUassed 10 }O}!d,»
-# 582 678-1977 | sdaquiNN “yuedNII0 abevaae JO} pauolyisod sjeas ajqeisnipe uo AyAesb yO 3ayUao JabUassed 10 }O}!d,
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ONILVSS ONILVaS»
-# 650 934-1796 | ONILVSS ONILVaS
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «S81»
-# 903 764-827 | S81
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(vOL 0198) | ey FA | (1b O1 b8) (LLL OL 98) (9b OL bE)»
-# 1009 712-1991 | (vOL 0198) | ey FA | (1b O1 b8) (LLL OL 98) (9b OL bE)
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «v6. pf Les 6x = Les»
-# 1043 778-1943 | v6. pf Les 6x = Les
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“SSVd LOWd "SSWd LOTd»
-# 1074 913-1815 | “SSVd LOWd "SSWd LOTd
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «a ee Le»
-# 1090 913-1814 | a ee Le
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SYSLIWILNAD SSHONI SYHYILAWILN]AD SSHONI»
-# 1148 672-1972 | SYSLIWILNAD SSHONI SYHYILAWILN]AD SSHONI
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(WHY °5 °D) NOILWLS (WHY “5 °D) NOLLVLIS»
-# 1214 836-1877 | (WHY °5 °D) NOILWLS (WHY “5 °D) NOLLVLIS
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SLNAWAONVYYY ONIGVOT»
-# 1321 1123-1546 | SLNAWAONVYYY ONIGVOT
+400 libro 362-1081 | Flight Manual
+431 libro 362-1081 | Reims Rocket
+472 libro 43-761 | Reims Aviation
+471 libro 761-1480 | Page: 6-17
+512 libro 43-761 | Reims, Marne France
+510 libro 761-1480 | Edition: 2
+307 figtitolo 655-1635 c=25.5 fissa | LOADING ARRANGEMENTS
+412 figtitolo c=23.9 fissa 597-945 | STATION (C. G. ARM)
+412 figtitolo c=23.9 fissa 1293-1647 | STATION (C. G. ARM)
+478 figtitolo c=23.9 fissa 504-632 | INCHES
+478 figtitolo c=23.9 fissa 875-1101 | CENTIMETERS
+478 figtitolo c=23.9 fissa 1206-1333 | INCHES
+478 figtitolo c=23.9 fissa 1574-1803 | CENTIMETERS
+550 figtitolo c=23.9 fissa 669-854 | PILOT PASS.
+550 figtitolo c=23.9 fissa 1365-1558 | PILOT PASS.
+578 figtitolo c=23.9 fissa 538-596 | *37
+578 figtitolo c=23.9 fissa 936-1003 | *94
+578 figtitolo c=23.9 fissa 1239-1293 | *37
+578 figtitolo c=23.9 fissa 1640-1701 | *94
+615 figtitolo c=23.9 fissa 492-646 | (34 TO 46)
+615 figtitolo c=23.9 fissa 878-1058 | (86 TO 117)
+615 figtitolo c=23.9 fissa 1186-1346 | (34 TO 41)
+615 figtitolo c=23.9 fissa 1583-1763 | (86 TO 104)
+695 figtitolo c=23.9 fissa 672-854 | REAR PASS.
+695 figtitolo c=23.9 fissa 1371-1554 | REAR PASS.
+718 figtitolo c=23.9 fissa 553-596 | 73
+718 figtitolo c=23.9 fissa 946-1003 | 185
+718 figtitolo c=23.9 fissa 1253-1293 | 73
+718 figtitolo c=23.9 fissa 1651-1710 | 185
+784 figtitolo c=23.9 fissa 1406-1513 | CHILD
+811 figtitolo c=23.9 fissa 1420-1504 sopra=24 | SEAT
+824 figtitolo c=23.9 fissa 523-596 | **95
+824 figtitolo c=23.9 fissa 915-1003 | **241
+836 figtitolo c=23.9 fissa 1245-1289 | 96
+836 figtitolo c=23.9 fissa 1654-1712 | 244
+859 figtitolo c=23.9 fissa 707-811 | BAGG.
+895 figtitolo c=23.9 fissa 539-596 | 108
+895 figtitolo c=23.9 fissa 947-1003 | 274
+895 figtitolo c=23.9 fissa 1242-1293 | 108
+895 figtitolo c=23.9 fissa 1651-1710 | 274
+938 figtitolo c=23.9 fissa 671-850 | STANDARD
+974 figtitolo c=23.9 fissa 687-829 | SEATING
+938 figtitolo c=23.9 fissa 1381-1546 | OPTIONAL
+974 figtitolo c=23.9 fissa 1395-1539 | SEATING
+1034 figtitolo 498-1792 c=22.3 | *Pilot or passenger center of gravity on adjustable seats positioned for average occupant. Numbers
+1069 figtitolo 513-1583 c=22.3 | in parentheses indicate forward and aft limits of occupant center of gravity range.
+1119 figtitolo 483-1148 c=22.3 | **Arms measured to the center of the area shown.
+1178 figtitolo 411-1861 c=22.3 | NOTE: The aft baggage wall (approximate station 108) can be used as a convenient interior reference point
+1213 figtitolo 518-1357 c=22.3 | for determining the location of baggage area fuselage stations.
+1321 1061-1223 | Figure 6-3.

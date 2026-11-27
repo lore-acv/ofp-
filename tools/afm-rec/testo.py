@@ -65,7 +65,8 @@ def gruppi(base, x0, x1, c, basso=None, M=None, gap=3, alto=None):
             for v in r:
                 k_ = k_ + 1 if v else 0; m_ = max(m_, k_)
             return m_
-        piene = np.array([i for i in range(z.shape[0]) if corsa(z[i]) > max(14, z.shape[1] * 0.25)], int)
+        # (non la barra di una lettera: il 4 o la T di un corpo grande arrivano a 0,6 del corpo)
+        piene = np.array([i for i in range(z.shape[0]) if corsa(z[i]) > max(14, z.shape[1] * 0.25, c * 0.8)], int)
         mezzo = z.shape[0] - int(c * 0.6)
         sopra = [r for r in piene if r < mezzo]; sotto = [r for r in piene if r >= mezzo]
         z = z[(max(sopra) + 3 if sopra else 3):(min(sotto) - 2 if sotto else z.shape[0] - 3)]
@@ -158,7 +159,8 @@ for ln in open(TXT, encoding='utf-8'):
         e = ['riga', ruolo, base, [[x, t] for x, t in zip(xs, tok)]]
     if opz: e.append(opz)
     righe.append(e)
-el = righe + [e for e in p['el'] if e[0] != 'riga']
+# le righe scritte direttamente nella pagina e non in testi/ (le scritte verticali, con "ang") restano
+el = righe + [e for e in p['el'] if e[0] != 'riga' or (len(e) > 4 and e[4].get('ang'))]
 s = open(f).read()
 testo = s[:s.index('"el": [')] + '"el": [\n' + ',\n'.join('    ' + json.dumps(e, ensure_ascii=False) for e in el) + '\n  ]\n}\n'
 open(f, 'w').write(testo)

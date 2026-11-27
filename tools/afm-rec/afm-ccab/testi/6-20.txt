@@ -1,101 +1,63 @@
-404 734-933 libro | Flight Manual
-436 735-935 libro | Reims Rocket
-472 261-1103 libro | Page: 6-20
-472 1105-1327 libro | Reims Aviation
-# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
-508 261-1104 libro | Edition: 2
-# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
-508 1106-1404 libro | Reims, Marne France
-# DA LEGGERE: Tesseract legge «GZL»
-381 figtitolo 890-454 fissa c=15.5 | KG
-# DA LEGGERE: Tesseract legge «GZL»
-381 figtitolo 456-944 fissa c=15.5 | LBS.
-# DA LEGGERE: riga della sorgente non trovata: 2500 | CENTER OF GRAVITY
-# DA LEGGERE: Tesseract legge «OEL»
-382 figtitolo 825-879 c=15.5 | MOMENT ENVELOPE
-# DA LEGGERE: riga della sorgente non trovata: 1100
-# DA LEGGERE: riga della sorgente non trovata: 2400
-# DA LEGGERE: Tesseract legge «OL»
-382 figtitolo 1638-1680 c=15.5 | NORMAL
-# DA LEGGERE: riga della sorgente non trovata: CATEGORY
-# DA LEGGERE: riga della sorgente non trovata: 2300
-# DA LEGGERE: riga della sorgente non trovata: 1000 | 2200
-# DA LEGGERE: riga della sorgente non trovata: 2100
-# DA LEGGERE: riga della sorgente non trovata: 2000
-# DA LEGGERE: Tesseract legge «G9»
-382 figtitolo 1702-1745 fissa c=15.5 | 900
-# DA LEGGERE: riga della sorgente non trovata: 1900
-# DA LEGGERE: riga della sorgente non trovata: 1800
-# DA LEGGERE: Tesseract legge «09»
-383 figtitolo 1769-1811 fissa c=15.5 | 800
-# DA LEGGERE: riga della sorgente non trovata: 1700
-# DA LEGGERE: riga della sorgente non trovata: 1600
-# DA LEGGERE: riga della sorgente non trovata: 700
-# DA LEGGERE: riga della sorgente non trovata: 1500
-# DA LEGGERE: Tesseract legge «HONI»
-422 figtitolo 618-690 fissa c=15.5 | POUND-
-# DA LEGGERE: riga della sorgente non trovata: 50 | 55 | 60 | 65 | 70 | 75 | 80 | 85 | 90 | 95 | 100 | 105 | 110 | 115 | 120 | INCH
-# DA LEGGERE: riga della sorgente non trovata: 60 | 65 | 70 | 75 | 80 | 85 | 90 | 95 | 100 | 105 | 110 | 115 | 120 | 125 | 130 | 135 | 140 | KG-CM
-# DA LEGGERE: riga della sorgente non trovata: LOADED AIRCRAFT MOMENT/1000
-# DA LEGGERE: Tesseract legge «G6»
-433 1105-1148 | Figure 6-6.
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LHOIEM LAVHOYNIV G3GVO1»
-# 2036 555-899 | LHOIEM LAVHOYNIV G3GVO1
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘9-9 omaty»
-# 220 1265-1425 | ‘9-9 omaty
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «0001/LNSAWOW Livdouty Gaavorl»
-# 332 1032-1457 | 0001/LNSAWOW Livdouty Gaavorl
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Oz»
-# 381 956-1009 | Oz
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «GLL»
-# 381 1024-1076 | GLL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Olt»
-# 381 1090-1145 | Olt
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SOL»
-# 381 1156-1214 | SOL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «S6»
-# 381 1303-1345 | S6
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «WO-9M OFL»
-# 382 602-740 | WO-9M OFL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SEL»
-# 382 754-807 | SEL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «oot»
-# 382 1228-1281 | oot
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «o6 G8 08 GL»
-# 382 1369-1615 | o6 G8 08 GL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «GLL»
-# 433 788-842 | GLL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «OL»
-# 433 867-921 | OL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «g0L»
-# 433 945-998 | g0L
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ool»
-# 433 1023-1075 | ool
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Sg»
-# 433 1725-1767 | Sg
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «06»
-# 434 1189-1231 | 06
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «0g»
-# 434 1799-1841 | 0g
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «08 GL»
-# 443 1337-1462 | 08 GL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «~QNNOd oet»
-# 450 580-761 | ~QNNOd oet
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ane»
-# 488 1768-1826 | ane
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HHH»
-# 505 1666-1740 | HHH
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «AYODILVS»
-# 1100 944-1091 | AYODILVS
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «TWWHON»
-# 1128 945-1064 | TWWHON
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ee»
-# 1181 910-1026 | ee
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «AdOTAANA LNAWOW»
-# 1190 1372-1626 | AdOTAANA LNAWOW
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ALIAVYS 4O HALNID»
-# 1218 1354-1626 | ALIAVYS 4O HALNID
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «TT»
-# 1287 1612-1667 | TT
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «TH fo Tipp ty»
-# 1289 1307-1592 | TH fo Tipp ty
+409 libro 523-1251 | Flight Manual
+435 libro 523-1251 | Reims Rocket
+475 libro 199-927 | Page: 6-20
+475 libro 927-1656 | Reims Aviation
+512 libro 199-927 | Edition: 2
+513 libro 927-1656 | Reims, Marne France
+318 figtitolo c=21.0 fissa 473-521 | KG
+451 figtitolo c=21.0 fissa 462-523 | 1100
+620 figtitolo c=21.0 fissa 462-523 | 1000
+787 figtitolo c=21.0 fissa 473-523 | 900
+950 figtitolo c=21.0 fissa 473-523 | 800
+1118 figtitolo c=21.0 fissa 473-523 | 700
+318 figtitolo c=21.0 fissa 571-633 | LBS.
+394 figtitolo c=21.0 fissa 571-633 | 2500
+472 figtitolo c=21.0 fissa 571-633 | 2400
+546 figtitolo c=21.0 fissa 571-633 | 2300
+622 figtitolo c=21.0 fissa 571-633 | 2200
+696 figtitolo c=21.0 fissa 571-633 | 2100
+774 figtitolo c=21.0 fissa 571-633 | 2000
+850 figtitolo c=21.0 fissa 571-633 | 1900
+928 figtitolo c=21.0 fissa 571-633 | 1800
+1002 figtitolo c=21.0 fissa 571-633 | 1700
+1078 figtitolo c=21.0 fissa 571-633 | 1600
+1151 figtitolo c=21.0 fissa 571-633 | 1500
+1186 figtitolo c=21.0 fissa 636-670 | 50
+1186 figtitolo c=21.0 fissa 708-746 | 55
+1185 figtitolo c=21.0 fissa 783-822 | 60
+1185 figtitolo c=21.0 fissa 860-898 | 65
+1185 figtitolo c=21.0 fissa 943-974 | 70
+1185 figtitolo c=21.0 fissa 1013-1054 | 75
+1185 figtitolo c=21.0 fissa 1092-1131 | 80
+1185 figtitolo c=21.0 fissa 1169-1209 | 85
+1185 figtitolo c=21.0 fissa 1248-1286 | 90
+1185 figtitolo c=21.0 fissa 1324-1364 | 95
+1185 figtitolo c=21.0 fissa 1400-1444 | 100
+1185 figtitolo c=21.0 fissa 1481-1523 | 105
+1185 figtitolo c=21.0 fissa 1559-1601 | 110
+1185 figtitolo c=21.0 fissa 1638-1680 | 115
+1185 figtitolo c=21.0 fissa 1714-1759 | 120
+1237 figtitolo c=21.0 fissa 669-698 | 60
+1237 figtitolo c=21.0 fissa 735-764 | 65
+1237 figtitolo c=21.0 fissa 796-830 | 70
+1237 figtitolo c=21.0 fissa 867-896 | 75
+1237 figtitolo c=21.0 fissa 933-963 | 80
+1238 figtitolo c=21.0 fissa 999-1030 | 85
+1237 figtitolo c=21.0 fissa 1068-1099 | 90
+1237 figtitolo c=21.0 fissa 1136-1166 | 95
+1237 figtitolo c=21.0 fissa 1199-1242 | 100
+1237 figtitolo c=21.0 fissa 1268-1308 | 105
+1237 figtitolo c=21.0 fissa 1332-1374 | 110
+1237 figtitolo c=21.0 fissa 1401-1443 | 115
+1237 figtitolo c=21.0 fissa 1469-1512 | 120
+1237 figtitolo c=21.0 fissa 1536-1577 | 125
+1237 figtitolo c=21.0 fissa 1601-1643 | 130
+1237 figtitolo c=21.0 fissa 1674-1712 | 135
+1237 figtitolo c=21.0 fissa 1740-1782 | 140
+1237 figtitolo c=21.0 fissa 1788-1871 | KG-CM
+1287 figtitolo c=21.0 1023-1435 | LOADED AIRCRAFT MOMENT/1000
+401 figtitolo c=21.0 842-1128 | CENTER OF GRAVITY
+428 figtitolo c=21.0 842-1128 | MOMENT ENVELOPE
+488 figtitolo c=21.0 fissa 1417-1518 sotto=0 | NORMAL
+515 figtitolo c=21.0 fissa 1392-1519 sopra=19 | CATEGORY
+1400 1009-1282 | Figure 6-6.
