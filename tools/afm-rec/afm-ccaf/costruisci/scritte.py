@@ -51,8 +51,8 @@ def righe(ink, lista, c_ruolo):
         out.append(['riga', ruolo, base, [[x, t, w] for x, t, w in parole], opz])
     return out
 
-def scrivi(n, p):
-    f = f'{R}/tools/afm-rec/afm-ccaf/pagine/{n}.json'
+def scrivi(n, p, ID='afm-ccaf'):
+    f = f'{R}/tools/afm-rec/{ID}/pagine/{n}.json'
     p = {k: p[k] for k in ['pdf', 'n', 'w', 'h', 'rot', 'stato', 'figure', 'el']}
     r = ['    ' + json.dumps(e, ensure_ascii=False) for e in p['el']]
     open(f, 'w').write('{\n' + ',\n'.join(f'  {json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}' for k, v in p.items() if k != 'el') + ',\n  "el": [\n' + ',\n'.join(r) + '\n  ]\n}\n')
