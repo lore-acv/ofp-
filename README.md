@@ -458,13 +458,41 @@ node tools/sito.mjs
 npx wrangler pages dev dist --d1 DB=ofp-test --binding SETUP_TOKEN=una-chiave-lunga-di-prova-123456
 ```
 
+### Manuali
+
+La voce **Manuals** della rail apre la sezione dei manuali nella pagina della
+Dashboard (`index.html#/manuals`; dalla pagina di import ci porta): le
+copertine per categoria, e una copertina apre il suo libro sopra la pagina,
+in un riquadro (`manuale.html?embed=1&libro=<id>`). L'elenco e' un file di dati,
+`data/manuali/elenco.json`:
+
+- **un manuale nuovo** in una categoria che c'e': una voce in `manuali` con
+  `libro` (la chiave del libro in `LIBRI`, in testa allo script di
+  `manuale.html`), `titolo`, `sigla` (le marche, se e' di un aeroplano),
+  `sottotitolo`, `nota` facoltativa e la `copertina`, un webp largo 480 px in
+  `data/manuali/copertine/` (con `w` e `h`);
+- **una categoria nuova**: una voce in `categorie` con `id`, `nome`,
+  `descrizione` e i suoi `manuali`; si vede nell'ordine dell'elenco.
+
+Per esempio il Flight Manual di I-CCAB: i suoi file in `data/afm-rec/` (e le
+scansioni in `data/afm/`), la sua voce in `LIBRI` e la sua voce nella
+categoria `afm` dell'elenco.
+
+**Il Flight Manual di I-CCAF** (`?libro=afm-ccaf`) e' quello ricostruito in
+digitale, impaginazione "media" (`data/afm-rec/afm-ccaf-medio/`, fatto con gli
+strumenti di `tools/afm-rec` sul branch di lavoro). Ogni pagina porta con se'
+la scansione originale (`data/afm/afm-ccaf/p/`): l'interruttore **Original /
+Digital** nella barra la mostra intera al posto della pagina digitale (tasto
+O). Il PDF che si scarica e' l'originale (`data/afm/afm-ccaf.pdf`). I caratteri
+della ricostruzione stanno in `data/afm-rec/fonts/`, con le loro licenze OFL.
+Il vecchio indirizzo dell'anteprima, `?libro=afm-ccaf-rec-medio`, apre lo stesso
+libro.
+
 ### Il manuale d'uso
 
 Il manuale e' un SOP in inglese che si legge come un e-book da `manuale.html`
-e si scarica stampabile da `data/manuale.pdf`. Si apre da **How To Use** nella
-pagina di import, in un riquadro sopra la pagina (NavLog e briefing gia'
-caricati restano li'), e dalla voce **User Manual** del menu del foglio di
-volo, in una scheda nuova. `manuale.html#p=12` apre una pagina,
+e si scarica stampabile da `data/manuale.pdf`. Si apre dalla sezione
+**Manuals** (vedi sopra), in un riquadro sopra la pagina. `manuale.html#p=12` apre una pagina,
 `manuale.html#s3-2` una sezione.
 
 **L'e-book non e' il PDF rimpicciolito.** Il testo (`data/manuale/libro.html`)

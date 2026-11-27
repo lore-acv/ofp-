@@ -1336,3 +1336,44 @@ function initRail(){
   });
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initRail); else initRail();
+
+/* ===== I manuali, sopra la pagina =====
+   Un manuale (manuale.html?embed=1&libro=...) si apre sopra la pagina in un
+   riquadro: il foglio resta com'e', anche non salvato, e chiudendo si e'
+   dov'eravamo. Ogni libro ha il suo riquadro, che nasce al primo clic — chi
+   non apre un manuale non lo scarica — e poi resta: riaperto, il libro e' alla
+   pagina dove lo si era lasciato. Close sta dentro il libro e manda un
+   messaggio qui; Esc chiude da tutte e due le parti. Si aprono dalla sezione
+   Manuals della Dashboard (index.html#/manuals). Sotto Apps Script non ci sono
+   (HtmlService non serve file statici). */
+const Manuali=(function(){
+  let da=null;
+  const velo=()=>document.getElementById('guidaVelo');
+  function apri(libro, nome, origine){
+    const v=velo(); if(!v) return;
+    let f=[...v.querySelectorAll('iframe')].find(x=>x.dataset.libro===libro);
+    if(!f){
+      f=document.createElement('iframe'); f.dataset.libro=libro; f.title=nome;
+      f.src='manuale.html?embed=1'+(libro && libro!=='sop' ? '&libro='+encodeURIComponent(libro) : '');
+      v.appendChild(f);
+    }
+    v.querySelectorAll('iframe').forEach(x=>{ x.hidden = x!==f; });
+    v.setAttribute('aria-label', nome);
+    da=origine||null;
+    v.classList.add('aperta');
+    document.body.style.overflow='hidden';     // dietro non si scorre
+    setTimeout(()=>{ try{ f.contentWindow.focus(); }catch(e){} }, 50);
+  }
+  function chiudi(){
+    const v=velo(); if(!v || !v.classList.contains('aperta')) return;
+    v.classList.remove('aperta');
+    document.body.style.overflow='';
+    if(da && da.isConnected) da.focus();
+  }
+  const aperto=()=>{ const v=velo(); return !!(v && v.classList.contains('aperta')); };
+  window.addEventListener('message', e=>{
+    if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudi();
+  });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && aperto()) chiudi(); });
+  return {apri, chiudi, aperto};
+})();
