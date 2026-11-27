@@ -1,0 +1,32 @@
+389 624-823 | Flight Manual
+426 625-825 | Reims Rocket
+462 165-1314 | Reims Aviation Page: 6-13
+497 165-1137 | Reims, Marne France
+497 1139-1315 | Edition: 2
+606 225-1304 | The installation of Cessna radio equipment provides certain audio back-up capa-
+642 159-1326 | bilities and transmitter selector switch functions that the pilot should be familiar with.
+# CONTROLLA (0.99): Tesseract legge «When the transmitter selector switch is placed in position | or 2, the audio amplifier»
+677 160-1302 | When the transmitter selector switch is placed in position 1 or 2, the audio amplifier
+713 160-1315 | of the corresponding transceiver is utilized to provide the speaker audio for all radios.
+749 161-1308 | If the audio amplifier in the selected transceiver fails, as evidenced by loss of speaker
+786 160-1316 | audio for all radios, place the transmitter selector switch in the other transceiver posi-
+822 160-1319 | tion. Since an audio amplifier is not utilized for headphones, a malfunctioning ampli-
+860 162-715 | fier will not affect headphone operation.
+970 titolo 160-685 | SPEAKER-PHONE SWITCHES.
+1042 227-1308 | The speaker-phone switches determine whether the output of the receiver in use
+1079 161-1267 | is fed to the headphones or through the audio amplifier to the speaker. Place the
+1116 161-1316 | switch for the desired receiving system either in the up position for speaker operation
+1152 160-712 | or in the down position for headphones.
+1258 titolo 162-673 | AUTOPILOT-OMNI SWITCH.
+# CONTROLLA (0.98): Tesseract legge «When a Nay-O-Matic autopilot is installed with two compatible omni receivers,»
+1332 227-1283 | When a Nav-O-Matic autopilot is installed with two compatible omni receivers,
+1368 161-1308 | an autopilot-omni switch is utilized. This switch selects the omni receiver to be used
+1404 162-1273 | for the omni course sensing function of the autopilot. The up position selects the
+1440 161-1303 | upper omni receiver in the radio panel stack and the down position selects the lower
+1478 161-359 | omni receiver.
+1832 titolo 461-1003 c=33.1 | BOOM MICROPHONE
+1935 228-1284 | A boom microphone may be mounted near the upper left corner of the wind-
+1970 163-1312 | shield. Use of the boom microphone allows radio communication without the neces-
+2005 162-1268 | sity of releasing any controls to handle the normal hand microphone. The micro-
+2041 162-1284 | phone keying switch is a push button located on the left side of the pilot’s control
+2076 162-260 | wheel.

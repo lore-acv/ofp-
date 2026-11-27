@@ -1,0 +1,36 @@
+386 627-826 | Flight Manual
+423 627-829 | Reims Rocket
+460 167-1140 | Reims Aviation
+460 1142-1302 | Page: 6-7
+495 168-1140 | Reims, Marne France
+495 1142-1318 | Edition: 2
+594 titolo 544-931 | OPTIONAL SYSTEMS
+713 titolo 341-1144 c=34.3 | AUXILIARY FUEL TANK SYSTEM
+819 235-1282 | An optional auxiliary fuel tank system (figure 6-1) is available to increase the
+854 168-1266 | airplane operating range. System components include a 17 U.S. gallon (64 litres)
+890 168-1268 | fuel tank (17 U.S. gallons -64 litres usable) installed on the baggage compartment
+926 168-1267 | floor, an electric fuel transfer pump behind the tank, an electrically-operated fuel
+962 168-1257 | quantity indicator and fuel transfer pump switch on the instrument panel, a fuel
+999 168-1276 | tank filler provision on the right side of the fuselage, a fuel tank sump drain valve
+1035 167-1303 | at the front of the tank on the bottom of the fuselage, and the necessary plumbing.
+1107 234-1263 | The auxiliary fuel system is connected to the right main fuel tank plumbing
+1143 167-542 | above the right cabin door.
+1255 titolo 166-909 | AUXILIARY FUEL SYSTEM OPERATION.
+1329 234-1004 | To operate the auxiliary fuel system, proceed as follows:
+1404 168-484 | PRE-FLIGHT CHECK.
+1477 235-1266 | (1) Turn on master switch and check auxiliary tank fuel quantity indicator
+1514 234-401 | for reading.
+1549 235-1297 | (2) Momentarily pull on transfer pump switch and listen for pump operation.
+1586 234-563 | Turn off master switch.
+1619 236-1306 | (3) Check quantity of fuel in tank for agreement with fuel quantity indicator.
+1657 235-756 | Fill tank for anticipated requirements.
+1691 235-1275 | (4) Drain small amount of fuel from fuel tank drain valve to check for pos-
+1728 235-586 | sible water and sediment.
+1797 166-436 | DURING FLIGHT.
+1867 233-1277 | (1) Take-off, climb and land with fuel selector valve handle set on “BOTH”
+1902 233-525 | for maximum safety.
+1936 244-1300 | (2) After leveling off at cruise altitude, switch to “RIGHT” and operate from
+1972 233-829 | this tank until the fuel supply is exhausted.
+2007 233-1284 | (3) Switch to “LEFT” for operation, then pull on transfer pump switch and
+2043 232-1292 | refill right main fuel tank from auxiliary tank. Push transfer pump switch off
+2078 232-676 | when fuel transfer is completed.

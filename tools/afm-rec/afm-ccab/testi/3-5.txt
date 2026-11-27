@@ -1,0 +1,39 @@
+382 705-903 | Flight Manual
+420 706-905 | Reims Rocket
+456 240-1207 | Reims Aviation
+456 1209-1370 | Page: 3-5
+493 241-1207 | Reims, Marne France
+493 1209-1386 | Edition: 2
+604 titolo 243-623 | FORCED LANDINGS.
+675 240-1008 | PRECAUTIONARY LANDING WITH ENGINE POWER.
+746 307-1374 | Before attempting an “off airport” landing, one should drag the landing area at
+783 240-1379 | a safe but low altitude to inspect the terrain for obstructions and surface conditions,
+819 239-545 | proceeding as follows:
+891 306-817 | (1) Perform “before landing” check.
+927 306-1349 | (2) Drag over selected field with flaps 20° and 121 km/h - 65 kts - 75 MPH
+964 305-1395 | airspeed, noting the preferred area for touchdown for the next landing approach.
+1001 305-978 | Then retract flaps after well clear of all obstacles.
+1037 306-1320 | (3) On downwind leg, turn off all switches except the ignition and master
+1075 306-436 | switches.
+1109 305-1152 | (4) Approach with flaps 40° at 121 km/h - 65 kts - 75 MPH.
+1146 305-972 | (5) Unlatch cabin doors prior to final approach.
+1182 306-1203 | (6) Before touchdown, turn ignition and master switches “OFF.”
+1219 306-848 | (7) Land in a slightly tail-low attitude.
+1364 239-998 | EMERGENCY LANDING WITHOUT ENGINE POWER.
+1435 305-1349 | If an engine stoppage occurs, establish a flaps up glide at 137 km/h - 74 kts -
+1471 239-1400 | 85 MPH. If time permits, attempt to restart the engine by checking for fuel quantity,
+1508 237-1370 | proper fuel selector valve position, and mixture control setting. Also check that en-
+1543 237-1247 | gine primer is full in and locked and ignition switch is properly positioned.
+1616 304-1386 | If all attempts to restart the engine fail, and a forced landing is imminent, select
+1652 238-969 | a suitable field and prepare for the landing as follows:
+1724 304-974 | (1) Pull mixture control to idle cut-off position.
+1757 304-871 | (2) Pull fuel shutoff valve knob full out.
+1793 303-1010 | (3) Turn all switches “OFF” except master switch.
+1828 303-1341 | (4) Airspeed - - 121 to 137 km/h - 65 to 74 kts - 75 to 85 MPH (flaps up).
+1865 304-1214 | (5) Extend wing flaps as necessary within gliding distance of field.
+1899 304-1280 | (6) Airspeed - - 113 to 129 km/h - 61 to 70 kts - 70 to 80 MPH (flaps
+1936 306-412 | down).
+1968 310-759 | (7) Turn master switch “OFF.”
+2003 309-976 | (8) Unlatch cabin doors prior to final approach.
+2039 309-852 | (9) Land in a slightly tail-low attitude.
+2074 292-1074 | (10) Apply heavy braking while holding full up elevator.

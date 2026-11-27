@@ -1,0 +1,51 @@
+400 646-845 | Flight Manual
+436 647-847 | Reims Rocket
+468 182-933 | Page: 1-8
+468 935-1243 | Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+506 181-1321 | Edition: 3 Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: NOTE
+# DA LEGGERE: riga della sorgente non trovata: It is not practical to measure the time required to consume all the
+# DA LEGGERE: riga della sorgente non trovata: fuel in one tank, and, after switching to the opposite tank, expect
+# DA LEGGERE: riga della sorgente non trovata: an equal duration from the remaining fuel. The airspace in both
+# DA LEGGERE: riga della sorgente non trovata: fuel tanks is interconnected by a vent line (Figure 1-3) and, there-
+# DA LEGGERE: riga della sorgente non trovata: fore, some sloshing of fuel between tanks can be expected when
+# DA LEGGERE: riga della sorgente non trovata: the tanks are nearly full and the wings are not level. Also, the
+# DA LEGGERE: riga della sorgente non trovata: fuel vapor return flow will be distributed to both tanks rather than
+# DA LEGGERE: riga della sorgente non trovata: only the tank in use.
+# DA LEGGERE: riga della sorgente non trovata: Refer to figure 1-4 for fuel quantity data. For fuel system servicing informa-
+# DA LEGGERE: riga della sorgente non trovata: tion, refer to Lubrication and Servicing Procedures in Section VI.
+613 182-688 | AUXILIARY FUEL PUMP SWITCH.
+686 248-1321 | The down position of the auxiliary fuel pump switch, labeled “LOW,” operates
+722 182-1345 | the pump at low speed. With the switch in this position, the pump supplies sufficient
+758 182-1222 | fuel for priming and starting the engine.
+835 247-1327 | The up position of the switch, labeled “HIGH,” is used for engine operation if the
+868 182-1342 | engine-driven pump should fail, or for vapor purging in extremely hot weather. When
+905 181-1321 | the switch is in this position, the pump operates at one of two flow rates depending
+941 181-1346 | upon the setting of the throttle. With the throttle at a cruise setting, the pump is op-
+978 181-1336 | erating at maximum capacity, supplying sufficient fuel flow to maintain flight. When
+1013 181-1303 | the throttle is moved toward the closed position, the auxiliary fuel pump flow rate
+1050 181-1326 | is automatically reduced, preventing an excessively rich mixture during periods of re-
+1087 181-460 | duced engine speed.
+1162 247-1284 | The auxiliary fuel pump is not to be used while the engine is running during
+1204 180-1313 | normal operation, because, with the engine-driven pump functioning, a fuel/air ratio
+1239 181-1286 | considerably richer than best power is produced. However, for vapor elimination,
+1275 181-1303 | the fuel pump may be used with the engine running and the switch in the “HIGH”
+1311 180-1333 | position. The mixture must then be leaned as required to prevent an excessively rich
+1348 180-306 | mixture.
+1419 247-1328 | To ensure a prompt engine restart in flight after running a fuel tank dry, switch
+1456 181-1318 | to the tank containing fuel and place the auxiliary fuel pump switch in the “HIGH”
+1492 180-1183 | position momentarily (3 to 5 seconds) with the throttle at least 1/2 open.
+1565 246-1335 | If the propeller should stop (possible at very low airspeeds) before the tank con-
+1601 179-1320 | taining fuel is selected, place the auxiliary fuel pump switch in the “HIGH” position
+1635 180-1271 | and advance the throttle promptly until the fuel flow indicator registers approxi-
+1670 180-1265 | mately 1/2 way into the green arc for 1 to 2 seconds duration. Then retard the
+1707 180-1330 | throttle, turn off the auxiliary fuel pump, and use the starter to turn the engine over
+1743 178-513 | until a start is obtained.
+1851 titolo 178-580 | ELECTRICAL SYSTEM.
+1921 247-1307 | Electrical energy is supplied by a 14-volt, direct-current system powered by an
+1955 181-1313 | engine-driven alternator (see figure 1-5). A 12-volt battery is located aft of the rear
+1991 180-1258 | baggage compartment wall. Power is supplied to all electrical circuits through a
+2026 179-1293 | split bus bar, one side containing electronic systems and the other side having gen-
+2061 179-1310 | eral electrical systems. Both sides of the bus are on at all times except when either
+2096 179-1274 | an external power source is connected or the ignition/starter switch is turned on;

@@ -1,0 +1,38 @@
+400 723-921 | Flight Manual
+437 723-923 | Reims Rocket
+474 257-1245 | Reims Aviation
+474 1247-1322 fissa | Page: 4-14
+511 256-1243 | Reims, Marne France
+511 1245-1400 fissa | Edition: 2
+621 778-877 | NOTE
+693 387-1222 | When pulling the propeller through by hand, treat it as if the
+730 387-1213 | ignition switch is turned on. A loose or broken ground wire
+765 388-1059 | on either magneto could cause the engine to fire.
+834 255-1378 | In extremely cold (-20°C and lower) weather, the use of an external preheater and
+872 253-1386 | an external power source are recommended to reduce wear and abuse to the engine
+908 254-1396 | and the electrical system. When using an external power source, the position of the
+945 253-1347 | master switch is important. Refer to Section VI, paragraph Ground Service Plug
+979 255-706 | Receptacle, for operating details.
+1054 316-971 | Cold weather starting procedures are as follows:
+1127 315-510 | With Preheat:
+1206 313-803 | (1) Use normal starting procedure.
+1278 312-553 | Without Preheat:
+1348 316-1398 fissa | (1) With ignition switch “OFF” and throttle closed, pull the propeller through
+1384 315-785 | three to four revolutions by hand.
+1420 315-673 | (2) Mixture - - Full rich.
+1458 316-601 | (3) Clear Propeller.
+1494 316-721 | (4) Master Switch - - “ON.”
+1531 316-795 | (5) Throttle - - Cracked (2,5 cm).
+1568 315-1394 | (6) Primer - - Use two to three strokes in -5°C temperature range, and four to
+1605 316-853 | six strokes in -20°C temperature range.
+1654 778-876 | NOTE
+1712 385-919 | Leave primer full and ready for stroke.
+1781 319-988 | (7) Auxiliary Fuel Pump Switch - - On “LOW.”
+1816 318-796 | (8) Ignition Switch - - “START.”
+1851 318-1352 | (9) When the engine fires, use additional strokes of the primer as necessary
+1887 318-700 | to keep the engine running.
+1922 301-1323 | (10) Auxiliary Fuel Pump Switch - - “OFF” (after engine runs smoothly).
+1957 300-641 | (11) Primer - - Locked.
+2005 777-876 | NOTE
+2062 383-1219 | If engine does not start during first few attempts or if engine
+2098 383-1242 | firing diminishes in strength, it is probable that the spark plugs

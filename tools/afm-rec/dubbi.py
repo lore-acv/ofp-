@@ -75,6 +75,7 @@ for n, (k, i, x, base, t, letto, x1) in enumerate(dubbi):
 ink = np.array(img) < 140
 atteso = {'.': (False, False), ',': (True, False), ':': (False, True), ';': (True, True)}
 sbagli = 0
+KS = json.load(open(f'{os.getcwd()}/tools/afm-rec/{ID}/stile.json'))['ruoli']['testo']['c'] / 18.5   # la scala della scansione (I-CCAF = 1)
 for k, e in enumerate(p['el']):
     if e[0] != 'riga' or (len(e) > 4 and (e[4].get('libro') or e[4].get('ang') or e[4].get('sup'))):
         continue
@@ -83,7 +84,7 @@ for k, e in enumerate(p['el']):
         if len(w) < 3 or not w[1] or w[1][-1] not in atteso:
             continue
         x0, x1 = w[0], w[0] + w[2]
-        z = ink[base - 26:base + 10, x0:x1]
+        z = ink[base - int(26 * KS):base + int(10 * KS), x0:x1]
         col = z.any(0)
         # i segni della parola (gruppi di colonne) con il loro fondo: la linea di base vera e'
         # il fondo piu' comune; l'ultimo segno e' la punteggiatura
@@ -97,8 +98,8 @@ for k, e in enumerate(p['el']):
         fondi = [np.flatnonzero(z[:, a:b + 1].any(1))[-1] for a, b in seg[:-1]]
         rif = int(np.median(fondi))
         righe = np.flatnonzero(z[:, seg[-1][0]:seg[-1][1] + 1].any(1))
-        basso = righe[-1] >= rif + 2
-        alto = righe[0] <= rif - 8
+        basso = righe[-1] >= rif + round(2 * KS)
+        alto = righe[0] <= rif - round(8 * KS)
         if (basso, alto) != atteso[w[1][-1]]:
             letto = {v: c for c, v in atteso.items()}[(basso, alto)]
             print(f'  punteggiatura: el {k} y {base} "{w[1]}" sulla scansione sembra "{letto}"')

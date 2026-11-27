@@ -1,0 +1,28 @@
+394 631-830 | Flight Manual
+431 632-832 | Reims Rocket
+465 162-995 | Page: 4-6
+465 997-1223 | Reims Aviation
+502 161-994 | Edition: 2
+502 996-1301 | Reims, Marne France
+612 226-843 | (2) Fuel Selector Valve Handle - - “BOTH.”
+642 226-618 | (3) Propeller - - High RPM.
+685 226-1267 | (4) Airspeed - - 121 to 137 km/h - 65 to 74 kts - 75 to 85 MPH (flaps up).
+721 225-646 | (5) Wing Flaps - - As desired.
+758 226-1305 | (6) Airspeed - - 113 to 129 km/h - 61 to 70 kts - 70 to 80 MPH (flaps down).
+869 titolo 163-529 | BALKED LANDING.
+939 227-821 | (1) Power - - Full throttle and 2800 RPM.
+976 228-709 | (2) Wing Flaps - - Retract to 20°.
+1012 228-1300 | (3) Upon reaching an airspeed of approximately 121 km/h - 65 kts - 75 MPH,
+1047 227-504 | retract flaps slowly.
+1159 titolo 163-550 | NORMAL LANDING.
+1236 227-747 | (1) Touchdown - - Main wheels first.
+1272 227-868 | (2) Landing Roll - - Lower nose wheel gently.
+1301 226-709 | (3) Braking - - Minimum required.
+1418 titolo 159-499 | AFTER LANDING.
+1484 226-607 | (1) Wing Flaps - - Retract.
+1597 titolo 159-577 | SECURING AIRCRAFT.
+1668 226-589 | (1) Parking Brake - - Set.
+1703 226-894 | (2) Radios and Electrical Equipment - - “OFF.”
+1739 226-842 | (3) Mixture - - Idle cut-off (pulled full out).
+1775 226-817 | (4) Ignition and Master Switch - - “OFF.”
+1810 225-653 | (5) Control Lock - - Installed.

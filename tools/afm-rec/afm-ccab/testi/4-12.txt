@@ -1,0 +1,55 @@
+403 742-941 | Flight Manual
+440 743-943 | Reims Rocket
+481 280-1343 | Page: 4-12 Reims Aviation
+517 279-1420 | Edition: 2 Reims, Marne France
+647 tabella 531-1164 c=22.5 | MAXIMUM CRUISE SPEED PERFORMANCE
+718 tabella 864-1104 fissa c=22.5 | TRUE AIRSPEED
+718 tabella 1214-1316 fissa c=22.5 | RANGE
+743 tabella 330-482 fissa c=22.5 | ALTITUDE
+743 tabella 619-753 fissa c=22.5 | % POWER
+769 tabella 854-919 fissa c=22.5 | km/h
+769 tabella 960-996 fissa c=22.5 | kts
+769 tabella 1046-1105 fissa c=22.5 | MPH
+769 tabella 1178-1215 fissa c=22.5 | km
+769 tabella 1308-1366 fissa c=22.5 | N.M.
+841 tabella 379-442 fissa c=22.5 | 5500
+841 tabella 674-702 fissa c=22.5 | 75
+841 tabella 871-918 fissa c=22.5 | 232
+841 tabella 959-1003 fissa c=22.5 | 125
+841 tabella 1040-1084 fissa c=22.5 | 144
+841 tabella 1180-1227 fissa c=22.5 | 933
+841 tabella 1293-1340 fissa c=22.5 | 504
+913 tabella 379-443 fissa c=22.5 | 7500
+913 tabella 673-704 fissa c=22.5 | 70
+913 tabella 872-919 fissa c=22.5 | 229
+913 tabella 958-1003 fissa c=22.5 | 123
+913 tabella 1038-1082 fissa c=22.5 | 142
+913 tabella 1179-1225 fissa c=22.5 | 982
+913 tabella 1293-1341 fissa c=22.5 | 530
+984 tabella 379-443 fissa c=22.5 | 9000
+984 tabella 672-702 fissa c=22.5 | 65
+984 tabella 872-920 fissa c=22.5 | 224
+984 tabella 959-998 fissa c=22.5 | 121
+984 tabella 1038-1082 fissa c=22.5 | 139
+984 tabella 1165-1226 fissa c=22.5 | 1038
+984 tabella 1293-1341 fissa c=22.5 | 560
+1094 768-927 | Figure 4-3.
+1167 276-1417 | same cruising speed can be maintained at much less power. This is illustrated in the
+1207 275-945 | Maximum Cruise Speed Performance table above.
+1298 titolo 277-418 | STALLS.
+1372 341-1366 | The stall characteristics are conventional and aural warning is provided by a
+1408 275-1408 | stall warning horn which sounds between 8 and 16 km/h - 4 and 8,5 kts - 5 and 10
+1448 274-839 | MPH above the stall in all configurations.
+1519 341-1384 | Power-off stall speeds at maximum gross weight and aft c.g. position are pre-
+1556 276-1375 | sented in figure 5-3 as calibrated airspeeds since indicated airspeeds are unreliable
+1594 275-470 | near the stall.
+1674 titolo 276-404 | SPINS.
+1745 343-1410 | Intentional spins are prohibited in this airplane, except in the Utility Category.
+1781 276-990 | To recover from a spin, use the following technique.
+1852 342-845 | (1) Retard throttle to idle position.
+1886 342-1162 | (2) Apply full rudder opposite to the direction of rotation.
+1921 342-1361 | (3) After one-fourth turn, move the control wheel forward of neutral in a
+1959 342-534 | brisk motion.
+1992 342-1427 | (4) As rotation stops, neutralize rudder, and make a smooth recovery from the
+2029 341-538 | resulting dive.
+2099 340-1053 | Intentional spins with flaps extended are prohibited.

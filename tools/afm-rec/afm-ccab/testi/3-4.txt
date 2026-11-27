@@ -1,0 +1,36 @@
+407 672-869 | Flight Manual
+445 672-871 | Reims Rocket
+481 209-1047 | Page: 3-4
+481 1049-1270 | Reims Aviation
+519 208-1045 | Edition: 2
+519 1047-1347 | Reims, Marne France
+628 204-661 | ELECTRICAL FIRE IN FLIGHT.
+700 269-1310 | The initial indication of an electrical fire is the odor of burning insulation. The
+737 204-1356 | immediate response should be to turn the master switch “OFF.” Then close off ven-
+774 204-1219 | tilating air as much as practicable to reduce the chances of a sustained fire.
+846 271-1312 | If electrical power is indispensable for the flight, an attempt may be made to
+883 203-907 | identify and cut off the defective circuit as follows:
+956 270-678 | (1) Master Switch – “OFF.”
+990 270-1066 | (2) All other switches (except ignition switch) - - “OFF.”
+1027 271-1306 | (3) Check condition of circuit breakers to identify faulty circuit if possible.
+1065 270-708 | Leave faulty circuit deactivated.
+1102 269-673 | (4) Master Switch - - “ON.”
+1140 270-1335 | (5) Select switches “ON” successively, permitting a short time delay to elapse
+1179 270-1140 | after each switch is turned on until the short circuit is localized.
+1218 270-1261 | (6) Make sure fire is completely extinguished before opening ventilators.
+1360 titolo 203-396 | LANDING.
+1430 202-661 | LANDING WITH A FLAT TIRE.
+1502 268-1064 | (1) Expect the airplane to swing toward the flat tire side.
+1538 268-1290 | (2) Lower the flaps normally and land the airplane with nose up and wing
+1574 268-1311 | tilted to hold the flat tire off the ground as long as possible. At touchdown,
+1611 267-1352 | directional control can be maintained with rudder and the brake on good wheel.
+1712 202-776 | LANDING WITHOUT PITCH CONTROL.
+1783 268-1301 | Trim for horizontal flight (with an airspeed of approximately 121 km/h - 65
+1819 202-1277 | kts - 75 MPH and flaps set to 20°) by using throttle and elevator trim controls.
+1855 202-1300 | Then do not change the elevator trim setting, control the glide angle by adjusting
+1895 201-457 | power exclusively.
+1961 267-1307 | At flareout, the nose down moment resulting from power reduction is an ad-
+1996 201-1307 | verse factor and the aircraft may hit on the nose wheel. Consequently at flareout
+2031 201-1300 | the elevator trim should be rolled toward the nose up position and the power ad-
+2066 198-1264 | justed so that the aircraft will rotate to the horizontal attitude for touchdown.
+2101 201-650 | Close the throttle at touchdown.

@@ -21,7 +21,7 @@
       tools/afm-rec/<id>/controlli.json come "letto a vista" con il valore
       giusto (che deve essere quello della ricostruita).
 
-   Scrive tools/afm-rec/VERIFICA.md e le immagini in tools/afm-rec/<id>/verifica/.
+   Scrive tools/afm-rec/VERIFICA.md (VERIFICA-CCAB.md per I-CCAB) e le immagini in tools/afm-rec/<id>/verifica/.
 
      CHROME=/percorso/chrome node tools/afm-rec/verifica.mjs afm-ccaf
    Serve tesseract.
@@ -92,6 +92,7 @@ for k,(b,rif,ang) in enumerate(json.loads(sys.argv[2])):
 `, origPath, JSON.stringify(parole.map((q) => [q.box, q.rif, q.ang])), String(p.rot)]);
   const dif = [];
   let pdfParole = [];
+  [PAG_W, PAG_H] = p.rot === -90 ? [p.h, p.w] : [p.w, p.h];
   try { pdfParole = paroleDelPdf(p.pdf, p.rot); } catch { pdfParole = []; }
   const nelPdf = (q) => {
     const cifre = (q.t.match(/\d+/g) || []).join(' ');
@@ -104,7 +105,7 @@ for k,(b,rif,ang) in enumerate(json.loads(sys.argv[2])):
     let letto = '';
     try { letto = execFileSync('tesseract', [path.join(tmp, k + '.png'), '-', '--psm', '7', '-c', 'tessedit_char_whitelist=0123456789.,-/:()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'], { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { letto = ''; }
     const nr = (q.t.match(/\d+/g) || []).join(' '), no = (letto.match(/\d+/g) || []).join(' ');
-    q.letto = letto; q.pdf = pdfParole.length ? nelPdf(q) : null;
+    q.letto = letto; q.pdf = pdfParole.length ? nelPdf(q) : GEMELLO ? nelGemello(p.n, q.t) : null;
     if (nr !== no) dif.push({ riga: q.y, x: q.x, originale: letto || '(niente)', ricostruito: q.t });
   }
   return { parole, dif };
@@ -115,15 +116,34 @@ for k,(b,rif,ang) in enumerate(json.loads(sys.argv[2])):
    coordinate della pagina. Un numero e' confermato se una parola del PDF con
    le stesse cifre cade nel suo riquadro. Se il PDF non ha testo (I-CCAB) la
    seconda lettura resta il controllo a vista. */
+/* IL MANUALE GEMELLO: I-CCAB non ha lo strato di testo, ma la sua traduzione e' la stessa di
+   I-CCAF, ricostruito e verificato (ogni numero con due conferme). Un numero di I-CCAB e' confermato
+   se la stessa parola (le stesse cifre e gli stessi segni) c'e' nella pagina con lo stesso numero di
+   I-CCAF o in quelle accanto della stessa sezione (dove le due edizioni vanno a capo pagina in punti
+   diversi): e' una lettura indipendente, su un'altra scansione. tools/afm/<id>.json "gemello". */
+const GEMELLO = JSON.parse(execFileSync('cat', [path.join(RADICE, 'tools', 'afm', ID + '.json')]).toString()).gemello || null;
+const paroleGemello = {};
+function nelGemello(n, t) {
+  const m = /^(\d+)-(\d+)$/.exec(n); const vicine = m ? [-1, 0, 1].map((d) => `${m[1]}-${+m[2] + d}`) : [n];
+  return vicine.some((v) => {
+    if (!(v in paroleGemello)) {
+      try { const pg = JSON.parse(execFileSync('cat', [path.join(RADICE, 'tools', 'afm-rec', GEMELLO, 'pagine', v + '.json')], { stdio: ['ignore', 'pipe', 'ignore'] }).toString());
+        paroleGemello[v] = new Set(pg.el.filter((e) => e[0] === 'riga').flatMap((e) => e[3].map((w) => w[1]))); } catch { paroleGemello[v] = new Set(); }
+    }
+    return paroleGemello[v].has(t);
+  });
+}
+// la misura della pagina del libro in px della retina: quella della pagina diritta del libro
+let PAG_W = 1250, PAG_H = 1762;
 function paroleDelPdf(pdf, rot) {
   const mappa = JSON.parse(execFileSync('cat', [path.join(RADICE, 'tools', 'afm', ID + '.json')]).toString());
   const out = execFileSync('/usr/bin/python3', ['-I', '-c', `
 import json, sys, pymupdf
 d = pymupdf.open(sys.argv[1]); p = d[int(sys.argv[2]) - 1]
-W, H = (1762, 1250) if sys.argv[3] == '-90' else (1250, 1762)
+W, H = (int(sys.argv[5]), int(sys.argv[4])) if sys.argv[3] == '-90' else (int(sys.argv[4]), int(sys.argv[5]))
 r = p.rect; s = min(W / r.width, H / r.height); ox = (W - r.width * s) / 2; oy = (H - r.height * s) / 2
 print(json.dumps([[w[0] * s + ox, w[1] * s + oy, w[2] * s + ox, w[3] * s + oy, w[4]] for w in p.get_text('words')]))
-`, path.join(RADICE, mappa.pdf), String(pdf), String(rot)]).toString();
+`, path.join(RADICE, mappa.pdf), String(pdf), String(rot), String(PAG_W), String(PAG_H)]).toString();
   return JSON.parse(out);
 }
 const SEZIONI_DUE_VOLTE = /^[2356]-/;     // limitazioni, emergenze, prestazioni, centraggio: ogni numero due volte
@@ -437,5 +457,7 @@ for (const e of esiti) {
   if (e.dati.length) { md.push('', 'Confronto con i dati del progetto:', ''); for (const d of e.dati) md.push(`- ${d}`); }
   md.push('');
 }
-await writeFile(path.join(RADICE, 'tools', 'afm-rec', `VERIFICA${SUFF.toUpperCase()}.md`), md.join('\n') + '\n');
-console.log(`scritto tools/afm-rec/VERIFICA${SUFF.toUpperCase()}.md`);
+// il rapporto: VERIFICA.md per I-CCAF (il primo), VERIFICA-<aereo>.md per gli altri (VERIFICA-CCAB.md)
+const NOME = `VERIFICA${ID === 'afm-ccaf' ? '' : '-' + ID.replace(/^afm-/, '').toUpperCase()}${SUFF.toUpperCase()}.md`;
+await writeFile(path.join(RADICE, 'tools', 'afm-rec', NOME), md.join('\n') + '\n');
+console.log(`scritto tools/afm-rec/${NOME}`);

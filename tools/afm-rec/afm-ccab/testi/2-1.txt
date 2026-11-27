@@ -1,0 +1,31 @@
+382 719-917 | Flight Manual
+419 719-920 | Reims Rocket
+455 260-1387 | Reims Aviation Page: 2-1
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+492 260-1406 | Reims, Marne France Edition: 3
+# CONTROLLA (0.89): Tesseract legge «SECTION Il»
+601 titolo 1032-1399 c=39.1 | SECTION II
+785 titolo 669-986 c=34.3 | LIMITATIONS
+930 titolo 258-686 | CERTIFICATION BASIS.
+999 324-1393 | The Reims Rocket is certificated as Model FR172J under French Type Certifi-
+1037 259-956 | cate No. 43 and FAA Type Certificate No. A18EU.
+1185 titolo 261-814 | AIRSPEED LIMITATIONS (VC).
+1252 1054-1402 | km/h kts MPH
+# CONTROLLA (0.89): Tesseract legge «Vne (Never Exceed Speed). . . . woe ee ee 298 161 185»
+1330 262-1386 | Vne (Never Exceed Speed) 298 161 185
+# CONTROLLA (0.90): Tesseract legge «Vno (Maximum Structural Crnising Speed) woe ee ee 235 127 146»
+1365 262-1388 | Vno (Maximum Structural Cruising Speed) 235 127 146
+1401 262-1389 | Vfe (Maximum Speed, Flaps Extended) 161 87 100
+# CONTROLLA (0.80): Tesseract legge «Vp (Maneuvering Speed) . ....... 2... 201 109 125»
+1437 262-1387 | Vp (Maneuvering Speed) 190 104 118
+# CONTROLLA (0.88): Tesseract legge «STALL SPEEDS - POWER OFF»
+1649 tabella 606-1044 | STALL SPEEDS - POWER OFF - AFT C. G.
+1735 tabella 303-663 | GROSS WEIGHT 1157 kg
+# DA LEGGERE: riga della sorgente non trovata: km/h kts MPH
+# DA LEGGERE: riga della sorgente non trovata: ZERO DEGREES ANGLE OF BANK
+# DA LEGGERE: riga della sorgente non trovata: FLAPS UP 98 53 61
+# DA LEGGERE: riga della sorgente non trovata: FLAPS 20 o 89 48 55
+# DA LEGGERE: riga della sorgente non trovata: FLAPS 40 o 85 46 53
+2079 749-907 | Figure 2-1.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «le»
+# 681 257-1405 | le

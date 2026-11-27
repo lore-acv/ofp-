@@ -1,0 +1,22 @@
+393 633-832 | Flight Manual
+429 634-835 | Reims Rocket
+463 169-1148 | Reims Aviation
+463 1150-1303 | Page: 6-9
+497 168-1148 | Reims, Marne France
+497 1150-1318 | Edition: 2
+606 696-795 | NOTE
+679 306-1167 | Transfer of total fuel from the auxiliary tank will take from 45
+# CONTROLLA (0.96): Tesseract legge «minutes to | hour,»
+715 306-571 | minutes to 1 hour.
+786 241-1296 | (4) Return fuel selector valve handle to “BOTH” position after refilling right
+823 242-930 | tank, or if desired switch again to right main tank.
+896 674-871 | IMPORTANT
+968 307-1166 | Do not operate the transfer pump with the fuel selector turned
+1005 307-1199 | to either “BOTH” or “RIGHT” positions. Total or partial engine
+1041 307-1189 | stoppage might result from air being pumped into fuel lines after
+1078 307-1209 | fuel transfer has been completed. If the pump should accidentally
+1114 307-1163 | be turned on with the fuel selector in either of these positions,
+1149 307-1194 | and engine stoppage occurs, the engine will restart in from 3 to 5
+1185 308-1182 | seconds after turning off the transfer pump as the air in the fuel
+1223 308-1153 | line will be evacuated rapidly. To hasten restart, momentarily
+1256 308-1142 | place the auxiliary fuel pump switch in the “HIGH” position.

@@ -1,0 +1,36 @@
+384 641-841 | Flight Manual
+420 642-842 | Reims Rocket
+457 174-1310 | Reims Aviation Page: 4-7
+494 174-1326 | Reims, Marne France Edition: 2
+602 titolo 516-914 | OPERATING DETAILS
+713 titolo 176-546 | STARTING ENGINE.
+782 241-1304 | The continuous-flow fuel injection system will start spraying fuel in the intake
+820 175-1330 | ports as soon as the throttle and mixture controls are opened and the auxiliary pump
+855 175-1265 | is turned on. If the auxiliary pump is turned on accidentally while the engine is
+891 175-1331 | stopped, with the throttle open and the mixture rich, solid fuel will collect temporar-
+927 175-1283 | ily in the cylinder intake ports, the quantity depending on the amount of throttle
+962 175-1298 | opening and the length of time the pump has been operating. If this happens, it is
+998 175-1324 | advisable to wait a few minutes until this fuel drains away before starting the engine.
+1033 175-1267 | To avoid flooding, be sure you are ready to crank the engine as soon as a steady
+1070 176-990 | fuel flow of 2 to 4 gal/hr (7,8 to 15,5 litres/hr) is obtained.
+1144 243-1295 | Engine mis-starts characterized by weak, intermittent firing followed by puffs
+1180 177-1323 | of black smoke from the exhaust are caused by over-priming or flooding. This situa-
+1216 175-1306 | tion is more apt to develop in hot weather, or when the engine is hot. If it occurs,
+1252 175-1312 | repeat the starting routine with the throttle approximately 1/2 open, the mixture in
+1286 176-1304 | idle cut-off and the auxiliary fuel pump off. As the engine fires, move the mixture
+1328 176-887 | control to full rich and decrease the throttle to idle.
+1402 242-1262 | Engine mis-starts characterized by sufficient power to take the engine away
+1439 176-1310 | from the starter but dying in 3 to 5 revolutions are the result of an excessively lean
+1475 175-1266 | mixture after the start and can occur in warm or cold temperatures. Repeat the
+1511 176-1282 | starting procedure but allow additional priming time with the auxiliary fuel pump
+1547 176-1321 | switch on “LOW” before cranking is started, or place the auxiliary fuel pump switch
+1585 176-1004 | on “HIGH” immediately for a richer mixture while cranking.
+1658 243-1299 | If prolonged cranking is necessary, allow the starter motor to cool at frequent
+1695 176-940 | intervals, since excessive heat may damage the armature.
+1797 titolo 175-356 | TAXIING.
+1868 242-1284 | When taxiing, it is important that speed and use of brakes be held to a mini-
+1904 176-1286 | mum and that all controls be utilized (see taxiing diagram, figure 4-2) to maintain
+1940 176-913 | directional control and balance in strong, gusty winds.
+2009 242-1333 | Taxiing over loose gravel or cinders should be done at low engine speed to avoid
+2045 176-1331 | abrasion and stone damage to the propeller tips and the leading edges of the horizon-
+2081 177-360 | tal stabilizer.

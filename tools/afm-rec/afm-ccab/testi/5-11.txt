@@ -1,0 +1,74 @@
+383 641-840 libro | Flight Manual
+421 642-843 libro | Reims Rocket
+# CONTROLLA (0.79): Tesseract legge «Reims Aviation»
+465 180-813 libro | Reims Aviation
+# CONTROLLA (0.79): Tesseract legge «Reims Aviation»
+465 815-398 libro | Page: 5-11
+# CONTROLLA (0.80): Tesseract legge «Reims, Marne France»
+498 180-813 libro | Reims, Marne France
+# CONTROLLA (0.80): Tesseract legge «Reims, Marne France»
+498 815-475 libro | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: MAXIMUM RATE OF CLIMB DATA
+# DA LEGGERE: riga della sorgente non trovata: GROSS | AT SEA LEVEL | AT 5000 FEET | AT 10000 FEET | AT 15000 FEET
+# DA LEGGERE: riga della sorgente non trovata: WEIGHT | AND +15°C | AND +5°C | AND -5°C | AND -15°C
+# DA LEGGERE: riga della sorgente non trovata: kg | VI | RATE OF | FUEL | VI | RATE OF | FUEL | VI | RATE OF | FUEL | VI | RATE OF | FUEL
+# DA LEGGERE: riga della sorgente non trovata: CLIMB | USED | CLIMB | USED | CLIMB | USED | CLIMB | USED
+# DA LEGGERE: riga della sorgente non trovata: F/MIN | Litres | F/MIN | Litres | F/MIN | Litres | F/MIN | Litres
+# DA LEGGERE: riga della sorgente non trovata: 137 km/h | 135 km/h | 134 km/h | 132 km/h
+# DA LEGGERE: riga della sorgente non trovata: 1157 | 74 kts | 880 | 4,9 | 73 kts | 650 | 11,7 | 72 kts | 420 | 20,1 | 71 kts | 190 | 33,3
+# DA LEGGERE: riga della sorgente non trovata: 85 MPH | 84 MPH | 83 MPH | 82 MPH
+# DA LEGGERE: riga della sorgente non trovata: 132 km/h | 130 km/h | 129 km/h | 127 km/h
+# DA LEGGERE: riga della sorgente non trovata: 1000 | 71 kts | 1120 | 4,9 | 70 kts | 860 | 10,2 | 70 kts | 595 | 16,3 | 69 kts | 340 | 24,2
+# DA LEGGERE: riga della sorgente non trovata: 82 MPH | 81 MPH | 80 MPH | 79 MPH
+# DA LEGGERE: riga della sorgente non trovata: 129 km/h | 126 km/h | 124 km/h | 122 km/h
+# DA LEGGERE: riga della sorgente non trovata: 850 | 70 kts | 1420 | 4,9 | 68 kts | 1115 | 8,7 | 67 kts | 815 | 13,2 | 66 kts | 515 | 19,3
+# DA LEGGERE: riga della sorgente non trovata: 80 MPH | 78 MPH | 77 MPH | 76 MPH
+# DA LEGGERE: riga della sorgente non trovata: NOTES: 1. Flaps up, full throttle, 2800 RPM, mixture at recommended leaning schedule.
+# DA LEGGERE: riga della sorgente non trovata: 2. Fuel used includes warm-up and take-off allowance.
+# DA LEGGERE: riga della sorgente non trovata: 3. For hot weather, decrease rate of climb 20 ft/min. for each 5°C
+# DA LEGGERE: riga della sorgente non trovata: above standard day temperature for particular altitude.
+# DA LEGGERE: riga della sorgente non trovata: Figure 5-6.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Page: 5-11»
+# 452 1167-1327 | Page: 5-11
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Edition:»
+# 489 1165-1287 | Edition:
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“O-g oanBIy»
+# 297 1240-1398 | “O-g oanBIy
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘apnyye sejnoued 40} asnjesadia} Aep psepueys anoge»
+# 418 1042-1654 | ‘apnyye sejnoued 40} asnjesadia} Aep psepueys anoge
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «DoS yore Joy UNW/Iy OZ GUII]D yO aIeJ aseaIdap ‘JayIPAM JOY 404»
+# 444 936-1653 | DoS yore Joy UNW/Iy OZ GUII]D yO aIeJ aseaIdap ‘JayIPAM JOY 404
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «BOURMO}IE J40-axe] Pue dn-weMm sapnyjoul pasn jan»
+# 476 1078-1653 | BOURMO}IE J40-axe] Pue dn-weMm sapnyjoul pasn jan
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘SALON»
+# 501 1739-1839 | ‘SALON
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“ainpayss Bujues, papuswuwooas ye aNIXIwW ‘Wd OOBZ ‘81330443 |1Ny “dn sdey4»
+# 504 792-1653 | “ainpayss Bujues, papuswuwooas ye aNIXIwW ‘Wd OOBZ ‘81330443 |1Ny “dn sdey4
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HdW S6»
+# 885 1820-1921 | HdW S6
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sy €8»
+# 914 1838-1921 | sy €8
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «4/W ESL»
+# 945 1816-1932 | 4/W ESL
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sayy sauy sos»
+# 1043 581-1347 | sayy sauy sos
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «aasn aasn qasn»
+# 1078 577-1347 | aasn aasn qasn
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «By»
+# 1098 1978-2018 | By
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Vang {40 31VY Vand | 40 3LVY»
+# 1107 577-1133 | Vang {40 31VY Vand | 40 3LVY
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LHOIM»
+# 1187 1936-2048 | LHOIM
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «DoGl+ GNV»
+# 1192 1684-1828 | DoGl+ GNV
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «So0Sl- GNV SoS" GNV DoS+ GNV»
+# 1195 653-1483 | So0Sl- GNV SoS" GNV DoS+ GNV
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SSOYHD»
+# 1215 1954-2048 | SSOYHD
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «VaAF V3AS LV»
+# 1218 1666-1857 | VaAF V3AS LV
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «41334 000St LV 1434 00001 1V 41334 0005 1V»
+# 1223 627-1512 | 41334 000St LV 1434 00001 1V 41334 0005 1V
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ViVG SWI1D dO ALVY WAWIXVA»
+# 1341 1100-1527 | ViVG SWI1D dO ALVY WAWIXVA

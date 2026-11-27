@@ -1,0 +1,53 @@
+394 642-840 | Flight Manual
+432 643-842 | Reims Rocket
+467 181-1012 | Page: 1-12
+467 1014-1240 | Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+505 180-1318 | Edition: 3 Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: LIGHTING EQUIPMENT.
+# DA LEGGERE: riga della sorgente non trovata: EXTERIOR LIGHTING.
+# DA LEGGERE: riga della sorgente non trovata: Conventional navigation lights are located on the wing tips and top of the rud-
+# DA LEGGERE: riga della sorgente non trovata: der. Optional lighting includes a landing light and taxi light mounted in the engine
+# DA LEGGERE: riga della sorgente non trovata: cowl, a flashing beacon on top of the vertical fin, a strobe light on each wing tip,
+# DA LEGGERE: riga della sorgente non trovata: and two courtesy lights, one under each wing, just outboard of the cabin doors.
+# DA LEGGERE: riga della sorgente non trovata: The courtesy lights are controlled by the dome light switch located on the overhead
+# DA LEGGERE: riga della sorgente non trovata: console. All other exterior lights are controlled by rocker type switches located on
+# DA LEGGERE: riga della sorgente non trovata: the left switch and control panel. The switches are “ON” in the up position and
+# DA LEGGERE: riga della sorgente non trovata: “OFF” in the down position.
+610 647-842 | IMPORTANT
+# DA LEGGERE: riga della sorgente non trovata: The flashing beacon should not be used when flying through clouds
+# DA LEGGERE: riga della sorgente non trovata: or overcast; the flashing light reflected from water droplets or par-
+# DA LEGGERE: riga della sorgente non trovata: ticles in the atmosphere, particularly at night, can produce vertigo
+# DA LEGGERE: riga della sorgente non trovata: and loss of orientation.
+# DA LEGGERE: riga della sorgente non trovata: IMPORTANT
+682 312-1218 | The two high intensity strobe lights will enhance anti-collision pro-
+719 312-1206 | tection. However, the lights should be turned off when taxiing in
+754 313-1192 | the vicinity of other aircraft, or during flight through clouds, fog
+790 312-431 | or haze.
+864 178-512 | INTERIOR LIGHTING.
+938 245-1333 | Illumination of the instrument panel is provided by red flood lighting in the for-
+975 178-1304 | ward portion of the overhead console. The magnetic compass and radio equipment
+1012 177-1299 | have integral lighting. A dual rheostat control on the left switch and control panel
+1049 177-1281 | operates these lights. The inner knob, labeled “PANEL,” operates the instrument
+1086 177-1284 | panel and compass lighting. The outer knob, labeled “RADIO,” controls all radio
+1125 176-297 | lighting.
+1199 243-1265 | A cabin dome light is located in the overhead console, and is operated by a
+1234 176-1260 | switch adjacent to the light. To turn the light on, move the switch to the right.
+1269 175-856 | This will also operate the optional courtesy lights.
+1341 242-1281 | An optional map light may be mounted on the bottom of the pilot’s control
+1377 175-1255 | wheel. The light illuminates the lower portion of the cabin, just forward of the
+1416 175-1337 | pilot and is helpful when checking maps and other flight data during night operations.
+1452 175-1322 | To operate the light, first turn on the “NAV LT” switch, then adjust the map light’s
+1490 174-1283 | intensity with the rheostat control knob located on the back of the control wheel
+1526 175-475 | pad on the right side.
+1597 242-1294 | A door post map light is also offered as optional equipment, and is located at
+1631 176-1311 | the top of the left forward door post. The light contains both red and white bulbs,
+1666 175-1311 | and may be positioned to illuminate any area desired by the pilot. A switch on the
+1702 176-1319 | left forward door post is labeled “RED”, “OFF”, and “WHITE”. Placing the switch
+1737 176-1303 | in the top position will provide a red light. In the bottom position, standard white
+1773 175-876 | lighting is provided. The center position is “OFF”.
+1914 titolo 172-1305 | CABIN HEATING, VENTILATING AND DEFROSTING SYSTEM.
+1984 245-1299 | For cabin ventilation, pull the “CABIN AIR” knob out. To raise the air tem-
+2019 176-1265 | perature, pull the “CABIN HT” knob out approximately 0,5 cm to 1,0 cm for a
+2055 176-1273 | small amount of cabin heat. Additional heat is available by pulling the knob out
+2091 176-1299 | farther; maximum heat is available with the “CABIN HT” knob pulled full out and

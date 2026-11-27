@@ -1,0 +1,46 @@
+392 716-915 | Flight Manual
+423 716-917 | Reims Rocket
+456 255-1317 | Page: 6-12 Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+500 255-1396 | Edition: 3 Reims, Marne France
+640 titolo 471-1176 c=33.1 | RADIO SELECTOR SWITCHES
+750 titolo 258-1023 | RADIO SELECTOR SWITCH OPERATION.
+819 321-1372 | Operation of the radio equipment is normal as covered in the respective radio
+856 254-1398 | manuals. When more than one radio is installed, an audio switching system is neces-
+892 254-1130 | sary. The operation of this switching system is described below.
+1002 titolo 255-893 | TRANSMITTER SELECTOR SWITCH.
+1073 322-1345 | The transmitter selector switch is labeled “TRANS,” and has two positions.
+1110 255-1387 | When two transmitters are installed, it is necessary to switch the microphone to the
+1146 256-1388 | radio unit the pilot desires to use for transmission. This is accomplished by placing
+1183 256-1396 | the transmitter selector switch in the position corresponding to the radio unit which
+1222 256-1380 | is to be used. The up position selects the upper transmitter and the down position
+1259 255-653 | selects the lower transmitter.
+1380 figtitolo 566-1099 fissa | RADIO SELECTOR SWITCHES
+1473 etichetta 889-1222 fissa | AUTOPILOT-OMNI SWITCH
+# CONTROLLA (0.93): Tesseract legge «SPEAKER 1»
+1618 etichetta 776-1334 fissa | SPEAKER
+# DA LEGGERE: riga della sorgente non trovata: 1 | 1
+# DA LEGGERE: Tesseract legge «1 NAV 2. DME ADF s 2»
+1723 etichetta 690-502 fissa | 2
+# DA LEGGERE: Tesseract legge «1 NAV 2. DME ADF s 2»
+1723 etichetta 504-1193 fissa | COM 1 NAV 1 COM 2 NAV 2 DME ADF
+# DA LEGGERE: Tesseract legge «1 NAV 2. DME ADF s 2»
+1723 etichetta 1195-1304 fissa sx=1.069 | SS
+# DA LEGGERE: Tesseract legge «1 NAV 2. DME ADF s 2»
+1723 etichetta 1306-1338 fissa | 2
+# DA LEGGERE: riga della sorgente non trovata: TRANS
+# DA LEGGERE: Tesseract legge «COM 1 NAV s OmMNt»
+1725 etichetta 515-1275 fissa | PHONES
+# DA LEGGERE: Tesseract legge «COM 1 NAV s OmMNt»
+1725 etichetta 1277-1368 fissa | OMNI
+# DA LEGGERE: riga della sorgente non trovata: AUTOPILOT
+1860 etichetta 348-738 fissa | TRANSMITTER
+1860 etichetta 740-1187 fissa | SPEAKER-PHONE SWITCH (TYPICAL)
+1890 etichetta 351-768 fissa | SELECTOR SWITCH
+1890 etichetta 770-1243 fissa | SWITCHES CONTROL SPEAKER-PHONE
+1917 etichetta 781-1259 fissa | FUNCTION OF COMMUNICATION AND
+1944 etichetta 782-1237 fissa | NAVIGATION EQUIPMENT IN RADIO
+1972 etichetta 784-1178 fissa | STACK ON INSTRUMENT PANEL.
+2076 751-908 | Figure 6-2.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «© © © © OO»
+# 1691 522-1257 | © © © © OO

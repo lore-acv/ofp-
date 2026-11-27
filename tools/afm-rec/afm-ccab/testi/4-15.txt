@@ -1,0 +1,25 @@
+382 640-838 | Flight Manual
+421 639-841 | Reims Rocket
+464 169-1013 | Reims Aviation
+464 1015-1321 fissa | Page: 4-15
+501 170-1012 | Reims, Marne France
+501 1014-1320 fissa | Edition: 2
+606 302-1150 | have been frosted over. In this case, spark plugs should be re-
+644 303-1174 | moved and heated as necessary to remove ice, or preheat should
+680 304-1166 | be applied to engine. Either method should ensure a successful
+718 302-418 | re-start.
+791 645-840 | IMPORTANT
+863 310-1173 | Excessive priming may cause raw fuel to drain on pavement be-
+900 310-1169 | neath engine cowling, creating a fire hazard. If this occurs, air-
+938 311-1183 | craft should be moved away from fuel puddle before attempting
+973 310-1123 | start again. An outside attendant with a fire extinguisher is
+1011 310-935 | recommended for cold starts without preheat.
+1082 244-1306 | During cold weather operations, no indication will be apparent on the oil tem-
+1119 177-1264 | perature gage prior to take-off if outside air temperatures are very cold. After a
+1155 178-1321 | suitable warm-up period (2 to 5 minutes at 1000 RPM), accelerate the engine several
+1192 177-1281 fissa | times to higher RPM. If the engine accelerates smoothly and oil pressure remains
+1229 178-888 fissa | normal and steady, the aircraft is ready for take-off.
+1303 244-916 | Refer to Section VI for cold weather equipment.
+1411 titolo 175-720 fissa | HOT WEATHER OPERATION.
+1487 244-1253 | Refer to the general warm temperature starting information under Starting
+1523 177-1166 | Engine in this section. Avoid prolonged engine operation on the ground.

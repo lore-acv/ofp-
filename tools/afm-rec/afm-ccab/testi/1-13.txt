@@ -1,0 +1,56 @@
+382 726-924 | Flight Manual
+420 727-927 | Reims Rocket
+460 263-1137 | Reims Aviation
+460 1139-1410 | Page: 1-13
+# CONTROLLA (0.89): Tesseract legge «Reims, Mame France Edition: 2»
+497 263-1137 | Reims, Marne France
+# CONTROLLA (0.89): Tesseract legge «Reims, Mame France Edition: 2»
+497 1139-1410 | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: pilot and is helpful when checking maps and other flight data during night operations.
+# DA LEGGERE: riga della sorgente non trovata: To operate the light, first turn on the “NAV LT” switch, then adjust the map light’s
+# DA LEGGERE: riga della sorgente non trovata: intensity with the rheostat control knob located on the back of the control wheel
+# DA LEGGERE: riga della sorgente non trovata: pad on the right side.
+# DA LEGGERE: riga della sorgente non trovata: A door post map light is also offered as optional equipment, and is located at
+# DA LEGGERE: riga della sorgente non trovata: the top of the left forward door post. The light contains both red and white bulbs,
+# DA LEGGERE: riga della sorgente non trovata: and may be positioned to illuminate any area desired by the pilot. A switch on the
+# DA LEGGERE: riga della sorgente non trovata: left forward door post is labeled “RED”, “OFF”, and “WHITE”. Placing the switch
+# DA LEGGERE: riga della sorgente non trovata: in the top position will provide a red light. In the bottom position, standard white
+# DA LEGGERE: riga della sorgente non trovata: lighting is provided. The center position is “OFF”.
+# DA LEGGERE: riga della sorgente non trovata: CABIN HEATING, VENTILATING AND DEFROSTING SYSTEM.
+# DA LEGGERE: riga della sorgente non trovata: For cabin ventilation, pull the “CABIN AIR” knob out. To raise the air tem-
+# DA LEGGERE: riga della sorgente non trovata: perature, pull the “CABIN HT” knob out approximately 0,5 cm to 1,0 cm for a
+# DA LEGGERE: riga della sorgente non trovata: small amount of cabin heat. Additional heat is available by pulling the knob out
+# DA LEGGERE: riga della sorgente non trovata: farther; maximum heat is available with the “CABIN HT” knob pulled full out and
+606 261-1372 | the “CABIN AIR” knob pushed full in. When no heat is desired in the cabin, the
+643 263-767 | “CABIN HT” knob is pushed full in.
+714 329-1385 | Front cabin heat and ventilating air is supplied by outlet holes spaced across a
+749 263-1365 | cabin manifold just forward of the pilot’s and copilot’s feet. Rear cabin heat and
+785 262-1360 | air is supplied by two ducts from the manifold, one extending down each side of
+822 263-1371 | the cabin to an outlet at the front door post at floor level. Windshield defrost air
+857 262-1402 | is supplied by two ducts leading from the cabin manifold to outlets below the wind-
+894 262-360 | shield.
+965 330-1408 | Separate adjustable ventilators supply additional air, one near each upper corner
+1002 262-1394 | of the windshield supplies air for the pilot and copilot, and two optional ventilators
+1040 261-1097 | in the rear cabin ceiling supply air to the rear seat passengers.
+1186 titolo 260-711 | SHOULDER HARNESSES.
+1256 329-1381 | Shoulder harnesses are provided as standard equipment for the pilot and front
+1293 262-1206 | seat passenger, and as optional equipment for the rear seat passengers.
+1370 327-1381 | Each front seat harness is attached to a rear door post just above window line
+1407 261-1372 | and is stowed above the cabin door. When stowed, the harness is held in place by
+1443 262-1365 | two retaining clips, one above the door and one on the front of the forward door
+1480 261-1334 | post. When stowing the harness, place it behind both retaining clips and secure
+1517 261-1320 | the loose end behind the retaining clip above the door. The optional rear seat
+1554 261-1349 | shoulder harnesses are attached just below the lower corners of the rear window.
+1591 261-1378 | Each rear seat harness is stowed behind a retaining clip located at the bottom edge
+1628 261-586 | of the aft side window.
+1699 324-1407 | To use the front and rear seat shoulder harnesses, fasten and adjust the seat belt
+1736 258-1352 | first. Remove the harness from the stowed position, and lengthen as required by
+1770 257-1350 | pulling on the end of the harness and the narrow release strap. Snap the harness
+1805 257-1417 | metal stud firmly into the retaining slot adjacent to the seat belt buckle. Then adjust
+1840 258-1384 | to length by pulling down on the free end of the harness. A properly adjusted har-
+1876 257-1381 | ness will permit the occupant to lean forward enough to sit completely erect but is
+1911 257-1405 | tight enough to prevent excessive forward movement and contact with objects during
+1945 258-1427 | sudden deceleration. Also, the pilot will want the freedom to reach all controls easily.
+2012 329-1401 | Releasing and removing the shoulder harness is accomplished by pulling upward
+2047 262-1385 | on the narrow release strap and removing the harness stud from the slot in the seat
+2083 261-1410 | belt buckle. In an emergency, the shoulder harness may be removed by releasing the

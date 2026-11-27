@@ -1,0 +1,55 @@
+386 728-926 | Flight Manual
+424 723-924 | Reims Rocket
+462 270-1238 | Reims Aviation
+462 1240-1400 | Page: 2-3
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+496 270-1237 | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+496 1239-1416 | Edition: 2
+606 650-970 | UTILITY CATEGORY
+680 335-987 | Forward Limit
+680 989-1158 | Rear Limit
+# CONTROLLA (0.94): Tesseract legge «+0,95 m at 2200 Ibs (998 kg) +1,03 m at 2200 Ibs (998 kg)»
+716 334-985 | +0,95 m at 2200 lbs (998 kg)
+# CONTROLLA (0.94): Tesseract legge «+0,95 m at 2200 Ibs (998 kg) +1,03 m at 2200 Ibs (998 kg)»
+716 987-1410 | +1,03 m at 2200 lbs (998 kg)
+# CONTROLLA (0.97): Tesseract legge «+0,89 m at 1950 Ibs (885 kg) or less or less»
+750 334-1018 | +0,89 m at 1950 lbs (885 kg) or less
+# CONTROLLA (0.97): Tesseract legge «+0,89 m at 1950 Ibs (885 kg) or less or less»
+750 1020-1131 | or less
+859 titolo 272-614 | LOADING LIMITS.
+929 335-898 | Number of Occupants: Front Seats: 2
+966 668-898 | Rear Seats: 2
+# CONTROLLA (0.96): Tesseract legge «Optional Child’s Seat : 120 Ibs (54 kg)»
+1003 336-889 | Optional Child’s Seat : 120 lbs (54 kg)
+# CONTROLLA (0.96): Tesseract legge «Minimum Crew: |»
+1040 336-600 | Minimum Crew: 1
+# CONTROLLA (0.96): Tesseract legge «Maximum Baggage: 200 Ibs (91 kg)»
+1076 336-822 | Maximum Baggage: 200 lbs (91 kg)
+1186 titolo 274-948 | MANEUVERS - UTILITY CATEGORY.
+1258 338-1412 | This airplane is not designed for purely aerobatic flight. However, in the acqui-
+1296 271-1404 | sition of various certificates such as commercial pilot, instrument pilot and flight in-
+1335 271-1367 | structor, certain maneuvers are required. All of these maneuvers are permitted in
+1373 272-960 | this airplane when operated in the utility category.
+1439 341-1406 | In the utility category, the baggage compartment and rear seat must not be oc-
+1476 275-1254 | cupied. No aerobatic maneuvers are approved except those listed below:
+# DA LEGGERE: Tesseract legge «MANEUVER MAXIMUM ENTRY SPEED*»
+1548 335-1407 | MANEUVER RECOMMENDED ENTRY SPEED*
+1618 340-1411 | Chandelles 201 km/h - 109 kts - 125 MPH
+# CONTROLLA (0.96): Tesseract legge «Lazy Fights. ........... . . 201 km/h - 109 kts - 125 MPH»
+1655 341-1411 | Lazy Eights 201 km/h - 109 kts - 125 MPH
+# CONTROLLA (0.81): Tesseract legge «Steep Turns. . . . 2... . ... . . 201 km/h - 109 kts - 125 MPH»
+1690 341-1412 | Steep Turns 190 km/h - 104 kts - 118 MPH
+# CONTROLLA (0.89): Tesseract legge «Spins 2... . ee ee Slow Deceleration»
+1727 341-1400 | Spins Slow Deceleration
+1761 340-1401 | Stalls (Except Whip Stalls) Slow Deceleration
+# DA LEGGERE: Tesseract legge «*Higher speeds can be used if abrupt use of the controls is avoided.»
+1833 408-1319 | *Abrupt use of the controls above 118 MPH is prohibited.
+1904 339-1385 | Aerobatics that may impose high loads should not be attempted. The impor-
+1940 273-1380 | tant thing to bear in mind in flight maneuvers is that the airplane is clean in aero-
+1974 274-1393 | dynamic design and will build up speed quickly with the nose down. Proper speed
+2010 273-1389 | control is an essential requirement for execution of any maneuver, and care should
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «always be exercised to avoid excessive speed which in turn can impose excessive»
+# 2046 273-1351 | always be exercised to avoid excessive speed which in turn can impose excessive
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «loads. In the execution of all maneuvers, avoid abrupt use of controls.»
+# 2081 273-1232 | loads. In the execution of all maneuvers, avoid abrupt use of controls.

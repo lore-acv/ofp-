@@ -1,0 +1,41 @@
+400 655-853 | Flight Manual
+436 655-855 | Reims Rocket
+476 195-1036 | Page: 3-2
+476 1038-1252 | Reims Aviation
+515 194-1034 | Edition: 2
+515 1036-1326 | Reims, Marne France
+622 250-1281 | (5) Auxiliary Fuel Pump Switch - - On “HIGH” for 3-5 seconds with throttle
+658 253-809 | 1/2 open, then switch to “OFF” position.
+693 250-828 | (6) Throttle - - Opened one inch (2,5 cm).
+731 250-698 | (7) Ignition Switch - - “BOTH”.
+803 263-1313 | If the propeller is allowed to stop windmilling, the engine will have to be turned
+838 196-1332 | with the starter. If the engine will not start, select an unobstructed area to land in and
+875 196-580 | secure the engine as follows:
+945 256-583 | (1) Throttle - - Closed.
+981 256-852 | (2) Mixture - - Idle cut-off (pulled full-out).
+# CONTROLLA (0.97): Tesseract legge «(3) Fuel Shutoff Knob - - Puiled full out.»
+1018 256-820 | (3) Fuel Shutoff Knob - - Pulled full out.
+1055 256-682 | (4) Ignition Switch - - “OFF”.
+1092 255-1078 | (5) Leave master switch “ON” so that flaps can be extended.
+1151 709-808 | NOTE
+1210 324-1165 | Full flaps are recommended for emergency landings on unpaved
+1246 324-450 | surfaces.
+1318 titolo 189-309 | FIRES.
+1386 189-856 | ENGINE FIRE DURING START ON GROUND.
+1457 256-1325 | Improper starting procedures involving the excessive use of auxiliary fuel pump
+1494 189-1336 | operation can cause engine flooding and subsequent collection of fuel on the parking
+1532 189-1333 | ramp. This is sometimes experienced in difficult starts in cold weather where engine
+1569 189-1306 | preheat service is not available. If this occurs, the airplane should be pushed away
+1604 189-1342 | from the fuel puddle before another engine start is attempted. In the rare event that
+1639 189-1201 | the fuel puddle is ignited by exhaust from the tailpipe, proceed as follows:
+1711 255-787 | (1) Turn auxiliary fuel pump “OFF.”
+1746 256-831 | (2) Move mixture control to idle cut-off.
+1783 256-636 | (3) Release parking brake,
+1819 256-660 | (4) Obtain fire extinguisher.
+# CONTROLLA (0.99): Tesseract legge «(5S) Extinguish fire with fire extinguisher.»
+1853 257-833 | (5) Extinguish fire with fire extinguisher.
+1907 712-811 | NOTE
+1958 324-1193 | If fire extinguisher is not available, move aircraft away from the
+1993 324-1227 | fire by pushing rearward on the leading edge of the horizontal tail.
+2063 253-1325 | (6) Make a thorough inspection of fire damage, and repair or replace damaged
+2100 253-876 | components before conducting another flight.

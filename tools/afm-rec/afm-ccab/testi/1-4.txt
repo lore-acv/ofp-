@@ -1,0 +1,46 @@
+405 625-823 | Flight Manual
+442 625-825 | Reims Rocket
+477 158-1218 | Page: 1-4 Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+516 158-993 | Edition: 2
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+516 995-1295 | Reims, Marne France
+624 155-616 | VERTICAL FIN AND RUDDER.
+660 222-631 | Fin and Dorsal Area: 1,26 m 2
+697 222-550 | Rudder Area: 0,67 m 2
+# CONTROLLA (0.94): Tesseract legge «Control Travel, Left: 17°44’41° ; : ;»
+735 221-517 | Control Travel, Left:
+# CONTROLLA (0.94): Tesseract legge «Control Travel, Left: 17°44’41° ; : ;»
+735 519-600 fissa | 17 o 44’
+# CONTROLLA (0.94): Tesseract legge «Control Travel, Left: 17°44’41° ; : ;»
+735 602-627 fissa | ±
+# CONTROLLA (0.94): Tesseract legge «Control Travel, Left: 17°44’41° ; : ;»
+735 629-1044 fissa | 1 o
+# CONTROLLA (0.80): Tesseract legge «Right: 17°447t1° Perpendicular to Hinge Line.»
+759 433-1082 | Perpendicular to Hinge Line.
+# DA LEGGERE: riga della sorgente non trovata: Right: | 17 o 44’ | ± | 1 o
+880 153-414 | LANDING GEAR.
+921 218-441 | Type: Tricycle
+952 220-724 | Shock Absorber, Nose Gear: Oil-Air
+988 449-831 | Main Gear: Tubular Spring
+1026 219-437 | Tread: 2,53 m
+1062 219-991 | Distance Between Main Wheels and Nose Wheel: 1,64 m
+1099 218-1068 | Nose Wheel Tire and Pressure: 5.00 - 5,6-Ply Rated; 45 psi
+1135 218-1067 | Main Wheel Tire and Pressure: 6.00 - 6,6-Ply Rated; 38 psi
+1172 219-782 | Nose Gear Shock Strut Pressure: 45 psi
+1281 155-395 | POWER PLANT.
+# CONTROLLA (0.94): Tesseract legge «Engine: Continental JO-360-D 210 HP (157 KW)»
+1319 222-967 | Engine: Continental IO-360-H 210 HP (157 KW)
+1355 221-678 | Fuel: 100/130 Octane Minimum
+# CONTROLLA (0.97): Tesseract legge «Oil: SAE 50 Above 5°C»
+1390 222-702 | Oil: SAE 50 Above 5 o C
+1427 295-878 | SAE 10W30 or SAE 30 below 5 o C
+1535 156-357 | PROPELLER.
+# CONTROLLA (0.78): Tesseract legge «Number: McCauley D2A34C67/76C-O»
+1576 222-752 | Number: McCauley 2A34C209/78CCA-2
+1607 222-671 | Type: 2 Bladed Constant Speed
+1642 223-485 | Diameter: 1,93 m
+1747 155-273 | CABIN.
+1781 223-778 | Seating: 4 Place + Optional Child’s Seat
+1817 222-364 | Doors: 2
+1852 223-448 | Baggage: 91 kg

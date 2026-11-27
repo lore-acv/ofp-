@@ -1,0 +1,33 @@
+396 632-830 | Flight Manual
+433 633-834 | Reims Rocket
+470 162-1143 | Reims Aviation
+470 1145-1312 | Page: 4-11
+504 163-1315 | Reims, Marne France Edition: 2
+616 titolo 168-510 | ENROUTE CLIMB.
+685 167-382 | CLIMB DATA.
+758 231-1282 | For detailed data, refer to the Maximum Rate-Of-Climb Data chart in Section
+796 165-210 | V.
+866 167-407 | CLIMB SPEEDS.
+937 234-1293 | Normal climbs are performed at 161 to 177 km/h - 87 to 96 kts - 100 to 110
+975 167-1297 | MPH with flaps up, 25 inches (847 mb) of manifold pressure, and 2600 RPM. The
+1012 166-1052 | mixture should be set at approximately 13 gal/hr (49,2 litres/hr).
+1084 234-1272 | The best rate-of-climb speeds range from 153 km/h - 83 kts - 95 MPH at sea
+1119 167-1307 | level to 140 km/h - 76 kts - - 87 MPH at 10,000 feet using full throttle, 2800 RPM,
+1156 168-1319 | and mixture leaned in accordance with the fuel flow indicator placard located on the
+1192 167-1282 | right side of the instrument panel. If an obstacle dictates the use of a steep climb
+1229 167-1265 | angle, an obstacle clearance speed should be used with flaps up, full throttle, and
+1263 168-1325 | 2800 RPM. This speed is approximately 121 km/h - 65 kts - 75 MPH at all altitudes.
+1338 690-788 | NOTE
+1411 301-1088 | Steep climbs at low speeds should be of short duration to
+1453 301-629 | improve engine cooling.
+1522 231-1282 | For detailed data, refer to the Maximum Rate-Of-Climb Data chart in Section
+1557 165-210 | V.
+1667 titolo 164-319 | CRUISE.
+1734 231-1293 | Normal cruising is done between 65% and 75% power with the mixture leaned
+1769 164-1284 | at all altitudes. The power settings required to obtain these powers at various alti-
+1803 164-1283 | tudes and standard outside air temperatures can be determined by using the Cruise
+1839 163-617 | Performance charts in Section V.
+1912 689-788 | NOTE
+1981 299-1131 | The Cruise Performance charts in Section V outline complete
+2016 300-800 | cruise figures for the Reims Rocket.
+2086 231-1292 | Cruising can be done most efficiently at high altitudes because very nearly the

@@ -1,0 +1,213 @@
+384 727-926 | Flight Manual
+421 729-929 | Reims Rocket
+461 265-1275 | Reims Aviation
+461 1277-1397 | Page: 1-9
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+496 264-1275 | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+496 1277-1413 | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: and advance the throttle promptly until the fuel flow indicator registers approxi-
+# DA LEGGERE: riga della sorgente non trovata: mately 1/2 way into the green arc for 1 to 2 seconds duration. Then retard the
+# DA LEGGERE: riga della sorgente non trovata: throttle, turn off the auxiliary fuel pump, and use the starter to turn the engine over
+# DA LEGGERE: riga della sorgente non trovata: until a start is obtained.
+# DA LEGGERE: riga della sorgente non trovata: ELECTRICAL SYSTEM.
+# DA LEGGERE: riga della sorgente non trovata: Electrical energy is supplied by a 14-volt, direct-current system powered by an
+# DA LEGGERE: riga della sorgente non trovata: engine-driven alternator (see figure 1-5). A 12-volt battery is located aft of the rear
+# DA LEGGERE: riga della sorgente non trovata: baggage compartment wall. Power is supplied to all electrical circuits through a
+# DA LEGGERE: riga della sorgente non trovata: split bus bar, one side containing electronic systems and the other side having gen-
+# DA LEGGERE: riga della sorgente non trovata: eral electrical systems. Both sides of the bus are on at all times except when either
+# DA LEGGERE: riga della sorgente non trovata: an external power source is connected or the ignition/starter switch is turned on;
+# DA LEGGERE: riga della sorgente non trovata: then a power contactor is automatically activated to open the circuit to the electron-
+# DA LEGGERE: riga della sorgente non trovata: ic bus. Isolating the electronic circuits in this manner prevents harmful transient vol-
+# DA LEGGERE: riga della sorgente non trovata: tages from damaging the transistors in the electronic equipment.
+# DA LEGGERE: riga della sorgente non trovata: MASTER SWITCH.
+# DA LEGGERE: riga della sorgente non trovata: The master switch is a split-rocker type switch labeled “MASTER,” and is “ON”
+# DA LEGGERE: riga della sorgente non trovata: in the up position and “OFF” in the down position. The right half of the switch,
+# DA LEGGERE: riga della sorgente non trovata: labeled “BAT,” controls all electrical power to the airplane. The left half, labeled
+# DA LEGGERE: riga della sorgente non trovata: “ALT,” controls the alternator.
+# DA LEGGERE: riga della sorgente non trovata: Normally, both sides of the master switch should be used simultaneously, how-
+# DA LEGGERE: riga della sorgente non trovata: ever, the “BAT” side of the switch could be turned “ON” separately to check equip-
+# DA LEGGERE: riga della sorgente non trovata: ment while on the ground. The “ALT” side of the switch, when placed in the “OFF’
+# DA LEGGERE: riga della sorgente non trovata: position, removes the alternator from the electrical system. With this switch in the
+# DA LEGGERE: riga della sorgente non trovata: “OFF” position, the entire electrical load is placed on the battery. Continued oper-
+# DA LEGGERE: riga della sorgente non trovata: ation with the alternator switch ‘OFF” will reduce battery power low enough to open
+# DA LEGGERE: riga della sorgente non trovata: the battery contactor, remove power from the alternator field, and prevent alternator
+# DA LEGGERE: riga della sorgente non trovata: restart.
+# DA LEGGERE: riga della sorgente non trovata: AMMETER.
+# DA LEGGERE: riga della sorgente non trovata: The ammeter indicates the flow of current, in amperes, from the alternator to
+# DA LEGGERE: riga della sorgente non trovata: the battery or from the battery to the aircraft electrical system. When the engine is
+# DA LEGGERE: riga della sorgente non trovata: operating and the master switch is “ON,” the ammeter indicates the charging rate
+638 titolo 541-981 c=26.2 | ELECTRICAL SYSTEM
+638 titolo 983-1178 c=19.0 | SCHEMATIC
+# DA LEGGERE: riga della sorgente non trovata: REGULATOR | TO
+682 legenda 810-884 c=9.5 sx=1.095 | PRIMARY
+# CONTROLLA (0.94): Tesseract legge «aus TO MASTER SWITCH»
+703 legenda 829-1058 c=9.5 sx=1.095 | BUS
+# CONTROLLA (0.94): Tesseract legge «aus TO MASTER SWITCH»
+703 legenda 1060-1245 c=9.5 sx=1.095 | TO MASTER SWITCH
+# DA LEGGERE: riga della sorgente non trovata: OVER-
+723 legenda 356-431 c=9.5 sx=1.095 | VOLTAGE
+# CONTROLLA (0.85): Tesseract legge «TO OVER-VOLTAGE SENSOR AND.»
+735 legenda 1105-1057 c=9.5 sx=1.095 | ALT FIELD
+# CONTROLLA (0.85): Tesseract legge «TO OVER-VOLTAGE SENSOR AND.»
+735 legenda 1059-1325 c=9.5 sx=1.095 | TO OVER-VOLTAGE SENSOR AND
+# DA LEGGERE: Tesseract legge «OVER-VOLTAGE WARNING LIGHT»
+752 legenda 1105-732 c=9.5 sx=1.095 | WARNING
+# DA LEGGERE: Tesseract legge «OVER-VOLTAGE WARNING LIGHT»
+752 legenda 734-1057 c=9.5 sx=1.095 | ALTERNATOR
+# DA LEGGERE: Tesseract legge «OVER-VOLTAGE WARNING LIGHT»
+752 legenda 1059-1326 c=9.5 sx=1.095 | OVER-VOLTAGE WARNING LIGHT
+759 legenda 359-413 c=9.5 sx=1.095 | LIGHT
+# CONTROLLA (0.95): Tesseract legge «TO ALT FIELD TO FUEL PUMP SWITCH»
+791 legenda 655-856 c=9.5 sx=1.095 | TO ALT FIELD
+# CONTROLLA (0.95): Tesseract legge «TO ALT FIELD TO FUEL PUMP SWITCH»
+791 legenda 858-1058 c=9.5 sx=1.095 | ALT
+# CONTROLLA (0.95): Tesseract legge «TO ALT FIELD TO FUEL PUMP SWITCH»
+791 legenda 1060-1264 c=9.5 sx=1.095 | TO FUEL PUMP SWITCH
+807 legenda 643-773 c=9.5 sx=1.095 | CIRCUIT BREAKER
+# DA LEGGERE: riga della sorgente non trovata: FUEL
+# DA LEGGERE: riga della sorgente non trovata: PUMP
+# DA LEGGERE: riga della sorgente non trovata: OVER- | CIGAR LIGHTER
+# DA LEGGERE: Tesseract legge «woth own erRcuTT :»
+886 legenda 556-634 c=9.5 sx=1.095 | MASTER
+# DA LEGGERE: Tesseract legge «woth own erRcuTT :»
+886 legenda 636-776 c=9.5 sx=1.095 | VOLTAGE
+# DA LEGGERE: Tesseract legge «woth own erRcuTT :»
+886 legenda 778-1075 c=9.5 sx=1.095 | (WITH CIRCUIT
+# DA LEGGERE: Tesseract legge «: 10 nestent 10 RAD Jorn»
+897 legenda 602-788 c=9.5 sx=1.095 | SENSOR
+# DA LEGGERE: Tesseract legge «: 10 nestent 10 RAD Jorn»
+897 legenda 790-1058 c=9.5 sx=1.095 | BREAKER)
+# DA LEGGERE: Tesseract legge «: 10 nestent 10 RAD Jorn»
+897 legenda 1060-1221 c=9.5 sx=1.095 | TO RADIO (OPT)
+# DA LEGGERE: riga della sorgente non trovata: SWITCH | TO
+# DA LEGGERE: riga della sorgente non trovata: ALT FIELD | RADIO 1
+# DA LEGGERE: Tesseract legge «ciscurt»
+937 legenda 663-730 c=9.5 sx=1.095 | CIRCUIT
+952 legenda 661-1060 c=9.5 sx=1.095 | BREAKER
+952 legenda 1062-1222 c=9.5 sx=1.095 | TO RADIO (OPT)
+# DA LEGGERE: riga della sorgente non trovata: RADIO 2
+# DA LEGGERE: Tesseract legge «TO RADIO 10PT»
+1003 legenda 1107-1058 c=9.5 sx=1.095 | AMMETER
+# DA LEGGERE: Tesseract legge «TO RADIO 10PT»
+1003 legenda 1060-1222 c=9.5 sx=1.095 | TO RADIO (OPT)
+# DA LEGGERE: Tesseract legge «STARTER REVERSE POLARITY»
+1020 legenda 407-562 c=9.5 sx=1.095 | STARTER
+# DA LEGGERE: Tesseract legge «STARTER REVERSE POLARITY»
+1020 legenda 564-771 c=9.5 sx=1.095 | REVERSE POLARITY
+# DA LEGGERE: Tesseract legge «STARTER REVERSE POLARITY»
+1020 legenda 773-991 c=9.5 sx=1.095 | GROUND SERVICE
+# DA LEGGERE: Tesseract legge «STARTER REVERSE POLARITY»
+1020 legenda 993-686 c=9.5 sx=1.095 | RADIO 3
+# CONTROLLA (0.86): Tesseract legge «CONTACTOR CONTACTOR Lita ae»
+1035 legenda 396-579 c=9.5 sx=1.095 | CONTACTOR
+# CONTROLLA (0.86): Tesseract legge «CONTACTOR CONTACTOR Lita ae»
+1035 legenda 581-907 c=9.5 sx=1.095 | CONTACTOR
+1043 legenda 779-912 c=9.5 sx=1.095 | PLUG RECEPTACLE
+# DA LEGGERE: Tesseract legge «TO RADIO (DFT)»
+1057 legenda 1105-1057 c=9.5 sx=1.095 | (OPT)
+# DA LEGGERE: Tesseract legge «TO RADIO (DFT)»
+1057 legenda 1059-1220 c=9.5 sx=1.095 | TO RADIO (OPT)
+# DA LEGGERE: riga della sorgente non trovata: RADIO 4
+1110 legenda 1105-1292 c=9.5 sx=1.095 | TO AUDIO AMPLIFIER (OPT)
+# DA LEGGERE: riga della sorgente non trovata: AUD AMP
+1166 legenda 1104-1294 c=9.5 sx=1.095 | TO AUTOMATIC PILOT (OPT)
+# DA LEGGERE: riga della sorgente non trovata: AUTO
+# DA LEGGERE: riga della sorgente non trovata: PILOT
+1225 legenda 1106-1276 c=9.5 sx=1.095 | FROM ALTERNATOR BUS
+# CONTROLLA (0.90): Tesseract legge «> LANDING AND TAX!»
+1254 legenda 890-1266 c=9.5 sx=1.095 | TO LANDING AND TAXI
+# DA LEGGERE: Tesseract legge «sruiT Bus Cows orn»
+1275 legenda 863-1057 c=9.5 sx=1.095 | SPLIT BUS
+# DA LEGGERE: Tesseract legge «sruiT Bus Cows orn»
+1275 legenda 1059-1262 c=9.5 sx=1.095 | LIGHTS (OPT)
+# DA LEGGERE: Tesseract legge «CONTACTOR»
+1278 legenda 854-991 c=9.5 sx=1.095 | CONTACTOR
+# DA LEGGERE: Tesseract legge «CONTACTOR»
+1278 legenda 993-947 c=9.5 sx=1.095 | LAND LT
+1295 legenda 828-972 c=9.5 sx=1.095 | (NORMALLY CLOSED)
+# CONTROLLA (0.93): Tesseract legge «se0) TO NAVIGATION LIGHTS AND»
+1306 legenda 931-1303 c=9.5 sx=1.095 | TO NAVIGATION LIGHTS AND
+1322 legenda 1105-1295 c=9.5 sx=1.095 | OPTIONAL CONTROL WHEEL
+1337 legenda 1105-1190 c=9.5 sx=1.095 | MAP LIGHT
+# DA LEGGERE: Tesseract legge «CLOCK (GFT)»
+1352 legenda 656-751 c=9.5 sx=1.095 | CLOCK (OPT)
+# CONTROLLA (0.81): Tesseract legge «‘TO TRANSMITTER RELAY (OPT)»
+1379 legenda 1103-1000 c=9.5 sx=1.095 | STARTER
+# CONTROLLA (0.81): Tesseract legge «‘TO TRANSMITTER RELAY (OPT)»
+1379 legenda 1002-1055 c=9.5 sx=1.095 | NAV
+# CONTROLLA (0.81): Tesseract legge «‘TO TRANSMITTER RELAY (OPT)»
+1379 legenda 1057-1314 c=9.5 sx=1.095 | TO TRANSMITTER RELAY (OPT)
+# DA LEGGERE: riga della sorgente non trovata: LT
+1410 legenda 1104-1309 c=9.5 sx=1.095 | TO IGNITION-STARTER SWITCH
+1443 legenda 409-483 c=9.5 sx=1.095 | BATTERY
+# CONTROLLA (0.96): Tesseract legge «CONTACTOR } ‘TO FLASHING BEACON (OFT)»
+1457 legenda 396-1057 c=9.5 sx=1.095 | CONTACTOR
+# CONTROLLA (0.96): Tesseract legge «CONTACTOR } ‘TO FLASHING BEACON (OFT)»
+1457 legenda 1059-1297 c=9.5 sx=1.095 | TO FLASHING BEACON (OPT)
+1472 legenda 872-906 c=9.5 sx=1.095 | TO
+# CONTROLLA (0.80): Tesseract legge «NAVIGATION»
+1487 legenda 841-993 c=9.5 sx=1.095 | NAVIGATION
+# CONTROLLA (0.80): Tesseract legge «NAVIGATION»
+1487 legenda 995-937 c=9.5 sx=1.095 | BCN LT
+1503 legenda 835-944 c=9.5 sx=1.095 | LIGHT CIRCUIT
+# CONTROLLA (0.95): Tesseract legge «BREAKER TO DODR POST MAP LIGHT [OPTI»
+1513 legenda 852-1055 c=9.5 sx=1.095 | BREAKER
+# CONTROLLA (0.95): Tesseract legge «BREAKER TO DODR POST MAP LIGHT [OPTI»
+1513 legenda 1057-1322 c=9.5 sx=1.095 | TO DOOR POST MAP LIGHT (OPT)
+1553 legenda 1105-1277 c=9.5 sx=1.095 | TO DOME AND OPTIONAL
+1568 legenda 1105-1238 c=9.5 sx=1.095 | COURTESY LIGHTS
+# DA LEGGERE: riga della sorgente non trovata: INT LT
+1593 legenda 1106-1316 c=9.5 sx=1.095 | TO COMPASS AND INSTRUMENT
+1609 legenda 1107-1168 c=9.5 sx=1.095 | LIGHTS
+1638 legenda 813-889 c=9.5 sx=1.095 | IGNITION-
+1654 legenda 795-919 c=9.5 sx=1.095 | STARTER SWITCH
+1665 legenda 1103-1325 c=9.5 sx=1.095 | TO FUEL QUANTITY INDICATORS
+1698 legenda 1105-1272 c=9.5 sx=1.095 | TO WING FLAP POSITION
+# DA LEGGERE: Tesseract legge «INDICATOR»
+1713 legenda 1105-1000 c=9.5 sx=1.095 | BATTERY
+# DA LEGGERE: Tesseract legge «INDICATOR»
+1713 legenda 1002-1057 c=9.5 sx=1.095 | INST
+# DA LEGGERE: Tesseract legge «INDICATOR»
+1713 legenda 1059-1190 c=9.5 sx=1.095 | INDICATOR
+# CONTROLLA (0.94): Tesseract legge «| = TM WING FLAP SYSTEM»
+1769 legenda 737-1264 c=9.5 sx=1.095 | TO WING FLAP SYSTEM
+# DA LEGGERE: riga della sorgente non trovata: FLAP
+1802 legenda 745-829 c=9.5 sx=1.095 | MAGNETOS
+1825 legenda 1106-1279 c=9.5 sx=1.095 | TO STROBE LIGHTS (OPT)
+# DA LEGGERE: riga della sorgente non trovata: STROBE LT
+# DA LEGGERE: riga della sorgente non trovata: CODE
+# CONTROLLA (0.95): Tesseract legge «TO PITOT HEAT SYSTEM (OFT)»
+1881 legenda 1107-1308 c=9.5 sx=1.095 | TO PITOT HEAT SYSTEM (OPT)
+# CONTROLLA (0.85): Tesseract legge «fe) CIRCUIT BREAKER (PUSH-TO-RESET)»
+1898 legenda 358-988 c=9.5 sx=1.095 | CIRCUIT BREAKER (PUSH-TO-RESET)
+# CONTROLLA (0.85): Tesseract legge «fe) CIRCUIT BREAKER (PUSH-TO-RESET)»
+1898 legenda 990-631 c=9.5 sx=1.095 | PITOT HT
+# DA LEGGERE: Tesseract legge «@rvse toons Wraasiston»
+1928 legenda 362-511 c=9.5 sx=1.095 | FUSE
+# DA LEGGERE: Tesseract legge «@rvse toons Wraasiston»
+1928 legenda 513-605 c=9.5 sx=1.095 | DIODE
+# DA LEGGERE: Tesseract legge «@rvse toons Wraasiston»
+1928 legenda 607-673 c=9.5 sx=1.095 | RESISTOR
+# CONTROLLA (0.89): Tesseract legge «TO TURN GDORDINATOR OR»
+1937 legenda 1107-1298 c=9.5 sx=1.095 | TO TURN COORDINATOR OR
+# DA LEGGERE: Tesseract legge «Sh caracrron mouse rinreri OPTIONAL TUAN AND BANK»
+1952 legenda 363-1057 c=9.5 sx=1.095 | CAPACITOR (NOISE FILTER)
+# DA LEGGERE: Tesseract legge «Sh caracrron mouse rinreri OPTIONAL TUAN AND BANK»
+1952 legenda 1059-1296 c=9.5 sx=1.095 | OPTIONAL TURN AND BANK
+# CONTROLLA (0.82): Tesseract legge «INDICATOR»
+1966 legenda 1108-1058 c=9.5 sx=1.095 | TURN
+# CONTROLLA (0.82): Tesseract legge «INDICATOR»
+1966 legenda 1060-1193 c=9.5 sx=1.095 | INDICATOR
+# DA LEGGERE: riga della sorgente non trovata: COORD
+2078 754-911 | Figure 1-5.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «WARNING Y ALTERNATOR»
+# 741 358-837 | WARNING Y ALTERNATOR
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «wasren»
+# 832 541-608 | wasren
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «swrren»
+# 848 541-604 | swrren
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «cicae UcnreR»
+# 866 780-895 | cicae UcnreR
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «aur Preto»
+# 919 652-735 | aur Preto

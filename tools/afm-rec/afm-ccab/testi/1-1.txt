@@ -1,0 +1,31 @@
+381 742-940 | Flight Manual
+418 742-942 | Reims Rocket
+456 272-1249 | Reims Aviation
+456 1251-1402 | Page: 1-1
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+492 272-1249 | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+492 1251-1420 | Edition: 2
+# CONTROLLA (0.93): Tesseract legge «SECTION |»
+598 titolo 1069-1419 c=39.1 | SECTION I
+779 titolo 731-962 c=34.3 | GENERAL
+924 titolo 277-568 | NOTIFICATION.
+995 342-1411 | This manual contains the instructions for use, and the list of servicing and peri-
+1031 276-1232 | odic inspections, as well as the performance data of the Reims Rocket.
+1142 titolo 278-752 | DOCUMENTS AVAILABLE.
+1217 340-755 | (1) Airworthiness Certificate.
+1252 341-734 | (2) Registration Certificate.
+1290 341-772 | (3) Radio Installation License.
+# CONTROLLA (1.00): Tesseract legge «(4) Log Books,»
+1333 340-570 | (4) Log Books.
+1366 341-611 | (5) Flight Manual.
+# DA LEGGERE: riga della sorgente non trovata: (6) Pilot’s Check List.
+1473 titolo 276-1012 | MAA PLATE/FINISH AND TRIM PLATE.
+1546 340-1440 | Information concerning the Type Certificate Number (TC), Production Certificate
+1582 273-1384 | Number (PC), Model Number and Serial Number of your particular aircraft can be
+1619 273-1397 | found on the MAA (Manufacturers Aircraft Association) plate located on the lower
+1656 274-747 | part of the left forward door post.
+1728 339-1434 | A Finish and Trim plate contains a code describing the interior color scheme and
+1762 274-1440 | exterior paint combination of the aircraft. The code may be used in conjunction with
+1798 273-1417 | an applicable Parts Catalog if finish and trim information is needed. This plate is lo-
+1833 274-1122 | cated just above the MAA plate on the left forward door post.

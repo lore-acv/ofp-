@@ -1,0 +1,29 @@
+404 638-837 | Flight Manual
+436 640-838 | Reims Rocket
+# CONTROLLA (0.81): Tesseract legge «Page: 4-2 Reims Aviation»
+475 170-1231 | Reims Aviation
+# DA LEGGERE: riga della sorgente non trovata: Page: 4-2
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+515 169-774 | Edition: 2
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+515 776-1309 | Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: EXTERIOR | INSPECTION
+1513 titolo 702-795 c=24.9 | Note
+1564 301-1168 | Visually check aircraft for general condition during walk-around
+1601 301-1146 | inspection. In cold weather, remove even small accumulations
+1635 302-1171 | of frost, ice or snow from wing, tail and control surfaces. Also,
+1670 301-1194 | make sure that control surfaces contain no internal accumulations
+1704 301-1185 | of ice or debris. If night flight is planned, check operation of all
+1740 301-912 | lights, and make sure a flashlight is available.
+# CONTROLLA (0.96): Tesseract legge «Q@ a. Remove control wheel lock»
+1817 185-255 fissa c=25.4 | 1
+# CONTROLLA (0.96): Tesseract legge «Q@ a. Remove control wheel lock»
+1817 257-702 | a. Remove control wheel lock
+1853 256-737 | b. Check ignition switch “OFF”.
+1887 257-1290 | c. Turn master switch ”ON” and check fuel quantity indicators; then turn
+1924 323-632 | master switch “OFF”.
+1958 257-941 | d. Check fuel selector valve handle on “BOTH”.
+1993 256-947 | e. Check fuel shutoff valve knob “ON” (full in).
+2027 255-1322 | f. Check baggage door for security. Lock with key if children are to occupy
+2064 323-489 | child’s seat.
+2103 1248-1347 fissa | Figure

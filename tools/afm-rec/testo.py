@@ -27,6 +27,7 @@ from PIL import Image
 R = os.getcwd()
 ID, N, TXT, CX0, CX1 = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5])
 f = f'{R}/tools/afm-rec/{ID}/pagine/{N}.json'
+STILE = json.load(open(f'{R}/tools/afm-rec/{ID}/stile.json'))
 p = json.load(open(f))
 libro = open(f'{R}/data/afm/{ID}/libro.html', encoding='utf-8').read()
 m = re.search(r'data-pdf="%d"[^>]*>(?:<i[^>]*></i>)*<img[^>]*data-s2="([^"]+)"' % p['pdf'], libro)
@@ -135,7 +136,9 @@ for ln in open(TXT, encoding='utf-8'):
         else: ruolo = q
     c = opz.get('c', 25 if ruolo == 'titolo' else 18.5)
     SPORCO_H = c * 0.6
-    gap = opz.pop('gap', 3); GAP_RIGA = gap      # colonne vuote che separano due parole (2 per i caratteri piccoli e fitti)
+    # gap: le colonne vuote fra due parole; il default del ruolo (stile.json "gap": i titoli spaziati di
+    # I-CCAB hanno 5-10 px fra le lettere, 30 fra le parole)
+    gap = opz.pop('gap', STILE['ruoli'].get(ruolo, {}).get('gap', 3)); GAP_RIGA = gap      # colonne vuote che separano due parole (2 per i caratteri piccoli e fitti)
     # sotto=N: la finestra si ferma N px sotto la base anche se ci sono discendenti (una sottolineatura
     # sotto parole con la "y", come "every 25 hours." a pagina 6-2, unirebbe le parole)
     sotto = opz.pop('sotto', None)

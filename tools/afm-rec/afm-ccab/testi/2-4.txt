@@ -1,0 +1,51 @@
+412 640-837 | Flight Manual
+447 639-839 | Reims Rocket
+482 177-1001 | Page: 2-4
+482 1003-1237 | Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+519 177-1314 | Edition: 3 Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: always be exercised to avoid excessive speed which in turn can impose excessive
+# DA LEGGERE: Tesseract legge «stalls may be required to obtain a good spin entry. Full pro-spin control deflections»
+659 179-1320 | loads. In the execution of all maneuvers, avoid abrupt use of controls. Intentional
+# DA LEGGERE: Tesseract legge «three turns or more, the spin will tend to change into a spiral. This will be accom-»
+732 179-1304 | spins with flaps extended are prohibited.
+969 titolo 178-836 | ENGINE OPERATION LIMITATIONS.
+1041 245-1322 | Power and Speed 210 HP (157 KW) at 2800 RPM
+1167 titolo 176-687 | CROSSWIND LIMITATIONS.
+1240 243-986 | Take-off direct crosswind limitation: 37 km/h - 20 kts
+1274 244-986 | Landing direct crosswind limitation: 28 km/h - 15 kts
+1394 titolo 178-824 | ENGINE INSTRUMENT MARKINGS.
+1468 178-883 | CYLINDER HEAD TEMPERATURE GAGE (OPT).
+# CONTROLLA (0.94): Tesseract legge «Normal Operating Range. . . . . . . . . . 300° - 460°F (149° - 238°C)»
+1502 245-1312 | Normal Operating Range 300 o - 460 o F (149 o - 238 o C)
+# DA LEGGERE: Tesseract legge «Maximum 2. we ee ee ee es 460°F (238°C)»
+1538 246-1324 | Maximum 460 o F (238 o C)
+1612 180-590 | OIL TEMPERATURE GAGE.
+# CONTROLLA (0.90): Tesseract legge «Normal Operating Range. . 2... 2 we ee . Green Arc»
+1644 246-1321 | Normal Operating Range Green Arc
+# CONTROLLA (0.93): Tesseract legge «Maximum Allowable... ......004 “240°F (116°C) (red line)»
+1681 247-1311 | Maximum Allowable 240 o F (116 o C) (red line)
+1747 180-518 | OIL PRESSURE GAGE.
+1781 246-1310 | Minimum Idling 10 psi (0,689 bars) (red line)
+# CONTROLLA (0.94): Tesseract legge «Normal Operating ini ee " 30-60 psi (2,067-4,134 bars) (green arc)»
+1818 245-1311 | Normal Operating Range 30-60 psi (2,067-4,134 bars) (green arc)
+# CONTROLLA (0.86): Tesseract legge «Maximum .. . Loe ew eu we «© 100 psi (6,890 bars) (red line)»
+1851 246-866 | Maximum
+# CONTROLLA (0.86): Tesseract legge «Maximum .. . Loe ew eu we «© 100 psi (6,890 bars) (red line)»
+1851 868-1310 | 100 psi (6,890 bars) (red line)
+1924 180-654 | FUEL QUANTITY INDICATORS.
+# CONTROLLA (0.96): Tesseract legge «Empty (11,5 litres unusable each tank). . . . . 2... . . E (ted line)»
+1959 246-1310 | Empty (11,5 litres unusable each tank) E (red line)
+2034 179-412 | TACHOMETER.
+2068 245-1316 | Normal Operating Range 2200 - 2600 RPM (green arc)
+2103 245-1313 | Maximum (Engine rated speed) 2800 RPM (red line)
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Some engine power and a slightly greater rate of deceleration than is used for»
+# 624 246-1295 | Some engine power and a slightly greater rate of deceleration than is used for
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «must be held until recovery to maintain the spin. During extended spins of two to»
+# 696 179-1302 | must be held until recovery to maintain the spin. During extended spins of two to
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «panied by an increase in airspeed and gravity loads on the airplane. If this occurs,»
+# 769 179-1291 | panied by an increase in airspeed and gravity loads on the airplane. If this occurs,
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «recovery should be accomplished by leveling the wings and recovering from the re-»
+# 806 179-1292 | recovery should be accomplished by leveling the wings and recovering from the re-
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sulting dive.»
+# 844 180-351 | sulting dive.

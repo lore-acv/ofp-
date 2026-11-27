@@ -1,0 +1,106 @@
+396 652-850 libro | Flight Manual
+433 653-852 libro | Reims Rocket
+468 187-1165 libro | Reims Aviation
+468 1167-1337 libro | Page: 6-19
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+502 187-1165 libro | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+502 1167-1334 libro | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: KG | 200 | LBS
+# DA LEGGERE: Tesseract legge «00t»
+879 figtitolo 1672-1726 fissa c=16.7 | 400
+# DA LEGGERE: riga della sorgente non trovata: 350
+# DA LEGGERE: Tesseract legge «1»
+986 figtitolo 938-973 fissa c=16.7 | 150
+# DA LEGGERE: riga della sorgente non trovata: 300
+# DA LEGGERE: riga della sorgente non trovata: 250
+# DA LEGGERE: riga della sorgente non trovata: 100
+# DA LEGGERE: riga della sorgente non trovata: 200
+# DA LEGGERE: riga della sorgente non trovata: 150
+# DA LEGGERE: riga della sorgente non trovata: 50
+# DA LEGGERE: riga della sorgente non trovata: 100
+# DA LEGGERE: riga della sorgente non trovata: 50 | LOADING GRAPH
+# CONTROLLA (0.80): Tesseract legge «00z»
+1030 figtitolo 1670-961 fissa c=16.7 | 0
+# CONTROLLA (0.80): Tesseract legge «00z»
+1030 figtitolo 963-1726 fissa c=16.7 | 0
+# DA LEGGERE: riga della sorgente non trovata: 0 | 5 | 10 | 15 | 20 | 25 | 30 | POUND-
+# DA LEGGERE: riga della sorgente non trovata: INCH
+# DA LEGGERE: riga della sorgente non trovata: 0 | 5 | 10 | 15 | 20 | 25 | 30 | 35 | KG- CM
+# DA LEGGERE: riga della sorgente non trovata: LOAD MOMENT/1000
+# DA LEGGERE: riga della sorgente non trovata: MAXIMUM USABLE FUEL @ 6 LBS/GAL (0,72 KG/LITRE):
+# DA LEGGERE: riga della sorgente non trovata: Standard Tanks in Wings: 46 U.S. Gal | (174 Litres)
+# DA LEGGERE: riga della sorgente non trovata: Optional Auxiliary Tank in Baggage Area: 17 U.S. Gal (64 Litres)
+# DA LEGGERE: riga della sorgente non trovata: NOTES: (1) | Line representing adjustable seats shows the pilot or front passenger center of gravity on adjustable seats positioned
+# DA LEGGERE: riga della sorgente non trovata: for an average occupant. Refer to the loading arrangements diagram for forward and aft limits of occupant c.g. range.
+# DA LEGGERE: riga della sorgente non trovata: (2) Engine oil: 10 Qts. (9,5 litres) = 19 Lbs. (8,5 kg) at -0,5 Moment/1000.
+# DA LEGGERE: Tesseract legge «7 FU BS for dadaee»
+1311 607-971 | Figure 6-5.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LHOISM GVO1»
+# 1871 449-629 | LHOISM GVO1
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «"¢-9 amBIJ»
+# 293 1246-1410 | "¢-9 amBIJ
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «0001 /UEWOW ¢°O- 18 (34 6g) SAT OL = (SN $6) SOOT “WoO oursug (Zz)»
+# 402 1047-1828 | 0001 /UEWOW ¢°O- 18 (34 6g) SAT OL = (SN $6) SOOT “WoO oursug (Zz)
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «agurs'3'd JURdNIDO JO SHUT] JB PUL PIVMIOJ OJ WRIBNIp SPUIMOTUR UIP SUTPRO] OYJ 0} JAJOY ‘WedNdI0 asRIaAae UP IO}»
+# 429 615-1791 | agurs'3'd JURdNIDO JO SHUT] JB PUL PIVMIOJ OJ WRIBNIp SPUIMOTUR UIP SUTPRO] OYJ 0} JAJOY ‘WedNdI0 asRIaAae UP IO}
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «pouonisod speas a)qR}Sn[pR UO AjARI JO 1a4Ud9 Jaduassed UOJ} IO JOLId ay} SMOYS S}Pas aEqQRISN [pe PulyUdsesdas our] (}) ‘SALON»
+# 457 635-1917 | pouonisod speas a)qR}Sn[pR UO AjARI JO 1a4Ud9 Jaduassed UOJ} IO JOLId ay} SMOYS S}Pas aEqQRISN [pe PulyUdsesdas our] (}) ‘SALON
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(SoNNT $9) PD SN LT ceory ofeB¥rg ul yur] AseyIxny jruoNndQ %& ¥»
+# 495 1099-1849 | (SoNNT $9) PD SN LT ceory ofeB¥rg ul yur] AseyIxny jruoNndQ %& ¥
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(893977 LI) IED SN Ob “SAUL UT syuR] parpumg %»
+# 523 1253-1826 | (893977 LI) IED SN Ob “SAUL UT syuR] parpumg %
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(AWLIT/ON 72‘) TVD/S8T 9 ® TAN ATAVSN WAWIX VW»
+# 551 1260-1915 | (AWLIT/ON 72‘) TVD/S8T 9 ® TAN ATAVSN WAWIX VW
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «0001/LN3WOW QVO71»
+# 601 998-1256 | 0001/LN3WOW QVO71
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «WO-D> SE 10) 39 GZ 02 SL ol S 0»
+# 643 560-1680 | WO-D> SE 10) 39 GZ 02 SL ol S 0
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «; : Reena: f pec eat |»
+# 675 574-1676 | ; : Reena: f pec eat |
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HON!»
+# 691 591-664 | HON!
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «-aNNOd of Sz»
+# 708 560-906 | -aNNOd of Sz
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“TT = ae cuegeees 0»
+# 736 595-1794 | “TT = ae cuegeees 0
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «TI cit birt Tr»
+# 763 589-997 | TI cit birt Tr
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «+] yHavuo oniavo7 EH: 0s»
+# 809 587-1721 | +] yHavuo oniavo7 EH: 0s
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Tr RRR eo to “Los»
+# 886 658-1799 | Tr RRR eo to “Los
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «OSL»
+# 955 1672-1726 | OSL
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «rer : §»
+# 1007 892-1881 | rer : §
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «aanee oO»
+# 1046 898-1880 | aanee oO
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «EE oo gs»
+# 1081 893-1880 | EE oo gs
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HEHE] Fi m»
+# 1092 894-1880 | HEHE] Fi m
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sz»
+# 1106 1670-1726 | sz
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ArH 2»
+# 1130 909-1880 | ArH 2
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «|_| od»
+# 1151 907-1880 | |_| od
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘ oo»
+# 1183 918-1727 | ‘ oo
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «C | im ++ 4t ae + aan rT.»
+# 1205 582-1075 | C | im ++ 4t ae + aan rT.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «aan Toast ost»
+# 1238 629-1812 | aan Toast ost
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «rt Se E + 0SE»
+# 1269 598-1725 | rt Se E + 0SE
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «pot ft 3) TET TL eA»
+# 1284 585-1112 | pot ft 3) TET TL eA
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «q Beet oo»
+# 1341 600-1726 | q Beet oo
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «—|.t4 +4. i a + x»
+# 1356 604-1218 | —|.t4 +4. i a + x
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «nr t SEP EL Per “LETE :»
+# 1371 584-1594 | nr t SEP EL Per “LETE :
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Pe Zoeee. a es ef : +Htt i HH sat 00% 9»»
+# 1393 582-1861 | Pe Zoeee. a es ef : +Htt i HH sat 00% 9»

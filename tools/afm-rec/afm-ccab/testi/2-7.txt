@@ -1,0 +1,34 @@
+390 730-928 | Flight Manual
+427 730-930 | Reims Rocket
+466 269-1243 | Reims Aviation
+466 1245-1391 | Page: 2-7
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+502 269-1243 | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+502 1245-1411 | Edition: 2
+# CONTROLLA (0.94): Tesseract legge «(4) On the control lock:»
+1120 335-680 | (3) On the control lock:
+1221 531-1152 | Control lock -- Remove before starting engine.
+# CONTROLLA (0.94): Tesseract legge «(5) On the baggage door:»
+1338 331-687 | (4) On the baggage door:
+1441 400-1269 | 200 Pounds maximum baggage or 120 lbs auxiliary seat passenger.
+1476 399-1211 | For additional loading instructions see weight & balance data.
+# DA LEGGERE: Tesseract legge «(6) On left hand instrument panel cover:»
+1594 331-889 | (5) On left hand instrument panel cover (if optional strobe lights are installed):
+1709 765-927 | WARNING
+1779 466-1186 | Turn off strobe lights when taxiing in vicinity of other
+1814 467-1160 | aircraft, or during flight through clouds, fog or haze.
+# CONTROLLA (0.97): Tesseract legge «(7) On right hand instrument panel cover:»
+1947 332-906 | (6) On right hand instrument panel cover:
+# DA LEGGERE: Tesseract legge «Do not turn off alternator in flight except in emergency.»
+2044 475-1220 | When winterization kit is installed, it must be removed
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(2) On the fuel selector valve plate:»
+# 614 333-822 | (2) On the fuel selector valve plate:
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Left 23 gal. Both 46 gal.»
+# 766 552-1089 | Left 23 gal. Both 46 gal.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Right 23 gal.»
+# 790 551-736 | Right 23 gal.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(3) Adjacent to the fuel selector valve:»
+# 903 335-866 | (3) Adjacent to the fuel selector valve:
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Both tanks on for takeoff & landing.»
+# 1001 597-1084 | Both tanks on for takeoff & landing.

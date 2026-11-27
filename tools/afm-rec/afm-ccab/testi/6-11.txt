@@ -1,0 +1,23 @@
+388 643-841 | Flight Manual
+424 643-843 | Reims Rocket
+461 180-1154 | Reims Aviation
+461 1156-1328 | Page: 6-11
+497 180-1156 | Reims, Marne France
+497 1158-1330 | Edition: 2
+602 178-1269 | completely “dead” battery. A special fused circuit in the external power system
+638 178-1313 | supplies the needed “jumper” across the contacts so that with a “dead” battery and
+674 177-1264 | an external power source applied, turning the master switch “ON” will close the
+716 178-431 | battery contactor.
+825 titolo 176-1073 | STATIC PRESSURE ALTERNATE SOURCE VALVE.
+891 246-1315 | A static pressure alternate source valve provides continued operation of the air-
+927 180-1280 | speed indicator, altimeter, and vertical speed indicator in the event that the static
+965 180-638 | ports or lines become obstructed.
+1036 246-1313 | If erroneous instrument readings are suspected due to water or ice in the static
+1073 180-1281 | pressure lines, the alternate static source valve knob should be pulled out to close
+1110 179-1253 | off the standard static system and vent the instruments to cabin static pressure.
+1146 179-1262 | Cabin pressures will vary, however, with open air vents or windows. Since open
+1182 179-1318 | cabin windows may cause large errors in airspeed and altimeter readings, it is recom-
+1218 180-1259 | mended that they be closed whenever the alternate static system is used. If the
+1253 180-1321 | windows are closed, the most adverse combination of vent openings will cause errors
+# DA LEGGERE: Tesseract legge «no greater than 5 knots and 25 feet,»
+1290 180-680 | no greater than 5 knots and 25 feet.

@@ -1,0 +1,38 @@
+403 724-923 | Flight Manual
+440 725-926 | Reims Rocket
+# CONTROLLA (0.81): Tesseract legge «Page: 48 Reims Aviation»
+479 259-1322 | Reims Aviation
+# DA LEGGERE: riga della sorgente non trovata: Page: 4-8
+# CONTROLLA (0.80): Tesseract legge «Edition: 2 Reims, Marne France»
+516 260-1399 | Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: Edition: 3
+663 titolo 562-1102 c=37.3 | TAXIING DIAGRAM
+1022 nota 433-622 c=20.1 | USE UP AILERON
+1022 nota 624-1167 c=20.1 | USE UP AILERON
+1051 nota 433-622 c=19.5 | ON LH WING AND
+1051 nota 624-1166 c=18.9 | ON RH WING AND
+1080 nota 434-622 c=21.3 | NEUTRAL ELEVATOR
+1080 nota 624-1228 c=21.3 | NEUTRAL ELEVATOR
+1370 nota 435-624 c=20.1 | USE DOWN AILERON
+1370 nota 626-1212 c=21.3 | USE DOWN AILERON
+1397 nota 434-623 c=19.5 | ON LH WING AND
+1397 nota 625-1168 c=20.1 | ON RH WING AND
+1427 nota 434-623 c=20.1 | DOWN ELEVATOR
+1427 nota 625-1177 c=20.7 | DOWN ELEVATOR
+# DA LEGGERE: Tesseract legge «CODE NOTE»
+1838 406-1132 c=23.7 | NOTE
+# DA LEGGERE: riga della sorgente non trovata: CODE
+1885 nota 777-1388 c=20.1 | Strong quartering tail winds require caution.
+# DA LEGGERE: riga della sorgente non trovata: WIND DIRECTION
+# CONTROLLA (0.85): Tesseract legge «WIND DIRECTION > Avoid sudden bursts of the throttle and sharp»
+1913 nota 300-1395 c=20.1 | Avoid sudden bursts of the throttle and sharp
+1941 nota 776-1384 c=20.1 | braking when the airplane is in this attitude.
+1972 nota 777-1370 c=20.1 | Use the steerable nose wheel and rudder to
+2001 nota 779-1046 c=20.1 | maintain direction.
+2098 754-912 | Figure 4-2.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sy RENT oe»
+# 1112 513-1220 | sy RENT oe
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «oe Meee g a + ~ "»
+# 1451 481-1189 | oe Meee g a + ~ "
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ee iN,»
+# 1862 269-687 | ee iN,

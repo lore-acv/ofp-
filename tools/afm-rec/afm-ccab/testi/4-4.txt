@@ -1,0 +1,35 @@
+397 639-838 | Flight Manual
+434 640-840 | Reims Rocket
+475 170-994 | Page: 4-4
+475 996-1230 | Reims Aviation
+512 169-1307 | Edition: 2 Reims, Marne France
+616 302-1201 | engine fires or for approximately 15 seconds. If still unsuccessful,
+653 302-1179 | start again using the normal starting procedure after allowing the
+690 302-604 | starter motor to cool.
+763 238-1182 | (8) Oil Pressure Gage - - Check in green arc range within 30 seconds.
+906 titolo 174-531 | BEFORE TAKE-OFF.
+976 237-600 | (1) Parking Brake - - Set.
+1013 237-1074 | (2) Flight Controls - - Check for free and correct movement.
+1051 237-853 | (3) Fuel Selector Valve Handle - - “BOTH.”
+1088 237-841 | (4) Elevator Trim - - “TAKE-OFF” setting.
+1126 237-727 | (5) Throttle Setting - - 1800 RPM.
+1162 237-902 | (6) Engine Instruments and Ammeter - - Check.
+1204 237-1057 | (7) Suction Gage - - Check (4, 6 to 5,4 inches of mercury).
+1239 237-1267 | (8) Magnetos - - Check (50 RPM maximum differential between magnetos).
+1275 237-1270 | (9) Propeller - - Cycle from high to low RPM; return to high RPM (full in).
+1313 220-819 | (10) Flight Instruments and Radios - - Set.
+1349 220-712 | (11) Optional Wing Leveler - - Off.
+1386 220-954 | (12) Cabin Doors and Window - - Closed and locked.
+1529 titolo 176-381 | TAKE-OFF.
+1603 174-494 | NORMAL TAKE-OFF.
+1672 241-657 | (1) Wing Flaps - - 0° to 10°.
+1707 241-834 | (2) Power - - Full throttle and 2800 RPM.
+1742 241-1208 | (3) Mixture - - Lean for field elevation per fuel flow indicator placard.
+1777 241-1216 | (4) Elevator Control - - Lift nose wheel at 97 km/h - 52 kts - 60 MPH.
+1811 242-1194 | (5) Climb Speed - - 137 to 153 km/h - 74 to 83 kts - 85 to 95 MPH.
+1841 241-804 | (7) Wing Flaps - - Retract (if extended).
+1916 174-752 | MAXIMUM PERFORMANCE TAKE-OFF.
+1989 239-533 | (1) Wing Flaps 10°.
+2017 239-544 | (2) Brakes - - Apply.
+2058 239-832 | (3) Power - - Full throttle and 2800 RPM.
+2094 238-1206 | (4) Mixture - - Lean for field elevation per fuel flow indicator placard.

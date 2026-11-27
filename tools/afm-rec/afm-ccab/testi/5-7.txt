@@ -1,0 +1,108 @@
+387 639-837 libro | Flight Manual
+423 639-840 libro | Reims Rocket
+455 177-1154 libro | Reims Aviation
+455 1156-1311 libro | Page: 5-7
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition; 2»
+492 176-1154 libro | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition; 2»
+492 1156-1326 libro | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: AIRSPEED CORRECTION TABLE
+# DA LEGGERE: riga della sorgente non trovata: VI
+# DA LEGGERE: riga della sorgente non trovata: 80 | 97 | 113 | 129 | 145 | 161 | 177 | 193 | 209 | 225 | 241
+# DA LEGGERE: riga della sorgente non trovata: km/h
+# DA LEGGERE: riga della sorgente non trovata: VI
+# DA LEGGERE: riga della sorgente non trovata: 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 130 | 140 | 150
+# DA LEGGERE: riga della sorgente non trovata: MPH
+# DA LEGGERE: riga della sorgente non trovata: FLAPS UP
+# DA LEGGERE: riga della sorgente non trovata: VC
+# DA LEGGERE: riga della sorgente non trovata: 95 | 105 | 116 | 129 | 143 | 159 | 175 | 192 | 206 | 222 | 238
+# DA LEGGERE: riga della sorgente non trovata: km/h
+# DA LEGGERE: riga della sorgente non trovata: VC
+# DA LEGGERE: riga della sorgente non trovata: 59 | 65 | 72 | 80 | 89 | 99 | 109 | 119 | 128 | 138 | 148
+# DA LEGGERE: riga della sorgente non trovata: MPH
+# DA LEGGERE: riga della sorgente non trovata: VI
+# DA LEGGERE: riga della sorgente non trovata: 80 | 97 | 113 | 129 | 145 | 161
+# DA LEGGERE: riga della sorgente non trovata: km/h
+# DA LEGGERE: riga della sorgente non trovata: VI
+# DA LEGGERE: Tesseract legge «ool | 06 08 09»
+561 cella 1095-1178 fissa c=17.9 | 50
+# DA LEGGERE: Tesseract legge «ool | 06 08 09»
+561 cella 1180-1351 fissa c=17.9 | 60
+# DA LEGGERE: Tesseract legge «ool | 06 08 09»
+561 cella 1353-1521 fissa c=17.9 | 70
+# DA LEGGERE: Tesseract legge «ool | 06 08 09»
+561 cella 1523-1697 fissa c=17.9 | 80
+# DA LEGGERE: Tesseract legge «ool | 06 08 09»
+561 cella 1699-1849 fissa c=17.9 | 90
+# DA LEGGERE: Tesseract legge «ool | 06 08 09»
+561 cella 1851-1556 fissa c=17.9 | 100
+# DA LEGGERE: riga della sorgente non trovata: FLAPS | MPH
+# DA LEGGERE: riga della sorgente non trovata: 20° | VC
+# DA LEGGERE: riga della sorgente non trovata: 95 | 103 | 116 | 130 | 145 | 161
+# DA LEGGERE: riga della sorgente non trovata: km/h
+# DA LEGGERE: riga della sorgente non trovata: VC
+# DA LEGGERE: riga della sorgente non trovata: 59 | 64 | 72 | 81 | 90 | 100
+# DA LEGGERE: riga della sorgente non trovata: MPH
+# DA LEGGERE: Tesseract legge «in |»
+622 cella 1684-1817 fissa c=17.3 | VI
+# DA LEGGERE: riga della sorgente non trovata: 80 | 97 | 113 | 129 | 145 | 161
+# DA LEGGERE: Tesseract legge «Hd»
+708 cella 1722-1797 fissa c=17.3 | km/h
+# DA LEGGERE: riga della sorgente non trovata: VI
+# DA LEGGERE: riga della sorgente non trovata: 50 | 60 | 70 | 80 | 90 | 100
+# DA LEGGERE: riga della sorgente non trovata: FLAPS | MPH
+# DA LEGGERE: riga della sorgente non trovata: 40° | VC
+# DA LEGGERE: riga della sorgente non trovata: 95 | 103 | 116 | 132 | 146 | 163
+# DA LEGGERE: riga della sorgente non trovata: km/h
+# DA LEGGERE: riga della sorgente non trovata: VC
+# DA LEGGERE: riga della sorgente non trovata: 59 | 64 | 72 | 82 | 91 | 101
+# DA LEGGERE: riga della sorgente non trovata: MPH
+# DA LEGGERE: riga della sorgente non trovata: Figure 5-2.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «TS osy»
+# 313 1247-1409 | TS osy
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HdW»
+# 396 1722-1796 | HdW
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «yeni»
+# 472 1716-1796 | yeni
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «p9l 8vl | CEL QL LOL 68 aA»
+# 487 1095-1783 | p9l 8vl | CEL QL LOL 68 aA
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Sdv14»
+# 543 1893-1998 | Sdv14
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «| aa |»
+# 587 1680-1813 | | aa |
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LOL Srl 621 El | ce | 08 IA»
+# 636 1099-1784 | LOL Srl 621 El | ce | 08 IA
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «pote t ete tte fe feteny eo fol»
+# 688 555-1795 | pote t ete tte fe feteny eo fol
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SE HE»
+# 749 559-1286 | SE HE
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «yun}»
+# 784 1717-1796 | yun}
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «902»
+# 827 1901-1965 | 902
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HdW»
+# 857 1722-1796 | HdW
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SdV14»
+# 860 1890-1995 | SdV14
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «y/wy»
+# 936 1716-1797 | y/wy
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SHEE sn»
+# 978 559-1262 | SHEE sn
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «OA»
+# 1059 1726-1781 | OA
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «reac [ a forte] @ Poe Pa Pepe [op»
+# 1092 555-1830 | reac [ a forte] @ Poe Pa Pepe [op
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «4/wa»
+# 1098 1717-1796 | 4/wa
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LvZ | 2% | vOZ% Z8l LZL vSt BEL vl 60L c6 OA»
+# 1114 588-1780 | LvZ | 2% | vOZ% Z8l LZL vSt BEL vl 60L c6 OA
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «dN SdV 14»
+# 1154 1869-2021 | dN SdV 14
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ros [om [oe [oe [ow foo fo fo [o fo | w= |»
+# 1242 554-1708 | ros [om [oe [oe [ow foo fo fo [o fo | w= |
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «i aren ene rea 2 phrenic erenremerapnpempepnmepep pilin neieommneemeeeeagiore mentation odcnian ithe tee tee re RUE ene AEE aan»
+# 1309 555-2075 | i aren ene rea 2 phrenic erenremerapnpempepnmepep pilin neieommneemeeeeagiore mentation odcnian ithe tee tee re RUE ene AEE aan
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Petetetetafa[epatate pete»
+# 1320 558-1795 | Petetetetafa[epatate pete
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ATaVi NOILOJYYHOO G3a3adSHIV»
+# 1369 1073-1563 | ATaVi NOILOJYYHOO G3a3adSHIV

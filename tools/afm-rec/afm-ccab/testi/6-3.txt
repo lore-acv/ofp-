@@ -1,0 +1,34 @@
+388 633-831 | Flight Manual
+426 633-833 | Reims Rocket
+459 171-1156 | Reims Aviation
+459 1158-1306 | Page: 6-3
+497 171-1156 | Reims, Marne France
+497 1158-1320 | Edition: 2
+600 titolo 280-1199 | SERVICING INTERVALS CHECK LIST (Continued)
+680 titolo 557-916 | EACH 100 HOURS
+750 169-726 | SPARK PLUGS - - Clean, test and regap.
+787 169-854 | BRAKE MASTER CYLINDERS - - Check and fill.
+822 169-729 | SHIMMY DAMPENER - - Check and fill.
+857 170-781 | FUEL STRAINER - - Disassemble and clean.
+893 170-1097 | FUEL TANK SUMP DRAIN VALVES - - Drain water and sediment.
+930 170-1080 | FUEL RESERVOIR DRAIN VALVE - - Drain water and sediment.
+966 170-1152 | FUEL SELECTOR VALVE DRAIN PLUG - - Drain water and sediment.
+1002 169-927 | VACUUM SYSTEM OIL SEPARATOR (OPT) - - Clean.
+1039 170-1010 | SUCTION RELIEF VALVE INLET SCREEN (OPT) - - Clean.
+1148 titolo 554-917 | EACH 500 HOURS
+1223 171-1302 | VACUUM SYSTEM AIR FILTER (OPT) - - Replace filter element. Replace sooner
+1258 171-757 | if suction gage reading drops to 4.6 in. Hg.
+1295 170-1330 | WHEEL BEARINGS - - Lubricate at first 100 hours and at 500 hours thereafter. Re-
+# CONTROLLA (0.99): Tesseract legge «duce lubrication interval to 100 hours when operating in dusty or scacoast areas, dur-»
+1333 171-1328 | duce lubrication interval to 100 hours when operating in dusty or seacoast areas, dur-
+1369 171-1303 | ing periods of extensive taxiing, or when numerous take-offs and landings are made.
+1476 titolo 606-877 | AS REQUIRED
+1550 171-1317 | NOSE GEAR SHOCK STRUT - - Fill with hydraulic fluid and inflate with air to 45 psi.
+1772 titolo 299-1184 | ADDITIONAL SERVICE AND TEST REGULATIONS
+1835 344-1128 | Servicing Intervals of items in the preceding check list are
+1871 342-1130 | recommended by The Cessna Aircraft Company. Govern-
+1906 343-1121 | ment regulations may require that additional items be in-
+1942 343-1123 | spected, serviced or tested at specific intervals for various
+1976 343-1115 | types of flight operations. For these regulations, owners
+2011 343-1120 | should check with aviation officials in the country where
+2046 342-749 | the aircraft is being operated.

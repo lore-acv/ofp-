@@ -1,0 +1,91 @@
+373 636-834 libro | Flight Manual
+407 635-837 libro | Reims Rocket
+449 174-1157 libro | Reims Aviation
+449 1159-1309 libro | Page: 5-3
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+485 175-1155 libro | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+485 1157-1324 libro | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: CRUISE PERFORMANCE
+# DA LEGGERE: riga della sorgente non trovata: NORMAL LEAN MIXTURE
+# DA LEGGERE: riga della sorgente non trovata: GROSS WEIGHT 1157 kg • STANDARD CONDITIONS • ZERO WIND
+# DA LEGGERE: riga della sorgente non trovata: 5000 FEET
+# DA LEGGERE: riga della sorgente non trovata: FUEL CONSUMPTION | 46 GAL (174 LITRES)
+# DA LEGGERE: riga della sorgente non trovata: MP | TRUE AIRSPEED
+# DA LEGGERE: riga della sorgente non trovata: % | PER HOUR | NO RESERVE
+# DA LEGGERE: riga della sorgente non trovata: RPM
+# DA LEGGERE: riga della sorgente non trovata: BHP | U.S. | ENDURANCE | RANGE
+# DA LEGGERE: riga della sorgente non trovata: mb | in Hg | km/h | kts | MPH | LITRES
+# DA LEGGERE: Tesseract legge «‘LON»
+413 cella 1959-2124 fissa c=11.9 | GAL.
+# DA LEGGERE: Tesseract legge «‘LON»
+413 cella 2126-2474 fissa c=11.9 | HOURS
+# DA LEGGERE: Tesseract legge «‘LON»
+413 cella 2476-2704 fissa c=11.9 | km
+# DA LEGGERE: Tesseract legge «‘LON»
+413 cella 2706-2039 fissa c=11.9 | N.M.
+# DA LEGGERE: riga della sorgente non trovata: 2600 779 23 75 232 125 144 11,4 43,2 4,0 933 504
+# DA LEGGERE: riga della sorgente non trovata: 745 22 71 225 122 140 10,7 40,5 4,3 966 521
+# DA LEGGERE: riga della sorgente non trovata: 711 21 66 219 118 136 10,0 37,9 4,6 998 539
+# DA LEGGERE: riga della sorgente non trovata: 677 20 61 211 114 131 9,3 35,2 4,9 1038 560
+# DA LEGGERE: riga della sorgente non trovata: 2500 779 23 72 227 123 141 11,0 41,6 4,2 958 517
+# DA LEGGERE: riga della sorgente non trovata: 745 22 68 220 119 137 10,3 39,0 4,5 990 534
+# DA LEGGERE: riga della sorgente non trovata: 711 21 63 214 116 133 9,6 36,3 4,8 1022 552
+# DA LEGGERE: riga della sorgente non trovata: 677 20 58 206 111 128 8,9 33,7 5,2 1062 574
+# DA LEGGERE: riga della sorgente non trovata: 2400 779 23 68 220 119 137 10,3 39,0 4,5 990 534
+# DA LEGGERE: riga della sorgente non trovata: 745 22 63 214 116 133 9,7 36,7 4,8 1022 552
+# DA LEGGERE: riga della sorgente non trovata: 711 21 59 208 112 129 9,0 34,1 5,1 1054 569
+# DA LEGGERE: riga della sorgente non trovata: 677 20 55 200 108 124 8,4 31,8 5,5 1094 591
+# DA LEGGERE: riga della sorgente non trovata: 2300 779 23 63, 214 116 133 9,7 36,7 4,8 1022 552
+# DA LEGGERE: riga della sorgente non trovata: 745 22 59 208 112 129 9,0 34,1 5,1 1054 569
+# DA LEGGERE: riga della sorgente non trovata: 711 21 55 200 108 124 8,4 31,8 5,4 1086 587
+# DA LEGGERE: riga della sorgente non trovata: 677 20 51 192 103 119 7,9 29,9 5,8 1118 604
+# DA LEGGERE: riga della sorgente non trovata: 2200 779 23 59 208 112 129 9,0 34,1 5,1 1062 574
+# DA LEGGERE: riga della sorgente non trovata: 745 22 55 200 108 124 8,5 32,2 5,4 1086 587
+# DA LEGGERE: riga della sorgente non trovata: 711 21 51 193 104 120 7,9 29,9 5,8 1118 604
+# DA LEGGERE: riga della sorgente non trovata: 677 20 47 183 99 114 7,4 28,0 6,2 1143 617
+# DA LEGGERE: riga della sorgente non trovata: 643 19 43 174 94 108 6,9 26,1 6,7 1159 626
+# DA LEGGERE: riga della sorgente non trovata: 610 18 40 161 87 100 6,4 24,2 7,2 1175 634
+# DA LEGGERE: riga della sorgente non trovata: 576 17 36 150 81 93 5,9 22,3 7,8 1167 630
+# DA LEGGERE: riga della sorgente non trovata: NOTE: Speed performance is shown for an airplane equipped with optional speed fairings, which increases speed by 1 knot.
+# DA LEGGERE: riga della sorgente non trovata: Figure 5-1 (Sheet 2 of 5).
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“(g Jo Z y20YS) IT-g andy»
+# 314 1129-1493 | “(g Jo Z y20YS) IT-g andy
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘you | Ag paads saseaiou! yoiym ‘sBuyiey paads }evodo yim paddinbs ourjdsie ue Joy UMOYs S| BoURLWJO} Jed paads»
+# 413 818-1947 | ‘you | Ag paads saseaiou! yoiym ‘sBuyiey paads }evodo yim paddinbs ourjdsie ue Joy UMOYs S| BoURLWJO} Jed paads
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «req»
+# 858 1558-1611 | req
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ve»
+# 915 1559-1610 | ve
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Oct»
+# 941 1558-1611 | Oct
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Lee eh»
+# 967 1558-1717 | Lee eh
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «11Z 19 L449»
+# 996 1562-1924 | 11Z 19 L449
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «612 99 ELL»
+# 1023 1558-1924 | 612 99 ELL
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Sez 2 Sbe»
+# 1049 1559-1924 | Sez 2 Sbe
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «4x4 E74 €% BLL»
+# 1075 1559-1923 | 4x4 E74 €% BLL
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «0092»
+# 1083 1960-2030 | 0092
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SYNOH ‘wo 5»
+# 1121 902-1796 | SYNOH ‘wo 5
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «JONVENGNA an oc - jo | |»
+# 1150 874-1952 | JONVENGNA an oc - jo | |
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Wdu»
+# 1160 1969-2027 | Wdu
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «[a ON unoH uaa»
+# 1181 545-1271 | [a ON unoH uaa
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(SAULT pL) TW 9p NOLLdWNSNOO 14N4 GaadSHIY aNwL pow |»
+# 1206 687-1954 | (SAULT pL) TW 9p NOLLdWNSNOO 14N4 GaadSHIY aNwL pow |
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «1334 0005»
+# 1256 1241-1374 | 1334 0005
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «GNIM OW3Z * SNOILIGNOD GYVONVIS ° 6% ZGL1 LHDISM SSOUD»
+# 1299 908-1701 | GNIM OW3Z * SNOILIGNOD GYVONVIS ° 6% ZGL1 LHDISM SSOUD
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SuNLXIW NW21 TVAYON»
+# 1343 1154-1449 | SuNLXIW NW21 TVAYON
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «AONVWHOSY ad 3SINYD»
+# 1396 1169-1444 | AONVWHOSY ad 3SINYD

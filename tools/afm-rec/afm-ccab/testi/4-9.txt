@@ -1,0 +1,36 @@
+383 626-825 | Flight Manual
+420 627-827 | Reims Rocket
+467 165-1137 | Reims Aviation
+467 1139-1300 | Page: 4-9
+502 165-1135 | Reims, Marne France
+502 1137-1315 | Edition: 2
+608 titolo 162-522 | BEFORE TAKE-OFF.
+679 163-328 | WARM-UP.
+750 231-1293 | Since the engine is closely cowled for efficient in-flight engine cooling, precau-
+787 164-1257 | tions should be taken to avoid overheating during prolonged engine operation on
+825 165-331 | the ground.
+897 165-454 | MAGNETO CHECK.
+967 231-1270 | The magneto check should be made at 1800 RPM as follows: Move ignition
+1004 165-1268 | switch first to “R” position and note RPM. Next move switch back to “BOTH”
+1041 165-1258 | to clear the other set of plugs. Then move switch to the “L” position, and note
+1078 165-1323 | RPM, and return to “BOTH.” The difference between the two magnetos operated in-
+1113 165-1289 | dividually should not be more than 50 RPM. If there is a doubt concerning opera-
+1150 165-1261 | tion of the ignition system, RPM checks at higher engine speeds will usually con-
+1187 166-613 | firm whether a deficiency exists.
+1256 232-1303 | An absence of RPM drop may be an indication of faulty grounding of one side
+1291 166-1276 | of the ignition system or should be cause for suspicion that the magneto timing is
+1334 165-688 | set in advance of the setting specified.
+1404 167-515 | ALTERNATOR CHECK.
+1476 233-1252 | Prior to flights where verification of proper alternator and voltage regulator
+1512 167-1305 | operation is essential (such as night or instrument flights), a positive verification can
+1548 167-1264 | be made by loading the electrical system momentarily ( 3 to 5 seconds) with the
+1584 168-1258 | optional landing light (if so equipped), or by operating the wing flaps during the
+1621 168-1299 | engine runup (1800 RPM). The ammeter will remain within a needle width of zero
+1658 167-996 | if the alternator and voltage regualtor are operating properly.
+1765 titolo 164-361 | TAKE-OFF.
+1835 167-409 | POWER CHECK.
+1905 233-1244 | It is important to check full-throttle engine operation early in the take-off
+1940 166-1257 | run. Any signs of rough engine operation or sluggish engine acceleration is good
+1976 167-663 | cause for discontinuing the take-off.
+2042 238-1277 | Full-throttle runups over loose gravel are especially harmful to propeller tips.
+2077 170-1256 | When take-offs must be made over a gravel surface, it is very important that the

@@ -1,0 +1,48 @@
+399 742-941 | Flight Manual
+436 743-944 | Reims Rocket
+474 274-1340 | Page: 6-6 Reims Aviation
+510 272-1415 | Edition: 2 Reims, Marne France
+614 titolo 275-612 | PROPELLER CARE.
+685 341-1410 | Preflight inspection of propeller blades for nicks, and wiping them occasionally
+722 275-1412 | with an oily cloth to clean off grass and bug stains will assure long, trouble-free ser-
+758 273-1440 | vice. Small nicks on the propeller, particularly near the tips and on the leading edges,
+795 275-1413 | should be dressed out as soon as possible since these nicks produce stress concentra-
+832 274-1355 | tions, and if ignored, may result in cracks. Never use an alkaline cleaner on the
+866 274-1316 | blades; remove grease and dirt with carbon tetrachloride or Stoddard solvent.
+1012 titolo 273-585 | INTERIOR CARE.
+1084 339-1433 | To remove dust and loose dirt from the upholstery and carpet, clean the interior
+1121 272-717 | regularly with a vacuum cleaner.
+1199 339-1426 | Blot up any spilled liquid promptly, with cleansing tissue or rags. Don’t pat the
+1235 272-1368 | spot; press the blotting material firmly and hold it for several seconds. Continue
+1270 272-1368 | blotting until no more liquid is taken up. Scrape off sticky materials with a dull
+1306 272-697 | knife, then spot-clean the area.
+1380 339-1435 | Oily spots may be cleaned with household spot removers, used sparingly. Before
+1415 271-1382 | using any solvent, read the instructions on the container and test it on an obscure
+1452 273-1397 | place on the fabric to be cleaned. Never saturate the fabric with a volatile solvent;
+1488 272-942 | it may damage the padding and backing material.
+1560 339-1376 | Soiled upholstery and carpet may be cleaned with foam-type detergent, used
+1595 272-1399 | according to the manufacturer’s instructions. To minimize wetting the fabric, keep
+1629 273-1159 | the foam as dry as possible and remove it with a vacuum cleaner.
+1697 341-1383 | The plastic trim, headliner, instrument panel and control knobs need only be
+1733 275-1432 | wiped off with a damp cloth. Oil and grease on the control wheel and control knobs
+1767 275-1372 | can be removed with a cloth moistened with Stoddard solvent. Volatile solvents,
+1802 275-1420 | such as mentioned in paragraphs on care of the windshield, must never be used since
+1837 275-730 | they soften and craze the plastic.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Radio and autopilot face plates are finished with a suede coating which produces»
+# 1908 341-1437 | Radio and autopilot face plates are finished with a suede coating which produces
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «a soft, rich appearance and warm feel comparable to suede. Unlike suede leather,»
+# 1945 274-1381 | a soft, rich appearance and warm feel comparable to suede. Unlike suede leather,
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «dust and dirt marks can be removed easily with a damp sponge. Remove non-greasy»
+# 1981 274-1417 | dust and dirt marks can be removed easily with a damp sponge. Remove non-greasy
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «stains with a liquid cleaner such as “‘Mr. Clean”, “Handy Andy”, “Lestoil”, “Liquid»
+# 2017 274-1409 | stains with a liquid cleaner such as “‘Mr. Clean”, “Handy Andy”, “Lestoil”, “Liquid
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Ajax’’, or “Cinch”, Greasy stains can be removed with a naphtha-dampened sponge,»
+# 2053 274-1418 | Ajax’’, or “Cinch”, Greasy stains can be removed with a naphtha-dampened sponge,
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «scrub brush or lint-free cloth.»
+# 2089 274-679 | scrub brush or lint-free cloth.
+1908 330-1440 | Radio and autopilot face plates are finished with a suede coating which produces
+1945 264-1390 | a soft, rich appearance and warm feel comparable to suede. Unlike suede leather,
+1981 264-1425 | dust and dirt marks can be removed easily with a damp sponge. Remove non-greasy
+2017 264-1418 | stains with a liquid cleaner such as “Mr. Clean”, “Handy Andy”, “Lestoil”, “Liquid
+2053 264-1425 | Ajax”, or “Cinch”. Greasy stains can be removed with a naphtha-dampened sponge,
+2089 264-690 | scrub brush or lint-free cloth.

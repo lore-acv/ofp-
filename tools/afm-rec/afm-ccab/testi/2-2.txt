@@ -1,0 +1,58 @@
+402 656-854 | Flight Manual
+438 657-857 | Reims Rocket
+475 188-1027 | Page: 2-2
+475 1029-1250 | Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 ‘ Reims, Marne France»
+512 188-1030 | Edition: 2
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 ‘ Reims, Marne France»
+512 1032-1327 | Reims, Marne France
+622 titolo 194-847 | AIRSPEED INDICATOR MARKINGS.
+692 259-898 | Red Line : 298 km/h - 161 kts - 185 MPH.
+729 258-1197 | Yellow Arc: 235 to 298 km/h - 127 to 161 kts - 146 to 185 MPH.
+771 293-525 | (Caution Range)
+803 259-1164 | Green Arc : 103 to 235 km/h - 56 to 127 kts - 64 to 146 MPH.
+846 292-659 | (Normal Operating Range)
+# CONTROLLA (0.92): Tesseract legge «White Arc: 85 to 161 km/h - 46 to 87 kts - 53 to 100 MPH.»
+877 258-1130 | White Arc : 89 to 161 km/h - 48 to 87 kts - 55 to 100 MPH.
+919 292-619 | (Flap Operating Range)
+950 259-547 | Stall Warning Horn :
+987 298-1095 | Adjustment : 8 to 16 km/h - 4 to 8,5 kts - 5 to 10 MPH.
+1096 titolo 188-1045 | FLIGHT LOAD FACTORS AT GROSS WEIGHT.
+1170 258-796 | Normal Category: 2550 lbs (1157 kg)
+# DA LEGGERE: Tesseract legge «Flaps Up... 2. 2. 2. ee ee ee ew 3,8 -1,52»
+1209 325-1051 | Flaps Up
+# DA LEGGERE: Tesseract legge «Flaps Up... 2. 2. 2. ee ee ee ew 3,8 -1,52»
+1209 1053-1240 | +3,8
+# DA LEGGERE: Tesseract legge «Flaps Up... 2. 2. 2. ee ee ee ew 3,8 -1,52»
+1209 1242-1327 | -1,52
+# DA LEGGERE: Tesseract legge «Flaps Down. . 2. 1 2 1 ee ee ee ee 3,5»
+1244 325-1051 | Flaps Down
+# DA LEGGERE: Tesseract legge «Flaps Down. . 2. 1 2 1 ee ee ee ee 3,5»
+1244 1053-1130 | +3,0
+# CONTROLLA (0.96): Tesseract legge «Utility Category : 2200 Ibs ( 998 kg)»
+1280 258-796 | Utility Category : 2200 lbs ( 998 kg)
+# CONTROLLA (0.83): Tesseract legge «Flaps Up . ee ee P44 -1,76»
+1316 325-1051 | Flaps Up
+# CONTROLLA (0.83): Tesseract legge «Flaps Up . ee ee P44 -1,76»
+1316 1053-1238 | +4,4
+# CONTROLLA (0.83): Tesseract legge «Flaps Up . ee ee P44 -1,76»
+1316 1240-1327 | -1,76
+# DA LEGGERE: Tesseract legge «FlapsDown. . 2... 2. ee ee ee ee ee 3,5»
+1352 325-1051 | Flaps Down
+# DA LEGGERE: Tesseract legge «FlapsDown. . 2... 2. ee ee ee ee ee 3,5»
+1352 1053-1130 | +3,0
+1461 titolo 190-1351 | MAXIMUM GROSS WEIGHT FOR TAKE-OFF AND LANDING.
+1527 255-505 | Normal Category:
+# CONTROLLA (0.95): Tesseract legge «Take-Off and Landing. . . . .... 2. . . . 2550 Ibs (1157 kg)»
+1563 321-1325 | Take-Off and Landing 2550 lbs (1157 kg)
+1605 255-493 | Utility Category:
+1635 321-1324 | Take-Off and Landing 2200 lbs ( 998 kg)
+1745 titolo 187-826 | CENTER OF GRAVITY LOCATION.
+1810 255-711 | Leveling Means: Upper door sill.
+1846 254-1082 | Center of Gravity Reference: Forward face of lower firewall.
+1881 253-698 | Center of Gravity Range Limits:
+1952 576-906 | NORMAL CATEGORY
+2023 252-1062 | Forward Limit Rear Limit
+# CONTROLLA (0.85): Tesseract legge «+1,04 m at 2550 Ibs (1157 kg) +1,20 m at 2550 Ibs (J?»
+2059 250-1239 | +1,04 m at 2550 lbs (1157 kg) +1,20 m at 2550 lbs (1157 kg)
+2096 250-1019 | +0,89 m at 1950 lbs ( 885 kg) or less or less

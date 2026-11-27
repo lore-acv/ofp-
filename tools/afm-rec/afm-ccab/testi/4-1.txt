@@ -1,0 +1,33 @@
+394 734-932 | Flight Manual
+431 735-934 | Reims Rocket
+468 258-1232 | Reims Aviation
+468 1234-1387 | Page: 4-1
+503 259-1232 | Reims, Marne France
+503 1234-1404 | Edition: 2
+617 titolo 1013-1406 c=39.1 | SECTION IV
+762 titolo 548-1123 c=34.3 | NORMAL PROCEDURES
+833 titolo 604-1075 | OPERATING CHECK LIST
+938 titolo 264-926 | BEFORE ENTERING THE AIRPLANE.
+1011 329-1184 | (1) Make an exterior inspection in accordance with figure 4-1.
+1124 titolo 268-896 | BEFORE STARTING THE ENGINE.
+1194 330-1215 | (1) Seats, Seat Belts and Shoulder Harnesses - - Adjust and lock.
+1230 330-714 | (2) Brakes - - Test and set.
+1265 330-997 | (3) Radios and Electrical Equipment - - “OFF.”
+1304 329-943 | (4) Fuel Selector Valve Handle - - “BOTH”,
+1341 329-1051 | (5) Fuel Shutoff Valve Knob - - On (pushed full in).
+1450 titolo 265-728 | STARTING THE ENGINE.
+1524 329-630 | (1) Mixture - - Rich.
+1553 329-719 | (2) Propeller - - High RPM.
+1595 328-893 | (3) Throttle - - Opened 1 inch (2,5 cm).
+1632 329-729 | (4) Master Switch - - ”ON”.
+1667 328-987 | (5) Auxiliary Fuel Pump Switch - - on “LOW”.
+1704 329-1374 | (6) Ignition Switch - - When fuel flow is steady at 2 to 4 gal/hr (7,8 to 15,5
+1740 328-1392 | litres/hr), turn switch to “START”; hold until engine starts but no longer than
+1774 328-494 | 30 seconds.
+1808 328-1326 | (7) Auxiliary Fuel Pump Switch - - “OFF” (after engine runs smoothly).
+1881 782-881 | NOTE
+1951 394-1242 | The engine should start in two to three revolutions. If it does
+1986 394-1232 | not, increase the fuel flow by turning the auxiliary fuel pump
+2021 395-1245 | switch momentarily on “HIGH” and crank for two to four ad-
+2057 394-1251 | ditional revolutions. If it still does not start, turn the auxiliary
+2092 395-1236 | fuel pump off, set mixture to idle cut-off, and crank until the

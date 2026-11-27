@@ -1,0 +1,20 @@
+399 639-837 | Flight Manual
+436 639-839 | Reims Rocket
+471 169-1022 | Page: 1-2
+471 1024-1227 | Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+509 170-1022 | Edition: 2
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+509 1024-1304 | Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: *
+# DA LEGGERE: riga della sorgente non trovata: 2,68 m MAX.
+# DA LEGGERE: riga della sorgente non trovata: 5 o
+# DA LEGGERE: riga della sorgente non trovata: 8,17 m
+# CONTROLLA (0.92): Tesseract legge «* Maximum height of airplane»
+968 grafico 929-948 fissa c=13.0 sx=0.935 | 3,45 m
+# CONTROLLA (0.92): Tesseract legge «* Maximum height of airplane»
+968 grafico 950-1177 c=13.0 sx=0.935 | * Maximum height of airplane
+989 grafico 947-1179 c=13.0 sx=0.935 | with nose gear depressed, all
+1010 grafico 946-1179 c=13.0 sx=0.935 | tires and nose strut properly
+1032 grafico 947-1172 c=13.0 sx=0.935 | inflated, and optional flash-
+1052 grafico 947-1116 c=13.0 sx=0.935 | ing beacon installed.

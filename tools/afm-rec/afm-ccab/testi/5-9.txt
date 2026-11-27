@@ -1,0 +1,68 @@
+390 640-838 libro | Flight Manual
+427 641-841 libro | Reims Rocket
+463 169-1151 libro | Reims Aviation
+463 1153-1305 libro | Page: 5-9
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+498 170-1151 libro | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+498 1153-1318 libro | Edition: 2
+# DA LEGGERE: Tesseract legge «OL a AS)»
+912 cella 1619-1924 fissa c=16.1 | FLAPS 10°
+# DA LEGGERE: riga della sorgente non trovata: TAKE-OFF DISTANCE
+# DA LEGGERE: riga della sorgente non trovata: HARD SURFACE RUNWAY
+# DA LEGGERE: riga della sorgente non trovata: GROSS | VI | HEAD | AT SEA LEVEL | AT 2500 FEET | AT 5000 FEET | AT 7500 FEET
+# DA LEGGERE: riga della sorgente non trovata: WT | 15m | WIND | AND +15°C | AND +10°C | AND +5°C | AND 0°C
+# DA LEGGERE: riga della sorgente non trovata: Ground | Total | Ground | Total | Ground | Total | Ground | Total
+# DA LEGGERE: riga della sorgente non trovata: kg | km/h | kts | Run | to Clear | Run | to Clear | Run | to Clear | Run | to Clear
+# DA LEGGERE: riga della sorgente non trovata: m | 15 m | m | 15 m | m | 15 m | m | 15 m
+# DA LEGGERE: riga della sorgente non trovata: obs | obs | obs | obs
+# DA LEGGERE: riga della sorgente non trovata: m | m | m | m
+# DA LEGGERE: riga della sorgente non trovata: 109 km/h | 0 | 0 | 226 | 375 | 268 | 439 | 325 | 526 | 393 | 639
+# DA LEGGERE: riga della sorgente non trovata: 1157 | 59 kts | 19 | 10 | 158 | 282 | 192 | 335 | 235 | 405 | 288 | 497
+# DA LEGGERE: riga della sorgente non trovata: 68 MPH | 37 | 20 | 102 | 201 | 126 | 242 | 158 | 297 | 200 | 370
+# DA LEGGERE: riga della sorgente non trovata: 101 km/h | 0 | 0 | 162 | 282 | 192 | 326 | 232 | 386 | 279 | 459
+# DA LEGGERE: riga della sorgente non trovata: 1000 | 55 kts | 19 | 10 | 110 | 209 | 134 | 245 | 163 | 291 | 200 | 349
+# DA LEGGERE: riga della sorgente non trovata: 63 MPH | 37 | 20 | 69 | 145 | 85 | 172 | 105 | 207 | 133 | 253
+# DA LEGGERE: riga della sorgente non trovata: 93 km/h | 0 | 0 | 113 | 210 | 133 | 241 | 160 | 280 | 192 | 328
+# DA LEGGERE: riga della sorgente non trovata: 850 | 50 kts | 19 | 10 | 75 | 154 | 90 | 177 | 108 | 207 | 133 | 245
+# DA LEGGERE: riga della sorgente non trovata: 58 MPH | 37 | 20 | 43 | 104 | 53 | 120 | 67 | 143 | 84 | 172
+# DA LEGGERE: riga della sorgente non trovata: NOTES: 1. Increase distance 10% for each 14°C above standard temperature for particular altitude.
+# DA LEGGERE: riga della sorgente non trovata: 2. For operation on a dry, grass runway, increase distances (both "ground run" and "total
+# DA LEGGERE: riga della sorgente non trovata: to clear obstacle") by 7% of the "total to clear 15 m obstacle" figure.
+# DA LEGGERE: riga della sorgente non trovata: Figure 5-4.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Ps omalg»
+# 312 1237-1399 | Ps omalg
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“aunBiy ,,aJ9eISGO WG] 4eaj9 OF 4e10},, ay JO %/ Aq (,,a;9eISGO JeAID OF»
+# 440 899-1857 | “aunBiy ,,aJ9eISGO WG] 4eaj9 OF 4e10},, ay JO %/ Aq (,,a;9eISGO JeAID OF
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Je}0],, pue ,,uns punosB,, yloq) saouejsip aseasoui ‘Aemuns sses6 ‘Asp e uo uONeIado 104%»
+# 471 668-1922 | Je}0],, pue ,,uns punosB,, yloq) saouejsip aseasoui ‘Aemuns sses6 ‘Asp e uo uONeIado 104%
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘apnye sejnayaed JO} asnjesadwa} pyepueys BAoge Ooy| YOR 10} %O] aouelsip aseasoul; “L ‘SALON»
+# 511 664-2053 | ‘apnye sejnayaed JO} asnjesadwa} pyepueys BAoge Ooy| YOR 10} %O] aouelsip aseasoul; “L ‘SALON
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SES»
+# 620 1826-1924 | SES
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «0 4/W 86»
+# 656 1619-1924 | 0 4/W 86
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «02 Hd 99»
+# 728 1617-1924 | 02 Hd 99
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «OL sD LS»
+# 764 1619-1924 | OL sD LS
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «0 4/4 SOL»
+# 800 1618-1937 | 0 4/4 SOL
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «02 HdW LZ»
+# 876 1620-1923 | 02 HdW LZ
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Y/4 PEt»
+# 950 1796-1936 | Y/4 PEt
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Ww»
+# 1087 1507-1547 | Ww
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «uny | sty | y/wy 6y»
+# 1142 1495-2029 | uny | sty | y/wy 6y
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «punoly»
+# 1165 1472-1586 | punoly
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «DoSl+ ONV aNIM wg} 41M»
+# 1245 1375-2041 | DoSl+ ONV aNIM wg} 41M
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «1334 0062 lv | 1334 0005 1v | 1334 00S%7 Lv | TSA37 Vas iv] Gv3H IA | SSOHD»
+# 1279 586-2068 | 1334 0062 lv | 1334 0005 1v | 1334 00S%7 Lv | TSA37 Vas iv] Gv3H IA | SSOHD
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «AVMNNY 3OVSHNS GYVH»
+# 1353 615-1019 | AVMNNY 3OVSHNS GYVH
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Ol Sdvi4 FONVLSIO ASO-IVL»
+# 1388 863-1710 | Ol Sdvi4 FONVLSIO ASO-IVL

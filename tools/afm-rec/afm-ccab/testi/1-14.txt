@@ -1,0 +1,37 @@
+# CONTROLLA (0.92): Tesseract legge «Flight Manuai»
+398 637-834 | Flight Manual
+436 637-836 | Reims Rocket
+473 171-1004 | Page: 1-14
+473 1006-1228 | Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+510 172-1009 | Edition: 2
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+510 1011-1300 | Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: and is stowed above the cabin door. When stowed, the harness is held in place by
+# DA LEGGERE: riga della sorgente non trovata: two retaining clips, one above the door and one on the front of the forward door
+# DA LEGGERE: riga della sorgente non trovata: post. When stowing the harness, place it behind both retaining clips and secure
+# DA LEGGERE: riga della sorgente non trovata: the loose end behind the retaining clip above the door. The optional rear seat
+# DA LEGGERE: riga della sorgente non trovata: shoulder harnesses are attached just below the lower corners of the rear window.
+# DA LEGGERE: riga della sorgente non trovata: Each rear seat harness is stowed behind a retaining clip located at the bottom edge
+# DA LEGGERE: riga della sorgente non trovata: of the aft side window.
+# DA LEGGERE: riga della sorgente non trovata: To use the front and rear seat shoulder harnesses, fasten and adjust the seat belt
+# DA LEGGERE: riga della sorgente non trovata: first. Remove the harness from the stowed position, and lengthen as required by
+# DA LEGGERE: riga della sorgente non trovata: pulling on the end of the harness and the narrow release strap. Snap the harness
+# DA LEGGERE: riga della sorgente non trovata: metal stud firmly into the retaining slot adjacent to the seat belt buckle. Then adjust
+# DA LEGGERE: riga della sorgente non trovata: to length by pulling down on the free end of the harness. A properly adjusted har-
+# DA LEGGERE: riga della sorgente non trovata: ness will permit the occupant to lean forward enough to sit completely erect but is
+# DA LEGGERE: riga della sorgente non trovata: tight enough to prevent excessive forward movement and contact with objects during
+# DA LEGGERE: riga della sorgente non trovata: sudden deceleration. Also, the pilot will want the freedom to reach all controls easily.
+# DA LEGGERE: riga della sorgente non trovata: Releasing and removing the shoulder harness is accomplished by pulling upward
+# DA LEGGERE: riga della sorgente non trovata: on the narrow release strap and removing the harness stud from the slot in the seat
+# DA LEGGERE: riga della sorgente non trovata: belt buckle. In an emergency, the shoulder harness may be removed by releasing the
+616 165-1319 | seat belt first, and then pulling the harness over the head by pulling up on the release
+657 164-251 | strap.
+760 titolo 164-797 | OIL QUICK-DRAIN VALVE (OPT).
+834 233-1268 | An oil quick-drain valve is optionally offered to replace the drain plug in the
+870 166-1271 | oil sump drain port. The valve provides a quicker and cleaner method of draining
+907 167-1246 | engine oil. To drain the oil with this valve installed, slip a hose over the end of
+945 166-1267 | the valve, route the hose to a suitable container, then push upward on the end of
+982 166-1222 | the valve until it snaps into the open position. Spring clips will hold the valve
+1019 166-1268 | open. After draining, use a screwdriver or suitable tool to snap the valve into the
+1056 166-899 | extended (closed) position and remove the drain hose.

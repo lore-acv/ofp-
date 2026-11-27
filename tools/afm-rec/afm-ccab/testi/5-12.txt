@@ -1,0 +1,38 @@
+404 726-924 libro | Flight Manual
+442 726-926 libro | Reims Rocket
+# CONTROLLA (0.79): Tesseract legge «Reims Aviation»
+478 1107-1326 libro | Page: 5-12 Reims Aviation
+# CONTROLLA (0.80): Tesseract legge «Reims, Marne France»
+515 1108-1403 libro | Edition: 3 Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: SPEED VI: 137 km/h - 74 kts - 85 MPH
+# DA LEGGERE: riga della sorgente non trovata: MAXIMUM GLIDE
+# DA LEGGERE: riga della sorgente non trovata: PROPELLER WINDMILLING
+# DA LEGGERE: Tesseract legge «“L-S oInaLy»
+225 grafico 1275-1435 | FLAPS UP ZERO WIND
+# DA LEGGERE: riga della sorgente non trovata: 12000
+# DA LEGGERE: riga della sorgente non trovata: 10000
+# DA LEGGERE: riga della sorgente non trovata: 8000
+# DA LEGGERE: riga della sorgente non trovata: 6000
+# DA LEGGERE: riga della sorgente non trovata: 4000
+# DA LEGGERE: riga della sorgente non trovata: 2000
+# DA LEGGERE: riga della sorgente non trovata: 0 10 20 30 40
+# DA LEGGERE: riga della sorgente non trovata: GROUND DISTANCE (km)
+# DA LEGGERE: riga della sorgente non trovata: Figure 5-7.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «5-12»
+# 480 349-422 | 5-12
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Page:»
+# 484 256-339 | Page:
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Edition: 2»
+# 517 256-421 | Edition: 2
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(L354) NIVHYSL SAO8V LHOISH»
+# 2000 580-1084 | (L354) NIVHYSL SAO8V LHOISH
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(W4) JONVLSIG GNNOYD»
+# 338 1030-1422 | (W4) JONVLSIG GNNOYD
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «GNIM OH3Z dN SdV1d @»
+# 1175 914-1348 | GNIM OH3Z dN SdV1d @
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ONITIIWGNIM 43114d0ud ©»
+# 1232 888-1349 | ONITIIWGNIM 43114d0ud ©
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Jd: WAWIXVIN»
+# 1247 1605-1872 | Jd: WAWIXVIN
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HdIN 98 - SP} v2 - U/W ZEL ‘WA GaadS e»
+# 1290 704-1351 | HdIN 98 - SP} v2 - U/W ZEL ‘WA GaadS e

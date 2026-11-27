@@ -1,0 +1,34 @@
+383 733-931 | Flight Manual
+422 733-934 | Reims Rocket
+# CONTROLLA (0.92): Tesseract legge «elms Aviation Page: 4-5»
+457 287-1214 | Reims Aviation
+# CONTROLLA (0.92): Tesseract legge «elms Aviation Page: 4-5»
+457 1216-1396 | Page: 4-5
+494 265-1413 | Reims, Marne France Edition: 2
+598 332-653 | (5) Brakes - - Release.
+640 331-912 | (6) Airplane Attitude - - Slightly tail low.
+676 333-1413 | (7) Climb Speed - - 113 km/h - 61 kts - 70 MPH until all obstacles are cleared,
+712 332-1371 | then set up climb speed as shown in “MAXIMUM PERFORMANCE CLIMB”
+750 333-479 | check list.
+785 333-1063 | (8) Wing Flaps - - Retract after obstacles are cleared.
+897 titolo 270-403 | CLIMB.
+968 269-529 | NORMAL CLIMB.
+1039 336-1269 | (1) Airspeed - - 161 to 177 km/h - 87 to 96 kts - 100 to 110 MPH.
+1075 336-1025 | (2) Power - - 25 inches (847 mb) and 2600 RPM.
+1111 336-1014 | (3) Mixture - - Lean to 13 gal/hr (49,2 litres/hr).
+1187 271-792 | MAXIMUM PERFORMANCE CLIMB.
+1251 335-1430 | (1) Airspeed - - 153 km/h - 83 kts - 95 MPH at sea level to 140 km/h - 76 kts -
+1288 335-664 | 87 MPH at 10,000 feet.
+1327 334-926 | (2) Power - - Full throttle and 2800 RPM.
+1364 334-1215 | (3) Mixture - - Lean for altitude per fuel flow indicator placard.
+1482 titolo 273-477 | CRUISING.
+1549 336-1408 | (1) Power - - 15 to 25 inches (508 to 847 mb) manifold pressure and 2200 to
+1587 336-1230 | 2600 RPM. Select combination to give no more than 75% power.
+1622 335-684 | (2) Trim Tab - - Adjust.
+1658 337-1384 | (3) Mixture - - Lean for cruise fuel flow as shown in the Cruise Performance
+1694 337-613 | charts in Section V.
+1803 titolo 271-486 | LET-DOWN.
+1873 334-689 | (1) Power - - As desired.
+1908 334-956 | (2) Mixture - - Adjust for smooth operation.
+2016 titolo 271-634 | BEFORE LANDING.
+2084 337-949 | (1) Mixture - - Rich (or adjust for altitude).

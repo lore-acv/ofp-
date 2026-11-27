@@ -1,0 +1,63 @@
+394 648-846 libro | Flight Manual
+431 649-850 libro | Reims Rocket
+472 181-1159 libro | Reims Aviation
+472 1161-1331 libro | Page: 6-17
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+507 181-1160 libro | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+507 1162-1331 libro | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: LOADING ARRANGEMENTS
+# DA LEGGERE: riga della sorgente non trovata: STATION (C. G. ARM) | STATION (C. G. ARM)
+# DA LEGGERE: riga della sorgente non trovata: INCHES | CENTIMETERS | INCHES | CENTIMETERS
+# DA LEGGERE: riga della sorgente non trovata: PILOT PASS. | PILOT PASS.
+# DA LEGGERE: riga della sorgente non trovata: *37 | *94 | *37 | *94
+# DA LEGGERE: riga della sorgente non trovata: (34 TO 46) | (86 TO 117) | (34 TO 41) | (86 TO 104)
+# DA LEGGERE: riga della sorgente non trovata: REAR PASS. | REAR PASS.
+# DA LEGGERE: riga della sorgente non trovata: 73 | 185 | 73 | 185
+# DA LEGGERE: riga della sorgente non trovata: CHILD
+# DA LEGGERE: riga della sorgente non trovata: SEAT
+# DA LEGGERE: riga della sorgente non trovata: **95 | **241
+# DA LEGGERE: riga della sorgente non trovata: 96 | 244
+# DA LEGGERE: riga della sorgente non trovata: BAGG.
+# DA LEGGERE: riga della sorgente non trovata: 108 | 274 | 108 | 274
+# DA LEGGERE: Tesseract legge «TWNOILdO QYVONVLS»
+684 figtitolo 925-1986 fissa c=17.9 | STANDARD
+# DA LEGGERE: Tesseract legge «TWNOILdO QYVONVLS»
+684 figtitolo 1988-1812 fissa c=17.9 | OPTIONAL
+# DA LEGGERE: riga della sorgente non trovata: SEATING | SEATING
+# DA LEGGERE: riga della sorgente non trovata: *Pilot or passenger center of gravity on adjustable seats positioned for average occupant. Numbers
+# DA LEGGERE: riga della sorgente non trovata: in parentheses indicate forward and aft limits of occupant center of gravity range.
+# DA LEGGERE: riga della sorgente non trovata: **Arms measured to the center of the area shown.
+# DA LEGGERE: riga della sorgente non trovata: NOTE: The aft baggage wall (approximate station 108) can be used as a convenient interior reference point
+# DA LEGGERE: riga della sorgente non trovata: for determining the location of baggage area fuselage stations.
+# DA LEGGERE: riga della sorgente non trovata: Figure 6-3.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «"€-9 oINBLy»
+# 300 1254-1415 | "€-9 oINBLy
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘suoieys abeyasny eaie abefbeq yo uoijes0] ay} Buiuiwuajap 10}»
+# 406 1126-1962 | ‘suoieys abeyasny eaie abefbeq yo uoijes0] ay} Buiuiwuajap 10}
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «julod a9uaJajas J0jJ9}U} JUa]UBAUOD e Se Pasn aq UeD (GOL UO!Te]s aleWIxosdde) |jem abebGeq ye aut -JLON»
+# 443 612-2061 | julod a9uaJajas J0jJ9}U} JUa]UBAUOD e Se Pasn aq UeD (GOL UO!Te]s aleWIxosdde) |jem abebGeq ye aut -JLON
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“UMOUS BJ BY] JO 19]U99 ayy} O} pasnseaw SWUY, »»
+# 496 1329-1994 | “UMOUS BJ BY] JO 19]U99 ayy} O} pasnseaw SWUY, »
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘aBues ApAes6 yO Ja}Uad JUEdNDDO JO Sj] Ye Pue PeMIO} ajedIpU! SisayjUBed UL»
+# 552 892-1961 | ‘aBues ApAes6 yO Ja}Uad JUEdNDDO JO Sj] Ye Pue PeMIO} ajedIpU! SisayjUBed UL
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sdaquiNN “yuedNII0 abevaae JO} pauolyisod sjeas ajqeisnipe uo AyAesb yO 3ayUao JabUassed 10 }O}!d,»
+# 582 678-1977 | sdaquiNN “yuedNII0 abevaae JO} pauolyisod sjeas ajqeisnipe uo AyAesb yO 3ayUao JabUassed 10 }O}!d,
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ONILVSS ONILVaS»
+# 650 934-1796 | ONILVSS ONILVaS
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «S81»
+# 903 764-827 | S81
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(vOL 0198) | ey FA | (1b O1 b8) (LLL OL 98) (9b OL bE)»
+# 1009 712-1991 | (vOL 0198) | ey FA | (1b O1 b8) (LLL OL 98) (9b OL bE)
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «v6. pf Les 6x = Les»
+# 1043 778-1943 | v6. pf Les 6x = Les
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“SSVd LOWd "SSWd LOTd»
+# 1074 913-1815 | “SSVd LOWd "SSWd LOTd
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «a ee Le»
+# 1090 913-1814 | a ee Le
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SYSLIWILNAD SSHONI SYHYILAWILN]AD SSHONI»
+# 1148 672-1972 | SYSLIWILNAD SSHONI SYHYILAWILN]AD SSHONI
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(WHY °5 °D) NOILWLS (WHY “5 °D) NOLLVLIS»
+# 1214 836-1877 | (WHY °5 °D) NOILWLS (WHY “5 °D) NOLLVLIS
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SLNAWAONVYYY ONIGVOT»
+# 1321 1123-1546 | SLNAWAONVYYY ONIGVOT

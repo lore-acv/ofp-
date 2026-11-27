@@ -1,0 +1,38 @@
+404 650-848 | Flight Manual
+442 651-850 | Reims Rocket
+481 180-1242 | Page: 3-6 Reims Aviation
+518 181-1319 | Edition: 2 Reims, Marne France
+627 181-353 | DITCHING.
+699 246-1319 | Prepare for ditching by securing or jettisoning heavy objects located in the bag-
+735 180-1298 | gage area, and collect folded coats or cushions for protection of occupant’s face at
+772 180-1345 | touchdown. Transmit Mayday message on 121.5 MHz., giving location and intentions.
+845 246-1317 | (1) Plan approach into wind if winds are high and seas are heavy. With heavy
+882 246-851 | swells and light wind, land parallel to swells.
+918 245-1289 | (2) Approach with flaps 40° and sufficient power for a 300 ft./min. rate of
+955 246-797 | descent at 113 km/h - 61 kts - 70 MPH.
+990 246-655 | (3) Unlatch the cabin doors.
+1027 246-1287 | (4) Maintain a continuous descent until touchdown in level attitude. Avoid
+1064 245-1314 | a landing flare because of difficulty in judging airplane height over a water sur-
+1100 247-322 | face.
+1138 246-1231 | (5) Place folded coat or cushion in front of face at time of touchdown.
+1174 246-1336 | (6) Evacuate airplane through cabin doors. If necessary, open window to flood
+1213 245-1207 | cabin compartment for equalizing pressure so that door can be opened.
+1247 245-1303 | (7) Inflate life vests and raft (if available) after evacuation of cabin. The air-
+# CONTROLLA (0.99): Tesseract legge «craft can not be depended on for floatation for more than a few minutes.»
+1282 244-1243 | craft can not be depended on for floatation for more than a few minutes.
+1499 titolo 181-782 | FLIGHT IN ICING CONDITIONS.
+1569 244-1284 | Although flying in known icing conditions is prohibited, an unexpected icing
+1606 178-727 | encounter should be handled as follows:
+1677 245-894 | (1) Turn pitot heat switch “ON” (if installed).
+1713 244-1300 | (2) Turn back or change altitude to obtain an outside air temperature that is
+1748 244-564 | less conducive to icing.
+1783 244-1330 | (3) Pull cabin heat control full out to obtain windshield defroster airflow. Ad-
+1819 241-1129 | just cabin air control to get maximum defroster heat and airflow.
+1853 244-1112 | (4) Increase RPM to minimize ice build-up on propeller blades.
+1888 244-1330 | (5) Plan a landing at the nearest airport. With an extremely rapid ice build-up,
+1924 244-819 | select a suitable “off airport” landing site.
+1958 242-1279 | (6) With an ice accumulation of 0,5 cm or more on the wing leading edges,
+1993 242-878 | be prepared for significantly higher stall speed.
+2029 243-1285 | (7) Leave wing flaps retracted. With a severe ice build-up on the horizontal
+2063 243-1288 | tail, the change in wing wake airflow direction caused by wing flap extension
+2099 243-868 | could result in a loss of elevator effectiveness.

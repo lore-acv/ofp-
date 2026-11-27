@@ -1,0 +1,42 @@
+391 635-834 | Flight Manual
+428 636-836 | Reims Rocket
+469 170-1144 | Reims Aviation
+469 1146-1306 | Page: 6-5
+# CONTROLLA (0.89): Tesseract legge «Reims, Mame France Edition: 2»
+504 170-1144 | Reims, Marne France
+# CONTROLLA (0.89): Tesseract legge «Reims, Mame France Edition: 2»
+504 1146-1322 | Edition: 2
+607 311-1167 | to clean the plastic. These materials will attack the plastic and
+646 310-618 | may cause it to craze.
+713 170-1312 fissa | Follow by carefully washing with a mild detergent and plenty of water. Rinse thor-
+750 170-1257 fissa | oughly, then dry with a clean moist chamois. Do not rub the plastic with a dry
+786 170-1307 fissa | cloth since this builds up an electrostatic charge which attracts dust. Waxing with a
+822 169-1326 | good commercial wax will finish the cleaning job. A thin, even coat of wax, polished
+859 170-1299 | out by hand with clean soft flannel cloths, will fill in minor scratches and help pre-
+897 167-493 | vent further scratching.
+969 235-1298 fissa | Do not use a canvas cover on the windshield unless freezing rain or sleet is an-
+1006 168-934 fissa | ticipated since the cover may scratch the plastic surface.
+1112 titolo 172-555 | PAINTED SURFACES.
+1184 238-1285 | The painted exterior surfaces of your new Cessna have a durable, long lasting
+1221 172-1317 | finish and, under normal conditions, require no polishing or buffing. Approximately
+1256 177-1249 | 15 days are required for the paint to cure completely; in most cases, the curing
+1293 173-1307 | period will have been completed prior to delivery of the airplane. In the event that
+1333 172-1311 | polishing or buffing is required within the curing period, it is recommended that the
+1370 172-1241 | work be done by someone experienced in handling uncured paint. Any Cessna
+1407 172-626 | Dealer can accomplish this work.
+1480 239-1286 | Generally, the painted surfaces can be kept bright by washing with water and
+1517 172-1241 | mild soap, followed by a rinse with water and drying with cloths or a chamois.
+1553 172-1326 | Harsh or abrasive soaps or detergents which cause corrosion or scratches should never
+1588 172-1315 | be used. Remove stubborn oil and grease with a cloth moistened with Stoddard sol-
+1625 170-251 | vent.
+1696 239-1313 | Waxing is unnecessary to keep the painted surfaces bright. However, if desired,
+1733 173-1299 | the airplane may be waxed with a good automotive wax. A heavier coating of wax
+1768 172-1304 | on the leading edges of the wings and tail and on the engine nose cap and propeller
+1803 172-1045 | spinner will help reduce the abrasion encountered in these areas.
+1874 235-1283 | When the airplane is parked outside in cold climates and it is necessary to re-
+1909 169-1286 | move ice before flight, care should be taken to protect the painted surfaces during
+1944 169-1302 | ice removal with chemical liquids. A 50-50 solution of isopropyl alcohol and water
+1978 169-1307 | will satisafctorily remove ice accumulations without damaging the paint. A solution
+2013 169-1293 | with more than 50% alcohol is harmful and should be avoided. While applying the
+2050 169-1260 | de-icing solution, keep it away from the windshield and cabin windows since the
+2084 169-937 | alcohol will attack the plastic and may cause it to craze.

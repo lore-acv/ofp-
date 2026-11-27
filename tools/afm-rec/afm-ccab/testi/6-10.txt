@@ -1,0 +1,35 @@
+398 728-927 | Flight Manual
+435 728-929 | Reims Rocket
+467 263-1101 | Page: 6-10
+467 1103-1326 | Reims Aviation
+508 263-1403 | Edition: 2 Reims, Marne France
+648 titolo 474-1198 c=33.1 | COLD WEATHER EQUIPMENT
+758 titolo 260-664 | WINTERIZATION KIT.
+827 327-1385 | For continuous operation in temperatures consistently below -5°C, the Cessna
+863 260-1380 | winterization kit should be installed to improve engine operation. The kit consists
+899 260-1385 | of two baffles to partially cover the cowl nose cap openings, and insulation for the
+935 261-1412 | crankcase breather line. Once installed, the crankcase breather insulation is approved
+972 261-928 | for permanent use in both cold and hot weather.
+1087 titolo 262-995 | GROUND SERVICE PLUG RECEPTACLE.
+1156 327-1375 | A ground service plug receptacle may be installed to permit the use of an ex-
+1198 261-1389 | ternal power source for cold weather starting and during lengthy maintenance work
+1234 260-1322 | on the airplane electrical system (with the exception of electronic equipment).
+1307 782-881 | NOTE
+1378 394-1228 | Electrical power for the airplane electrical circuits is provided
+1413 393-1256 | through a split bus bar having all electronic circuits on one side
+1450 394-1248 | of the bus and other electrical circuits on the other side of the
+1486 394-1246 | bus. When an external power source is connected, a contactor
+1521 394-1251 | automatically opens the circuit to the electronic portion of the
+1558 393-1227 | split bus bar as a protection against damage to the transistors
+1595 393-1279 | in the electronic equipment by transient voltages from the power
+1628 393-1236 | source. Therefore, the external power source can not be used
+1663 394-1205 | as a source of power when checking electronic components.
+1733 327-1345 | Just before connecting an external power source (generator type or battery
+1770 261-922 | cart), the master switch should be turned “ON.”
+1840 327-1380 | The ground service plug receptacle circuit incorporates a polarity reversal pro-
+1876 261-1390 | tection. Power from the external power source will flow only if the ground service
+1912 261-1353 | plug is correctly connected to the airplane. If the plug is accidentally connected
+1948 260-1404 | backwards, no power will flow to the airplane’s electrical system, thereby preventing
+1984 261-755 | any damage to electrical equipment.
+2053 327-1414 | The battery and external power circuits have been designed to completely elimi-
+2089 261-1354 | nate the need to “jumper” across the battery contactor to close it for charging a

@@ -1,0 +1,48 @@
+400 712-910 | Flight Manual
+436 713-913 | Reims Rocket
+478 239-1216 | Reims Aviation
+478 1218-1371 | Page: 3-7
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+514 239-1216 | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+514 1218-1388 | Edition: 2
+# CONTROLLA (0.80): Tesseract legge «(8) Open left window and scrape ice from a portion of the windshield for visi-»
+621 304-1392 | (8) Open left window and scrape ice from a portion of the windshield for visi-
+# DA LEGGERE: Tesseract legge «bility in the landing approach. The metal control lock shield may be used as a»
+658 306-1385 | bility in the landing approach. The metal control lock shield may be used as a
+700 305-430 | scraper.
+729 306-1385 | (9) Perform a landing approach using a forward slip, if necessary, for improved
+770 303-440 | visibility.
+800 289-1360 | (10) Approach at 129 to 145 km/h - 70 to 78 kts - 80 to 90 MPH, depending
+837 305-829 | upon the amount of ice accumulation.
+873 289-1009 | (11) Avoid steep turns during the landing approach.
+# CONTROLLA (0.97): Tesseract legge «(12) Perform a landing in Jevel attitude.»
+910 289-848 | (12) Perform a landing in level attitude.
+1019 titolo 243-929 | RECOVERY FROM A SPIRAL DIVE.
+1091 308-923 | If a spiral is encountered, proceed as follows:
+1165 308-630 | (1) Close the throttle.
+1201 308-1378 | (2) Stop the turn by using coordinated aileron and rudder control to align the
+1237 307-1296 | symbolic airplane in the turn coordinator with the horizon reference line.
+1272 308-1377 | (3) Cautiously apply elevator back pressure to slowly reduce the indicated air-
+1313 307-840 | speed to 145 km/h - 78 kts - 90 MPH.
+1349 307-1392 | (4) Adjust the elevator trim control to maintain a 145 km/h - 78 kts - 90 MPH
+1392 306-391 | glide.
+1423 306-1361 | (5) Keep hands off the control wheel, using rudder control to hold a straight
+1464 306-430 | heading.
+1494 306-1328 | (6) Clear engine occasionally, but avoid using enough power to disturb the
+1532 305-512 | trimmed glide.
+1565 306-1325 | (7) Upon breaking out of clouds, apply normal cruising power and resume
+1609 305-398 | flight.
+1746 titolo 245-1251 | ELECTRICAL POWER SUPPLY SYSTEM MALFUNCTIONS.
+1814 310-1378 | Malfunctions in the electrical power supply system can be detected by periodic
+1849 244-1337 | monitoring of the ammeter and over-voltage warning light; however, the cause of
+1885 244-1376 | these malfunctions is usually difficult to determine. Broken or loose alternator wir-
+1920 244-1378 | ing is most likely the cause of alternator failures, although other factors could cause
+1954 244-1337 | the problem. A damaged or improperly adjusted voltage regulator can also cause
+1989 245-1383 | malfunctions. Problems of this nature constitute an electrical emergency and should
+2025 244-1382 | be dealt with immediately. Electrical power malfunctions usually fall into two cate-
+2059 244-1400 | gories, excessive rate of charge and insufficient rate of charge. The paragraphs below
+# CONTROLLA (0.97): Tesseract legge «describe the recommended remedy for each situation.»
+2095 244-970 | describe the recommended remedy for each situation.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «scraper.»
+# 700 305-421 | scraper.

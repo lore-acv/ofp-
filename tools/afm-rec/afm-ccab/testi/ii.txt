@@ -1,0 +1,26 @@
+396 624-822 | Flight Manual
+433 625-825 | Reims Rocket
+471 154-1214 | Page: ii Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+507 154-1291 | Edition: 3 Reims, Marne France
+941 titolo 511-931 | TABLE OF CONTENTS
+# CONTROLLA (0.97): Tesseract legge «SECTION]. ............ . . GENERAL»
+1053 218-870 fine=375 | SECTION I
+# CONTROLLA (0.97): Tesseract legge «SECTION]. ............ . . GENERAL»
+1053 872-1045 | GENERAL
+# CONTROLLA (0.92): Tesseract legge «SECTIONT, ........,.... =... LIMITATIONS»
+1129 217-870 fine=386 | SECTION II
+# CONTROLLA (0.92): Tesseract legge «SECTIONT, ........,.... =... LIMITATIONS»
+1129 872-1096 | LIMITATIONS
+# CONTROLLA (0.93): Tesseract legge «SECTION II... . 2.0... .... 4... EMERGENCY PROCEDURES»
+1205 217-868 fine=396 | SECTION III
+# CONTROLLA (0.93): Tesseract legge «SECTION II... . 2.0... .... 4... EMERGENCY PROCEDURES»
+1205 870-1300 | EMERGENCY PROCEDURES
+1275 217-868 fine=396 | SECTION IV
+1275 870-1242 | NORMAL PROCEDURES
+# CONTROLLA (0.95): Tesseract legge «SECTIONV ...... 2... . 4. . . PERFORMANCE»
+1347 217-868 fine=386 | SECTION V
+# CONTROLLA (0.95): Tesseract legge «SECTIONV ...... 2... . 4. . . PERFORMANCE»
+1347 870-1126 | PERFORMANCE
+1420 217-867 fine=394 | SECTION VI
+1420 869-1049 | APPENDIX

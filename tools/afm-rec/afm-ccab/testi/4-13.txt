@@ -1,0 +1,35 @@
+378 638-836 | Flight Manual
+416 638-838 | Reims Rocket
+456 175-1049 | Reims Aviation
+456 1051-1325 | Page: 4-13
+490 176-1049 | Reims, Marne France
+490 1051-1325 | Edition: 2
+599 titolo 176-367 | LANDING.
+667 244-1259 | Normal landings are made power-off with any flap setting. Slips should be
+700 178-1281 | avoided with flap settings greater than 30° due to a downward pitch encountered
+738 178-1321 | under certain combinations of airspeed, sideslip angle, and center of gravity loadings.
+811 180-576 | SHORT FIELD LANDINGS.
+883 245-1351 | For short field landings, make a power-off approach at approximately 117 km/h -
+919 180-1279 | 63 kts - 73 MPH with flaps 40°, and land on the main wheels first. Immediately
+955 179-1302 | after touchdown, lower the nose gear to the ground and apply heavy braking as re-
+992 178-1300 | quired. For maximum brake effectiveness after all three wheels are on the ground,
+1029 178-1318 | retract the flaps, hold full nose up elevator and apply maximum possible brake pres-
+1065 179-581 | sure without sliding the tires.
+1139 179-548 | CROSSWIND LANDINGS.
+1210 246-1309 | When landing in a strong crosswind, use the minimum flap setting required for
+1245 180-1312 | the field length. If flap settings greater than 20° are used in sideslips with full rud-
+1280 181-1257 | der deflection, some elevator oscillation may be felt at normal approach speeds.
+1321 180-1266 | However, this does not affect control of the aircraft. Use a wing-low, crab, or a
+1357 181-1302 | combination method of drift correction and land in a nearly level attitude. Hold a
+1394 181-1289 | straight course with the steerable nose wheel and occasional differential braking if
+1437 182-326 | necessary.
+1503 179-478 | BALKED LANDING.
+1574 247-1307 | In a balked landing (go-around) climb, the wing flap setting should be reduced
+1611 180-1317 | to 20° immediately after full power is applied. Upon reaching a safe airspeed, flaps
+1648 180-860 | should be slowly retracted to the full up position.
+1859 titolo 179-744 | COLD WEATHER OPERATION.
+1930 182-360 | STARTING.
+2000 248-1322 | Prior to starting on a cold morning, it is advisable to pull the propeller through
+2036 181-1308 | several times by hand to “break loose” or “limber” the oil, thus conserving battery
+2076 182-290 | energy.
+

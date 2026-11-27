@@ -1,0 +1,28 @@
+389 728-926 | Flight Manual
+427 728-928 | Reims Rocket
+465 266-1237 | Reims Aviation
+465 1239-1396 | Page: 2-5
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+500 266-1410 | Reims, Marne France Edition: 3
+714 268-650 | FUEL FLOW INDICATOR.
+749 335-1403 | Normal Operating Range 4,5-11,5 gal/hr (17,0-43,5 litres/hr) (green arc)
+784 334-1399 | Minimum and Maximum 3,0 and 18,5 psi (0,21 bars and 1,28 bars)
+814 877-1403 | (18,0 gal/hr - 68,1 litres/hr) (red lines)
+893 789-887 | NOTE
+966 402-1251 | A placard located on the right instrument panel cover provides
+1002 402-1235 | maximum performance (full throttle and 2800 RPM) take-off
+1038 402-1190 | and climb fuel flow settings at altitude. These settings, as
+1074 402-956 | called out on the placard, are as follows:
+1147 469-1173 | Sea Level 17 gal/hr (64,4 litres/hr)
+1183 468-1173 | 4000 Feet 15 gal/hr (56,8 litres/hr)
+1221 469-1172 | 8000 Feet 13 gal/hr (49,2 litres/hr)
+# CONTROLLA (0.93): Tesseract legge «12000 Feet. . . . . . II gal/hr (41,6 litres/hr)»
+1256 472-1172 | 12000 Feet 11 gal/hr (41,6 litres/hr)
+1476 titolo 266-865 | FLIGHT IN ICING CONDITIONS.
+1547 332-965 | Flight in icing conditions is strictly prohibited.
+1763 titolo 264-1415 | LOADING GRAPH AND CENTER OF GRAVITY MOMENT ENVELOPE.
+1832 329-1424 | Refer to Section VI for Loading Graph and Center of Gravity Moment Envelope
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «MANIFOLD PRESSURE GAGE.»
+# 604 268-716 | MANIFOLD PRESSURE GAGE.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Normal Operating Range. . . . . . 15-25,0 in Hg (508-847 mb) (green arc)»
+# 641 334-1410 | Normal Operating Range. . . . . . 15-25,0 in Hg (508-847 mb) (green arc)

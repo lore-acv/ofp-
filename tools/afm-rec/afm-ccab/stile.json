@@ -1,0 +1,302 @@
+{
+  "_nota": "Font e misure della ricostruzione di I-CCAB, come I-CCAF (stessi caratteri e ruoli: tools/afm-rec/afm-ccaf/stile.json) riportati alla scansione di I-CCAB (1600 px di larghezza, 600 dpi, non deformata): c in px di questa scansione, sx senza la compressione orizzontale di quella di I-CCAF. Valori di partenza: c x 1,19 e sx x 1,59/1,19, poi tarati con calibra.mjs.",
+  "font": {
+    "serif": {
+      "famiglia": "STIX Two Text",
+      "file": "stix-two-text-latin-400-normal.woff2",
+      "peso": 400
+    },
+    "sans": {
+      "famiglia": "Archivo",
+      "file": "archivo-latin-standard-normal.woff2",
+      "peso": "100 900",
+      "larghezza": "62% 125%"
+    },
+    "logo": {
+      "famiglia": "Crimson Pro",
+      "file": "crimson-pro-latin-400-normal.woff2",
+      "peso": 400
+    },
+    "antico": {
+      "famiglia": "Old Standard TT",
+      "file": "old-standard-tt-latin-400-normal.woff2",
+      "peso": 400
+    },
+    "legno": {
+      "famiglia": "Kameron",
+      "file": "kameron-latin-700-normal.woff2",
+      "peso": 700
+    }
+  },
+  "ruoli": {
+    "testo": {
+      "font": "serif",
+      "classe": "rt",
+      "c": 21.895,
+      "capRatio": 0.672,
+      "sx": 0.855,
+      "spazio": 0.0375
+    },
+    "nota": {
+      "font": "serif",
+      "classe": "rs",
+      "peso": 700,
+      "c": 17.85,
+      "capRatio": 0.672,
+      "sx": 0.855,
+      "spazio": 0.0425
+    },
+    "titolo": {
+      "font": "sans",
+      "classe": "rh",
+      "peso": 700,
+      "c": 23.265,
+      "capRatio": 0.6875,
+      "sx": 0.975,
+      "spazio": 0.0325,
+      "lettere": true,
+      "gap": 14
+    },
+    "tabella": {
+      "font": "sans",
+      "classe": "rb",
+      "peso": 400,
+      "c": 21.42,
+      "capRatio": 0.6875,
+      "sx": 0.848,
+      "spazio": 0.0425
+    },
+    "grafico": {
+      "font": "sans",
+      "classe": "rg",
+      "peso": 400,
+      "c": 16.66,
+      "capRatio": 0.6875,
+      "sx": 1.136,
+      "spazio": 0.08,
+      "coda": 0.4
+    },
+    "cella": {
+      "font": "sans",
+      "classe": "rc",
+      "peso": 400,
+      "larghezza": "112.5%",
+      "c": 11.9,
+      "capRatio": 0.6875,
+      "sx": 1.336,
+      "spazio": 0
+    },
+    "richiamo": {
+      "font": "sans",
+      "classe": "rn",
+      "peso": 700,
+      "larghezza": "62.5%",
+      "c": 27.37,
+      "capRatio": 0.6875,
+      "sx": 0.735,
+      "spazio": 0,
+      "lettere": true
+    },
+    "legenda": {
+      "font": "sans",
+      "classe": "rl",
+      "peso": 400,
+      "larghezza": "75%",
+      "c": 13.09,
+      "capRatio": 0.6875,
+      "sx": 1.336,
+      "spazio": 0.02
+    },
+    "cartello": {
+      "font": "sans",
+      "classe": "rk",
+      "peso": 330,
+      "larghezza": "75%",
+      "c": 22.61,
+      "capRatio": 0.6875,
+      "sx": 1.203,
+      "spazio": 0
+    },
+    "cartellot": {
+      "font": "sans",
+      "classe": "rkt",
+      "peso": 700,
+      "larghezza": "62.5%",
+      "c": 28.56,
+      "capRatio": 0.6875,
+      "sx": 1.096,
+      "spazio": 0,
+      "lettere": true
+    },
+    "sigla": {
+      "font": "sans",
+      "classe": "rcs",
+      "peso": 700,
+      "c": 64.26,
+      "capRatio": 0.6875,
+      "sx": 1.336,
+      "spazio": 0
+    },
+    "avviso": {
+      "font": "sans",
+      "classe": "rca",
+      "peso": 700,
+      "c": 20.82,
+      "capRatio": 0.6875,
+      "sx": 1.336,
+      "spazio": 0,
+      "colore": "#e52225"
+    },
+    "motto": {
+      "font": "sans",
+      "classe": "rcm",
+      "peso": 560,
+      "larghezza": "62.5%",
+      "c": 21.42,
+      "capRatio": 0.6875,
+      "sx": 1.096,
+      "spazio": 0.13,
+      "colore": "#c8193c"
+    },
+    "etichetta": {
+      "font": "sans",
+      "classe": "re",
+      "peso": 700,
+      "larghezza": "87.5%",
+      "c": 16.66,
+      "capRatio": 0.6875,
+      "sx": 1.203,
+      "spazio": 0.03
+    },
+    "figtitolo": {
+      "font": "sans",
+      "classe": "rf",
+      "peso": 450,
+      "c": 22.61,
+      "capRatio": 0.6875,
+      "sx": 1.229,
+      "spazio": 0.03
+    },
+    "codice": {
+      "font": "serif",
+      "classe": "rcc",
+      "c": 16.06,
+      "capRatio": 0.672,
+      "sx": 0.828,
+      "spazio": 0.02,
+      "colore": "#4f4f4f"
+    },
+    "titcop": {
+      "font": "antico",
+      "classe": "rct",
+      "c": 53.55,
+      "capRatio": 0.715,
+      "sx": 1.336,
+      "spazio": 0,
+      "colore": "#464656",
+      "contorno": 0.9
+    },
+    "modello": {
+      "font": "sans",
+      "classe": "rcmo",
+      "peso": 600,
+      "larghezza": "62.5%",
+      "c": 35.7,
+      "capRatio": 0.6875,
+      "sx": 0.962,
+      "spazio": 0,
+      "colore": "#464656"
+    },
+    "logo": {
+      "font": "logo",
+      "classe": "rcl",
+      "c": 52.36,
+      "capRatio": 0.43,
+      "sx": 0.748,
+      "spazio": 0,
+      "colore": "#c8193c"
+    },
+    "logoc": {
+      "font": "logo",
+      "classe": "rclc",
+      "c": 104.72,
+      "capRatio": 0.585,
+      "sx": 0.668,
+      "spazio": 0,
+      "colore": "#c8193c"
+    },
+    "reims": {
+      "font": "legno",
+      "classe": "rcr",
+      "c": 105.91,
+      "capRatio": 0.64,
+      "sx": 0.615,
+      "spazio": 0,
+      "colore": "#373c73"
+    }
+  },
+  "pieno": {
+    "_nota": "Prova 'pagina piena' (rec.mjs --pieno): la gabbia del testo, comune a tutto il manuale e misurata su tutte le pagine della scansione (x0, y0, x1, y1 in px della retina), si porta alla pagina con questi margini (frazioni della pagina: lati, alto e basso). Le pagine girate (orizzontali) hanno la loro gabbia, misurata sulla pagina diritta, e gli stessi margini fisici della pagina del libro. I-CCAB: gabbia misurata sulla sua scansione (1600 x 2473; di traverso provvisoria, riportata da I-CCAF).",
+    "verticale": {
+      "gabbia": [
+        273,
+        358,
+        1440,
+        2100
+      ],
+      "margini": [
+        0.086,
+        0.06
+      ]
+    },
+    "orizzontale": {
+      "gabbia": [
+        81,
+        303,
+        2288,
+        1210
+      ],
+      "margini": [
+        0.06,
+        0.086
+      ]
+    }
+  },
+  "medio": {
+    "_nota": "Prova 'via di mezzo' (rec.mjs --medio): la stessa gabbia della pagina piena, con margini a meta' strada fra la scansione (circa 21% ai lati, 9% e 6% sopra e sotto) e la pagina piena (8,6% e 6%): 15% ai lati, 7,5% sopra e sotto. La correzione della compressione della scansione e' di conseguenza a meta'.",
+    "verticale": {
+      "gabbia": [
+        273,
+        358,
+        1440,
+        2100
+      ],
+      "margini": [
+        0.15,
+        0.075
+      ]
+    },
+    "orizzontale": {
+      "gabbia": [
+        81,
+        303,
+        2288,
+        1210
+      ],
+      "margini": [
+        0.075,
+        0.15
+      ]
+    }
+  },
+  "striscia": {
+    "_nota": "la striscia delle procedure di emergenza (sezione III), ridisegnata: barre sottili tutte uguali e parallele, orientate come nella stampa (una /), a passo costante, centrate in verticale; sempre a sinistra del testo, su pari e dispari, con il bordo sinistro a 'x' px dal bordo della pagina (uguale su tutte). Nella stampa le barre sono larghe 20-25 px, con passo 94-97, sul bordo esterno.",
+    "x": 212,
+    "larghezza": 8,
+    "lato": 46,
+    "salita": 11,
+    "passo": 72,
+    "barre": 21,
+    "centro": 881
+  }
+}

@@ -1,0 +1,38 @@
+386 632-830 | Flight Manual
+423 632-832 | Reims Rocket
+458 169-1142 | Reims Aviation
+458 1144-1302 | Page: 6-1
+494 169-1142 | Reims, Marne France
+494 1144-1319 | Edition: 2
+599 titolo 927-1316 basefissa c=42.6 | SECTION VI
+779 titolo 613-877 c=34.3 | APPENDIX
+855 titolo 310-1173 | LUBRICATION AND SERVICING PROCEDURES
+961 titolo 683-804 | DAILY
+1035 169-510 | FUEL TANK FILLERS:
+# CONTROLLA (0.80): Tesseract legge «Service after each flight with 100/130 minimum grade fuel. The capacity of»
+1070 237-1275 | Service after each flight with 100/130 minimum grade fuel. The capacity of
+# DA LEGGERE: riga della sorgente non trovata: aviation fuel with a lead content limited to 2 c.c. per gallon is also approved.)
+# CONTROLLA (0.78): Tesseract legge «each wing tank is 26 U.S, gallons (98,5 litres). (To ensure maximum fuel»
+1107 236-1234 | each wing tank is 26 U.S. gallons (98,5 litres). (To ensure maximum fuel
+# CONTROLLA (0.86): Tesseract legge «capacity when refueling, place the fuel selector valve in either “LEFT” or»
+1144 237-1234 | capacity when refueling, place the fuel selector valve in either “LEFT” or
+# CONTROLLA (0.92): Tesseract legge «“RIGHT” position to prevent cross-feeding).»
+1181 236-841 | “RIGHT” position to prevent cross-feeding).
+1251 235-1303 | The capacity of the optional baggage area auxiliary fuel tank is 17 U.S. gallons
+1294 237-389 | (64 litres).
+1402 170-591 | FUEL TANK SUMP DRAINS:
+1437 237-1300 | Before the first flight of the day and after each refueling, use fuel sampler cup
+1473 236-1251 | stored in the map compartment and drain a small amount of fuel from the
+1509 236-1106 | quick-drain valve in each fuel tank sump (one under each wing).
+1618 171-442 | FUEL STRAINER:
+1652 236-1305 | Before the first flight of the day and after each refueling, pull out fuel strainer
+1689 236-1283 | drain knob for about four seconds to clear fuel strainer of possible water and
+1725 236-1324 | sediment. Release drain knob, then check that strainer drain is closed. If water
+1760 236-1323 | is observed, the fuel reservoir drain valve should be drained and the fuel selector
+1795 235-1201 | valve drain plug should be removed to check for the presence of water.
+1900 169-397 | OIL DIPSTICK:
+1935 235-1277 | Check oil level before each flight. Do not operate on less than 7 quarts (6,6
+1970 237-1252 | litres). To minimize loss of oil through breather, fill to 8 quart (7,6 litres)
+2005 236-1257 | level for normal flights of less than 3 hours. For extended flight, fill to 10
+2039 235-1243 | quarts (9,5 litres). If optional oil filter is installed, one additional quart is
+2073 235-836 | required when the filter element is changed.

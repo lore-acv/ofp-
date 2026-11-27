@@ -1,0 +1,39 @@
+413 732-931 | Flight Manual
+450 733-932 | Reims Rocket
+483 271-1105 | Page: 6-2
+483 1107-1333 | Reims Aviation
+520 270-1411 | Edition: 2 Reims, Marne France
+628 titolo 410-1273 | LUBRICATION AND SERVICING PROCEDURES
+699 titolo 655-1020 | DAILY (Continued)
+769 269-468 | OIL FILLER:
+805 335-1410 | When preflight check shows low oil level, service with aviation grade engine oil;
+842 336-1415 | SAE 50 above 5°C and SAE 10W30 or SAE 30 below 5°C. (Multi-viscosity oil
+878 337-1345 | with a range of SAE 10W30 is recommended for improved starting in cold
+915 336-1323 | weather.) Detergent or dispersant oil, conforming to Continental Motors
+951 337-1426 | Specification MHS-24A, must be used. Your Cessna Dealer can supply approved
+988 336-528 | brands of oil.
+1038 791-890 | NOTE
+1100 397-1285 | Your Cessna was delivered from the factory with a corrosion pre-
+1136 397-1262 | ventive aircraft engine oil. If oil must be added during the first
+1174 397-1271 | 25 hours, use only aviation grade straight mineral oil (non-deter-
+1214 396-1094 | gent) conforming to Specification No. MIL-L-6082.
+1309 titolo 496-1179 | SERVICING INTERVALS CHECK LIST
+1409 titolo 673-1012 | FIRST 25 HOURS
+1464 264-1378 | ENGINE OIL SUMP AND OIL FILTER – After first 25 hours of operation, drain
+1500 264-1414 | engine oil sump and clean both the oil suction strainer and oil pressure screen. If an
+1538 265-1372 | optional oil filter is installed, change filter element at this time. Refill sump with
+1575 265-1381 | straight mineral oil (non-detergent) and use until a total of 50 hours have accumu-
+1612 265-1196 | lated or oil consumption has stabilized, then change to detergent oil.
+1665 titolo 667-1006 | EACH 50 HOURS
+1715 264-1369 | BATTERY - - Check and service. Check oftener (at least every 30 days) if oper-
+1750 263-555 | ating in hot weather.
+1787 263-1444 | ENGINE OIL SUMP AND OIL FILTER – Change engine oil and replace filter element.
+1822 264-1418 fissa | If optional oil filter is not installed, change oil and clean both the oil suction strainer
+1858 263-1412 fissa | and oil pressure screen every 25 hours. Change engine oil at least every four months
+1893 264-1415 fissa | even though less than 50 hours have accumulated. Reduce periods for prolonged op-
+1928 263-1425 | eration in dusty areas, cold climates, or when short flights and long idle periods result
+1964 263-573 | in sludging conditions.
+1998 263-1394 | INDUCTION AIR FILTER - - Clean or replace. Under extremely dusty conditions,
+2033 262-915 | daily maintenance of the filter is recommended.
+2070 263-1434 | NOSE GEAR TORQUE LINKS - - Lubricate. When operating under dusty conditions,
+2107 264-851 | more frequent lubrication is recommended.

@@ -1,0 +1,60 @@
+381 649-848 libro | Flight Manual
+419 649-851 libro | Reims Rocket
+466 183-1164 libro | Reims Aviation
+466 1166-1318 libro | Page: 5-5
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+500 183-1164 libro | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+500 1166-1335 libro | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: CRUISE PERFORMANCE
+# DA LEGGERE: riga della sorgente non trovata: NORMAL LEAN MIXTURE
+# DA LEGGERE: riga della sorgente non trovata: GROSS WEIGHT 1157 kg • STANDARD CONDITIONS • ZERO WIND
+# DA LEGGERE: Tesseract legge «1334 0000!»
+1232 cella 1253-1396 fissa c=13.1 | 10000 FEET
+# DA LEGGERE: riga della sorgente non trovata: FUEL CONSUMPTION | 46 GAL (174 LITRES)
+# DA LEGGERE: riga della sorgente non trovata: MP | TRUE AIRSPEED
+# DA LEGGERE: riga della sorgente non trovata: % | PER HOUR | NO RESERVE
+# DA LEGGERE: riga della sorgente non trovata: RPM
+# DA LEGGERE: riga della sorgente non trovata: BHP | U.S. | ENDURANCE | RANGE
+# DA LEGGERE: riga della sorgente non trovata: mb | in Hg | km/h | kts | MPH | LITRES
+# DA LEGGERE: riga della sorgente non trovata: GAL. | HOURS | km | N.M.
+# DA LEGGERE: riga della sorgente non trovata: 2600 643 19 63 222 120 138 9,6 36,3 4,8 1070 578
+# DA LEGGERE: riga della sorgente non trovata: 610 18 58 214 116 133 8,9 33,7 5,2 1102 595
+# DA LEGGERE: riga della sorgente non trovata: 576 17 53 203 109 126 8,2 31,0 5,6 1143 617
+# DA LEGGERE: riga della sorgente non trovata: 542 16 48 190 103 118 7,5 28,4 6,2 1167 630
+# DA LEGGERE: riga della sorgente non trovata: 2500 643 19 60 217 117 135 9,2 34,8 5,0 1086 587
+# DA LEGGERE: riga della sorgente non trovata: 610 18 55 208 112 129 8,5 32,2 5,4 1127 608
+# DA LEGGERE: riga della sorgente non trovata: 576 17 50 196 106 122 7,8 29,5 5,9 1159 626
+# DA LEGGERE: riga della sorgente non trovata: 542 16 46 183 99 114 7,1 26,9 6,4 1183 639
+# DA LEGGERE: riga della sorgente non trovata: 2400 643 19 56 209 113 130 8,6 32,6 5,3 1118 604
+# DA LEGGERE: riga della sorgente non trovata: 610 18 52 200 108 124 8,0 30,3 5,7 1151 621
+# DA LEGGERE: riga della sorgente non trovata: 576 17 47 188 102 117 7,4 28,0 6,2 1175 634
+# DA LEGGERE: riga della sorgente non trovata: 542 16 43 175 95 109 6,8 25,7 6,8 1191 643
+# DA LEGGERE: riga della sorgente non trovata: 2300 643 19 52 201 109 125 8,1 30,7 5,7 1143 617
+# DA LEGGERE: riga della sorgente non trovata: 610 18 48 190 103 118 7,5 28,4 6,1 1167 630
+# DA LEGGERE: riga della sorgente non trovata: 576 17 44 179 96 111 6,9 26,1 6,6 1183 639
+# DA LEGGERE: riga della sorgente non trovata: 542 16 40 164 89 102 6,4 24,2 7,2 1191 643
+# DA LEGGERE: riga della sorgente non trovata: 2200 643 19 49 193 104 120 7,6 28,8 6,0 1167 630
+# DA LEGGERE: riga della sorgente non trovata: 610 18 45 182 98 113 7,1 26,9 6,5 1183 639
+# DA LEGGERE: riga della sorgente non trovata: 576 17 41 169 91 105 6,5 24,6 7,0 1191 643
+# DA LEGGERE: riga della sorgente non trovata: 542 16 37 156 84 97 6,0 22,7 7,6 1191 643
+# DA LEGGERE: riga della sorgente non trovata: NOTE: Speed performance is shown for an airplane equipped with optional speed fairings, which increases speed by 1 knot.
+# DA LEGGERE: riga della sorgente non trovata: Figure 5-1 (Sheet 4 of 5).
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(¢ JO p JOYS) 1-S ANSI»
+# 292 1136-1498 | (¢ JO p JOYS) 1-S ANSI
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «umous S| aueWwsOyJad paods»
+# 384 1667-1946 | umous S| aueWwsOyJad paods
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“youy} | Aq paads sasrauour yoryaa ‘sbursey paads yeuondo yim paddinbe aurjdatre ue 40)»
+# 391 821-1674 | “youy} | Aq paads sasrauour yoryaa ‘sbursey paads yeuondo yim paddinbe aurjdatre ue 40)
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SUNOH»
+# 1096 915-1006 | SUNOH
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «3ONVHNGNA S3uLIT Haw | osm [yeni»
+# 1107 886-1629 | 3ONVHNGNA S3uLIT Haw | osm [yeni
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «| ON NOH uaa»
+# 1163 556-1284 | | ON NOH uaa
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(S3ULIT P21) TVD 9b NOILdWNSNOO 14M agadsuly anuL»
+# 1186 700-1600 | (S3ULIT P21) TVD 9b NOILdWNSNOO 14M agadsuly anuL
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «GNIMOW3Z ¢* SNOILIGNODGHWGNVLS ° By 4G1L LHDIAM SSOUD»
+# 1273 922-1723 | GNIMOW3Z ¢* SNOILIGNODGHWGNVLS ° By 4G1L LHDIAM SSOUD
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «BHNLXIW NV37 IVWAYON»
+# 1318 1175-1465 | BHNLXIW NV37 IVWAYON

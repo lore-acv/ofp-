@@ -12,6 +12,7 @@
   "ruota": {},
   "retro": 90,
   "retina": 1600,
+  "gemello": "afm-ccaf",
   "numeri": [
     { "da": 3, "a": 8, "num": ["i", "ii", "iii", "iv", "v", "vi"] },
     { "da": 9, "a": 22, "num": "1-{n}" },

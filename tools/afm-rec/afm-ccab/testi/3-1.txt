@@ -1,0 +1,32 @@
+391 702-900 | Flight Manual
+428 703-903 | Reims Rocket
+469 242-1358 | Reims Aviation Page: 3-1
+503 243-1383 | Reims, Marne France Edition: 2
+# CONTROLLA (0.80): Tesseract legge «SECTION Ill»
+610 titolo 1002-1384 c=39.1 fine=1372 | SECTION III
+795 titolo 482-1146 c=34.3 | EMERGENCY PROCEDURES
+941 titolo 245-569 | ENGINE FAILURE.
+1012 245-1105 | DURING TAKE-OFF (WITH SUFFICIENT RUNWAY AHEAD).
+1089 311-599 | (1) Throttle - - Idle.
+1131 311-571 | (2) Apply brakes.
+1161 311-1235 | (3) Flaps - - Retract (if extended) during ground roll to provide more
+1199 311-549 | effective braking.
+1234 311-690 | (4) Mixture - - Idle cut-off.
+1267 311-875 | (5) Ignition and Master Switch – “OFF”.
+1346 245-529 | AFTER TAKE-OFF.
+1418 311-957 | (1) Glide Speed - - 129 km/h - 70 kts - 80 MPH.
+1454 311-706 | (2) Mixture - - Idle cut - off.
+1490 311-952 | (3) Fuel Shutoff Valve Knob - - Pulled full out.
+1520 311-735 | (4) Ignition Switch - - “OFF”.
+1563 311-1218 | (5) Master Switch is to be left “ON” so that flaps may be extended.
+1637 709-905 | IMPORTANT
+1709 376-1231 | Perform the landing straight ahead, making only small changes in
+1744 376-1239 | heading to avoid obstructions. Never attempt to turn back to the
+1778 376-1197 | landing strip because your altitude after take-off is not usually
+1813 377-955 | sufficient to safely turn back to the airport.
+1886 243-509 | DURING FLIGHT.
+1956 311-1301 | (1) Glide Speed - - 137 km/h - 74 kts - 85 MPH (optimum glide angle with
+1997 310-621 | propeller windmilling).
+2027 310-944 | (2) Fuel Shutoff Valve Knob - - Pushed full in.
+2063 310-900 | (3) Fuel Selector Valve Handle – “BOTH”.
+2097 310-612 | (4) Mixture - - Rich.

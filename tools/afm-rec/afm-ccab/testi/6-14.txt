@@ -1,0 +1,30 @@
+401 715-914 | Flight Manual
+439 716-917 | Reims Rocket
+471 246-1084 | Page: 6-14
+471 1086-1310 | Reims Aviation
+510 246-1388 | Edition: 2 Reims, Marne France
+648 titolo 639-1015 c=33.1 | WING LEVELER
+755 317-1387 | A wing leveler may be installed to augment the lateral stability of the airplane.
+791 251-1374 | The system uses the Turn Coordinator for roll and yaw sensing. Vacuum pressure,
+828 251-1396 | from the engine-driven vacuum pump, is routed from the Turn Coordinator to cylin-
+865 250-1375 | der-piston servo units attached to the aileron control system. As the airplane devi-
+900 250-1352 | ates from a wing level attitude, vacuum pressure in the servo units is increased or
+937 250-1158 | relieved as needed to actuate the ailerons to oppose the deviations.
+1011 314-1373 | A separately mounted push-pull control knob, labeled “WING LVLR,” is pro-
+1048 247-1401 | vided on the lower center portion of the instrument panel to turn the system on and
+1085 248-1355 | off. A “ROLL TRIM” control knob on the Turn Coordinator is used for manual
+1122 248-1393 | roll trim control to compensate for asymmetrical loading of fuel and passengers, and
+1159 249-1098 | to optimize system performance in climb, cruise and let-down.
+1301 titolo 590-1056 | OPERATING CHECK LIST
+1377 titolo 250-443 | TAKE-OFF.
+1447 318-1259 | (1) “WING LVLR” Control Knob - - Check in off position (full in).
+1561 titolo 249-387 | CLIMB.
+1628 317-808 | (1) Adjust elevator trim for climb.
+1665 317-1184 | (2) “WING LVLR” Control Knob - - Pull control knob “ON.”
+1700 317-1261 | (3) “ROLL TRIM” Control Knob - - Adjust for wings level attitude.
+1811 titolo 249-393 | CRUISE.
+1878 316-1024 | (1) Adjust power and elevator trim for level flight.
+1915 317-1082 | (2) “ROLL TRIM” Control Knob - - Adjust as desired.
+1988 titolo 252-427 | DESCENT.
+2055 320-1331 | (1) Adjust power and elevator trim for desired speed and rate of descent.
+2091 319-1085 | (2) “ROLL TRIM” Control Knob - - Adjust as desired.

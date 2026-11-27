@@ -95,12 +95,16 @@ const mappa = JSON.parse(await readFile(path.join(RADICE, 'tools', 'afm', ID + '
 /* pagina piena: la scansione si trasforma come la ricostruita (coordinate della pagina del libro),
    solo per le pagine numerate (la copertina e il retro restano come sono) */
 const pct = (x) => Math.round(x * 10000) / 10000;
+// la misura della pagina del libro in px della retina (1250 x 1762 per I-CCAF, 1600 x 2473 per I-CCAB)
+const PW = mappa.retina;
+const PH = (() => { const v = Object.values(pagine).find((p) => p.rot !== -90 && !p.intera) || Object.values(pagine)[0]; return v ? Math.round(PW * (v.rot === -90 ? v.w / v.h : v.h / v.w)) : Math.round(PW * 1.4096); })();
 const trasformaScansione = (pdf, attr) => {
   if (!PIENO || !/data-n="/.test(attr)) return '';
-  const rot = (mappa.ruota || {})[pdf] ? -90 : 0;
-  const finta = rot === -90 ? { rot, w: 1762, h: 1250 } : { rot, w: 1250, h: 1762 };
+  // le pagine di traverso (stampate girate: I-CCAF le ha ruotate nel PDF, I-CCAB sulla pagina)
+  const rot = (mappa.traverso || []).includes(+pdf) ? -90 : 0;
+  const finta = rot === -90 ? { rot, w: PH, h: PW } : { rot, w: PW, h: PH };
   const L = affineLibro(stile, finta, VARIANTE);
-  return ` style="transform-origin:0 0;transform:translate(${pct(L.bx / 1250 * 100)}%,${pct(L.by / 1762 * 100)}%) scale(${pct(L.ax)},${pct(L.ay)})"`;
+  return ` style="transform-origin:0 0;transform:translate(${pct(L.bx / PW * 100)}%,${pct(L.by / PH * 100)}%) scale(${pct(L.ax)},${pct(L.ay)})"`;
 };
 let libro = ufficiale.replace(/<div class="pg-afm([^"]*)" data-pdf="(\d+)"([^>]*)>((?:<i id="[^"]*"><\/i>)*)<img ([^>]*)><\/div>/g, (tutto, cls, pdf, attr, ancore, img) => {
   const p = pagine[+pdf];
@@ -142,7 +146,7 @@ const { rm } = await import('node:fs/promises');
 const DIRP = path.join(OUT, 'p');
 await rm(DIRP, { recursive: true, force: true }); await mkdir(DIRP, { recursive: true });
 await pg.addStyleTag({ content: classi + ' body{margin:0;background:#fff} .rec-svg{display:block} .rec-svg text{fill:#161616;white-space:pre} .rec-svg line{stroke:#161616} .rec-svg rect,.rec-svg polygon,.rec-svg path,.rec-svg circle{fill:#161616} .rec-svg g[style*="fill"] path{fill:inherit}' });
-const RETINA = 1250;
+const RETINA = mappa.retina;
 for (const f of daFotografare) {
   for (const [liv, w] of [[1, f.w1], [2, RETINA]]) {
     const h = Math.round(w * f.h1 / f.w1);

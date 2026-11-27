@@ -1,0 +1,81 @@
+398 651-848 | Flight Manual
+434 651-851 | Reims Rocket
+470 185-1241 | Page: 2-6 Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+507 185-1316 | Edition: 3 Reims, Marne France
+616 titolo 186-376 | PLACARDS.
+686 253-1305 | The following information is displayed in the form of composite or individual
+730 185-315 | placards.
+797 253-660 | (1) In full view of the pilot:
+# CONTROLLA (0.91): Tesseract legge «This airplane must be operated in compliance with the operating»
+908 cartello 311-1188 c=22.5 | This airplane must-be operated in compliance with the operating limitations
+# CONTROLLA (0.89): Tesseract legge «limitations as stated in the form of placards, markings, and manuals.»
+945 cartello 311-1211 c=22.5 | as stated in the form of placards, markings, and manuals.
+1054 cartellot 662-846 fissa c=26.0 | MAXIMUMS
+1132 cartello 689-991 c=22.5 | Normal Category
+1132 cartello 993-1250 c=22.5 | Utility Category
+# CONTROLLA (0.84): Tesseract legge «MANEUVERING SPEED _ 125 MPH (109 knots) 125 MPH(109knots)»
+1207 cartello 216-679 c=22.5 | MANEUVERING SPEED (CAS)
+# CONTROLLA (0.84): Tesseract legge «MANEUVERING SPEED _ 125 MPH (109 knots) 125 MPH(109knots)»
+1207 cartello 681-968 c=22.5 | 118 mph (104 knots)
+# CONTROLLA (0.84): Tesseract legge «MANEUVERING SPEED _ 125 MPH (109 knots) 125 MPH(109knots)»
+1207 cartello 970-1301 c=22.5 | 118 mph (104 knots)
+# CONTROLLA (0.92): Tesseract legge «GROSS WEIGHT. . . 2550 Ibs 2200 Ibs»
+1241 cartello 216-732 c=22.5 | GROSS WEIGHT
+# CONTROLLA (0.92): Tesseract legge «GROSS WEIGHT. . . 2550 Ibs 2200 Ibs»
+1241 cartello 734-997 c=22.5 | 2550 lbs.
+# CONTROLLA (0.92): Tesseract legge «GROSS WEIGHT. . . 2550 Ibs 2200 Ibs»
+1241 cartello 999-1146 c=22.5 | 2200 lbs.
+1278 cartello 216-599 c=22.5 | FLIGHT LOAD FACTOR
+1278 cartello 601-986 c=22.5 | Flaps Up +3.8, -1.52
+1278 cartello 988-1176 c=22.5 | +4.4, -1.76
+# CONTROLLA (0.81): Tesseract legge «Flaps down +3.5 43.5»
+1314 cartello 684-986 c=22.5 | Flaps Down +3.0
+# CONTROLLA (0.81): Tesseract legge «Flaps down +3.5 43.5»
+1314 cartello 988-1088 c=22.5 | +3.0
+# CONTROLLA (0.82): Tesseract legge «CROSSWIND. ........0.0. 044. 44. 4. 20 knots at 90°»
+1387 cartello 209-958 c=22.5 | CROSSWI ND
+# CONTROLLA (0.82): Tesseract legge «CROSSWIND. ........0.0. 044. 44. 4. 20 knots at 90°»
+1387 cartello 960-1293 c=22.5 | 20 knots at 90 o
+1462 cartello 265-1207 c=22.5 | Normal Category - No acrobatic maneuvers including spins approved.
+# CONTROLLA (0.93): Tesseract legge «Utility Category : Baggage compartment and rear seat must not be»
+1498 cartello 265-1188 c=22.5 | Utility Category - Baggage compartment and rear seat must not be occupied.
+1605 cartellot 208-1310 c=27.2 | NO ACROBATIC MANEUVERS APPROVED EXCEPT THOSE LISTED BELOW
+# CONTROLLA (0.88): Tesseract legge «Maneuver Max. Entry Speed Maneuver Max. Entry Speed»
+1685 cartello 270-471 c=22.5 | Maneuver
+# CONTROLLA (0.88): Tesseract legge «Maneuver Max. Entry Speed Maneuver Max. Entry Speed»
+1685 cartello 473-806 c=22.5 | Recm. Entry Speed
+# CONTROLLA (0.88): Tesseract legge «Maneuver Max. Entry Speed Maneuver Max. Entry Speed»
+1685 cartello 808-971 c=22.5 | Maneuver
+# CONTROLLA (0.88): Tesseract legge «Maneuver Max. Entry Speed Maneuver Max. Entry Speed»
+1685 cartello 973-1257 c=22.5 | Recm. Entry Speed
+1746 cartello 238-456 c=22.5 | Chandelles
+1746 cartello 458-789 c=22.5 | 125 mph (109 knots)
+1746 cartello 791-980 c=22.5 | Spins
+1746 cartello 982-1258 c=22.5 | Slow Deceleration
+# CONTROLLA (0.82): Tesseract legge «Lazy Eights . 125 mph (109 knots) Stalls (except»
+1783 cartello 238-456 c=22.5 | Lazy Eights
+# CONTROLLA (0.82): Tesseract legge «Lazy Eights . 125 mph (109 knots) Stalls (except»
+1783 cartello 458-787 c=22.5 | 125 mph (109 knots)
+# CONTROLLA (0.82): Tesseract legge «Lazy Eights . 125 mph (109 knots) Stalls (except»
+1783 cartello 789-983 c=22.5 | Stalls (except
+# CONTROLLA (0.82): Tesseract legge «Lazy Eights . 125 mph (109 knots) Stalls (except»
+1783 cartello 985-998 c=22.5 | Slow Deceleration
+# DA LEGGERE: Tesseract legge «Steep Turns. 125 mph (109 knots) whip stalls) Slow Deceleration»
+1819 cartello 238-456 c=22.5 | Steep Turns
+# DA LEGGERE: Tesseract legge «Steep Turns. 125 mph (109 knots) whip stalls) Slow Deceleration»
+1819 cartello 458-820 c=22.5 | 118 mph (104 knots)
+# DA LEGGERE: Tesseract legge «Steep Turns. 125 mph (109 knots) whip stalls) Slow Deceleration»
+1819 cartello 822-1258 c=22.5 | whip stalls)
+# DA LEGGERE: riga della sorgente non trovata: Altitude loss in stall recovery - - 160 ft.
+# DA LEGGERE: riga della sorgente non trovata: Abrupt use of the controls prohibited above 118 mph
+1887 cartello 240-1222 c=22.5 | Spin Recovery: opposite rudder - forward elevator - neutralize controls. In-
+# CONTROLLA (0.80): Tesseract legge «Intentional spins with flaps extended are prohibited.»
+1923 cartello 239-950 c=22.5 | tentional spins with flaps extended are prohibited. Flight into known icing
+# DA LEGGERE: Tesseract legge «Known icing conditions to be avoided. This airplane is certified for the»
+1958 cartello 238-1178 c=22.5 | conditions prohibited. This airplane is certified for the following flight oper-
+# CONTROLLA (0.83): Tesseract legge «following flight operations as of date of original airworthiness certificate.»
+1995 cartello 236-1201 c=22.5 | ations as of date of original airworthiness certificate:
+2068 cartello 505-876 c=22.5 | DAY–NIGHT–VFR–IFR
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «occupied.»
+# 1540 532-672 | occupied.

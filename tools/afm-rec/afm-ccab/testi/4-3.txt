@@ -1,0 +1,50 @@
+385 730-928 | Flight Manual
+421 731-931 | Reims Rocket
+457 267-1251 | Reims Aviation
+457 1253-1399 | Page: 4-3
+# CONTROLLA (0.98): Tesseract legge «Reims, Marne France Edition:»
+493 267-1252 | Reims, Marne France
+# CONTROLLA (0.98): Tesseract legge «Reims, Marne France Edition:»
+493 1254-1372 fissa | Edition: 2
+635 298-322 fissa c=25.4 | 2
+635 340-1360 | a. Inspect flight instrument static source opening on side of fuselage for
+677 415-730 | stoppage (both sides).
+709 340-927 | b. Remove rudder gust lock, if installed.
+745 349-759 | c. Disconnect tail tie-down.
+781 348-1262 | d. Check control surfaces for freedom of movement and security.
+856 297-321 fissa c=25.4 | 3
+856 340-1144 | a. Check aileron for freedom of movement and security.
+928 298-322 fissa c=25.4 | 4
+928 340-779 | a. Disconnect wing tie-down.
+964 348-1368 | b. Before first flight of day and after each refueling, use sampler cup and
+1000 416-1379 | drain small amount of fuel from quick drain valve in fuel tank sump to
+1038 416-647 | check for water.
+1074 349-1002 | c. Check main wheel tire for proper inflation.
+1111 348-1254 | d. Visually check fuel quantity, then check fuel filler cap secure.
+1184 300-324 fissa c=25.4 | 5
+1184 338-1387 | a. Check propeller and spinner for nicks and security, and propeller for oil
+1221 416-502 | leaks.
+1256 348-1124 | b. Check nose wheel strut and tire for proper inflation.
+1292 348-775 | c. Disconnect tie-down rope.
+1334 346-1376 | d. Check oil level. Do not operate with less than seven quarts (6,6 litres).
+1371 414-1073 | Fill to ten quarts (9,5 litres) for extended flight.
+1407 346-1389 | e. Before first flight of day and after each refueling, pull out strainer drain
+1442 413-1381 | knob for about four seconds to clear fuel strainer of possible water and
+1479 414-1345 | sediment. Check strainer drain closed. If water is observed, the fuel
+1514 413-1372 | reservoir drain valve should be drained and the fuel selector valve drain
+1550 414-1222 | plug should be removed to check for the presence of water.
+1620 297-321 fissa c=25.4 | 6
+1620 337-1000 | a. Check main wheel tire for proper inflation.
+1655 346-1365 | b. Before first flight of day and after each refueling, use sampler cup and
+1691 412-1376 | drain small amount of fuel from quick drain valve in fuel tank sump to
+1727 414-644 | check for water.
+1760 346-1251 | c. Visually check fuel quantity, then check fuel filler cap secure.
+1831 296-320 fissa c=25.4 | 7
+1831 335-1046 | a. Check stall warning vent opening for stoppage.
+1866 345-1375 | b. Remove pitot tube cover, if installed, and check pitot tube opening for
+1908 413-549 | stoppage.
+1938 346-1000 | c. Check fuel tank vent opening for stoppage.
+1973 346-777 | d. Disconnect wing tie-down.
+2043 295-319 fissa c=25.4 | 8
+2043 333-1141 | a. Check aileron for freedom of movement and security.
+2077 228-300 | 4-1.

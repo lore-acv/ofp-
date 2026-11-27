@@ -1,0 +1,25 @@
+405 649-846 | Flight Manual
+442 648-848 | Reims Rocket
+# CONTROLLA (0.81): Tesseract legge «Page: 2-8 Reims Aviation»
+476 179-1238 | Reims Aviation
+# DA LEGGERE: riga della sorgente non trovata: Page: 2-8
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+514 179-1315 | Edition: 3 Reims, Marne France
+622 246-821 | (8) On right hand instrument panel cover:
+1270 646-836 | FUEL FLOW
+1342 508-995 | FULL THROTTLE AND 2800 RPM
+# DA LEGGERE: Tesseract legge «SL... ee ee ee. . 17 GPH»
+1416 455-1037 | S.L. 17 GPH
+1452 454-1037 | 4000 FT 15 GPH
+1489 455-1036 | 8000 FT 13 GPH
+1525 457-1037 | 12000 FT 11 GPH
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «When winterization kit is installed, it must be removed»
+# 724 382-1104 | When winterization kit is installed, it must be removed
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «when outside air temp. is above 20°F,»
+# 759 382-889 | when outside air temp. is above 20°F,
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(9) Above wing flap position indicator:»
+# 878 246-784 | (9) Above wing flap position indicator:
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Avoid slips with flaps extended.»
+# 977 548-975 | Avoid slips with flaps extended.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(10) On right hand instrument panel cover:»
+# 1095 229-820 | (10) On right hand instrument panel cover:

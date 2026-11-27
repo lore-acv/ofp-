@@ -1,0 +1,101 @@
+381 739-937 | Flight Manual
+419 739-940 | Reims Rocket
+463 281-1256 | Reims Aviation
+463 1258-1386 | Page: v
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+499 282-1256 | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+499 1258-1427 | Edition: 2
+607 titolo 285-850 | SECTION V - PERFORMANCE.
+# DA LEGGERE: Tesseract legge «NOTIFICATION. ©. 2 2 6-2 eee ee ee eee Se»
+679 349-1345 fine=578 | NOTIFICATION
+# DA LEGGERE: Tesseract legge «NOTIFICATION. ©. 2 2 6-2 eee ee ee eee Se»
+679 1347-1407 | 5-1
+# DA LEGGERE: Tesseract legge «CRUISE PERFORMANCE. . 2. 2 1 ee ee ee ee ee SD»
+715 348-1344 fine=706 | CRUISE PERFORMANCE
+# DA LEGGERE: Tesseract legge «CRUISE PERFORMANCE. . 2. 2 1 ee ee ee ee ee SD»
+715 1346-1410 | 5-2
+752 348-1342 fine=824 | AIRSPEED CORRECTION TABLE
+752 1344-1408 | 5-7
+# DA LEGGERE: Tesseract legge «STALL SPEEDS DATA. © 1 1 ee ee ee ee ee 58»
+787 350-1342 fine=670 | STALL SPEEDS DATA
+# DA LEGGERE: Tesseract legge «STALL SPEEDS DATA. © 1 1 ee ee ee ee ee 58»
+787 1344-1408 | 5-8
+# DA LEGGERE: Tesseract legge «TAKE-OFF DISTANCE DATA... 2. 2. ee ee ee ee SD»
+823 348-1340 fine=767 | TAKE-OFF DISTANCE DATA
+# DA LEGGERE: Tesseract legge «TAKE-OFF DISTANCE DATA... 2. 2. ee ee ee ee SD»
+823 1342-1408 | 5-9
+# DA LEGGERE: Tesseract legge «LANDING DISTANCE DATA . 2. 2 2) 1 ee ee ee ee ee IO»
+859 350-1323 fine=754 | LANDING DISTANCE DATA
+# DA LEGGERE: Tesseract legge «LANDING DISTANCE DATA . 2. 2 2) 1 ee ee ee ee ee IO»
+859 1325-1408 | 5-10
+# CONTROLLA (0.80): Tesseract legge «MAXIMUM RATE-OF-CLIMB DATA ..... 2... eee 2 SHI»
+895 349-1323 fine=847 | MAXIMUM RATE-OF-CLIMB DATA
+# CONTROLLA (0.80): Tesseract legge «MAXIMUM RATE-OF-CLIMB DATA ..... 2... eee 2 SHI»
+895 1325-1403 | 5-11
+# DA LEGGERE: Tesseract legge «MAXIMUM GLIDE DATA... 2 1 2 ee ee ee ee ee ID»
+932 349-1321 fine=708 | MAXIMUM GLIDE DATA
+# DA LEGGERE: Tesseract legge «MAXIMUM GLIDE DATA... 2 1 2 ee ee ee ee ee ID»
+932 1323-1405 | 5-12
+1040 titolo 286-774 | SECTION VI - APPENDIX.
+1115 350-1342 fine=1028 | LUBRICATION AND SERVICING PROCEDURES
+1115 1344-1408 | 6-1
+1152 351-1342 fine=893 | SERVICING INTERVALS CHECK LIST
+1152 1344-1411 | 6-2
+1224 665-1073 | (CARE OF THE AIRPLANE)
+# CONTROLLA (0.79): Tesseract legge «GROUND HANDLING .. 2... ee ee ee 4»
+1298 350-1340 fine=659 | GROUND HANDLING
+# CONTROLLA (0.79): Tesseract legge «GROUND HANDLING .. 2... ee ee ee 4»
+1298 1342-1412 | 6-4
+1335 349-1340 fine=763 | MOORING YOUR AIRPLANE
+1335 1342-1412 | 6-4
+# DA LEGGERE: Tesseract legge «WINDSHIELD- WINDOWS .. . . 2 7 ew ee ee ee ee ee 64»
+1371 349-1340 fine=716 | WINDSHIELD - WINDOWS
+# DA LEGGERE: Tesseract legge «WINDSHIELD- WINDOWS .. . . 2 7 ew ee ee ee ee ee 64»
+1371 1342-1412 | 6-4
+# DA LEGGERE: Tesseract legge «PAINTED SURFACES . . . 1 ww eee ee ee ee ee OS»
+1409 349-1340 fine=654 | PAINTED SURFACES
+# DA LEGGERE: Tesseract legge «PAINTED SURFACES . . . 1 ww eee ee ee ee ee OS»
+1409 1342-1411 | 6-5
+# DA LEGGERE: Tesseract legge «PROPELLER CARE ... 2. 1. ee ee ee ee ee 66»
+1446 349-1340 fine=624 | PROPELLER CARE
+# DA LEGGERE: Tesseract legge «PROPELLER CARE ... 2. 1. ee ee ee ee ee 66»
+1446 1342-1412 | 6-6
+# DA LEGGERE: Tesseract legge «INTERIOR CARE . 2. we ee ee OG»
+1482 350-1340 fine=595 | INTERIOR CARE
+# DA LEGGERE: Tesseract legge «INTERIOR CARE . 2. we ee ee OG»
+1482 1342-1413 | 6-6
+1559 690-1027 | (OPTIONAL SYSTEMS)
+1626 348-1337 fine=836 | AUXILIARY FUEL TANK SYSTEM
+1626 1339-1409 | 6-7
+# CONTROLLA (0.78): Tesseract legge «FUEL SYSTEM SCHEMATIC. .. . 2. 2 ee ee ee ee ee 68»
+1662 349-1336 fine=743 | FUEL SYSTEM SCHEMATIC.
+# CONTROLLA (0.78): Tesseract legge «FUEL SYSTEM SCHEMATIC. .. . 2. 2 ee ee ee ee ee 68»
+1662 1338-1408 | 6-8
+1701 348-1317 fine=781 | COLD WEATHER EQUIPMENT
+1701 1319-1405 | 6-10
+# CONTROLLA (0.77): Tesseract legge «RADIO SELECTOR SWITCHES. . . . . 2... 1 1 eee ee ey On?»
+1737 350-1315 fine=774 | RADIO SELECTOR SWITCHES
+# CONTROLLA (0.77): Tesseract legge «RADIO SELECTOR SWITCHES. . . . . 2... 1 1 eee ee ey On?»
+1737 1317-1404 | 6-12
+# DA LEGGERE: Tesseract legge «BOOM MICROPHONE ..... 2... ee ee ee ee ee O13»
+1772 350-1315 fine=651 | BOOM MICROPHONE
+# DA LEGGERE: Tesseract legge «BOOM MICROPHONE ..... 2... ee ee ee ee ee O13»
+1772 1317-1404 | 6-13
+# DA LEGGERE: Tesseract legge «WING LEVELER . 2.) 1 1 we ee ee ee ee ee O14»
+1807 349-1313 fine=583 | WING LEVELER
+# DA LEGGERE: Tesseract legge «WING LEVELER . 2.) 1 1 we ee ee ee ee ee O14»
+1807 1315-1405 | 6-14
+1872 671-1058 | (WEIGHT AND BALANCE)
+1943 352-1310 fine=950 | LOADING ARRANGEMENTS
+1943 1312-1401 | 6-17
+# CONTROLLA (0.96): Tesseract legge «SAMPLE LOADING PROBLEM. .......... 2... 4 + . 618»
+1978 350-1309 fine=771 | SAMPLE LOADING PROBLEM
+# CONTROLLA (0.96): Tesseract legge «SAMPLE LOADING PROBLEM. .......... 2... 4 + . 618»
+1978 1311-1401 | 6-18
+# DA LEGGERE: Tesseract legge «LOADING GRAPH. .. . oe ee ee ee ee OD»
+2013 351-1309 fine=606 | LOADING GRAPH
+# DA LEGGERE: Tesseract legge «LOADING GRAPH. .. . oe ee ee ee ee OD»
+2013 1311-1400 | 6-19
+2048 349-1307 fine=981 | CENTER OF GRAVITY MOMENT ENVELOPE
+2048 1309-1400 | 6-20

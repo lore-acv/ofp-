@@ -1,0 +1,243 @@
+# DA LEGGERE: Tesseract legge «Flight Manual»
+393 642-618 c=16.1 | LEFT FUEL TANK
+# DA LEGGERE: Tesseract legge «Flight Manual»
+393 620-840 c=16.1 | RIGHT FUEL TANK
+# DA LEGGERE: riga della sorgente non trovata: SELECTOR
+# DA LEGGERE: riga della sorgente non trovata: VALVE
+# DA LEGGERE: riga della sorgente non trovata: VENT
+# DA LEGGERE: riga della sorgente non trovata: TO ENSURE MAXIMUM FUEL CAPACITY
+# DA LEGGERE: riga della sorgente non trovata: WHEN REFUELING, PLACE THE FUEL
+# DA LEGGERE: riga della sorgente non trovata: SELECTOR VALVE IN EITHER "LEFT"
+# DA LEGGERE: riga della sorgente non trovata: OR "RIGHT" POSITION TO PREVENT
+# DA LEGGERE: riga della sorgente non trovata: CROSS-FEEDING.
+# DA LEGGERE: riga della sorgente non trovata: FUEL RESERVOIR
+# DA LEGGERE: riga della sorgente non trovata: TANK
+# DA LEGGERE: riga della sorgente non trovata: FUEL SHUTOFF | FUEL
+# DA LEGGERE: riga della sorgente non trovata: VALVE KNOB | SHUTOFF
+# DA LEGGERE: riga della sorgente non trovata: VALVE
+# DA LEGGERE: Tesseract legge «Reims Rocket»
+431 643-842 c=16.1 | CHECK
+# DA LEGGERE: riga della sorgente non trovata: VALVE
+# DA LEGGERE: riga della sorgente non trovata: TO | FUEL
+# DA LEGGERE: riga della sorgente non trovata: ENGINE | STRAINER
+# DA LEGGERE: riga della sorgente non trovata: ENGINE PRIMER
+# DA LEGGERE: riga della sorgente non trovata: HIGH
+# DA LEGGERE: riga della sorgente non trovata: AUXILIARY | OFF | AUXILIARY
+# DA LEGGERE: riga della sorgente non trovata: FUEL PUMP | LOW | FUEL PUMP
+# DA LEGGERE: riga della sorgente non trovata: SWITCH | FUEL
+# DA LEGGERE: riga della sorgente non trovata: PUMP
+# DA LEGGERE: riga della sorgente non trovata: ENGINE-DRIVEN
+# DA LEGGERE: riga della sorgente non trovata: FUEL PUMP
+# DA LEGGERE: riga della sorgente non trovata: AND | MIXTURE
+# DA LEGGERE: riga della sorgente non trovata: MIXTURE UNIT | CONTROL
+# DA LEGGERE: riga della sorgente non trovata: KNOB
+# DA LEGGERE: riga della sorgente non trovata: FUEL AND AIR
+# DA LEGGERE: riga della sorgente non trovata: THROTTLE
+# DA LEGGERE: riga della sorgente non trovata: THROTTLE UNIT
+# DA LEGGERE: riga della sorgente non trovata: CODE
+# DA LEGGERE: riga della sorgente non trovata: FUEL MANIFOLD
+# DA LEGGERE: riga della sorgente non trovata: FUEL SUPPLY
+# DA LEGGERE: riga della sorgente non trovata: EXCESS FUEL AND
+# DA LEGGERE: riga della sorgente non trovata: VAPOR RETURN
+# DA LEGGERE: riga della sorgente non trovata: FUEL
+# DA LEGGERE: riga della sorgente non trovata: VENT
+# DA LEGGERE: riga della sorgente non trovata: INJECTION
+# DA LEGGERE: riga della sorgente non trovata: NOZZLE | MECHANICAL
+# DA LEGGERE: riga della sorgente non trovata: LINKAGE
+# DA LEGGERE: riga della sorgente non trovata: FUEL FLOW
+# DA LEGGERE: riga della sorgente non trovata: INDICATOR | ELECTRICAL
+# DA LEGGERE: riga della sorgente non trovata: (Right Half of Dual Instrument) | CONNECTION
+# DA LEGGERE: riga della sorgente non trovata: Figure 1-3.
+# DA LEGGERE: Tesseract legge «Page: 1-10 Reims Aviation»
+469 183-1240 | Reims Aviation Page: 1-7
+# DA LEGGERE: riga della sorgente non trovata: Reims, Marne France Edition: 3
+# DA LEGGERE: riga della sorgente non trovata: FUEL SYSTEM.
+# DA LEGGERE: riga della sorgente non trovata: Fuel is supplied to the engine from two tanks, one in each wing. The total
+# DA LEGGERE: riga della sorgente non trovata: usable fuel, for all flight conditions, is 46 U.S. gallons (174 litres).
+# DA LEGGERE: riga della sorgente non trovata: Fuel from each tank flows by gravity to a three-position fuel selector valve
+# DA LEGGERE: riga della sorgente non trovata: labeled “LEFT, BOTH, and RIGHT.” Depending upon the setting of the selector
+# DA LEGGERE: riga della sorgente non trovata: valve, fuel from the left tank, both tanks or right tank flows to a fuel reservoir tank
+# DA LEGGERE: riga della sorgente non trovata: and a manually-operated fuel shutoff valve. A push-pull knob labeled “FUEL, PUSH
+# DA LEGGERE: riga della sorgente non trovata: ON” operates the shutoff valve and controls fuel flow which is then routed through
+# DA LEGGERE: riga della sorgente non trovata: a fuel strainer and by-pass in the electric auxiliary fuel pump (when it is not oper-
+# DA LEGGERE: riga della sorgente non trovata: ating) to the engine-driven fuel pump and mixture unit. From here, fuel is distributed
+# DA LEGGERE: riga della sorgente non trovata: to the engine cylinders via a fuel and air throttle unit and fuel distribution manifold.
+# DA LEGGERE: riga della sorgente non trovata: Vapor and excess fuel from the engine-driven fuel pump and mixture unit are
+# DA LEGGERE: riga della sorgente non trovata: returned to the main fuel tanks by way of the fuel reservoir tank.
+# DA LEGGERE: riga della sorgente non trovata: NOTE
+# DA LEGGERE: riga della sorgente non trovata: When the fuel selector valve is in the “BOTH” position in cruising
+# DA LEGGERE: riga della sorgente non trovata: flight, unequal flow from each tank may occur if the wings are not
+# DA LEGGERE: riga della sorgente non trovata: maintained exactly level. The resulting wing heaviness can be allevi-
+# DA LEGGERE: riga della sorgente non trovata: ated gradually by turning the selector valve to the tank in the heavy
+# DA LEGGERE: riga della sorgente non trovata: wing.
+# DA LEGGERE: riga della sorgente non trovata: FUEL QUANTITY DATA
+# DA LEGGERE: riga della sorgente non trovata: TANKS | USABLE FUEL | UNUSABLE | TOTAL
+# DA LEGGERE: riga della sorgente non trovata: ALL FLIGHT | FUEL
+# DA LEGGERE: riga della sorgente non trovata: CONDITIONS
+# DA LEGGERE: riga della sorgente non trovata: 2 STANDARD TANKS:
+# DA LEGGERE: riga della sorgente non trovata: 26 U.S. gallons, | 46 U.S. gallons | 6 U.S. gallons | 52 U.S. gallons
+# DA LEGGERE: riga della sorgente non trovata: 98,5 litres each | 174 litres | 23 litres | 197 litres
+# DA LEGGERE: riga della sorgente non trovata: Figure 1-4.
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+505 183-1318 | Edition: 3 Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: NOTE
+# DA LEGGERE: riga della sorgente non trovata: It is not practical to measure the time required to consume all the
+# DA LEGGERE: riga della sorgente non trovata: fuel in one tank, and, after switching to the opposite tank, expect
+# DA LEGGERE: riga della sorgente non trovata: an equal duration from the remaining fuel. The airspace in both
+# DA LEGGERE: riga della sorgente non trovata: fuel tanks is interconnected by a vent line (Figure 1-3) and, there-
+# DA LEGGERE: riga della sorgente non trovata: fore, some sloshing of fuel between tanks can be expected when
+# DA LEGGERE: riga della sorgente non trovata: the tanks are nearly full and the wings are not level. Also, the
+# DA LEGGERE: riga della sorgente non trovata: fuel vapor return flow will be distributed to both tanks rather than
+# DA LEGGERE: riga della sorgente non trovata: only the tank in use.
+# DA LEGGERE: riga della sorgente non trovata: Refer to figure 1-4 for fuel quantity data. For fuel system servicing informa-
+# DA LEGGERE: riga della sorgente non trovata: tion, refer to Lubrication and Servicing Procedures in Section VI.
+# DA LEGGERE: riga della sorgente non trovata: AUXILIARY FUEL PUMP SWITCH.
+# DA LEGGERE: riga della sorgente non trovata: The down position of the auxiliary fuel pump switch, labeled “LOW,” operates
+# DA LEGGERE: riga della sorgente non trovata: the pump at low speed. With the switch in this position, the pump supplies sufficient
+# DA LEGGERE: riga della sorgente non trovata: fuel for priming and starting the engine.
+# DA LEGGERE: riga della sorgente non trovata: The up position of the switch, labeled “HIGH,” is used for engine operation if the
+# DA LEGGERE: riga della sorgente non trovata: engine-driven pump should fail, or for vapor purging in extremely hot weather. When
+# DA LEGGERE: riga della sorgente non trovata: the switch is in this position, the pump operates at one of two flow rates depending
+# DA LEGGERE: riga della sorgente non trovata: upon the setting of the throttle. With the throttle at a cruise setting, the pump is op-
+# DA LEGGERE: riga della sorgente non trovata: erating at maximum capacity, supplying sufficient fuel flow to maintain flight. When
+# DA LEGGERE: riga della sorgente non trovata: the throttle is moved toward the closed position, the auxiliary fuel pump flow rate
+# DA LEGGERE: riga della sorgente non trovata: is automatically reduced, preventing an excessively rich mixture during periods of re-
+# DA LEGGERE: riga della sorgente non trovata: duced engine speed.
+# DA LEGGERE: riga della sorgente non trovata: The auxiliary fuel pump is not to be used while the engine is running during
+# DA LEGGERE: riga della sorgente non trovata: normal operation, because, with the engine-driven pump functioning, a fuel/air ratio
+# DA LEGGERE: riga della sorgente non trovata: considerably richer than best power is produced. However, for vapor elimination,
+# DA LEGGERE: riga della sorgente non trovata: the fuel pump may be used with the engine running and the switch in the “HIGH”
+# DA LEGGERE: riga della sorgente non trovata: position. The mixture must then be leaned as required to prevent an excessively rich
+# DA LEGGERE: riga della sorgente non trovata: mixture.
+# DA LEGGERE: riga della sorgente non trovata: To ensure a prompt engine restart in flight after running a fuel tank dry, switch
+# DA LEGGERE: riga della sorgente non trovata: to the tank containing fuel and place the auxiliary fuel pump switch in the “HIGH”
+# DA LEGGERE: riga della sorgente non trovata: position momentarily (3 to 5 seconds) with the throttle at least 1/2 open.
+# DA LEGGERE: riga della sorgente non trovata: If the propeller should stop (possible at very low airspeeds) before the tank con-
+# DA LEGGERE: riga della sorgente non trovata: taining fuel is selected, place the auxiliary fuel pump switch in the “HIGH” position
+# DA LEGGERE: riga della sorgente non trovata: and advance the throttle promptly until the fuel flow indicator registers approxi-
+# DA LEGGERE: riga della sorgente non trovata: mately 1/2 way into the green arc for 1 to 2 seconds duration. Then retard the
+# DA LEGGERE: riga della sorgente non trovata: throttle, turn off the auxiliary fuel pump, and use the starter to turn the engine over
+# DA LEGGERE: riga della sorgente non trovata: until a start is obtained.
+# DA LEGGERE: riga della sorgente non trovata: ELECTRICAL SYSTEM.
+# DA LEGGERE: riga della sorgente non trovata: Electrical energy is supplied by a 14-volt, direct-current system powered by an
+# DA LEGGERE: riga della sorgente non trovata: engine-driven alternator (see figure 1-5). A 12-volt battery is located aft of the rear
+# DA LEGGERE: riga della sorgente non trovata: baggage compartment wall. Power is supplied to all electrical circuits through a
+# DA LEGGERE: riga della sorgente non trovata: split bus bar, one side containing electronic systems and the other side having gen-
+# DA LEGGERE: riga della sorgente non trovata: eral electrical systems. Both sides of the bus are on at all times except when either
+# DA LEGGERE: riga della sorgente non trovata: an external power source is connected or the ignition/starter switch is turned on;
+610 179-1326 | then a power contactor is automatically activated to open the circuit to the electron-
+646 178-1325 | ic bus. Isolating the electronic circuits in this manner prevents harmful transient vol-
+682 178-1044 | tages from damaging the transistors in the electronic equipment.
+754 177-447 | MASTER SWITCH.
+826 242-1329 | The master switch is a split-rocker type switch labeled “MASTER,” and is “ON”
+862 176-1285 | in the up position and “OFF” in the down position. The right half of the switch,
+898 175-1282 | labeled “BAT,” controls all electrical power to the airplane. The left half, labeled
+935 176-608 | “ALT,” controls the alternator.
+1007 243-1308 | Normally, both sides of the master switch should be used simultaneously, how-
+1044 176-1323 | ever, the “BAT” side of the switch could be turned “ON” separately to check equip-
+1081 175-1343 | ment while on the ground. The “ALT” side of the switch, when placed in the “OFF’
+1118 176-1298 | position, removes the alternator from the electrical system. With this switch in the
+# CONTROLLA (0.86): Tesseract legge «“OFF” position, the entire electrical load is placed on the battery, and all non-»
+1155 176-1245 | “OFF” position, the entire electrical load is placed on the battery. Continued oper-
+# DA LEGGERE: riga della sorgente non trovata: ation with the alternator switch ‘OFF” will reduce battery power low enough to open
+# DA LEGGERE: riga della sorgente non trovata: the battery contactor, remove power from the alternator field, and prevent alternator
+# DA LEGGERE: riga della sorgente non trovata: restart.
+1270 175-352 | AMMETER.
+1340 243-1295 | The ammeter indicates the flow of current, in amperes, from the alternator to
+1376 176-1312 | the battery or from the battery to the aircraft electrical system. When the engine is
+1413 177-1276 | operating and the master switch is “ON,” the ammeter indicates the charging rate
+# DA LEGGERE: riga della sorgente non trovata: Flight Manual
+# DA LEGGERE: riga della sorgente non trovata: Reims Rocket
+# DA LEGGERE: riga della sorgente non trovata: Page: 1-10 | Reims Aviation
+# DA LEGGERE: riga della sorgente non trovata: Edition: 3 | Reims, Marne France
+# DA LEGGERE: riga della sorgente non trovata: ELECTRICAL SYSTEM | SCHEMATIC
+# DA LEGGERE: riga della sorgente non trovata: REGULATOR | TO
+# DA LEGGERE: riga della sorgente non trovata: PRIMARY
+# DA LEGGERE: riga della sorgente non trovata: BUS | TO MASTER SWITCH
+# DA LEGGERE: riga della sorgente non trovata: OVER-
+# DA LEGGERE: riga della sorgente non trovata: VOLTAGE
+# DA LEGGERE: riga della sorgente non trovata: ALT FIELD | TO OVER-VOLTAGE SENSOR AND
+# DA LEGGERE: riga della sorgente non trovata: WARNING | ALTERNATOR | OVER-VOLTAGE WARNING LIGHT
+# DA LEGGERE: riga della sorgente non trovata: LIGHT
+# DA LEGGERE: riga della sorgente non trovata: TO ALT FIELD | ALT | TO FUEL PUMP SWITCH
+# DA LEGGERE: riga della sorgente non trovata: CIRCUIT BREAKER
+# DA LEGGERE: riga della sorgente non trovata: FUEL
+# DA LEGGERE: riga della sorgente non trovata: PUMP
+# DA LEGGERE: riga della sorgente non trovata: OVER- | CIGAR LIGHTER
+# DA LEGGERE: riga della sorgente non trovata: MASTER | VOLTAGE | (WITH CIRCUIT
+# DA LEGGERE: riga della sorgente non trovata: SENSOR | BREAKER) | TO RADIO (OPT)
+# DA LEGGERE: riga della sorgente non trovata: SWITCH | TO
+# DA LEGGERE: riga della sorgente non trovata: ALT FIELD | RADIO 1
+# DA LEGGERE: riga della sorgente non trovata: CIRCUIT
+# DA LEGGERE: riga della sorgente non trovata: BREAKER | TO RADIO (OPT)
+# DA LEGGERE: riga della sorgente non trovata: RADIO 2
+# DA LEGGERE: riga della sorgente non trovata: AMMETER | TO RADIO (OPT)
+# DA LEGGERE: riga della sorgente non trovata: STARTER | REVERSE POLARITY | GROUND SERVICE | RADIO 3
+# DA LEGGERE: riga della sorgente non trovata: CONTACTOR | CONTACTOR
+# DA LEGGERE: riga della sorgente non trovata: PLUG RECEPTACLE
+# DA LEGGERE: riga della sorgente non trovata: (OPT) | TO RADIO (OPT)
+# DA LEGGERE: riga della sorgente non trovata: RADIO 4
+# DA LEGGERE: riga della sorgente non trovata: TO AUDIO AMPLIFIER (OPT)
+# DA LEGGERE: riga della sorgente non trovata: AUD AMP
+# DA LEGGERE: riga della sorgente non trovata: TO AUTOMATIC PILOT (OPT)
+# DA LEGGERE: riga della sorgente non trovata: AUTO
+# DA LEGGERE: riga della sorgente non trovata: PILOT
+# DA LEGGERE: riga della sorgente non trovata: FROM ALTERNATOR BUS
+# DA LEGGERE: riga della sorgente non trovata: TO LANDING AND TAXI
+# DA LEGGERE: riga della sorgente non trovata: SPLIT BUS | LIGHTS (OPT)
+# DA LEGGERE: riga della sorgente non trovata: CONTACTOR | LAND LT
+# DA LEGGERE: riga della sorgente non trovata: (NORMALLY CLOSED)
+# DA LEGGERE: riga della sorgente non trovata: TO NAVIGATION LIGHTS AND
+# DA LEGGERE: riga della sorgente non trovata: OPTIONAL CONTROL WHEEL
+# DA LEGGERE: riga della sorgente non trovata: MAP LIGHT
+# DA LEGGERE: riga della sorgente non trovata: CLOCK (OPT)
+# DA LEGGERE: riga della sorgente non trovata: STARTER | NAV | TO TRANSMITTER RELAY (OPT)
+# DA LEGGERE: riga della sorgente non trovata: LT
+# DA LEGGERE: riga della sorgente non trovata: TO IGNITION-STARTER SWITCH
+# DA LEGGERE: riga della sorgente non trovata: BATTERY
+# DA LEGGERE: riga della sorgente non trovata: CONTACTOR | TO FLASHING BEACON (OPT)
+# DA LEGGERE: riga della sorgente non trovata: TO
+# DA LEGGERE: riga della sorgente non trovata: NAVIGATION | BCN LT
+# DA LEGGERE: riga della sorgente non trovata: LIGHT CIRCUIT
+# DA LEGGERE: riga della sorgente non trovata: BREAKER | TO DOOR POST MAP LIGHT (OPT)
+# DA LEGGERE: riga della sorgente non trovata: TO DOME AND OPTIONAL
+# DA LEGGERE: riga della sorgente non trovata: COURTESY LIGHTS
+# DA LEGGERE: riga della sorgente non trovata: INT LT
+# DA LEGGERE: riga della sorgente non trovata: TO COMPASS AND INSTRUMENT
+# DA LEGGERE: riga della sorgente non trovata: LIGHTS
+# DA LEGGERE: riga della sorgente non trovata: IGNITION-
+# DA LEGGERE: riga della sorgente non trovata: STARTER SWITCH
+# DA LEGGERE: riga della sorgente non trovata: TO FUEL QUANTITY INDICATORS
+# DA LEGGERE: riga della sorgente non trovata: TO WING FLAP POSITION
+# DA LEGGERE: riga della sorgente non trovata: BATTERY | INST | INDICATOR
+# DA LEGGERE: riga della sorgente non trovata: TO WING FLAP SYSTEM
+# DA LEGGERE: riga della sorgente non trovata: FLAP
+# DA LEGGERE: riga della sorgente non trovata: MAGNETOS
+# DA LEGGERE: riga della sorgente non trovata: TO STROBE LIGHTS (OPT)
+# DA LEGGERE: riga della sorgente non trovata: STROBE LT
+# DA LEGGERE: riga della sorgente non trovata: CODE
+# DA LEGGERE: riga della sorgente non trovata: TO PITOT HEAT SYSTEM (OPT)
+# DA LEGGERE: riga della sorgente non trovata: CIRCUIT BREAKER (PUSH-TO-RESET) | PITOT HT
+# DA LEGGERE: riga della sorgente non trovata: FUSE | DIODE | RESISTOR
+# DA LEGGERE: riga della sorgente non trovata: TO TURN COORDINATOR OR
+# DA LEGGERE: riga della sorgente non trovata: CAPACITOR (NOISE FILTER) | OPTIONAL TURN AND BANK
+# DA LEGGERE: riga della sorgente non trovata: TURN | INDICATOR
+# DA LEGGERE: riga della sorgente non trovata: COORD
+# DA LEGGERE: riga della sorgente non trovata: Figure 1-5.
+1449 176-1329 | applied to the battery. In the event the alternator is not functioning or the electrical
+1485 176-1292 | load exceeds the output of the alternator, the ammeter indicates the discharge rate
+1523 176-384 | of the battery.
+1591 177-911 | OVER-VOLTAGE SENSOR AND WARNING LIGHT.
+1661 243-1305 | The aircraft is equipped with an automatic over-voltage protection system con-
+1698 177-1320 | sisting of an over-voltage sensor behind the instrument panel and a red warning light,
+1733 177-835 | labeled “HIGH VOLTAGE”, near the fuel gages.
+1805 243-1310 | In the event an over-voltage condition occurs, the over-voltage sensor automati-
+1841 177-1307 | cally removes alternator field current and shuts down the alternator. The red warn-
+1876 177-1320 | ing light will then turn on, indicating to the pilot that the alternator is not operating
+1912 176-934 | and the aircraft battery is supplying all electrical power.
+1982 246-1318 | The over-voltage sensor may be reset by turning the master switch off and back
+2017 178-1278 | on again. If the warning light does not illuminate, normal alternator charging has
+2050 178-1320 | resumed; however, if the light does illuminate again, a malfunction has occurred, and
+2085 178-879 | the flight should be terminated as soon as practical.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «essential electrical equipment should be turned off for the remainder of the flight.»
+# 1196 176-1282 | essential electrical equipment should be turned off for the remainder of the flight.

@@ -1,0 +1,28 @@
+388 710-907 | Flight Manual
+425 711-910 | Reims Rocket
+466 241-1209 | Reims Aviation
+466 1211-1372 | Page: 3-9
+501 240-1387 | Reims, Marne France Edition: 2
+# CONTROLLA (0.99): Tesseract legge «era] minutes, determine if a richer mixture setting will produce smoother operation,»
+611 246-1372 | eral minutes, determine if a richer mixture setting will produce smoother operation.
+647 246-1365 | If not, proceed to the nearest airport for repairs using the “BOTH” position of the
+681 245-1393 | ignition switch unless extreme roughness dictates the use of a single ignition position.
+755 244-653 | MAGNETO MALFUNCTION.
+824 311-1398 | A sudden engine roughness or misfiring is usually evidence of magneto problems.
+861 246-1393 | Switching from “BOTH” to either “LEFT” or “RIGHT” ignition switch position will
+897 244-1349 | identify which magneto is malfunctioning. Select different power settings and en-
+933 244-1328 | richen the mixture to determine if continued operation on “BOTH” magnetos is
+970 245-1363 | practicable. If not, switch to the good magneto and proceed to the nearest airport
+1009 245-402 | for repairs.
+1080 243-561 | LOW OIL PRESSURE.
+1153 308-1392 | If low oil pressure is accompanied by normal oil temperature, there is a possibil-
+1189 242-1355 | ity the oil pressure gage or relief valve is malfunctioning. A leak in the line to the
+# CONTROLLA (0.99): Tesseract legge «gage is not necessarily cause for an immediate precautionary landing because an orific«»
+1226 242-1400 | gage is not necessarily cause for an immediate precautionary landing because an orifice
+1260 242-1385 | in this line will prevent a sudden loss of oil from the engine sump. However, a land-
+1299 241-1285 | ing at the nearest airport would be advisable to inspect the source of trouble.
+1374 308-1368 | If a total loss of oil pressure is accompanied by a rise in oil temperature, there
+1410 241-1393 | is reason to suspect an engine failure is imminent. Reduce engine power immediately
+1445 241-1399 | and select a suitable forced landing field. Leave the engine running at low power dur-
+1482 241-1399 | ing the approach, using only the minimum power required to reach the desired touch-
+1517 241-402 | down spot.

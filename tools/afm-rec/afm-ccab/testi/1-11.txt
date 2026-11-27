@@ -1,0 +1,64 @@
+380 714-912 | Flight Manual
+418 716-914 | Reims Rocket
+458 261-1236 | Reims Aviation
+458 1238-1404 | Page: 1-11
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+493 261-1237 | Reims, Marne France
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+493 1239-1405 | Edition: 2
+# DA LEGGERE: riga della sorgente non trovata: applied to the battery. In the event the alternator is not functioning or the electrical
+# DA LEGGERE: riga della sorgente non trovata: load exceeds the output of the alternator, the ammeter indicates the discharge rate
+# DA LEGGERE: riga della sorgente non trovata: of the battery.
+# DA LEGGERE: riga della sorgente non trovata: OVER-VOLTAGE SENSOR AND WARNING LIGHT.
+# DA LEGGERE: riga della sorgente non trovata: The aircraft is equipped with an automatic over-voltage protection system con-
+# DA LEGGERE: riga della sorgente non trovata: sisting of an over-voltage sensor behind the instrument panel and a red warning light,
+# DA LEGGERE: riga della sorgente non trovata: labeled “HIGH VOLTAGE”, near the fuel gages.
+# DA LEGGERE: riga della sorgente non trovata: In the event an over-voltage condition occurs, the over-voltage sensor automati-
+# DA LEGGERE: riga della sorgente non trovata: cally removes alternator field current and shuts down the alternator. The red warn-
+# DA LEGGERE: riga della sorgente non trovata: ing light will then turn on, indicating to the pilot that the alternator is not operating
+# DA LEGGERE: riga della sorgente non trovata: and the aircraft battery is supplying all electrical power.
+# DA LEGGERE: riga della sorgente non trovata: The over-voltage sensor may be reset by turning the master switch off and back
+# DA LEGGERE: riga della sorgente non trovata: on again. If the warning light does not illuminate, normal alternator charging has
+# DA LEGGERE: riga della sorgente non trovata: resumed; however, if the light does illuminate again, a malfunction has occurred, and
+# DA LEGGERE: riga della sorgente non trovata: the flight should be terminated as soon as practical.
+596 317-1356 | The over-voltage warning light may be tested by momentarily turning off the
+633 253-1322 | “ALT” portion of the master switch and leaving the “BAT” portion turned on.
+706 255-758 | CIRCUIT BREAKERS AND FUSES.
+776 320-1418 | The majority of electrical circuits in the airplane are protected by “push-to-reset”
+812 255-1411 | circuit breakers mounted on the instrument panel. Exceptions to this are the optional
+847 255-1409 | clock and battery contactor closing (external power) circuits which have fuses mount-
+885 255-1366 | ed adjacent to the battery. Also, the cigar lighter is protected by a manually reset
+920 255-1424 | type circuit breaker mounted directly on the back of the lighter behind the instrument
+965 255-346 | panel.
+1031 320-1362 | When more than one radio is installed, the radio transmitter relay (which is a
+1068 255-1345 | part of the radio installation) is protected by the navigation lights circuit breaker
+# DA LEGGERE: Tesseract legge «labeled “NAV LTS.” If a malfunction in the navigation lights system causes the»
+1106 255-1341 | labeled “NAV LTS.” It is important to remember that any malfunction in the navi-
+# DA LEGGERE: riga della sorgente non trovata: gation lights system which causes the circuit breaker to open will de-activate both
+# DA LEGGERE: Tesseract legge «circuit breaker to open, de-activating the lights and transmitter relay, turn off the»
+1141 256-1354 | the navigation lights and the transmitter relay. In this event, the navigation light
+# DA LEGGERE: Tesseract legge «navigation light switch and reset the circuit breaker. This will re-activate the trans-»
+1177 255-1374 | switch should be turned off to isolate the circuit; then reset the circuit breaker to
+# DA LEGGERE: Tesseract legge «mitter relay and permit its usage. Do not turn the switch on again until the mal-»
+1213 255-1352 | re-activate the transmitter relay and permit its usage. Do not turn on the navigation
+# DA LEGGERE: Tesseract legge «function is corrected.»
+1253 256-552 | lights switch until the malfunction has been corrected.
+# DA LEGGERE: riga della sorgente non trovata: Edition: 3 Reims, Marne France
+1436 titolo 258-693 | LIGHTING EQUIPMENT.
+1509 259-598 | EXTERIOR LIGHTING.
+1580 324-1385 | Conventional navigation lights are located on the wing tips and top of the rud-
+# CONTROLLA (0.94): Tesseract legge «der. Optional lighting includes a landing light and taxi light mounted in the left»
+1618 259-1340 | der. Optional lighting includes a landing light and taxi light mounted in the engine
+# CONTROLLA (0.91): Tesseract legge «wing, a flashing beacon on the top of the vertical fin, a strobe light on each wing»
+1654 258-1354 | cowl, a flashing beacon on top of the vertical fin, a strobe light on each wing tip,
+# CONTROLLA (0.97): Tesseract legge «tip, and two courtesy lights, one under each wing, just outboard of the cabin door.»
+1691 258-1378 | and two courtesy lights, one under each wing, just outboard of the cabin doors.
+1726 258-1390 | The courtesy lights are controlled by the dome light switch located on the overhead
+1760 258-1383 | console. All other exterior lights are controlled by rocker type switches located on
+1795 258-1352 | the left switch and control panel. The switches are “ON” in the up position and
+1832 258-662 | “OFF” in the down position.
+1901 724-919 | IMPORTANT
+1971 390-1306 | The flashing beacon should not be used when flying through clouds
+2005 392-1291 | or overcast; the flashing light reflected from water droplets or par-
+2041 391-1282 | ticles in the atmosphere, particularly at night, can produce vertigo
+2076 392-713 | and loss of orientation.

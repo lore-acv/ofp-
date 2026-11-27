@@ -1,0 +1,141 @@
+408 638-836 | Flight Manual
+444 639-838 | Reims Rocket
+485 174-1006 | Page: iv
+485 1008-1232 | Reims Aviation
+# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
+522 175-1309 | Edition: 3 Reims, Marne France
+# DA LEGGERE: Tesseract legge «FIRES. 7. 8D»
+626 241-1237 fine=335 | FIRES
+# DA LEGGERE: Tesseract legge «FIRES. 7. 8D»
+626 1239-1305 | 3-2
+# CONTROLLA (0.82): Tesseract legge «LANDING . . a»
+662 242-1237 fine=388 | LANDING
+# CONTROLLA (0.82): Tesseract legge «LANDING . . a»
+662 1239-759 | 3-4
+# DA LEGGERE: Tesseract legge «FORCED LANDINGS toe So ee ee ee ee BS»
+701 240-1237 fine=538 | FORCED LANDINGS
+# DA LEGGERE: Tesseract legge «FORCED LANDINGS toe So ee ee ee ee BS»
+701 1239-1303 | 3-5
+# CONTROLLA (0.82): Tesseract legge «FLIGHT IN ICING CONDITIONS . Co ee ee 8G»
+736 240-1237 fine=698 | FLIGHT IN ICING CONDITIONS
+# CONTROLLA (0.82): Tesseract legge «FLIGHT IN ICING CONDITIONS . Co ee ee 8G»
+736 1239-1305 | 3-6
+# CONTROLLA (0.87): Tesseract legge «RECOVERY FROM A SPIRAL DIVE... . wow) BD»
+769 241-1237 fine=752 | RECOVERY FROM A SPIRAL DIVE
+# CONTROLLA (0.87): Tesseract legge «RECOVERY FROM A SPIRAL DIVE... . wow) BD»
+769 1239-1301 | 3-7
+# CONTROLLA (0.96): Tesseract legge «ELECTRICAL POWER SUPPLY SYSTEM MALFUNCTIONS . woe. 37»
+809 241-1237 fine=1055 | ELECTRICAL POWER SUPPLY SYSTEM MALFUNCTIONS
+# CONTROLLA (0.96): Tesseract legge «ELECTRICAL POWER SUPPLY SYSTEM MALFUNCTIONS . woe. 37»
+809 1239-1303 | 3-7
+843 240-1237 fine=977 | ROUGH ENGINE OPERATION OR LOSS OF POWER
+843 1239-1303 | 3-8
+987 titolo 174-903 | SECTION IV - NORMAL PROCEDURES.
+1043 543-946 | (OPERATING CHECK LIST)
+# CONTROLLA (0.96): Tesseract legge «BEFORE ENTERING THE AIRPLANE ............. 44»
+1096 240-1236 fine=771 | BEFORE ENTERING THE AIRPLANE
+# CONTROLLA (0.96): Tesseract legge «BEFORE ENTERING THE AIRPLANE ............. 44»
+1096 1238-1298 | 4-1
+1133 238-1236 fine=730 | BEFORE STARTING THE ENGINE
+1133 1238-1298 | 4-1
+# CONTROLLA (0.86): Tesseract legge «STARTING THE ENGINE. . 2... 2. ee 4d»
+1171 238-1236 fine=597 | STARTING THE ENGINE
+# CONTROLLA (0.86): Tesseract legge «STARTING THE ENGINE. . 2... 2. ee 4d»
+1171 1238-1297 | 4-1
+# CONTROLLA (0.83): Tesseract legge «EXTERIOR INSPECTION. .. 2... 0 we ee aD»
+1212 236-1234 fine=595 | EXTERIOR INSPECTION
+# CONTROLLA (0.83): Tesseract legge «EXTERIOR INSPECTION. .. 2... 0 we ee aD»
+1212 1236-1299 | 4-2
+# CONTROLLA (0.85): Tesseract legge «BEFORE TAKE-OFF... 2... 2... ee 4»
+1248 238-1234 fine=528 | BEFORE TAKE-OFF
+# CONTROLLA (0.85): Tesseract legge «BEFORE TAKE-OFF... 2... 2... ee 4»
+1248 1236-1299 | 4-4
+# DA LEGGERE: Tesseract legge «TAKE-OFF. 2... 2. ee 4S»
+1282 235-1234 fine=396 | TAKE-OFF
+# DA LEGGERE: Tesseract legge «TAKE-OFF. 2... 2. ee 4S»
+1282 1236-1299 | 4-4
+# DA LEGGERE: Tesseract legge «CLIMB. . 2... ee 4S»
+1317 236-1234 fine=498 | ENROUTE CLIMB
+# DA LEGGERE: Tesseract legge «CLIMB. . 2... ee 4S»
+1317 1236-1297 | 4-5
+# CONTROLLA (0.86): Tesseract legge «CRUISING... 2. 4S»
+1356 235-1234 fine=389 | CRUISING
+# CONTROLLA (0.86): Tesseract legge «CRUISING... 2. 4S»
+1356 1236-1296 | 4-5
+# CONTROLLA (0.76): Tesseract legge «LET-DOWN. © 2 oe 4S»
+1388 236-1233 fine=401 | LET-DOWN
+# CONTROLLA (0.76): Tesseract legge «LET-DOWN. © 2 oe 4S»
+1388 1235-1296 | 4-5
+# CONTROLLA (0.86): Tesseract legge «BEFORE LANDING ..............0. 2.0.20... 45»
+1429 236-1233 fine=516 | BEFORE LANDING
+# CONTROLLA (0.86): Tesseract legge «BEFORE LANDING ..............0. 2.0.20... 45»
+1429 1235-1296 | 4-5
+# CONTROLLA (0.79): Tesseract legge «BALKED LANDING... .... 2... 2..00000 0... 46»
+1464 235-1233 fine=517 | BALKED LANDING
+# CONTROLLA (0.79): Tesseract legge «BALKED LANDING... .... 2... 2..00000 0... 46»
+1464 1235-1296 | 4-6
+# CONTROLLA (0.91): Tesseract legge «NORMAL LANDING. .. 2... ee 46»
+1500 234-1233 fine=525 | NORMAL LANDING
+# CONTROLLA (0.91): Tesseract legge «NORMAL LANDING. .. 2... ee 46»
+1500 1235-1295 | 4-6
+# CONTROLLA (0.76): Tesseract legge «AFTER LANDING. . 2. 2 2 2. ee 4G»
+1536 234-1231 fine=496 | AFTER LANDING
+# CONTROLLA (0.76): Tesseract legge «AFTER LANDING. . 2. 2 2 2. ee 4G»
+1536 1233-1294 | 4-6
+# CONTROLLA (0.91): Tesseract legge «SECURING AIRCRAFT. ..... 2)»
+1572 233-1231 fine=565 | SECURING AIRCRAFT
+# CONTROLLA (0.91): Tesseract legge «SECURING AIRCRAFT. ..... 2)»
+1572 1233-1293 | 4-6
+1625 566-919 | (OPERATING DETAILS)
+# CONTROLLA (0.80): Tesseract legge «STARTING ENGINE... 2... 2 ee A»
+1675 235-1236 fine=524 | STARTING ENGINE
+# CONTROLLA (0.80): Tesseract legge «STARTING ENGINE... 2... 2 ee A»
+1675 1238-1298 | 4-7
+# DA LEGGERE: Tesseract legge «TAXIING ... ee ee a»
+1712 235-1236 fine=372 | TAXIING
+# DA LEGGERE: Tesseract legge «TAXIING ... ee ee a»
+1712 1238-1298 | 4-7
+# DA LEGGERE: Tesseract legge «TAXING DIAGRAM . So ee ee ee ee ew 4B»
+1747 234-1236 fine=528 | TAXIING DIAGRAM
+# DA LEGGERE: Tesseract legge «TAXING DIAGRAM . So ee ee ee ee ew 4B»
+1747 1238-1299 | 4-8
+# CONTROLLA (0.76): Tesseract legge «BEFORE TAKE-OFF... 2... 2 2 ee ee 4D»
+1782 236-1236 fine=528 | BEFORE TAKE-OFF
+# CONTROLLA (0.76): Tesseract legge «BEFORE TAKE-OFF... 2... 2 2 ee ee 4D»
+1782 1238-1298 | 4-9
+# CONTROLLA (0.80): Tesseract legge «TAKE-OFF... Be 4D»
+1818 234-1236 fine=394 | TAKE-OFF
+# CONTROLLA (0.80): Tesseract legge «TAKE-OFF... Be 4D»
+1818 1238-1298 | 4-9
+# CONTROLLA (0.77): Tesseract legge «ENROUTE CLIMB . ee AD»
+1852 234-1218 fine=495 | ENROUTE CLIMB
+# CONTROLLA (0.77): Tesseract legge «ENROUTE CLIMB . ee AD»
+1852 1220-1293 | 4-11
+# DA LEGGERE: Tesseract legge «CRUISE... . woe ee ee ALT»
+1888 234-1218 fine=353 | CRUISE
+# DA LEGGERE: Tesseract legge «CRUISE... . woe ee ee ALT»
+1888 1220-1293 | 4-11
+# CONTROLLA (0.89): Tesseract legge «MAXIMUM CRUISE SPEED PERFORMANCE DATA coe ee ee we 412»
+1924 234-1220 fine=956 | MAXIMUM CRUISE SPEED PERFORMANCE DATA
+# CONTROLLA (0.89): Tesseract legge «MAXIMUM CRUISE SPEED PERFORMANCE DATA coe ee ee we 412»
+1924 1222-1296 | 4-12
+# DA LEGGERE: Tesseract legge «STALLS ..... foe ee we ee AD»
+1959 233-1220 fine=356 | STALLS
+# DA LEGGERE: Tesseract legge «STALLS ..... foe ee we ee AD»
+1959 1222-1296 | 4-12
+# CONTROLLA (0.80): Tesseract legge «SPINS. 2 6. ee 412»
+1993 233-1218 fine=326 | SPINS
+# CONTROLLA (0.80): Tesseract legge «SPINS. 2 6. ee 412»
+1993 1220-1294 | 4-12
+# CONTROLLA (0.91): Tesseract legge «LANDING . . . ee 413»
+2026 232-1218 fine=381 | LANDING
+# CONTROLLA (0.91): Tesseract legge «LANDING . . . ee 413»
+2026 1220-1294 | 4-13
+# CONTROLLA (0.86): Tesseract legge «COLD WEATHER OPERATION ee ee 4B»
+2065 230-1218 fine=672 | COLD WEATHER OPERATION
+# CONTROLLA (0.86): Tesseract legge «COLD WEATHER OPERATION ee ee 4B»
+2065 1220-1293 | 4-14
+# CONTROLLA (0.81): Tesseract legge «HOT WEATHER OPERATION... 2... 2 ee NS»
+2099 230-1218 fine=651 | HOT WEATHER OPERATION
+# CONTROLLA (0.81): Tesseract legge «HOT WEATHER OPERATION... 2... 2 ee NS»
+2099 1220-1293 | 4-16

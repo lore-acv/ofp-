@@ -1,0 +1,161 @@
+387 748-942 | Flight Manual
+424 748-945 | Reims Rocket
+459 281-1400 | Reims Aviation Page: 1-5
+# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
+498 282-1409 | Reims, Marne France Edition: 3
+# DA LEGGERE: riga della sorgente non trovata: INSTRUMENT PANEL
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 948-438 c=27.4 | 1
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 440-502 c=27.4 | 2
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 504-560 c=27.4 | 3
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 562-634 c=27.4 | 4
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 636-699 c=27.4 | 5
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 701-1021 c=27.4 | 6
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 1023-1081 c=27.4 | 7
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 1083-1137 c=27.4 | 8
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 1139-1183 c=27.4 | 9
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 1185-1235 c=27.4 | 10
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 1237-1289 c=27.4 | 11
+# DA LEGGERE: Tesseract legge «9 10 1 12 13 14»
+721 richiamo 1291-1356 c=27.4 | 12
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 342-334 c=27.4 | 34
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 336-379 c=27.4 | 33
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 381-424 c=27.4 | 32
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 426-462 c=27.4 | 31
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 464-504 c=27.4 | 30
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 506-547 c=27.4 | 29
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 549-593 c=27.4 | 28
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 595-643 c=27.4 | 27
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 645-694 c=27.4 | 26
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 696-977 c=27.4 | 25
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 979-1034 c=27.4 | 20
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 1036-1084 c=27.4 | 19
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 1086-1135 c=27.4 | 18
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 1137-1186 c=27.4 | 17
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 1188-1235 c=27.4 | 16
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 1237-1287 c=27.4 | 15
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 1289-1339 c=27.4 | 14
+# CONTROLLA (0.80): Tesseract legge «36 35 34.33 32 31 30 29 28.27 WAM \ 22 21 20 19 “1817 16 15»
+1340 richiamo 1341-1351 c=27.4 | 13
+# DA LEGGERE: Tesseract legge «26° ae | 23»
+1400 richiamo 714-980 c=27.4 | 24
+# DA LEGGERE: Tesseract legge «26° ae | 23»
+1400 richiamo 982-992 c=27.4 | 21
+# DA LEGGERE: Tesseract legge «25 24»
+1462 richiamo 713-980 c=27.4 | 23
+# DA LEGGERE: Tesseract legge «25 24»
+1462 richiamo 982-992 c=27.4 | 22
+# DA LEGGERE: Tesseract legge «1, Flight Instrument Group . Oil Pressure and Oil Microphone (Opt. )»
+1647 legenda 323-685 c=13.1 | 1. Flight Instrument Group
+# DA LEGGERE: Tesseract legge «1, Flight Instrument Group . Oil Pressure and Oil Microphone (Opt. )»
+1647 legenda 687-1044 c=13.1 | 12. Cylinder Head Temperature
+# DA LEGGERE: Tesseract legge «1, Flight Instrument Group . Oil Pressure and Oil Microphone (Opt. )»
+1647 legenda 1046-1276 c=13.1 | 23. Microphone (Opt.)
+# DA LEGGERE: Tesseract legge «3, Compass Correction Card . Cylinder Head Temperature Elevator Trim Control Wheel»
+1694 legenda 322-723 c=13.1 | 2. Suction Gage (Opt.)
+# DA LEGGERE: Tesseract legge «3, Compass Correction Card . Cylinder Head Temperature Elevator Trim Control Wheel»
+1694 legenda 725-1044 c=13.1 | Gage (Opt.)
+# DA LEGGERE: Tesseract legge «3, Compass Correction Card . Cylinder Head Temperature Elevator Trim Control Wheel»
+1694 legenda 1046-1384 c=13.1 | 24. Elevator Trim Control Wheel
+# CONTROLLA (0.76): Tesseract legge «Marker Beacon Indicator Gage (Opt. ) . Electrical Switches»
+1718 legenda 352-685 c=13.1 | 3. Marker Beacon Indicator
+# CONTROLLA (0.76): Tesseract legge «Marker Beacon Indicator Gage (Opt. ) . Electrical Switches»
+1718 legenda 687-1044 c=13.1 | 13. Optional Instrument and
+# CONTROLLA (0.76): Tesseract legge «Marker Beacon Indicator Gage (Opt. ) . Electrical Switches»
+1718 legenda 1046-1283 c=13.1 | 25. Electrical Switches
+# CONTROLLA (0.76): Tesseract legge «Lights and Switches (Opt. ) . Optional Instrument and . Circuit Breakers»
+1739 legenda 352-725 c=13.1 | Lights and Switches (Opt.)
+# CONTROLLA (0.76): Tesseract legge «Lights and Switches (Opt. ) . Optional Instrument and . Circuit Breakers»
+1739 legenda 727-1044 c=13.1 | Radio Space
+# CONTROLLA (0.76): Tesseract legge «Lights and Switches (Opt. ) . Optional Instrument and . Circuit Breakers»
+1739 legenda 1046-1260 c=13.1 | 26. Circuit Breakers
+# DA LEGGERE: Tesseract legge «. Manifold Pressure/Fuel flow Radio Space . Parking Brake Handle»
+1763 legenda 334-685 c=13.1 | 4. Manifold Pressure/Fuel Flow
+# DA LEGGERE: Tesseract legge «. Manifold Pressure/Fuel flow Radio Space . Parking Brake Handle»
+1763 legenda 687-1044 c=13.1 | 14. Map Compartment
+# DA LEGGERE: Tesseract legge «. Manifold Pressure/Fuel flow Radio Space . Parking Brake Handle»
+1763 legenda 1046-1309 c=13.1 | 27. Map Light Rheostat
+# DA LEGGERE: Tesseract legge «Indicator . Map Compartment . Auxiliary Fuel Pump Switch»
+1786 legenda 347-685 c=13.1 | Indicator
+# DA LEGGERE: Tesseract legge «Indicator . Map Compartment . Auxiliary Fuel Pump Switch»
+1786 legenda 687-1044 c=13.1 | 15. Cigar Lighter
+# DA LEGGERE: Tesseract legge «Indicator . Map Compartment . Auxiliary Fuel Pump Switch»
+1786 legenda 1046-1371 c=13.1 | 28. Parking Brake Handle
+# DA LEGGERE: Tesseract legge «. Tachometer + Cigar Lighter Ignition/Starter Switch»
+1807 legenda 333-685 c=13.1 | 5. Tachometer
+# DA LEGGERE: Tesseract legge «. Tachometer + Cigar Lighter Ignition/Starter Switch»
+1807 legenda 687-1044 c=13.1 | 16. Cabin Heat Control Knob
+# DA LEGGERE: Tesseract legge «. Tachometer + Cigar Lighter Ignition/Starter Switch»
+1807 legenda 1046-1317 c=13.1 | 29. Ignition/Starter Switch
+# DA LEGGERE: Tesseract legge «. Magnetic Compass » Wing Flap Switch Instrument and Radio Dial»
+1832 legenda 333-685 c=13.1 | 6. Magnetic Compass
+# DA LEGGERE: Tesseract legge «. Magnetic Compass » Wing Flap Switch Instrument and Radio Dial»
+1832 legenda 687-1042 c=13.1 | 17. Wing Flap Switch
+# DA LEGGERE: Tesseract legge «. Magnetic Compass » Wing Flap Switch Instrument and Radio Dial»
+1832 legenda 1044-1350 c=13.1 | 30. Master Switch
+# DA LEGGERE: Tesseract legge «Rear View Mirror + Cabin Air Control Knob Light Rheostats»
+1850 legenda 351-685 c=13.1 | 7. Rear View Mirror
+# DA LEGGERE: Tesseract legge «Rear View Mirror + Cabin Air Control Knob Light Rheostats»
+1850 legenda 687-1044 c=13.1 | 18. Cabin Air Control Knob
+# DA LEGGERE: Tesseract legge «Rear View Mirror + Cabin Air Control Knob Light Rheostats»
+1850 legenda 1046-1245 c=13.1 | 31. Instrument and Radio Dial
+# CONTROLLA (0.76): Tesseract legge «. Radio Selector Switches + Mixture Control Knob . Master Switch»
+1876 legenda 333-685 c=13.1 | 8. Radio Selector Switches (Opt.)
+# CONTROLLA (0.76): Tesseract legge «. Radio Selector Switches + Mixture Control Knob . Master Switch»
+1876 legenda 687-1087 c=13.1 | 19. Mixture Control Knob
+# CONTROLLA (0.76): Tesseract legge «. Radio Selector Switches + Mixture Control Knob . Master Switch»
+1876 legenda 1089-1230 c=13.1 | Light Rheostats
+# DA LEGGERE: Tesseract legge «(Opt. ) . Alternate Static Source Valve Primer»
+1895 legenda 352-682 c=13.1 | 9. Radios (Opt.)
+# DA LEGGERE: Tesseract legge «(Opt. ) . Alternate Static Source Valve Primer»
+1895 legenda 684-1044 c=13.1 | 20. Alternate Static Source Valve
+# DA LEGGERE: Tesseract legge «(Opt. ) . Alternate Static Source Valve Primer»
+1895 legenda 1046-1161 c=13.1 | 32. Fuel Shutoff Valve
+# DA LEGGERE: Tesseract legge «. Transponder (Opt. ) Control Knob (Opt. ) . Fuel Shut-off Valve»
+1922 legenda 333-725 c=13.1 | 10. Ammeter and Fuel Gages
+# DA LEGGERE: Tesseract legge «. Transponder (Opt. ) Control Knob (Opt. ) . Fuel Shut-off Valve»
+1922 legenda 727-1085 c=13.1 | Control Knob (Opt.)
+# DA LEGGERE: Tesseract legge «. Transponder (Opt. ) Control Knob (Opt. ) . Fuel Shut-off Valve»
+1922 legenda 1087-1282 c=13.1 | Control Knob.
+# DA LEGGERE: Tesseract legge «. Radios (Opt. ) - Propeller Control Knob Control Knob»
+1943 legenda 333-682 c=13.1 | 11. Oil Pressure and Oil
+# DA LEGGERE: Tesseract legge «. Radios (Opt. ) - Propeller Control Knob Control Knob»
+1943 legenda 684-1044 c=13.1 | 21. Propeller Control Knob
+# DA LEGGERE: Tesseract legge «. Radios (Opt. ) - Propeller Control Knob Control Knob»
+1943 legenda 1046-1219 c=13.1 | 33. Primer
+# CONTROLLA (0.77): Tesseract legge «. Ammeter and Fuel Gages Throttle Phone Jack»
+1966 legenda 333-683 c=13.1 | Temperature Gages
+# CONTROLLA (0.77): Tesseract legge «. Ammeter and Fuel Gages Throttle Phone Jack»
+1966 legenda 685-1044 c=13.1 | 22. Throttle
+# CONTROLLA (0.77): Tesseract legge «. Ammeter and Fuel Gages Throttle Phone Jack»
+1966 legenda 1046-1200 c=13.1 | 34. Phone Jack
+2083 776-930 | Figure 1-2.
+# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «2, Suction Gage (Opt. ) Temperature Gages Fuel Selector Valve Handle»
+# 1672 322-1362 | 2, Suction Gage (Opt. ) Temperature Gages Fuel Selector Valve Handle
