@@ -274,7 +274,7 @@ restano maiuscole perche' sono sigle.
 ## Layout
 
 - **Guscio:** una rail di icone di 56px a sinistra (Flights, New flight,
-  Manual; tema e account in basso) sullo stesso fondo della pagina, con un
+  Manuals; tema e account in basso) sullo stesso fondo della pagina, con un
   filetto. Ogni icona ha il suo nome come tooltip e nome accessibile. Sul
   telefono la rail diventa una barra in alto con le stesse icone.
 - **Area di lavoro:** padding 32px (16px sul telefono), tutta la larghezza
@@ -333,7 +333,9 @@ Calcolati e in sola lettura: fondo raised, bordo border, testo muted.
 
 ### Navigation
 - **Rail:** icone outline 18px in faint; quella attiva in text con la riga
-  d'accento di 1px sul bordo della rail. Resta stretta (44px, icone al centro
+  d'accento di 1px sul bordo della rail. Nella pagina della Dashboard la riga e'
+  un elemento solo che scivola alla voce nuova (260 ms, ease-in-out, come la
+  riga sotto gli step; sul telefono sotto la voce, di lato). Resta stretta (44px, icone al centro
   con lo stesso vuoto ai due lati, 11px; icone di 22px) e si allarga a 248px solo al
   passaggio del cursore (anche il trackpad dell'iPad; al tocco no). E' un
   pannello fisso sopra la pagina che cresce lui stesso in larghezza (240 ms):
@@ -343,6 +345,17 @@ Calcolati e in sola lettura: fondo raised, bordo border, testo muted.
 - **Step tabs:** numero in Mono e nome; completati in muted, futuri in faint,
   quello in corso in text con la riga d'accento sotto, larga quanto
   l'etichetta.
+
+### Manuals
+La sezione dei manuali, nella pagina della Dashboard (voce Manuals della
+rail, indirizzo `#/manuals`): titolo e una riga di descrizione come le altre
+schermate, poi una categoria per scaffale (titolo di sezione col numero in
+Mono, una riga in dim), affiancate finche' c'e' posto. Ogni manuale e' la sua
+copertina (carta su fondo dell'interfaccia, angoli di 4px, filetto; nel tema
+Notte l'ombra delle schede), sotto il nome in 14px 600 con le marche in Mono,
+modello ed edizione in dim, una nota in faint. Alla pressione la copertina
+scende a 0.97; col mouse il filetto si accende. Le voci vengono da
+`data/manuali/elenco.json`.
 
 ### Dashboard header (signature)
 Una scheda alta, "la carta delle rotte dal campo di casa": a sinistra l'ora
@@ -476,12 +489,10 @@ dell'interfaccia, la carta resta carta in entrambi i temi.
   le copie sono dipinte alla scala dello schermo, il libro sta su pixel
   interi, e la parte distesa e' ritagliata dalla piega senza rotazioni. Tastiera senza animazione;
   "riduci movimento" solo dissolvenze.
-- **Apertura:** dall'app i manuali si aprono sopra la pagina, in un riquadro
-  (`manuale.html?embed=1`), mai in una scheda nuova: il foglio resta com'e' e
-  Close o Esc riportano dov'eravamo. La voce Manuals della rail apre il menu
-  dei libri (lo stesso popover del menu della rail, verso il basso): nome e,
-  sotto, il documento in grigio.
-- **Flight Manual** (`?libro=afm-ccaf`, `afm-ccab`): stessa cornice, stesso
+- **Apertura:** dalla sezione Manuals ogni manuale si apre sopra la pagina, in
+  un riquadro (`manuale.html?embed=1&libro=...`), mai in una scheda nuova: il
+  foglio resta com'e' e Close o Esc riportano dov'eravamo.
+- **Flight Manual, scansione originale**: stessa cornice, stesso
   libro, ma la pagina e' la scansione dell'AFM intera, senza intestazioni ne'
   piedi aggiunti, con sopra solo l'ombra della piega. Il numero stampato
   sull'AFM (5-3) sta nella barra accanto al numero di pagina, dopo un punto
@@ -489,6 +500,13 @@ dell'interfaccia, la carta resta carta in entrambi i temi.
   (pulsante nella barra, doppio tocco), le pagine di traverso diritte. Il
   retro aggiunto dove l'AFM non ce l'ha e' un cartoncino neutro (#ebe6dc) con
   il solo nome del manuale.
+- **Flight Manual ricostruito** (`?libro=afm-ccaf`): le pagine sono quelle
+  digitali (impaginazione "media"); nella barra l'interruttore **Original /
+  Digital** (i due nomi ai lati, quello in vista in text; la levetta scorre in
+  200 ms ease-out e la pista prende l'accento su Digital) mostra al posto di
+  ogni pagina la scansione originale intera e diritta, e ritorno. La scelta
+  resta per la volta dopo. Al tocco la pagina cambia in dissolvenza (160 ms),
+  da tastiera (O) subito.
 
 ### Rotta AV
 La rotta dell'aeroclub resta solo nella pagina di accesso, disegnata una
@@ -509,6 +527,11 @@ volta con un tratto di 1.5px nel colore d'accento, senza alone; assente con
   Transition, con centro e raggio in tre variabili su <html>: non si anima da
   JavaScript, che Safari non esegue ovunque. Senza View Transitions lo stesso
   cerchio lo disegna un velo del colore nuovo.
+- **Fra Dashboard e Manuals**: il contenuto scorre nel verso della rail (verso
+  Manuals il vecchio esce in alto, 140 ms, e il nuovo sale di 48 px, 260 ms
+  ease-out; tornando il contrario; sul telefono di lato) e la riga d'accento
+  scivola alla voce nuova. Dal foglio la dissolvenza solita; da tastiera nessun
+  movimento.
 - Con "riduci movimento" restano solo le dissolvenze.
 
 ## Do's and Don'ts

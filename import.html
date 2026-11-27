@@ -139,15 +139,7 @@
   <span class="marchio" role="img" aria-label="Aeroclub Varese"></span>
   <a href="index.html" id="lnkDashboard" data-nome="Flights" aria-label="Flights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></a>
   <a href="import.html" aria-current="page" data-nome="New flight" aria-label="New flight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
-  <div class="menu-wrap manuali">
-    <a href="manuale.html" id="railManuale" data-nome="Manuals" aria-label="Manuals" aria-haspopup="true" aria-expanded="false" aria-controls="menuManuali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
-    <div class="menu" id="menuManuali" role="menu" aria-label="Manuals">
-      <button type="button" role="menuitem" data-libro="sop" data-titolo="User manual"><b>User manual</b><span>How to use OFP C172 FR</span></button>
-      <div class="sep"></div>
-      <button type="button" role="menuitem" data-libro="afm-ccaf" data-titolo="Flight Manual I-CCAF"><b>Flight Manual I-CCAF</b><span>Reims Rocket FR172J &middot; Edition 3</span></button>
-      <button type="button" role="menuitem" data-libro="afm-ccab" data-titolo="Flight Manual I-CCAB"><b>Flight Manual I-CCAB</b><span>Reims Rocket FR172H &middot; Edition 2</span></button>
-    </div>
-  </div>
+  <a href="index.html#/manuals" id="railManuale" data-nome="Manuals" aria-label="Manuals"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
   <div class="fondo">
     <button type="button" class="tema-btn" id="btnTema" aria-label="Theme" data-nome="Theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
   </div>
@@ -203,8 +195,6 @@
   </div>
 </div>
 
-<!-- Il manuale sta qui, sopra tutto il resto, e si apre senza lasciare la pagina. -->
-<div class="guida-velo" id="guidaVelo" role="dialog" aria-modal="true" aria-label="Manual"></div>
 
 <script src="ofp-core.js"></script>
 <script src="rotte-acv.js"></script>
@@ -374,7 +364,10 @@ function reparseWeather(){
                  : 'Briefing and NavLog agree: the route airports are covered.');
 }
 
-/* I manuali (rail, voce Manuals) si aprono sopra la pagina: Manuali in ofp-core.js. */
+/* La voce Manuals della rail porta alla sezione dei manuali della Dashboard
+   (index.html#/manuals), da cui ogni manuale si apre sopra la pagina. Sotto
+   Apps Script non c'e' (HtmlService non serve file statici). */
+if(typeof google!=='undefined' && google.script && google.script.run && $('railManuale')) $('railManuale').style.display='none';
 
 /* ---------------- stato e consegna ---------------- */
 function refresh(){

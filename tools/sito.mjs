@@ -30,8 +30,9 @@ const DA_PUBBLICARE = [
   ['data/aeroporti.json', 'data/aeroporti.json'],
   ['data/manuale.pdf',    'data/manuale.pdf'],
   ['data/manuale',        'data/manuale'],          // e-book: testo, figure, font
-  ['data/afm',            'data/afm'],              // Flight Manual degli aeroplani: PDF, pagine, testo (tools/afm.mjs)
-  ['data/afm-rec',        'data/afm-rec'],          // ANTEPRIMA ricostruita dei Flight Manual (tools/afm-rec), non fa fede
+  ['data/manuali',       'data/manuali'],          // la sezione Manuals: elenco e copertine
+  ['data/afm',            'data/afm'],              // Flight Manual degli aeroplani: scansioni e PDF originale
+  ['data/afm-rec',        'data/afm-rec'],          // Flight Manual ricostruiti in digitale (tools/afm-rec sul branch di lavoro)
   ['fonts',               'fonts'],                 // Public Sans e JetBrains Mono dell'interfaccia
   ['favicon.svg',         'favicon.svg'],           // il logo dell'aeroclub, icona del sito
   ['apple-touch-icon.png','apple-touch-icon.png'],

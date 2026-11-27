@@ -1338,15 +1338,14 @@ function initRail(){
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initRail); else initRail();
 
 /* ===== I manuali, sopra la pagina =====
-   La voce Manuals della rail apre un piccolo menu: il manuale d'uso e i
-   Flight Manual dei due aeroplani. Ognuno si apre sopra la pagina in un
-   riquadro (manuale.html?embed=1&libro=...): il foglio resta com'e', anche
-   non salvato, e chiudendo si e' dov'eravamo. Ogni libro ha il suo riquadro,
-   che nasce al primo clic — chi non apre un manuale non lo scarica — e poi
-   resta: riaperto, il libro e' alla pagina dove lo si era lasciato.
-   Close sta dentro il libro e manda un messaggio qui; Esc chiude da tutte e
-   due le parti. Sotto Apps Script non c'e' (HtmlService non serve file
-   statici). Il menu si comporta come quello della rail (ofp.css, .menu). */
+   Un manuale (manuale.html?embed=1&libro=...) si apre sopra la pagina in un
+   riquadro: il foglio resta com'e', anche non salvato, e chiudendo si e'
+   dov'eravamo. Ogni libro ha il suo riquadro, che nasce al primo clic — chi
+   non apre un manuale non lo scarica — e poi resta: riaperto, il libro e' alla
+   pagina dove lo si era lasciato. Close sta dentro il libro e manda un
+   messaggio qui; Esc chiude da tutte e due le parti. Si aprono dalla sezione
+   Manuals della Dashboard (index.html#/manuals). Sotto Apps Script non ci sono
+   (HtmlService non serve file statici). */
 const Manuali=(function(){
   let da=null;
   const velo=()=>document.getElementById('guidaVelo');
@@ -1371,42 +1370,10 @@ const Manuali=(function(){
     document.body.style.overflow='';
     if(da && da.isConnected) da.focus();
   }
-  function init(){
-    const btn=document.getElementById('railManuale'), menu=document.getElementById('menuManuali');
-    if(!btn || btn.dataset.pronto) return;
-    btn.dataset.pronto='1';
-    if(typeof google!=='undefined' && google.script && google.script.run){ (btn.closest('.menu-wrap')||btn).style.display='none'; return; }
-    const chiudiMenu=()=>{ if(!menu) return; menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
-    btn.addEventListener('click', e=>{
-      e.preventDefault(); e.stopPropagation();
-      if(!menu){ apri('sop','User manual',btn); return; }
-      const open=!menu.classList.contains('open');
-      menu.classList.toggle('open', open); btn.setAttribute('aria-expanded', open?'true':'false');
-      if(open){ const b=menu.querySelector('button'); if(b && e.detail===0) b.focus(); }   // da tastiera il fuoco entra nel menu
-    });
-    if(menu){
-      menu.addEventListener('click', e=>{
-        const b=e.target.closest('button[data-libro]'); if(!b) return;
-        chiudiMenu(); apri(b.dataset.libro, b.dataset.titolo || b.textContent.trim(), btn);
-      });
-      menu.addEventListener('keydown', e=>{
-        if(e.key!=='ArrowDown' && e.key!=='ArrowUp') return;
-        const bb=[...menu.querySelectorAll('button')], i=bb.indexOf(document.activeElement);
-        e.preventDefault(); bb[(i+(e.key==='ArrowDown'?1:-1)+bb.length)%bb.length].focus();
-      });
-      document.addEventListener('click', e=>{ if(!menu.contains(e.target) && e.target!==btn) chiudiMenu(); });
-    }
-    window.addEventListener('message', e=>{
-      if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudi();
-    });
-    document.addEventListener('keydown', e=>{
-      if(e.key!=='Escape') return;
-      if(menu && menu.classList.contains('open')){ chiudiMenu(); btn.focus(); }
-      else chiudi();
-    });
-  }
-  if(typeof document!=='undefined'){
-    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
-  }
-  return {apri, chiudi};
+  const aperto=()=>{ const v=velo(); return !!(v && v.classList.contains('aperta')); };
+  window.addEventListener('message', e=>{
+    if(e.origin===location.origin && e.data && e.data.tipo==='ofp-manuale-chiudi') chiudi();
+  });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && aperto()) chiudi(); });
+  return {apri, chiudi, aperto};
 })();

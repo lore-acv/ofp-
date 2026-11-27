@@ -86,8 +86,13 @@ html[data-tema="chiaro"] .rotta-av .ombra{fill:rgba(60,40,20,.35)}
     const L=tratta.getTotalLength();
     if(!L) return;
     el.classList.remove('in-volo'); void el.offsetWidth; el.classList.add('in-volo');
-    /* punti: la distanza lungo la rotta del passaggio piu' vicino */
-    const sulla=(x,y)=>{ let best=0,bd=1e9; for(let s=0;s<=L;s+=1){ const q=tratta.getPointAtLength(s), d=Math.hypot(q.x-x,q.y-y); if(d<bd){bd=d;best=s;} } return best; };
+    /* punti: la distanza lungo la rotta del passaggio piu' vicino. Prima a passi
+       di 16 lungo tutta la rotta, poi a passi di 1 attorno al migliore: la
+       stessa risposta della ricerca a passi di 1 su tutta la rotta, con un
+       sedicesimo delle chiamate a getPointAtLength (lenta, su Safari piu' che
+       altrove: la pagina di accesso restava ferma per secondi a CPU ridotta). */
+    const vicino=(x,y,da,a,passo)=>{ let best=da,bd=1e9; for(let s=da;s<=a;s+=passo){ const q=tratta.getPointAtLength(s), d=Math.hypot(q.x-x,q.y-y); if(d<bd){bd=d;best=s;} } return best; };
+    const sulla=(x,y)=>{ const g=vicino(x,y,0,L,16); return vicino(x,y,Math.max(0,g-16),Math.min(L,g+16),1); };
     const punti=[...svg.querySelectorAll('.punto')].map(g=>({g, pop:g.querySelector('.pop'),
       s: g.dataset.s!=null ? +g.dataset.s : sulla(+g.dataset.x,+g.dataset.y)}));
     /* rullaggio che accelera, crociera costante, arrivo morbido: cubic-bezier(.5,0,.3,1) */

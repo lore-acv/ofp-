@@ -1,0 +1,50 @@
+{
+  "_nota": "I manuali della sezione Manuals (index.html#/manuals), raggruppati per categoria, nell'ordine in cui si vedono. Per aggiungerne uno: una voce nella sua categoria (o una categoria nuova) con libro = la chiave di LIBRI in manuale.html, e la copertina in data/manuali/copertine/ (480 px di larghezza, webp). Vedi README.md, Manuali.",
+  "categorie": [
+    {
+      "id": "afm",
+      "nome": "Flight Manuals",
+      "descrizione": "The manuals of the aircraft, page by page.",
+      "manuali": [
+        {
+          "id": "afm-ccaf",
+          "libro": "afm-ccaf",
+          "titolo": "Flight Manual",
+          "sigla": "I-CCAF",
+          "sottotitolo": "Reims Rocket FR172J · Edition 3",
+          "nota": "Digital, with the original scan",
+          "copertina": "data/manuali/copertine/afm-ccaf.webp",
+          "w": 480,
+          "h": 677
+        },
+        {
+          "id": "afm-ccab",
+          "libro": "afm-ccab",
+          "titolo": "Flight Manual",
+          "sigla": "I-CCAB",
+          "sottotitolo": "Reims Rocket FR172H · Edition 2",
+          "nota": "Preview: reconstruction in progress",
+          "copertina": "data/manuali/copertine/afm-ccab.webp",
+          "w": 480,
+          "h": 742
+        }
+      ]
+    },
+    {
+      "id": "sito",
+      "nome": "OFP C172 FR",
+      "descrizione": "How this site works.",
+      "manuali": [
+        {
+          "id": "sop",
+          "libro": "sop",
+          "titolo": "User manual",
+          "sottotitolo": "Flight planning application",
+          "copertina": "data/manuali/copertine/sop.webp",
+          "w": 480,
+          "h": 680
+        }
+      ]
+    }
+  ]
+}

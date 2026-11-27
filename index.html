@@ -37,23 +37,16 @@
 /* La pagina apre sulla Dashboard: la classe c'e' prima che si disegni, cosi'
    chi arriva dall'accesso non vede passare il foglio di volo. Il foglio la
    toglie solo quando arriva dall'import (vedi boot). */
-document.documentElement.classList.add('vista-dash');
+document.documentElement.classList.add(/^#\/manuals\/?$/.test(location.hash) ? 'vista-man' : 'vista-dash');
 </script>
 
 
 <nav class="rail" aria-label="Main">
   <span class="marchio" role="img" aria-label="Aeroclub Varese"></span>
+  <span class="rail-segno" aria-hidden="true"></span>
   <a href="#" id="railVoli" data-nome="Flights" aria-label="Flights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></a>
   <a href="import.html" id="railNuovo" data-nome="New flight" aria-label="New flight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
-  <div class="menu-wrap manuali">
-    <a href="manuale.html" id="railManuale" data-nome="Manuals" aria-label="Manuals" aria-haspopup="true" aria-expanded="false" aria-controls="menuManuali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
-    <div class="menu" id="menuManuali" role="menu" aria-label="Manuals">
-      <button type="button" role="menuitem" data-libro="sop" data-titolo="User manual"><b>User manual</b><span>How to use OFP C172 FR</span></button>
-      <div class="sep"></div>
-      <button type="button" role="menuitem" data-libro="afm-ccaf" data-titolo="Flight Manual I-CCAF"><b>Flight Manual I-CCAF</b><span>Reims Rocket FR172J &middot; Edition 3</span></button>
-      <button type="button" role="menuitem" data-libro="afm-ccab" data-titolo="Flight Manual I-CCAB"><b>Flight Manual I-CCAB</b><span>Reims Rocket FR172H &middot; Edition 2</span></button>
-    </div>
-  </div>
+  <a href="#/manuals" id="railManuale" data-nome="Manuals" aria-label="Manuals"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5zM12 6v13"/></svg></a>
   <div class="fondo">
     <button type="button" class="tema-btn" id="btnTema" aria-label="Theme" data-nome="Theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="luna" d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/><g class="sole"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></g></svg></button>
     <div class="menu-wrap">
@@ -125,6 +118,21 @@ document.documentElement.classList.add('vista-dash');
     </div>
     <div class="doc-lista" id="docLista"></div>
     <p class="doc-nota" id="docNota"></p>
+  </div>
+</div>
+
+<!-- ===== Manuals =====
+     I manuali, per categoria: le copertine da data/manuali/elenco.json (una
+     voce per manuale, la categoria la raggruppa). Una copertina apre il suo
+     libro sopra la pagina. Ci si arriva dalla voce Manuals della rail;
+     l'indirizzo #/manuals regge un ricaricamento. -->
+<div id="manuali">
+  <div class="dash-body">
+    <div class="dash-head">
+      <div><h1 id="manTitolo">Manuals</h1><p>The flight manuals of the aircraft and the guide to this site.</p></div>
+      <div class="dash-azioni"><button type="button" class="btn" id="btnManTorna" hidden>Back to the open flight plan &rarr;</button></div>
+    </div>
+    <div id="manElenco" aria-busy="true"></div>
   </div>
 </div>
 
@@ -6380,6 +6388,7 @@ function apriDocumenti(flightId, chiesto){
     caricaVoloNelFoglio(f); goToStep(1);
   }
   DOC_VOLO=flightId;
+  chiudiManuali(false);
   document.documentElement.classList.remove('vista-dash');
   document.documentElement.classList.add('vista-doc');
   if($('brandVista')) $('brandVista').textContent='Documents';
@@ -7186,6 +7195,7 @@ function openDashboard(){
   if(!DASH_OROLOGIO) DASH_OROLOGIO=setInterval(()=>{ if(dashboardAperta()) aggiornaSaluto(); }, 20000);
   renderDashboard();
   chiudiDocumenti();
+  chiudiManuali();
   document.documentElement.classList.add('vista-dash');
   if($('brandVista')) $('brandVista').textContent='Dashboard';
   if($('btnCloseDash')) $('btnCloseDash').hidden=!VOLO_APERTO;
@@ -7193,6 +7203,7 @@ function openDashboard(){
 }
 function closeDashboard(){
   chiudiDocumenti();
+  chiudiManuali();
   document.documentElement.classList.remove('vista-dash');
   if($('brandVista')) $('brandVista').textContent='Wizard';
 }
@@ -7221,6 +7232,7 @@ const versoVista=(f)=>()=>transizione(['vt-vista'], f);
    prima), New flight e' un link vero all'import, il manuale si apre sopra. */
 $('railVoli').addEventListener('click',e=>{ e.preventDefault();
   if(dashboardAperta()) return;
+  if(manualiAperti()){ passaVista(-1, openDashboard, e.detail===0); return; }
   const vai=()=>transizione(['vt-vista'], openDashboard);
   if(document.documentElement.classList.contains('vista-doc')) vai(); else primaDiLasciare(vai);
 });
@@ -7236,7 +7248,109 @@ if($('btnEsci')) $('btnEsci').addEventListener('click',()=>{
   if(!confirm('Sign out?')) return;
   Account.esci();
 });
-/* I manuali (rail, voce Manuals) si aprono sopra la pagina: Manuali in ofp-core.js. */
+/* ===== Manuals =====
+   La voce Manuals della rail apre la sezione dei manuali, nella stessa pagina
+   della Dashboard (#/manuals): le copertine per categoria, dall'elenco
+   data/manuali/elenco.json. Una copertina apre il suo libro sopra la pagina
+   (Manuali.apri, ofp-core.js): il foglio resta com'e', e chiudendo si torna
+   qui. Fra Dashboard e Manuals il contenuto scorre nel verso della rail
+   (ofp.css, vt-man) e la riga d'accento scivola alla voce nuova; da tastiera
+   niente movimento. Sotto Apps Script la voce non c'e'. */
+const MAN_ROTTA=/^#\/manuals\/?$/;
+const manualiAperti=()=>document.documentElement.classList.contains('vista-man');
+const escA=(t)=>esc(t).replace(/"/g,'&quot;');
+let MAN_ELENCO=null;
+function disegnaManuali(){
+  const box=$('manElenco'); if(!box || box.dataset.pronto) return;
+  (MAN_ELENCO || (MAN_ELENCO=fetch('data/manuali/elenco.json',{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })))
+  .then(d=>{
+    box.innerHTML=(d.categorie||[]).filter(c=>c.manuali && c.manuali.length).map(c=>`
+      <section class="man-cat" aria-labelledby="manCat-${escA(c.id)}">
+        <h2 class="dash-section-title" id="manCat-${escA(c.id)}">${esc(c.nome)} <small>${c.manuali.length}</small></h2>
+        ${c.descrizione ? `<p class="man-cat-p">${esc(c.descrizione)}</p>` : ''}
+        <ul class="man-griglia">${c.manuali.map(m=>`
+          <li><button type="button" class="man-libro" data-libro="${escA(m.libro)}" data-nome="${escA(m.titolo+(m.sigla?' '+m.sigla:''))}">
+            <span class="man-cop"><img src="${escA(m.copertina)}" alt="" width="${+m.w||480}" height="${+m.h||677}" decoding="async"></span>
+            <span class="man-t">${esc(m.titolo)}${m.sigla ? ` <span class="m">${esc(m.sigla)}</span>` : ''}</span>
+            ${m.sottotitolo ? `<span class="man-s">${esc(m.sottotitolo)}</span>` : ''}
+            ${m.nota ? `<span class="man-n">${esc(m.nota)}</span>` : ''}
+          </button></li>`).join('')}</ul>
+      </section>`).join('');
+    box.dataset.pronto='1'; box.removeAttribute('aria-busy');
+  })
+  .catch(()=>{
+    MAN_ELENCO=null; box.removeAttribute('aria-busy');
+    box.innerHTML='<div class="dash-empty">The list of manuals could not be loaded. Check the connection and open Manuals again.</div>';
+  });
+}
+function apriManuali(){
+  chiudiDocumenti();
+  document.documentElement.classList.remove('vista-dash');
+  document.documentElement.classList.add('vista-man');
+  if($('brandVista')) $('brandVista').textContent='Manuals';
+  if($('btnManTorna')) $('btnManTorna').hidden=!VOLO_APERTO;
+  if(!MAN_ROTTA.test(location.hash)){ try{ history.pushState(null,'','#/manuals'); }catch(e){ location.hash='#/manuals'; } }
+  disegnaManuali();
+  if($('manuali')) $('manuali').scrollTop=0;
+}
+/* Uscendo da Manuals l'indirizzo perde #/manuals con una voce nuova nella
+   cronologia: Indietro del browser riporta a Manuals. Verso Documents no
+   (push=false): quella aggiunge gia' la sua. */
+function chiudiManuali(push=true){
+  document.documentElement.classList.remove('vista-man');
+  if(MAN_ROTTA.test(location.hash)){ try{ history[push?'pushState':'replaceState'](null,'',location.pathname+location.search); }catch(e){} }
+}
+/* verso=1: giu' nella rail (verso Manuals), -1: su. Da tastiera, o dal foglio
+   (che non sta nella rail), un passaggio senza scorrimento. */
+function passaVista(verso, fai, tastiera){
+  if(tastiera){ fai(); return; }
+  transizione(['vt-man', verso>0 ? 'vt-giu' : 'vt-su'], fai);
+}
+if($('railManuale')){
+  if(IS_APPS_SCRIPT) $('railManuale').style.display='none';
+  $('railManuale').addEventListener('click',e=>{ e.preventDefault();
+    if(manualiAperti()) return;
+    const tastiera=e.detail===0, html=document.documentElement;
+    if(html.classList.contains('vista-dash') || html.classList.contains('vista-doc')) passaVista(1, apriManuali, tastiera);
+    else if(tastiera) apriManuali(); else transizione(['vt-vista'], apriManuali);
+  });
+}
+/* La sezione si prepara prima di servire, a pagina ferma: elenco e copertine
+   sono gia' pronti quando si apre, e il passaggio fa scorrere solo cio' che
+   c'e' gia' (niente impaginazione ne' immagini che arrivano a meta' strada). */
+(window.requestIdleCallback||((f)=>setTimeout(f,1200)))(()=>{ if(!IS_APPS_SCRIPT) disegnaManuali(); }, {timeout:3000});
+$('manElenco').addEventListener('click',e=>{
+  const b=e.target.closest('button.man-libro'); if(!b) return;
+  Manuali.apri(b.dataset.libro, b.dataset.nome, b);
+});
+$('btnManTorna').addEventListener('click',()=>transizione(['vt-vista'], closeDashboard));
+/* Avanti e indietro del browser fra Dashboard e Manuals. */
+window.addEventListener('popstate',()=>{
+  if(MAN_ROTTA.test(location.hash)){ if(!manualiAperti()) apriManuali(); }
+  else if(manualiAperti() && !DOC_ROTTA.test(location.hash)) openDashboard();
+});
+/* La riga d'accento della rail: scivola alla voce attiva, che la decide la
+   classe della pagina (vista-dash e vista-doc: Flights; vista-man: Manuals;
+   nessuna: il foglio, New flight). Si misura la voce, non si scrive a mano:
+   sul telefono la rail e' una barra e la riga sta sotto la voce. */
+(function(){
+  const rail=document.querySelector('.rail'), segno=rail && rail.querySelector('.rail-segno'); if(!segno) return;
+  const html=document.documentElement;
+  const attiva=()=>html.classList.contains('vista-man') ? $('railManuale')
+    : (html.classList.contains('vista-dash') || html.classList.contains('vista-doc')) ? $('railVoli') : $('railNuovo');
+  function metti(){
+    const a=attiva(); if(!a || !a.offsetWidth){ segno.style.visibility='hidden'; return; }
+    segno.style.visibility='';
+    const r=rail.getBoundingClientRect(), b=a.getBoundingClientRect();
+    segno.style.transform = getComputedStyle(rail).flexDirection==='row'
+      ? `translate(${(b.left-r.left+10).toFixed(1)}px,${(b.bottom-r.top+6).toFixed(1)}px) scaleX(${(b.width-20).toFixed(1)})`
+      : `translate(0px,${(b.top-r.top+10).toFixed(1)}px) scaleY(${(b.height-20).toFixed(1)})`;
+  }
+  new MutationObserver(metti).observe(html,{attributes:true,attributeFilter:['class']});
+  window.addEventListener('resize', metti);
+  rail.classList.add('subito'); metti(); rail.classList.add('con-segno');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>rail.classList.remove('subito')));
+})();
 /* "New Flight" della Dashboard e' un link vero (vedi il markup): qui si
    chiede conferma solo se nel foglio c'e' un volo aperto. */
 $('goImport').addEventListener('click',lasciaVoloAperto);
@@ -7375,6 +7489,7 @@ try{ DALL_IMPORT = sessionStorage.getItem(APRI_VOLO_KEY)==='1'; sessionStorage.r
 const DOC_ALL_AVVIO = DOC_ROTTA.exec(location.hash);
 if(VOLO_APERTO && DALL_IMPORT) closeDashboard();
 else if(DOC_ALL_AVVIO){ document.documentElement.classList.add('vista-doc'); $('docVolo').textContent='Loading the flight\u2026'; }
+else if(MAN_ROTTA.test(location.hash)) apriManuali();
 else openDashboard();
 renderSteps(); goToStep(1);
 buildTimeSelects(); rebuildPowerSelects(); applyPowerToRoute(); applyAircraft();

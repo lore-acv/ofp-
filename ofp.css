@@ -125,9 +125,19 @@ html[data-tema="chiaro"] .rail .marchio{background-image:url("data:image/svg+xml
   transition:color var(--t-fast) ease,transform var(--t-press) var(--ease-out)}
 .rail a:active,.rail .rail-btn:active{transform:scale(.94)}
 .rail svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.rail [aria-current="page"],html.vista-dash #railVoli,html.vista-doc #railVoli,html:not(.vista-dash):not(.vista-doc) #railNuovo{color:var(--txt)}
-.rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{content:"";position:absolute;left:-4px;top:10px;bottom:10px;width:1px;background:var(--accent-2)}
+.rail [aria-current="page"],html.vista-dash #railVoli,html.vista-doc #railVoli,html.vista-man #railManuale,html:not(.vista-dash):not(.vista-doc):not(.vista-man) #railNuovo{color:var(--txt)}
+.rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html.vista-man #railManuale::before,html:not(.vista-dash):not(.vista-doc):not(.vista-man) #railNuovo::before{content:"";position:absolute;left:-4px;top:10px;bottom:10px;width:1px;background:var(--accent-2)}
 .rail a:focus-visible,.rail .rail-btn:focus-visible{outline:none;box-shadow:var(--ring)}
+/* Nella pagina della Dashboard la riga d'accento e' un elemento solo, che
+   scivola alla voce attiva (transform: un px scalato all'altezza della voce,
+   come la riga sotto gli step); le righe ferme delle voci si spengono. Dentro
+   una View Transition la porta il browser (rail-segno, sotto). */
+.rail .rail-segno{position:absolute;left:0;top:0;width:1px;height:1px;background:var(--accent-2);transform-origin:0 0;pointer-events:none;
+  opacity:0;view-transition-name:rail-segno;transition:transform var(--t-move) var(--ease-in-out)}
+.rail.con-segno .rail-segno{opacity:1}
+.rail.con-segno a::before{display:none}
+html.vt-vista .rail-segno,html.vt-man .rail-segno,html.vt-tema .rail-segno,.rail.subito .rail-segno{transition:none}
+html.vt-tema .rail-segno{view-transition-name:none}
 .rail .fondo{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 /* La rail resta stretta (44px, icone al centro con lo stesso vuoto ai due
    lati) e si allarga solo al passaggio del cursore (anche il trackpad
@@ -429,7 +439,7 @@ html[data-tema="chiaro"] .group{border-color:var(--panel-line)}
   @media print{
     .filled{color:#000}
     /* in stampa resta solo il documento: niente wizard, niente topbar */
-    .rail,.topbar,.formcol,#dashboard,#documenti{display:none!important}
+    .rail,.topbar,.formcol,#dashboard,#documenti,#manuali{display:none!important}
     html,body{height:auto;overflow:visible;background:#fff}
     body{display:block}
     .main{display:block}
@@ -518,12 +528,12 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
   .rail:hover .marchio{transform:none}
   .rail:hover a svg,.rail:hover .rail-btn svg,.rail:hover .tema-btn svg,.rail:hover .hamburger svg{transform:none}
   .rail .fondo{margin-top:0;flex-direction:row;gap:2px}
-  .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html:not(.vista-dash):not(.vista-doc) #railNuovo::before{left:10px;right:10px;top:auto;bottom:-7px;width:auto;height:1px}
+  .rail [aria-current="page"]::before,html.vista-dash #railVoli::before,html.vista-doc #railVoli::before,html.vista-man #railManuale::before,html:not(.vista-dash):not(.vista-doc):not(.vista-man) #railNuovo::before{left:10px;right:10px;top:auto;bottom:-7px;width:auto;height:1px}
   .rail a,.rail .rail-btn,.hamburger,.tema-btn{width:var(--tap);height:var(--tap)}
   .menu{left:auto;right:0;bottom:auto;top:calc(100% + 8px);transform-origin:top right}
   .menu-wrap.manuali .menu{top:calc(100% + 8px);transform-origin:top right}
   .topbar{grid-column:1;grid-row:2;padding:8px 16px 0}
-  .main,#dashboard,#documenti{grid-column:1;grid-row:3}
+  .main,#dashboard,#documenti,#manuali{grid-column:1;grid-row:3}
   .topbar-riga{margin:4px -16px 0;padding:0 16px 0 0;gap:10px}
   .topbar .steps{gap:22px;padding:0 16px;scroll-padding:0 16px}
   .formcol .scroll{padding:20px 16px 28px}
@@ -561,9 +571,9 @@ html[data-tema="chiaro"] .tema-btn .luna{display:block}
 }
 
 /* ===== Dashboard ===== */
-#dashboard,#documenti{grid-column:2;grid-row:1 / -1;min-height:0;display:none;overflow:auto;overscroll-behavior:contain;background:var(--bg)}
-html.vista-dash #dashboard,html.vista-doc #documenti{display:block}
-html.vista-dash .topbar,html.vista-dash .main,html.vista-dash .solo-volo,html.vista-doc .topbar,html.vista-doc .main{display:none!important}
+#dashboard,#documenti,#manuali{grid-column:2;grid-row:1 / -1;min-height:0;display:none;overflow:auto;overscroll-behavior:contain;background:var(--bg)}
+html.vista-dash #dashboard,html.vista-doc #documenti,html.vista-man #manuali{display:block}
+html.vista-dash .topbar,html.vista-dash .main,html.vista-dash .solo-volo,html.vista-doc .topbar,html.vista-doc .main,html.vista-man .topbar,html.vista-man .main,html.vista-man .solo-volo{display:none!important}
 .dash-body{padding:calc(28px + env(safe-area-inset-top,0px)) max(32px,calc((100% - var(--colonna))/2)) calc(40px + env(safe-area-inset-bottom,0px))}
 .dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 24px}
 .dash-head h1{margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em;line-height:32px;color:var(--txt)}
@@ -723,7 +733,7 @@ html[data-tema="chiaro"] .flight-card{border-color:var(--panel-line)}
 }
 @media screen and (max-width:640px){
   .dash-body{padding:20px 16px calc(28px + env(safe-area-inset-bottom,0px))}
-  #dashboard,#documenti{grid-column:1;grid-row:2 / -1}
+  #dashboard,#documenti,#manuali{grid-column:1;grid-row:2 / -1}
     .dash-head h1{font-size:22px;line-height:28px}
   .dash-azioni{width:100%}.dash-azioni .btn{flex:1;min-height:var(--tap)}
   .flight-card{grid-template-columns:76px 1fr 1fr;grid-template-areas:"st st st" "map rt rt" "reg reg qd" "go go go"}
@@ -740,6 +750,34 @@ html[data-tema="chiaro"] .flight-card{border-color:var(--panel-line)}
   .flight-card .c-go>.btn.icona{flex:0 0 var(--tap);width:var(--tap)}
   .flight-card .via{white-space:normal}
 }
+
+/* ===== Manuals: i manuali, per categoria =====
+   Le copertine come libri su uno scaffale: carta su fondo dell'interfaccia,
+   angoli stretti, un filetto (nel tema Notte l'ombra delle schede). Sotto,
+   nome, marche in Mono, edizione in faint. Alla pressione la copertina
+   scende a 0.97 (140 ms); hover solo col mouse: il filetto si accende. */
+/* le categorie stanno affiancate finche' c'e' posto (scaffali), una sotto l'altra sul telefono */
+#manElenco{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:0 48px;align-items:start}
+.man-cat{margin:0 0 32px;min-width:0}
+.man-cat .dash-section-title{margin:0 0 4px}
+.man-cat-p{margin:0 0 16px;font-size:13px;line-height:18px;color:var(--txt-dim)}
+.man-griglia{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:24px}
+.man-libro{display:flex;flex-direction:column;align-items:stretch;width:100%;padding:0;border:0;background:transparent;text-align:left;
+  font:inherit;color:inherit;cursor:pointer;border-radius:var(--r-sm);
+  touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.man-cop{display:block;aspect-ratio:480 / 677;border-radius:var(--r-xs);overflow:hidden;background:#fff;
+  border:1px solid var(--panel-line);box-shadow:var(--ombra-scheda);
+  transition:transform var(--t-press) var(--ease-out),border-color var(--t-fast) ease}
+.man-cop img{display:block;width:100%;height:100%;object-fit:cover}
+.man-libro:active .man-cop{transform:scale(.97)}
+.man-libro:focus-visible{outline:none}
+.man-libro:focus-visible .man-cop{box-shadow:var(--ring)}
+.man-t{margin-top:12px;font-size:14px;font-weight:600;line-height:20px;color:var(--txt)}
+.man-t .m{font-weight:500;margin-left:2px}
+.man-s{font-size:12px;line-height:16px;color:var(--txt-dim);text-wrap:balance}
+.man-n{margin-top:2px;font-size:12px;line-height:16px;color:var(--txt-faint)}
+@media (hover:hover) and (pointer:fine){ .man-libro:hover .man-cop{border-color:var(--hover-line)} }
+@media screen and (max-width:640px){ .man-griglia{grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:20px 16px} }
 
 /* ===== Documents: i tre documenti di un volo ===== */
 .doc-indietro{display:inline-flex;align-items:center;gap:4px;min-height:var(--ctl);margin:-6px 0 10px -6px;padding:0 8px 0 2px;
@@ -1030,6 +1068,35 @@ html.vt-vista::view-transition-new(root){animation:240ms var(--ease-out) 60ms bo
   .fase-ind{transition:none}
 }
 @keyframes vt-appare{from{opacity:0}}
+/* Fra Dashboard (o Documents) e Manuals (html.vt-man): il contenuto scorre nel
+   verso della rail — verso Manuals, che sta sotto, il vecchio esce in alto e il
+   nuovo sale dal basso; tornando, il contrario; sul telefono, dove la rail e' una
+   barra in alto, di lato. La rail resta ferma e la sua riga d'accento scivola
+   alla voce nuova (rail-segno), con la curva degli step (260 ms ease-in-out). */
+html.vt-man #dashboard,html.vt-man #documenti,html.vt-man #manuali{view-transition-name:vista}
+html.vt-man::view-transition-old(root),html.vt-man::view-transition-new(root){animation:none}
+html.vt-man::view-transition-group(vista){animation:none}
+html.vt-man::view-transition-old(vista){animation:140ms ease-out both vt-esce-alto}
+html.vt-man::view-transition-new(vista){animation:260ms var(--ease-out) 40ms both vt-entra-basso}
+html.vt-man.vt-su::view-transition-old(vista){animation-name:vt-esce-basso}
+html.vt-man.vt-su::view-transition-new(vista){animation-name:vt-entra-alto}
+@keyframes vt-esce-alto{to{opacity:0;transform:translateY(-32px)}}
+@keyframes vt-esce-basso{to{opacity:0;transform:translateY(32px)}}
+@keyframes vt-entra-basso{from{opacity:0;transform:translateY(48px)}}
+@keyframes vt-entra-alto{from{opacity:0;transform:translateY(-48px)}}
+@media screen and (max-width:640px){
+  html.vt-man::view-transition-old(vista){animation-name:vt-esce-sx}
+  html.vt-man::view-transition-new(vista){animation-name:vt-entra-dx}
+  html.vt-man.vt-su::view-transition-old(vista){animation-name:vt-esce-dx}
+  html.vt-man.vt-su::view-transition-new(vista){animation-name:vt-entra-sx}
+}
+::view-transition-group(rail-segno){animation-duration:260ms;animation-timing-function:cubic-bezier(.77,0,.175,1)}
+@media (prefers-reduced-motion:reduce){
+  html.vt-man::view-transition-old(vista){animation:120ms ease both vt-via}
+  html.vt-man::view-transition-new(vista){animation:160ms ease both vt-appare}
+  ::view-transition-group(rail-segno){animation:none}
+  .rail .rail-segno{transition:none}
+}
 
 /* ===== Scelta del tema: il menu che nasce dal pulsante (ofp-core.js) ===== */
 .tema-pop{position:fixed;z-index:300;min-width:12.5rem;padding:4px;background:var(--panel-2);border:1px solid var(--panel-line);
