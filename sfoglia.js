@@ -702,11 +702,13 @@ P.passo=function(t){
     if(Math.hypot(f.F.x-T.x, f.F.y-T.y)<.6 && Math.hypot(f.V.x,f.V.y)<30){ f.F={...T}; this.disegna(f); this.atterra(f); }
   }
   // i fogli posati restano sopra le pagine vere, gia' giuste, almeno due
-  // fotogrammi e finche' le loro immagini non sono decodificate (al piu' ~0,5 s)
+  // fotogrammi e finche' le loro immagini non sono decodificate, al piu' sei in
+  // piu' (~0,1 s): la decodifica parte prima (decodificaIntorno), qui si
+  // aspetta solo l'ultimo pezzo
   const pronte = decodificata(this.fermoSx) && decodificata(this.fermoDx);
   for(const p of [...this.posati]){
     p.attesa--;
-    if(p.attesa<0 && (pronte || p.attesa<-30)){
+    if(p.attesa<0 && (pronte || p.attesa<-6)){
       this.posati.splice(this.posati.indexOf(p),1);
       if(!this.fogli.some(f=>f.dom===p.dom)) this.vedi(p.dom, false);
     }

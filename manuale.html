@@ -304,6 +304,13 @@
   .lb-rigida{position:absolute;top:0;transform-style:preserve-3d;will-change:transform}
   .lb-fac{position:absolute;inset:0;overflow:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden}
   .lb-fac.re{transform:rotateY(180deg)}
+  /* Safari: la copia della pagina dentro una faccia e' uno strato suo
+     (will-change), e il retro nascosto della faccia non vale per lei: girata
+     di spalle, la si vedeva lo stesso, specchiata. Il retro nascosto va anche
+     sulla copia, e la faccia davanti ha una trasformazione 3D sua, perche'
+     Safari ne valuti il verso. */
+  .lb-fac.fr{transform:rotateY(0deg)}
+  .lb-fac .lb-copia{-webkit-backface-visibility:hidden;backface-visibility:hidden}
   .lb-copia{position:absolute!important;left:0;top:0;transform-origin:0 0;will-change:transform}
   /* il retro del foglio ripiegato: un velo appena piu' scuro (TINTA in sfoglia.js) */
   .lb-tinta{position:absolute;inset:0;opacity:0;pointer-events:none;background:rgba(28,22,15,.07);will-change:opacity}
