@@ -36,13 +36,14 @@ RETINO = any(x == '--retino' or x.startswith('--retino=') for x in a)
 # un tratto dentro il retino resta (linee, bordi: di solito 0,55). Per un retino fitto e scuro come i
 # settori della figura 4-2: --retino=95,200,135,0.85,9 (il quinto: la fascia, in px, attorno al
 # retino dove i puntini sparsi del bordo si tolgono dal tratto; di solito 3)
-R_MIN, R_MAX, R_GRIGIO, R_PIENO, R_BORDO, R_FIN = 130, 195, 163, 0.55, 3, 9
+R_MIN, R_MAX, R_GRIGIO, R_PIENO, R_BORDO, R_FIN, R_STD = 130, 195, 163, 0.55, 3, 9, 28
 for x in a:
     if x.startswith('--retino='):
         v = x.split('=', 1)[1].split(',')
         R_MIN, R_MAX, R_GRIGIO, R_PIENO = float(v[0]), float(v[1]), int(v[2]), float(v[3])
         if len(v) > 4: R_BORDO = int(v[4])     # quanto si allarga il retino per togliere i suoi puntini dal tratto (dispari)
         if len(v) > 5: R_FIN = int(v[5])       # la finestra della sfocatura (dispari, di solito 9): piu' stretta per i tubi sottili a retino (figura 6-1)
+        if len(v) > 6: R_STD = float(v[6])    # quanto puo' variare la sfocatura dentro il retino (di solito 28): di piu' per un retino rado (I-CCAB)
 a = [x for x in a if not (x == '--retino' or x.startswith('--retino='))]
 senza = []      # --senzaretino x0,y0,x1,y1: li' non c'e' retino (un quadrante fitto sembra retino: figura 6-1)
 for i in range(0, len(a), 2):
@@ -121,7 +122,7 @@ if RETINO:
     std_v = np.sqrt(np.maximum(sfoca(Vv ** 2, k, 1) - sfoca(Vv, k, 1) ** 2, 0))   # quanto cambia, da colonna a colonna, la sfocatura verticale
     std_h = np.sqrt(np.maximum(sfoca(Hh ** 2, 1, k) - sfoca(Hh, 1, k) ** 2, 0))
     media = sfoca(A, k, k)
-    ret = (media > R_MIN) & (media < R_MAX) & (std_v < 28) & (std_h < 28)
+    ret = (media > R_MIN) & (media < R_MAX) & (std_v < R_STD) & (std_h < R_STD)
     for x0, y0, x1, y1 in senza:
         ret[max(0, y0 - Y0):max(0, y1 - Y0), max(0, x0 - X0):max(0, x1 - X0)] = False
     # pulizia: via i punti isolati, chiusi i buchi piccoli (maschera sfocata e risoglia)
