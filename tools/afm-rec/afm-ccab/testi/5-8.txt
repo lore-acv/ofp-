@@ -1,83 +1,55 @@
-399 752-950 | Flight Manual
-436 752-953 | Reims Rocket
-468 289-1351 | Page: 5-8 Reims Aviation
-# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
-507 288-1120 | Edition: 2
-# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
-507 1122-1428 | Reims, Marne France
-653 tabella 557-1164 fissa c=23.8 | STALL SPEEDS — KM/H - KTS - MPH, VC
-748 tabella 942-1210 c=23.8 | ANGLE OF BANK
-# DA LEGGERE: riga della sorgente non trovata: CONDITIONS | 0° | 20° | 40° | 60°
-# CONTROLLA (0.79): Tesseract legge «FLAPS UP 103 km/h | 106 km/h | 117 km/h | 145 km/h»
-909 tabella 533-754 c=23.8 fine=725 | FLAPS UP
-# CONTROLLA (0.79): Tesseract legge «FLAPS UP 103 km/h | 106 km/h | 117 km/h | 145 km/h»
-909 tabella 756-912 c=23.8 fine=896 | 98 km/h
-# CONTROLLA (0.79): Tesseract legge «FLAPS UP 103 km/h | 106 km/h | 117 km/h | 145 km/h»
-909 tabella 914-1082 c=23.8 fine=1069 | 101 km/h
-# CONTROLLA (0.79): Tesseract legge «FLAPS UP 103 km/h | 106 km/h | 117 km/h | 145 km/h»
-909 tabella 1084-1251 c=23.8 fine=1240 | 113 km/h
-# CONTROLLA (0.79): Tesseract legge «FLAPS UP 103 km/h | 106 km/h | 117 km/h | 145 km/h»
-909 tabella 1253-1400 c=23.8 fine=1410 | 138 km/h
-# DA LEGGERE: Tesseract legge «56 kts 57 kts 63 kts 78 kts»
-945 tabella 758-925 c=23.8 fine=896 | 53 kts
-# DA LEGGERE: Tesseract legge «56 kts 57 kts 63 kts 78 kts»
-945 tabella 927-1094 c=23.8 fine=1069 | 55 kts
-# DA LEGGERE: Tesseract legge «56 kts 57 kts 63 kts 78 kts»
-945 tabella 1096-1266 c=23.8 fine=1240 | 61 kts
-# DA LEGGERE: Tesseract legge «56 kts 57 kts 63 kts 78 kts»
-945 tabella 1268-1371 c=23.8 fine=1410 | 75 kts
-# DA LEGGERE: Tesseract legge «64 MPH 66 MPH 73 MPH 90 MPH»
-981 tabella 758-925 c=23.8 fine=896 | 61 MPH
-# DA LEGGERE: Tesseract legge «64 MPH 66 MPH 73 MPH 90 MPH»
-981 tabella 927-1094 c=23.8 fine=1069 | 63 MPH
-# DA LEGGERE: Tesseract legge «64 MPH 66 MPH 73 MPH 90 MPH»
-981 tabella 1096-1264 c=23.8 fine=1240 | 70 MPH
-# DA LEGGERE: Tesseract legge «64 MPH 66 MPH 73 MPH 90 MPH»
-981 tabella 1266-1394 c=23.8 fine=1410 | 86 MPH
-# CONTROLLA (0.81): Tesseract legge «MAXIMUM FLAPS 20° 97 km/h | 108 km/h | 134 km/h»
-1064 tabella 317-525 c=23.8 fine=498 | MAXIMUM
-# CONTROLLA (0.81): Tesseract legge «MAXIMUM FLAPS 20° 97 km/h | 108 km/h | 134 km/h»
-1064 tabella 527-752 c=23.8 fine=725 | FLAPS 20°
-# CONTROLLA (0.81): Tesseract legge «MAXIMUM FLAPS 20° 97 km/h | 108 km/h | 134 km/h»
-1064 tabella 754-925 c=23.8 fine=896 | 89 km/h
-# CONTROLLA (0.81): Tesseract legge «MAXIMUM FLAPS 20° 97 km/h | 108 km/h | 134 km/h»
-1064 tabella 927-1083 c=23.8 fine=1069 | 92 km/h
-# CONTROLLA (0.81): Tesseract legge «MAXIMUM FLAPS 20° 97 km/h | 108 km/h | 134 km/h»
-1064 tabella 1085-1251 c=23.8 fine=1240 | 103 km/h
-# CONTROLLA (0.81): Tesseract legge «MAXIMUM FLAPS 20° 97 km/h | 108 km/h | 134 km/h»
-1064 tabella 1253-1400 c=23.8 fine=1410 | 127 km/h
-# DA LEGGERE: Tesseract legge «GROSS WT 52 kts 58 kts 72 kts»
-1101 tabella 317-752 c=23.8 fine=498 | GROSS WT
-# DA LEGGERE: Tesseract legge «GROSS WT 52 kts 58 kts 72 kts»
-1101 tabella 754-923 c=23.8 fine=896 | 48 kts
-# DA LEGGERE: Tesseract legge «GROSS WT 52 kts 58 kts 72 kts»
-1101 tabella 925-1094 c=23.8 fine=1069 | 50 kts
-# DA LEGGERE: Tesseract legge «GROSS WT 52 kts 58 kts 72 kts»
-1101 tabella 1096-1264 c=23.8 fine=1240 | 56 kts
-# DA LEGGERE: Tesseract legge «GROSS WT 52 kts 58 kts 72 kts»
-1101 tabella 1266-1371 c=23.8 fine=1410 | 69 kts
-# DA LEGGERE: Tesseract legge «1157 kg 60 MPH 67 MPH 83 MPH»
-1138 tabella 339-750 c=23.8 fine=498 | 1157 kg
-# DA LEGGERE: Tesseract legge «1157 kg 60 MPH 67 MPH 83 MPH»
-1138 tabella 752-923 c=23.8 fine=896 | 55 MPH
-# DA LEGGERE: Tesseract legge «1157 kg 60 MPH 67 MPH 83 MPH»
-1138 tabella 925-1094 c=23.8 fine=1069 | 57 MPH
-# DA LEGGERE: Tesseract legge «1157 kg 60 MPH 67 MPH 83 MPH»
-1138 tabella 1096-1264 c=23.8 fine=1240 | 64 MPH
-# DA LEGGERE: Tesseract legge «1157 kg 60 MPH 67 MPH 83 MPH»
-1138 tabella 1266-1393 c=23.8 fine=1410 | 79 MPH
-1222 tabella 532-754 c=23.8 fine=725 | FLAPS 40°
-1222 tabella 756-923 c=23.8 fine=896 | 85 km/h
-1222 tabella 925-1094 c=23.8 fine=1069 | 89 km/h
-1222 tabella 1096-1251 c=23.8 fine=1240 | 97 km/h
-1222 tabella 1253-1399 c=23.8 fine=1410 | 121 km/h
-1258 tabella 758-922 c=23.8 fine=896 | 46 kts
-1258 tabella 924-1094 c=23.8 fine=1069 | 48 kts
-1258 tabella 1096-1264 c=23.8 fine=1240 | 52 kts
-1258 tabella 1266-1369 c=23.8 fine=1410 | 65 kts
-1294 tabella 759-923 c=23.8 fine=896 | 53 MPH
-1294 tabella 925-1094 c=23.8 fine=1069 | 55 MPH
-1294 tabella 1096-1264 c=23.8 fine=1240 | 60 MPH
-1294 tabella 1266-1393 c=23.8 fine=1410 | 75 MPH
-1379 tabella 684-1040 c=23.8 | POWER OFF — AFT CG
-1493 782-939 | Figure 5-3.
+403 | Flight Manual
+436 | Reims Rocket
+472 | Page: 5-8 Reims Aviation
+511 | Edition: 2 Reims, Marne France
+652 tabella 302-1410 c=23.8 | STALL SPEEDS — KM/H - KTS - MPH, VC
+750 tabella 734-1409 c=23.8 | ANGLE OF BANK
+831 tabella 509-723 c=23.8 fine=723 | CONDITIONS
+831 tabella 737-896 c=23.8 fine=894 basefissa | 0°
+831 tabella 909-1067 c=23.8 fine=1067 basefissa | 20°
+831 tabella 1080-1239 c=23.8 fine=1238 basefissa | 40°
+831 tabella 1251-1409 c=23.8 fine=1408 basefissa | 60°
+912 tabella 509-723 c=23.8 fine=723 | FLAPS UP
+912 tabella 737-894 c=23.8 fine=894 | 103 km/h
+948 tabella 737-896 c=23.8 fine=894 | 56 kts
+985 tabella 737-896 c=23.8 fine=894 | 64 MPH
+912 tabella 909-1068 c=23.8 fine=1067 | 106 km/h
+948 tabella 909-1068 c=23.8 fine=1067 | 57 kts
+985 tabella 909-1068 c=23.8 fine=1067 | 66 MPH
+912 tabella 1080-1239 c=23.8 fine=1238 | 117 km/h
+948 tabella 1080-1240 c=23.8 fine=1238 | 63 kts
+985 tabella 1080-1240 c=23.8 fine=1238 | 73 MPH
+912 tabella 1251-1410 c=23.8 fine=1408 | 145 km/h
+948 tabella 1251-1409 c=23.8 fine=1408 | 78 kts
+985 tabella 1251-1409 c=23.8 fine=1408 | 90 MPH
+1066 tabella 509-725 c=23.8 fine=723 | FLAPS 20°
+1067 tabella 737-894 c=23.8 fine=894 | 93 km/h
+1103 tabella 737-894 c=23.8 fine=894 | 50 kts
+1141 tabella 737-894 c=23.8 fine=894 | 58 MPH
+1067 tabella 909-1068 c=23.8 fine=1067 | 97 km/h
+1103 tabella 909-1068 c=23.8 fine=1067 | 52 kts
+1141 tabella 909-1068 c=23.8 fine=1067 | 60 MPH
+1067 tabella 1080-1240 c=23.8 fine=1238 | 108 km/h
+1103 tabella 1080-1240 c=23.8 fine=1238 | 58 kts
+1141 tabella 1080-1240 c=23.8 fine=1238 | 67 MPH
+1067 tabella 1251-1409 c=23.8 fine=1408 | 134 km/h
+1103 tabella 1251-1410 c=23.8 fine=1408 | 72 kts
+1141 tabella 1251-1409 c=23.8 fine=1408 | 83 MPH
+1222 tabella 509-725 c=23.8 fine=723 | FLAPS 40°
+1222 tabella 737-895 c=23.8 fine=894 | 85 km/h
+1259 tabella 737-896 c=23.8 fine=894 | 46 kts
+1295 tabella 737-896 c=23.8 fine=894 | 53 MPH
+1222 tabella 909-1068 c=23.8 fine=1067 | 89 km/h
+1259 tabella 909-1068 c=23.8 fine=1067 | 48 kts
+1295 tabella 909-1068 c=23.8 fine=1067 | 55 MPH
+1222 tabella 1080-1239 c=23.8 fine=1238 | 97 km/h
+1259 tabella 1080-1240 c=23.8 fine=1238 | 52 kts
+1295 tabella 1080-1240 c=23.8 fine=1238 | 60 MPH
+1222 tabella 1251-1409 c=23.8 fine=1408 | 121 km/h
+1259 tabella 1251-1409 c=23.8 fine=1408 | 65 kts
+1295 tabella 1251-1409 c=23.8 fine=1408 | 75 MPH
+1063 tabella 302-497 c=23.8 fine=496 | MAXIMUM
+1100 tabella 302-497 c=23.8 fine=496 | GROSS WT
+1137 tabella 302-497 c=23.8 fine=496 | 1157 kg
+1378 tabella 302-1409 c=23.8 | POWER OFF — AFT CG
+1494 | Figure 5-3.

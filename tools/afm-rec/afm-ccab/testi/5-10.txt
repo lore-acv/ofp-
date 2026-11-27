@@ -1,70 +1,72 @@
-404 738-937 libro | Flight Manual
-440 739-938 libro | Reims Rocket
-477 273-1110 libro | Page: 5-10
-477 1112-1336 libro | Reims Aviation
-# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
-513 273-1112 libro | Edition: 2
-# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
-513 1114-1412 libro | Reims, Marne France
-# DA LEGGERE: riga della sorgente non trovata: FLAPS LOWERED TO 40°
-# DA LEGGERE: riga della sorgente non trovata: LANDING DISTANCE | POWER OFF - ZERO WIND
-# DA LEGGERE: riga della sorgente non trovata: HARD SURFACE RUNWAY
-# DA LEGGERE: riga della sorgente non trovata: GROSS | APPROACH | AT SEA LEVEL | AT 2500 FEET | AT 5000 FEET | AT 7500 FEET
-# DA LEGGERE: riga della sorgente non trovata: WEIGHT | SPEED | AND +15°C | AND +10°C | AND +5°C | AND 0°C
-# DA LEGGERE: riga della sorgente non trovata: kg | VI | Ground | Total | Ground | Total | Ground | Total | Ground | Total
-# DA LEGGERE: riga della sorgente non trovata: Roll | to Clear | Roll | to Clear | Roll | to Clear | Roll | to Clear
-# DA LEGGERE: riga della sorgente non trovata: m | 15 m | m | 15 m | m | 15 m | m | 15 m
-# DA LEGGERE: Tesseract legge «sqo sqo sqo sqo»
-850 cella 625-1485 fissa c=16.1 | obs
-# DA LEGGERE: Tesseract legge «sqo sqo sqo sqo»
-850 cella 1487-1972 fissa c=16.1 | obs
-# DA LEGGERE: Tesseract legge «sqo sqo sqo sqo»
-850 cella 1974-2462 fissa c=16.1 | obs
-# DA LEGGERE: Tesseract legge «sqo sqo sqo sqo»
-850 cella 2464-1561 fissa c=16.1 | obs
-# DA LEGGERE: riga della sorgente non trovata: m | m | m | m
-# DA LEGGERE: riga della sorgente non trovata: 117 km/h
-# DA LEGGERE: riga della sorgente non trovata: 1157 | 63 kts | 189 | 387 | 201 | 411 | 212 | 434 | 224 | 460
-# DA LEGGERE: riga della sorgente non trovata: 73 MPH.
-# DA LEGGERE: riga della sorgente non trovata: NOTES: 1. Reduce landing distance 10% for each 5 knots headwind.
-# DA LEGGERE: riga della sorgente non trovata: 2. For operation on a dry grass runway, increase distance (both "ground roll" and "total to clear
-# DA LEGGERE: riga della sorgente non trovata: obstacle") by 20% of the "total to clear 15m obstacle"figure.
-# DA LEGGERE: riga della sorgente non trovata: Figure 5-5.
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“G-§ omnia]»
-# 212 1232-1391 | “G-§ omnia]
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“aINBly, ,BJORISGO WG] sea] O} 12302,, aya Jo %OZ Aq {,,a]9e3Sqo_»
-# 383 1044-1893 | “aINBly, ,BJORISGO WG] sea] O} 12302,, aya Jo %OZ Aq {,,a]9e3Sqo_
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Jeajd 0} (2103,, Pue ,,){01 punol6,, YOoq) souelsip aseasoul ‘Aemuns sses6 Ap e uo uotjesado 404»
-# 413 603-1881 | Jeajd 0} (2103,, Pue ,,){01 punol6,, YOoq) souelsip aseasoul ‘Aemuns sses6 Ap e uo uotjesado 404
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «tc»
-# 419 1909-1949 | tc
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“pulAApeay s}oU G Yydea JOy %OL eoueIsIp Bulpue] aonpay “| :SALON»
-# 454 1107-2077 | “pulAApeay s}oU G Yydea JOy %OL eoueIsIp Bulpue] aonpay “| :SALON
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘Hd EL»
-# 565 1767-1895 | ‘Hd EL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «be ver rArA sy £9»
-# 648 766-1896 | be ver rArA sy £9
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «y/o ZEL»
-# 709 1768-1911 | y/o ZEL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «{ ow w»
-# 808 576-965 | { ow w
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «WwW Gl wi gt w Gt wu GL»
-# 881 618-1573 | WwW Gl wi gt w Gt wu GL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «deal) 0} 4ea[Q 0} JeajQ 0} deajg 0}»
-# 919 595-1592 | deal) 0} 4ea[Q 0} JeajQ 0} deajg 0}
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «{2104 [e104 [e105 fe10 4 1A»
-# 958 618-1864 | {2104 [e104 [e105 fe10 4 1A
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LHDIEM»
-# 1058 1948-2081 | LHDIEM
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «300 GNV JoS+ GNV 3001+ ONY JoGl+ GNV qaads»
-# 1059 656-1895 | 300 GNV JoS+ GNV 3001+ ONY JoGl+ GNV qaads
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Ladd 00S4 Lv 1344 0606 Lv L344 00S2¢ 1V VSA4d1 VAS LV | HOVOUddv»
-# 1093 619-1928 | Ladd 00S4 Lv 1344 0606 Lv L344 00S2¢ 1V VSA4d1 VAS LV | HOVOUddv
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SSOHD»
-# 1094 1959-2072 | SSOHD
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «AVMNNY JOVAYHNS GYVH»
-# 1196 620-1026 | AVMNNY JOVAYHNS GYVH
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «QNIM OH3Z - 440 YAMOd AONVLSIC ONIGNV1»
-# 1232 623-1717 | QNIM OH3Z - 440 YAMOd AONVLSIC ONIGNV1
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «00 OL GAH3MO1 SdV14»
-# 1268 640-1025 | 00 OL GAH3MO1 SdV14
+407 libro 519-1234 | Flight Manual
+440 libro 519-1234 | Reims Rocket
+480 libro 201-916 | Page: 5-10
+477 libro 916-1632 | Reims Aviation
+516 libro 201-916 | Edition: 2
+513 libro 916-1632 | Reims, Marne France
+387 cella 392-1321 c=21.5 gap=7 fissa | LANDING DISTANCE
+354 cella 1344-1875 c=21.5 gap=7 fissa | FLAPS LOWERED TO 40°
+390 cella 1344-1875 c=21.5 gap=7 fissa | POWER OFF - ZERO WIND
+427 cella 1344-1875 c=21.5 gap=7 fissa | HARD SURFACE RUNWAY
+530 cella 386-531 c=21.5 gap=7 fissa | GROSS
+566 cella 386-531 c=21.5 gap=7 fissa | WEIGHT
+663 cella 386-532 c=21.5 gap=7 fissa | kg
+530 cella 544-726 c=21.5 gap=7 fissa | APPROACH
+566 cella 544-726 c=21.5 gap=7 fissa | SPEED
+665 cella 541-726 c=21.5 gap=7 fissa | VI
+530 cella 740-1010 c=21.5 gap=7 fissa | AT SEA LEVEL
+566 cella 740-1010 c=21.5 gap=7 fissa | AND +15°C
+665 cella 740-867 c=21.5 gap=7 fissa | Ground
+702 cella 740-867 c=21.5 gap=7 fissa | Roll
+735 cella 740-867 c=21.5 gap=7 fissa | m
+663 cella 883-1012 c=21.5 gap=7 fissa | Total
+700 cella 883-1012 c=21.5 gap=7 fissa | to Clear
+735 cella 883-1011 c=21.5 gap=7 fissa | 15 m
+771 cella 883-1011 c=21.5 gap=7 fissa | obs
+806 cella 883-1012 c=21.5 gap=7 fissa | m
+530 cella 1025-1303 c=21.5 gap=7 fissa | AT 2500 FEET
+565 cella 1025-1301 c=21.5 gap=7 fissa | AND +10°C
+663 cella 1025-1155 c=21.5 gap=7 fissa | Ground
+700 cella 1025-1156 c=21.5 gap=7 fissa | Roll
+735 cella 1025-1156 c=21.5 gap=7 fissa | m
+663 cella 1169-1301 c=21.5 gap=7 fissa | Total
+700 cella 1169-1301 c=21.5 gap=7 fissa | to Clear
+735 cella 1169-1301 c=21.5 gap=7 fissa | 15 m
+771 cella 1169-1301 c=21.5 gap=7 fissa | obs
+806 cella 1169-1301 c=21.5 gap=7 fissa | m
+530 cella 1312-1591 c=21.5 gap=7 fissa | AT 5000 FEET
+565 cella 1313-1591 c=21.5 gap=7 fissa | AND +5°C
+663 cella 1313-1447 c=21.5 gap=7 fissa | Ground
+700 cella 1313-1447 c=21.5 gap=7 fissa | Roll
+735 cella 1313-1447 c=21.5 gap=7 fissa | m
+663 cella 1460-1591 c=21.5 gap=7 fissa | Total
+700 cella 1460-1591 c=21.5 gap=7 fissa | to Clear
+735 cella 1460-1591 c=21.5 gap=7 fissa | 15 m
+771 cella 1460-1591 c=21.5 gap=7 fissa | obs
+806 cella 1460-1591 c=21.5 gap=7 fissa | m
+530 cella 1605-1880 c=21.5 gap=7 fissa | AT 7500 FEET
+566 cella 1605-1880 c=21.5 gap=7 fissa | AND 0°C
+663 cella 1605-1737 c=21.5 gap=7 fissa | Ground
+700 cella 1605-1737 c=21.5 gap=7 fissa | Roll
+735 cella 1605-1737 c=21.5 gap=7 fissa | m
+665 cella 1750-1880 c=21.5 gap=7 fissa | Total
+700 cella 1750-1880 c=21.5 gap=7 fissa | to Clear
+735 cella 1750-1880 c=21.5 gap=7 fissa | 15 m
+770 cella 1750-1880 c=21.5 gap=7 fissa | obs
+806 cella 1750-1880 c=21.5 gap=7 fissa | m
+988 cella 386-532 c=21.5 gap=7 fissa | 1157
+916 cella 541-727 c=21.5 gap=7 fissa | 117 km/h
+988 cella 541-728 c=21.5 gap=7 fissa | 63 kts
+1059 cella 542-728 c=21.5 gap=7 fissa | 73 MPH.
+988 cella 740-868 c=21.5 gap=7 fissa | 189
+986 cella 883-1012 c=21.5 gap=7 fissa | 387
+986 cella 1025-1157 c=21.5 gap=7 fissa | 201
+984 cella 1169-1301 c=21.5 gap=7 fissa | 411
+986 cella 1313-1447 c=21.5 gap=7 fissa | 212
+984 cella 1459-1591 c=21.5 gap=7 fissa | 434
+986 cella 1605-1737 c=21.5 gap=7 fissa | 224
+986 cella 1750-1880 c=21.5 gap=7 fissa | 460
+1169 cella 394-1873 c=21.5 gap=7 fissa | NOTES: 1. Reduce landing distance 10% for each 5 knots headwind.
+1204 cella 394-1873 c=21.5 gap=7 fissa | 2. For operation on a dry grass runway, increase distance (both "ground roll" and "total to clear
+1239 cella 394-1873 c=21.5 gap=7 fissa | obstacle") by 20% of the "total to clear 15m obstacle"figure.
+1409 testo 909-1497 c=23.8 sx=0.819 fissa | Figure 5-5.

@@ -22,6 +22,10 @@ export async function risolvi(p, dir) {
    lettere (ls) e lo spostamento dell'origine (dx) che portano l'inchiostro
    esattamente da x a x + larghezza misurata (misura.py). Si esegue in una
    pagina di Chromium con i font gia' caricati (vedi preparaMisure). */
+// la larghezza del disegno di una riga: quella della riga, o del ruolo; sulle pagine girate (fuori
+// dall'intestazione) un ruolo puo' averne una sua, sxGirata (in I-CCAB la scansione delle pagine girate
+// di I-CCAF era compressa nell'altro verso, e i ruoli che servono li' ne portavano il segno)
+export const sxDi = (r, p, opz) => opz.sx || (p.rot === -90 && !opz.libro && r.sxGirata) || r.sx;
 export function paroleDaMisurare(pagine, stile) {
   const out = [];
   for (const p of pagine) p.el.forEach((e, k) => {
@@ -31,7 +35,7 @@ export function paroleDaMisurare(pagine, stile) {
     parole.forEach(([x, t, w, lettere], i) => {
       if (!w) return;
       const fsw = sup.has(i) ? fs * (opz.supK || 0.62) : fs;
-      out.push({ chiave: `${p.n}|${k}|${i}`, t, w, lettere, sx: opz.sx || r.sx, font: `${r.peso || f.peso} ${n2(fsw)}px '${f.famiglia}'`, stretch: r.larghezza || '100%' });
+      out.push({ chiave: `${p.n}|${k}|${i}`, t, w, lettere, sx: sxDi(r, p, opz), font: `${r.peso || f.peso} ${n2(fsw)}px '${f.famiglia}'`, stretch: r.larghezza || '100%' });
     });
   });
   return out;
@@ -99,10 +103,10 @@ export function pienaPagina(p, stile, variante = 'pieno') {
       const [, ruolo, base, parole, opz0 = {}] = e; const r = stile.ruoli[ruolo];
       const opz = { ...opz0 }, t = opz.libro ? L : T;
       if (opz.ang === -90) {      // riga verticale: la linea di base e' una x, le parole corrono lungo y
-        opz.c = n3((opz.c || r.c) * t.ax); opz.sx = Math.round((opz.sx || r.sx) * t.ay / t.ax * 1000) / 1000;
+        opz.c = n3((opz.c || r.c) * t.ax); opz.sx = Math.round(sxDi(r, p, opz) * t.ay / t.ax * 1000) / 1000;
         return ['riga', ruolo, n3(t.ax * base + t.bx), parole.map(([x, w, l, ...resto]) => [n3(t.ay * x + t.by), w, l == null ? l : n3(l * t.ay), ...resto]), opz];
       }
-      opz.c = n3((opz.c || r.c) * t.ay); opz.sx = Math.round((opz.sx || r.sx) * t.ax / t.ay * 1000) / 1000;
+      opz.c = n3((opz.c || r.c) * t.ay); opz.sx = Math.round(sxDi(r, p, opz) * t.ax / t.ay * 1000) / 1000;
       return ['riga', ruolo, n3(t.ay * base + t.by), parole.map(([x, w, l, lettere]) => {
         const o = [n3(t.ax * x + t.bx), w];
         if (l != null) o.push(n3(l * t.ax));
@@ -134,7 +138,7 @@ export function svgPagina(p, stile, misure = {}) {
       const [, ruolo, base, parole, opz = {}] = e;
       const dest = opz.libro ? libro : out;     // libro: coordinate della pagina del libro (diritta), fuori dalla rotazione
       const r = stile.ruoli[ruolo]; if (!r) throw new Error(`pagina ${p.n}: ruolo sconosciuto ${ruolo}`);
-      const fs = corpo(stile, ruolo, opz.c), sx = opz.sx || r.sx;
+      const fs = corpo(stile, ruolo, opz.c), sx = sxDi(r, p, opz);
       const sup = new Set(opz.sup || []), unite = new Set(opz.unite || []);
       const fsStyle = opz.c && opz.c !== r.c ? ` style="font-size:${n2(fs)}px"` : '';
       const k = p.el.indexOf(e);

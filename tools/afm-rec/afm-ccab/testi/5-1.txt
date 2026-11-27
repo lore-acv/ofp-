@@ -1,26 +1,15 @@
-380 646-846 | Flight Manual
-418 647-847 | Reims Rocket
-454 180-1314 | Reims Aviation Page: 5-1
-# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
-489 180-986 | Reims, Marne France
-# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition: 2»
-489 988-1333 | Edition: 2
-606 titolo 705-1326 basefissa c=42.8 | SECTION V
-779 titolo 562-941 c=34.5 | PERFORMANCE
-893 titolo 179-461 | NOTIFICATION.
-# CONTROLLA (0.96): Tesseract legge «The tables appearing on the following pages result from actual tests with an air-»
-958 248-1329 | The tables appearing on the following pages result from actual tests with a stan-
-# CONTROLLA (0.78): Tesseract legge «plane in good flying condition. They will be useful in flight planning; nevertheless,»
-995 181-1308 | dard equipped airplane in good flying condition. They will be useful in flight plan-
-# CONTROLLA (0.77): Tesseract legge «it will be advisable to plan on an ample safety margin concerning the fuel reserve at»
-1032 182-1317 fine=1104 | ning; nevertheless, it will be advisable to plan on an ample safety margin concerning
-# CONTROLLA (0.80): Tesseract legge «arrival, since the data given does not take into account the effects of wind, naviga-»
-1068 181-1301 | the fuel reserve at arrival, since the data given does not take into account the effects
-# DA LEGGERE: Tesseract legge «tional errors, pilot technique, warm-up, take-off, etc. All these factors should be»
-1105 181-1279 | of wind, navigational errors, pilot technique, warm-up, take-off, external optional
-# DA LEGGERE: Tesseract legge «considered when estimating the reserve required by regulations. Don’t forget that»
-1143 182-1290 | equipment, etc. All these factors should be considered when estimating the reserve
-# DA LEGGERE: Tesseract legge «maximum range increases by using a lower power setting. To solve these problems,»
-1179 182-1312 | required by regulations. Don’t forget that maximum range increases by using a lower
-# DA LEGGERE: Tesseract legge «consult the Cruise Performance charts.»
-1218 182-706 | power setting. To solve these problems, consult the Cruise Performance charts.
+379 | Flight Manual
+417 | Reims Rocket
+453 | Reims Aviation Page: 5-1
+489 | Reims, Marne France Edition: 2
+606 titolo 861-1355 c=42.1 basefissa | SECTION V
+780 titolo c=33.9 | PERFORMANCE
+891 titolo | NOTIFICATION.
+957 | The tables appearing on the following pages result from actual tests with an air-
+993 | plane in good flying condition. They will be useful in flight planning; nevertheless,
+1029 | it will be advisable to plan on an ample safety margin concerning the fuel reserve at
+1064 | arrival, since the data given does not take into account the effects of wind, naviga-
+1100 | tional errors, pilot technique, warm-up, take-off, etc. All these factors should be
+1135 | considered when estimating the reserve required by regulations. Don’t forget that
+1171 | maximum range increases by using a lower power setting. To solve these problems,
+1207 | consult the Cruise Performance charts.

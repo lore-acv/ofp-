@@ -1,1 +1,32 @@
-{"pdf": 68, "n": "5-12", "w": 2473, "h": 1600, "rot": -90, "stato": "bozza", "figure": [], "el": []}
+{
+  "pdf": 68,
+  "n": "5-12",
+  "w": 2473,
+  "h": 1600,
+  "rot": -90,
+  "stato": "ricostruita",
+  "figure": [{"figura": "Figura 5-7 (Maximum glide)", "metodo": "cornice, griglia, fascia di planata a punti e aeroplano: disegno al tratto vettorializzato con potrace dalla scansione di I-CCAB (tratto.py, finestra 368 250 1899 1345); scritte: testo vero, le righe della 5-12 di I-CCAF portate sulla scansione di I-CCAB e riagganciate all'inchiostro (gemella.py, testo.py)."}],
+  "el": [
+    ["riga", "testo", 409, [[734, "Flight", 74], [821, "Manual", 93]], {"libro": true}],
+    ["riga", "testo", 442, [[734, "Reims", 77], [825, "Rocket", 91]], {"libro": true}],
+    ["riga", "testo", 484, [[264, "Page:", 65], [357, "5-12", 55]], {"libro": true}],
+    ["riga", "testo", 480, [[1115, "Reims", 79], [1206, "Aviation", 110]], {"libro": true}],
+    ["riga", "testo", 518, [[264, "Edition:", 103], [398, "2", 13]], {"libro": true}],
+    ["riga", "testo", 516, [[1116, "Reims,", 85], [1214, "Marne", 79], [1306, "France", 87]], {"libro": true}],
+    ["riga", "grafico", 334, [[1169, "SPEED", 91], [1274, "VI:", 44], [1378, "137", 44], [1438, "km/h", 68], [1519, "-", 7], [1540, "74", 31], [1587, "kts", 37], [1636, "-", 6], [1655, "85", 32], [1701, "MPH", 60]], {"fissa": true}],
+    ["riga", "grafico", 375, [[611, "MAXIMUM", 146], [771, "GLIDE", 89]], {"fissa": true}],
+    ["riga", "grafico", 391, [[1170, "PROPELLER", 180], [1363, "WINDMILLING", 214]], {"fissa": true}],
+    ["riga", "grafico", 447, [[1172, "FLAPS", 89], [1275, "UP", 41], [1375, "ZERO", 82], [1470, "WIND", 81]], {"fissa": true}],
+    ["riga", "grafico", 489, [[545, "12000", 91]], {"fissa": true}],
+    ["riga", "grafico", 606, [[545, "10000", 90]], {"fissa": true}],
+    ["riga", "grafico", 723, [[556, "8000", 64]], {"fissa": true}],
+    ["riga", "grafico", 845, [[557, "6000", 64]], {"fissa": true}],
+    ["riga", "grafico", 964, [[556, "4000", 66]], {"fissa": true}],
+    ["riga", "grafico", 1087, [[555, "2000", 64]], {"fissa": true}],
+    ["riga", "grafico", 1230, [[631, "0", 15], [921, "10", 30], [1226, "20", 31], [1534, "30", 33], [1831, "40", 32]], {"fissa": true}],
+    ["riga", "grafico", 1284, [[1061, "GROUND", 132], [1209, "DISTANCE", 150], [1377, "(km)", 58]], {"fissa": true}],
+    ["riga", "testo", 1397, [[1048, "Figure", 82], [1144, "5-7.", 47]], {"c": 24.1, "fissa": true}],
+    ["riga", "grafico", 495, [[1073, "HEIGHT", 113], [947, "ABOVE", 102], [831, "TERRAIN", 133], [680, "(FEET)", 93]], {"ang": -90, "c": 20.1}],
+    ["svgfile", "figure/fig-5-7.svg"]
+  ]
+}

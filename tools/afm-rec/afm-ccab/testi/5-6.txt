@@ -1,69 +1,38 @@
-395 729-928 libro | Flight Manual
-432 729-930 libro | Reims Rocket
-477 270-1106 libro | Page: 5-6
-477 1108-1333 libro | Reims Aviation
-# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
-515 269-1104 libro | Edition: 2
-# CONTROLLA (0.96): Tesseract legge «Edition: 2 Reims, Marne France»
-515 1106-1409 libro | Reims, Marne France
-# DA LEGGERE: riga della sorgente non trovata: CRUISE PERFORMANCE
-# DA LEGGERE: riga della sorgente non trovata: NORMAL LEAN MIXTURE
-# DA LEGGERE: riga della sorgente non trovata: GROSS WEIGHT 1157 kg • STANDARD CONDITIONS • ZERO WIND
-# DA LEGGERE: Tesseract legge «L444 000St»
-1160 cella 1264-1403 fissa c=13.2 | 15000 FEET
-# DA LEGGERE: riga della sorgente non trovata: FUEL CONSUMPTION | 46 GAL (174 LITRES)
-# DA LEGGERE: riga della sorgente non trovata: MP | TRUE AIRSPEED
-# DA LEGGERE: riga della sorgente non trovata: % | PER HOUR | NO RESERVE
-# DA LEGGERE: riga della sorgente non trovata: RPM
-# DA LEGGERE: riga della sorgente non trovata: BHP | U.S. | ENDURANCE | RANGE
-# DA LEGGERE: riga della sorgente non trovata: mb | in Hg | km/h | kts | MPH | LITRES
-# DA LEGGERE: riga della sorgente non trovata: GAL. | HOURS | km | N.M.
-# DA LEGGERE: riga della sorgente non trovata: 2600 508 15 49 198 107 123 7,6 28,8 6,0 1191 643
-# DA LEGGERE: riga della sorgente non trovata: 474 14 44 180 97 112 6,9 26,1 6,7 1207 652
-# DA LEGGERE: riga della sorgente non trovata: 440 13 38 163 88 101 6,1 23,1 7,5 1215 656
-# DA LEGGERE: riga della sorgente non trovata: 2500 508 15 47 190 103 118 7,3 27,6 6,3 1199 647
-# DA LEGGERE: riga della sorgente non trovata: 474 14 41 174 94 108 6,6 25,0 7,0 1207 652
-# DA LEGGERE: riga della sorgente non trovata: 440 13 36 158 85 98 5,9 22,3 7,7 1215 656
-# DA LEGGERE: riga della sorgente non trovata: 2400 508 15 44 180 97 112 6,9 26,1 6,7 1207 652
-# DA LEGGERE: riga della sorgente non trovata: 474 14 39 166 90 103 6,3 23,8 7,4 1215 656
-# DA LEGGERE: riga della sorgente non trovata: 2300 508 15 40 171 92 106 6,5 24,6 7,1 1215 656
-# DA LEGGERE: riga della sorgente non trovata: 474 14 36 156 84 97 5,9 22,3 7,8 1215 656
-# DA LEGGERE: riga della sorgente non trovata: 2200 508 15 38 163 88 101 6,1 23,1 7,5 1215 656
-# DA LEGGERE: riga della sorgente non trovata: NOTE: Speed performance is shown for an airplane equipped with optional speed fairings, which increases speed by 1 knot.
-# DA LEGGERE: riga della sorgente non trovata: Figure 5-1 (Sheet 5 of 5).
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘(g JOG l90yS) [-¢ omnsLy»
-# 219 1157-1519 | ‘(g JOG l90yS) [-¢ omnsLy
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“youx | Aq paads saseaisour yorya ‘sfusiey paads jeuoido yun paddinba aueyd. B JO} UAAOYs SI adURUIOJIEd paads»
-# 320 837-1963 | “youx | Aq paads saseaisour yorya ‘sfusiey paads jeuoido yun paddinba aueyd. B JO} UAAOYs SI adURUIOJIEd paads
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ee f , 06 bly»
-# 736 949-1943 | ee f , 06 bly
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“9 ‘ ¢ i 46 SL 805»
-# 761 949-1942 | “9 ‘ ¢ i 46 SL 805
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Le eee fs 86 68 9€ €L Ove»
-# 821 950-1943 | Le eee fs 86 68 9€ €L Ove
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «O74 0'sz s0L v6 ly vl vl»
-# 846 949-1944 | O74 0'sz s0L v6 ly vl vl
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «e'9 Ole Blt e0L lv SL 80¢»
-# 871 949-1943 | e'9 Ole Blt e0L lv SL 80¢
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «GL Lez f LoL 88 8 et Ovb»
-# 929 949-1943 | GL Lez f LoL 88 8 et Ovb
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «he 19% ZL L6 e ut bly»
-# 977 948-1943 | he 19% ZL L6 e ut bly
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «aur 8 | : ixas Z0L 80S»
-# 982 1070-1942 | aur 8 | : ixas Z0L 80S
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SUNOH»
-# 1017 923-1014 | SUNOH
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «BH ut»
-# 1033 1788-1853 | BH ut
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «dHa»
-# 1055 1686-1742 | dHa
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «3AYaS38 ON pew | wad “»
-# 1085 742-1730 | 3AYaS38 ON pew | wad “
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «(SAULIT PLL) WO 9b NOLLAWNSNOD 1304 OaadSuly ANUL»
-# 1110 707-1609 | (SAULIT PLL) WO 9b NOLLAWNSNOD 1304 OaadSuly ANUL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «GNIM OH3Z + SNOLLIGNOD GHVGNVLS * 5% ZgL1 LHOISaM SSOYUD»
-# 1204 928-1725 | GNIM OH3Z + SNOLLIGNOD GHVGNVLS * 5% ZgL1 LHOISaM SSOYUD
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SYNLXIN NVWAT TVWYHON»
-# 1247 1191-1477 | SYNLXIN NVWAT TVWYHON
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SONVWHOdH Ad 3SINYD»
-# 1301 1197-1464 | SONVWHOdH Ad 3SINYD
+399 libro 532-1248 | Flight Manual
+432 libro 532-1248 | Reims Rocket
+479 libro 213-929 | Page: 5-6
+478 libro 929-1646 | Reims Aviation
+518 libro 213-929 | Edition: 2
+518 libro 929-1646 | Reims, Marne France
+1403 testo 945-1313 c=23.9 sx=0.813 fissa | Figure 5-1 (Sheet 5 of 5).
+314 cella 619-1682 c=17.6 gap=7 fissa | CRUISE PERFORMANCE
+368 cella 619-1682 c=17.6 gap=7 fissa | NORMAL LEAN MIXTURE
+410 cella 619-1682 c=17.6 gap=7 fissa | GROSS WEIGHT 1157 kg • STANDARD CONDITIONS • ZERO WIND
+455 cella 619-1682 c=17.6 gap=7 fissa | 15000 FEET
+546 cella 412-502 c=16.0 gap=7 fissa | RPM
+514 cella 520-692 c=16.0 gap=7 fissa | MP
+533 cella 710-810 c=16.0 gap=7 fissa | %
+560 cella 710-810 c=16.0 gap=7 fissa | BHP
+515 cella 828-1095 c=16.0 gap=7 fissa | TRUE AIRSPEED
+582 cella 520-596 c=16.0 gap=7 fissa | mb
+581 cella 614-692 c=16.0 gap=7 fissa | in Hg
+583 cella 828-909 c=16.0 gap=7 fissa | km/h
+583 cella 927-1002 c=16.0 gap=7 fissa | kts
+582 cella 1020-1095 c=16.0 gap=7 fissa | MPH
+504 cella 1113-1383 c=16.0 gap=7 fissa | FUEL CONSUMPTION
+529 cella 1113-1383 c=16.0 gap=7 fissa | PER HOUR
+505 cella 1401-1888 c=16.0 gap=7 fissa | 46 GAL (174 LITRES)
+531 cella 1401-1888 c=16.0 gap=7 fissa | NO RESERVE
+572 cella 1113-1239 c=16.0 gap=7 fissa | U.S.
+597 cella 1113-1239 c=16.0 gap=7 fissa | GAL.
+584 cella 1257-1383 c=16.0 gap=7 fissa | LITRES
+572 cella 1401-1601 c=16.0 gap=7 fissa | ENDURANCE
+598 cella 1401-1601 c=16.0 gap=7 fissa | HOURS
+569 cella 1619-1888 c=16.0 gap=7 fissa | RANGE
+601 cella 1619-1754 c=16.0 gap=7 fissa | km
+603 cella 1772-1888 c=16.0 gap=7 fissa | N.M.
+1294 cella 413-723 c=16.0 gap=7 fissa | NOTE: Speed performance is
+1295 cella 723-932 c=16.0 gap=7 fissa | shown for an airplane
+1296 cella 932-1223 c=16.0 gap=7 fissa | equipped with optional speed
+1297 cella 1223-1522 c=16.0 gap=7 fissa | fairings, which increases speed
+1298 cella 1522-1883 c=16.0 gap=7 fissa | by 1 knot.

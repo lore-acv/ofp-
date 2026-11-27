@@ -18,8 +18,8 @@
 507 figtitolo c=21.5 408-479 | 1.
 507 figtitolo c=21.5 479-996 | Licensed Empty Weight (Sample Airplane)
 571 figtitolo c=21.5 408-479 | 2.
-571 figtitolo c=21.5 479-1243 | Oil: 10 Qts. (9,5 Litres) The weight of full oil may be used
-606 figtitolo c=21.5 479-708 | for all calculations
+571 figtitolo c=21.5 479-1243 | Oil: 10 Qts. (9,5 Litres) - Full oil may be assumed
+606 figtitolo c=21.5 479-708 | for all flights
 668 figtitolo c=21.5 408-479 | 3.
 668 figtitolo c=21.5 479-1243 | Fuel: Standard Wing Tanks - 46 U.S. Gal. at 6 pounds/gallon
 700 figtitolo c=21.5 567-1170 | Standard Wing Tanks - 174 Litres at 0,72 Kg/Litre

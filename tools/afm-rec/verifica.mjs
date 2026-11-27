@@ -77,7 +77,7 @@ async function controllaNumeri(p, origPath) {
       parole.push({ x, y: e[2], t, rif, ang: 0, box: [Math.round(x - 5), Math.round(e[2] - c * 1.4), Math.round(destra), Math.round(e[2] + c * 0.45)] });
     });
   }
-  if (!parole.length) return [];
+  if (!parole.length) return { parole, dif: [] };
   const tmp = path.join(os.tmpdir(), 'afmrec-parole'); await rm(tmp, { recursive: true, force: true }); await mkdir(tmp, { recursive: true });
   execFileSync('/usr/bin/python3', ['-I', '-c', `
 import json,sys

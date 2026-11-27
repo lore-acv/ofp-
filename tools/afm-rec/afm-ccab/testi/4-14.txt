@@ -1,9 +1,7 @@
 400 723-921 | Flight Manual
 437 723-923 | Reims Rocket
-474 257-1245 | Reims Aviation
-474 1247-1322 fissa | Page: 4-14
-511 256-1243 | Reims, Marne France
-511 1245-1400 fissa | Edition: 2
+474 257-1400 | Page: 4-14 Reims Aviation
+511 256-1420 | Edition: 2 Reims, Marne France
 621 778-877 | NOTE
 693 387-1222 | When pulling the propeller through by hand, treat it as if the
 730 387-1213 | ignition switch is turned on. A loose or broken ground wire

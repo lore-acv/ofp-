@@ -1,108 +1,129 @@
-387 639-837 libro | Flight Manual
-423 639-840 libro | Reims Rocket
-455 177-1154 libro | Reims Aviation
-455 1156-1311 libro | Page: 5-7
-# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition; 2»
-492 176-1154 libro | Reims, Marne France
-# CONTROLLA (0.96): Tesseract legge «Reims, Marne France Edition; 2»
-492 1156-1326 libro | Edition: 2
-# DA LEGGERE: riga della sorgente non trovata: AIRSPEED CORRECTION TABLE
-# DA LEGGERE: riga della sorgente non trovata: VI
-# DA LEGGERE: riga della sorgente non trovata: 80 | 97 | 113 | 129 | 145 | 161 | 177 | 193 | 209 | 225 | 241
-# DA LEGGERE: riga della sorgente non trovata: km/h
-# DA LEGGERE: riga della sorgente non trovata: VI
-# DA LEGGERE: riga della sorgente non trovata: 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 130 | 140 | 150
-# DA LEGGERE: riga della sorgente non trovata: MPH
-# DA LEGGERE: riga della sorgente non trovata: FLAPS UP
-# DA LEGGERE: riga della sorgente non trovata: VC
-# DA LEGGERE: riga della sorgente non trovata: 95 | 105 | 116 | 129 | 143 | 159 | 175 | 192 | 206 | 222 | 238
-# DA LEGGERE: riga della sorgente non trovata: km/h
-# DA LEGGERE: riga della sorgente non trovata: VC
-# DA LEGGERE: riga della sorgente non trovata: 59 | 65 | 72 | 80 | 89 | 99 | 109 | 119 | 128 | 138 | 148
-# DA LEGGERE: riga della sorgente non trovata: MPH
-# DA LEGGERE: riga della sorgente non trovata: VI
-# DA LEGGERE: riga della sorgente non trovata: 80 | 97 | 113 | 129 | 145 | 161
-# DA LEGGERE: riga della sorgente non trovata: km/h
-# DA LEGGERE: riga della sorgente non trovata: VI
-# DA LEGGERE: Tesseract legge «ool | 06 08 09»
-561 cella 1095-1178 fissa c=17.9 | 50
-# DA LEGGERE: Tesseract legge «ool | 06 08 09»
-561 cella 1180-1351 fissa c=17.9 | 60
-# DA LEGGERE: Tesseract legge «ool | 06 08 09»
-561 cella 1353-1521 fissa c=17.9 | 70
-# DA LEGGERE: Tesseract legge «ool | 06 08 09»
-561 cella 1523-1697 fissa c=17.9 | 80
-# DA LEGGERE: Tesseract legge «ool | 06 08 09»
-561 cella 1699-1849 fissa c=17.9 | 90
-# DA LEGGERE: Tesseract legge «ool | 06 08 09»
-561 cella 1851-1556 fissa c=17.9 | 100
-# DA LEGGERE: riga della sorgente non trovata: FLAPS | MPH
-# DA LEGGERE: riga della sorgente non trovata: 20° | VC
-# DA LEGGERE: riga della sorgente non trovata: 95 | 103 | 116 | 130 | 145 | 161
-# DA LEGGERE: riga della sorgente non trovata: km/h
-# DA LEGGERE: riga della sorgente non trovata: VC
-# DA LEGGERE: riga della sorgente non trovata: 59 | 64 | 72 | 81 | 90 | 100
-# DA LEGGERE: riga della sorgente non trovata: MPH
-# DA LEGGERE: Tesseract legge «in |»
-622 cella 1684-1817 fissa c=17.3 | VI
-# DA LEGGERE: riga della sorgente non trovata: 80 | 97 | 113 | 129 | 145 | 161
-# DA LEGGERE: Tesseract legge «Hd»
-708 cella 1722-1797 fissa c=17.3 | km/h
-# DA LEGGERE: riga della sorgente non trovata: VI
-# DA LEGGERE: riga della sorgente non trovata: 50 | 60 | 70 | 80 | 90 | 100
-# DA LEGGERE: riga della sorgente non trovata: FLAPS | MPH
-# DA LEGGERE: riga della sorgente non trovata: 40° | VC
-# DA LEGGERE: riga della sorgente non trovata: 95 | 103 | 116 | 132 | 146 | 163
-# DA LEGGERE: riga della sorgente non trovata: km/h
-# DA LEGGERE: riga della sorgente non trovata: VC
-# DA LEGGERE: riga della sorgente non trovata: 59 | 64 | 72 | 82 | 91 | 101
-# DA LEGGERE: riga della sorgente non trovata: MPH
-# DA LEGGERE: riga della sorgente non trovata: Figure 5-2.
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «TS osy»
-# 313 1247-1409 | TS osy
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HdW»
-# 396 1722-1796 | HdW
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «yeni»
-# 472 1716-1796 | yeni
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «p9l 8vl | CEL QL LOL 68 aA»
-# 487 1095-1783 | p9l 8vl | CEL QL LOL 68 aA
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Sdv14»
-# 543 1893-1998 | Sdv14
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «| aa |»
-# 587 1680-1813 | | aa |
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LOL Srl 621 El | ce | 08 IA»
-# 636 1099-1784 | LOL Srl 621 El | ce | 08 IA
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «pote t ete tte fe feteny eo fol»
-# 688 555-1795 | pote t ete tte fe feteny eo fol
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SE HE»
-# 749 559-1286 | SE HE
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «yun}»
-# 784 1717-1796 | yun}
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «902»
-# 827 1901-1965 | 902
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HdW»
-# 857 1722-1796 | HdW
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SdV14»
-# 860 1890-1995 | SdV14
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «y/wy»
-# 936 1716-1797 | y/wy
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SHEE sn»
-# 978 559-1262 | SHEE sn
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «OA»
-# 1059 1726-1781 | OA
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «reac [ a forte] @ Poe Pa Pepe [op»
-# 1092 555-1830 | reac [ a forte] @ Poe Pa Pepe [op
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «4/wa»
-# 1098 1717-1796 | 4/wa
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LvZ | 2% | vOZ% Z8l LZL vSt BEL vl 60L c6 OA»
-# 1114 588-1780 | LvZ | 2% | vOZ% Z8l LZL vSt BEL vl 60L c6 OA
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «dN SdV 14»
-# 1154 1869-2021 | dN SdV 14
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ros [om [oe [oe [ow foo fo fo [o fo | w= |»
-# 1242 554-1708 | ros [om [oe [oe [ow foo fo fo [o fo | w= |
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «i aren ene rea 2 phrenic erenremerapnpempepnmepep pilin neieommneemeeeeagiore mentation odcnian ithe tee tee re RUE ene AEE aan»
-# 1309 555-2075 | i aren ene rea 2 phrenic erenremerapnpempepnmepep pilin neieommneemeeeeagiore mentation odcnian ithe tee tee re RUE ene AEE aan
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Petetetetafa[epatate pete»
-# 1320 558-1795 | Petetetetafa[epatate pete
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ATaVi NOILOJYYHOO G3a3adSHIV»
-# 1369 1073-1563 | ATaVi NOILOJYYHOO G3a3adSHIV
+392 libro 345-1065 | Flight Manual
+423 libro 345-1065 | Reims Rocket
+465 libro 25-745 | Reims Aviation
+466 libro 745-1465 | Page: 5-7
+497 libro 25-745 | Reims, Marne France
+498 libro 745-1465 | Edition: 2
+254 cella 414-1897 c=22.4 gap=7 fissa | AIRSPEED CORRECTION TABLE
+339 cella 655-776 c=23.2 gap=7 fissa | VI
+376 cella 655-776 c=23.2 gap=7 fissa | km/h
+360 cella 788-881 c=24.0 gap=7 fissa | 80
+357 cella 893-980 c=24.0 gap=7 fissa | 97
+358 cella 992-1082 c=24.0 gap=7 fissa | 113
+357 cella 1094-1185 c=24.0 gap=7 fissa | 129
+357 cella 1201-1288 c=24.0 gap=7 fissa | 145
+358 cella 1300-1389 c=24.0 gap=7 fissa | 161
+355 cella 1401-1492 c=24.0 gap=7 fissa | 177
+358 cella 1503-1594 c=24.0 gap=7 fissa | 193
+360 cella 1606-1696 c=24.0 gap=7 fissa | 209
+360 cella 1708-1799 c=24.0 gap=7 fissa | 225
+360 cella 1810-1900 c=24.0 gap=7 fissa | 241
+416 cella 656-776 c=23.2 gap=7 fissa | VI
+451 cella 656-776 c=23.2 gap=7 fissa | MPH
+435 cella 787-881 c=24.0 gap=7 fissa | 50
+434 cella 893-980 c=24.0 gap=7 fissa | 60
+434 cella 991-1082 c=24.0 gap=7 fissa | 70
+434 cella 1094-1185 c=24.0 gap=7 fissa | 80
+434 cella 1201-1288 c=24.0 gap=7 fissa | 90
+434 cella 1300-1389 c=24.0 gap=7 fissa | 100
+434 cella 1402-1492 c=24.0 gap=7 fissa | 110
+434 cella 1503-1594 c=24.0 gap=7 fissa | 120
+434 cella 1606-1696 c=24.0 gap=7 fissa | 130
+434 cella 1708-1799 c=24.0 gap=7 fissa | 140
+435 cella 1810-1900 c=24.0 gap=7 fissa | 150
+491 cella 655-776 c=23.2 gap=7 fissa | VC
+528 cella 655-776 c=23.2 gap=7 fissa | km/h
+509 cella 787-881 c=24.0 gap=7 fissa | 92
+509 cella 893-980 c=24.0 gap=7 fissa | 98
+509 cella 991-1082 c=24.0 gap=7 fissa | 109
+507 cella 1094-1185 c=24.0 gap=7 fissa | 124
+509 cella 1200-1288 c=24.0 gap=7 fissa | 138
+507 cella 1300-1389 c=24.0 gap=7 fissa | 154
+507 cella 1402-1492 c=24.0 gap=7 fissa | 171
+509 cella 1503-1594 c=24.0 gap=7 fissa | 187
+509 cella 1606-1696 c=24.0 gap=7 fissa | 204
+509 cella 1711-1799 c=24.0 gap=7 fissa | 222
+509 cella 1811-1900 c=24.0 gap=7 fissa | 241
+565 cella 655-776 c=23.2 gap=7 fissa | VC
+600 cella 655-776 c=23.2 gap=7 fissa | MPH
+583 cella 787-881 c=24.0 gap=7 fissa | 57
+584 cella 893-982 c=24.0 gap=7 fissa | 61
+583 cella 991-1082 c=24.0 gap=7 fissa | 68
+584 cella 1094-1185 c=24.0 gap=7 fissa | 77
+583 cella 1200-1288 c=24.0 gap=7 fissa | 86
+583 cella 1301-1389 c=24.0 gap=7 fissa | 96
+583 cella 1402-1492 c=24.0 gap=7 fissa | 106
+583 cella 1503-1594 c=24.0 gap=7 fissa | 116
+584 cella 1606-1696 c=24.0 gap=7 fissa | 127
+584 cella 1711-1799 c=24.0 gap=7 fissa | 138
+584 cella 1811-1900 c=24.0 gap=7 fissa | 150
+472 cella 413-639 c=22.4 gap=7 fissa | FLAPS UP
+655 cella 655-776 c=23.2 gap=7 fissa | VI
+690 cella 655-776 c=23.2 gap=7 fissa | km/h
+672 cella 787-880 c=24.0 gap=7 fissa | 80
+671 cella 893-982 c=24.0 gap=7 fissa | 97
+671 cella 994-1082 c=24.0 gap=7 fissa | 113
+671 cella 1093-1185 c=24.0 gap=7 fissa | 129
+671 cella 1200-1288 c=24.0 gap=7 fissa | 145
+671 cella 1300-1389 c=24.0 gap=7 fissa | 161
+730 cella 655-776 c=23.2 gap=7 fissa | VI
+765 cella 654-776 c=23.2 gap=7 fissa | MPH
+748 cella 787-880 c=24.0 gap=7 fissa | 50
+748 cella 893-982 c=24.0 gap=7 fissa | 60
+748 cella 994-1082 c=24.0 gap=7 fissa | 70
+748 cella 1094-1185 c=24.0 gap=7 fissa | 80
+748 cella 1200-1288 c=24.0 gap=7 fissa | 90
+748 cella 1301-1389 c=24.0 gap=7 fissa | 100
+804 cella 654-776 c=23.2 gap=7 fissa | VC
+841 cella 654-776 c=23.2 gap=7 fissa | km/h
+823 cella 787-880 c=24.0 gap=7 fissa | 85
+821 cella 893-982 c=24.0 gap=7 fissa | 95
+821 cella 994-1084 c=24.0 gap=7 fissa | 109
+821 cella 1093-1185 c=24.0 gap=7 fissa | 124
+823 cella 1199-1288 c=24.0 gap=7 fissa | 138
+821 cella 1300-1389 c=24.0 gap=7 fissa | 154
+878 cella 654-778 c=23.2 gap=7 fissa | VC
+914 cella 654-778 c=23.2 gap=7 fissa | MPH
+895 cella 787-880 c=24.0 gap=7 fissa | 53
+895 cella 893-982 c=24.0 gap=7 fissa | 59
+895 cella 994-1084 c=24.0 gap=7 fissa | 68
+895 cella 1093-1185 c=24.0 gap=7 fissa | 77
+895 cella 1199-1288 c=24.0 gap=7 fissa | 86
+894 cella 1300-1389 c=24.0 gap=7 fissa | 96
+764 cella 412-639 c=22.4 gap=7 fissa | FLAPS
+801 cella 412-639 c=22.4 gap=7 fissa | 20°
+966 cella 654-778 c=23.2 gap=7 fissa | VI
+1003 cella 654-778 c=23.2 gap=7 fissa | km/h
+987 cella 790-879 c=24.0 gap=7 fissa | 80
+987 cella 893-981 c=24.0 gap=7 fissa | 97
+985 cella 994-1084 c=24.0 gap=7 fissa | 113
+987 cella 1093-1185 c=24.0 gap=7 fissa | 129
+987 cella 1199-1288 c=24.0 gap=7 fissa | 145
+987 cella 1300-1389 c=24.0 gap=7 fissa | 161
+1043 cella 654-778 c=23.2 gap=7 fissa | VI
+1078 cella 653-778 c=23.2 gap=7 fissa | MPH
+1062 cella 790-879 c=24.0 gap=7 fissa | 50
+1062 cella 893-981 c=24.0 gap=7 fissa | 60
+1060 cella 994-1084 c=24.0 gap=7 fissa | 70
+1060 cella 1096-1185 c=24.0 gap=7 fissa | 80
+1062 cella 1199-1288 c=24.0 gap=7 fissa | 90
+1060 cella 1300-1389 c=24.0 gap=7 fissa | 100
+1116 cella 653-778 c=23.2 gap=7 fissa | VC
+1152 cella 653-778 c=23.2 gap=7 fissa | km/h
+1136 cella 790-879 c=24.0 gap=7 fissa | 89
+1134 cella 893-981 c=24.0 gap=7 fissa | 101
+1134 cella 994-1084 c=24.0 gap=7 fissa | 116
+1136 cella 1096-1185 c=24.0 gap=7 fissa | 132
+1136 cella 1199-1288 c=24.0 gap=7 fissa | 148
+1134 cella 1300-1389 c=24.0 gap=7 fissa | 164
+1190 cella 653-778 c=23.2 gap=7 fissa | VC
+1225 cella 653-778 c=23.2 gap=7 fissa | MPH
+1209 cella 790-880 c=24.0 gap=7 fissa | 55
+1209 cella 893-981 c=24.0 gap=7 fissa | 63
+1208 cella 994-1084 c=24.0 gap=7 fissa | 72
+1209 cella 1096-1185 c=24.0 gap=7 fissa | 82
+1208 cella 1199-1288 c=24.0 gap=7 fissa | 92
+1208 cella 1300-1389 c=24.0 gap=7 fissa | 102
+1081 cella 411-639 c=22.4 gap=7 fissa | FLAPS
+1118 cella 411-639 c=22.4 gap=7 fissa | 40°
+1293 testo 807-1391 c=24.0 sx=0.813 fissa | Figure 5-2.

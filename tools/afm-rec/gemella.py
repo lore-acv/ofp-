@@ -99,10 +99,32 @@ def fasce_testa(lib):
     return out
 # sulle pagine di traverso la retta dell'intestazione puo' sbagliare (poco inchiostro): la base di ognuna
 # delle quattro righe si aggancia alla fascia corrispondente di questa scansione, nell'ordine
+# (anche sulle pagine diritte: li' le righe dell'intestazione si riconoscono dal testo, e la retta
+# della pagina, fatta sul corpo, puo' sbagliare la loro altezza di qualche decina di px)
+TESTA = re.compile(r'^(Flight Manual|Reims Rocket|Reims Aviation|Reims, Marne France|Page: \S+|Edition: \d+)( |$)')
+def di_testa(r):
+    t, x = r.split(' | ', 1)
+    return ' libro ' in t + ' ' if gir_s else bool(TESTA.match(x.strip()))
+# il testo della sorgente; una pagina fatta tutta a mano (senza testi/, come la 5-12 di I-CCAF) da' solo
+# l'intestazione, ricavata dalle sue righe "libro" e divisa dove le parole sono lontane (sinistra e destra);
+# le altre scritte passano poi parola per parola come le righe scritte da uno script
+F_TESTI = f'{R}/tools/afm-rec/{SRC}/testi/{N}.txt'
+if os.path.exists(F_TESTI):
+    righe = open(F_TESTI, encoding='utf-8').read().split('\n')
+else:
+    righe = []
+    for e in json.load(open(f'{R}/tools/afm-rec/{SRC}/pagine/{N}.json'))['el']:
+        if e[0] != 'riga' or not (len(e) > 4 and e[4].get('libro')): continue
+        pezzi = [[e[3][0]]]
+        for w in e[3][1:]:
+            if w[0] - (pezzi[-1][-1][0] + pezzi[-1][-1][2]) > 100: pezzi.append([w])
+            else: pezzi[-1].append(w)
+        for pz in pezzi:
+            righe.append(f"{e[2]} libro {pz[0][0] - 3}-{pz[-1][0] + pz[-1][2] + 3} | {' '.join(w[1] for w in pz)}")
 AGGANCIO = {}
-if gir_s:
-    basi_s = sorted({int(r.split()[0]) for r in open(f'{R}/tools/afm-rec/{SRC}/testi/{N}.txt', encoding='utf-8')
-                     if r.strip() and not r.startswith('#') and ' libro ' in r.split(' | ')[0] + ' '})
+if True:
+    basi_s = sorted({int(r.split()[0]) for r in righe
+                     if r.strip() and not r.startswith('#') and ' | ' in r and di_testa(r)})
     gruppi_s = []
     for b in basi_s:
         if gruppi_s and b - gruppi_s[-1][-1] <= 9: gruppi_s[-1].append(b)
@@ -115,7 +137,6 @@ if gir_s:
         print(f'  intestazione: {len(fd)} fasce per {len(gruppi_s)} righe, resta la retta')
 
 # 1. il testo
-righe = open(f'{R}/tools/afm-rec/{SRC}/testi/{N}.txt', encoding='utf-8').read().split('\n')
 out = []
 for r in righe:
     if not r.strip() or r.startswith('#'):
@@ -124,7 +145,7 @@ for r in righe:
     p = testa.split()
     libro = 'libro' in p
     X, Y, kx, ky = porta(T_lib if libro else T_pag)
-    nuovo = [str(AGGANCIO[int(p[0])] if libro and int(p[0]) in AGGANCIO else round(Y(int(p[0]))))]
+    nuovo = [str(AGGANCIO[int(p[0])] if di_testa(r) and int(p[0]) in AGGANCIO else round(Y(int(p[0]))))]
     for q in p[1:]:
         m = re.fullmatch(r'(\d+)-(\d+)', q)
         if m: nuovo.append(f'{round(X(int(m.group(1))))}-{round(X(int(m.group(2))))}'); continue
@@ -146,6 +167,28 @@ for r in righe:
         nuovo.append(q)
     if ED: testo = re.sub(r'\bEdition: \d+\b', f'Edition: {ED}', testo)
     out.append(' '.join(nuovo) + ' | ' + testo)
+# le righe che la sorgente ha nella pagina ma non nel testo (scritte da uno script dopo testo.py, come i
+# numeri delle tabelle di crociera di crociera.py): una riga per parola, con la sua finestra portata, perche'
+# testo.py le riagganci una a una all'inchiostro. I numeri vanno poi controllati sulla scansione: il gemello
+# puo' avere valori diversi (diffpar, a vista).
+ps0 = json.load(open(f'{R}/tools/afm-rec/{SRC}/pagine/{N}.json'))
+nel_testo = {r.split(' | ', 1)[1].strip() for r in righe if ' | ' in r and not r.startswith('#')}
+Xp, Yp, kxp, kyp = porta(T_pag)
+for e in ps0['el']:
+    # una riga di testi.txt puo' essere divisa in piu' righe della pagina (intestazione a sinistra e a destra)
+    if e[0] != 'riga' or any(' '.join(w[1] for w in e[3]) in r for r in nel_testo): continue
+    opz = e[4] if len(e) > 4 else {}
+    if opz.get('ang') or opz.get('libro'): continue
+    extra = f" c={round(opz['c'] * kyp, 1)}" if 'c' in opz else ''
+    ws = [w for w in e[3] if len(w) >= 3]
+    if not ws: continue
+    if not os.path.exists(F_TESTI):
+        # pagina tutta a mano: la riga intera in una finestra (le finestre di una parola sola, portate con
+        # la retta della pagina, possono tagliare le parole vicine)
+        out.append(f"{round(Yp(e[2]))} {e[1]} {round(Xp(ws[0][0])) - 8}-{round(Xp(ws[-1][0] + ws[-1][2])) + 8}{extra} fissa | {' '.join(w[1] for w in ws)}")
+        continue
+    for w in ws:
+        out.append(f"{round(Yp(e[2]))} {e[1]} {round(Xp(w[0])) - 3}-{round(Xp(w[0] + w[2])) + 3}{extra} fissa | {w[1]}")
 open(f'{R}/tools/afm-rec/{DST}/testi/{N}.txt', 'w', encoding='utf-8').write('\n'.join(out) + '\n')
 
 # 2. gli altri elementi della pagina
@@ -181,6 +224,17 @@ for e in ps['el']:
             s = re.sub(r'cx="[\d.]+" cy="[\d.]+" rx="[\d.]+" ry="[\d.]+"', f'cx="{X(cx):.1f}" cy="{Y(cy):.1f}" rx="{rx * kx:.1f}" ry="{ry * ky:.1f}"', e[1])
             s = re.sub(r'stroke-width="([\d.]+)"', lambda m: f'stroke-width="{float(m.group(1)) * (kx + ky) / 2:.1f}"', s)
             nuove.append(['svg', s])
+        elif (m := re.fullmatch(r'<circle cx="([\d.]+)" cy="([\d.]+)" r="([\d.]+)"/>', e[1])):
+            # punto pieno (le celle vuote delle tabelle): portato e rimesso al centro dell'inchiostro qui vicino
+            cx, cy, r = X(float(m.group(1))), Y(float(m.group(2))), float(m.group(3)) * (kx + ky) / 2
+            q = int(r * 3); y0, x0 = max(0, int(cy) - q), max(0, int(cx) - q)
+            z = ink[y0:int(cy) + q + 1, x0:int(cx) + q + 1]
+            if z.sum() > r * r:
+                yy, xx = np.nonzero(z); cx, cy = x0 + xx.mean(), y0 + yy.mean()
+                r = (z.sum() / np.pi) ** 0.5
+            else:
+                print('  punto senza inchiostro:', e[1])
+            nuove.append(['svg', f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}"/>'])
         else:
             print('  svg non portato:', e[1][:80])
         continue

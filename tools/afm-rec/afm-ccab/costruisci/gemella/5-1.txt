@@ -1,0 +1,15 @@
+379 | Flight Manual
+417 | Reims Rocket
+453 | Reims Aviation Page: 5-1
+489 | Reims, Marne France Edition: 2
+606 titolo 861-1355 c=42.1 basefissa | SECTION V
+780 titolo c=33.9 | PERFORMANCE
+891 titolo | NOTIFICATION.
+957 | The tables appearing on the following pages result from actual tests with an air-
+993 | plane in good flying condition. They will be useful in flight planning; nevertheless,
+1029 | it will be advisable to plan on an ample safety margin concerning the fuel reserve at
+1064 | arrival, since the data given does not take into account the effects of wind, naviga-
+1100 | tional errors, pilot technique, warm-up, take-off, etc. All these factors should be
+1135 | considered when estimating the reserve required by regulations. Don’t forget that
+1171 | maximum range increases by using a lower power setting. To solve these problems,
+1207 | consult the Cruise Performance charts.

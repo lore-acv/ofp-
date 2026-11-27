@@ -83,7 +83,8 @@
       "larghezza": "112.5%",
       "c": 11.9,
       "capRatio": 0.6875,
-      "sx": 1.336,
+      "_sx": "solo pagine girate: li' la compressione di I-CCAF e' in verticale, quindi sx = 1,0 x (1,19 / 1,59); misurato sulle cifre delle tabelle 5-2, 5-9, 5-11 (0,73-0,79)",
+      "sx": 0.75,
       "spazio": 0
     },
     "richiamo": {
@@ -175,6 +176,8 @@
       "c": 22.61,
       "capRatio": 0.6875,
       "sx": 1.229,
+      "_sxGirata": "pagine girate (6-17 ... 6-20): la larghezza di I-CCAF x 0,742 invece che x 1,336 (vedi cella)",
+      "sxGirata": 0.683,
       "spazio": 0.03
     },
     "codice": {

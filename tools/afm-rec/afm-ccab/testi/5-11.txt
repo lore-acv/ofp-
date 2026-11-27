@@ -1,74 +1,114 @@
-383 641-840 libro | Flight Manual
-421 642-843 libro | Reims Rocket
-# CONTROLLA (0.79): Tesseract legge «Reims Aviation»
-465 180-813 libro | Reims Aviation
-# CONTROLLA (0.79): Tesseract legge «Reims Aviation»
-465 815-398 libro | Page: 5-11
-# CONTROLLA (0.80): Tesseract legge «Reims, Marne France»
-498 180-813 libro | Reims, Marne France
-# CONTROLLA (0.80): Tesseract legge «Reims, Marne France»
-498 815-475 libro | Edition: 2
-# DA LEGGERE: riga della sorgente non trovata: MAXIMUM RATE OF CLIMB DATA
-# DA LEGGERE: riga della sorgente non trovata: GROSS | AT SEA LEVEL | AT 5000 FEET | AT 10000 FEET | AT 15000 FEET
-# DA LEGGERE: riga della sorgente non trovata: WEIGHT | AND +15°C | AND +5°C | AND -5°C | AND -15°C
-# DA LEGGERE: riga della sorgente non trovata: kg | VI | RATE OF | FUEL | VI | RATE OF | FUEL | VI | RATE OF | FUEL | VI | RATE OF | FUEL
-# DA LEGGERE: riga della sorgente non trovata: CLIMB | USED | CLIMB | USED | CLIMB | USED | CLIMB | USED
-# DA LEGGERE: riga della sorgente non trovata: F/MIN | Litres | F/MIN | Litres | F/MIN | Litres | F/MIN | Litres
-# DA LEGGERE: riga della sorgente non trovata: 137 km/h | 135 km/h | 134 km/h | 132 km/h
-# DA LEGGERE: riga della sorgente non trovata: 1157 | 74 kts | 880 | 4,9 | 73 kts | 650 | 11,7 | 72 kts | 420 | 20,1 | 71 kts | 190 | 33,3
-# DA LEGGERE: riga della sorgente non trovata: 85 MPH | 84 MPH | 83 MPH | 82 MPH
-# DA LEGGERE: riga della sorgente non trovata: 132 km/h | 130 km/h | 129 km/h | 127 km/h
-# DA LEGGERE: riga della sorgente non trovata: 1000 | 71 kts | 1120 | 4,9 | 70 kts | 860 | 10,2 | 70 kts | 595 | 16,3 | 69 kts | 340 | 24,2
-# DA LEGGERE: riga della sorgente non trovata: 82 MPH | 81 MPH | 80 MPH | 79 MPH
-# DA LEGGERE: riga della sorgente non trovata: 129 km/h | 126 km/h | 124 km/h | 122 km/h
-# DA LEGGERE: riga della sorgente non trovata: 850 | 70 kts | 1420 | 4,9 | 68 kts | 1115 | 8,7 | 67 kts | 815 | 13,2 | 66 kts | 515 | 19,3
-# DA LEGGERE: riga della sorgente non trovata: 80 MPH | 78 MPH | 77 MPH | 76 MPH
-# DA LEGGERE: riga della sorgente non trovata: NOTES: 1. Flaps up, full throttle, 2800 RPM, mixture at recommended leaning schedule.
-# DA LEGGERE: riga della sorgente non trovata: 2. Fuel used includes warm-up and take-off allowance.
-# DA LEGGERE: riga della sorgente non trovata: 3. For hot weather, decrease rate of climb 20 ft/min. for each 5°C
-# DA LEGGERE: riga della sorgente non trovata: above standard day temperature for particular altitude.
-# DA LEGGERE: riga della sorgente non trovata: Figure 5-6.
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Page: 5-11»
-# 452 1167-1327 | Page: 5-11
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Edition:»
-# 489 1165-1287 | Edition:
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“O-g oanBIy»
-# 297 1240-1398 | “O-g oanBIy
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘apnyye sejnoued 40} asnjesadia} Aep psepueys anoge»
-# 418 1042-1654 | ‘apnyye sejnoued 40} asnjesadia} Aep psepueys anoge
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «DoS yore Joy UNW/Iy OZ GUII]D yO aIeJ aseaIdap ‘JayIPAM JOY 404»
-# 444 936-1653 | DoS yore Joy UNW/Iy OZ GUII]D yO aIeJ aseaIdap ‘JayIPAM JOY 404
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «BOURMO}IE J40-axe] Pue dn-weMm sapnyjoul pasn jan»
-# 476 1078-1653 | BOURMO}IE J40-axe] Pue dn-weMm sapnyjoul pasn jan
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «‘SALON»
-# 501 1739-1839 | ‘SALON
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «“ainpayss Bujues, papuswuwooas ye aNIXIwW ‘Wd OOBZ ‘81330443 |1Ny “dn sdey4»
-# 504 792-1653 | “ainpayss Bujues, papuswuwooas ye aNIXIwW ‘Wd OOBZ ‘81330443 |1Ny “dn sdey4
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «HdW S6»
-# 885 1820-1921 | HdW S6
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sy €8»
-# 914 1838-1921 | sy €8
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «4/W ESL»
-# 945 1816-1932 | 4/W ESL
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «sayy sauy sos»
-# 1043 581-1347 | sayy sauy sos
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «aasn aasn qasn»
-# 1078 577-1347 | aasn aasn qasn
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «By»
-# 1098 1978-2018 | By
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «Vang {40 31VY Vand | 40 3LVY»
-# 1107 577-1133 | Vang {40 31VY Vand | 40 3LVY
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «LHOIM»
-# 1187 1936-2048 | LHOIM
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «DoGl+ GNV»
-# 1192 1684-1828 | DoGl+ GNV
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «So0Sl- GNV SoS" GNV DoS+ GNV»
-# 1195 653-1483 | So0Sl- GNV SoS" GNV DoS+ GNV
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «SSOYHD»
-# 1215 1954-2048 | SSOYHD
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «VaAF V3AS LV»
-# 1218 1666-1857 | VaAF V3AS LV
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «41334 000St LV 1434 00001 1V 41334 0005 1V»
-# 1223 627-1512 | 41334 000St LV 1434 00001 1V 41334 0005 1V
-# DA LEGGERE: riga in piu' su questa scansione, Tesseract legge «ViVG SWI1D dO ALVY WAWIXVA»
-# 1341 1100-1527 | ViVG SWI1D dO ALVY WAWIXVA
+389 libro 344-1056 | Flight Manual
+421 libro 344-1056 | Reims Rocket
+462 libro 27-740 | Reims Aviation
+461 libro 740-1452 | Page: 5-11
+502 libro 27-740 | Reims, Marne France
+501 libro 740-1452 | Edition: 2
+277 cella 431-1894 c=18.2 gap=7 sx=0.705 fissa | MAXIMUM RATE OF CLIMB DATA
+398 cella 428-535 c=18.2 gap=7 sx=0.705 fissa | GROSS
+426 cella 428-536 c=18.2 gap=7 sx=0.705 fissa | WEIGHT
+513 cella 429-536 c=18.2 gap=7 sx=0.705 fissa | kg
+396 cella 550-868 c=18.2 gap=7 sx=0.705 fissa | AT SEA LEVEL
+426 cella 550-868 c=18.2 gap=7 sx=0.705 fissa | AND +15°C
+515 cella 550-652 c=18.2 gap=7 sx=0.705 fissa | VI
+515 cella 666-778 c=18.2 gap=7 sx=0.705 fissa | RATE OF
+543 cella 666-778 c=18.2 gap=7 sx=0.705 fissa | CLIMB
+572 cella 666-777 c=18.2 gap=7 sx=0.705 fissa | F/MIN
+515 cella 791-869 c=18.2 gap=7 sx=0.705 fissa | FUEL
+543 cella 791-870 c=18.2 gap=7 sx=0.705 fissa | USED
+572 cella 791-870 c=18.2 gap=7 sx=0.705 fissa | Litres
+396 cella 885-1214 c=18.2 gap=7 sx=0.705 fissa | AT 5000 FEET
+425 cella 885-1215 c=18.2 gap=7 sx=0.705 fissa | AND +5°C
+517 cella 885-992 c=18.2 gap=7 sx=0.705 fissa | VI
+515 cella 1006-1118 c=18.2 gap=7 sx=0.705 fissa | RATE OF
+545 cella 1006-1118 c=18.2 gap=7 sx=0.705 fissa | CLIMB
+574 cella 1006-1119 c=18.2 gap=7 sx=0.705 fissa | F/MIN
+517 cella 1130-1216 c=18.2 gap=7 sx=0.705 fissa | FUEL
+545 cella 1130-1216 c=18.2 gap=7 sx=0.705 fissa | USED
+574 cella 1127-1216 c=18.2 gap=7 sx=0.705 fissa | Litres
+396 cella 1228-1559 c=18.2 gap=7 sx=0.705 fissa | AT 10000 FEET
+426 cella 1228-1560 c=18.2 gap=7 sx=0.705 fissa | AND -5°C
+515 cella 1228-1336 c=18.2 gap=7 sx=0.705 fissa | VI
+517 cella 1343-1462 c=18.2 gap=7 sx=0.705 fissa | RATE OF
+545 cella 1343-1462 c=18.2 gap=7 sx=0.705 fissa | CLIMB
+574 cella 1343-1462 c=18.2 gap=7 sx=0.705 fissa | F/MIN
+517 cella 1470-1561 c=18.2 gap=7 sx=0.705 fissa | FUEL
+545 cella 1470-1561 c=18.2 gap=7 sx=0.705 fissa | USED
+575 cella 1470-1561 c=18.2 gap=7 sx=0.705 fissa | Litres
+396 cella 1573-1899 c=18.2 gap=7 sx=0.705 fissa | AT 15000 FEET
+426 cella 1573-1899 c=18.2 gap=7 sx=0.705 fissa | AND -15°C
+518 cella 1573-1681 c=18.2 gap=7 sx=0.705 fissa | VI
+517 cella 1689-1805 c=18.2 gap=7 sx=0.705 fissa | RATE OF
+545 cella 1689-1805 c=18.2 gap=7 sx=0.705 fissa | CLIMB
+574 cella 1689-1805 c=18.2 gap=7 sx=0.705 fissa | F/MIN
+517 cella 1812-1900 c=18.2 gap=7 sx=0.705 fissa | FUEL
+545 cella 1813-1900 c=18.2 gap=7 sx=0.705 fissa | USED
+574 cella 1813-1901 c=18.2 gap=7 sx=0.705 fissa | Litres
+699 cella 430-538 c=18.2 gap=7 sx=0.705 fissa | 1157
+669 cella 549-654 c=18.2 gap=7 sx=0.705 fissa | 153 km/h
+699 cella 546-654 c=18.2 gap=7 sx=0.705 fissa | 83 kts
+727 cella 546-655 c=18.2 gap=7 sx=0.705 fissa | 95 MPH
+699 cella 668-779 c=18.2 gap=7 sx=0.705 fissa | 880
+699 cella 794-872 c=18.2 gap=7 sx=0.705 fissa | 4,9
+670 cella 884-995 c=18.2 gap=7 sx=0.705 fissa | 146 km/h
+699 cella 884-995 c=18.2 gap=7 sx=0.705 fissa | 79 kts
+727 cella 884-995 c=18.2 gap=7 sx=0.705 fissa | 91 MPH
+699 cella 1008-1120 c=18.2 gap=7 sx=0.705 fissa | 650
+699 cella 1133-1214 c=18.2 gap=7 sx=0.705 fissa | 11,7
+670 cella 1225-1337 c=18.2 gap=7 sx=0.705 fissa | 140 km/h
+699 cella 1225-1338 c=18.2 gap=7 sx=0.705 fissa | 76 kts
+729 cella 1225-1338 c=18.2 gap=7 sx=0.705 fissa | 87 MPH
+699 cella 1349-1460 c=18.2 gap=7 sx=0.705 fissa | 420
+700 cella 1471-1559 c=18.2 gap=7 sx=0.705 fissa | 20,1
+672 cella 1569-1683 c=18.2 gap=7 sx=0.705 fissa | 134 km/h
+699 cella 1570-1683 c=18.2 gap=7 sx=0.705 fissa | 72 kts
+729 cella 1571-1681 c=18.2 gap=7 sx=0.705 fissa | 83 MPH
+699 cella 1691-1803 c=18.2 gap=7 sx=0.705 fissa | 190
+699 cella 1814-1899 c=18.2 gap=7 sx=0.705 fissa | 33,3
+846 cella 431-536 c=18.2 gap=7 sx=0.705 fissa | 1000
+817 cella 548-656 c=18.2 gap=7 sx=0.705 fissa | 148 km/h
+846 cella 548-656 c=18.2 gap=7 sx=0.705 fissa | 80 kts
+874 cella 548-656 c=18.2 gap=7 sx=0.705 fissa | 92 MPH
+846 cella 668-781 c=18.2 gap=7 sx=0.705 fissa | 1120
+846 cella 794-871 c=18.2 gap=7 sx=0.705 fissa | 4,9
+819 cella 881-996 c=18.2 gap=7 sx=0.705 fissa | 142 km/h
+848 cella 881-997 c=18.2 gap=7 sx=0.705 fissa | 76 kts
+876 cella 882-997 c=18.2 gap=7 sx=0.705 fissa | 88 MPH
+848 cella 1008-1119 c=18.2 gap=7 sx=0.705 fissa | 860
+848 cella 1133-1214 c=18.2 gap=7 sx=0.705 fissa | 10,2
+819 cella 1226-1336 c=18.2 gap=7 sx=0.705 fissa | 137 km/h
+848 cella 1227-1336 c=18.2 gap=7 sx=0.705 fissa | 74 kts
+876 cella 1227-1336 c=18.2 gap=7 sx=0.705 fissa | 85 MPH
+848 cella 1347-1460 c=18.2 gap=7 sx=0.705 fissa | 595
+849 cella 1473-1559 c=18.2 gap=7 sx=0.705 fissa | 16,3
+819 cella 1571-1681 c=18.2 gap=7 sx=0.705 fissa | 130 km/h
+849 cella 1572-1681 c=18.2 gap=7 sx=0.705 fissa | 70 kts
+876 cella 1572-1681 c=18.2 gap=7 sx=0.705 fissa | 81 MPH
+849 cella 1692-1803 c=18.2 gap=7 sx=0.705 fissa | 340
+849 cella 1816-1899 c=18.2 gap=7 sx=0.705 fissa | 24,2
+993 cella 433-536 c=18.2 gap=7 sx=0.705 fissa | 850
+966 cella 549-657 c=18.2 gap=7 sx=0.705 fissa | 142 km/h
+995 cella 549-657 c=18.2 gap=7 sx=0.705 fissa | 76 kts
+1023 cella 549-657 c=18.2 gap=7 sx=0.705 fissa | 88 MPH
+993 cella 665-780 c=18.2 gap=7 sx=0.705 fissa | 1420
+995 cella 794-871 c=18.2 gap=7 sx=0.705 fissa | 4,9
+966 cella 883-998 c=18.2 gap=7 sx=0.705 fissa | 137 km/h
+996 cella 883-998 c=18.2 gap=7 sx=0.705 fissa | 74 kts
+1023 cella 884-996 c=18.2 gap=7 sx=0.705 fissa | 85 MPH
+995 cella 1005-1119 c=18.2 gap=7 sx=0.705 fissa | 1115
+995 cella 1131-1214 c=18.2 gap=7 sx=0.705 fissa | 8,7
+968 cella 1228-1336 c=18.2 gap=7 sx=0.705 fissa | 132 km/h
+996 cella 1228-1336 c=18.2 gap=7 sx=0.705 fissa | 71 kts
+1025 cella 1228-1336 c=18.2 gap=7 sx=0.705 fissa | 82 MPH
+996 cella 1349-1460 c=18.2 gap=7 sx=0.705 fissa | 815
+996 cella 1475-1559 c=18.2 gap=7 sx=0.705 fissa | 13,2
+968 cella 1573-1681 c=18.2 gap=7 sx=0.705 fissa | 127 km/h
+998 cella 1573-1681 c=18.2 gap=7 sx=0.705 fissa | 69 kts
+1027 cella 1574-1681 c=18.2 gap=7 sx=0.705 fissa | 79 MPH
+996 cella 1694-1803 c=18.2 gap=7 sx=0.705 fissa | 515
+996 cella 1818-1899 c=18.2 gap=7 sx=0.705 fissa | 19,3
+1112 cella 434-1892 c=16.6 gap=6 sx=0.705 fissa | NOTES: 1. Flaps up, full throttle, 2800 RPM, mixture at recommended leaning schedule.
+1141 cella 434-1391 c=16.6 gap=6 sx=0.705 fissa | 2. Fuel used includes warm-up and take-off allowance.
+1171 cella 434-1892 c=16.6 gap=6 sx=0.705 fissa | 3. For hot weather, decrease rate of climb 20 ft/min. for each 5°C
+1199 cella 434-1892 c=16.6 gap=6 sx=0.705 fissa | above standard day temperature for particular altitude.
+1313 testo 916-1502 c=23.8 sx=0.816 fissa | Figure 5-6.
