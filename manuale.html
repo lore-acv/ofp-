@@ -276,6 +276,10 @@
   .afm-rec .lb-tab span{font-family:'Archivo',Inter,system-ui,sans-serif;font-weight:700;font-stretch:75%;letter-spacing:.1em;font-size:9.5px}
   .afm-rec .lb-tab b{font:700 13px/1 'Archivo',Inter,system-ui,sans-serif;font-stretch:75%;letter-spacing:.02em}
   .afm-rec .lb-tab.att{background:#161616;color:#fff}
+  /* tema scuro: il libro resta bianco; la linguetta nera della sezione in lettura prende un filetto
+     chiaro, altrimenti la sua sagoma si perde nello sfondo */
+  html[data-tema="scuro"].afm-rec .lb-tab.att{border-color:#e8e8e4;box-shadow:0 0 0 .5px #e8e8e4,1px 2px 5px -2px rgba(0,0,0,.5)}
+  html[data-tema="scuro"].afm-rec .lb-ling.sx .lb-tab.att{border-color:#e8e8e4}
   .afm-rec .fmt-phone .lb-tab{border-radius:0 2px 2px 0} .afm-rec .fmt-phone .lb-ling.sx .lb-tab{border-radius:2px 0 0 2px}
   .afm-rec .fmt-phone .lb-tab span{font-size:7.5px} .afm-rec .fmt-phone .lb-tab b{font-size:10px}
   .lb-velo{position:absolute;top:0;bottom:0;overflow:hidden;z-index:3;pointer-events:none}
